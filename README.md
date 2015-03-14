@@ -1,3 +1,5 @@
+![SynergyNet 2.5](https://raw.githubusercontent.com/wiki/synergynet/synergynet2.5/synergynet2-5_preview_full.png)
+
 # SynergyNet 2.5
 
 A platform independent multi-touch software framework. This software relies on an externally provided vision system (such as CCV). The framework employs a number of java libraries, including JME, for the creation of networked applications which can utilise multi-touch inputs.
