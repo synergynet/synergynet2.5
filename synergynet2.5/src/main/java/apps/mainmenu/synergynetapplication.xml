@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ac:application xmlns:ac="http://tel.dur.ac.uk/xml/schemas/synergynetappconfig"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/synergynetappconfig ../../../../config/schemas/synergynetapplication.xsd ">
+	<ac:info name="Main Menu" author="TEL Durham" 
+		uuid="eaa31445-63f2-4b95-9a4d-536399f23cdc" version="0.1" />
+	<ac:clientcomponent
+		classname="apps.mainmenu.MainMenuApp"
+		showicon="false">
+		<ac:reactivatepolicy>resume</ac:reactivatepolicy>
+	</ac:clientcomponent>
+	<ac:projectorcomponent
+		classname="apps.mainmenu.MainMenuApp"
+		showicon="false">
+		<ac:reactivatepolicy>resume</ac:reactivatepolicy>
+	</ac:projectorcomponent>
+</ac:application>

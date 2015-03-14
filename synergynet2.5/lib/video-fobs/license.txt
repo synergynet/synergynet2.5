@@ -1,0 +1,37 @@
+FFmpeg is licensed under the GNU Lesser General Public License (LGPL)
+
+Fobs is released under the LPGL license, the same license used by
+ffmpeg. This fact allows to use fobs in the same conditions/projects
+you can use ffmpeg.
+
+
+
+From the JMF Supplemental license terms:
+
+License to Distribute Software. In addition to the license granted in
+Section 1 (Software Internal Use and Development License Grant) of
+these Supplemental Terms, subject to the terms and conditions of this
+Agreement, including but not limited to, Section 3 (JavaTM Technology
+Restrictions) of these Supplemental Terms, Sun grants you a non-exclusive,
+non-transferable, limited license to reproduce and distribute the Software
+in binary code form only, provided that you:
+
+1. distribute the Software complete and unmodified, except that you may omit
+those files specifically identified as "optional" in the Software "README"
+file, which include samples, documents, and bin files, or that are removable
+by using the Software customizer tool provided, only as part of and for the
+sole purpose of running your Program into which the Software is incorporated;
+
+2. do not distribute additional software intended to replace any components of
+the Software;
+
+3. do not remove or alter any proprietary legends or notices contained in the
+Software;
+
+4. only distribute the Software subject to a license agreement that protects
+Sun's interests consistent with the terms contained in this Agreement; and
+agree to defend and indemnify Sun and its licensors from and against any
+damages, costs, liabilities, settlement amounts or expenses, including
+attorneys' fees, incurred in connection with any claim, lawsuit or action by
+any third party that arises or results from the use or distribution of any and
+all Programs or Software.

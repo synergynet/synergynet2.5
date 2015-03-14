@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:contentitems author="Steve Higgins"
+	description="guesture attribute"
+	license="restricted" 
+	name =" guesture attribute"
+
+	xmlns:tns="http://tel.dur.ac.uk/xml/schemas/contentitems_gesture_schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/contentitems_gesture_schema ../../data/contentitems/schemas/contentitems_gesture_schema.xsd ">
+	<tns:items>
+		<tns:item 	
+			id="RDTitle"
+			rotateTranslateScalable = "false"
+			bringToTopable = "false"
+		>		
+		</tns:item>
+	</tns:items>
+</tns:contentitems>

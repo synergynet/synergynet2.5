@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:contentitems
+	xmlns:tns="http://tel.dur.ac.uk/xml/schemas/contentitems_schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/mystery_schema ../../data/contentitems/schemas/contentitems_schema.xsd "
+	author="Andy Joyce"
+	description="History mystery based on Wilf"
+	license="restricted" name="Wilf"
+	
+	locationFile="data/mysteries/wilf/wilf_location.xml"
+	appearanceFile="data/mysteries/wilf/wilf_apparence.xml"
+	gestureFile="data/mysteries/wilf/wilf_gesture.xml"
+	defaultAppearanceFile="data/mysteries/defaultApparence.xml"
+	>
+	<tns:items>
+		<tns:item content-type="text/plain"
+			id="WILF1"
+			content = "In 1914 Wilf was 17 years old. Wilf worked on a farm outside Stanley, County Durham."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="WILF2"
+			content ="He had lived in the same house in Stanley all his life with his parents and his two sisters." 
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="WILF3"
+			content ="Wilf wanted to be a footballer but he was too small. He was an excellent swimmer."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="WILF4"
+			content = "Wilf had a girlfriend, Agnes. Other lads thought she was very pretty. Agnes had been considered clever at school."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="WILF5"
+			content ="In 1913 Agnes got a job as a ‘live-in’ servant for a ‘posh’ house in Newcastle." 
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="WILF6"
+			content ="The 19th Battalion of the DLI were called the ‘bantams’ for men under 5ft 3ins tall."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="WILF7"
+			content ="Wilf’s mother had wanted more children, especially boys. Maisie, Wilf’s 19 year-old sister was planning to get married. "
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="WILF8"
+			content ="The son of Agnes’ employer had signed up to be an officer instead of going to Cambridge University."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="WILF9"
+			content ="Wilf’s home was a crowded ‘two up and two down’ in Stanley. A picture of Edward VII was hung on the wall over the mantelpiece. "
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="WILF10"
+			content ="Wilf was only 5ft 2ins tall. He wasn’t very good at reading and writing."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="WILF11"
+			content ="A private in the DLI got one shilling per day."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="WILF12"
+			content ="There were lots of ‘Kitchener’ posters in Stanley in 1914."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="WILF13"
+			content ="Wilf paid his mother 2 shillings a week."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="WILF14"
+			content ="Tommy told Wilf that the 19th Battalion was stationed in Gateshead."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="WILF15"
+			content ="Wilf looked after the horses on the farm. Wilf was paid 3 shillings a week."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="WILF16"
+			content ="During the war Wilf wrote many letters home. "
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="WILF17"
+			content ="The furthest Wilf had ever travelled as to see Newcastle United (at home) with Tommy. He had to save up to do this. "
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="WILF18"
+			content ="Wilf’s father had fought in the Boer War. He had caught TB and never worked after he came home. "
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+				<tns:item content-type="text/plain"
+			id="WILF19"
+			content ="Tommy Fishburn boasted that he was the first solider to ‘sign up’ in Stanley. "
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="WILFTitle"
+			content ="Why did Wilf Smith join the Durham Light Infantry (the DLI)?"
+			contentItemType ="MultiLineTextLabel"
+			category ="title"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+	</tns:items>
+</tns:contentitems>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:contentitems
+	xmlns:tns="http://tel.dur.ac.uk/xml/schemas/contentitems_schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/mystery_schema ../../data/contentitems/schemas/contentitems_schema.xsd "
+	author="Emma Mercier"
+	description="logic mystery based on swimming"
+	license="restricted" name="Swimmer"
+	
+	locationFile="data/mysteries/swimmer/swimmer_location.xml"
+	appearanceFile="data/mysteries/swimmer/swimmer_apparence.xml"
+	gestureFile="data/mysteries/swimmer/swimmer_gesture.xml"
+	defaultAppearanceFile="data/mysteries/defaultApparence.xml"
+	>
+	<tns:items>
+		<tns:item content-type="text/plain"
+			id="SWIM1"
+			content = "Alice crossed the finishing line immediately after Austin"
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="SWIM2"
+			content ="Aaron finished right between Allen and Abby" 
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="SWIM3"
+			content ="Adam won the race "
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="SWIM4"
+			content = "Aaron came in right after the boy who finished second"
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="SWIM5"
+			content ="Austin saw four people finish before him" 
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="SWIM6"
+			content ="Allen did not finish fourth "
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="SWIMTitle"
+			content ="Can you find out the final position of each swimmer in the swimming race?"
+			contentItemType ="MultiLineTextLabel"
+			category ="title"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+	</tns:items>
+</tns:contentitems>

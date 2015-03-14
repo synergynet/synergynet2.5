@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:contentitems 
+
+	author="Steve Higgins"
+	description="Mystery based on the film Reservior Dogs" 
+	license="restricted"
+	name="Tipping Waitresses"
+	
+	defaultLocationX ="512"
+	defaultLocationY = "379"
+	defaultLocationZ = "0"
+	
+	xmlns:tns="http://tel.dur.ac.uk/xml/schemas/contentitems_location_schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/contentitems_location_schema ../../data/contentitems/schemas/contentitems_location_schema.xsd ">
+	<tns:items>
+		<tns:item 	
+			id="TWTitle"
+			x = "517"
+			y = "720"
+			z ="0"
+			sortOrder="99999"
+		>
+		</tns:item>
+	</tns:items>
+</tns:contentitems>

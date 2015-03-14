@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:contentitems
+	xmlns:tns="http://tel.dur.ac.uk/xml/schemas/contentitems_schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/mystery_schema ../../data/contentitems/schemas/contentitems_schema.xsd "
+	author="Marina Stibric"
+	description="History mystery based on School Trip y5"
+	license="restricted" name="School Trip y5"
+	
+	locationFile="data/mysteries/school_trip_y5/school_trip_y5_location.xml"
+	appearanceFile="data/mysteries/school_trip_y5/school_trip_y5_apparence.xml"
+	gestureFile="data/mysteries/school_trip_y5/school_trip_y5_gesture.xml"
+	defaultAppearanceFile="data/mysteries/defaultApparence.xml"
+	>
+	<tns:items>
+		<tns:item content-type="text/plain"
+			id="STY51"
+			content = "Nathan sets off walking to school at 8:20 am."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="STY52"
+			content ="It takes 15 minutes to walk to the park from Nathan’s home." 
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="STY53"
+			content ="Running is twice as fast as walking."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="STY54"
+			content = "The bus leaves the school at 9:20 am."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="STY55"
+			content ="The shops next to the park are busy with people buying newspapers and children getting sweets." 
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="STY56"
+			content ="Nathan runs back home to get his packed lunch and runs all the way back to the park."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="STY57"
+			content ="When Nathan gets to the park he realizes he has left his packed lunch behind."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="STY58"
+			content ="It takes 15 minutes to walk from the end of the park to school."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="STY59"
+			content ="It takes 10 minutes to walk across park or 15 minutes to walk round it. His mother doesn’t like him going through the park. He takes a minute to decide what to do."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="STY510"
+			content ="Nathan is a good boy and always does what his mother tells him."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="STY511"
+			content ="On the other side of the park Nathan has to wait 4 minutes for the traffic lights to change so he can cross the road safely."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="STY512"
+			content ="Nathan was really looking forward to this school trip."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="STY5Title"
+			content ="Does Nathan miss the bus for the school trip?"
+			contentItemType ="MultiLineTextLabel"
+			category ="title"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+	</tns:items>
+</tns:contentitems>

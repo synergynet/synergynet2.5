@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:contentitems
+	xmlns:tns="http://tel.dur.ac.uk/xml/schemas/contentitems_schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/mystery_schema ../../data/contentitems/schemas/contentitems_schema.xsd "
+	author="Steve Higgins"
+	description="Does Nathan miss the bus for the school trip?"
+	license="restricted" name="Does Nathan miss the bus for the school trip?"
+
+	locationFile="data/mysteries/schooltrip/schooltrip_location.xml"
+	appearanceFile="data/mysteries/schooltrip/schooltrip_apparence.xml"
+	gestureFile="data/mysteries/schooltrip/schooltrip_gesture.xml"
+	defaultAppearanceFile="data/mysteries/defaultApparence.xml"
+	
+	>
+	<tns:items>
+		<tns:item content-type="text/plain"
+			id="SchoolTrip1"
+			content = "Nathan’s mother is ready to leave by car for work at 8.10 am. She usually gives Nathan a lift and it takes about quarter of an hour to get to his school. "
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="SchoolTrip2"
+			content ="Today, the day of the school trip, the car won’t start." 
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="SchoolTrip3"
+			content ="The breakdown company say they can get someone to the house in30 minutes. An average repair takes another half an hour."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="SchoolTrip4"
+			content = "Nathan sets off walking at 8.20 am."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="SchoolTrip5"
+			content ="It takes 15 minutes to walk to the park." 
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="SchoolTrip6"
+			content ="When Nathan gets to the park he realizes he has left his packed lunch behind."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="SchoolTrip7"
+			content ="Nathan runs back home to get his packed lunch and runs all the way back to the park."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="SchoolTrip8"
+			content ="It is ten minutes walk across park or 15 minutes to walk round it. His mother doesn’t like him going through the park. He takes a minute to decide what to do."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="SchoolTrip9"
+			content ="On the other side of the park has to wait 3 minutes for the traffic lights to change so he can cross the road safely."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="SchoolTrip10"
+			content ="It takes 15 minutes to walk from the park to school."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="SchoolTrip11"
+			content ="Running is twice as fast as walking."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="SchoolTrip12"
+			content ="The bus leaves the school at 9.20 am"
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+				<tns:item content-type="text/plain"
+			id="SchoolTrip13"
+			content ="If Nathan walks to school it usually takes him three times as long as in the car. His journey takes him past the park."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="SchoolTrip14"
+			content ="The shops next to the park are busy with people buying newspapers and children getting sweets."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="SchoolTripTitle"
+			content ="Does Nathan miss the bus for the school trip?"
+			contentItemType ="MultiLineTextLabel"
+			category = "title"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+
+	</tns:items>
+</tns:contentitems>

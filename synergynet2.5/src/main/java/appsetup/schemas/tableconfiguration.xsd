@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://tel.dur.ac.uk/xml/schemas/tableconfiguration"
+	xmlns:tns="http://tel.dur.ac.uk/xml/schemas/tableconfiguration"
+	elementFormDefault="qualified">
+
+
+	<complexType name="StartupOptionsType">
+		<sequence>
+			<element name="splashScreenResource" type="string"
+				minOccurs="1" maxOccurs="1">
+			</element>
+			<element name="splashScreenEnabled" type="boolean"
+				minOccurs="1" maxOccurs="1">
+			</element>
+			<element name="forceApplication" type="string" maxOccurs="1"
+				minOccurs="0">
+			</element>
+			<element name="mode" maxOccurs="1" minOccurs="0">
+				<simpleType>
+					<restriction base="string">
+						<enumeration value="client"></enumeration>
+						<enumeration value="controller"></enumeration>
+						<enumeration value="projector"></enumeration>
+					</restriction>
+				</simpleType>
+			</element>
+		</sequence>
+		
+	</complexType>
+	<complexType name="ServiceType">
+		<sequence>
+			<element name="depends" type="tns:ServiceListType" maxOccurs="1"
+				minOccurs="0"></element>
+		</sequence>
+		<attribute name="classname" type="string" use="required"></attribute>
+		<attribute name="enabled" type="boolean" use="optional"
+			default="true">
+		</attribute>
+	</complexType>
+	<complexType name="ServiceListType">
+		<sequence maxOccurs="unbounded" minOccurs="1">
+			<element name="service" type="tns:ServiceType"></element>
+		</sequence>
+	</complexType>
+
+    <complexType name="ConfigurationType">
+    <sequence>
+            <element name="options" type="tns:StartupOptionsType" maxOccurs="1" minOccurs="1"></element>
+            <element name="applications" type="tns:ApplicationListType"
+    		maxOccurs="1" minOccurs="1">
+    	</element>
+    	<element name="services" type="tns:ServiceListType"
+    		maxOccurs="1" minOccurs="0">
+    	</element>
+    </sequence>
+    </complexType>
+
+    <element name="config" type="tns:ConfigurationType">
+    </element>
+
+    <complexType name="ApplicationListType">
+    	<sequence>
+    		<element name="application" type="tns:ApplicationType" maxOccurs="unbounded" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+    
+    <complexType name="ApplicationType">
+    	<attribute name="configpath" type="string"></attribute>
+        <attribute name="enabled" type="boolean" use="optional" default="true">
+    	</attribute>
+        <attribute name="default" type="boolean" use="optional" default="false"></attribute>
+    </complexType>
+</schema>

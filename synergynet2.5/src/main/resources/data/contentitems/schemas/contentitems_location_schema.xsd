@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://tel.dur.ac.uk/xml/schemas/contentitems_location_schema" xmlns:tns="http://tel.dur.ac.uk/xml/schemas/contentitems_location_schema" elementFormDefault="qualified">
+
+    <complexType name="ContentItemType">
+    	<sequence>
+    		<element name="items" type="tns:ItemListType" minOccurs="1"
+    			maxOccurs="1">
+    		</element>
+    	</sequence>
+    	<attribute name="description" type="string" use="required"></attribute>
+    	<attribute name="name" type="string" use="required"></attribute>
+    	<attribute name="author" type="string" use="required"></attribute>
+    	<attribute name="license" type="string" use="required"></attribute>
+    	
+    	<attribute name="defaultLocationX" type="string"></attribute>
+    	<attribute name="defaultLocationY" type="string"></attribute>
+    	<attribute name="defaultLocationZ" type="string"></attribute>
+    	<attribute name="defaultSortOrder" type="string"></attribute>
+    	
+    </complexType>
+
+    <element name="contentitems" type="tns:ContentItemType"></element>
+
+    <complexType name="ItemType">
+    	<sequence>
+    		<element name="attributes" type="string" maxOccurs="unbounded" minOccurs="0"></element>
+    	</sequence>
+    	<attribute name="id" type="string" use="required"></attribute>
+    	<attribute name="x" type="string"></attribute>
+    	<attribute name="y" type="string"></attribute>
+    	<attribute name="z" type="string"></attribute>
+    	<attribute name="sortOrder" type="string"></attribute>
+    	
+    </complexType>
+
+
+    <complexType name="ItemListType">
+    	<sequence>
+    		<element name="item" type="tns:ItemType" maxOccurs="unbounded" minOccurs="0"></element>
+    	</sequence>
+    </complexType>
+
+	 <attribute name="NewAttribute" type="string"></attribute>
+</schema>

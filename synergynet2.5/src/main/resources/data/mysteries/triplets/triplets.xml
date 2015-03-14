@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:contentitems
+	xmlns:tns="http://tel.dur.ac.uk/xml/schemas/contentitems_schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/mystery_schema ../../data/contentitems/schemas/contentitems_schema.xsd "
+	author="Steve Higgins"
+	description="History mystery based on the Triplets"
+	license="restricted" name="The Triplets"
+	
+	locationFile="data/mysteries/triplets/triplets_location.xml"
+	appearanceFile="data/mysteries/triplets/triplets_apparence.xml"
+	gestureFile="data/mysteries/triplets/triplets_gesture.xml"
+	defaultAppearanceFile="data/mysteries/defaultApparence.xml"
+	>
+	<tns:items>
+		<tns:item content-type="text/plain"
+			id="TR1"
+			content = "This morning at 10 am, one Troublesome Triplet that had no money stole £40 from the bank."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="TR2"
+			content ="The Triplets, Tina, Tia, and Tania, look so much alike, the person in the bank couldn’t tell which one took the money." 
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="TR3"
+			content ="The person in the bank wanted to be sure he didn’t accuse the wrong triplet of stealing, so he alerted shopkeepers across town to let him know when one of the sisters bought anything."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="TR4"
+			content = "When they woke up the Triplets counted their savings. One triplet had no money, one had saved up £30, and another triplet had saved up £19."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="TR5"
+			content ="Right away, the phone was ringing like mad. Gemma from the game shop said one of those Triplets was just in her shop. She bought a computer game worth £20 at half price during their sale." 
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="TR6"
+			content ="The second call was from Tom, the owner of the toy shop. Tom reported that one of the Triplets had bought 2 toys at £5 each."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="TR7"
+			content ="The next call was from Carla at the candy shop. One of the Triplets had just paid £3 for some sweets."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="TR8"
+			content ="After Carla, Susan called from the swimming pool. Two of the Triplets just left the swimming pool. They paid £7 each. They’ve been swimming since 9 o’clock that morning."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="TR9"
+			content ="At noon, Kate called from the café. The Triplets just sat down for lunch."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="TR10"
+			content ="The person from the bank came to the café with a policeman and asked the Triplets to empty the contents of their pockets onto the table."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="TR11"
+			content ="In the café Tina took £23 out of her pocket."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="TR12"
+			content ="In the café Tia took £17 out of her pocket."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+				<tns:item content-type="text/plain"
+			id="TR13"
+			content ="In the café Tania took £12 out of her pocket."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="TRTitle"
+			content ="Which Troublesome Triplet is the thief?"
+			contentItemType ="MultiLineTextLabel"
+			category ="title"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+	</tns:items>
+</tns:contentitems>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:contentitems
+	xmlns:tns="http://tel.dur.ac.uk/xml/schemas/contentitems_schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/mystery_schema ../../data/contentitems/schemas/contentitems_schema.xsd "
+	author="Marina Stribric"
+	description="History mystery based on the Money Trail"
+	license="restricted" name="Money Trail"
+	
+	locationFile="data/mysteries/money_trail/money_trail_location.xml"
+	appearanceFile="data/mysteries/money_trail/money_trail_apparence.xml"
+	gestureFile="data/mysteries/money_trail/money_trail_gesture.xml"
+	defaultAppearanceFile="data/mysteries/defaultApparence.xml"
+	>
+	<tns:items>
+		<tns:item content-type="text/plain"
+			id="MT1"
+			content = "The world-famous forger, Mike Sunny, is spending phony money all over town!"
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="MT2"
+			content ="Mike visits towns and leaves his false notes as he shops." 
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="MT3"
+			content ="During his shopping sprees, Mike becomes confused, and sometimes lost. "
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="MT4"
+			content = "To help him keep track of where he’s going, Mike follows a certain pattern."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="MT5"
+			content ="The pattern is formed by the street numbers of the places Mike visits. The trick is to figure out the pattern and stop him in his tracks!" 
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="MT6"
+			content ="The mysterious money trail began this morning, when Ben called from his Bike Shop on number 64. Someone paid with a funny twenty-pound note!"
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="MT7"
+			content ="The second call reporting funny money was from the Tip-Top Hat Shop on number 49. A man was just there who bought a blue hat. The shopkeeper looked carefully at the money and realized it was fake!"
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="MT8"
+			content ="After he bought the hat, Mike visited the Short Step Shoe Store on number 36. He bought a pair of grey shoes with his counterfeit cash."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="MT9"
+			content ="After his shopping spree Mike was hungry. He went to Speedy Gonzales Fish and Chips Shop on number 25."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="MT10"
+			content ="After dinner Mike went to hide in one of the houses."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="MTTitle"
+			content ="At which house number is Mike hiding?"
+			contentItemType ="MultiLineTextLabel"
+			category ="title"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+	</tns:items>
+</tns:contentitems>

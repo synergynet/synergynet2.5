@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://tel.dur.ac.uk/xml/schemas/contentitems_schema" xmlns:tns="http://tel.dur.ac.uk/xml/schemas/contentitems_schema" elementFormDefault="qualified">
+
+    <complexType name="ContentItemsType">
+    	<sequence>
+    		<element name="items" type="tns:ItemListType" minOccurs="1"
+    			maxOccurs="1">
+    		</element>
+    	</sequence>
+    	<attribute name="description" type="string" use="required"></attribute>
+    	<attribute name="name" type="string" use="required"></attribute>
+    	<attribute name="author" type="string" use="required"></attribute>
+    	<attribute name="license" type="string" use="required"></attribute>
+    	<attribute name="question" type="string"></attribute>
+    	
+    	<attribute name="locationFile" type="string"></attribute>
+    	<attribute name="appearanceFile" type="string"></attribute>
+    	<attribute name="defaultAppearanceFile" type="string"></attribute>
+    	<attribute name="gestureFile" type="string"></attribute>
+
+    </complexType>
+
+    <element name="contentitems" type="tns:ContentItemsType"></element>
+
+    <complexType name="ItemType">
+    	<sequence>
+    		<element name="attributes" type="string"></element>
+    	</sequence>
+    	<attribute name="id" type="string" use="required"></attribute>
+    	<attribute name="content-type" type="string"></attribute>  	
+    	<attribute name="contentItemType" type="string" use="required"></attribute>  
+    	<attribute name="category" type="string" use="required"></attribute> 	
+    	<attribute name="imagePath" type="string"></attribute> 
+    	<attribute name="content" type="string"></attribute> 
+    	
+    </complexType>
+
+
+    <complexType name="ItemListType">
+    	<sequence>
+    		<element name="item" type="tns:ItemType" maxOccurs="unbounded" minOccurs="0"></element>
+    	</sequence>
+    </complexType>
+
+    <attribute name="NewAttribute" type="string"></attribute>
+
+</schema>

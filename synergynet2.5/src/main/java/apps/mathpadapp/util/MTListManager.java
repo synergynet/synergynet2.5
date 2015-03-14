@@ -1,0 +1,268 @@
+/*
+ * Copyright (c) 2009 University of Durham, England
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are
+ * met:
+ *
+ * * Redistributions of source code must retain the above copyright
+ *   notice, this list of conditions and the following disclaimer.
+ *
+ * * Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ *
+ * * Neither the name of 'SynergyNet' nor the names of its contributors 
+ *   may be used to endorse or promote products derived from this software 
+ *   without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+ * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+package apps.mathpadapp.util;
+
+import java.awt.Color;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import synergynetframework.appsystem.contentsystem.items.ContentItem;
+import synergynetframework.appsystem.contentsystem.items.ListContainer;
+import synergynetframework.appsystem.contentsystem.items.OrthoContentItem;
+import synergynetframework.appsystem.contentsystem.items.SimpleButton;
+
+public class MTListManager {
+
+	private List<Object> items;
+	private List<Object> selectedItems;
+	private MTList list;
+	private HashMap<Object, ContentItem> listContentItems;
+	private List<ListContainer> itemLists;
+	private boolean isEnabled = true;
+	
+	private int listIndex = -1;
+	public ListContainer currentList;
+
+
+	public MTListManager(MTList list){
+		this.list = list;
+		items = new ArrayList<Object>();
+		selectedItems = new ArrayList<Object>();
+		listContentItems = new HashMap<Object, ContentItem>();
+		itemLists = new ArrayList<ListContainer>();		
+	}
+	
+	public void deleteItem(Object item) {
+		int currentList = listIndex;
+		items.remove(item);
+		if(selectedItems.contains(item)) selectedItems.remove(item);
+		if(listContentItems.containsKey(item))  listContentItems.remove(item);
+		this.rebuildLists();
+		this.showList(currentList);	
+	}
+
+	private void rebuildLists() {
+		listIndex = -1;
+		for(ListContainer listContainer: this.itemLists) list.getContainer().removeSubItem(listContainer);
+		itemLists.clear();
+		this.addNewItemList();
+		HashMap<Object, ContentItem> backupItems = new HashMap<Object, ContentItem>(listContentItems);
+		listContentItems.clear();
+		items.clear();
+		for(Object bItem: backupItems.keySet()){
+			ContentItem contentItem = backupItems.get(bItem);
+			if(contentItem instanceof SimpleButton){
+				SimpleButton btn = (SimpleButton) contentItem;
+				this.addItem(btn.getText(), bItem);
+				if(btn.getImages()!= null && !btn.getImages().isEmpty())
+					this.setIcon(bItem, btn.getImages().keySet().iterator().next());
+			}
+		}
+		list.getContainer().setAsTopObject();
+	}
+	
+	public void addItem(String str, Object value){
+		if(!items.contains(value) && currentList != null){
+			if(((currentList.getAllItemsIncludeSystemItems().size()+2) * list.listItemHeight) >= list.listHeight) this.addNewItemList();
+			ContentItem listItem = list.createListItem(str, value, currentList);
+			items.add(value);
+			listContentItems.put(value, listItem);
+			this.setEnabled(this.isEnabled());
+		}
+	}
+	
+	public void addNewItemList(){
+		ListContainer newList = list.createNewItemList();
+		if(this.isEnabled())	
+			newList.setBackgroundColour(list.listItemBgColor);
+		else
+			newList.setBackgroundColour(Color.LIGHT_GRAY);
+		itemLists.add(newList);
+		currentList = newList;
+		for(ListContainer list: itemLists) list.setVisible(false);
+		currentList.setVisible(true);
+		listIndex++;
+		if(list.getListNoLabel() != null) list.getListNoLabel().setText("Page "+(listIndex+1)+" of "+ itemLists.size());
+	}
+
+	public void showList(int index){
+		if(index>=0 && index<itemLists.size()){
+			itemLists.get(index).setVisible(true);
+			currentList = itemLists.get(index);
+			for(int i=0; i<itemLists.size(); i++){
+				if(i != index) itemLists.get(i).setVisible(false); 
+			}
+			listIndex = index;
+			list.getListNoLabel().setText("Page "+(index+1)+" of "+ itemLists.size());
+		}
+	}
+	
+	public void showPrevious() {this.showList(listIndex-1);}
+	public void showNext() {this.showList(listIndex+1);}
+	
+	public void selectItem(Object item) {
+		if(items.contains(item) && !selectedItems.contains(item)){
+			// Select Item
+			selectedItems.add(item);
+			ContentItem contentItem = listContentItems.get(item);
+			this.setListItemHighlighted(contentItem, true);
+		}
+	}
+	
+	protected void setListItemHighlighted(ContentItem contentItem, boolean isHighlighted) {
+		if(contentItem instanceof SimpleButton){
+			if(isHighlighted){
+					((SimpleButton)contentItem).setBackgroundColour(list.listItemTextColor);
+					((SimpleButton)contentItem).setTextColour(list.listItemBgColor);
+			}else{
+				((SimpleButton)contentItem).setBackgroundColour(list.listItemBgColor);
+				((SimpleButton)contentItem).setTextColour(list.listItemTextColor);				
+			}
+		}
+	}
+
+	public void deselectItem(Object item){
+		if(items.contains(item) && selectedItems.contains(item)){
+			// Deselect item
+			selectedItems.remove(item);
+			if(listContentItems.containsKey(item)){
+				ContentItem contentItem = listContentItems.get(item);
+				this.setListItemHighlighted(contentItem, false);
+			}
+		}
+	}
+	
+	public void selectAllItems(){
+		selectedItems.clear();
+		selectedItems.addAll(items);
+		for(Object item : listContentItems.keySet()){
+			if(listContentItems.get(item).isVisible()){
+				selectedItems.add(item);
+				ContentItem contentItem = listContentItems.get(item);
+				this.setListItemHighlighted(contentItem, true);
+			}
+		}
+	}
+	
+	public void deselectAllItems(){
+		selectedItems.clear();
+		for(ContentItem contentItem: listContentItems.values()){
+			this.setListItemHighlighted(contentItem, false);
+		}
+	}
+		
+	public List<Object> getAllItems(){
+		return items;
+	}
+	
+	public List<Object> getSelectedItems(){
+		return selectedItems;
+	}
+
+	public void deleteSelectedItems() {
+		int currentList = listIndex;
+		for(Object item: selectedItems){
+			items.remove(item);
+			listContentItems.remove(item);
+		}
+		selectedItems.clear();
+		this.rebuildLists();
+		this.showList(currentList);	
+	}
+	
+	public void deleteAllItems() {
+		int currentList = listIndex;
+		items.clear();
+		selectedItems.clear();
+		listContentItems.clear();
+		this.rebuildLists();
+		this.showList(currentList);	
+	}
+
+	public void setIcon(Object item, URL iconResource){
+		if(listContentItems.containsKey(item) && iconResource != null){
+			ContentItem contentItem = listContentItems.get(item);
+			if(contentItem instanceof SimpleButton){
+				((SimpleButton)contentItem).removeAllImages();
+				((SimpleButton)contentItem).drawImage(iconResource,0,0,25,25);
+			}
+		}
+	}
+
+	public List<ListContainer> getItemLists() {
+		return itemLists;
+	}
+	
+	
+	public void setEnabled(boolean isEnabled){
+		this.deselectAllItems();
+		this.isEnabled = isEnabled;
+		if(!isEnabled){
+			for(ContentItem contentItem: this.list.getContainer().getAllItemsIncludeSystemItems()){
+				//contentItem.setBackgroundColour(Color.LIGHT_GRAY);
+				((OrthoContentItem)contentItem).setRotateTranslateScalable(false);
+			}
+			for(ContentItem contentItem: listContentItems.values()){
+				if(contentItem instanceof SimpleButton){
+					((SimpleButton)contentItem).setRotateTranslateScalable(false);
+					//((SimpleButton)contentItem).setBackgroundColour(Color.LIGHT_GRAY);
+				}
+			}
+		}
+		else{
+			for(ContentItem contentItem: this.list.getContainer().getAllItemsIncludeSystemItems()){
+				//contentItem.setBackgroundColour(Color.white);
+				((OrthoContentItem)contentItem).setRotateTranslateScalable(true);
+			}
+			for(ContentItem contentItem: listContentItems.values()){
+				if(contentItem instanceof SimpleButton){
+					((SimpleButton)contentItem).setRotateTranslateScalable(true);
+					//((SimpleButton)contentItem).setBackgroundColour(Color.white);
+				}
+			}
+		}
+	}
+	
+	public boolean isEnabled(){
+		return this.isEnabled;
+	}
+
+	public ContentItem getListItem(Object item) {
+		return listContentItems.get(item);
+	}
+	
+	public HashMap<Object, ContentItem> getListItems(){
+		return listContentItems;
+	}
+}

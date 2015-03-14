@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ac:application xmlns:ac="http://tel.dur.ac.uk/xml/schemas/synergynetappconfig"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/synergynetappconfig ../../../../config/schemas/synergynetapplication.xsd ">
+	<ac:info name="User Defined Gestures" author="TEL Durham" 
+		uuid="5abeaf75-892e-4e80-852a-11111f629846" version="0.1" />
+	<ac:clientcomponent
+		classname="apps.userdefinedgestures.UserDefinedGestures"
+		iconresource="userGestures.png" showicon="true">
+		<ac:reactivatepolicy>restart</ac:reactivatepolicy>
+	</ac:clientcomponent>
+</ac:application>

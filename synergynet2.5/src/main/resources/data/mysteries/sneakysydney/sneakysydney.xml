@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:contentitems
+	xmlns:tns="http://tel.dur.ac.uk/xml/schemas/contentitems_schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/mystery_schema ../../data/contentitems/schemas/contentitems_schema.xsd "
+	author="Steve Higgins"
+	description="In which room is the statue hidden?"
+	license="restricted" name="In which room is the statue hidden?"
+	
+	locationFile="data/mysteries/sneakysydney/sneakysydney_location.xml"
+	appearanceFile="data/mysteries/sneakysydney/sneakysydney_apparence.xml"
+	gestureFile="data/mysteries/sneakysydney/sneakysydney_gesture.xml"
+	defaultAppearanceFile="data/mysteries/defaultApparence.xml"
+	>
+	<tns:items>
+		<tns:item content-type="text/plain"
+			id="Sneakysydney1"
+			content = "Sneaky Sydney has stolen a special stone statue."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="Sneakysydney2"
+			content ="The room number the statue is in is not less than 25." 
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="Sneakysydney3"
+			content ="The room number where the statue is hidden is not even."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="Sneakysydney4"
+			content = "He has hidden it in a bedroom in the Grand Hotel."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="Sneakysydney5"
+			content ="The Grand Hotel is next to the station." 
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="Sneakysydney6"
+			content ="The room number where Sydney has hidden the statue is not 25."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="Sneakysydney7"
+			content ="The Grand Hotel is not as expensive as the Caesar Hotel across the street."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="Sneakysydney8"
+			content ="The room number does not contain the digit 3."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="Sneakysydney9"
+			content ="There are 100 rooms in the Grand Hotel."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="Sneakysydney10"
+			content ="The room number where it is hidden is a multiple of 5."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="Sneakysydney11"
+			content ="The statue is in a room whose number is lower than 50."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="Sneakysydney12"
+			content ="The statue is small, heavy and very valuable."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="SneakysydneyTitle"
+			content ="In which room is the statue hidden?"
+			contentItemType ="MultiLineTextLabel"
+			category = "title"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+
+	</tns:items>
+</tns:contentitems>

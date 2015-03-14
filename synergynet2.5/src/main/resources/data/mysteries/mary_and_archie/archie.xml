@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:contentitems
+	xmlns:tns="http://tel.dur.ac.uk/xml/schemas/contentitems_schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/mystery_schema ../../data/contentitems/schemas/contentitems_schema.xsd "
+	author="Andy Joyce"
+	description="History mystery based on Mary and Archie"
+	license="restricted" name="Mary and Archie"
+	
+	locationFile="data/mysteries/mary_and_archie/archie_location.xml"
+	appearanceFile="data/mysteries/mary_and_archie/archie_apparence.xml"
+	gestureFile="data/mysteries/mary_and_archie/archie_gesture.xml"
+	defaultAppearanceFile="data/mysteries/defaultApparence.xml"
+	>
+	<tns:items>
+		<tns:item content-type="text/plain"
+			id="ARCHIE1"
+			content = "The English and Scots often fought each other in battles such as Flodden."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ARCHIE2"
+			content ="Mary Fenwick was English." 
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ARCHIE3"
+			content ="Edward Fenwick, Mary's father, was a very busy, hard working man. He had many sheep and cattle to look after. His stock had often been raided by other reiver families."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ARCHIE4"
+			content = "Most people who lived in the borders did not care about whether they were English or Scots. They cared more about looking after their own family and feuding with their enemies."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ARCHIE5"
+			content ="Archie Graham was Scottish." 
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ARCHIE6"
+			content ="Mary Fenwick was very attractive. She was very fond of her father."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ARCHIE7"
+			content ="The laws of both England and Scotland banned cross - border marriages. They thought that people would get confused about which side they were on."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ARCHIE8"
+			content ="Edward Fenwick's other children had all died before they reached five years of age."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ARCHIE9"
+			content ="Mary's mother, Edward Fenwick's wife had died."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ARCHIE10"
+			content ="Archie Graham was a strong, healthy lad who would be useful as a soldier."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ARCHIE11"
+			content ="Mary and Archie got married and had a baby."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ARCHIE12"
+			content ="Hangings were often seen as public entertainment.  Many people came to watch the gruesome sight."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ARCHIE13"
+			content ="Sometimes, permission for cross - border marriages was given by the English or Scottish wardens. But this did not often happen."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ARCHIE14"
+			content ="The law was very strict and there were harsh punishments for those who broke it."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ARCHIE15"
+			content ="Both Graham and Fenwick families were large and powerful. They had many supporters on both sides of the border."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ARCHIE16"
+			content ="Mary and Archie fled to Scotland after the wedding."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ARCHIE17"
+			content ="The Graham family were notorious trouble-makers. They were involved in many raids and illegal activities."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ARCHIE18"
+			content ="Being a Warden of the March brought many advantages - Wardens could become rich."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ARCHIETitle"
+			content ="What should the Warden do?"
+			contentItemType ="MultiLineTextLabel"
+			category ="title"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+	</tns:items>
+</tns:contentitems>

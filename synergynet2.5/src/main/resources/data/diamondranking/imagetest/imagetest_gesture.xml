@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:contentitems author="Steve Higgins"
+	description="Dinner disaster: can you work out what Mike should have to eat? - guesture attribute"
+	license="restricted" 
+	name ="Dinner disaster: can you work out what Mike should have to eat? - guesture attribute"
+
+	xmlns:tns="http://tel.dur.ac.uk/xml/schemas/contentitems_gesture_schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/contentitems_gesture_schema ../../data/contentitems/schemas/contentitems_gesture_schema.xsd ">
+	<tns:items>
+		
+		<tns:item 	
+			id="IT1"
+			snapable ="true"
+		>
+		</tns:item>	
+		<tns:item 	
+			id="IT2"
+			snapable ="true"
+		>	
+		</tns:item>	
+		<tns:item 	
+			id="IT3"
+			snapable ="true"
+		>		
+		</tns:item>
+		<tns:item 	
+			id="IT4"
+			snapable ="true"
+		>		
+		</tns:item>
+		<tns:item 	
+			id="IT5"
+			snapable ="true"
+		>		
+		</tns:item>
+		<tns:item 	
+			id="IT6"
+			snapable ="true"
+		>		
+		</tns:item>
+		<tns:item 	
+			id="IT7"
+			snapable ="true"
+		>		
+		</tns:item>
+		<tns:item 	
+			id="IT8"
+			snapable ="true"
+		>		
+		</tns:item>
+		<tns:item 	
+			id="IT9"
+			snapable ="true"
+		>		
+		</tns:item>
+		
+		
+		<tns:item 	
+			id="IT10"
+			rotateTranslateScalable = "false"
+			bringToTopable = "false"
+		>	
+		</tns:item>	
+		<tns:item 	
+			id="IT11"
+			rotateTranslateScalable = "false"
+			bringToTopable = "false"
+		>		
+		</tns:item>
+		<tns:item 	
+			id="IT12"
+			rotateTranslateScalable = "false"
+			bringToTopable = "false"
+		>		
+		</tns:item>
+		<tns:item 	
+			id="IT13"
+			rotateTranslateScalable = "false"
+			bringToTopable = "false"
+		>		
+		</tns:item>
+		<tns:item 	
+			id="IT14"
+			rotateTranslateScalable = "false"
+			bringToTopable = "false"
+		>		
+		</tns:item>
+		<tns:item 	
+			id="IT15"
+			rotateTranslateScalable = "false"
+			bringToTopable = "false"
+		>		
+		</tns:item>
+		<tns:item 	
+			id="IT16"
+			rotateTranslateScalable = "false"
+			bringToTopable = "false"
+		>		
+		</tns:item>
+		<tns:item 	
+			id="IT17"
+			rotateTranslateScalable = "false"
+			bringToTopable = "false"
+		>		
+		</tns:item>
+		<tns:item 	
+			id="IT18"
+			rotateTranslateScalable = "false"
+			bringToTopable = "false"
+		>		
+		</tns:item>
+		
+		<tns:item 	
+			id="IT19"
+			rotateTranslateScalable = "false"
+			bringToTopable = "false"
+		>		
+		</tns:item>
+	</tns:items>
+</tns:contentitems>

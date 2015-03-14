@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ac:application xmlns:ac="http://tel.dur.ac.uk/xml/schemas/synergynetappconfig"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/synergynetappconfig ../../../../config/schemas/synergynetapplication.xsd ">
+	<ac:info name="Jigsaw App" author="TEL Durham" 
+		uuid="687f8631-4df7-4211-986c-867c5eb4d1fb" version="0.1" />
+	<ac:clientcomponent
+		classname="apps.jigsawapp.JigsawAppStart"
+		iconresource="jig.jpg" showicon="true">
+		<ac:reactivatepolicy>resume</ac:reactivatepolicy>
+	</ac:clientcomponent>
+
+</ac:application>

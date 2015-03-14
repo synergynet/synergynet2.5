@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:contentitems
+	xmlns:tns="http://tel.dur.ac.uk/xml/schemas/contentitems_schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/mystery_schema ../../data/contentitems/schemas/contentitems_schema.xsd "
+	author="Marina Stribric"
+	description="History mystery based on the Money Trail"
+	license="restricted" name="Charlie the Forgetful"
+	
+	locationFile="data/mysteries/charlie/charlie_location.xml"
+	appearanceFile="data/mysteries/charlie/charlie_apparence.xml"
+	gestureFile="data/mysteries/charlie/charlie_gesture.xml"
+	defaultAppearanceFile="data/mysteries/defaultApparence.xml"
+	>
+	<tns:items>
+		<tns:item content-type="text/plain"
+			id="CHAR1"
+			content = "Charlie and Andy have always been friends."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="CHAR2"
+			content ="Charlie and Andy have never lived in the same street." 
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="CHAR3"
+			content ="Charlie loves to go round to play games at Andy's house."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="CHAR4"
+			content = "Charlie lives in a white house at number 2."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="CHAR5"
+			content ="The house Charlie lives in has a big garden but no garage. " 
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="CHAR6"
+			content ="For as long as Andy has known him, Charlie could never remember what house number Andy lived at. "
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="CHAR7"
+			content ="Charlie can remember some things. He knows his friend lives in a house which is a multiple of 3. "
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="CHAR8"
+			content ="Charlie also remembers that Andy’s house is on the side of the street with all the even numbers."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="CHAR9"
+			content ="It can't be too hard, thinks Charlie, because Andy’s street only has 29 houses and one post office."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="CHAR10"
+			content ="Andy’s house number is not a 2 digit number."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+				<tns:item content-type="text/plain"
+			id="CHAR11"
+			content ="Andy’s house number is less than 30."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="CHAR12"
+			content ="Andy's house has a garage door which is painted green. "
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="CHARTitle"
+			content ="What house number does Andy live at?"
+			contentItemType ="MultiLineTextLabel"
+			category ="title"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+	</tns:items>
+</tns:contentitems>

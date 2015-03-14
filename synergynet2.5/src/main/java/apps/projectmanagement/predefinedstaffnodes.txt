@@ -1,0 +1,9 @@
+David Burn,Architect,8,50,1) Familiar with the company,2) Good client-facing skills,3) Planned holiday in 6 weeks
+John Brown,Architect,9,50,1) Just join in the company,2) Expert on E-Commerce,3) Good management skills
+Tim Nickell,Architect,6,40,1) Familiar with the company,2) The Architect with least exp. 
+Tom Jackson,Programmer,5,35,1) Has exp. with E-Commerce,2) Was a tester
+Jack Northin,Programmer,4,30,1) Average programmer,2) can do anything
+Nick White,Programmer,2,20,1) No exp. with E-Commerce,2) Working hard,3) Was a Business Analyst
+Murray Mclane,Programmer,0,15,1) Graduate programmer,2)Keen to learn everything,3)Working hard
+Paul Hackin,Programmer,2,20,1) Has exp. with E-Commerce,2) quick programmer,3) little bit Lazy
+Bob Lamond,Tester,4,35,1) Was a programmer,2)Just join in the company

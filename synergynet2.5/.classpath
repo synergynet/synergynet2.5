@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/main/resources"/>
+	<classpathentry kind="lib" path="lib/pdf-renderer/PDFRenderer.jar"/>
+	<classpathentry kind="lib" path="lib/video-fobs/fobs-jmepatch.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="SynergyNet2.5/lib/video-fobs"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/video-fobs/jmf.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="synergynet2.5/lib/video-fobs"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/flickrj-1.1/flickrapi-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/xstream-1.3/xstream-1.3.jar"/>
+	<classpathentry kind="lib" path="lib/prefuse/prefuse.jar" sourcepath="lib/prefuse/prefuse.src.jar"/>
+	<classpathentry kind="lib" path="lib/tjws-1.51/app.jar"/>
+	<classpathentry kind="lib" path="lib/tjws-1.51/aswebapplauncher.jar"/>
+	<classpathentry kind="lib" path="lib/tjws-1.51/gnujsp09.jar"/>
+	<classpathentry kind="lib" path="lib/tjws-1.51/jsp.jar"/>
+	<classpathentry kind="lib" path="lib/tjws-1.51/jspengine.jar"/>
+	<classpathentry kind="lib" path="lib/tjws-1.51/ora_chk.jar"/>
+	<classpathentry kind="lib" path="lib/tjws-1.51/servlet.jar"/>
+	<classpathentry kind="lib" path="lib/tjws-1.51/war.jar"/>
+	<classpathentry kind="lib" path="lib/tjws-1.51/webapplauncher.jar"/>
+	<classpathentry kind="lib" path="lib/tjws-1.51/webserver.jar"/>
+	<classpathentry kind="lib" path="lib/jgn/jgn2.jar"/>
+	<classpathentry kind="lib" path="lib/jme2.0/jogl/gluegen-rt.jar"/>
+	<classpathentry kind="lib" path="lib/jme2.0/jogl/jogl.jar"/>
+	<classpathentry kind="lib" path="lib/jme2.0/jorbis/jorbis-0.0.17.jar"/>
+	<classpathentry kind="lib" path="lib/jme2.0/lwjgl/jinput.jar"/>
+	<classpathentry kind="lib" path="lib/jme2.0/lwjgl/lwjgl_util_applet.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="synergynet2.5/lib/jme2.0/lwjgl/natives"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/jme2.0/lwjgl/lwjgl_util.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="synergynet2.5/lib/jme2.0/lwjgl/natives"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/jme2.0/lwjgl/lwjgl.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="synergynet2.5/lib/jme2.0/lwjgl/natives"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/jmephysics-2.1/jme-physics.jar"/>
+	<classpathentry kind="lib" path="lib/jmephysics-2.1/odejava-jni.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="synergynet2.5/lib/jmephysics-2.1"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/jmephysics-2.1/jbullet.jar"/>
+	<classpathentry kind="lib" path="lib/jmephysics-2.1/stack-alloc.jar"/>
+	<classpathentry kind="lib" path="lib/jmephysics-2.1/vecmath.jar"/>
+	<classpathentry kind="lib" path="lib/igesture-1.1/commons-collections-3.1.jar"/>
+	<classpathentry kind="lib" path="lib/igesture-1.1/commons-configuration-1.3.jar"/>
+	<classpathentry kind="lib" path="lib/igesture-1.1/commons-math-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/igesture-1.1/igesture-framework-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/igesture-1.1/jaxen-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/igesture-1.1/jdom-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/igesture-1.1/jug-asl-2.0.jar"/>
+	<classpathentry kind="lib" path="lib/igesture-1.1/sigtec-graphix-1.0-20070807.162930-35.jar"/>
+	<classpathentry kind="lib" path="lib/igesture-1.1/sigtec-ink-1.0-20070807.162930-36.jar"/>
+	<classpathentry kind="lib" path="lib/igesture-1.1/sigtec-input-1.0-20070807.162930-26.jar"/>
+	<classpathentry kind="lib" path="lib/igesture-1.1/sigtec-jdom-1.0-20070807.162930-33.jar"/>
+	<classpathentry kind="lib" path="lib/igesture-1.1/sigtec-util-1.0-20070807.162930-40.jar"/>
+	<classpathentry kind="lib" path="lib/lumin/JavaAdapter_1.15.jar"/>
+	<classpathentry kind="lib" path="lib/poi-3.2/poi-3.2-FINAL-20081019.jar"/>
+	<classpathentry kind="lib" path="lib/poi-3.2/poi-scratchpad-3.2-FINAL-20081019.jar"/>
+	<classpathentry kind="lib" path="lib/ant-1.7.1/ant.jar"/>
+	<classpathentry kind="lib" path="lib/scene-monitor/jmejtree_jme2.jar"/>
+	<classpathentry kind="lib" path="lib/scene-monitor/propertytable.jar"/>
+	<classpathentry kind="lib" path="lib/scene-monitor/scenemonitor_jme2.jar"/>
+	<classpathentry kind="lib" path="lib/scene-monitor/sm_properties_jme2.jar"/>
+	<classpathentry kind="lib" path="lib/jme2.0/jme-awt.jar"/>
+	<classpathentry kind="lib" path="lib/jme2.0/jme-collada.jar"/>
+	<classpathentry kind="lib" path="lib/jme2.0/jme-editors.jar"/>
+	<classpathentry kind="lib" path="lib/jme2.0/jme-effects.jar"/>
+	<classpathentry kind="lib" path="lib/jme2.0/jme-font.jar"/>
+	<classpathentry kind="lib" path="lib/jme2.0/jme-gamestates.jar"/>
+	<classpathentry kind="lib" path="lib/jme2.0/jme-model.jar"/>
+	<classpathentry kind="lib" path="lib/jme2.0/jme-ogrexml.jar"/>
+	<classpathentry kind="lib" path="lib/jme2.0/jme-scene.jar"/>
+	<classpathentry kind="lib" path="lib/jme2.0/jme-terrain.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/synergynet2.5/lib/jme2.0/jme2-javadoc.zip!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/jme2.0/jme.jar" sourcepath="lib/jme2.0/jme.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/synergynet2.5/lib/jme2.0/jme2-javadoc.zip!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/jetty7/jetty-ajp-7.0.0.v20091005.jar"/>
+	<classpathentry kind="lib" path="lib/jetty7/jetty-annotations-7.0.0.v20091005.jar"/>
+	<classpathentry kind="lib" path="lib/jetty7/jetty-client-7.0.0.v20091005.jar"/>
+	<classpathentry kind="lib" path="lib/jetty7/jetty-continuation-7.0.0.v20091005.jar"/>
+	<classpathentry kind="lib" path="lib/jetty7/jetty-deploy-7.0.0.v20091005.jar"/>
+	<classpathentry kind="lib" path="lib/jetty7/jetty-http-7.0.0.v20091005.jar"/>
+	<classpathentry kind="lib" path="lib/jetty7/jetty-io-7.0.0.v20091005.jar"/>
+	<classpathentry kind="lib" path="lib/jetty7/jetty-jmx-7.0.0.v20091005.jar"/>
+	<classpathentry kind="lib" path="lib/jetty7/jetty-jndi-7.0.0.v20091005.jar"/>
+	<classpathentry kind="lib" path="lib/jetty7/jetty-plus-7.0.0.v20091005.jar"/>
+	<classpathentry kind="lib" path="lib/jetty7/jetty-policy-7.0.0.v20091005.jar"/>
+	<classpathentry kind="lib" path="lib/jetty7/jetty-rewrite-7.0.0.v20091005.jar"/>
+	<classpathentry kind="lib" path="lib/jetty7/jetty-security-7.0.0.v20091005.jar"/>
+	<classpathentry kind="lib" path="lib/jetty7/jetty-server-7.0.0.v20091005.jar"/>
+	<classpathentry kind="lib" path="lib/jetty7/jetty-servlet-7.0.0.v20091005.jar"/>
+	<classpathentry kind="lib" path="lib/jetty7/jetty-servlets-7.0.0.v20091005.jar"/>
+	<classpathentry kind="lib" path="lib/jetty7/jetty-util-7.0.0.v20091005.jar"/>
+	<classpathentry kind="lib" path="lib/jetty7/jetty-webapp-7.0.0.v20091005.jar"/>
+	<classpathentry kind="lib" path="lib/jetty7/jetty-xml-7.0.0.v20091005.jar"/>
+	<classpathentry kind="lib" path="lib/SnuggleTex/batik-anim-1.7.jar"/>
+	<classpathentry kind="lib" path="lib/SnuggleTex/batik-awt-util-1.7.jar"/>
+	<classpathentry kind="lib" path="lib/SnuggleTex/batik-css-1.7.jar"/>
+	<classpathentry kind="lib" path="lib/SnuggleTex/batik-dom-1.7.jar"/>
+	<classpathentry kind="lib" path="lib/SnuggleTex/batik-ext-1.7.jar"/>
+	<classpathentry kind="lib" path="lib/SnuggleTex/batik-parser-1.7.jar"/>
+	<classpathentry kind="lib" path="lib/SnuggleTex/batik-svg-dom-1.7.jar"/>
+	<classpathentry kind="lib" path="lib/SnuggleTex/batik-util-1.7.jar"/>
+	<classpathentry kind="lib" path="lib/SnuggleTex/batik-xml-1.7.jar"/>
+	<classpathentry kind="lib" path="lib/SnuggleTex/commons-io-1.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/SnuggleTex/jeuclid-core-3.1.5.jar"/>
+	<classpathentry kind="lib" path="lib/SnuggleTex/log4j-1.2.14.jar"/>
+	<classpathentry kind="lib" path="lib/SnuggleTex/saxon9-9.1.0.6.jar"/>
+	<classpathentry kind="lib" path="lib/SnuggleTex/saxon9-dom-9.1.0.6.jar"/>
+	<classpathentry kind="lib" path="lib/SnuggleTex/slf4j-api-1.5.6.jar"/>
+	<classpathentry kind="lib" path="lib/SnuggleTex/slf4j-log4j12-1.5.6.jar"/>
+	<classpathentry kind="lib" path="lib/SnuggleTex/snuggletex-core-1.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/SnuggleTex/snuggletex-jeuclid-1.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/SnuggleTex/snuggletex-upconversion-1.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/SnuggleTex/xml-apis-1.3.04.jar"/>
+	<classpathentry kind="lib" path="lib/SnuggleTex/xml-apis-ext-1.3.04.jar"/>
+	<classpathentry kind="lib" path="lib/SnuggleTex/xmlgraphics-commons-1.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/handwriting_recognition/NLdemo.jar"/>
+	<classpathentry kind="lib" path="lib/jmdns/jmdns.jar"/>
+	<classpathentry kind="lib" path="lib/tuio-1.1/libTUIO.jar"/>
+	<classpathentry kind="lib" path="lib/jna/jna-3.4.0.jar"/>
+	<classpathentry kind="lib" path="lib/jna/platform-3.4.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/jexcelapi/jxl.jar"/>
+	<classpathentry kind="lib" path="lib/jericho/jericho-html-3.2.jar"/>
+	<classpathentry kind="lib" path="lib/SnuggleTex/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang-2.6.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

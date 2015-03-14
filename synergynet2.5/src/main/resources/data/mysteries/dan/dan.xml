@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:contentitems
+	xmlns:tns="http://tel.dur.ac.uk/xml/schemas/contentitems_schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/mystery_schema ../../data/contentitems/schemas/contentitems_schema.xsd "
+	author="Marina Stribric"
+	description="History mystery based on Dan the Dealer"
+	license="restricted" name="Dan the Dealer"
+	
+	locationFile="data/mysteries/dan/dan_location.xml"
+	appearanceFile="data/mysteries/dan/dan_apparence.xml"
+	gestureFile="data/mysteries/dan/dan_gesture.xml"
+	defaultAppearanceFile="data/mysteries/defaultApparence.xml"
+	>
+	<tns:items>
+		<tns:item content-type="text/plain"
+			id="DAN1"
+			content = "In the local sweet shop Dan was bragging to his friends."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="DAN2"
+			content ="Dan told his friends to order 2 biggest ice-cream cones on the menu, and he would pay for it." 
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="DAN3"
+			content ="His friends asked him where he got all the cash. “From Emma, my silly little sister,” Dan bragged."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="DAN4"
+			content = "Emma doesn’t know much about money, so he has been making deals with her every week for a month."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="DAN5"
+			content ="The first week, Dan swapped his 2 fifty-pence pieces for her two-pound coin. He told her that it was a good deal because 2 is more than 1!" 
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="DAN6"
+			content ="His friends said: “Dan, you pay Emma back or we’ll tell your parents about your mean little deals!”"
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="DAN7"
+			content ="The second week, Dan told Emma that cute little coins were better than big heavy coins. So he traded his one-pound coin for her two-pound coin."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="DAN8"
+			content ="On the third week, Dan tried something different. He told Emma that green notes were better than pale orange notes. So she gave him a ten-pound note for his five-pound note!"
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="DAN9"
+			content ="This week Dan told his sister that new money was better than crumpled old money. He swapped his new twenty-pound note for her old fifty-pound note."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="DAN10"
+			content ="But this week Dan made the worst deal ever."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="DANTitle"
+			content ="How much money should Dan give back to his little sister?"
+			contentItemType ="MultiLineTextLabel"
+			category ="title"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+	</tns:items>
+</tns:contentitems>

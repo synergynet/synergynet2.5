@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:contentitems
+	xmlns:tns="http://tel.dur.ac.uk/xml/schemas/contentitems_schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/mystery_schema ../../data/contentitems/schemas/contentitems_schema.xsd "
+	author="Marina Stibric"
+	description="History mystery based on Judith and Cat"
+	license="restricted" name="Judith and Cat"
+	
+	locationFile="data/mysteries/judith_and_cat/judith_and_cat_location.xml"
+	appearanceFile="data/mysteries/judith_and_cat/judith_and_cat_apparence.xml"
+	gestureFile="data/mysteries/judith_and_cat/judith_and_cat_gesture.xml"
+	defaultAppearanceFile="data/mysteries/defaultApparence.xml"
+	>
+	<tns:items>
+		<tns:item content-type="text/plain"
+			id="JAC1"
+			content = "Judith has a small brown cat that she likes to play with."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="JAC2"
+			content ="The cat is called Candy." 
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="JAC3"
+			content ="One day, just before it started to rain, Judith goes to Pete’s Pet shop to buy some cat food."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="JAC4"
+			content = "On the way to Pete’s Pet shop Judith passed Bob’s bakery and a train station."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="JAC5"
+			content ="When she got to Pete’s Pet shop there was a long queue at the checkout." 
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="JAC6"
+			content ="Judith buys 2 packs of chunky rabbit cat food."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="JAC7"
+			content ="There is a special offer this week, dog food tins are 500g for the price of 250g."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="JAC8"
+			content ="A pack of cat food costs £5."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="JAC9"
+			content ="Each pack of cat food has 4 tins. "
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="JAC10"
+			content ="The tins in the pack are very heavy. Each tin of cat food weighs 250g."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="JAC11"
+			content ="Finally, Judith gets to the front of the queue and pays with the money her mum gave her."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="JAC12"
+			content ="The shop has very thin plastic carrier bags."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="JAC13"
+			content ="Each carrier bag can hold 1 kg."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="JAC14"
+			content ="She remembers that there are 1000 grams in a kilogramme."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="JACTitle"
+			content ="If Judith puts all of her shopping in one bag will it be strong enough?"
+			contentItemType ="MultiLineTextLabel"
+			category ="title"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+	</tns:items>
+</tns:contentitems>

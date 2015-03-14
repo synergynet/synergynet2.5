@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:contentitems
+	xmlns:tns="http://tel.dur.ac.uk/xml/schemas/contentitems_schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/contentitems_schema ../../data/contentitems/schemas/contentitems_schema.xsd "
+	author="Steve Higgins"
+	description="ICT for Learning"
+	license="restricted" name="ICT for Learning"
+
+	locationFile="data/diamondranking/imagetest/imagetest_location.xml"
+	appearanceFile="data/diamondranking/imagetest/imagetest_apparence.xml"
+	gestureFile="data/diamondranking/imagetest/imagetest_gesture.xml"
+	defaultAppearanceFile="data/diamondranking/defaultApparence.xml"
+	
+	>
+	<tns:items>
+		<tns:item content-type="text/plain"
+			id="IT1"
+			content = "Speak Up"
+			imagePath = "data/diamondranking/imagetest/image/speakup.png"
+			contentItemType ="ImageTextLabel"
+			category ="imageText"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="IT2"
+			content ="Read the Information" 
+			imagePath = "data/diamondranking/imagetest/image/readtheinformation.png"
+			contentItemType ="ImageTextLabel"
+			category ="imageText"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="IT3"
+			content ="Listen to Each Other"
+			imagePath = "data/diamondranking/imagetest/image/listentoeachother.png"
+			contentItemType ="ImageTextLabel"
+			category ="imageText"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="IT4"
+			content = "Say What We Think"
+			imagePath = "data/diamondranking/imagetest/image/saywhatwethink.png"
+			contentItemType ="ImageTextLabel"
+			category ="imageText"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="IT5"
+			content ="Work Together" 
+			imagePath = "data/diamondranking/imagetest/image/worktogether.png"
+			contentItemType ="ImageTextLabel"
+			category ="imageText"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="IT6"
+			content ="Share Ideas"
+			imagePath = "data/diamondranking/imagetest/image/shareideas.png"
+			contentItemType ="ImageTextLabel"
+			category ="imageText"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="IT7"
+			content ="Talk Together"
+			imagePath = "data/diamondranking/imagetest/image/talktogether.jpg"
+			contentItemType ="ImageTextLabel"
+			category ="imageText"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="IT8"
+			content ="Work Faster"
+			imagePath = "data/diamondranking/imagetest/image/workfaster.png"
+			contentItemType ="ImageTextLabel"
+			category ="imageText"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="IT9"
+			content ="Understand Things"
+			imagePath = "data/diamondranking/imagetest/image/understandthework.png"
+			contentItemType ="ImageTextLabel"
+			category ="imageText"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="IT10"
+			contentItemType ="Frame"
+			category ="frame"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="IT11"
+			contentItemType ="Frame"
+			category ="frame"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="IT12"
+			contentItemType ="Frame"
+			category ="frame"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="IT13"
+			contentItemType ="Frame"
+			category ="frame"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="IT14"
+			contentItemType ="Frame"
+			category ="frame"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="IT15"
+			contentItemType ="Frame"
+			category ="frame"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="IT16"
+			contentItemType ="Frame"
+			category ="frame"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="IT17"
+			contentItemType ="Frame"
+			category ="frame"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="IT18"
+			contentItemType ="Frame"
+			category ="frame"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="IT19"
+			content ="Multi-touch is good at helping us..."
+			contentItemType ="MultiLineTextLabel"
+			category = "title"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+	</tns:items>
+</tns:contentitems>

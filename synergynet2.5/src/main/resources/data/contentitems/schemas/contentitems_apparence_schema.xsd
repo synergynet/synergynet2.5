@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://tel.dur.ac.uk/xml/schemas/contentitems_apparence_schema" xmlns:tns="http://tel.dur.ac.uk/xml/schemas/contentitems_apparence_schema" elementFormDefault="qualified">
+
+    <complexType name="ContentItemsType">
+    	<sequence>
+    		<element name="items" type="tns:ItemListType" minOccurs="1"
+    			maxOccurs="1">
+    		</element>
+    	</sequence>
+    	<attribute name="description" type="string" use="required"></attribute>
+    	<attribute name="name" type="string" use="required"></attribute>
+    	<attribute name="author" type="string" use="required"></attribute>
+    	<attribute name="license" type="string" use="required"></attribute> 	   	
+    	 	
+    </complexType>
+
+    <element name="contentitems" type="tns:ContentItemsType"></element>
+
+    <complexType name="ItemType">
+    	<sequence>
+    		<element name="attributes" type="string" maxOccurs="unbounded" minOccurs="0"></element>
+    	</sequence>
+    	 	
+    	<attribute name="id" type="string" use="required"></attribute>
+    	<attribute name="contentItemType" type="string"></attribute>
+    	<attribute name="category" type="string"></attribute>
+    	<attribute name="angle" type="string"></attribute>   
+    	<attribute name="scale" type="string"></attribute> 
+    	<attribute name="bgColour" type="string"></attribute>
+    	<attribute name="borderColour" type="string"></attribute>
+    	<attribute name="borderSize" type="float"></attribute>
+    	<attribute name="isVisiable" type="string"></attribute>
+    	
+    	<attribute name="zorder" type="string"></attribute>
+    	
+    	<attribute name="height" type="string"></attribute>  	
+    	<attribute name="width" type="string"></attribute>	
+    	 	
+    	<attribute name="textColour" type="string"></attribute>   	
+    	<attribute name="font" type="string"></attribute>
+    	<attribute name="fontSize" type="float"></attribute>	
+    	<attribute name="charsPerLine" type="int"></attribute>
+    	<attribute name="autoFit" type="string"></attribute>	
+    	<attribute name="autoSeperateMultiLines" type="string"></attribute>
+   	
+    	<attribute name="imageHeight" type="string"></attribute>  	
+    	<attribute name="imageWidth" type="string"></attribute>		
+    	<attribute name="imageX" type="string"></attribute>  	
+    	<attribute name="imageY" type="string"></attribute>	
+    	<attribute name="imagePath" type="string"></attribute>  	
+    	<attribute name="isAutoRatioByImageHeight" type="string"></attribute>	
+    	
+    </complexType>
+
+    <complexType name="ItemListType">
+    	<sequence>
+    		<element name="item" type="tns:ItemType" maxOccurs="unbounded" minOccurs="0"></element>
+    	</sequence>
+    </complexType>
+
+	 <attribute name="NewAttribute" type="string"></attribute>
+</schema>

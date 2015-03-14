@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:contentitems
+	xmlns:tns="http://tel.dur.ac.uk/xml/schemas/contentitems_schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/contentitems_schema ../../data/contentitems/schemas/contentitems_schema.xsd "
+	author="Steve Higgins"
+	description="Mystery based on the film Reservior Dogs" 
+	license="restricted"
+	name="Tipping Waitresses"
+
+	locationFile="data/mysteries/tipping_waitresses/tipping_waitresses_location.xml"
+	appearanceFile="data/mysteries/tipping_waitresses/tipping_waitresses_apparence.xml"
+	gestureFile="data/mysteries/tipping_waitresses/tipping_waitresses_gesture.xml"
+	defaultAppearanceFile="data/mysteries/defaultApparence.xml"
+
+	>
+	<tns:items>
+		<tns:item content-type="text/plain"
+			id="TW1"
+			content = "Nice Guy Eddie thinks that Mr Pink should tip the waitress."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="TW2"
+			content ="Mr Pink says that he does not believe in tipping waitresses." 
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="TW3"
+			content ="Mr Pink says that if the waitress is not making enough money, she could always quit her job."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="TW4"
+			content = "Mr Pink states that he will tip when someone deserves a tip, but not just because society says he should."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="TW5"
+			content ="Mr Pink says the waitress did not do anything special." 
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="TW6"
+			content ="Mr. Pink claims she only refilled his coffee cup three times."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="TW7"
+			content ="Mr Pink says that she couldn’t have been 'too busy' to fill it more, the words 'too busy' should not be in a waitress’ vocabulary."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="TW8"
+			content ="Mr Pink claims that waitresses are paid the minimum wage."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="TW9"
+			content ="Mr Pink says we don’t expect to tip at McDonalds, even though the staff there serve you food."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="TW10"
+			content ="Mr Pink says that they may well be taxed on the basis that they are given tips, which is wrong, but that this is nothing to do with him or the argument."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="TW11"
+			content ="Mr Pink says that they could do a better job if they trained, such as by learning to type."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="TW12"
+			content ="Mr Blue claims that the wages for waitresses are low."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="TW13"
+			content ="Mr Blue argues that the girl was nice."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="TW14"
+			content ="Mr Blonde suggests that she really was too busy to refill his cup six times."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="TW15"
+			content ="Mr Blue suggests that she’s counting on tips to live."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="TW16"
+			content ="Mr White counters that she’ll be taxed on the tips she is expected to get, even if she doesn’t get them."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="TW17"
+			content ="Mr White says she works really hard."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="TW18"
+			content ="Mr White says that they work harder here than at McDonalds."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="TW19"
+			content ="Mr White says waitressing is the one job an unskilled woman can live on because of the tips."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="TW20"
+			content ="Joe Cabot paid for everyone’s breakfast at the diner."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="TWTitle"
+			content ="Was Mr Pink right not to want to tip the waitress?"
+			contentItemType ="MultiLineTextLabel"
+			category = "title"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+
+	</tns:items>
+</tns:contentitems>

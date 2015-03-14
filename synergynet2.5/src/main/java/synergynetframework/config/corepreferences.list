@@ -1,0 +1,7 @@
+synergynetframework.config.display.DisplayConfigPrefsItem
+synergynetframework.config.table.TableConfigPrefsItem
+synergynetframework.config.identity.IdentityConfigPrefsItem
+synergynetframework.config.position.PositionConfigPrefsItem
+synergynetframework.config.logging.LoggingConfigPrefsItem
+synergynetframework.config.network.NetworkConfigPrefsItem
+synergynetframework.config.server.ServerConfigPrefsItem

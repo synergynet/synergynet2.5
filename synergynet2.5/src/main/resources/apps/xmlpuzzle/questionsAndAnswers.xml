@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE puzzle>
+<Puzzle>
+	<Name>Finish the Phrase</Name>
+	<Problem>
+		<Question>Solid, Liquid and </Question>
+		<Answer>Gas</Answer>
+	</Problem>
+	<Problem>
+		<Question>Two, Four, Six,</Question>
+		<Answer>Eight</Answer>
+	</Problem>
+	<Problem>
+		<Question>They're</Question>
+		<Answer>cycling.</Answer>
+	</Problem>
+	<Problem>
+		<Question>Their</Question>
+		<Answer>bikes are red.</Answer>
+	</Problem>
+	<Problem>
+		<Question>There</Question>
+		<Answer>are the bikes.</Answer>
+	</Problem>
+	<Problem>
+		<Question>100 x 100 =</Question>
+		<Answer>10000</Answer>
+	</Problem>
+	<Problem>
+		<Question>100 x 10 =</Question>
+		<Answer>1000</Answer>
+	</Problem>
+	<Problem>
+		<Question>Vegetable, Mineral,</Question>
+		<Answer>Animal</Answer>
+	</Problem>
+</Puzzle>

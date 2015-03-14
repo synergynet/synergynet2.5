@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:contentitems author="Steve Higgins"
+	description="ICT for Learning"
+	license="restricted" 
+	name ="ICT for Learning"
+
+	
+	xmlns:tns="http://tel.dur.ac.uk/xml/schemas/contentitems_apparence_schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/contentitems_apparence_schema ../../data/contentitems/schemas/contentitems_apparence_schema.xsd ">
+	<tns:items>
+		
+	</tns:items>
+</tns:contentitems>

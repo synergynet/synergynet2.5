@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:contentitems
+	xmlns:tns="http://tel.dur.ac.uk/xml/schemas/contentitems_schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/contentitems_schema ../../data/contentitems/schemas/contentitems_schema.xsd "
+	author="Steve Higgins"
+	description="ICT for Learning"
+	license="restricted" name="ICT for Learning"
+	
+	locationFile="data/diamondranking/ict/ict_location.xml"
+	appearanceFile="data/diamondranking/ict/ict_apparence.xml"
+	gestureFile="data/diamondranking/ict/ict_gesture.xml"
+	defaultAppearanceFile="data/diamondranking/defaultApparence.xml"
+
+	>
+	<tns:items>
+		<tns:item content-type="text/plain"
+			id="ICT1"
+			content = "ICT improves learners’ motivation to learn and their engagement in the learning process."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ICT2"
+			content ="Technology closes the gender gap between boys and girls in school." 
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ICT3"
+			content ="Investment in technology  in education is a cost-effective way to improve teaching and learning."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ICT4"
+			content = "Using technology in schools/universities raises attainment in learning."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ICT5"
+			content ="ICT enables the development of more effective teaching." 
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ICT6"
+			content ="The additional skills learners develop through using technology will benefit them more widely."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ICT7"
+			content ="Education should use technology to keep up with technological advances in society."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ICT8"
+			content ="Technology makes teaching and assessment easier and more efficient."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ICT9"
+			content ="Technology makes education more accessible for all learners."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ICT10"
+			contentItemType ="Frame"
+			category = "frame"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ICT11"
+			contentItemType ="Frame"
+			category = "frame"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ICT12"
+			contentItemType ="Frame"
+			category = "frame"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ICT13"
+			contentItemType ="Frame"
+			category = "frame"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ICT14"
+			contentItemType ="Frame"
+			category = "frame"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ICT15"
+			contentItemType ="Frame"
+			category = "frame"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ICT16"
+			contentItemType ="Frame"
+			category = "frame"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ICT17"
+			contentItemType ="Frame"
+			category = "frame"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ICT18"
+			contentItemType ="Frame"
+			category = "frame"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="ICT19"
+			content ="ICT for Learning"
+			contentItemType ="MultiLineTextLabel"
+			category = "title"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+	</tns:items>
+</tns:contentitems>

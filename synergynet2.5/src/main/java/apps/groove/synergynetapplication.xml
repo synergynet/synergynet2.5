@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ac:application xmlns:ac="http://tel.dur.ac.uk/xml/schemas/synergynetappconfig"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/synergynetappconfig ../../../../config/schemas/synergynetapplication.xsd ">
+	<ac:info name="Groove" author="TEL Durham" 
+		uuid="687f8631-4df7-4211-286c-867a5fb4d1fq" version="0.1" />
+	<ac:clientcomponent
+		classname="apps.groove.GrooveApp"
+		iconresource="groove.png" showicon="true">
+		<ac:reactivatepolicy>resume</ac:reactivatepolicy>
+	</ac:clientcomponent>
+
+</ac:application>

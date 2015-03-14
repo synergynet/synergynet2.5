@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:contentitems author="Steve Higgins"
+	description="Default Apparence"
+	license="restricted" 
+	name ="Default Apparence"
+	
+	xmlns:tns="http://tel.dur.ac.uk/xml/schemas/contentitems_apparence_schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/contentitems_apparence_schema ../../data/contentitems/schemas/contentitems_apparence_schema.xsd ">
+	<tns:items>
+		<tns:item 	
+			id="MultiLineTextLabel - Content"
+			contentItemType = "MultiLineTextLabel"
+			category = "content"
+			bgColour = "gray"
+			textColour = "White"
+			borderColour = "red"
+			font="Arial"
+			fontSize="12"
+			borderSize = "2"
+			charsPerLine = "13"	
+			autoSeperateMultiLines = "true"
+			angle ="Random"
+			scale = "1"
+			width = "150"
+			height ="100"
+			autoFit ="false"
+			>		
+		</tns:item>
+		<tns:item
+			id="MultiLineTextLabel - Title"
+			contentItemType = "MultiLineTextLabel"
+			category = "title"
+			bgColour = "Black"
+			textColour = "Green"
+			borderColour = "Green"
+			borderSize = "2"
+			charsPerLine = "45"	
+			fontSize="30"
+			autoFit = "true"
+			angle ="0"
+			scale = "1">	
+		</tns:item>
+		<tns:item
+			id="Frame - frame"
+			contentItemType = "Frame"
+			category = "frame"
+			bgColour = "White"
+			borderColour = "white"
+			borderSize = "2"
+			charsPerLine = "45"	
+			fontSize="30"
+			width = "150"
+			height ="100"
+			angle ="0"
+			scale = "1">	
+		</tns:item>
+		<tns:item 	
+			id="ImageTextLabel - ImageText"
+			contentItemType = "ImageTextLabel"
+			category = "imageText"
+			bgColour = "White"
+			textColour = "Black"
+			borderColour = "red"
+			font="Arial"
+			fontSize="16"
+			borderSize = "2"
+			charsPerLine = "20"	
+			autoSeperateMultiLines = "true"
+			angle ="Random"
+			scale = "1"
+			width = "150"
+			height ="100"
+			autoFit ="false"
+			>		
+		</tns:item>
+	</tns:items>
+</tns:contentitems>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:contentitems author="Steve Higgins"
+	description="How much will it cost the Waltzer owner for enough cuddly monkeys for a day? - location attribute"
+	license="restricted" 
+	name ="How much will it cost the Waltzer owner for enough cuddly monkeys for a day?- location attribute"
+	
+	defaultLocationX ="512"
+	defaultLocationY = "379"
+	defaultLocationZ = "0"
+	
+	xmlns:tns="http://tel.dur.ac.uk/xml/schemas/contentitems_location_schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/contentitems_location_schema ../../data/contentitems/schemas/contentitems_location_schema.xsd ">
+	<tns:items>
+		<tns:item 	
+			id="WaltzerTitle"
+			x = "517"
+			y = "720"
+			z ="0"
+			sortOrder="99999"
+		>
+		</tns:item>
+	</tns:items>
+</tns:contentitems>

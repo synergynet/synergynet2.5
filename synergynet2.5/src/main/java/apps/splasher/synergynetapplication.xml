@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ac:application xmlns:ac="http://tel.dur.ac.uk/xml/schemas/synergynetappconfig"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/synergynetappconfig ../../../../config/schemas/synergynetapplication.xsd ">
+	<ac:info name="Splasher" author="TEL Durham" 
+		uuid="473f0b4c-e790-4e6f-8d25-bb443149e8e6" version="0.1" />
+	<ac:clientcomponent
+		classname="apps.splasher.SplasherApp"
+		showicon="false">
+		<ac:reactivatepolicy>restart</ac:reactivatepolicy>
+	</ac:clientcomponent>
+	<ac:projectorcomponent
+		classname="apps.splasher.SplasherApp"
+		showicon="false">
+		<ac:reactivatepolicy>restart</ac:reactivatepolicy>
+	</ac:projectorcomponent>
+</ac:application>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:contentitems author="Steve Higgins"
+	description="ICT for Learning"
+	license="restricted" 
+	name ="ICT for Learning"
+	
+	defaultLocationX ="150"
+	defaultLocationY = "150"
+	defaultLocationZ = "0"
+	
+	xmlns:tns="http://tel.dur.ac.uk/xml/schemas/contentitems_location_schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/contentitems_location_schema ../../data/contentitems/schemas/contentitems_location_schema.xsd ">
+	<tns:items>
+		<tns:item 
+			id="IT10"
+			x="312"
+			y="384"
+			z="0">
+		</tns:item>
+		<tns:item 
+			id="IT11"
+			x="712"
+			y="384"
+			z="0">
+		</tns:item>
+		<tns:item 
+			id="IT12"
+			x="412"
+			y="264"
+			z="0">		
+		</tns:item>
+		<tns:item 
+			id="IT13"
+			x="612"
+			y="264"
+			z="0">		
+		</tns:item>
+		<tns:item
+			id="IT14"
+			x="512"
+			y="144"
+			z="0">		
+		</tns:item>
+		<tns:item 
+			id="IT15"
+			x="612"
+			y="504"
+			z="0">		
+		</tns:item>
+		<tns:item
+			id="IT16"
+			x="412"
+			y="504"
+			z="0">		
+		</tns:item>
+		<tns:item 
+			id="IT17"
+			x="512"
+			y="384"
+			z="0">				
+		</tns:item>
+		<tns:item
+			id="IT18"
+			x="512"
+			y="624"
+			z="0">		
+		</tns:item>
+		<tns:item 	
+			id="IT19"
+			x = "517"
+			y = "720"
+			z ="0"
+			sortOrder="99999"
+		>
+		</tns:item>
+	</tns:items>
+</tns:contentitems>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ac:application xmlns:ac="http://tel.dur.ac.uk/xml/schemas/synergynetappconfig"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/synergynetappconfig ../../../../config/schemas/synergynetapplication.xsd ">
+	<ac:info name="Presence Detection" author="TEL Durham" 
+		uuid="4e1cff84-9a86-4687-8c03-32c4a16ec6ec" version="0.1" />
+	<ac:clientcomponent
+		classname="apps.presence.TablePresenceApp"
+		iconresource="pd.png" showicon="true">
+		<ac:reactivatepolicy>resume</ac:reactivatepolicy>
+	</ac:clientcomponent>
+</ac:application>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ac:application xmlns:ac="http://tel.dur.ac.uk/xml/schemas/synergynetappconfig"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/synergynetappconfig ../../../../config/schemas/synergynetapplication.xsd ">
+	<ac:info name="Mysteries" author="TEL Durham" 
+		uuid="87636462-1788-4633-b369-0cbbec91acee" version="0.1" />
+	<ac:clientcomponent
+		classname="apps.mysteries.client.MysteryApp"
+		iconresource="mysteries_app.png" showicon="true">
+		<ac:reactivatepolicy>resume</ac:reactivatepolicy>
+	</ac:clientcomponent>
+	<ac:controllercomponent classname="apps.mysteries.controller.MysteriesControllerApp"
+	iconresource="mc.png" showicon="true">
+		<ac:reactivatepolicy>resume</ac:reactivatepolicy>
+	</ac:controllercomponent>
+	<ac:projectorcomponent classname="apps.mysteries.projector.MysteryProjectorApp"
+	iconresource="mysteries_app.png" showicon="true">
+		<ac:reactivatepolicy>resume</ac:reactivatepolicy>
+	</ac:projectorcomponent>
+</ac:application>

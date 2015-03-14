@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:contentitems
+	xmlns:tns="http://tel.dur.ac.uk/xml/schemas/contentitems_schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/mystery_schema ../../data/contentitems/schemas/contentitems_schema.xsd "
+	author="Steve Higgins"
+	description="How much will it cost the Waltzer owner for enough cuddly monkeys for a day?"
+	license="restricted" name="How much will it cost the Waltzer owner for enough cuddly monkeys for a day?"
+	
+	locationFile="data/mysteries/waltzer/waltzer_location.xml"
+	appearanceFile="data/mysteries/waltzer/waltzer_apparence.xml"
+	gestureFile="data/mysteries/waltzer/waltzer_gesture.xml"
+	defaultAppearanceFile="data/mysteries/defaultApparence.xml"
+	
+	>
+	<tns:items>
+		<tns:item content-type="text/plain"
+			id="Waltzer1"
+			content = "At the fair there is a Waltzer."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="Waltzer2"
+			content ="To get people to go on the Waltzer the owner offers a free prize." 
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="Waltzer3"
+			content ="The owner decides that every 10th person will be given a cuddly toy monkey."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="Waltzer4"
+			content = "The monkeys look very happy."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="Waltzer5"
+			content ="It costs the owner £2 for one monkey. " 
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="Waltzer6"
+			content ="5 people can sit together in a car on the Waltzer."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="Waltzer7"
+			content ="There are 10 cars altogether on the Waltzer."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="Waltzer8"
+			content ="You must be at least 9 years old to ride the Waltzer."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="Waltzer9"
+			content ="There are 10 rides every hour."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="Waltzer10"
+			content ="The fair is open for 8 hours a day."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="Waltzer11"
+			content ="On average half of the spaces are taken for each during the all day."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="Waltzer12"
+			content ="The music on the Waltzer is played very loud all day."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		
+		<tns:item content-type="text/plain"
+			id="WaltzerTitle"
+			content ="How much will it cost the Waltzer owner for enough cuddly monkeys for a day?"
+			contentItemType ="MultiLineTextLabel"
+			category = "title"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+
+	</tns:items>
+</tns:contentitems>

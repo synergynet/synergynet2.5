@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:config xmlns:tns="http://tel.dur.ac.uk/xml/schemas/tableconfiguration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/tableconfiguration ./schemas/tableconfiguration.xsd ">
+	
+	<tns:options>
+		<tns:splashScreenResource>splashscreens/synergynet.png</tns:splashScreenResource>
+		<tns:splashScreenEnabled>false</tns:splashScreenEnabled>
+		<tns:mode>projector</tns:mode>
+	</tns:options>
+	
+	<tns:applications>
+		<tns:application configpath="apps/mainmenu/synergynetapplication.xml" default="true" />
+		<tns:application configpath="apps/splasher/synergynetapplication.xml" />
+		<tns:application configpath="apps/mysteriestableportal/synergynetapplication.xml" />
+	</tns:applications>
+</tns:config>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ac:application xmlns:ac="http://tel.dur.ac.uk/xml/schemas/synergynetappconfig"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/synergynetappconfig ../../../../config/schemas/synergynetapplication.xsd ">
+	<ac:info name="Light Rays" author="TEL Durham" 
+		uuid="9ada8196-ee3c-4cad-90e5-f4e140801b77" version="0.1" />
+	<ac:clientcomponent
+		classname="apps.lightrays.LightRaysApp"
+		iconresource="lightray.png" showicon="true">
+		<ac:reactivatepolicy>restart</ac:reactivatepolicy>
+	</ac:clientcomponent>
+</ac:application>

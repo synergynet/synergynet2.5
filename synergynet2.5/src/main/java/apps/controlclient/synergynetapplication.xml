@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ac:application xmlns:ac="http://tel.dur.ac.uk/xml/schemas/synergynetappconfig"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/synergynetappconfig ../../../../config/schemas/synergynetapplication.xsd ">
+	<ac:info author="TEL Durham" name="Control Client"
+		uuid="9543d7ab-b973-4ab8-807b-f395224cc723" version="0.1" />
+	<ac:clientcomponent
+		classname="apps.controlclient.ControlClientApp"
+		iconresource="ctlc.png" showicon="true">
+		<ac:reactivatepolicy>resume</ac:reactivatepolicy>
+	</ac:clientcomponent>
+</ac:application>

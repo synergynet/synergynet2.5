@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:contentitems
+	xmlns:tns="http://tel.dur.ac.uk/xml/schemas/contentitems_schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/mystery_schema ../../data/contentitems/schemas/contentitems_schema.xsd "
+	author="Steve Higgins"
+	description="Dinner disaster: can you work out what Mike should have to eat? "
+	license="restricted" name="Dinner disaster"
+	
+	locationFile="data/mysteries/dinnerdisaster/dinnerdisaster_location.xml"
+	appearanceFile="data/mysteries/dinnerdisaster/dinnerdisaster_apparence.xml"
+	gestureFile="data/mysteries/dinnerdisaster/dinnerdisaster_gesture.xml"
+	defaultAppearanceFile="data/mysteries/defaultApparence.xml"
+	
+	>
+	<tns:items>
+		<tns:item content-type="text/plain"
+			id="DD1"
+			content = "The new cook at school, Mrs Baker, has mixed up the trays with the children’s school dinners on."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="DD2"
+			content ="&quot;YUCK!&quot; cried Ruby, making a face at the slice of pizza in front of her. &quot;I can't stand pepperoni!&quot;" 
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="DD3"
+			content ="&quot;Don't look at me,&quot; moaned Jack. &quot;I hate any food with cheese on it.&quot; At that, he pushed away his cheeseburger."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="DD4"
+			content = "&quot;Hey, anybody want these chicken wings?&quot; asked Grace. &quot;I don't like anything with meat in it.&quot;"
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="DD5"
+			content ="Mike scooped up a spoonful of his yogurt and grumbled, &quot;Everybody knows I'm allergic to this stuff.&quot;" 
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="DD6"
+			content ="&quot;Well, yogurt is the only thing I like on the menu,&quot; replied Tanya. &quot;And there's no way I'm going to eat THIS!&quot; At that, she poked her salad with a fork."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="DDTitle"
+			content ="Can you work out what Mike should have to eat?"
+			contentItemType ="MultiLineTextLabel"
+			category ="title"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+	</tns:items>
+</tns:contentitems>

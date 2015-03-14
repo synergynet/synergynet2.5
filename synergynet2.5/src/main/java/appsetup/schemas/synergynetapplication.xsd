@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://tel.dur.ac.uk/xml/schemas/synergynetappconfig"
+	elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:ac="http://tel.dur.ac.uk/xml/schemas/synergynetappconfig">
+	<complexType name="ApplicationType">
+		<sequence>
+            <element name="info" type="ac:ApplicationInfoType" maxOccurs="1" minOccurs="1"></element>
+            <element name="clientcomponent"
+				type="ac:ApplicationComponentType" maxOccurs="1" minOccurs="0">
+			</element>
+            <element name="controllercomponent" type="ac:ApplicationComponentType" maxOccurs="1" minOccurs="0">
+			</element>
+			<element name="projectorcomponent" type="ac:ApplicationComponentType" maxOccurs="1" minOccurs="0">
+			</element>
+        </sequence>
+	</complexType>
+	<element name="application" type="ac:ApplicationType"></element>
+	<simpleType name="ReactivationPolicyType">
+		<restriction base="string">
+			<enumeration value="resume"></enumeration>
+			<enumeration value="restart"></enumeration>
+		</restriction>
+	</simpleType>
+	<complexType name="ApplicationComponentType">
+		<sequence>
+			<element name="reactivatepolicy" type="ac:ReactivationPolicyType"
+				maxOccurs="1" minOccurs="1">
+			</element>
+		</sequence>
+		<attribute name="classname" type="string" use="required"></attribute>
+		<attribute name="iconresource" type="string" use="optional"></attribute>
+		<attribute name="showicon" type="boolean" use="optional"></attribute>
+	</complexType>
+
+	
+
+    <complexType name="ApplicationInfoType">
+        <attribute name="uuid" type="string" use="required"></attribute>
+        <attribute name="name" type="string" use="required"></attribute>
+		<attribute name="version" type="string" use="required"></attribute>
+		<attribute name="author" type="string" use="optional"></attribute>
+    </complexType>
+</schema>

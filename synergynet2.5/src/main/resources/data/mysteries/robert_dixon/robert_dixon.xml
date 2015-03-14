@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:contentitems
+	xmlns:tns="http://tel.dur.ac.uk/xml/schemas/contentitems_schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/mystery_schema ../../data/contentitems/schemas/contentitems_schema.xsd "
+	author="Steve Higgins"
+	description="What happened to Robert Dixon? Whose fault was it?"
+	license="restricted" name="What happened to Robert Dixon? Whose fault was it?"
+	
+	locationFile="data/mysteries/robert_dixon/robert_dixon_location.xml"
+	appearanceFile="data/mysteries/robert_dixon/robert_dixon_apparence.xml"
+	gestureFile="data/mysteries/robert_dixon/robert_dixon_gesture.xml"
+	defaultAppearanceFile="data/mysteries/defaultApparence.xml"
+	
+	>
+	<tns:items>
+		<tns:item content-type="text/plain"
+			id="RD1"
+			content = "Mrs. Richardson, the mine owner’s wife, wants an expensive house in the country because she says that it is too dirty living near the mine."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="RD2"
+			content ="The coalmine is the only employment in the village." 
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="RD3"
+			content ="The mine supervisor, John Robson, was feeling ill that morning as a result of too much ale the night before and did not check the wheels on the carts like he sometimes did."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="RD4"
+			content = "The mine inspectors had reported that there was not enough fresh air in the mine, but John Robson thought they were being too fussy and had not done anything about it."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="RD5"
+			content ="At this time it was not against the law for 10 year-old boys to work underground." 
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="RD6"
+			content ="Workers in the mine had to supply their own candles."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="RD7"
+			content ="Wages varied depending on the price of coal. If the price was low the miners had to dig more coal to keep the same wage and worked longer hours."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="RD8"
+			content ="Robert Dixon is 10 years old. He works underground as a trapper. He opens the doors to let the coal trucks through. He has been working at the mine for two years."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="RD9"
+			content ="Last year Robert’s dad, William Dixon, died in an explosion at the pit. 53 men and boys were killed. A fund was set up for their families. Sir Charles Richardson, the mine owner, gave some money, but there was not much for each family."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="RD10"
+			content ="Robert usually works from 6 am to 6 pm, but has recently had to work longer because his wages had gone down."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="RD11"
+			content ="The weather has been unusually hot this summer."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="RD12"
+			content ="Robert gets up at 5 am. He has bread and tea for breakfast and then walks to the pit. He has a break at 11 am for bread and tea. When he gets home he has some more bread and cheese or meat, if the family can afford it, then goes to bed."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+
+		<tns:item content-type="text/plain"
+			id="RD13"
+			content ="Because of the war there has been less trade overseas and there is less demand for coal from the factories, so the price of coal is very low."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="RD14"
+			content ="Ropes operated by a steam engine pull the coal trucks down the mine. Only one person is needed to pull a whole line of trucks. Until recently horses pulled the trucks."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="RD15"
+			content ="Robert’s mother, Anna Dixon, has been very ill after the birth of her ninth child. She has to stay in bed."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+				<tns:item content-type="text/plain"
+			id="RD16"
+			content ="Robert has six younger brothers and sisters. His older sister, Mary, works as a scullery maid for Sir Charles. His older brother William is a miner at the same pit as Robert."
+			contentItemType ="MultiLineTextLabel"
+			category = "content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="RDTitle"
+			content ="What happened to Robert Dixon? Whose fault was it?"
+			contentItemType ="MultiLineTextLabel"
+			category = "title"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+	</tns:items>
+</tns:contentitems>

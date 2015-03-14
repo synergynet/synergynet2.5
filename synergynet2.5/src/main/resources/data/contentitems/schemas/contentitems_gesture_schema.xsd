@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://tel.dur.ac.uk/xml/schemas/contentitems_gesture_schema" xmlns:tns="http://tel.dur.ac.uk/xml/schemas/contentitems_gesture_schema" elementFormDefault="qualified">
+
+    <complexType name="ContentItemsType">
+    	<sequence>
+    		<element name="items" type="tns:ItemListType" minOccurs="1"
+    			maxOccurs="1">
+    		</element>
+    	</sequence>
+    	<attribute name="description" type="string" use="required"></attribute>
+    	<attribute name="name" type="string" use="required"></attribute>
+    	<attribute name="author" type="string" use="required"></attribute>
+    	<attribute name="license" type="string" use="required"></attribute> 	   	
+    	 	
+    </complexType>
+
+    <element name="contentitems" type="tns:ContentItemsType"></element>
+
+    <complexType name="ItemType">
+    	<sequence>
+    		<element name="attributes" type="string" maxOccurs="unbounded" minOccurs="0"></element>
+    	</sequence>
+    	 	
+    	<attribute name="id" type="string" use="required"></attribute>
+    	<attribute name="manipulate" type="string"></attribute>
+    	<attribute name="isBoundaryEnabled" type="string"></attribute>
+    	<attribute name="rotateTranslateScalable" type="string"></attribute>
+    	<attribute name="bringToTopable" type="string"></attribute>
+    	<attribute name="snapable" type="string"></attribute>
+    	
+    </complexType>
+
+    <complexType name="ItemListType">
+    	<sequence>
+    		<element name="item" type="tns:ItemType" maxOccurs="unbounded" minOccurs="0"></element>
+    	</sequence>
+    </complexType>
+
+	 <attribute name="NewAttribute" type="string"></attribute>
+</schema>

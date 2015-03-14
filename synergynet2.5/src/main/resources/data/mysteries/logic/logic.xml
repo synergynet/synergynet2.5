@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:contentitems
+	xmlns:tns="http://tel.dur.ac.uk/xml/schemas/contentitems_schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/mystery_schema ../../data/contentitems/schemas/contentitems_schema.xsd "
+	author="Andy Joyce"
+	description="Math mystery based on logic sports day"
+	license="restricted" name="logic"
+	
+	locationFile="data/mysteries/logic/logic_location.xml"
+	appearanceFile="data/mysteries/logic/logic_apparence.xml"
+	gestureFile="data/mysteries/logic/logic_gesture.xml"
+	defaultAppearanceFile="data/mysteries/defaultApparence.xml"
+	>
+	<tns:items>
+		<tns:item content-type="text/plain"
+			id="LOGIC1"
+			content = "“I’ve hurt my hand,” said Joe, “I can’t go in the egg and spoon race now!”"
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="LOGIC2"
+			content ="“Why am I in the sprint?” Asked Ollie, “My hand is steady as a rock!”" 
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="LOGIC3"
+			content ="“What is a skipping race anyway?” Wailed Pete; “I’m the fastest runner in the class!”"
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="LOGIC4"
+			content = "“The sack race is just stupid,” Bella complained. “The bags feel awful.”"
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="LOGIC5"
+			content = "Maddy was sad when the teacher said she had been picked for the three-legged race. She thought she was good at jumping. "
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="LOGICTitle"
+			content ="Can you sort these clues out so all of the children are happy and work out who is going to the best partner for Steve’s partner in the three-legged race? "
+			contentItemType ="MultiLineTextLabel"
+			category ="title"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+	</tns:items>
+</tns:contentitems>

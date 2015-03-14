@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:contentitems
+	xmlns:tns="http://tel.dur.ac.uk/xml/schemas/contentitems_schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/mystery_schema ../../data/contentitems/schemas/contentitems_schema.xsd "
+	author="Steve Higgins"
+	description="VLE and Dr Smith"
+	license="restricted" name="VLE"
+	
+	locationFile="data/mysteries/VLE/vle_location.xml"
+	appearanceFile="data/mysteries/VLE/vle_apparence.xml"
+	gestureFile="data/mysteries/VLE/vle_gesture.xml"
+	defaultAppearanceFile="data/mysteries/defaultApparence.xml"
+	>
+	<tns:items>
+		<tns:item content-type="text/plain"
+			id="VLE1"
+			content = "The government has announced a further grant to Universities to develop e-learning courses."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="VLE2"
+			content ="The Universities Joint Information Systems Council (JISC) guidelines suggest that VLEs can support more effective learning by students." 
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="VLE3"
+			content ="Professor Jones, the Head of Department is under pressure to show greater use of BlackBoard."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="VLE4"
+			content = "Effective use of technology in education is essential for a competitive economy in the global market."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="VLE5"
+			content ="Dr Smith missed the skills training for BlackBoard through illness." 
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="VLE6"
+			content ="Dr Smith teaches in Initial Teacher Education and believes in a student-centred approach to learning."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="VLE7"
+			content ="Dr Smith is a confident user of technology and recently completed an e-portfolios project for the University."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="VLE8"
+			content ="The VLE adopted by the University is BlackBoard and is available for all courses at Undergraduate and Postgraduate level. "
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="VLE9"
+			content ="The course Dr Smith is teaching is on new technologies and education and is delivered face-to-face.  "
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="VLE10"
+			content ="Dr Smith recently moved to the University from another higher education institution where they used Moodle as the basis for their Virtual Learning Environment (VLE)."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="VLE11"
+			content ="The University strategy is to develop BlackBoard so that it can expand its distance learning options."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+				<tns:item content-type="text/plain"
+			id="VLE12"
+			content ="When BlackBoard was updated at the beginning of the year there were a number of technical problems which resulted in the loss of recently uploaded materials."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="VLETitle"
+			content ="Why did Dr Smith not use the University’s VLE?"
+			contentItemType ="MultiLineTextLabel"
+			category ="title"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+	</tns:items>
+</tns:contentitems>

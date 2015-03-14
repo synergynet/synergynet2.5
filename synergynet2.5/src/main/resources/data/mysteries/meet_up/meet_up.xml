@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:contentitems
+	xmlns:tns="http://tel.dur.ac.uk/xml/schemas/contentitems_schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tel.dur.ac.uk/xml/schemas/mystery_schema ../../data/contentitems/schemas/contentitems_schema.xsd "
+	author="Emma Mercier"
+	description="Logic mystery based on the Meet for Lunch"
+	license="restricted" name="Meet for Lunch"
+	
+	locationFile="data/mysteries/meet_up/meet_up_location.xml"
+	appearanceFile="data/mysteries/meet_up/meet_up_apparence.xml"
+	gestureFile="data/mysteries/meet_up/meet_up_gesture.xml"
+	defaultAppearanceFile="data/mysteries/defaultApparence.xml"
+	>
+	<tns:items>
+		<tns:item content-type="text/plain"
+			id="MEET1"
+			content = "Ben, Amy, Carl and Donna all want to meet up for lunch one day in the holidays, but they have not been able to all meet on the same day."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="MEET2"
+			content ="Amy is free to meet on Mondays, Wednesdays and Thursdays." 
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="MEET3"
+			content ="Carl has to go to work on Mondays and Thursdays. "
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="MEET4"
+			content = "Ben can’t make Tuesdays, Wednesdays or Saturdays."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="MEET5"
+			content ="Donna can be available on Mondays, Tuesdays and Fridays." 
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="MEET6"
+			content ="They all want to spend time at home on Sundays."
+			contentItemType ="MultiLineTextLabel"
+			category ="content"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+		<tns:item content-type="text/plain"
+			id="MEETTitle"
+			content ="When can they meet?"
+			contentItemType ="MultiLineTextLabel"
+			category ="title"
+			>
+			<tns:attributes></tns:attributes>
+		</tns:item>
+	</tns:items>
+</tns:contentitems>
