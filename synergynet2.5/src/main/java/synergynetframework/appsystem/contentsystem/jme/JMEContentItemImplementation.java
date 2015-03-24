@@ -34,6 +34,16 @@ package synergynetframework.appsystem.contentsystem.jme;
 
 import com.jme.scene.Spatial;
 
+
+/**
+ * The Interface JMEContentItemImplementation.
+ */
 public interface JMEContentItemImplementation {
+	
+	/**
+	 * Gets the spatial.
+	 *
+	 * @return the spatial
+	 */
 	public Spatial getSpatial();
 }

@@ -35,12 +35,45 @@ import com.jme.scene.Node;
 
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 
+
+/**
+ * The Interface IOrthoContainerImplementation.
+ */
 public interface IOrthoContainerImplementation extends IOrthoContentItemImplementation {
 
+	/**
+	 * Adds the sub item.
+	 *
+	 * @param contentItem the content item
+	 */
 	public void addSubItem(ContentItem contentItem);		    
+	
+	/**
+	 * Removes the sub item.
+	 *
+	 * @param contentItem the content item
+	 */
 	public void removeSubItem(ContentItem contentItem);
+	
+	/**
+	 * Detach sub item.
+	 *
+	 * @param contentItem the content item
+	 */
 	public void detachSubItem(ContentItem contentItem);
+	
+	/**
+	 * Update order.
+	 *
+	 * @param order the order
+	 */
 	public void updateOrder(int order);
+	
+	/**
+	 * Gets the node.
+	 *
+	 * @return the node
+	 */
 	public Node getNode();
 	
 }

@@ -18,17 +18,30 @@ import apps.mtdesktop.desktop.tree.nodes.AssetNode;
 
 
 
+
+/**
+ * The Class ControlPanel.
+ */
 public class ControlPanel extends JPanel implements TreeSelectionListener{
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -686894565857115520L;
 	
+	/** The listeners. */
 	private List<ControlPanelListener> listeners;
+	
+	/** The delete btn. */
 	private JButton deleteBtn;
+	
+	/** The share desktop btn. */
 	private JButton shareDesktopBtn;
+	
+	/** The is shared. */
 	boolean isShared = false;
 	
+	/**
+	 * Instantiates a new control panel.
+	 */
 	public ControlPanel(){
 		listeners = new ArrayList<ControlPanelListener>();
 		deleteBtn = new JButton("Delete");
@@ -63,6 +76,9 @@ public class ControlPanel extends JPanel implements TreeSelectionListener{
 		this.setBorder(BorderFactory.createEtchedBorder());
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.swing.event.TreeSelectionListener#valueChanged(javax.swing.event.TreeSelectionEvent)
+	 */
 	@Override
 	public void valueChanged(TreeSelectionEvent e) {
 		TreePath[] paths = e.getPaths();
@@ -76,13 +92,39 @@ public class ControlPanel extends JPanel implements TreeSelectionListener{
 		deleteBtn.setEnabled(true);
 	}
 	
+	/**
+	 * Adds the control panel listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void addControlPanelListener(ControlPanelListener listener){
 		if(!listeners.contains(listener)) 
 			listeners.add(listener);
 	}
 	
+	/**
+	 * The listener interface for receiving controlPanel events.
+	 * The class that is interested in processing a controlPanel
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addControlPanelListener<code> method. When
+	 * the controlPanel event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see ControlPanelEvent
+	 */
 	public interface ControlPanelListener{
+		
+		/**
+		 * Delete pressed.
+		 */
 		public void deletePressed();
+		
+		/**
+		 * Share desktop pressed.
+		 *
+		 * @param share the share
+		 */
 		public void shareDesktopPressed(boolean share);
 	}
 }

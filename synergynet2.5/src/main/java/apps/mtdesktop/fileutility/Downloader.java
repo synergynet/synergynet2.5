@@ -10,15 +10,33 @@ import java.net.URL;
 import java.net.URLConnection;
 
 
+
+/**
+ * The Class Downloader.
+ */
 public class Downloader
 {
 
+	/** The asset registry. */
 	private AssetRegistry assetRegistry;
 	
+   /**
+    * Instantiates a new downloader.
+    *
+    * @param assetRegistry the asset registry
+    */
    public Downloader(AssetRegistry assetRegistry) {
 	   this.assetRegistry = assetRegistry;
    }
 
+/**
+ * Download file.
+ *
+ * @param fileUrl the file url
+ * @param destinationDir the destination dir
+ * @throws MalformedURLException the malformed url exception
+ * @throws IOException Signals that an I/O exception has occurred.
+ */
 public void downloadFile( String fileUrl, String destinationDir) throws MalformedURLException,  IOException
    {
 	  boolean downloadfFailed = false;

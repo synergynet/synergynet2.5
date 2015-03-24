@@ -50,27 +50,52 @@ import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.appsystem.contentsystem.items.PDFViewer;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IPDFViewerImplementation;
 
+
+/**
+ * The Class JMEPDFViewer.
+ */
 public class JMEPDFViewer extends JMEFrame implements IPDFViewerImplementation {
 
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(JMEPDFViewer.class.getName());
 	
+	/** The pdffile. */
 	protected PDFFile pdffile; 
+	
+	/** The page. */
 	protected PDFPage page;
+	
+	/** The item. */
 	protected PDFViewer item;
+	
+	/** The width. */
 	protected int width = 200;
+	
+	/** The height. */
 	protected int height = 350;
 	
+	/**
+	 * Instantiates a new JMEPDF viewer.
+	 *
+	 * @param item the item
+	 */
 	public JMEPDFViewer(ContentItem item) {
 		super(item);
 		this.item = (PDFViewer)item;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEFrame#init()
+	 */
 	@Override
 	public void init(){
 		super.init();
 		if(item.getPdfURL() != null) item.setPdfURL(item.getPdfURL());
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEFrame#draw()
+	 */
 	@Override
 	protected void draw() {
 		super.draw();
@@ -95,6 +120,9 @@ public class JMEPDFViewer extends JMEFrame implements IPDFViewerImplementation {
 		
 	}	
 	
+	/**
+	 * Resize pdf view.
+	 */
 	protected void resizePDFView() {
 	
 		this.graphicsImageQuad.updateGeometry(width, height);
@@ -109,6 +137,13 @@ public class JMEPDFViewer extends JMEFrame implements IPDFViewerImplementation {
 		
 	}
 	
+	/**
+	 * Gets the PDF file.
+	 *
+	 * @param url the url
+	 * @return the PDF file
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	private PDFFile getPDFFile(URL url) throws IOException {
 		String address = url.toString();
 			
@@ -120,6 +155,13 @@ public class JMEPDFViewer extends JMEFrame implements IPDFViewerImplementation {
 		return getPDFFile(f);
 	}
 	
+	/**
+	 * Gets the PDF file.
+	 *
+	 * @param f the f
+	 * @return the PDF file
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	private PDFFile getPDFFile(File f) throws IOException {
 		
 		String address = "file:/" + f.getAbsolutePath();
@@ -132,16 +174,27 @@ public class JMEPDFViewer extends JMEFrame implements IPDFViewerImplementation {
 		return new PDFFile(buf);
 	}
 
+	/**
+	 * Goto page.
+	 *
+	 * @param pagenum the pagenum
+	 */
 	private void gotoPage(int pagenum) {
 		page = pdffile.getPage(pagenum);
 		draw();
 	}
 	
+	/**
+	 * Goto page.
+	 */
 	private void gotoPage() {
 		page = pdffile.getPage(item.getCurrentPageIndex());
 		draw();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IPDFViewerImplementation#setPdfURL(java.net.URL)
+	 */
 	@Override
 	public void setPdfURL(URL pdfFile) {
 		try {
@@ -157,6 +210,9 @@ public class JMEPDFViewer extends JMEFrame implements IPDFViewerImplementation {
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IPDFViewerImplementation#setPdfFile(java.io.File)
+	 */
 	@Override
 	public void setPdfFile(File pdfFile) {
 		try {
@@ -172,11 +228,17 @@ public class JMEPDFViewer extends JMEFrame implements IPDFViewerImplementation {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IDocViewerImplementation#changePage()
+	 */
 	@Override
 	public void changePage() {
 		gotoPage();		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEFrame#setHeight(int)
+	 */
 	@Override
 	public void setHeight(int height) {
 		this.height = item.getHeight();
@@ -186,6 +248,9 @@ public class JMEPDFViewer extends JMEFrame implements IPDFViewerImplementation {
 		resizePDFView();		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEFrame#setWidth(int)
+	 */
 	@Override
 	public void setWidth(int width) {
 		

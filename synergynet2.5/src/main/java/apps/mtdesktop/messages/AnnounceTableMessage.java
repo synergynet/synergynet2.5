@@ -34,24 +34,50 @@ package apps.mtdesktop.messages;
 
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class AnnounceTableMessage.
+ */
 public class AnnounceTableMessage extends BroadcastApplicationMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3611717853521792797L;
+	
+	/** The file server url. */
 	protected String fileServerUrl;
 	
+	/**
+	 * Instantiates a new announce table message.
+	 */
 	public AnnounceTableMessage(){
 		super();
 	}
 	
+	/**
+	 * Instantiates a new announce table message.
+	 *
+	 * @param targetClass the target class
+	 * @param fileServerUrl the file server url
+	 */
 	public AnnounceTableMessage(Class<?> targetClass, String fileServerUrl){
 		super(targetClass);
 		this.fileServerUrl = fileServerUrl;
 	}
 	
+	/**
+	 * Sets the file server url.
+	 *
+	 * @param fileServerUrl the new file server url
+	 */
 	public void setFileServerUrl(String fileServerUrl){
 		this.fileServerUrl = fileServerUrl;
 	}
 	
+	/**
+	 * Gets the file server url.
+	 *
+	 * @return the file server url
+	 */
 	public String getFileServerUrl(){
 		return fileServerUrl;
 	}

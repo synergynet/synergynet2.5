@@ -35,16 +35,86 @@ import synergynetframework.appsystem.contentsystem.items.ListContainer;
 import synergynetframework.appsystem.contentsystem.items.QuadContentItem;
 import synergynetframework.appsystem.contentsystem.items.SimpleButton;
 
+
+/**
+ * The Interface IListContainerImplementation.
+ */
 public interface IListContainerImplementation  extends IWindowImplementation{
+	
+	/**
+	 * Adds the sub item.
+	 *
+	 * @param index the index
+	 * @param item the item
+	 */
 	public void addSubItem(int index, QuadContentItem item);	
+	
+	/**
+	 * Adds the sub item.
+	 *
+	 * @param item the item
+	 */
 	public void addSubItem(QuadContentItem item);
+	
+	/**
+	 * Adds the sub menu.
+	 *
+	 * @param menuButton the menu button
+	 * @param listContainer the list container
+	 */
 	public void addSubMenu(SimpleButton menuButton, ListContainer listContainer);
+	
+	/**
+	 * Removes the item.
+	 *
+	 * @param item the item
+	 */
 	public void removeItem(QuadContentItem item);
+	
+	/**
+	 * Sets the space to top.
+	 *
+	 * @param spaceToTop the new space to top
+	 */
 	public void setSpaceToTop(int spaceToTop);
+	
+	/**
+	 * Sets the line space.
+	 *
+	 * @param lineSpace the new line space
+	 */
 	public void setLineSpace(int lineSpace);
+	
+	/**
+	 * Sets the space to side.
+	 *
+	 * @param spaceToSide the new space to side
+	 */
 	public void setSpaceToSide(int spaceToSide);
+	
+	/**
+	 * Sets the space to bottom.
+	 *
+	 * @param spaceToBottom the new space to bottom
+	 */
 	public void setSpaceToBottom(int spaceToBottom);
+	
+	/**
+	 * Update visibility.
+	 */
 	public void updateVisibility();
+	
+	/**
+	 * Sets the horizontal.
+	 *
+	 * @param horizontal the new horizontal
+	 */
 	public void setHorizontal(boolean horizontal);
+	
+	/**
+	 * Sets the auto fit size.
+	 *
+	 * @param isAutoFitSize the new auto fit size
+	 */
 	public void setAutoFitSize(boolean isAutoFitSize);
 }

@@ -61,16 +61,33 @@ import synergynetframework.appsystem.table.appregistry.ApplicationTaskManager;
 import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightConfirmVisualExit;
 import synergynetframework.mtinput.dataplayback.DataPlaybackInput;
 
+
+/**
+ * The Class ReplayApp.
+ */
 public class ReplayApp extends DefaultSynergyNetApp {	
 
+	/** The menu items. */
 	protected List<Geometry> menuItems;
+	
+	/** The content. */
 	private ContentSystem content;
+	
+	/** The dpi. */
 	private final DataPlaybackInput dpi = new DataPlaybackInput();
 
+	/**
+	 * Instantiates a new replay app.
+	 *
+	 * @param info the info
+	 */
 	public ReplayApp(ApplicationInfo info) {
 		super(info);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		SynergyNetAppUtils.addTableOverlay(this);
@@ -134,11 +151,17 @@ public class ReplayApp extends DefaultSynergyNetApp {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	@Override
 	protected void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);
 	}	
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onActivate()
+	 */
 	@Override
 	public void onActivate() {
 		super.onActivate();

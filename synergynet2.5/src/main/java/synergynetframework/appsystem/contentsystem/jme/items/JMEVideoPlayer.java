@@ -55,15 +55,32 @@ import com.jme.scene.shape.Quad;
 import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
 
+
+/**
+ * The Class JMEVideoPlayer.
+ */
 public class JMEVideoPlayer extends JMEQuadContentItem implements IVideoPlayerImplementation, UpdateableJMEContentItemImplementation {
 
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(JMEVideoPlayer.class.getName());
 	
+	/** The image. */
 	protected JMFVideoImage image;
+	
+	/** The tex. */
 	protected Texture tex;
+	
+	/** The video quad. */
 	protected Quad videoQuad;
+	
+	/** The item. */
 	protected VideoPlayer item;
 	
+	/**
+	 * Instantiates a new JME video player.
+	 *
+	 * @param item the item
+	 */
 	public JMEVideoPlayer(ContentItem item) {
 		super(item, new Quad(item.getName(), 250, 250));
 		this.videoQuad = (Quad)this.getImplementationObject();
@@ -74,6 +91,9 @@ public class JMEVideoPlayer extends JMEQuadContentItem implements IVideoPlayerIm
 
 	}	
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEContentItem#init()
+	 */
 	@Override
 	public void init(){
 		if(this.item.getVideoURL() != null){
@@ -82,6 +102,9 @@ public class JMEVideoPlayer extends JMEQuadContentItem implements IVideoPlayerIm
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEOrthoContentItem#update(float)
+	 */
 	public void update(float interpolation) {
 		super.update(interpolation);
 		if(image != null) {
@@ -92,6 +115,12 @@ public class JMEVideoPlayer extends JMEQuadContentItem implements IVideoPlayerIm
 		}
 	}
 
+	/**
+	 * Load video.
+	 *
+	 * @param player the player
+	 * @param videoResource the video resource
+	 */
 	private void loadVideo(VideoPlayer player, URL videoResource) {		
 		try {
 			image = new JMFVideoImage(videoResource, true, JMFVideoImage.SCALE_MAXIMIZE);
@@ -112,6 +141,9 @@ public class JMEVideoPlayer extends JMEQuadContentItem implements IVideoPlayerIm
 		resize();
 	}
 	
+	/**
+	 * Resize.
+	 */
 	protected void resize(){
 		if (image!=null && item!=null){
 			float x = image.getVideoWidth() / item.getPixelsPerUnit();
@@ -126,20 +158,34 @@ public class JMEVideoPlayer extends JMEQuadContentItem implements IVideoPlayerIm
 		}
 	}
 
+	/**
+	 * Content system changed.
+	 *
+	 * @param system the system
+	 */
 	public void contentSystemChanged(ContentSystem system) {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.JMEContentItemImplementation#getSpatial()
+	 */
 	@Override
 	public Spatial getSpatial() {
 		return this.videoQuad;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IVideoPlayerImplementation#setPixelsPerUnit(float)
+	 */
 	@Override
 	public void setPixelsPerUnit(float ppu) {
 		resize();
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IVideoPlayerImplementation#setPlaying(boolean)
+	 */
 	@Override
 	public void setPlaying(boolean b) {
 		if(b) 
@@ -149,41 +195,65 @@ public class JMEVideoPlayer extends JMEQuadContentItem implements IVideoPlayerIm
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IVideoPlayerImplementation#setVideoURL(java.net.URL)
+	 */
 	@Override
 	public void setVideoURL(URL url) {
 		loadVideo(item, url);
 		
 	}
 		
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IVideoPlayerImplementation#getMediaImplementationObject()
+	 */
 	public Object getMediaImplementationObject() {
 		return image;
 	}
 
 	//UNUSED SETTER FOR VIDEO
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEQuadContentItem#setAutoFitSize(boolean)
+	 */
 	@Override
 	public void setAutoFitSize(boolean isEnabled) {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEOrthoContentItem#setBackGround(synergynetframework.appsystem.contentsystem.items.utils.Background)
+	 */
 	@Override
 	public void setBackGround(Background backGround) {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEOrthoContentItem#setBorder(synergynetframework.appsystem.contentsystem.items.utils.Border)
+	 */
 	@Override
 	public void setBorder(Border border) {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEQuadContentItem#setHeight(int)
+	 */
 	@Override
 	public void setHeight(int height) {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEQuadContentItem#setWidth(int)
+	 */
 	@Override
 	public void setWidth(int width) {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IVideoPlayerImplementation#getVideoHeight()
+	 */
 	@Override
 	public float getVideoHeight() {
 		if (image!=null)
@@ -191,6 +261,9 @@ public class JMEVideoPlayer extends JMEQuadContentItem implements IVideoPlayerIm
 		return 0;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IVideoPlayerImplementation#getVideoWidth()
+	 */
 	@Override
 	public float getVideoWidth() {
 		if (image!=null)
@@ -198,6 +271,9 @@ public class JMEVideoPlayer extends JMEQuadContentItem implements IVideoPlayerIm
 		return 0;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IVideoPlayerImplementation#getVideoTime()
+	 */
 	@Override
 	public double getVideoTime() {
 		if (image!=null)
@@ -205,6 +281,9 @@ public class JMEVideoPlayer extends JMEQuadContentItem implements IVideoPlayerIm
 		return 0;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IVideoPlayerImplementation#setVideoTime(double)
+	 */
 	@Override
 	public void setVideoTime(double seconds) {
 		image.startsFrom(seconds);

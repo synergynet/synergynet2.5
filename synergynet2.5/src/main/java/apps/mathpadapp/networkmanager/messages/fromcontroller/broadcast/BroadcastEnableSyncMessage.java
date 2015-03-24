@@ -34,24 +34,50 @@ package apps.mathpadapp.networkmanager.messages.fromcontroller.broadcast;
 
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class BroadcastEnableSyncMessage.
+ */
 public class BroadcastEnableSyncMessage extends BroadcastApplicationMessage {	
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -1301794444207865934L;
+	
+	/** The is synchronisation on. */
 	private boolean isSynchronisationOn;
 	
+	/**
+	 * Instantiates a new broadcast enable sync message.
+	 *
+	 * @param targetClass the target class
+	 * @param isSynchronisation the is synchronisation
+	 */
 	public BroadcastEnableSyncMessage(Class<?> targetClass, boolean isSynchronisation) {
 		super(targetClass);
 		this.isSynchronisationOn = isSynchronisation;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return "Enable Synchronisation Message";
 	}
 
+	/**
+	 * Checks if is synchronisation on.
+	 *
+	 * @return true, if is synchronisation on
+	 */
 	public boolean isSynchronisationOn() {
 		return isSynchronisationOn;
 	}
 
+	/**
+	 * Sets the synchronisation on.
+	 *
+	 * @param isSynchronisationOn the new synchronisation on
+	 */
 	public void setSynchronisationOn(boolean isSynchronisationOn) {
 		this.isSynchronisationOn = isSynchronisationOn;
 	}

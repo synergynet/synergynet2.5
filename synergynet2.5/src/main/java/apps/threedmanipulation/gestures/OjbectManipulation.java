@@ -54,66 +54,135 @@ import synergynetframework.jme.cursorsystem.cursordata.ScreenCursor;
 import synergynetframework.jme.cursorsystem.cursordata.ScreenCursorRecord;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 
+
 /**
+ * The Class OjbectManipulation.
  *
  * @author dcs0ah1, pwpp25, dcs2ima
- *
  */
 public class OjbectManipulation extends TwoDMultiTouchElement{
 
+	/** The mode cameramanipulation. */
 	public static String MODE_CAMERAMANIPULATION = "cameramanipulation";
+	
+	/** The mode objectmanipulation. */
 	public static String MODE_OBJECTMANIPULATION = "objectmanipulation";
 	
+	/** The cursor1 pos. */
 	protected Vector2f cursor1Pos = new Vector2f();
+	
+	/** The cursor2 pos. */
 	protected Vector2f cursor2Pos = new Vector2f();
+	
+	/** The cursor1 old pos. */
 	protected Vector2f cursor1OldPos = new Vector2f();
+	
+	/** The cursor2 old pos. */
 	protected Vector2f cursor2OldPos = new Vector2f();
+	
+	/** The pick results. */
 	protected PickResults pickResults = null;
 
+	/** The max scale. */
 	protected float maxScale = 2.0f;
+	
+	/** The min scale. */
 	protected float minScale = 0.5f;
 
+	/** The more than two gives rts. */
 	private boolean moreThanTwoGivesRTS = false;
+	
+	/** The controlled spatial. */
 	protected Spatial controlledSpatial;
+	
+	/** The screen angle. */
 	protected float screenAngle =0;
+	
+	/** The cam node. */
 	protected CameraNode camNode;
+	
+	/** The manipulatable ojbects. */
 	protected List<Spatial> manipulatableOjbects;
 	
+	/** The pick root node. */
 	protected Node pickRootNode; 
 	
+	/** The mode. */
 	protected String mode=MODE_CAMERAMANIPULATION;
 	
+	/**
+	 * Gets the controlled spatial.
+	 *
+	 * @return the controlled spatial
+	 */
 	public Spatial getControlledSpatial() {
 		return controlledSpatial;
 	}
 
+	/**
+	 * Gets the cam node.
+	 *
+	 * @return the cam node
+	 */
 	public CameraNode getCamNode() {
 		return camNode;
 	}
 
+	/**
+	 * Sets the cam node.
+	 *
+	 * @param camNode the new cam node
+	 */
 	public void setCamNode(CameraNode camNode) {
 		this.camNode = camNode;
 	}
 	
+	/**
+	 * Sets the mode.
+	 *
+	 * @param mode the new mode
+	 */
 	public void setMode(String mode){
 		this.mode = mode;
 	}
 
+	/**
+	 * Sets the controlled spatial.
+	 *
+	 * @param controlledSpatial the new controlled spatial
+	 */
 	public void setControlledSpatial(Spatial controlledSpatial) {
 		this.controlledSpatial = controlledSpatial;
 	}
 
+	/**
+	 * Gets the screen angle.
+	 *
+	 * @return the screen angle
+	 */
 	public float getScreenAngle() {
 		return screenAngle;
 	}
 
+	/**
+	 * Sets the screen angle.
+	 *
+	 * @param screenAngle the new screen angle
+	 */
 	public void setScreenAngle(float screenAngle) {
 		this.screenAngle = screenAngle;
 	}
 
+	/** The listeners. */
 	protected List<RotateTranslateScaleListener> listeners = new ArrayList<RotateTranslateScaleListener>();
 
 
+	/**
+	 * Instantiates a new ojbect manipulation.
+	 *
+	 * @param pickingAndTargetSpatial the picking and target spatial
+	 * @param manipulatableOjbects the manipulatable ojbects
+	 */
 	public OjbectManipulation(Spatial pickingAndTargetSpatial, List<Spatial> manipulatableOjbects) {
 		this(pickingAndTargetSpatial, pickingAndTargetSpatial);
 		
@@ -125,14 +194,28 @@ public class OjbectManipulation extends TwoDMultiTouchElement{
 		
 	}
 
+	/**
+	 * Instantiates a new ojbect manipulation.
+	 *
+	 * @param pickingSpatial the picking spatial
+	 * @param targetSpatial the target spatial
+	 */
 	public OjbectManipulation(Spatial pickingSpatial, Spatial targetSpatial) {
 		super(pickingSpatial, targetSpatial);
 	}
 
+	/**
+	 * Allow more than two to rotate and scale.
+	 *
+	 * @param b the b
+	 */
 	public void allowMoreThanTwoToRotateAndScale(boolean b) {
 		moreThanTwoGivesRTS = b;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorChanged(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorChanged(ScreenCursor c, MultiTouchCursorEvent event) {
 		if (controlledSpatial==null && this.mode.equals(MODE_OBJECTMANIPULATION))
@@ -161,6 +244,9 @@ public class OjbectManipulation extends TwoDMultiTouchElement{
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorPressed(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorPressed(ScreenCursor c, MultiTouchCursorEvent event) {
 		
@@ -191,12 +277,21 @@ public class OjbectManipulation extends TwoDMultiTouchElement{
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorReleased(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorReleased(ScreenCursor c, MultiTouchCursorEvent event) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorClicked(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorClicked(ScreenCursor c, MultiTouchCursorEvent event) {}
 
+	/**
+	 * Apply single cursor transform.
+	 */
 	protected void applySingleCursorTransform() {
 
 		if (controlledSpatial==null) return;
@@ -286,6 +381,9 @@ public class OjbectManipulation extends TwoDMultiTouchElement{
 
 	}
 
+	/**
+	 * Apply multi cursor transform.
+	 */
 	protected void applyMultiCursorTransform() {
 
 		if (controlledSpatial==null) return;
@@ -378,6 +476,9 @@ public class OjbectManipulation extends TwoDMultiTouchElement{
 		}
 	}
 
+	/**
+	 * Update cursor1.
+	 */
 	protected void updateCursor1() {
 
 		//cursor1Pos.x = getScreenCursorByIndex(0).getCurrentCursorScreenPosition().x;
@@ -395,6 +496,9 @@ public class OjbectManipulation extends TwoDMultiTouchElement{
 		//cursor1OldPos.y = getScreenCursorByIndex(0).getOldCursorScreenPosition().y;
 	}
 
+	/**
+	 * Update cursor2.
+	 */
 	protected void updateCursor2() {
 		//cursor2Pos.x = getScreenCursorByIndex(1).getCurrentCursorScreenPosition().x;
 		//cursor2Pos.y = getScreenCursorByIndex(1).getCurrentCursorScreenPosition().y;
@@ -411,17 +515,32 @@ public class OjbectManipulation extends TwoDMultiTouchElement{
 		//cursor2OldPos.y = getScreenCursorByIndex(1).getOldCursorScreenPosition().y;
 	}
 
+	/**
+	 * Sets the scale limits.
+	 *
+	 * @param min the min
+	 * @param max the max
+	 */
 	public void setScaleLimits(float min, float max) {
 		minScale = min;
 		maxScale = max;
 	}
 
+	/**
+	 * Sets the rotate limits.
+	 *
+	 * @param min the min
+	 * @param max the max
+	 */
 	public void setRotateLimits(float min, float max) {
 //		minRotate = min;
 //		maxRotate = max;
 		//TODO: implement!
 	}
 
+	/**
+	 * Sets the old cursor.
+	 */
 	protected void setOldCursor(){
 		for (ScreenCursor c:screenCursors){
 			ScreenCursorRecord s = new ScreenCursorRecord(c.getCurrentCursorScreenPosition().x, c.getCurrentCursorScreenPosition().y );
@@ -429,21 +548,77 @@ public class OjbectManipulation extends TwoDMultiTouchElement{
 		}
 	}
 
+	/**
+	 * Adds the rotate translate scale listener.
+	 *
+	 * @param l the l
+	 */
 	public void addRotateTranslateScaleListener(RotateTranslateScaleListener l){
 		listeners.add(l);
 	}
 
+	/**
+	 * Removes the rotate translate scale listener.
+	 *
+	 * @param l the l
+	 */
 	public void removeRotateTranslateScaleListener(RotateTranslateScaleListener l){
 		if (listeners.contains(l))
 			listeners.remove(l);
 	}
 
+	/**
+	 * The listener interface for receiving rotateTranslateScale events.
+	 * The class that is interested in processing a rotateTranslateScale
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addRotateTranslateScaleListener<code> method. When
+	 * the rotateTranslateScale event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see RotateTranslateScaleEvent
+	 */
 	public interface RotateTranslateScaleListener {
+		
+		/**
+		 * Item rotated.
+		 *
+		 * @param multiTouchElement the multi touch element
+		 * @param targetSpatial the target spatial
+		 * @param newAngle the new angle
+		 * @param oldAngle the old angle
+		 */
 		public void itemRotated(OjbectManipulation multiTouchElement, Spatial targetSpatial, float newAngle, float oldAngle);
+		
+		/**
+		 * Item moved.
+		 *
+		 * @param multiTouchElement the multi touch element
+		 * @param targetSpatial the target spatial
+		 * @param newLocationX the new location x
+		 * @param newLocationY the new location y
+		 * @param oldLocationX the old location x
+		 * @param oldLocationY the old location y
+		 */
 		public void itemMoved(OjbectManipulation multiTouchElement, Spatial targetSpatial,  float newLocationX, float newLocationY, float oldLocationX, float oldLocationY);
+		
+		/**
+		 * Item scaled.
+		 *
+		 * @param multiTouchElement the multi touch element
+		 * @param targetSpatial the target spatial
+		 * @param scaleChange the scale change
+		 */
 		public void itemScaled(OjbectManipulation multiTouchElement, Spatial targetSpatial,  float scaleChange);
 	}
 
+	/**
+	 * Screen to table.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @return the vector2f
+	 */
 	private Vector2f screenToTable(float x, float y) {
 
 		if (targetSpatial.getParent()==null)

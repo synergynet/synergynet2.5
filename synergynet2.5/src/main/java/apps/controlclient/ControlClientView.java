@@ -43,34 +43,65 @@ import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.table.gfx.FullScreenCanvas;
 import synergynetframework.jme.gfx.twod.DrawableSpatialImage;
 
+
+/**
+ * The Class ControlClientView.
+ */
 public class ControlClientView extends FullScreenCanvas implements DrawableSpatialImage {
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1473078189191810104L;
+	
+	/** The gfx. */
 	private ImageGraphics gfx;
+	
+	/** The title font. */
 	private Font titleFont = new Font("Arial", Font.BOLD, 36);
+	
+	/** The table id font. */
 	private Font tableIDFont = new Font("Arial", Font.PLAIN, 18);
 
+	/**
+	 * Instantiates a new control client view.
+	 *
+	 * @param name the name
+	 */
 	public ControlClientView(String name) {
 		super(name);
 		gfx = getGraphics();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#cursorDragged(long, int, int)
+	 */
 	@Override
 	public void cursorDragged(long id, int x, int y) {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#cursorPressed(long, int, int)
+	 */
 	@Override
 	public void cursorPressed(long cursorID, int x, int y) {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#cursorReleased(long, int, int)
+	 */
 	@Override
 	public void cursorReleased(long cursorID, int x, int y) {
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#cursorClicked(long, int, int)
+	 */
 	@Override
 	public void cursorClicked(long cursorID, int x, int y) {}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#draw()
+	 */
 	public void draw() {
 		gfx.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		gfx.setColor(Color.darkGray);
@@ -84,6 +115,9 @@ public class ControlClientView extends FullScreenCanvas implements DrawableSpati
 		gfx.drawString(TableIdentity.getTableIdentity().toString(), 10, 30);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#getSpatial()
+	 */
 	public Spatial getSpatial() {
 		return null;
 	}

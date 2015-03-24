@@ -35,16 +35,71 @@ import java.net.URL;
 
 import synergynetframework.appsystem.contentsystem.jme.items.utils.controlbar.ControlBarMover.ControlBarMoverListener;
 
+
+/**
+ * The Interface IControlBarImplementation.
+ */
 public interface IControlBarImplementation extends IOrthoContainerImplementation {
 
+	/**
+	 * Sets the control bar length.
+	 *
+	 * @param controlBarLength the new control bar length
+	 */
 	public void setControlBarLength(float controlBarLength);
+	
+	/**
+	 * Sets the control bar width.
+	 *
+	 * @param controlBarWidth the new control bar width
+	 */
 	public void setControlBarWidth(float controlBarWidth);
+	
+	/**
+	 * Sets the current position.
+	 *
+	 * @param currentPosition the new current position
+	 */
 	public void setCurrentPosition(float currentPosition);
+	
+	/**
+	 * Adds the control bar mover listener.
+	 *
+	 * @param l the l
+	 */
 	public void addControlBarMoverListener(ControlBarMoverListener l);
+	
+	/**
+	 * Sets the control bar mover enabled.
+	 *
+	 * @param controlBarMoverEnabled the new control bar mover enabled
+	 */
 	public void setControlBarMoverEnabled(boolean controlBarMoverEnabled);
+	
+	/**
+	 * Sets the bar image resource.
+	 *
+	 * @param imageResource the new bar image resource
+	 */
 	public void setBarImageResource(URL imageResource);
+	
+	/**
+	 * Sets the finished bar image resource.
+	 *
+	 * @param imageResource the new finished bar image resource
+	 */
 	public void setFinishedBarImageResource(URL imageResource);
+	
+	/**
+	 * Sets the cursor image resource.
+	 *
+	 * @param imageResource the new cursor image resource
+	 */
 	public void setCursorImageResource(URL imageResource);
+	
+	/**
+	 * Update control bar.
+	 */
 	public void updateControlBar();
 	
 	

@@ -35,21 +35,43 @@ package apps.remotecontrol.networkmanager.messages;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.UnicastApplicationMessage;
 
+
+/**
+ * The Class ConnectTablePortalMessage.
+ */
 public class ConnectTablePortalMessage extends UnicastApplicationMessage{
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 5854060000123853439L;
+	
+	/** The is connect. */
 	protected boolean isConnect = true;
 	
+	/**
+	 * Instantiates a new connect table portal message.
+	 */
 	public ConnectTablePortalMessage(){
 		super();
 	}
 	
+	/**
+	 * Instantiates a new connect table portal message.
+	 *
+	 * @param targetClass the target class
+	 * @param targetTableId the target table id
+	 * @param isConnect the is connect
+	 */
 	public ConnectTablePortalMessage(Class<?> targetClass, TableIdentity targetTableId, boolean isConnect){
 		super(targetClass);
 		this.setRecipient(targetTableId);
 		this.isConnect = isConnect;
 	}
 	
+	/**
+	 * Checks if is connect.
+	 *
+	 * @return true, if is connect
+	 */
 	public boolean isConnect(){
 		return isConnect;
 	}

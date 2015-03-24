@@ -39,15 +39,29 @@ import synergynetframework.jme.cursorsystem.ThreeDMultiTouchElement;
 import synergynetframework.jme.cursorsystem.cursordata.ScreenCursor;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 
+
+/**
+ * The Class MultiTouchMoveZController.
+ */
 public class MultiTouchMoveZController extends ThreeDMultiTouchElement {
 
+	/** The controlled spatial. */
 	protected Spatial controlledSpatial;
 	
+	/**
+	 * Instantiates a new multi touch move z controller.
+	 *
+	 * @param pickingAndTargetSpatial the picking and target spatial
+	 * @param controlledSpatial the controlled spatial
+	 */
 	public MultiTouchMoveZController(Spatial pickingAndTargetSpatial, Spatial controlledSpatial) {
 		super(pickingAndTargetSpatial);
 		this.controlledSpatial = controlledSpatial;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorChanged(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorChanged(ScreenCursor c, MultiTouchCursorEvent event) {		
 		
@@ -62,12 +76,21 @@ public class MultiTouchMoveZController extends ThreeDMultiTouchElement {
 		controlledSpatial.setLocalTranslation(controlledSpatial.getLocalTranslation().x, controlledSpatial.getLocalTranslation().y, controlledSpatial.getLocalTranslation().z-cursor1ToSpatial.y/100 );		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorClicked(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorClicked(ScreenCursor c, MultiTouchCursorEvent event) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorPressed(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorPressed(ScreenCursor c, MultiTouchCursorEvent event) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorReleased(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorReleased(ScreenCursor c, MultiTouchCursorEvent event) {}
 

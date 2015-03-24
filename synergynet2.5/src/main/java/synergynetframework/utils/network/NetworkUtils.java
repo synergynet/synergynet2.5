@@ -39,6 +39,9 @@ package synergynetframework.utils.network;
 //import java.util.Formatter;
 //import java.util.Locale;
 
+/**
+ * The Class NetworkUtils.
+ */
 public class NetworkUtils {
 
 //	public static byte[] getMacAddressBytes() throws SocketException, UnknownHostException {

@@ -42,17 +42,43 @@ import core.ConfigurationSystem;
 
 import synergynetframework.config.PreferencesItem;
 
+
+/**
+ * The Class LoggingConfigPrefsItem.
+ */
 public class LoggingConfigPrefsItem implements PreferencesItem {
 
+	/** The Constant prefs. */
 	private static final Preferences prefs = ConfigurationSystem.getPreferences(LoggingConfigPrefsItem.class);
 
+	/** The Constant PREFS_LOGGING_LEVEL. */
 	private static final String PREFS_LOGGING_LEVEL = "PREFS_LOGGING_LEVEL";
 	
+	/**
+	 * The Enum LoggingLevel.
+	 */
 	public static enum LoggingLevel {
-		SEVERE, WARNING, INFO, CONFIG, FINE, FINER, FINEST
+		
+		/** The severe. */
+		SEVERE, 
+ /** The warning. */
+ WARNING, 
+ /** The info. */
+ INFO, 
+ /** The config. */
+ CONFIG, 
+ /** The fine. */
+ FINE, 
+ /** The finer. */
+ FINER, 
+ /** The finest. */
+ FINEST
 	}
 	
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.config.PreferencesItem#getConfigurationPanel()
+	 */
 	@Override
 	public JPanel getConfigurationPanel() {
 		JPanel panel = new JPanel();
@@ -60,15 +86,28 @@ public class LoggingConfigPrefsItem implements PreferencesItem {
 		return new LoggingConfigPanel(this);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.config.PreferencesItem#getName()
+	 */
 	@Override
 	public String getName() {
 		return "Logging";
 	}
 
+	/**
+	 * Gets the logging level.
+	 *
+	 * @return the logging level
+	 */
 	public LoggingLevel getLoggingLevel() {
 		return LoggingLevel.valueOf(prefs.get(PREFS_LOGGING_LEVEL, LoggingLevel.INFO.name()));
 	}
 
+	/**
+	 * Sets the logging level.
+	 *
+	 * @param loggingLevel the new logging level
+	 */
 	public void setLoggingLevel(LoggingLevel loggingLevel) {
 		prefs.put(PREFS_LOGGING_LEVEL, loggingLevel.name());
 	}

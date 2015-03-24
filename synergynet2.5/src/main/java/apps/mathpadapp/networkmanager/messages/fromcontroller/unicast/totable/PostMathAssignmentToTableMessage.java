@@ -34,17 +34,36 @@ package apps.mathpadapp.networkmanager.messages.fromcontroller.unicast.totable;
 import apps.mathpadapp.controllerapp.assignmentbuilder.Assignment;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class PostMathAssignmentToTableMessage.
+ */
 public class PostMathAssignmentToTableMessage extends ControllerToTableMessage {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -546555344864227474L;
+	
+	/** The assignment. */
 	private Assignment assignment;
 
+	/**
+	 * Instantiates a new post math assignment to table message.
+	 *
+	 * @param targetClass the target class
+	 * @param assignment the assignment
+	 * @param id the id
+	 */
 	public PostMathAssignmentToTableMessage(Class<?> targetClass, Assignment assignment, TableIdentity id) {
 		super(targetClass);
 		this.assignment = assignment;
 		this.setRecipient(id);
 	}
 
+	/**
+	 * Gets the assignment.
+	 *
+	 * @return the assignment
+	 */
 	public Assignment getAssignment() {
 		return assignment;
 	}

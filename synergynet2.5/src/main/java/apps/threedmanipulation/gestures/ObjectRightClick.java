@@ -41,27 +41,56 @@ import synergynetframework.jme.cursorsystem.ThreeDMultiTouchElement;
 import synergynetframework.jme.cursorsystem.cursordata.ScreenCursor;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 
+
+/**
+ * The Class ObjectRightClick.
+ */
 public class ObjectRightClick extends ThreeDMultiTouchElement {
 
+	/** The right click distance. */
 	protected float rightClickDistance = 10f;
+	
+	/** The listeners. */
 	protected List<CursorEventListener> listeners = new ArrayList<CursorEventListener>();
 	
+	/**
+	 * Instantiates a new object right click.
+	 *
+	 * @param pickingAndTargetSpatial the picking and target spatial
+	 */
 	public ObjectRightClick(Spatial pickingAndTargetSpatial) {
 		super(pickingAndTargetSpatial);
 	}
 	
+	/**
+	 * Instantiates a new object right click.
+	 *
+	 * @param pickingSpatial the picking spatial
+	 * @param targetSpatial the target spatial
+	 */
 	public ObjectRightClick(Spatial pickingSpatial,
 			Spatial targetSpatial) {
 		super(pickingSpatial, targetSpatial);
 	}
 	
+	/**
+	 * Sets the right click distance.
+	 *
+	 * @param rightClickDistance the new right click distance
+	 */
 	public void setRightClickDistance(float rightClickDistance){
 		this.rightClickDistance = rightClickDistance;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorChanged(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorChanged(ScreenCursor c, MultiTouchCursorEvent event) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorClicked(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorClicked(ScreenCursor c, MultiTouchCursorEvent event) {
 			
@@ -73,21 +102,55 @@ public class ObjectRightClick extends ThreeDMultiTouchElement {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorPressed(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorPressed(ScreenCursor c, MultiTouchCursorEvent event) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorReleased(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorReleased(ScreenCursor c, MultiTouchCursorEvent event) {}
 	
+	/**
+	 * The listener interface for receiving cursorEvent events.
+	 * The class that is interested in processing a cursorEvent
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addCursorEventListener<code> method. When
+	 * the cursorEvent event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see CursorEventEvent
+	 */
 	public interface CursorEventListener {
+			
+			/**
+			 * Cursor right clicked.
+			 *
+			 * @param c the c
+			 * @param event the event
+			 */
 			public void cursorRightClicked(ScreenCursor c, MultiTouchCursorEvent event);
 	}
 	
+	/**
+	 * Adds the multi touch listener.
+	 *
+	 * @param l the l
+	 */
 	public void addMultiTouchListener(CursorEventListener l) {
 		if(!listeners.contains(l))
 			listeners.add(l);
 	}
 	
+	/**
+	 * Removes the multi touch listener.
+	 *
+	 * @param l the l
+	 */
 	public void removeMultiTouchListener(CursorEventListener l) {
 		listeners.remove(l);
 	}

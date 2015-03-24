@@ -39,14 +39,25 @@ import com.jme.intersection.TrianglePickResults;
 import com.jme.math.Vector3f;
 import com.jme.scene.TriMesh;
 
+
+/**
+ * The Class AccurateTrianglePickResults.
+ */
 public class AccurateTrianglePickResults extends TrianglePickResults {
 	
+	/** The point of selection. */
 	protected Vector3f pointOfSelection;
 	
+	/**
+	 * Instantiates a new accurate triangle pick results.
+	 */
 	public AccurateTrianglePickResults() {
 		this.setCheckDistance(true);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.jme.intersection.TrianglePickResults#processPick()
+	 */
 	@Override
 	public void processPick() {
 		for (int i = 0; i < getNumber(); i++) {
@@ -79,6 +90,11 @@ public class AccurateTrianglePickResults extends TrianglePickResults {
 		}
 	}
 	
+	/**
+	 * Gets the point of selection.
+	 *
+	 * @return the point of selection
+	 */
 	public Vector3f getPointOfSelection() {
 		return pointOfSelection;
 	}

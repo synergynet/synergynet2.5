@@ -34,18 +34,39 @@ import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightConfirmVisualExit;
 import synergynetframework.config.position.PositionConfigPrefsItem;
 
+
+/**
+ * The Class GeogNetworkFlickApp.
+ */
 public class GeogNetworkFlickApp extends DefaultSynergyNetApp{
 
+	/** The comms. */
 	private TableCommsClientService comms;
+	
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The message handler. */
 	protected DefaultMessageHandler messageHandler;
+	
+	/** The networked content manager. */
 	protected NetworkedContentManager networkedContentManager;
+	
+	/** The transfer controller. */
 	protected TransferController transferController;
 
+	/**
+	 * Instantiates a new geog network flick app.
+	 *
+	 * @param info the info
+	 */
 	public GeogNetworkFlickApp(ApplicationInfo info) {
 		super(info);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		contentSystem = ContentSystem.getContentSystemForSynergyNetApp(this);		
@@ -70,6 +91,11 @@ public class GeogNetworkFlickApp extends DefaultSynergyNetApp{
 
 	}
 	
+	/**
+	 * Background load.
+	 *
+	 * @param imageSet the image set
+	 */
 	protected void backgroundLoad(final String[] imageSet) {
 		new Thread(new Runnable() {
 
@@ -98,6 +124,11 @@ public class GeogNetworkFlickApp extends DefaultSynergyNetApp{
 
 	}
 
+	/**
+	 * Adds the image.
+	 *
+	 * @param resource the resource
+	 */
 	private void addImage(URL resource) {
 		
 		ImageTextLabel mlt3 = (ImageTextLabel) contentSystem.createContentItem(ImageTextLabel.class);
@@ -118,6 +149,7 @@ public class GeogNetworkFlickApp extends DefaultSynergyNetApp{
 	}
 
 
+	/** The text images. */
 	String[] textImages = {
 			"text_beijing.jpg",
 			"text_brasilia.jpg",
@@ -125,6 +157,7 @@ public class GeogNetworkFlickApp extends DefaultSynergyNetApp{
 			"text_newdelhi.jpg"
 	};
 	
+	/** The red table. */
 	String[] redTable = {
 			"australia_flag.jpg",
 			"australia_kangaroo.jpg",
@@ -132,6 +165,7 @@ public class GeogNetworkFlickApp extends DefaultSynergyNetApp{
 			"australia_Sydney.jpg",
 	};
 			
+	/** The blue table. */
 	String[] blueTable = {
 			"brasil_flag.jpg",
 			"brasil_llama.jpg",
@@ -140,6 +174,7 @@ public class GeogNetworkFlickApp extends DefaultSynergyNetApp{
 			
 	};
 
+	/** The green table. */
 	String[] greenTable = {
 			"china_ panda.jpg",
 			"china_flag.jpg",
@@ -147,6 +182,7 @@ public class GeogNetworkFlickApp extends DefaultSynergyNetApp{
 			"china_map.gif",
 	};
 	
+	/** The yellow table. */
 	String[] yellowTable = {
 			"india_map.jpg",
 			"india_Taj-Mahal.jpg",
@@ -155,6 +191,9 @@ public class GeogNetworkFlickApp extends DefaultSynergyNetApp{
 			
 	};
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onActivate()
+	 */
 	@Override
 	public void onActivate(){
 		if (networkedContentManager!=null) return;
@@ -219,6 +258,9 @@ public class GeogNetworkFlickApp extends DefaultSynergyNetApp{
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	@Override
 	public void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);

@@ -39,15 +39,36 @@ import synergynetframework.appsystem.contentsystem.items.utils.Location;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.UnicastApplicationMessage;
 
+
+/**
+ * The Class PostItemsPortalMessage.
+ */
 public class PostItemsPortalMessage extends UnicastApplicationMessage {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -546746344864227474L;
+	
+	/** The items. */
 	private HashMap<ContentItem, Location> items =new HashMap<ContentItem, Location>();
+	
+	/** The target table id. */
 	private TableIdentity targetTableId;
 	
+	/**
+	 * Instantiates a new post items portal message.
+	 */
 	public PostItemsPortalMessage(){
 		super();
 	}
+	
+	/**
+	 * Instantiates a new post items portal message.
+	 *
+	 * @param targetClass the target class
+	 * @param tableId the table id
+	 * @param collection the collection
+	 * @param targetTableId the target table id
+	 */
 	public PostItemsPortalMessage(Class<?> targetClass, TableIdentity tableId, HashMap<ContentItem, Location> collection, TableIdentity targetTableId) {
 		super(targetClass);
 		this.items.clear();
@@ -62,10 +83,20 @@ public class PostItemsPortalMessage extends UnicastApplicationMessage {
 		this.targetTableId = targetTableId;
 	}
 
+	/**
+	 * Gets the items.
+	 *
+	 * @return the items
+	 */
 	public HashMap<ContentItem, Location> getItems() {
 		return items;
 	}
 	
+	/**
+	 * Gets the target table id.
+	 *
+	 * @return the target table id
+	 */
 	public TableIdentity getTargetTableId(){
 		return targetTableId;
 	}

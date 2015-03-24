@@ -45,13 +45,24 @@ import javax.xml.xpath.XPathExpressionException;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
+
+/**
+ * The Class DefaultApparenceAttributeLoader.
+ */
 public class DefaultApparenceAttributeLoader extends AttributesLoader {
 	
+	/** The default attributes. */
 	Map<String, Map<String, String>> defaultAttributes = new HashMap<String, Map<String, String>>();
+	
+	/** The item attributes. */
 	Map<String, Map<String, String>> itemAttributes;
 	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(DefaultApparenceAttributeLoader.class.getName());	
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.contentloader.attributesloader.AttributesLoader#loadAttributes(java.util.Map, java.lang.String)
+	 */
 	@Override
 	public void loadAttributes(Map<String, Map<String, String>> items,
 			String filePath) {
@@ -80,6 +91,9 @@ public class DefaultApparenceAttributeLoader extends AttributesLoader {
 		
 	}
 	
+	/**
+	 * Load default attributes set.
+	 */
 	private void loadDefaultAttributesSet(){
 		String contentItemType="";
 		String category="";
@@ -99,6 +113,9 @@ public class DefaultApparenceAttributeLoader extends AttributesLoader {
 		
 	}
 	
+	/**
+	 * Load attributes.
+	 */
 	private void loadAttributes(){
 		
 		String contentItemType="";

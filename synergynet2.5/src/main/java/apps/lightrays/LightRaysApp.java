@@ -43,14 +43,27 @@ import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightE
 import synergynetframework.appsystem.table.gfx.GFXUtils;
 import synergynetframework.jme.cursorsystem.elements.twod.CursorEventDispatcher;
 
+
+/**
+ * The Class LightRaysApp.
+ */
 public class LightRaysApp extends DefaultSynergyNetApp {
 	
+	/**
+	 * Instantiates a new light rays app.
+	 *
+	 * @param info the info
+	 */
 	public LightRaysApp(ApplicationInfo info) {
 		super(info);
 	}
 
+	/** The disp. */
 	protected LightRaysDisplay disp;
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {		
 		setMenuController(new HoldTopRightExit());
@@ -63,11 +76,17 @@ public class LightRaysApp extends DefaultSynergyNetApp {
 		new CursorEventDispatcher(disp, 1);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#setActive(boolean)
+	 */
 	public void setActive(boolean active) {
 		disp.clear(Color.black);
 		super.setActive(active);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	@Override
 	protected void stateUpdate(float tpf) {
 		disp.draw();

@@ -56,14 +56,27 @@ import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightE
 import synergynetframework.jme.config.AppConfig;
 import synergynetframework.jme.sysutils.CameraUtility;
 
+
+/**
+ * The Class ThreeDPuzzle.
+ */
 public class ThreeDPuzzle extends DefaultSynergyNetApp {
 
+	/** The content system. */
 	protected ContentSystem contentSystem;	 	
 	  
+	/**
+	 * Instantiates a new three d puzzle.
+	 *
+	 * @param info the info
+	 */
 	public ThreeDPuzzle(ApplicationInfo info) {
 		super(info);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 	
@@ -85,6 +98,9 @@ public class ThreeDPuzzle extends DefaultSynergyNetApp {
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	public void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);
 		
@@ -104,6 +120,9 @@ public class ThreeDPuzzle extends DefaultSynergyNetApp {
 		}
 	}
 
+	/**
+	 * Setup lighting.
+	 */
 	protected void setupLighting() {
 		LightState lightState = DisplaySystem.getDisplaySystem().getRenderer().createLightState();
 		worldNode.setRenderState(lightState);
@@ -126,6 +145,9 @@ public class ThreeDPuzzle extends DefaultSynergyNetApp {
 		worldNode.updateRenderState();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#getCamera()
+	 */
 	protected Camera getCamera() {
 		if(cam == null) {
 			cam = CameraUtility.getCamera();
@@ -137,6 +159,9 @@ public class ThreeDPuzzle extends DefaultSynergyNetApp {
 
 	}
 	
+	/**
+	 * Builds the sence.
+	 */
 	private void buildSence() {
         
         
@@ -155,6 +180,9 @@ public class ThreeDPuzzle extends DefaultSynergyNetApp {
         
 	}
 	
+	/**
+	 * Builds the target object.
+	 */
 	private void buildTargetObject(){
 		
 		@SuppressWarnings("unused")
@@ -165,11 +193,17 @@ public class ThreeDPuzzle extends DefaultSynergyNetApp {
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#cleanup()
+	 */
 	public void cleanup() {
 		super.cleanup();
 	
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#stateRender(float)
+	 */
 	@Override
 	protected void stateRender(float tpf) {
 		super.stateRender(tpf);		  

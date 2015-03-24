@@ -45,17 +45,43 @@ import com.jme.scene.state.ClipState;
 import com.jme.system.DisplaySystem;
 import com.jme.util.geom.BufferUtils;
 
+
+/**
+ * The Class ClipRectangleHud.
+ */
 public class ClipRectangleHud implements ClipRegion{
+	
+	/** The spat. */
 	private Spatial spat;
+    
+    /** The cs. */
     private ClipState cs;
 
+    /** The wi. */
     private float wi;
+    
+    /** The he. */
     private float he;
+	
+	/** The p1. */
 	Vector3f p1 = new Vector3f();
+	
+	/** The p2. */
 	Vector3f p2 = new Vector3f();
+	
+	/** The p3. */
 	Vector3f p3 = new Vector3f();
+	
+	/** The p4. */
 	Vector3f p4 = new Vector3f();
     
+    /**
+     * Instantiates a new clip rectangle hud.
+     *
+     * @param spat the spat
+     * @param wi the wi
+     * @param he the he
+     */
     public ClipRectangleHud(Spatial spat, float wi, float he) {
     	this.spat = spat;
     	this.wi = wi;
@@ -68,6 +94,12 @@ public class ClipRectangleHud implements ClipRegion{
         }
     }
 
+	/**
+	 * Sets the spatial clip.
+	 *
+	 * @param spatial the spatial
+	 * @param isClipEnabled the is clip enabled
+	 */
 	public void setSpatialClip(Spatial spatial, boolean isClipEnabled) {
 		if(isClipEnabled)
 			spatial.setRenderState(cs);
@@ -78,6 +110,9 @@ public class ClipRectangleHud implements ClipRegion{
 	
 
 	
+    /**
+     * Update equations.
+     */
     public void updateEquations() {
         spat.updateWorldVectors();
         float x0 = spat.getWorldTranslation().x - wi / 2;
@@ -161,6 +196,9 @@ public class ClipRectangleHud implements ClipRegion{
 		}		
     }
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.ClipRegion#isPicked(com.jme.math.Vector2f)
+	 */
 	@Override
 	public boolean isPicked(Vector2f screenPos) {
 		TriMesh m = new TriMesh("mymesh");
@@ -176,6 +214,14 @@ public class ClipRectangleHud implements ClipRegion{
 		return meshPicked(m, screenPos.x, screenPos.y);	}
 
     
+	/**
+	 * Mesh picked.
+	 *
+	 * @param mesh the mesh
+	 * @param x the x
+	 * @param y the y
+	 * @return true, if successful
+	 */
 	private boolean meshPicked(TriMesh mesh, float x, float y) {
 		for(int tc = 0; tc < mesh.getTriangleCount(); tc++) {
 			Vector3f[] vertices = new Vector3f[3];

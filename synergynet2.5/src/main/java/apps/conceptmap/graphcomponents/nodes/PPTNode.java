@@ -36,16 +36,32 @@ import apps.conceptmap.utility.GraphManager;
 import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.PPTViewer;
 
+
+/**
+ * The Class PPTNode.
+ */
 public class PPTNode extends DocNode{
 
+	/** The ppt. */
 	protected PPTViewer ppt;
 	
+	/**
+	 * Instantiates a new PPT node.
+	 *
+	 * @param contentSystem the content system
+	 * @param gManager the g manager
+	 */
 	public PPTNode(ContentSystem contentSystem, GraphManager gManager) {
 		super(contentSystem, gManager);
 		ppt = (PPTViewer)this.contentSystem.createContentItem(PPTViewer.class);
 		super.setNodeContent(ppt);
 	}
 
+	/**
+	 * Gets the PPT viewer.
+	 *
+	 * @return the PPT viewer
+	 */
 	public PPTViewer getPPTViewer(){
 		return ppt;
 	}

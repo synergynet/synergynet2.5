@@ -29,16 +29,33 @@ import synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp;
 import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightConfirmVisualExit;
 
+
+/**
+ * The Class ControllerApp.
+ */
 public class ControllerApp extends DefaultSynergyNetApp {
 
+	/** The content system. */
 	private ContentSystem contentSystem;
+	
+	/** The online items. */
 	private List<ContentItem> onlineItems = new ArrayList<ContentItem>();
+	
+	/** The snap map. */
 	Map<TableIdentity, SnapshotContainer> snapMap = new HashMap<TableIdentity, SnapshotContainer>();
 
+	/**
+	 * Instantiates a new controller app.
+	 *
+	 * @param info the info
+	 */
 	public ControllerApp(ApplicationInfo info) {
 		super(info);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		SynergyNetAppUtils.addTableOverlay(this);
@@ -88,6 +105,9 @@ public class ControllerApp extends DefaultSynergyNetApp {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onActivate()
+	 */
 	@Override
 	public void onActivate() {
 		RapidNetworkManager.setAutoReconnect(true);
@@ -115,14 +135,31 @@ public class ControllerApp extends DefaultSynergyNetApp {
 		});
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	@Override
 	protected void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);
 		if(contentSystem != null) contentSystem.update(tpf);
 	}
 	
+	/**
+	 * The listener interface for receiving controlApp events.
+	 * The class that is interested in processing a controlApp
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addControlAppListener<code> method. When
+	 * the controlApp event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see ControlAppEvent
+	 */
 	class ControlAppListener implements BasketControlMenuListener{
 
+		/* (non-Javadoc)
+		 * @see apps.basketapp.controller.ControlMenu.BasketControlMenuListener#sendDesktopData()
+		 */
 		@Override
 		public void sendDesktopData() {
 			SendDataDialog sendDataDialog = new SendDataDialog(ControllerApp.this);
@@ -131,6 +168,9 @@ public class ControllerApp extends DefaultSynergyNetApp {
 			sendDataDialog.getWindow().setAsTopObject();
 		}
 
+		/* (non-Javadoc)
+		 * @see apps.basketapp.controller.ControlMenu.BasketControlMenuListener#swapBaskets()
+		 */
 		@Override
 		public void swapBaskets() {
 			if(RapidNetworkManager.getTableCommsClientService() != null)
@@ -142,6 +182,9 @@ public class ControllerApp extends DefaultSynergyNetApp {
 				}
 		}
 
+		/* (non-Javadoc)
+		 * @see apps.basketapp.controller.ControlMenu.BasketControlMenuListener#clearLocalTable()
+		 */
 		@Override
 		public void clearLocalTable() {
 			for(ContentItem item: onlineItems)
@@ -149,6 +192,9 @@ public class ControllerApp extends DefaultSynergyNetApp {
 			onlineItems.clear();
 		}
 
+		/* (non-Javadoc)
+		 * @see apps.basketapp.controller.ControlMenu.BasketControlMenuListener#clearStudentTables()
+		 */
 		@Override
 		public void clearStudentTables() {
 			ClearDataDialog clearDataDialog = new ClearDataDialog(contentSystem);
@@ -157,6 +203,9 @@ public class ControllerApp extends DefaultSynergyNetApp {
 			clearDataDialog.getWindow().setAsTopObject();
 		}
 
+		/* (non-Javadoc)
+		 * @see apps.basketapp.controller.ControlMenu.BasketControlMenuListener#lockStudentTables(boolean)
+		 */
 		@Override
 		public void lockStudentTables(boolean lock) {
 			try {
@@ -169,6 +218,9 @@ public class ControllerApp extends DefaultSynergyNetApp {
 			}			
 		}
 
+		/* (non-Javadoc)
+		 * @see apps.basketapp.controller.ControlMenu.BasketControlMenuListener#captureStudentTables()
+		 */
 		@Override
 		public void captureStudentTables() {
 			if(RapidNetworkManager.getTableCommsClientService() == null) return;
@@ -187,10 +239,18 @@ public class ControllerApp extends DefaultSynergyNetApp {
 			}
 	}
 	
+	/**
+	 * Gets the online items.
+	 *
+	 * @return the online items
+	 */
 	public List<ContentItem> getOnlineItems(){
 		return onlineItems;
 	}
 	
+	/**
+	 * Clear local table.
+	 */
 	public void clearLocalTable(){
 		for(ContentItem item: onlineItems)
 			contentSystem.removeContentItem(item);

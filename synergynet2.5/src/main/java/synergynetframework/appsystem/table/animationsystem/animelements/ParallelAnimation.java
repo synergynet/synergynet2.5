@@ -38,44 +38,84 @@ import java.util.List;
 
 import synergynetframework.appsystem.table.animationsystem.AnimationElement;
 
+
+/**
+ * The Class ParallelAnimation.
+ */
 public class ParallelAnimation extends AnimationElement {
+	
+	/** The elements. */
 	protected List<AnimationElement> elements = new ArrayList<AnimationElement>();
+	
+	/** The finished. */
 	boolean finished = false;
 	
+	/**
+	 * Instantiates a new parallel animation.
+	 *
+	 * @param els the els
+	 */
 	public ParallelAnimation(AnimationElement... els) {
 		for(AnimationElement e : els) {
 			elements.add(e);
 		}
 	}
 	
+	/**
+	 * Adds the animation element.
+	 *
+	 * @param c the c
+	 */
 	public void addAnimationElement(Collection<AnimationElement> c) {
 		elements.addAll(c);
 	}
 	
+	/**
+	 * Adds the animation elements.
+	 *
+	 * @param es the es
+	 */
 	public void addAnimationElements(AnimationElement... es) {
 		for(AnimationElement e : es) {
 			elements.add(e);
 		}
 	}
 	
+	/**
+	 * Adds the animation element.
+	 *
+	 * @param e the e
+	 */
 	public void addAnimationElement(AnimationElement e) {
 		elements.add(e);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.animationsystem.AnimationElement#elementStart(float)
+	 */
 	@Override
 	public void elementStart(float tpf) {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.animationsystem.AnimationElement#isFinished()
+	 */
 	@Override
 	public boolean isFinished() {
 		return finished;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.animationsystem.AnimationElement#reset()
+	 */
 	@Override
 	public void reset() {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.animationsystem.AnimationElement#updateAnimationState(float)
+	 */
 	@Override
 	public void updateAnimationState(float tpf) {
 		boolean finishTest = true;

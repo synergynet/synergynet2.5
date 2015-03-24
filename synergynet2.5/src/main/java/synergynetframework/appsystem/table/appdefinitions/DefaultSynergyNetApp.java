@@ -42,20 +42,38 @@ import com.jme.math.Vector3f;
 import com.jme.renderer.Camera;
 import com.jme.system.DisplaySystem;
 
+
+/**
+ * The Class DefaultSynergyNetApp.
+ */
 public abstract class DefaultSynergyNetApp extends SynergyNetApp {
 
+	/** The cam. */
 	protected Camera cam;
+	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(DefaultSynergyNetApp.class.getName());
 	
+	/**
+	 * Instantiates a new default synergy net app.
+	 *
+	 * @param info the info
+	 */
 	public DefaultSynergyNetApp(ApplicationInfo info) {
 		super(info);	
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#init()
+	 */
 	@Override
 	public void init() {
 		super.init();		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#getCamera()
+	 */
 	@Override
 	protected Camera getCamera() {
 		if(cam == null) {
@@ -64,6 +82,11 @@ public abstract class DefaultSynergyNetApp extends SynergyNetApp {
 		return cam;
 	}
 
+	/**
+	 * Creates the default camera.
+	 *
+	 * @return the camera
+	 */
 	private Camera createDefaultCamera() {
 		DisplaySystem display = DisplaySystem.getDisplaySystem();
 		Camera cam = display.getRenderer().createCamera(display.getWidth(), display.getHeight());
@@ -79,12 +102,18 @@ public abstract class DefaultSynergyNetApp extends SynergyNetApp {
 		return cam;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#initInput()
+	 */
 	@Override
 	protected void initInput() {
 		input = new InputHandler();		
 		SynergyNetAppUtils.addEscapeKeyToExit(this.input);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#stateUpdate(float)
+	 */
 	@Override
 	protected void stateUpdate(float tpf) {
 		input.update(tpf);

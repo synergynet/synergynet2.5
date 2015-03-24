@@ -43,14 +43,34 @@ import synergynetframework.appsystem.contentsystem.items.SimpleButton;
 import synergynetframework.appsystem.contentsystem.items.Window;
 import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAdapter;
 
+
+/**
+ * The Class LineWidthPanel.
+ */
 public class LineWidthPanel {
 	
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The panel. */
 	private Window panel;
+	
+	/** The buttons. */
 	private ArrayList<SimpleButton> buttons = new ArrayList<SimpleButton>();
+	
+	/** The listeners. */
 	private transient List<LineWidthPanelListener> listeners = new ArrayList<LineWidthPanelListener>();
+	
+	/** The current line width. */
 	private float currentLineWidth = 1;
 	
+	/**
+	 * Instantiates a new line width panel.
+	 *
+	 * @param contentSystem the content system
+	 * @param noOfWidthLevels the no of width levels
+	 * @param widthShift the width shift
+	 */
 	public LineWidthPanel(ContentSystem contentSystem, int noOfWidthLevels, int widthShift){
 		this.contentSystem = contentSystem;
 		panel = (Window) contentSystem.createContentItem(Window.class);
@@ -96,6 +116,11 @@ public class LineWidthPanel {
 
 	}
 
+	/**
+	 * Sets the line width.
+	 *
+	 * @param lineWidth the new line width
+	 */
 	protected void setLineWidth(float lineWidth){
 		for(SimpleButton button: buttons){
 			button.drawImage(MathPadResources.class.getResource("buttons/lineWidth.jpg"));
@@ -109,32 +134,77 @@ public class LineWidthPanel {
 		}
 	}
 	
+	/**
+	 * Gets the content panel.
+	 *
+	 * @return the content panel
+	 */
 	protected Window getContentPanel(){
 		return panel;
 	}
 	
+	/**
+	 * Adds the line width panel listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void addLineWidthPanelListener(LineWidthPanelListener listener){
 		if(!listeners.contains(listener)) listeners.add(listener);
 	}
 	
+	/**
+	 * Removes the line width panel listeners.
+	 */
 	public void removeLineWidthPanelListeners(){
 		listeners.clear();
 	}
 	
+	/**
+	 * The listener interface for receiving lineWidthPanel events.
+	 * The class that is interested in processing a lineWidthPanel
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addLineWidthPanelListener<code> method. When
+	 * the lineWidthPanel event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see LineWidthPanelEvent
+	 */
 	public interface LineWidthPanelListener{
+		
+		/**
+		 * Line width changed.
+		 *
+		 * @param lineWidth the line width
+		 */
 		public void lineWidthChanged(float lineWidth);
 	}
 	
+	/**
+	 * Gets the current line width.
+	 *
+	 * @return the current line width
+	 */
 	public float getCurrentLineWidth(){
 		return currentLineWidth;
 	}
 	
+	/**
+	 * Gets the all line widthes.
+	 *
+	 * @return the all line widthes
+	 */
 	protected float[] getAllLineWidthes(){
 		float[] widthes = new float[buttons.size()];
 		for(int i=0; i<buttons.size(); i++) widthes[i] = Float.parseFloat(buttons.get(i).getNote());
 		return widthes;
 	}
 
+	/**
+	 * Fire line width changed.
+	 *
+	 * @param lineWidth the line width
+	 */
 	public void fireLineWidthChanged(float lineWidth) {
 		for(LineWidthPanelListener listener: listeners){
 			listener.lineWidthChanged(lineWidth);

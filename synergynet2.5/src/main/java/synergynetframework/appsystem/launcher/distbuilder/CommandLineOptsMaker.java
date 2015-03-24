@@ -44,31 +44,69 @@ import java.util.List;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
+
+/**
+ * The Class CommandLineOptsMaker.
+ */
 public class CommandLineOptsMaker extends Task {
 
+	/** The ignore dirs. */
 	protected String[] ignoreDirs = {".svn", "igesture-1.1"};
+	
+	/** The ignore libs. */
 	protected String[] ignoreLibs = {"swt.jar", "swt_fake.jar"};
+	
+	/** The libdir. */
 	private File libdir;
+	
+	/** The outfile. */
 	private File outfile;
+	
+	/** The classname. */
 	private String classname;
+	
+	/** The arguments. */
 	private String arguments;
 	
+	/**
+	 * Sets the libdir.
+	 *
+	 * @param libdir the new libdir
+	 */
 	public void setLibdir(File libdir) {
 		this.libdir = libdir;
 	}
 	
+	/**
+	 * Sets the outfile.
+	 *
+	 * @param outfile the new outfile
+	 */
 	public void setOutfile(File outfile) {
 		this.outfile = outfile;
 	}
 	
+	/**
+	 * Sets the classname.
+	 *
+	 * @param classname the new classname
+	 */
 	public void setClassname(String classname) {
 		this.classname = classname;
 	}
 	
+	/**
+	 * Sets the arguments.
+	 *
+	 * @param arguments the new arguments
+	 */
 	public void setArguments(String arguments) {
 		this.arguments = arguments;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.apache.tools.ant.Task#execute()
+	 */
 	public void execute() throws BuildException {
 		List<String> opts = new ArrayList<String>();
 		opts.add("-Xmx512M");
@@ -94,6 +132,12 @@ public class CommandLineOptsMaker extends Task {
 		}
 	}
 
+	/**
+	 * Generate native refs.
+	 *
+	 * @param d the d
+	 * @return the string
+	 */
 	private String generateNativeRefs(File d) {
 		StringBuffer line = new StringBuffer();
 		File[] dirs = d.listFiles(new FileFilter() {
@@ -132,6 +176,12 @@ public class CommandLineOptsMaker extends Task {
 		return line.toString();
 	}
 
+	/**
+	 * Generate lib refs.
+	 *
+	 * @param d the d
+	 * @return the string
+	 */
 	private String generateLibRefs(File d) {
 		
 		StringBuffer line = new StringBuffer();
@@ -166,6 +216,12 @@ public class CommandLineOptsMaker extends Task {
 		return line.toString();
 	}
 
+	/**
+	 * Should ignore dir.
+	 *
+	 * @param dir the dir
+	 * @return true, if successful
+	 */
 	private boolean shouldIgnoreDir(File dir) {
 		for(String s : ignoreDirs) {
 			if(dir.getName().endsWith(s)) return true;

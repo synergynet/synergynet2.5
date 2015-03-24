@@ -38,34 +38,73 @@ import synergynetframework.jme.pickingsystem.data.OrthogonalPickResultData;
 import com.jme.math.Vector2f;
 import com.jme.scene.Spatial;
 
+
+/**
+ * The Class TwoDMultiTouchElement.
+ */
 public abstract class TwoDMultiTouchElement extends MultiTouchElement {
 
+	/**
+	 * Instantiates a new two d multi touch element.
+	 *
+	 * @param pickingSpatial the picking spatial
+	 * @param targetSpatial the target spatial
+	 */
 	public TwoDMultiTouchElement(Spatial pickingSpatial, Spatial targetSpatial) {
 		super(pickingSpatial, targetSpatial);
 	}
 	
+	/**
+	 * Instantiates a new two d multi touch element.
+	 *
+	 * @param pickingAndTargetSpatial the picking and target spatial
+	 */
 	public TwoDMultiTouchElement(Spatial pickingAndTargetSpatial) {
 		this(pickingAndTargetSpatial, pickingAndTargetSpatial);
 	}
 	
 	// utility methods that simply do type casting on parent methods	
+	/**
+	 * Register screen cursor.
+	 *
+	 * @param c the c
+	 * @param nodeloc the nodeloc
+	 */
 	public void registerScreenCursor(ScreenCursor c, OrthogonalPickResultData nodeloc) {
 		super.registerScreenCursor(c, nodeloc);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#getPickDataForCursorID(long)
+	 */
 	public OrthogonalPickResultData getPickDataForCursorID(long id) {
 		return (OrthogonalPickResultData)super.getPickDataForCursorID(id);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#getPickResultFromCursorIndex(int)
+	 */
 	public OrthogonalPickResultData getPickResultFromCursorIndex(int index) {
 		return (OrthogonalPickResultData) super.getPickResultFromCursorIndex(index);
 	}
 	
+	/**
+	 * Gets the spatial2 d world position at pick.
+	 *
+	 * @param cursorIndex the cursor index
+	 * @return the spatial2 d world position at pick
+	 */
 	public Vector2f getSpatial2DWorldPositionAtPick(int cursorIndex) {
 		OrthogonalPickResultData prd = getPickResultFromCursorIndex(cursorIndex);
 		return new Vector2f(prd.getSpatialWorldPositionAtPick().x, prd.getSpatialWorldPositionAtPick().y);		
 	}
 	
+	/**
+	 * Gets the cursor screen position at pick.
+	 *
+	 * @param cursorIndex the cursor index
+	 * @return the cursor screen position at pick
+	 */
 	public Vector2f getCursorScreenPositionAtPick(int cursorIndex) {
 		OrthogonalPickResultData prd = getPickResultFromCursorIndex(cursorIndex);
 		return prd.getCursorScreenPositionAtPick();

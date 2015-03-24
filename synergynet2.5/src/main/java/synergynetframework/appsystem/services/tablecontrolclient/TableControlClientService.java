@@ -47,22 +47,37 @@ import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.appsystem.table.appregistry.ApplicationRegistry;
 import synergynetframework.appsystem.table.appregistry.ApplicationTaskManager;
 
+
+/**
+ * The Class TableControlClientService.
+ */
 public class TableControlClientService extends SynergyNetService implements TableCommsApplicationListener {
 
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(TableControlClientService.class.getName());
 	
+	/** The comms. */
 	private TableCommsClientService comms;
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#hasStarted()
+	 */
 	@Override
 	public boolean hasStarted() {		
 		return comms != null;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#shutdown()
+	 */
 	@Override
 	public void shutdown() {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#start()
+	 */
 	@Override
 	public void start() throws CouldNotStartServiceException {
 		comms = (TableCommsClientService) ServiceManager.getInstance().get(TableCommsClientService.class);
@@ -74,10 +89,16 @@ public class TableControlClientService extends SynergyNetService implements Tabl
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#stop()
+	 */
 	@Override
 	public void stop() throws ServiceNotRunningException {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.tablecomms.client.TableCommsApplicationListener#messageReceived(java.lang.Object)
+	 */
 	public void messageReceived(Object obj) {
 		if(obj instanceof ChangeApplicationMessage) {
 			ChangeApplicationMessage cam = (ChangeApplicationMessage) obj;
@@ -90,9 +111,15 @@ public class TableControlClientService extends SynergyNetService implements Tabl
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#update()
+	 */
 	@Override
 	public void update() {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.tablecomms.client.TableCommsApplicationListener#tableDisconnected()
+	 */
 	@Override
 	public void tableDisconnected() {
 		 

@@ -40,6 +40,7 @@ import synergynetframework.appsystem.services.net.landiscovery.ServiceAnnounceSy
 import synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoverySystem;
 import synergynetframework.appsystem.services.net.landiscovery.ServiceSystemFactory;
 
+
 /**
  * Service that publishes information about services, or listens
  * for services that become available or become unavailable.
@@ -47,25 +48,46 @@ import synergynetframework.appsystem.services.net.landiscovery.ServiceSystemFact
  */
 public class NetworkServiceDiscoveryService extends SynergyNetService {
 
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(NetworkServiceDiscoveryService.class.getName()); 
 
+	/** The service discovery. */
 	protected ServiceDiscoverySystem serviceDiscovery;
+	
+	/** The service announcer. */
 	protected ServiceAnnounceSystem serviceAnnouncer;
 
+	/**
+	 * Gets the service discovery.
+	 *
+	 * @return the service discovery
+	 */
 	public ServiceDiscoverySystem getServiceDiscovery() {
 		return serviceDiscovery;
 	}
 
+	/**
+	 * Gets the service announcer.
+	 *
+	 * @return the service announcer
+	 */
 	public ServiceAnnounceSystem getServiceAnnouncer() {
 		return serviceAnnouncer;
 	}
 
+	/** The isrunning. */
 	protected boolean isrunning;
 
+	/**
+	 * Instantiates a new network service discovery service.
+	 */
 	public NetworkServiceDiscoveryService() {
 		log.info(this.getClass().getName() + " instance created");
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#shutdown()
+	 */
 	@Override
 	public void shutdown() {
 		log.info("Initiating shutdown.");
@@ -73,6 +95,9 @@ public class NetworkServiceDiscoveryService extends SynergyNetService {
 		log.info("Shutdown complete.");
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#start()
+	 */
 	@Override
 	public void start() throws CouldNotStartServiceException {
 		log.info("Starting up...");
@@ -82,6 +107,9 @@ public class NetworkServiceDiscoveryService extends SynergyNetService {
 		log.info("Startup complete.");
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#stop()
+	 */
 	@Override
 	public void stop() {
 		log.info("Stopping.");
@@ -93,11 +121,17 @@ public class NetworkServiceDiscoveryService extends SynergyNetService {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#hasStarted()
+	 */
 	@Override
 	public boolean hasStarted() {
 		return isrunning;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#update()
+	 */
 	@Override
 	public void update() {}
 }

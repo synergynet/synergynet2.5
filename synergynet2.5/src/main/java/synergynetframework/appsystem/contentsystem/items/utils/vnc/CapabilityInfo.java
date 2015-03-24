@@ -1,5 +1,6 @@
 package synergynetframework.appsystem.contentsystem.items.utils.vnc;
 
+
 //
 //  Copyright (C) 2003 Constantin Kaplinsky.  All Rights Reserved.
 //
@@ -24,10 +25,21 @@ package synergynetframework.appsystem.contentsystem.items.utils.vnc;
 // particular capability as used in the RFB protocol 3.130.
 //
 
+/**
+ * The Class CapabilityInfo.
+ */
 class CapabilityInfo {
 
   // Public methods
 
+  /**
+   * Instantiates a new capability info.
+   *
+   * @param code the code
+   * @param vendorSignature the vendor signature
+   * @param nameSignature the name signature
+   * @param description the description
+   */
   public CapabilityInfo(int code,
 			String vendorSignature,
 			String nameSignature,
@@ -39,6 +51,13 @@ class CapabilityInfo {
     enabled = false;
   }
 
+  /**
+   * Instantiates a new capability info.
+   *
+   * @param code the code
+   * @param vendorSignature the vendor signature
+   * @param nameSignature the name signature
+   */
   public CapabilityInfo(int code,
 			byte[] vendorSignature,
 			byte[] nameSignature) {
@@ -49,28 +68,58 @@ class CapabilityInfo {
     enabled = false;
   }
 
+  /**
+   * Gets the code.
+   *
+   * @return the code
+   */
   public int getCode() {
     return code;
   }
 
+  /**
+   * Gets the description.
+   *
+   * @return the description
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * Checks if is enabled.
+   *
+   * @return true, if is enabled
+   */
   public boolean isEnabled() {
     return enabled;
   }
 
+  /**
+   * Enable.
+   */
   public void enable() {
     enabled = true;
   }
 
+  /**
+   * Equals.
+   *
+   * @param other the other
+   * @return true, if successful
+   */
   public boolean equals(CapabilityInfo other) {
     return (other != null && this.code == other.code &&
 	    this.vendorSignature.equals(other.vendorSignature) &&
 	    this.nameSignature.equals(other.nameSignature));
   }
 
+  /**
+   * Enable if equals.
+   *
+   * @param other the other
+   * @return true, if successful
+   */
   public boolean enableIfEquals(CapabilityInfo other) {
     if (this.equals(other))
       enable();
@@ -80,10 +129,18 @@ class CapabilityInfo {
 
   // Protected data
 
+  /** The code. */
   protected int code;
+  
+  /** The vendor signature. */
   protected String vendorSignature;
+  
+  /** The name signature. */
   protected String nameSignature;
 
+  /** The description. */
   protected String description;
+  
+  /** The enabled. */
   protected boolean enabled;
 }

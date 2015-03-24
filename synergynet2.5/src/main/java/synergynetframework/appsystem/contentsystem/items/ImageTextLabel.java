@@ -38,12 +38,24 @@ import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IImageTextLabelImplementation;
 import synergynetframework.appsystem.contentsystem.items.utils.ImageInfo;
 
+
+/**
+ * The Class ImageTextLabel.
+ */
 public class ImageTextLabel extends MultiLineTextLabel implements IImageTextLabelImplementation {
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -8111443252885792979L;
 
+	/** The image info. */
 	protected ImageInfo imageInfo;
 	
+	/**
+	 * Instantiates a new image text label.
+	 *
+	 * @param contentSystem the content system
+	 * @param name the name
+	 */
 	public ImageTextLabel(ContentSystem contentSystem, String name) {
 		super(contentSystem, name);
 		this.imageInfo = new ImageInfo(null, 0, 0, 150, 100);
@@ -51,11 +63,19 @@ public class ImageTextLabel extends MultiLineTextLabel implements IImageTextLabe
 		this.width = 150;
 	}	
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IImageTextLabelImplementation#setImageInfo(java.net.URL)
+	 */
 	public void setImageInfo(URL imageResource) {
 		this.imageInfo.setImageResource(imageResource);
 		((IImageTextLabelImplementation)this.contentItemImplementation).setImageInfo(imageResource);
 	}
 	
+	/**
+	 * Gets the image info.
+	 *
+	 * @return the image info
+	 */
 	public ImageInfo getImageInfo() {
 		return imageInfo;
 	}

@@ -36,21 +36,47 @@ import apps.projectmanagement.component.workflowchart.core.graphcomponents.Graph
 import apps.projectmanagement.component.workflowchart.core.graphcomponents.OptionMessage;
 import synergynetframework.appsystem.contentsystem.ContentSystem;
 
+
+/**
+ * A factory for creating Message objects.
+ */
 public class MessageFactory {
 
 	
+	/** The ok cancel message. */
 	public static int OK_CANCEL_MESSAGE = 0;
+	
+	/** The yes no message. */
 	public static int YES_NO_MESSAGE = 1;
 
+	/** The instance. */
 	private static MessageFactory instance;
 	
+	/**
+	 * Instantiates a new message factory.
+	 */
 	private MessageFactory(){}
 	
+	/**
+	 * Gets the single instance of MessageFactory.
+	 *
+	 * @return single instance of MessageFactory
+	 */
 	public static MessageFactory getInstance(){
 		if(instance == null) instance = new MessageFactory();
 		return instance;
 	}
 	
+	/**
+	 * Creates a new Message object.
+	 *
+	 * @param contentSystem the content system
+	 * @param gManager the g manager
+	 * @param parentComponent the parent component
+	 * @param text the text
+	 * @param messageType the message type
+	 * @return the option message
+	 */
 	public OptionMessage createOptionMessage(ContentSystem contentSystem, GraphManager gManager, GraphComponent parentComponent, String text, int messageType){
 		OptionMessage oMsg = new OptionMessage(contentSystem, gManager, parentComponent, text, messageType);
 		return oMsg;

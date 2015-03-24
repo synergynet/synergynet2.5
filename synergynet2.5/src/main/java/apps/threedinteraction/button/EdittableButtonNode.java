@@ -25,19 +25,50 @@ import com.jme.system.DisplaySystem;
 import com.jme.util.TextureManager;
 import com.jmex.awt.swingui.ImageGraphics;
 
+
+/**
+ * The Class EdittableButtonNode.
+ */
 public class EdittableButtonNode extends Node {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2429175967783608868L;
 	
+	/** The slope. */
 	protected float width = 1, length = 1, height =1, slope = 0.5f;
+	
+	/** The texture url. */
 	protected URL textureURL;
+	
+	/** The text. */
 	protected String text;
+	
+	/** The rb. */
 	protected RoundedBox rb;
+	
+	/** The listeners. */
 	protected List<KeyListener> listeners = new ArrayList<KeyListener>();
+	
+	/** The key name. */
 	protected String keyName="";
+	
+	/** The quad. */
 	protected GraphicsImageQuad quad;
+	
+	/** The gfx. */
 	protected ImageGraphics gfx;
 	
+	/**
+	 * Instantiates a new edittable button node.
+	 *
+	 * @param name the name
+	 * @param width the width
+	 * @param length the length
+	 * @param height the height
+	 * @param slope the slope
+	 * @param bgTexture the bg texture
+	 * @param text the text
+	 */
 	public EdittableButtonNode(String name, float width, float length, float height, float slope, URL bgTexture, String text){
 		super(name);
 		this.keyName = name;
@@ -50,6 +81,9 @@ public class EdittableButtonNode extends Node {
 		init();		
 	}
 
+	/**
+	 * Inits the.
+	 */
 	protected void init(){
 		
 		Vector3f min = new Vector3f(this.width, this.length, this.height);
@@ -81,6 +115,11 @@ public class EdittableButtonNode extends Node {
 		
 	}
 	
+	/**
+	 * Creates the text quad.
+	 *
+	 * @return the quad
+	 */
 	private Quad createTextQuad(){
 		Quad quad = new Quad("button "+this.name, this.width*(1.5f), this.length*(1.5f));
 		
@@ -136,6 +175,11 @@ public class EdittableButtonNode extends Node {
 		
 	}
 	
+	/**
+	 * Render.
+	 *
+	 * @param text the text
+	 */
 	protected void render(String text){
 		
 		if (quad!=null)
@@ -171,15 +215,30 @@ public class EdittableButtonNode extends Node {
 		
 	}
 	
+	/**
+	 * Sets the text.
+	 *
+	 * @param text the new text
+	 */
 	public void setText(String text){
 		this.text = text;
 		render(text);
 	}
 	
+	/**
+	 * Gets the display quad.
+	 *
+	 * @return the display quad
+	 */
 	public Quad getDisplayQuad(){
 		return quad;
 	}
 	
+	/**
+	 * Adds the key listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void addKeyListener(KeyListener listener){
 		this.listeners.add(listener);
 	}

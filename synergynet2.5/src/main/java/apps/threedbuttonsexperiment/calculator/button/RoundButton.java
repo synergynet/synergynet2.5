@@ -22,18 +22,45 @@ import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
 import com.jme.util.TextureManager;
 
+
+/**
+ * The Class RoundButton.
+ */
 public class RoundButton extends Node {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2429175967783111868L;
 	
+	/** The height. */
 	protected float radius =2, height = 3;
+	
+	/** The texture url. */
 	protected URL textureURL;
+	
+	/** The text texture url. */
 	protected URL textTextureURL;
+	
+	/** The button. */
 	protected Cylinder button;
+	
+	/** The listeners. */
 	protected List<KeyListener> listeners = new ArrayList<KeyListener>();
+	
+	/** The key name. */
 	protected String keyName="";
+	
+	/** The button node. */
 	protected Node buttonNode;
 	
+	/**
+	 * Instantiates a new round button.
+	 *
+	 * @param name the name
+	 * @param radius the radius
+	 * @param height the height
+	 * @param bgTexture the bg texture
+	 * @param textTexture the text texture
+	 */
 	public RoundButton(String name, float radius, float height, URL bgTexture, URL textTexture){
 		super(name);
 		this.keyName = name;
@@ -48,6 +75,9 @@ public class RoundButton extends Node {
 		init();		
 	}
 
+	/**
+	 * Inits the.
+	 */
 	protected void init(){
 		
 		button  = new Cylinder(name + "button", 20, 50, radius, 3, true);
@@ -79,6 +109,11 @@ public class RoundButton extends Node {
 		
 	}
 	
+	/**
+	 * Creates the text label.
+	 *
+	 * @return the disk
+	 */
 	private Disk createTextLabel(){
 		Disk disk = new Disk(this.name +"buttonLabel", 16, 32, radius);
 		
@@ -136,6 +171,11 @@ public class RoundButton extends Node {
 		
 	}
 	
+	/**
+	 * Adds the key listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void addKeyListener(KeyListener listener){
 		this.listeners.add(listener);
 	}

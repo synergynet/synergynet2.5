@@ -58,8 +58,27 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
+
+/**
+ * The Class RetrievalSystem.
+ */
 public class RetrievalSystem {
 
+	/**
+	 * Retrieve distribution.
+	 *
+	 * @param targetDirectory the target directory
+	 * @param baseURL the base url
+	 * @param configXMLInputStream the config xml input stream
+	 * @throws SAXException the SAX exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ParserConfigurationException the parser configuration exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws ClassNotFoundException the class not found exception
+	 * @throws XPathExpressionException the x path expression exception
+	 * @throws NoSuchAlgorithmException the no such algorithm exception
+	 */
 	public static void retrieveDistribution(File targetDirectory, URL baseURL, InputStream configXMLInputStream) throws SAXException, IOException, ParserConfigurationException, InstantiationException, IllegalAccessException, ClassNotFoundException, XPathExpressionException, NoSuchAlgorithmException {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		factory.setNamespaceAware(false);
@@ -91,6 +110,16 @@ public class RetrievalSystem {
 		LogWindow.getInstance().log("Done.");
 	}
 
+	/**
+	 * Process file.
+	 *
+	 * @param targetDirectory the target directory
+	 * @param baseURL the base url
+	 * @param s the s
+	 * @param md5 the md5
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws NoSuchAlgorithmException the no such algorithm exception
+	 */
 	private static void processFile(File targetDirectory, URL baseURL, String s, String md5) throws IOException, NoSuchAlgorithmException {
 		s = s.substring(1); // trim leading slash
 		File localFile = new File(targetDirectory, s);
@@ -108,6 +137,13 @@ public class RetrievalSystem {
 		}
 	}
 
+	/**
+	 * Retrieve.
+	 *
+	 * @param url the url
+	 * @param localFile the local file
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	private static void retrieve(URL url, File localFile) throws IOException {
 		InputStream is = url.openStream();
 		OutputStream os = new FileOutputStream(localFile);
@@ -120,6 +156,12 @@ public class RetrievalSystem {
 		os.close();
 	}
 
+	/**
+	 * Process directory.
+	 *
+	 * @param targetDirectory the target directory
+	 * @param s the s
+	 */
 	private static void processDirectory(File targetDirectory, String s) {
 		s = s.substring(1); // trim leading slash 
 		if(s.length()>0) {
@@ -128,6 +170,14 @@ public class RetrievalSystem {
 		}
 	}
 
+	/**
+	 * Gets the m d5.
+	 *
+	 * @param f the f
+	 * @return the m d5
+	 * @throws NoSuchAlgorithmException the no such algorithm exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static String getMD5(File f) throws NoSuchAlgorithmException, IOException {
 		MessageDigest md = MessageDigest.getInstance("MD5");
 		InputStream is = new FileInputStream(f);

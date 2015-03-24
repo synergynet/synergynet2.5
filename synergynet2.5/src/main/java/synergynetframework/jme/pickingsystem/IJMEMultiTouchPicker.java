@@ -39,6 +39,7 @@ import com.jme.scene.Node;
 import synergynetframework.jme.pickingsystem.data.PickRequest;
 import synergynetframework.jme.pickingsystem.data.PickResultData;
 
+
 /**
  * Defines the picking system for jMonkeyEngine.  Each pick request
  * should result in a List of pick results for that location.  Each
@@ -50,9 +51,39 @@ import synergynetframework.jme.pickingsystem.data.PickResultData;
  */
 public interface IJMEMultiTouchPicker {
 	
+	/**
+	 * Sets the picking root node.
+	 *
+	 * @param rootNode the new picking root node
+	 * @throws PickSystemException the pick system exception
+	 */
 	public void setPickingRootNode(Node rootNode) throws PickSystemException;
+	
+	/**
+	 * Sets the orthogonal picking root.
+	 *
+	 * @param twod the new orthogonal picking root
+	 * @throws PickSystemException the pick system exception
+	 */
 	public void setOrthogonalPickingRoot(Node twod) throws PickSystemException;
+	
+	/**
+	 * Do pick.
+	 *
+	 * @param pickRequest the pick request
+	 * @return the list
+	 * @throws PickSystemException the pick system exception
+	 */
 	public List<PickResultData> doPick(PickRequest pickRequest) throws PickSystemException;
+	
+	/**
+	 * Do pick.
+	 *
+	 * @param pickRequest the pick request
+	 * @param worldNodeOnly the world node only
+	 * @return the list
+	 * @throws PickSystemException the pick system exception
+	 */
 	public List<PickResultData> doPick(PickRequest pickRequest, boolean worldNodeOnly) throws PickSystemException;
 	
 		

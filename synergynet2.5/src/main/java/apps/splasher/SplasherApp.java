@@ -49,30 +49,65 @@ import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.appsystem.table.gfx.GFXUtils;
 import synergynetframework.jme.gfx.twod.ImageQuadFactory;
 
+
+/**
+ * The Class SplasherApp.
+ */
 public class SplasherApp extends DefaultSynergyNetApp {
 	
+	/** The seq. */
 	protected AnimationSequence seq;
+	
+	/** The splash. */
 	protected Quad splash;
+	
+	/** The next app. */
 	protected ApplicationInfo nextApp;
+	
+	/** The image url. */
 	protected URL imageURL = SplasherApp.class.getResource("synergynetlogo.png");
+	
+	/** The img width. */
 	protected float imgWidth = 200;
 	
+	/**
+	 * Instantiates a new splasher app.
+	 *
+	 * @param info the info
+	 */
 	public SplasherApp(ApplicationInfo info) {
 		super(info);
 	}
 	
+	/**
+	 * Sets the next app.
+	 *
+	 * @param nextApp the new next app
+	 */
 	public void setNextApp(ApplicationInfo nextApp) {
 		this.nextApp = nextApp;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {}
 	
+	/**
+	 * Sets the splash image url.
+	 *
+	 * @param imgURL the img url
+	 * @param imgWidth the img width
+	 */
 	public void setSplashImageURL(URL imgURL, float imgWidth) {
 		this.imageURL = imgURL;
 		this.imgWidth = imgWidth;
 	}
 	
+	/**
+	 * Splash.
+	 */
 	public void splash() {
 		seq = new AnimationSequence();
 		List<Geometry> splashings = new ArrayList<Geometry>();

@@ -37,8 +37,15 @@ import java.util.Map;
 import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 
+
+/**
+ * The Class FrameRender.
+ */
 public class FrameRender extends QuadContentItemRender {
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.contentloader.attributesrender.QuadContentItemRender#render(java.util.Map, synergynetframework.appsystem.contentsystem.items.ContentItem, synergynetframework.appsystem.contentsystem.ContentSystem)
+	 */
 	@Override
 	protected void render(Map<String, String> itemAttrs,
 			ContentItem contentItem, ContentSystem contentsys) {

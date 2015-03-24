@@ -41,14 +41,35 @@ import com.jme.math.Quaternion;
 import com.jme.math.Vector3f;
 import com.jme.scene.Geometry;
 
+
+/**
+ * The Class MoveInCircleInContainer.
+ */
 public class MoveInCircleInContainer extends AnimationElement {
 
+	/** The spatials. */
 	protected List<Geometry> spatials;
+	
+	/** The n. */
 	protected int n;
+	
+	/** The rpm. */
 	protected float rpm = 1f;
+	
+	/** The angle offset. */
 	protected float angleOffset = 0f;
+	
+	/** The container height. */
 	protected float itemWidth, containerWidth, containerHeight;
 
+	/**
+	 * Instantiates a new move in circle in container.
+	 *
+	 * @param spatials the spatials
+	 * @param itemWidth the item width
+	 * @param containerWidth the container width
+	 * @param containerHeight the container height
+	 */
 	public MoveInCircleInContainer(List<Geometry> spatials, float itemWidth, float containerWidth, float containerHeight) {
 		this.spatials = spatials;
 		n = spatials.size();
@@ -57,10 +78,20 @@ public class MoveInCircleInContainer extends AnimationElement {
 		this.containerWidth = containerWidth;
 	}
 	
+	/**
+	 * Sets the rpm.
+	 *
+	 * @param rpm the new rpm
+	 */
 	public void setRPM(float rpm) {
 		this.rpm = rpm;
 	}
 	
+	/**
+	 * Sets the geometries.
+	 *
+	 * @param angleOffset the new geometries
+	 */
 	public void setGeometries(float angleOffset) {
 		float r = n * itemWidth / 2;
 		float currentAngle = angleOffset;
@@ -70,6 +101,14 @@ public class MoveInCircleInContainer extends AnimationElement {
 		}
 	}
 
+	/**
+	 * Sets the geometry.
+	 *
+	 * @param q the q
+	 * @param currentAngle the current angle
+	 * @param r the r
+	 * @param angle the angle
+	 */
 	protected void setGeometry(Geometry q, float currentAngle, float r, float angle) {
 		Vector3f location = new Vector3f(r * FastMath.sin(currentAngle), r * FastMath.cos(currentAngle), 0f);
 		location.x += containerWidth/ 2;
@@ -81,20 +120,32 @@ public class MoveInCircleInContainer extends AnimationElement {
 		q.setLocalRotation(a);	
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.animationsystem.AnimationElement#updateAnimationState(float)
+	 */
 	@Override
 	public void updateAnimationState(float tpf) {
 		angleOffset += (rpm / 60 * FastMath.TWO_PI * tpf) % FastMath.TWO_PI;
 		setGeometries(angleOffset);		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.animationsystem.AnimationElement#isFinished()
+	 */
 	@Override
 	public boolean isFinished() {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.animationsystem.AnimationElement#elementStart(float)
+	 */
 	@Override
 	public void elementStart(float tpf) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.animationsystem.AnimationElement#reset()
+	 */
 	@Override
 	public void reset() {
 		setGeometries(0f);		

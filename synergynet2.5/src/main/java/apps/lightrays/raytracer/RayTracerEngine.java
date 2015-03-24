@@ -13,32 +13,70 @@ import apps.lightrays.raytracer.scene.Scene;
 import apps.lightrays.raytracer.scene.Vector;
 
 
+
+/**
+ * The Class RayTracerEngine.
+ */
 public class RayTracerEngine implements ImageProducer, Runnable {
 
+	/** The width. */
 	private int width;
+	
+	/** The height. */
 	private int height;
 	//private int[] pixels;
+	/** The pixels. */
 	private Pixels pixels;
 
+	/** The lines_produced. */
 	private int lines_produced;
+	
+	/** The lines_consumed. */
 	private int lines_consumed;
 
+	/** The t. */
 	private Thread t;
+	
+	/** The consumer. */
 	private ImageConsumer consumer;
 
+	/** The scene. */
 	private Scene scene;
+	
+	/** The camera. */
 	public Camera camera;
 
+	/** The forward. */
 	private Vector forward;
+	
+	/** The rtl. */
 	private RayTracerListener rtl;
+	
+	/** The supersampling. */
 	private boolean supersampling = false;
+	
+	/** The finished. */
 	private boolean finished = true;
+	
+	/** The percent_complete. */
 	private double percent_complete = 0.0;
 
+	/**
+	 * Instantiates a new ray tracer engine.
+	 *
+	 * @param image_size the image_size
+	 */
 	public RayTracerEngine(Dimension image_size) {
 		this(image_size, null, null);
 	}
 
+	/**
+	 * Instantiates a new ray tracer engine.
+	 *
+	 * @param image_size the image_size
+	 * @param scene the scene
+	 * @param camera the camera
+	 */
 	public RayTracerEngine(Dimension image_size, Scene scene, Camera camera) {
 		this.scene = scene;
 		this.camera = camera;
@@ -49,14 +87,27 @@ public class RayTracerEngine implements ImageProducer, Runnable {
 
 	}
 
+	/**
+	 * Sets the super sampling.
+	 *
+	 * @param flag the new super sampling
+	 */
 	public void setSuperSampling(boolean flag) {
 		this.supersampling = flag;
 	}
 
+	/**
+	 * Sets the ray tracer listener.
+	 *
+	 * @param l the new ray tracer listener
+	 */
 	public void setRayTracerListener(RayTracerListener l) {
 		this.rtl = l;
 	}
 
+	/**
+	 * Start.
+	 */
 	public void start() {
 		lines_produced = 0;
 		lines_consumed = 0;
@@ -68,6 +119,9 @@ public class RayTracerEngine implements ImageProducer, Runnable {
 		t.start();		
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.image.ImageProducer#addConsumer(java.awt.image.ImageConsumer)
+	 */
 	public void addConsumer(ImageConsumer ic) {		
 		consumer = ic;
 		consumer.setColorModel(ColorModel.getRGBdefault());
@@ -76,15 +130,24 @@ public class RayTracerEngine implements ImageProducer, Runnable {
 		consumer = ic;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.image.ImageProducer#isConsumer(java.awt.image.ImageConsumer)
+	 */
 	public boolean isConsumer(ImageConsumer ic) {
 		return consumer == ic;
 
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.image.ImageProducer#removeConsumer(java.awt.image.ImageConsumer)
+	 */
 	public void removeConsumer(ImageConsumer ic) {
 		consumer = null;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.image.ImageProducer#startProduction(java.awt.image.ImageConsumer)
+	 */
 	public void startProduction(ImageConsumer ic) {
 		addConsumer(ic);
 		if(lines_produced == height) {
@@ -92,6 +155,9 @@ public class RayTracerEngine implements ImageProducer, Runnable {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.image.ImageProducer#requestTopDownLeftRightResend(java.awt.image.ImageConsumer)
+	 */
 	public void requestTopDownLeftRightResend(ImageConsumer ic) {
 		ic.setHints(ImageConsumer.TOPDOWNLEFTRIGHT);
 		ic.setPixels (0, 0, width, lines_produced, ColorModel.getRGBdefault (), pixels.pixels, 0, width);
@@ -102,6 +168,9 @@ public class RayTracerEngine implements ImageProducer, Runnable {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
 	public void run() {
 		if(rtl != null)
 			rtl.traceStarted();
@@ -149,19 +218,39 @@ public class RayTracerEngine implements ImageProducer, Runnable {
 		finished = true;
 	}
 
+	/**
+	 * Checks if is finished.
+	 *
+	 * @return true, if is finished
+	 */
 	public boolean isFinished() {
 		return finished;
 	}
 
+	/**
+	 * Gets the percent complete.
+	 *
+	 * @return the percent complete
+	 */
 	public double getPercentComplete() {
 		this.percent_complete = (double)lines_produced / (double)height * 100.0;
 		return this.percent_complete;
 	}
 
+	/**
+	 * Gets the pixels.
+	 *
+	 * @return the pixels
+	 */
 	public Pixels getPixels() {
 		return this.pixels;
 	}
 
+	/**
+	 * Trace line.
+	 *
+	 * @param y the y
+	 */
 	public void traceLine (int y)
 	{
 		for (int x = 0; x < width; x++)
@@ -174,6 +263,11 @@ public class RayTracerEngine implements ImageProducer, Runnable {
 		}
 	}
 
+	/**
+	 * Trace line supersampling.
+	 *
+	 * @param y the y
+	 */
 	public void traceLineSupersampling(int y) {
 		int side = 2;
 		for (int x = 0; x < width; x++)
@@ -197,18 +291,38 @@ public class RayTracerEngine implements ImageProducer, Runnable {
 		}		
 	}
 
+	/**
+	 * Gets the height.
+	 *
+	 * @return the height
+	 */
 	public int getHeight() {
 		return height;
 	}
 
+	/**
+	 * Gets the width.
+	 *
+	 * @return the width
+	 */
 	public int getWidth() {
 		return width;
 	}
 
+	/**
+	 * Sets the camera.
+	 *
+	 * @param camera the new camera
+	 */
 	public void setCamera(Camera camera) {
 		this.camera = camera;		
 	}	
 
+	/**
+	 * Sets the scene.
+	 *
+	 * @param s the new scene
+	 */
 	public void setScene(Scene s) {
 		this.scene = s;
 	}

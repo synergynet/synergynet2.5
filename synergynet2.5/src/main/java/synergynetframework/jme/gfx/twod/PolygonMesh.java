@@ -48,28 +48,58 @@ import com.jme.system.DisplaySystem;
 import com.jme.util.TextureManager;
 import com.jmex.awt.swingui.ImageGraphics;
 
+
+/**
+ * The Class PolygonMesh.
+ */
 public class PolygonMesh extends GraphicsImageQuad {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The border width. */
 	private static int borderWidth = 0;
+	
+	/** The border colour. */
 	private static Color borderColour = Color.white;
 
+	/** The x points. */
 	private int[] xPoints;
+	
+	/** The y points. */
 	private int[] yPoints;
+	
+	/** The coords. */
 	public float[][]coords;
+	
+	/** The gfx. */
 	public ImageGraphics gfx;
 
+	/** The shape type. */
 	private String shapeType = "";
 
+	/**
+	 * Instantiates a new polygon mesh.
+	 *
+	 * @param name the name
+	 * @param x the x
+	 * @param y the y
+	 */
 	public PolygonMesh(String name, int x, int y){
 		super(name, x, y);
 		this.setIsCollidable(true);
 		gfx = getImageGraphics();
 	}
 
+	/** The linear. */
 	boolean linear = true;
+	
+	/** The other colour. */
 	private ColorRGBA otherColour;
 
+	/**
+	 * Change texture mode.
+	 */
 	public void changeTextureMode() {
 		if (linear){
 			texture.setMinificationFilter(MinificationFilter.NearestNeighborNoMipMaps);
@@ -80,6 +110,13 @@ public class PolygonMesh extends GraphicsImageQuad {
 		}
 	}
 
+	/**
+	 * Adds the polygon filled.
+	 *
+	 * @param coords the coords
+	 * @param c the c
+	 * @param border the border
+	 */
 	public void addPolygonFilled(float[][] coords, ColorRGBA c, boolean border){
 		this.coords = coords;
 		xPoints = new int[coords.length];
@@ -104,6 +141,13 @@ public class PolygonMesh extends GraphicsImageQuad {
 		updateGraphics();
 	}
 
+	/**
+	 * Adds the circle filled.
+	 *
+	 * @param radius the radius
+	 * @param c the c
+	 * @param border the border
+	 */
 	public void addCircleFilled(int radius, ColorRGBA c, boolean border){
 
 		Color colour = new Color(c.r, c.g, c.b);
@@ -123,6 +167,14 @@ public class PolygonMesh extends GraphicsImageQuad {
 		updateGraphics();
 	}
 
+	/**
+	 * Adds the oval filled.
+	 *
+	 * @param xRadius the x radius
+	 * @param yRadius the y radius
+	 * @param c the c
+	 * @param border the border
+	 */
 	public void addOvalFilled(int xRadius, int yRadius, ColorRGBA c, boolean border){
 
 		Color colour = new Color(c.r, c.g, c.b);
@@ -142,6 +194,12 @@ public class PolygonMesh extends GraphicsImageQuad {
 		updateGraphics();
 	}
 
+	/**
+	 * Adds the triangle filled.
+	 *
+	 * @param c the c
+	 * @param border the border
+	 */
 	public void addTriangleFilled(ColorRGBA c, boolean border){
 
 		Polygon T = new Polygon();
@@ -164,6 +222,13 @@ public class PolygonMesh extends GraphicsImageQuad {
 		updateGraphics();
 	}
 
+	/**
+	 * Adds the square filled.
+	 *
+	 * @param c the c
+	 * @param curve the curve
+	 * @param border the border
+	 */
 	public void addSquareFilled(ColorRGBA c, int curve, boolean border){
 
 		Color colour = new Color(c.r, c.g, c.b);
@@ -184,6 +249,11 @@ public class PolygonMesh extends GraphicsImageQuad {
 		updateGraphics();
 	}
 
+	/**
+	 * Adds the image.
+	 *
+	 * @param resource the resource
+	 */
 	public void addImage(URL resource) {
 		TextureState ts = DisplaySystem.getDisplaySystem().getRenderer().createTextureState();
 		Texture t = TextureManager.loadTexture(resource, Texture.MinificationFilter.Trilinear, Texture.MagnificationFilter.Bilinear);
@@ -193,29 +263,58 @@ public class PolygonMesh extends GraphicsImageQuad {
 
 	}
 
+	/**
+	 * Clear.
+	 */
 	public void clear(){
 		gfx.clearRect(0, 0, imageWidth, imageHeight);
 		updateGraphics();
 	}
 
+	/**
+	 * Sets the shape type.
+	 *
+	 * @param shapeType the new shape type
+	 */
 	public void setShapeType(String shapeType){
 		this.shapeType = shapeType;
 	}
 
+	/**
+	 * Gets the shape type.
+	 *
+	 * @return the shape type
+	 */
 	public String getShapeType(){
 		return shapeType;
 	}
 
+	/**
+	 * Sets the border.
+	 *
+	 * @param c the c
+	 * @param borderWidth the border width
+	 */
 	public static void setBorder(ColorRGBA c, int borderWidth){
 		PolygonMesh.borderColour = new Color(c.r, c.g, c.b);
 		PolygonMesh.borderWidth = borderWidth;
 
 	}
 
+	/**
+	 * Sets the other colour.
+	 *
+	 * @param otherColour the new other colour
+	 */
 	public void setOtherColour(ColorRGBA otherColour){
 		this.otherColour = otherColour;
 	}
 
+	/**
+	 * Gets the other colour.
+	 *
+	 * @return the other colour
+	 */
 	public ColorRGBA getOtherColour() {
 		return otherColour;
 	}

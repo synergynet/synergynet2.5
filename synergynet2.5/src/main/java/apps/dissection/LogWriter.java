@@ -38,12 +38,30 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
 
+
+/**
+ * The Class LogWriter.
+ */
 public class LogWriter {
+	
+	/** The file name. */
 	private String fileName; 
+	
+	/** The log file. */
 	private FileWriter logFile; 
+	
+	/** The out. */
 	private BufferedWriter out; 
+	
+	/** The enabled. */
 	private boolean enabled = true;
 
+	/**
+	 * Instantiates a new log writer.
+	 *
+	 * @param groupName the group name
+	 * @param enabled the enabled
+	 */
 	public LogWriter(String groupName, boolean enabled)
 	{
 		if(enabled) {
@@ -58,6 +76,11 @@ public class LogWriter {
 		}
 	}
 
+	/**
+	 * Write.
+	 *
+	 * @param stringToWrite the string to write
+	 */
 	public synchronized void write(String stringToWrite)
 	{
 		if(!enabled) return;
@@ -70,6 +93,9 @@ public class LogWriter {
 		}
 	}
 
+	/**
+	 * Close.
+	 */
 	public synchronized void close()
 	{
 		if(!enabled) return;
@@ -79,6 +105,9 @@ public class LogWriter {
 		{System.out.println("IO Exception");}
 	}
 
+	/**
+	 * Delete.
+	 */
 	public synchronized void delete()
 	{
 		if(!enabled) return;

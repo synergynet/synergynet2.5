@@ -38,14 +38,27 @@ import synergynetframework.appsystem.contentsystem.items.implementation.interfac
 import synergynetframework.appsystem.contentsystem.items.utils.Background;
 import synergynetframework.appsystem.contentsystem.items.utils.Border;
 
+
+/**
+ * The Class JMERoundWindow.
+ */
 public class JMERoundWindow extends JMEOrthoContainer implements IRoundWindowImplementation {
 
+	/** The background frame. */
 	protected RoundFrame backgroundFrame;
 	
+	/**
+	 * Instantiates a new JME round window.
+	 *
+	 * @param contentItem the content item
+	 */
 	public JMERoundWindow(ContentItem contentItem) {
 		super(contentItem);		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEContentItem#init()
+	 */
 	public void init(){
 		super.init();
 		backgroundFrame = (RoundFrame)contentItem.getContentSystem().createContentItem(RoundFrame.class);
@@ -59,26 +72,41 @@ public class JMERoundWindow extends JMEOrthoContainer implements IRoundWindowImp
 
 	
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEOrthoContainer#setBackGround(synergynetframework.appsystem.contentsystem.items.utils.Background)
+	 */
 	@Override
 	public void setBackGround(Background backGround) {	
 		backgroundFrame.setBackGround(backGround);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEOrthoContainer#setBorder(synergynetframework.appsystem.contentsystem.items.utils.Border)
+	 */
 	@Override
 	public void setBorder(Border border) {
 		backgroundFrame.setBorder(border);
 	}
 	
+	/**
+	 * Lower index.
+	 */
 	public void lowerIndex(){
 		backgroundFrame.setOrder(-999999999);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundWindowImplementation#setRadius(int)
+	 */
 	@Override
 	public void setRadius(int radius) {
 		backgroundFrame.setRadius(radius);
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundWindowImplementation#getBackgroundFrame()
+	 */
 	public RoundFrame getBackgroundFrame(){
 		return backgroundFrame;
 	}

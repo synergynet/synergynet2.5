@@ -64,18 +64,45 @@ import synergynetframework.appsystem.contentsystem.items.Window;
 import synergynetframework.appsystem.contentsystem.items.listener.BringToTopListener;
 import synergynetframework.appsystem.contentsystem.items.listener.ScreenCursorListener;
 
+
+/**
+ * The Class DisplayPanel.
+ */
 public class DisplayPanel {
 	
+	/** The portal. */
 	protected TablePortal portal;
+	
+	/** The window. */
 	protected Window window;
+	
+	/** The sync renderer. */
 	protected SyncRenderer syncRenderer;
+	
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The online items list. */
 	protected Map<String, ContentItem> onlineItemsList = new HashMap<String, ContentItem>();
+	
+	/** The line colour. */
 	protected ColorRGBA lineColour = ColorRGBA.white;
+	
+	/** The line width. */
 	protected float lineWidth =2f;
+	
+	/** The alpha state. */
 	protected BlendState alphaState;
+	
+	/** The traces. */
 	protected Queue<Line> traces = new ConcurrentLinkedQueue<Line>(); 
 	
+	/**
+	 * Instantiates a new display panel.
+	 *
+	 * @param contentSystem the content system
+	 * @param portal the portal
+	 */
 	public DisplayPanel(ContentSystem contentSystem, TablePortal portal){
 		this.contentSystem = contentSystem;
 		this.portal = portal;
@@ -93,10 +120,20 @@ public class DisplayPanel {
         alphaState.setEnabled(true);
 	}
 	
+	/**
+	 * Gets the window.
+	 *
+	 * @return the window
+	 */
 	public Window getWindow(){
 		return window;
 	}
 
+	/**
+	 * Register content items.
+	 *
+	 * @param items the items
+	 */
 	public void registerContentItems(List<ContentItem> items) {
 		for (ContentItem item:items){
 			registerContentItem(item);
@@ -106,6 +143,11 @@ public class DisplayPanel {
 		}
 	}
 	
+	/**
+	 * Register content item.
+	 *
+	 * @param item the item
+	 */
 	public void registerContentItem(ContentItem item) {
 		boolean isVisible = item.isVisible();
 
@@ -154,6 +196,9 @@ public class DisplayPanel {
 		}
 	}
 
+	/**
+	 * Unregister all items.
+	 */
 	public void unregisterAllItems() {
 		for(ContentItem item: onlineItemsList.values()){	
 			portal.syncManager.unregisterContentItem(item);
@@ -163,15 +208,30 @@ public class DisplayPanel {
 		onlineItemsList.clear();
 	}
 
+	/**
+	 * Unregister item.
+	 *
+	 * @param itemName the item name
+	 */
 	public void unregisterItem(String itemName) {
 		ContentItem contentItem = onlineItemsList.remove(itemName);
 		window.removeSubItem(contentItem);
 	}
 	
+	/**
+	 * Gets the online items.
+	 *
+	 * @return the online items
+	 */
 	public List<ContentItem> getOnlineItems(){
 		return new ArrayList<ContentItem>(onlineItemsList.values());
 	}
 	
+	/**
+	 * Sync content.
+	 *
+	 * @param itemSyncDataMap the item sync data map
+	 */
 	protected void syncContent(Map<String, Map<Short, Object>> itemSyncDataMap) {
 		if (onlineItemsList.isEmpty()) return;
 			for (String name:itemSyncDataMap.keySet()){
@@ -202,6 +262,11 @@ public class DisplayPanel {
 			}
 	}
 
+	/**
+	 * Sets the mode.
+	 *
+	 * @param mode the new mode
+	 */
 	protected void setMode(OperationMode mode) {
 		for(ContentItem item: onlineItemsList.values()){	
 			if(mode == OperationMode.WRITE){
@@ -223,6 +288,11 @@ public class DisplayPanel {
 		}
 	}
 	
+	/**
+	 * Update trace mode.
+	 *
+	 * @param currentTraceMode the current trace mode
+	 */
 	public void updateTraceMode(TraceMode currentTraceMode) {
 		if(currentTraceMode.equals(TraceMode.ITEMS_ONLY)){
 			for(Line l: traces){
@@ -235,6 +305,9 @@ public class DisplayPanel {
 		}
 	}
 
+	/**
+	 * Clear traces.
+	 */
 	public void clearTraces() {
 		Iterator<Line> iter = traces.iterator();
 		while(iter.hasNext()){

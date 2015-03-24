@@ -38,28 +38,57 @@ import com.jmex.awt.swingui.ImageGraphics;
 
 import synergynetframework.jme.gfx.twod.utils.GraphicsImageQuad;
 
+
+/**
+ * The Class ChangeableTextLabel.
+ */
 public class ChangeableTextLabel extends GraphicsImageQuad {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2796493053368005492L;
+	
+	/** The gfx. */
 	protected ImageGraphics gfx;
+	
+	/** The text. */
 	protected StringBuffer text = new StringBuffer();
 
+	/**
+	 * Instantiates a new changeable text label.
+	 *
+	 * @param name the name
+	 * @param width the width
+	 * @param height the height
+	 */
 	public ChangeableTextLabel(String name, float width, float height) {
 		super(name, width, height);
 		gfx = getImageGraphics();
 	}
 	
+	/**
+	 * Sets the text.
+	 *
+	 * @param newText the new text
+	 */
 	public void setText(String newText) {
 		this.text.setLength(0);
 		this.text.append(newText);
 		draw();
 	}
 	
+	/**
+	 * Append text.
+	 *
+	 * @param additionalText the additional text
+	 */
 	public void appendText(String additionalText) {
 		this.text.append(additionalText);
 		draw();
 	}
 	
+	/**
+	 * Draw.
+	 */
 	protected void draw() {
 //		gfx.setColor(Color.black);
 //		gfx.fillRect(0, 0, imageWidth, imageHeight);

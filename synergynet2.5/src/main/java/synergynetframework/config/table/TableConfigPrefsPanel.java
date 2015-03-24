@@ -46,25 +46,49 @@ import javax.swing.JTextField;
 
 import synergynetframework.config.table.TableConfigPrefsItem.TableType;
 
+
+/**
+ * The Class TableConfigPrefsPanel.
+ */
 public class TableConfigPrefsPanel extends JPanel {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 7908065805513630850L;
+	
+	/** The prefs item. */
 	private TableConfigPrefsItem prefsItem;
 	
-	/** Creates new form DeveloperConfigPanel
-	 * @param developerConfigPrefsItem */
+	/**
+	 *  Creates new form DeveloperConfigPanel.
+	 *
+	 * @param prefsItem the prefs item
+	 */
     public TableConfigPrefsPanel(TableConfigPrefsItem prefsItem) {
     	this.prefsItem = prefsItem;
         initComponents();
     }
     
+	/** The table label. */
 	private JLabel tableLabel = new JLabel();
+	
+	/** The jcb. */
 	private JComboBox jcb = new JComboBox(TableConfigPrefsItem.TableType.values());
+	
+	/** The tuio label. */
 	private JLabel tuioLabel = new JLabel();
+    
+    /** The tuio textbox. */
     private JTextField tuioTextbox = new JTextField();
+    
+    /** The menu label. */
     private JLabel menuLabel = new JLabel();
+    
+    /** The jcb two. */
     private JComboBox jcbTwo = new JComboBox(TableConfigPrefsItem.MenuType.values());
 
+    /**
+     * Inits the components.
+     */
     private void initComponents() {
 
 
@@ -136,16 +160,27 @@ public class TableConfigPrefsPanel extends JPanel {
 		add(jcbTwo);
 	}
     
+    /**
+     * Update tuio options visibility.
+     */
     private void updateTuioOptionsVisibility(){
 		tuioLabel.setVisible(prefsItem.getTableType() == TableType.TUIO);
 		tuioTextbox.setVisible(prefsItem.getTableType() == TableType.TUIO);
     }
 
+	/* (non-Javadoc)
+	 * @see java.awt.Component#getName()
+	 */
 	@Override
 	public String getName() {
 		return "Table Type";
 	}
 	
+	/**
+	 * Sets the table type.
+	 *
+	 * @param type the new table type
+	 */
 	public void setTableType(TableConfigPrefsItem.TableType type) {
 		prefsItem.setTableType(type);
 	}

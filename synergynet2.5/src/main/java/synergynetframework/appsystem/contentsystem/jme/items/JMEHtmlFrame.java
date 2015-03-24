@@ -49,19 +49,40 @@ import synergynetframework.appsystem.contentsystem.items.HtmlFrame;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IHtmlFrameImplementation;
 
 
+
+/**
+ * The Class JMEHtmlFrame.
+ */
 public class JMEHtmlFrame extends JMEFrame implements IHtmlFrameImplementation {
 
+	/** The item. */
 	protected HtmlFrame item;
+	
+	/** The frame. */
 	protected JFrame frame;
+	
+	/** The pane. */
 	protected JTextPane pane;
+	
+	/** The image. */
 	protected BufferedImage image;
+	
+	/** The g. */
 	protected Graphics2D g;
 
+	/**
+	 * Instantiates a new JME html frame.
+	 *
+	 * @param contentItem the content item
+	 */
 	public JMEHtmlFrame(ContentItem contentItem){
 		super(contentItem);
 		item = (HtmlFrame) contentItem;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEFrame#init()
+	 */
 	@Override
 	public void init(){
 		frame = new JFrame("jframe");
@@ -84,6 +105,9 @@ public class JMEHtmlFrame extends JMEFrame implements IHtmlFrameImplementation {
 		super.init();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEFrame#resize()
+	 */
 	@Override
 	public void resize(){
 		super.resize();
@@ -96,12 +120,18 @@ public class JMEHtmlFrame extends JMEFrame implements IHtmlFrameImplementation {
 		this.render();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IHtmlFrameImplementation#setHtmlContent(java.lang.String)
+	 */
 	@Override
 	public void setHtmlContent(String html) {
 		pane.setText(html);
 		validate();
 	}
 	
+	/**
+	 * Validate.
+	 */
 	protected void validate(){
 		pane.validate();
 		frame.validate();
@@ -115,6 +145,9 @@ public class JMEHtmlFrame extends JMEFrame implements IHtmlFrameImplementation {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEFrame#render()
+	 */
 	@Override
 	protected void render(){
 		super.render();
@@ -126,16 +159,26 @@ public class JMEHtmlFrame extends JMEFrame implements IHtmlFrameImplementation {
 			this.flushGraphics();
 		}
 	}
+	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IHtmlFrameImplementation#setMaxWidth(int)
+	 */
 	@Override
 	public void setMaxWidth(int maxWidth) {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IHtmlFrameImplementation#getPane()
+	 */
 	@Override
 	public JTextPane getPane() {
 		return pane;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IHtmlFrameImplementation#insertString(int, java.lang.String, javax.swing.text.AttributeSet)
+	 */
 	@Override
 	public void insertString(int offset, String str, AttributeSet attr) {
 		try {
@@ -146,6 +189,9 @@ public class JMEHtmlFrame extends JMEFrame implements IHtmlFrameImplementation {
 		}		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IHtmlFrameImplementation#remove(int, int)
+	 */
 	@Override
 	public void remove(int offset, int length) {
 		try {

@@ -36,9 +36,29 @@ import synergynetframework.jme.cursorsystem.cursordata.ScreenCursor;
 import synergynetframework.jme.cursorsystem.elements.MultiTouchButton.MultiTouchButtonListener;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 
+
+/**
+ * The Class MultiTouchButtonAdapter.
+ */
 public class MultiTouchButtonAdapter implements MultiTouchButtonListener {
+	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.MultiTouchButton.MultiTouchButtonListener#buttonClicked(synergynetframework.jme.cursorsystem.elements.MultiTouchButton, synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void buttonClicked(MultiTouchButton button, ScreenCursor c, MultiTouchCursorEvent event) {}
+	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.MultiTouchButton.MultiTouchButtonListener#buttonPressed(synergynetframework.jme.cursorsystem.elements.MultiTouchButton, synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void buttonPressed(MultiTouchButton button, ScreenCursor c, MultiTouchCursorEvent event) {}
+	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.MultiTouchButton.MultiTouchButtonListener#buttonReleased(synergynetframework.jme.cursorsystem.elements.MultiTouchButton, synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void buttonReleased(MultiTouchButton button, ScreenCursor c, MultiTouchCursorEvent event) {}
+	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.MultiTouchButton.MultiTouchButtonListener#buttonDragged(synergynetframework.jme.cursorsystem.elements.MultiTouchButton, synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void buttonDragged(MultiTouchButton button, ScreenCursor c, MultiTouchCursorEvent event) {}		
 }

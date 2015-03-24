@@ -44,23 +44,51 @@ import synergynetframework.appsystem.contentsystem.items.listener.ItemEventAdapt
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.networkedcontentmanager.NetworkedContentManager;
 
+
+/**
+ * The Class TableSwapDialogue.
+ */
 public class TableSwapDialogue {
 
+	/** The window. */
 	protected Window window;
+	
+	/** The label. */
 	protected MultiLineTextLabel label;
+	
+	/** The ok button. */
 	protected SimpleButton okButton;
+	
+	/** The cancel button. */
 	protected SimpleButton cancelButton;
+	
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The table1 selection. */
 	protected DropDownList table1Selection;
+	
+	/** The table2 selection. */
 	protected DropDownList table2Selection;
+	
+	/** The networked content manager. */
 	protected NetworkedContentManager networkedContentManager;
 
+	/**
+	 * Instantiates a new table swap dialogue.
+	 *
+	 * @param contentSystem the content system
+	 * @param networkedContentManager the networked content manager
+	 */
 	public TableSwapDialogue(ContentSystem contentSystem, NetworkedContentManager networkedContentManager){
 		this.contentSystem = contentSystem;
 		this.networkedContentManager = networkedContentManager;
 		loadContent();
 	}
 	
+	/**
+	 * Load content.
+	 */
 	protected void loadContent(){
 		window = (Window)contentSystem.createContentItem(Window.class);
 		
@@ -122,6 +150,9 @@ public class TableSwapDialogue {
 	
 	}
 	
+	/**
+	 * Clear content.
+	 */
 	public void clearContent(){
 		contentSystem.removeContentItem(window);
 		contentSystem.removeContentItem(label);
@@ -138,6 +169,11 @@ public class TableSwapDialogue {
 		table2Selection = null;
 	}
 	
+	/**
+	 * Sets the visible.
+	 *
+	 * @param isVisible the new visible
+	 */
 	public void setVisible(boolean isVisible){
 		window.setVisible(isVisible);
 		label.setVisible(isVisible);
@@ -163,6 +199,12 @@ public class TableSwapDialogue {
 		}
 	}
 	
+	/**
+	 * Gets the table identity.
+	 *
+	 * @param uid the uid
+	 * @return the table identity
+	 */
 	private TableIdentity getTableIdentity(String uid){
 		for (TableIdentity table: this.networkedContentManager.getTableCommsClientService().getCurrentlyOnline()){
 			if (table.toString().equals(uid))

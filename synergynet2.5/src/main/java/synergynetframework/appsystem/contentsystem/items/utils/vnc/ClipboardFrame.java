@@ -27,22 +27,37 @@ package synergynetframework.appsystem.contentsystem.items.utils.vnc;
 import java.awt.*;
 import java.awt.event.*;
 
+
+/**
+ * The Class ClipboardFrame.
+ */
 class ClipboardFrame extends Frame
   implements WindowListener, ActionListener {
 
-  /**
-	 * 
-	 */
+  /** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 5190334595915692477L;
+
+/** The text area. */
 TextArea textArea;
+  
+  /** The close button. */
   Button clearButton, closeButton;
+  
+  /** The selection. */
   String selection;
+  
+  /** The viewer. */
   VncViewer viewer;
 
   //
   // Constructor.
   //
 
+  /**
+   * Instantiates a new clipboard frame.
+   *
+   * @param v the v
+   */
   ClipboardFrame(VncViewer v) {
     super("TightVNC Clipboard");
 
@@ -85,6 +100,11 @@ TextArea textArea;
   // Set the cut text from the RFB server.
   //
 
+  /**
+   * Sets the cut text.
+   *
+   * @param text the new cut text
+   */
   void setCutText(String text) {
     selection = text;
     textArea.setText(text);
@@ -99,6 +119,9 @@ TextArea textArea;
   // if so send it to the RFB server.
   //
 
+  /* (non-Javadoc)
+   * @see java.awt.event.WindowListener#windowDeactivated(java.awt.event.WindowEvent)
+   */
   public void windowDeactivated (WindowEvent evt) {
     if (selection != null && !selection.equals(textArea.getText())) {
       selection = textArea.getText();
@@ -110,6 +133,9 @@ TextArea textArea;
   // Close our window properly.
   //
 
+  /* (non-Javadoc)
+   * @see java.awt.event.WindowListener#windowClosing(java.awt.event.WindowEvent)
+   */
   public void windowClosing(WindowEvent evt) {
     setVisible(false);
   }
@@ -118,10 +144,29 @@ TextArea textArea;
   // Ignore window events we're not interested in.
   //
 
+  /* (non-Javadoc)
+   * @see java.awt.event.WindowListener#windowActivated(java.awt.event.WindowEvent)
+   */
   public void windowActivated(WindowEvent evt) {}
+  
+  /* (non-Javadoc)
+   * @see java.awt.event.WindowListener#windowOpened(java.awt.event.WindowEvent)
+   */
   public void windowOpened(WindowEvent evt) {}
+  
+  /* (non-Javadoc)
+   * @see java.awt.event.WindowListener#windowClosed(java.awt.event.WindowEvent)
+   */
   public void windowClosed(WindowEvent evt) {}
+  
+  /* (non-Javadoc)
+   * @see java.awt.event.WindowListener#windowIconified(java.awt.event.WindowEvent)
+   */
   public void windowIconified(WindowEvent evt) {}
+  
+  /* (non-Javadoc)
+   * @see java.awt.event.WindowListener#windowDeiconified(java.awt.event.WindowEvent)
+   */
   public void windowDeiconified(WindowEvent evt) {}
 
 
@@ -129,6 +174,9 @@ TextArea textArea;
   // Respond to button presses
   //
 
+  /* (non-Javadoc)
+   * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+   */
   public void actionPerformed(ActionEvent evt) {
     if (evt.getSource() == clearButton) {
       textArea.setText("");

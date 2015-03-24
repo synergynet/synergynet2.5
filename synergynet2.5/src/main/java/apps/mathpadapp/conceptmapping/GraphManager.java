@@ -40,19 +40,41 @@ import java.util.HashMap;
 import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.utils.Location;
 
+
+/**
+ * The Class GraphManager.
+ */
 public class GraphManager{
 	
+	/** The content system. */
 	protected ContentSystem contentSystem;
 
+	/** The graph nodes. */
 	protected ArrayList<GraphNode> graphNodes = new ArrayList<GraphNode>();
+	
+	/** The graph links. */
 	protected ArrayList<GraphLink> graphLinks = new ArrayList<GraphLink>();
 	
+	/** The cursor id to link. */
 	private HashMap<Long, GraphLink> cursorIdToLink = new HashMap<Long, GraphLink>();
 	
+	/**
+	 * Instantiates a new graph manager.
+	 *
+	 * @param contentSystem the content system
+	 */
 	public GraphManager(ContentSystem contentSystem){
 		this.contentSystem = contentSystem;
 	}
 	
+	/**
+	 * Link point pressed.
+	 *
+	 * @param sourceNode the source node
+	 * @param id the id
+	 * @param x the x
+	 * @param y the y
+	 */
 	public void linkPointPressed(GraphNode sourceNode, long id, float x, float y) {
 		if(sourceNode.getNodeItem().isVisible()){
 			GraphLink link = new GraphLink(contentSystem, this);
@@ -60,6 +82,15 @@ public class GraphManager{
 			cursorIdToLink.put(id, link);
 		}
 	}
+	
+	/**
+	 * Link point dragged.
+	 *
+	 * @param sourceNode the source node
+	 * @param id the id
+	 * @param x the x
+	 * @param y the y
+	 */
 	public void linkPointDragged(GraphNode sourceNode, long id, float x, float y) {
 		if(sourceNode.getNodeItem().isVisible()){
 			GraphLink link = cursorIdToLink.get(id);
@@ -67,6 +98,15 @@ public class GraphManager{
 				link.getLineItem().setTargetLocation(new Location(x,y,0));
 		}
 	}
+	
+	/**
+	 * Link point released.
+	 *
+	 * @param sourceNode the source node
+	 * @param id the id
+	 * @param x the x
+	 * @param y the y
+	 */
 	public void linkPointReleased(GraphNode sourceNode, long id, float x, float y) {
 		GraphLink link = cursorIdToLink.get(id);
 		if(link != null){
@@ -83,10 +123,20 @@ public class GraphManager{
 		}
 	}	
 
+	/**
+	 * Adds the graph node.
+	 *
+	 * @param node the node
+	 */
 	public void addGraphNode(GraphNode node){
 		graphNodes.add(node);
 	}
 	
+	/**
+	 * Detach graph node.
+	 *
+	 * @param node the node
+	 */
 	public void detachGraphNode(GraphNode node){
 		for(GraphLink link: node.getIncomingLinks()){
 			link.remove();
@@ -102,14 +152,29 @@ public class GraphManager{
 		graphNodes.remove(node);
 	}
 	
+	/**
+	 * Gets the graph nodes.
+	 *
+	 * @return the graph nodes
+	 */
 	public ArrayList<GraphNode> getGraphNodes(){
 		return graphNodes;
 	}
 	
+	/**
+	 * Adds the graph link.
+	 *
+	 * @param link the link
+	 */
 	public void addGraphLink(GraphLink link){
 		graphLinks.add(link);
 	}
 	
+	/**
+	 * Detach graph link.
+	 *
+	 * @param link the link
+	 */
 	public void detachGraphLink(GraphLink link){
 		if(link.getSourceNode() != null){
 			link.getSourceNode().unregisterLink(link);
@@ -122,10 +187,18 @@ public class GraphManager{
 		graphLinks.remove(link);
 	}
 	
+	/**
+	 * Gets the graph links.
+	 *
+	 * @return the graph links
+	 */
 	public ArrayList<GraphLink> getGraphLinks(){
 		return graphLinks;
 	}
 
+	/**
+	 * Clear graph.
+	 */
 	public void clearGraph() {
 		
 		for(GraphNode node: graphNodes)

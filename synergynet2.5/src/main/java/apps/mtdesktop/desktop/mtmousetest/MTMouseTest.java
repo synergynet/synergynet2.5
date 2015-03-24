@@ -16,17 +16,30 @@ import apps.mtdesktop.messages.MTMouseMessage;
 import synergynetframework.appsystem.services.net.rapidnetworkmanager.RapidNetworkManager;
 import synergynetframework.appsystem.services.net.rapidnetworkmanager.handlers.MessageProcessor;
 
+
+/**
+ * The Class MTMouseTest.
+ */
 public class MTMouseTest extends JDialog implements MessageProcessor{
     
-    /**
-	 * 
-	 */
+    /** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -5971578934608634199L;
+	
+	/** The map panel. */
 	private JPanel mapPanel = new JPanel(null);
+    
+    /** The Constant WINDOW_WIDTH. */
     private static final int WINDOW_WIDTH = 800; // pixels
+    
+    /** The Constant WINDOW_HEIGHT. */
     private static final int WINDOW_HEIGHT = 600;
+    
+    /** The images. */
     private List<ImageLabel> images = new ArrayList<ImageLabel>();
     
+    /**
+     * Instantiates a new MT mouse test.
+     */
     public MTMouseTest() {
     	RapidNetworkManager.registerMessageProcessor(this);
     	this.setModal(false);
@@ -67,12 +80,21 @@ public class MTMouseTest extends JDialog implements MessageProcessor{
     }
 
 
+	/**
+	 * Update.
+	 *
+	 * @param angle the angle
+	 * @param scale the scale
+	 */
 	public void update(float angle, float scale) {
 		for(ImageLabel image: images)
 			image.notifyChange(-angle, scale);
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.rapidnetworkmanager.handlers.MessageProcessor#process(java.lang.Object)
+	 */
 	@Override
 	public void process(Object obj) {
 		if(obj instanceof MTMouseMessage){

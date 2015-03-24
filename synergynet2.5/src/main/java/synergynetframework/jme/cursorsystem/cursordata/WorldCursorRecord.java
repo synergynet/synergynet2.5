@@ -35,16 +35,42 @@ package synergynetframework.jme.cursorsystem.cursordata;
 import com.jme.math.Quaternion;
 import com.jme.math.Vector3f;
 
+
+/**
+ * The Class WorldCursorRecord.
+ */
 public class WorldCursorRecord {
+	
+	/** The world location. */
 	public Vector3f worldLocation;
+	
+	/** The world rotation. */
 	public Quaternion worldRotation;
+	
+	/** The world scale. */
 	public Vector3f worldScale;
+	
+	/** The time. */
 	public long time;
 
+	/**
+	 * Instantiates a new world cursor record.
+	 *
+	 * @param worldTranslation the world translation
+	 * @param nanoTime the nano time
+	 */
 	public WorldCursorRecord(Vector3f worldTranslation, long nanoTime) {
 		this(worldTranslation, null, null, nanoTime);
 	}
 
+	/**
+	 * Instantiates a new world cursor record.
+	 *
+	 * @param worldTranslation the world translation
+	 * @param worldRotation the world rotation
+	 * @param worldScale the world scale
+	 * @param nanoTime the nano time
+	 */
 	public WorldCursorRecord(Vector3f worldTranslation, Quaternion worldRotation, Vector3f worldScale, long nanoTime) {
 		this.worldLocation = worldTranslation;
 		this.worldRotation = worldRotation;
@@ -52,6 +78,9 @@ public class WorldCursorRecord {
 		this.time = nanoTime;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return worldLocation.toString() + "@" + time + "\n";
 	}

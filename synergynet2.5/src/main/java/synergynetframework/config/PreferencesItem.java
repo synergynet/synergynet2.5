@@ -34,7 +34,23 @@ package synergynetframework.config;
 
 import javax.swing.JPanel;
 
+
+/**
+ * The Interface PreferencesItem.
+ */
 public interface PreferencesItem {
+	
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	public String getName();
+	
+	/**
+	 * Gets the configuration panel.
+	 *
+	 * @return the configuration panel
+	 */
 	public JPanel getConfigurationPanel();
 }

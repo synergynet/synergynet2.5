@@ -34,7 +34,17 @@ package synergynetframework.jme.cursorsystem.elements.twod;
 
 import com.jme.math.Vector2f;
 
+
+/**
+ * The Interface ClipRegion.
+ */
 public interface ClipRegion {
 	
+	/**
+	 * Checks if is picked.
+	 *
+	 * @param screenPos the screen pos
+	 * @return true, if is picked
+	 */
 	public boolean isPicked(Vector2f screenPos);
 }

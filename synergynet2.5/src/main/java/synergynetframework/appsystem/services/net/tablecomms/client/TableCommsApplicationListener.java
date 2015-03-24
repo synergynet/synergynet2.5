@@ -32,7 +32,29 @@
 
 package synergynetframework.appsystem.services.net.tablecomms.client;
 
+
+/**
+ * The listener interface for receiving tableCommsApplication events.
+ * The class that is interested in processing a tableCommsApplication
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addTableCommsApplicationListener<code> method. When
+ * the tableCommsApplication event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see TableCommsApplicationEvent
+ */
 public interface TableCommsApplicationListener {
+	
+	/**
+	 * Message received.
+	 *
+	 * @param obj the obj
+	 */
 	public void messageReceived(Object obj);
+	
+	/**
+	 * Table disconnected.
+	 */
 	public void tableDisconnected();
 }

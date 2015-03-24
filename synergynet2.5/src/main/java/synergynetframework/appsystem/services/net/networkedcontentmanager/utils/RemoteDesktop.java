@@ -58,20 +58,51 @@ import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.networkedcontentmanager.NetworkedContentManager;
 import synergynetframework.appsystem.services.net.networkedcontentmanager.controllers.RemoteDesktopController;
 
+
+/**
+ * The Class RemoteDesktop.
+ */
 public class RemoteDesktop extends GraphNode{
+	
+	/** The remote desktop controller. */
 	protected RemoteDesktopController remoteDesktopController;
+	
+	/** The table id. */
 	protected TableIdentity tableId;
+	
+	/** The scale. */
 	protected int scale = 1;
+	
+	/** The desktop window. */
 	protected OrthoContainer desktopWindow;
+	
+	/** The back image. */
 	protected LightImageLabel backImage;
+	
+	/** The top bar. */
 	protected ListContainer topBar;
+	
+	/** The top bar button2. */
 	protected SimpleButton topBarButton1, topBarButton2;
+	
+	/** The control menu. */
 	protected ListContainer controlMenu;
+	
+	/** The control menu button4. */
 	protected SimpleButton controlMenuButton1, controlMenuButton2, controlMenuButton3, controlMenuButton4;
 	
+	/** The online items. */
 	protected Map<String, ContentItem> onlineItems = new HashMap<String, ContentItem>();
+	
+	/** The item notes. */
 	protected Map<String, ContentItem> itemNotes = new HashMap<String, ContentItem>();
 	
+	/**
+	 * Instantiates a new remote desktop.
+	 *
+	 * @param tableId the table id
+	 * @param networkManager the network manager
+	 */
 	public RemoteDesktop(final TableIdentity tableId, final NetworkedContentManager networkManager){
 		super(networkManager.getContentSystem(), networkManager.getGraphManager());
 		this.tableId = tableId;
@@ -247,68 +278,127 @@ public class RemoteDesktop extends GraphNode{
 		});
 	}
 	
+	/**
+	 * Gets the table id.
+	 *
+	 * @return the table id
+	 */
 	public TableIdentity getTableId() {
 		return tableId;
 	}
 
+	/**
+	 * Sets the table id.
+	 *
+	 * @param tableId the new table id
+	 */
 	public void setTableId(TableIdentity tableId) {
 		this.tableId = tableId;
 	}
 
+	/**
+	 * Gets the desktop window.
+	 *
+	 * @return the desktop window
+	 */
 	public OrthoContainer getDesktopWindow() {
 		return desktopWindow;
 	}
 	
+	/**
+	 * Sets the desktop window.
+	 *
+	 * @param desktopWindow the new desktop window
+	 */
 	public void setDesktopWindow(OrthoContainer desktopWindow) {
 		this.desktopWindow = desktopWindow;
 	}
 	
+	/**
+	 * Gets the online items.
+	 *
+	 * @return the online items
+	 */
 	public Map<String, ContentItem> getOnlineItems() {
 		return onlineItems;
 	}
 	
+	/**
+	 * Sets the online items.
+	 *
+	 * @param onlineItems the online items
+	 */
 	public void setOnlineItems(Map<String, ContentItem> onlineItems) {
 		this.onlineItems = onlineItems;
 	}
 
+	/**
+	 * Removes the online items.
+	 */
 	public void removeOnlineItems(){
 		for(ContentItem item: onlineItems.values())
 			this.desktopWindow.removeSubItem(item);
 		onlineItems.clear();
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.conceptmap.graphcomponents.nodes.GraphNode#setCloseButtonLocation(java.lang.String)
+	 */
 	@Override
 	public void setCloseButtonLocation(String location) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.conceptmap.graphcomponents.nodes.GraphNode#setLinkButtonLocation(java.lang.String)
+	 */
 	@Override
 	public void setLinkButtonLocation(String location) {
 		this.getLinkButton().setLocalLocation(topBar.getWidth() - this.getLinkButton().getWidth(),topBar.getLocalLocation().y + topBar.getHeight()/2);
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.conceptmap.graphcomponents.nodes.GraphNode#setNodeContent(synergynetframework.appsystem.contentsystem.items.ContentItem)
+	 */
 	@Override
 	protected void setNodeContent(ContentItem contentItem) {
 		container.addSubItem(contentItem);
 	}
 	
+	/* (non-Javadoc)
+	 * @see apps.conceptmap.graphcomponents.nodes.GraphNode#updateNode()
+	 */
 	public void updateNode(){
 		this.updateConnectionPoints();
 	}
 	
+	/* (non-Javadoc)
+	 * @see apps.conceptmap.graphcomponents.nodes.GraphNode#getLocation()
+	 */
 	public Location getLocation(){
 		Spatial s =  ((Spatial)backImage.getImplementationObject());
 		return new Location((int)s.getWorldTranslation().x, (int)s.getWorldTranslation().y, 0);
 	}
 	
+	/**
+	 * Adds the note container for item.
+	 *
+	 * @param item the item
+	 * @param noteItem the note item
+	 */
 	public void addNoteContainerForItem(ContentItem item,ContentItem noteItem){
 		this.removeNoteContainerForItem(item);
 		this.getDesktopWindow().addSubItem(noteItem);
 		itemNotes.put(item.getName(), noteItem);		
 	}
 
+	/**
+	 * Removes the note container for item.
+	 *
+	 * @param item the item
+	 */
 	public void removeNoteContainerForItem(ContentItem item) {
 		if(itemNotes.containsKey(item.getName())){
 			this.getDesktopWindow().removeSubItem(itemNotes.get(item.getName()));

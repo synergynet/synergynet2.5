@@ -45,16 +45,35 @@ import com.jme.scene.Node;
 import com.jmex.effects.glsl.BloomRenderPass;
 import com.jmex.effects.glsl.SketchRenderPass;
 
+
+/**
+ * The Class RenderPassUtility.
+ */
 public class RenderPassUtility {
 	
+	/** The logger. */
 	private static Logger logger = Logger.getLogger(RenderPassUtility.class.getName());
 	
+	/**
+	 * Adds the default render pass.
+	 *
+	 * @param cam the cam
+	 * @param node the node
+	 * @param passManager the pass manager
+	 */
 	private static void addDefaultRenderPass(Camera cam, Node node, BasicPassManager passManager) {
 		RenderPass rootPass = new RenderPass();
 		rootPass.add(node);
 		passManager.add(rootPass);		
 	}
 	
+	/**
+	 * Adds the bloom render pass.
+	 *
+	 * @param cam the cam
+	 * @param node the node
+	 * @param passManager the pass manager
+	 */
 	public static void addBloomRenderPass(Camera cam, Node node, BasicPassManager passManager) {
 		BloomRenderPass bloomRenderPass = new BloomRenderPass(cam, 4);
 		if(bloomRenderPass.isSupported()) {
@@ -64,6 +83,13 @@ public class RenderPassUtility {
 		}
 	}
 	
+	/**
+	 * Adds the sketch render pass.
+	 *
+	 * @param cam the cam
+	 * @param node the node
+	 * @param passManager the pass manager
+	 */
 	public static void addSketchRenderPass(Camera cam, Node node, BasicPassManager passManager) {
 		SketchRenderPass sketchRenderPass = new SketchRenderPass(cam, 2);
 		if(sketchRenderPass.isSupported()) {
@@ -72,6 +98,13 @@ public class RenderPassUtility {
 		}	
 	}
 	
+	/**
+	 * Adds the shadow render pass.
+	 *
+	 * @param cam the cam
+	 * @param node the node
+	 * @param passManager the pass manager
+	 */
 	public static void addShadowRenderPass(Camera cam, Node node, BasicPassManager passManager) {
 		ShadowedRenderPass shadowPass = new ShadowedRenderPass();
 		shadowPass.setRenderShadows(true);
@@ -79,6 +112,13 @@ public class RenderPassUtility {
 		passManager.add(shadowPass);
 	}
 	
+	/**
+	 * Adds the render passes from app config.
+	 *
+	 * @param cam the cam
+	 * @param node the node
+	 * @param passManager the pass manager
+	 */
 	public static void addRenderPassesFromAppConfig(Camera cam, Node node, BasicPassManager passManager) {
 		for(int i = 0; i < AppConfig.renderPasses.length; i++) {
 			switch(AppConfig.renderPasses[i]) {			

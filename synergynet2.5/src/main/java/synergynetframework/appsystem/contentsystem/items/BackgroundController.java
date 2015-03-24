@@ -41,54 +41,89 @@ import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IBackgroundControllerImplementation;
 import synergynetframework.appsystem.contentsystem.items.utils.ImageInfo;
 
+
+/**
+ * The Class BackgroundController.
+ */
 public class BackgroundController extends QuadContentItem implements IBackgroundControllerImplementation, Serializable {
 		
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2782160211110663419L;	
 	
+	/**
+	 * Instantiates a new background controller.
+	 *
+	 * @param contentSystem the content system
+	 * @param name the name
+	 */
 	public BackgroundController(ContentSystem contentSystem, String name) {
 		super(contentSystem, name);		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IBackgroundControllerImplementation#setBackgroundRotateTranslateScalable(boolean)
+	 */
 	public void setBackgroundRotateTranslateScalable(boolean isEnabled){
 		this.setRotateTranslateScalable(isEnabled);
 		((IBackgroundControllerImplementation)this.contentItemImplementation).setBackgroundRotateTranslateScalable(isEnabled);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IFrameImplementation#drawImage(java.net.URL)
+	 */
 	@Override
 	public void drawImage(URL imageResource) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IFrameImplementation#drawImage(java.net.URL, int, int, int, int)
+	 */
 	@Override
 	public void drawImage(URL imageResource, int x, int y, int width, int height) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IFrameImplementation#getImages()
+	 */
 	@Override
 	public HashMap<URL, ImageInfo> getImages() {
 		 
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IFrameImplementation#removeImage(java.net.URL)
+	 */
 	@Override
 	public void removeImage(URL imageResource) {
 		 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IFrameImplementation#removeAllImages()
+	 */
 	@Override
 	public void removeAllImages() {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IFrameImplementation#getGraphicsContext()
+	 */
 	@Override
 	public Graphics2D getGraphicsContext() {
 		 
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IFrameImplementation#flushGraphics()
+	 */
 	@Override
 	public void flushGraphics() {
 		 

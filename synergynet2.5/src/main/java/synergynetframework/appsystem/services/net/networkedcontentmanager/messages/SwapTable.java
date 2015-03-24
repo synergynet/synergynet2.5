@@ -35,22 +35,48 @@ package synergynetframework.appsystem.services.net.networkedcontentmanager.messa
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.UnicastApplicationMessage;
 
+
+/**
+ * The Class SwapTable.
+ */
 public class SwapTable extends UnicastApplicationMessage {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -512349123864227474L;
+	
+	/** The table1. */
 	private TableIdentity table1;
+	
+	/** The table2. */
 	private TableIdentity table2;
 	
+	/**
+	 * Instantiates a new swap table.
+	 *
+	 * @param targetClass the target class
+	 * @param table1 the table1
+	 * @param table2 the table2
+	 */
 	public SwapTable(Class<?> targetClass, TableIdentity table1, TableIdentity table2) {
 		super(targetClass);	
 		this.table2 = table2;
 		this.setRecipient(table1);
 	}
 
+	/**
+	 * Gets the table1.
+	 *
+	 * @return the table1
+	 */
 	public TableIdentity getTable1() {
 		return table1;
 	}
 
+	/**
+	 * Gets the table2.
+	 *
+	 * @return the table2
+	 */
 	public TableIdentity getTable2() {
 		return table2;
 	}

@@ -38,10 +38,22 @@ import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.networkedcontentmanager.messages.SendDataTo;
 
+
+/**
+ * The Class SendClientDataTo.
+ */
 public class SendClientDataTo extends SendDataTo {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -546555344864227474L;
 
+	/**
+	 * Instantiates a new send client data to.
+	 *
+	 * @param targetClass the target class
+	 * @param collection the collection
+	 * @param id the id
+	 */
 	public SendClientDataTo(Class<?> targetClass, Collection<ContentItem> collection, TableIdentity id) {
 		super(targetClass, collection, id);
 

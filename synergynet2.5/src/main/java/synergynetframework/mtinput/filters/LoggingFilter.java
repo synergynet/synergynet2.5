@@ -46,6 +46,7 @@ import synergynetframework.mtinput.IMultiTouchInputFilter;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 import synergynetframework.mtinput.events.MultiTouchObjectEvent;
 
+
 /**
  * Logs all actions to a log file.
  * 
@@ -54,18 +55,42 @@ import synergynetframework.mtinput.events.MultiTouchObjectEvent;
  */
 public class LoggingFilter implements IMultiTouchInputFilter {
 
+	/** The Constant CURSOR_PRESSED. */
 	public static final String CURSOR_PRESSED = "CURSOR_PRESSED";
+	
+	/** The Constant CURSOR_CLICKED. */
 	public static final String CURSOR_CLICKED = "CURSOR_CLICKED";
+	
+	/** The Constant CURSOR_RELEASED. */
 	public static final String CURSOR_RELEASED = "CURSOR_RELEASED";
+	
+	/** The Constant CURSOR_CHANGED. */
 	public static final String CURSOR_CHANGED = "CURSOR_CHANGED";
+	
+	/** The Constant OBJECT_ADDED. */
 	public static final String OBJECT_ADDED = "OBJECT_ADDED";
+	
+	/** The Constant OBJECT_CHANGED. */
 	public static final String OBJECT_CHANGED = "OBJECT_CHANGED";
+	
+	/** The Constant OBJECT_REMOVED. */
 	public static final String OBJECT_REMOVED = "OBJECT_REMOVED";
 	
+	/** The next. */
 	private IMultiTouchEventListener next;
+	
+	/** The record file. */
 	private File recordFile;
+	
+	/** The pw. */
 	private PrintWriter pw;
 	
+	/**
+	 * Instantiates a new logging filter.
+	 *
+	 * @param appClass the app class
+	 * @throws FileNotFoundException the file not found exception
+	 */
 	public LoggingFilter(Class<?> appClass) throws FileNotFoundException {
 		if(!AppConfig.recordTableDir.exists()) AppConfig.recordTableDir.mkdir();
 		recordFile = new File(AppConfig.recordTableDir, getFileNameFromDate());
@@ -73,15 +98,30 @@ public class LoggingFilter implements IMultiTouchInputFilter {
 		writeFileHeader(appClass);
 	}
 	
+	/**
+	 * Instantiates a new logging filter.
+	 *
+	 * @throws FileNotFoundException the file not found exception
+	 */
 	public LoggingFilter() throws FileNotFoundException {
 		this(MultiTouchInputFilterManager.getInstance().getLoggingClass());
 	}
 	
+	/**
+	 * Gets the file name from date.
+	 *
+	 * @return the file name from date
+	 */
 	private String getFileNameFromDate() {		
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss.S");
 		return formatter.format(new Date());	
 	}	
 	
+	/**
+	 * Write file header.
+	 *
+	 * @param appClass the app class
+	 */
 	private void writeFileHeader(Class<?> appClass) {
 		pw.println("# Recorded from LoggingFilter v0.1");
 		if(appClass != null)
@@ -93,10 +133,16 @@ public class LoggingFilter implements IMultiTouchInputFilter {
 		pw.println("# System.nanoTime(), event type, cursor ID, x, y, velocity x, velocity y, pressure");
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchInputFilter#setNext(synergynetframework.mtinput.IMultiTouchEventListener)
+	 */
 	public void setNext(IMultiTouchEventListener el) {
 		this.next = el;		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorChanged(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorChanged(MultiTouchCursorEvent event) {
 		pw.print(System.nanoTime() + ",");
 		pw.print(CURSOR_CHANGED + ",");
@@ -110,6 +156,9 @@ public class LoggingFilter implements IMultiTouchInputFilter {
 		next.cursorChanged(event);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorClicked(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorClicked(MultiTouchCursorEvent event) {
 		pw.print(System.nanoTime() + ",");
 		pw.print(CURSOR_CLICKED + ",");
@@ -123,6 +172,9 @@ public class LoggingFilter implements IMultiTouchInputFilter {
 		next.cursorClicked(event);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorPressed(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorPressed(MultiTouchCursorEvent event) {
 		pw.print(System.nanoTime() + ",");
 		pw.print(CURSOR_PRESSED + ",");
@@ -136,6 +188,9 @@ public class LoggingFilter implements IMultiTouchInputFilter {
 		next.cursorPressed(event);		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorReleased(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorReleased(MultiTouchCursorEvent event) {
 		pw.print(System.nanoTime() + ",");
 		pw.print(CURSOR_RELEASED + ",");
@@ -149,6 +204,9 @@ public class LoggingFilter implements IMultiTouchInputFilter {
 		next.cursorReleased(event);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectAdded(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectAdded(MultiTouchObjectEvent event) {
 		pw.print(System.nanoTime() + ",");
 		pw.print(OBJECT_ADDED + ",");
@@ -162,6 +220,9 @@ public class LoggingFilter implements IMultiTouchInputFilter {
 		next.objectAdded(event);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectChanged(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectChanged(MultiTouchObjectEvent event) {
 		pw.print(System.nanoTime() + ",");
 		pw.print(OBJECT_CHANGED + ",");
@@ -175,6 +236,9 @@ public class LoggingFilter implements IMultiTouchInputFilter {
 		next.objectChanged(event);		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectRemoved(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectRemoved(MultiTouchObjectEvent event) {
 		pw.print(System.nanoTime() + ",");
 		pw.print(OBJECT_REMOVED + ",");
@@ -188,6 +252,9 @@ public class LoggingFilter implements IMultiTouchInputFilter {
 		next.objectRemoved(event);		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchInputFilter#update(float)
+	 */
 	public void update(float tpf) {	
 	}
 

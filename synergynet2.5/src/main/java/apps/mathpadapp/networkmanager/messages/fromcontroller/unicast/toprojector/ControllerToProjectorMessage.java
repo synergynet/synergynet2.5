@@ -34,14 +34,27 @@ package apps.mathpadapp.networkmanager.messages.fromcontroller.unicast.toproject
 
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.UnicastApplicationMessage;
 
+
+/**
+ * The Class ControllerToProjectorMessage.
+ */
 public abstract class ControllerToProjectorMessage extends UnicastApplicationMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 5370070301710892935L;
 
+	/**
+	 * Instantiates a new controller to projector message.
+	 */
 	public ControllerToProjectorMessage(){
 		super();
 	}
 	
+	/**
+	 * Instantiates a new controller to projector message.
+	 *
+	 * @param targetClass the target class
+	 */
 	public ControllerToProjectorMessage(Class<?> targetClass){
 		super(targetClass);
 	}

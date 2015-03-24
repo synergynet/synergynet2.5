@@ -48,11 +48,23 @@ import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.appsystem.contentsystem.items.LightImageLabel;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILightImageLabelImplementation;
 
+
+/**
+ * The Class JMELightImageLabel.
+ */
 public class JMELightImageLabel extends JMEQuadContentItem implements ILightImageLabelImplementation {
 
+	/** The item. */
 	LightImageLabel item;
+	
+	/** The image. */
 	Image image = null;
 	
+	/**
+	 * Instantiates a new JME light image label.
+	 *
+	 * @param contentItem the content item
+	 */
 	public JMELightImageLabel(ContentItem contentItem) {
 		super(contentItem, new Quad(contentItem.getName(), 1,1));
 		item = (LightImageLabel) contentItem;
@@ -60,6 +72,9 @@ public class JMELightImageLabel extends JMEQuadContentItem implements ILightImag
 		((Quad)spatial).updateRenderState();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEContentItem#init()
+	 */
 	@Override
 	public void init(){
 		super.init();
@@ -70,6 +85,9 @@ public class JMELightImageLabel extends JMEQuadContentItem implements ILightImag
 		this.setScaleLimit(item.getMinScale(), item.getMaxScale());
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEQuadContentItem#setHeight(int)
+	 */
 	@Override
 	public void setHeight(int height) {
 		float width = item.getWidth();
@@ -82,6 +100,9 @@ public class JMELightImageLabel extends JMEQuadContentItem implements ILightImag
 		((Quad)spatial).updateRenderState();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEQuadContentItem#setWidth(int)
+	 */
 	@Override
 	public void setWidth(int width) {
 		float height = item.getHeight();
@@ -94,6 +115,9 @@ public class JMELightImageLabel extends JMEQuadContentItem implements ILightImag
 		((Quad)spatial).updateRenderState();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILightImageLabelImplementation#drawImage(java.net.URL)
+	 */
 	@Override
 	public void drawImage(URL imageResource) {
 		if(imageResource == null) return;
@@ -118,6 +142,9 @@ public class JMELightImageLabel extends JMEQuadContentItem implements ILightImag
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILightImageLabelImplementation#drawImage(java.awt.Image)
+	 */
 	@Override
 	public void drawImage(Image image) {
 		if(image == null) return;
@@ -142,6 +169,9 @@ public class JMELightImageLabel extends JMEQuadContentItem implements ILightImag
 		((Quad)spatial).updateRenderState();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILightImageLabelImplementation#getImageResource()
+	 */
 	@Override
 	public URL getImageResource() {
 		 
@@ -149,6 +179,9 @@ public class JMELightImageLabel extends JMEQuadContentItem implements ILightImag
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEQuadContentItem#setAutoFitSize(boolean)
+	 */
 	@Override
 	public void setAutoFitSize(boolean isEnabled) {
 		 
@@ -156,6 +189,9 @@ public class JMELightImageLabel extends JMEQuadContentItem implements ILightImag
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILightImageLabelImplementation#isAplaEnabled()
+	 */
 	@Override
 	public boolean isAplaEnabled() {
 		 
@@ -163,6 +199,9 @@ public class JMELightImageLabel extends JMEQuadContentItem implements ILightImag
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILightImageLabelImplementation#useAlpha(boolean)
+	 */
 	@Override
 	public void useAlpha(boolean useAlpha) {
 		 
@@ -170,6 +209,9 @@ public class JMELightImageLabel extends JMEQuadContentItem implements ILightImag
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILightImageLabelImplementation#enableAspectRatio(boolean)
+	 */
 	@Override
 	public void enableAspectRatio(boolean isAspectRationEnabled) {
 		 
@@ -177,6 +219,9 @@ public class JMELightImageLabel extends JMEQuadContentItem implements ILightImag
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILightImageLabelImplementation#isAspectRatioEnabled()
+	 */
 	@Override
 	public boolean isAspectRatioEnabled() {
 		 

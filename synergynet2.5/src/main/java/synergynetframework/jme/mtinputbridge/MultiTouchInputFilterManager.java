@@ -34,29 +34,63 @@ package synergynetframework.jme.mtinputbridge;
 
 import synergynetframework.jme.pickingsystem.IJMEMultiTouchPicker;
 
+
+/**
+ * The Class MultiTouchInputFilterManager.
+ */
 public class MultiTouchInputFilterManager {
+	
+	/** The instance. */
 	private static MultiTouchInputFilterManager instance;
 	
+	/** The picking system. */
 	private IJMEMultiTouchPicker pickingSystem;
+	
+	/** The logging class. */
 	private Class<?> loggingClass;
 	
+	/**
+	 * Gets the single instance of MultiTouchInputFilterManager.
+	 *
+	 * @return single instance of MultiTouchInputFilterManager
+	 */
 	public static MultiTouchInputFilterManager getInstance() {
 		if(instance == null) instance = new MultiTouchInputFilterManager();
 		return instance;
 	}
 
+	/**
+	 * Sets the picking system.
+	 *
+	 * @param pickingSystem the new picking system
+	 */
 	public void setPickingSystem(IJMEMultiTouchPicker pickingSystem) {
 		this.pickingSystem = pickingSystem;
 	}
 
+	/**
+	 * Gets the picking system.
+	 *
+	 * @return the picking system
+	 */
 	public IJMEMultiTouchPicker getPickingSystem() {
 		return pickingSystem;
 	}
 
+	/**
+	 * Sets the logging class.
+	 *
+	 * @param lc the new logging class
+	 */
 	public void setLoggingClass(Class<?> lc) {
 		this.loggingClass = lc;		
 	}
 	
+	/**
+	 * Gets the logging class.
+	 *
+	 * @return the logging class
+	 */
 	public Class<?> getLoggingClass() {
 		return this.loggingClass;
 	}

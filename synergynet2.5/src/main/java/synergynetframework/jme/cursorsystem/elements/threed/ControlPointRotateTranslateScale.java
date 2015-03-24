@@ -48,21 +48,43 @@ import synergynetframework.jme.gfx.JMEGfxUtils;
 import synergynetframework.jme.pickingsystem.data.ThreeDPickResultData;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 
+
+/**
+ * The Class ControlPointRotateTranslateScale.
+ */
 public class ControlPointRotateTranslateScale extends ThreeDMultiTouchElement {
 
+	/** The scale min. */
 	protected float scaleMin = Float.NaN;
+	
+	/** The scale max. */
 	protected float scaleMax = Float.NaN;
 	
+	/** The listeners. */
 	protected List<RotateTranslateScaleListener> listeners = new ArrayList<RotateTranslateScaleListener>();
 
+	/**
+	 * Instantiates a new control point rotate translate scale.
+	 *
+	 * @param pickingAndTargetSpatial the picking and target spatial
+	 */
 	public ControlPointRotateTranslateScale(Spatial pickingAndTargetSpatial) {
 		super(pickingAndTargetSpatial);
 	}
 
+	/**
+	 * Instantiates a new control point rotate translate scale.
+	 *
+	 * @param pickSpatial the pick spatial
+	 * @param targetSpatial the target spatial
+	 */
 	public ControlPointRotateTranslateScale(Spatial pickSpatial, Spatial targetSpatial) {
 		super(pickSpatial, targetSpatial);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorChanged(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorChanged(ScreenCursor c, MultiTouchCursorEvent event) {
 		if(screenCursors.size() <2 ) {
@@ -130,47 +152,113 @@ public class ControlPointRotateTranslateScale extends ThreeDMultiTouchElement {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorClicked(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorClicked(ScreenCursor c, MultiTouchCursorEvent event) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorPressed(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorPressed(ScreenCursor c, MultiTouchCursorEvent event) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorReleased(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorReleased(ScreenCursor c, MultiTouchCursorEvent event) {}
 
 
+	/**
+	 * Gets the scale min.
+	 *
+	 * @return the scale min
+	 */
 	public float getScaleMin() {
 		return scaleMin;
 	}
 
+	/**
+	 * Sets the scale min.
+	 *
+	 * @param scaleMin the new scale min
+	 */
 	public void setScaleMin(float scaleMin) {
 		this.scaleMin = scaleMin;
 	}
 
+	/**
+	 * Gets the scale max.
+	 *
+	 * @return the scale max
+	 */
 	public float getScaleMax() {
 		return scaleMax;
 	}
 
+	/**
+	 * Sets the scale max.
+	 *
+	 * @param scaleMax the new scale max
+	 */
 	public void setScaleMax(float scaleMax) {
 		this.scaleMax = scaleMax;
 	}
 
+	/**
+	 * Sets the scale limits.
+	 *
+	 * @param min the min
+	 * @param max the max
+	 */
 	public void setScaleLimits(float min, float max) {
 		setScaleMin(min);
 		setScaleMax(max);
 	}
 	
+	/**
+	 * Adds the rotate translate scale listener.
+	 *
+	 * @param l the l
+	 */
 	public void addRotateTranslateScaleListener(RotateTranslateScaleListener l){
 		listeners.add(l);
 	}
 
+	/**
+	 * Removes the rotate translate scale listener.
+	 *
+	 * @param l the l
+	 */
 	public void removeRotateTranslateScaleListener(RotateTranslateScaleListener l){
 		if (listeners.contains(l))
 			listeners.remove(l);
 	}
 	
+	/**
+	 * The listener interface for receiving rotateTranslateScale events.
+	 * The class that is interested in processing a rotateTranslateScale
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addRotateTranslateScaleListener<code> method. When
+	 * the rotateTranslateScale event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see RotateTranslateScaleEvent
+	 */
 	public interface RotateTranslateScaleListener {
+		
+		/**
+		 * Item moved.
+		 *
+		 * @param targetSpatial the target spatial
+		 * @param newLocationX the new location x
+		 * @param newLocationY the new location y
+		 * @param oldLocationX the old location x
+		 * @param oldLocationY the old location y
+		 */
 		public void itemMoved(Spatial targetSpatial,  float newLocationX, float newLocationY, float oldLocationX, float oldLocationY);
 	}
 

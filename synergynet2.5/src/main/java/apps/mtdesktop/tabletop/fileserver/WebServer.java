@@ -20,12 +20,26 @@ import org.eclipse.jetty.webapp.WebAppContext;
 import apps.mtdesktop.MTDesktopConfigurations;
 
 
+
+/**
+ * The Class WebServer.
+ */
 public class WebServer implements Runnable{
 
+	/** The ftpservlet. */
 	private FtpServerServlet ftpservlet;
+	
+	/** The server. */
 	public Server server;
+	
+	/** The servletcontext. */
 	public ServletContextHandler servletcontext;
 	
+	/**
+	 * Instantiates a new web server.
+	 *
+	 * @throws UnknownHostException the unknown host exception
+	 */
 	public WebServer() throws UnknownHostException {
 		MTDesktopConfigurations.SERVER_URL = "http://"+InetAddress.getLocalHost().getHostAddress()+":"+ MTDesktopConfigurations.SERVER_PORT;
 		MTDesktopConfigurations.FTP_SERVLET_URL = MTDesktopConfigurations.SERVER_URL + MTDesktopConfigurations.FTP_SERVLET_PATH;
@@ -59,16 +73,29 @@ public class WebServer implements Runnable{
 	
 	
 	
+	/**
+	 * Gets the ftp server servlet.
+	 *
+	 * @return the ftp server servlet
+	 */
 	public FtpServerServlet getFtpServerServlet(){
 		return ftpservlet;
 	}
 	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String args[]){
 
 	}
 
 
 
+	/* (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
 	@Override
 	public void run() {
 		try {

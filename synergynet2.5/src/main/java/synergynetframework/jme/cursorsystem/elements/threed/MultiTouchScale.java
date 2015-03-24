@@ -43,28 +43,57 @@ import synergynetframework.jme.cursorsystem.cursordata.ScreenCursor;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 
 
+
+/**
+ * The Class MultiTouchScale.
+ */
 public class MultiTouchScale extends ThreeDMultiTouchElement {
 	
+	/** The min scale. */
 	private float minScale;
 
+	/**
+	 * Instantiates a new multi touch scale.
+	 *
+	 * @param s the s
+	 * @param minScale the min scale
+	 */
 	public MultiTouchScale(Spatial s, float minScale) {
 		super(s);
 		this.minScale = minScale;
 	}
 	
+	/**
+	 * Instantiates a new multi touch scale.
+	 *
+	 * @param pickSpatial the pick spatial
+	 * @param targetSpatial the target spatial
+	 */
 	public MultiTouchScale(Spatial pickSpatial, Spatial targetSpatial) {
 		super(pickSpatial, targetSpatial);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorClicked(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorClicked(ScreenCursor c, MultiTouchCursorEvent event) {}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorPressed(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorPressed(ScreenCursor c, MultiTouchCursorEvent event) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorReleased(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorReleased(ScreenCursor c, MultiTouchCursorEvent event) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorChanged(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorChanged(ScreenCursor c, MultiTouchCursorEvent event) {		
 		if(this.getNumRegisteredCursors() < 2) {
@@ -93,18 +122,46 @@ public class MultiTouchScale extends ThreeDMultiTouchElement {
 	
 
 
+	/** The listeners. */
 	protected List<ScaleChangeListener> listeners = new ArrayList<ScaleChangeListener>();
 	
+	/**
+	 * Adds the scale change listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void addScaleChangeListener(ScaleChangeListener listener) {
 		if(!listeners.contains(listener)) listeners.add(listener);
 	}
 	
+	/**
+	 * Notify scale change.
+	 *
+	 * @param s the s
+	 */
 	private void notifyScaleChange(float s) {
 		for(ScaleChangeListener l : listeners) l.scaleChanged(s);
 	}
 
 	
+	/**
+	 * The listener interface for receiving scaleChange events.
+	 * The class that is interested in processing a scaleChange
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addScaleChangeListener<code> method. When
+	 * the scaleChange event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see ScaleChangeEvent
+	 */
 	public interface ScaleChangeListener {
+		
+		/**
+		 * Scale changed.
+		 *
+		 * @param newValue the new value
+		 */
 		public void scaleChanged(float newValue);
 	}
 }

@@ -39,18 +39,33 @@ import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundFrameImplementation;
 import synergynetframework.appsystem.contentsystem.items.utils.ImageInfo;
 
+
+/**
+ * The Class RoundFrame.
+ */
 public class RoundFrame extends RoundContentItem implements IRoundFrameImplementation{
 			
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -9030421443289334813L;
 
+	/** The URL to image map. */
 	protected LinkedHashMap<URL,ImageInfo> URLToImageMap = new LinkedHashMap<URL, ImageInfo>();
 
+	/**
+	 * Instantiates a new round frame.
+	 *
+	 * @param contentSystem the content system
+	 * @param name the name
+	 */
 	public RoundFrame(ContentSystem contentSystem, String name) {
 		super(contentSystem, name);
 		
 		//frameImplementation = (IFrameImplementation)this.contentItemImplementation;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundFrameImplementation#drawImage(java.net.URL)
+	 */
 	public void drawImage(URL imageResource){
 		if (imageResource!=null){
 			URLToImageMap.put(imageResource, new ImageInfo(imageResource, getBorderSize(),getBorderSize(), ((int)(2*getRadius()))-2*getBorderSize(), ((int)(2*getRadius()))-2*getBorderSize()));
@@ -58,6 +73,9 @@ public class RoundFrame extends RoundContentItem implements IRoundFrameImplement
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundFrameImplementation#drawImage(java.net.URL, int, int, int, int)
+	 */
 	public void drawImage(URL imageResource, int x, int y, int width, int height){
 		if (imageResource!=null){
 			URLToImageMap.put(imageResource, new ImageInfo(imageResource,x,y,width,height));
@@ -65,19 +83,33 @@ public class RoundFrame extends RoundContentItem implements IRoundFrameImplement
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundFrameImplementation#removeImage(java.net.URL)
+	 */
 	public void removeImage(URL imageResource){
 		URLToImageMap.remove(imageResource);
 		((IRoundFrameImplementation)this.contentItemImplementation).removeImage(imageResource);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundFrameImplementation#getImages()
+	 */
 	public HashMap<URL, ImageInfo> getImages(){
 		return URLToImageMap;
 	}
 
+	/**
+	 * Gets the image resources.
+	 *
+	 * @return the image resources
+	 */
 	public LinkedHashMap<URL,ImageInfo> getImageResources(){
 		return URLToImageMap;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundFrameImplementation#removeAllImages()
+	 */
 	@Override
 	public void removeAllImages() {
 		URLToImageMap.clear();

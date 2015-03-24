@@ -31,26 +31,57 @@ import synergynetframework.mtinput.IMultiTouchEventListener;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 import synergynetframework.mtinput.events.MultiTouchObjectEvent;
 
+
+/**
+ * The Class InputOutputBasketController.
+ */
 public class InputOutputBasketController implements IMultiTouchEventListener{
 	
+	/** The pick system. */
 	private IJMEMultiTouchPicker pickSystem;
+	
+	/** The basket manager. */
 	protected BasketManager basketManager;
+	
+	/** The ortho node. */
 	protected Node orthoNode;
+	
+	/** The send queue. */
 	private ConcurrentLinkedQueue<ItemToBasket> sendQueue = new ConcurrentLinkedQueue<ItemToBasket>();
+	
+	/** The delete queue. */
 	private ConcurrentLinkedQueue<ItemToBasket> deleteQueue = new ConcurrentLinkedQueue<ItemToBasket>();
+	
+	/** The receive queue. */
 	private ConcurrentLinkedQueue<ItemFlick> receiveQueue = new ConcurrentLinkedQueue<ItemFlick>();
 
 	
+	/**
+	 * Instantiates a new input output basket controller.
+	 *
+	 * @param basketManager the basket manager
+	 * @param app the app
+	 */
 	public InputOutputBasketController(BasketManager basketManager, DefaultSynergyNetApp app){
 		this.basketManager = basketManager;
 		this.pickSystem = MultiTouchInputFilterManager.getInstance().getPickingSystem();
 		orthoNode = app.getOrthoNode();
 	}
 	
+	/**
+	 * Remote item received.
+	 *
+	 * @param item the item
+	 */
 	public void remoteItemReceived(ContentItem item){
 		receiveQueue.add(new ItemFlick(item));
 	}
 	
+	/**
+	 * Update.
+	 *
+	 * @param tpf the tpf
+	 */
 	public void update(float tpf){
 		
 			// process send queue
@@ -108,12 +139,21 @@ public class InputOutputBasketController implements IMultiTouchEventListener{
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorChanged(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorChanged(MultiTouchCursorEvent event) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorClicked(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorClicked(MultiTouchCursorEvent event) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorPressed(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorPressed(MultiTouchCursorEvent event) {
 		for(JmeNetworkedBasket basket: basketManager.getBaskets().values()) basket.getWindow().setAsBottomObject();
@@ -132,6 +172,9 @@ public class InputOutputBasketController implements IMultiTouchEventListener{
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorReleased(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorReleased(MultiTouchCursorEvent event) {
 		int x = SynergyNetDesktop.getInstance().tableToScreenX(event.getPosition().x);
@@ -199,16 +242,31 @@ public class InputOutputBasketController implements IMultiTouchEventListener{
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectAdded(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	@Override
 	public void objectAdded(MultiTouchObjectEvent event) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectChanged(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	@Override
 	public void objectChanged(MultiTouchObjectEvent event) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectRemoved(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	@Override
 	public void objectRemoved(MultiTouchObjectEvent event) {}
 	
 	
+	/**
+	 * Gets the picked basket.
+	 *
+	 * @param spatials the spatials
+	 * @return the picked basket
+	 */
 	private JmeNetworkedBasket getPickedBasket(List<Spatial> spatials){
 			for(JmeNetworkedBasket basket: basketManager.getBaskets().values()){
 				for(Spatial spatial: spatials){
@@ -219,6 +277,12 @@ public class InputOutputBasketController implements IMultiTouchEventListener{
 		return null;
 	}
 	
+	/**
+	 * Gets the picked items.
+	 *
+	 * @param spatials the spatials
+	 * @return the picked items
+	 */
 	private List<ContentItem> getPickedItems(List<Spatial> spatials){
 		List<ContentItem> items = new ArrayList<ContentItem>();
 		for(Spatial spatial: spatials){
@@ -230,6 +294,13 @@ public class InputOutputBasketController implements IMultiTouchEventListener{
 		return items;
 	}
 	
+	/**
+	 * Gets the picked spatials.
+	 *
+	 * @param id the id
+	 * @param position the position
+	 * @return the picked spatials
+	 */
 	private List<Spatial> getPickedSpatials(long id, Vector2f position)
 	{
 		PickRequest req = new PickRequest(id, position);
@@ -252,6 +323,12 @@ public class InputOutputBasketController implements IMultiTouchEventListener{
 		return pickedSpatials;
 	}
 	
+	/**
+	 * Checks if is basket.
+	 *
+	 * @param objectName the object name
+	 * @return true, if is basket
+	 */
 	private boolean isBasket(String objectName) {
 		for(JmeNetworkedBasket basket: basketManager.getBaskets().values()){
 			if(basket.isBasketComponent(objectName))
@@ -260,18 +337,42 @@ public class InputOutputBasketController implements IMultiTouchEventListener{
 		return false;
 	}
 
+	/**
+	 * Gets the container basket for item.
+	 *
+	 * @param item the item
+	 * @return the container basket for item
+	 */
 	private JmeNetworkedBasket getContainerBasketForItem(ContentItem item){
 		for(JmeNetworkedBasket basket: basketManager.getBaskets().values())
 			if(basket.getWindow().getAllItemsIncludeSystemItems().contains(item)) return basket;
 		return null;
 	}
 	
+	/**
+	 * The Class ItemToBasket.
+	 */
 	class ItemToBasket{
+		
+		/** The item. */
 		public ContentItem item;
+		
+		/** The basket. */
 		public JmeNetworkedBasket basket;
+		
+		/** The current scale. */
 		public float currentScale;
+		
+		/** The fade delay. */
 		public float fadeDelay = 0.05f;
 		
+		/**
+		 * Instantiates a new item to basket.
+		 *
+		 * @param item the item
+		 * @param basket the basket
+		 * @param currentScale the current scale
+		 */
 		public ItemToBasket(ContentItem item, JmeNetworkedBasket basket, float currentScale){
 			this.item = item;
 			this.basket = basket;
@@ -279,10 +380,22 @@ public class InputOutputBasketController implements IMultiTouchEventListener{
 		}
 	}
 	
+	/**
+	 * The Class ItemFlick.
+	 */
 	class ItemFlick{
+		
+		/** The item. */
 		public ContentItem item;
+		
+		/** The flick delay. */
 		public float flickDelay = 1;
 		
+		/**
+		 * Instantiates a new item flick.
+		 *
+		 * @param item the item
+		 */
 		public ItemFlick(ContentItem item){
 			this.item = item;
 		}

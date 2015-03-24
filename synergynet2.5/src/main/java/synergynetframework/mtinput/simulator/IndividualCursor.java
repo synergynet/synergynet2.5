@@ -32,12 +32,28 @@
 
 package synergynetframework.mtinput.simulator;
 
+
+/**
+ * The Class IndividualCursor.
+ */
 public class IndividualCursor {
 	
+	/** The id. */
 	public int id;
+	
+	/** The x. */
 	public float x;
+	
+	/** The y. */
 	public float y;
 
+	/**
+	 * Instantiates a new individual cursor.
+	 *
+	 * @param id the id
+	 * @param x the x
+	 * @param y the y
+	 */
 	public IndividualCursor(int id, float x, float y) {
 		this.id = id;
 		this.x = x;

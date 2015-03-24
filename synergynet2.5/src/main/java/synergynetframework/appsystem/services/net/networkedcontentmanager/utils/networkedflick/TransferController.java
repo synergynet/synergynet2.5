@@ -73,20 +73,43 @@ import com.jme.util.GameTaskQueueManager;
 
 import core.SynergyNetDesktop;
 
+
+/**
+ * The Class TransferController.
+ */
 public class TransferController{
 	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(TransferController.class.getName());
 	
+	/** The virtual tables. */
 	protected ArrayList<VirtualTable> virtualTables  = new ArrayList<VirtualTable>();
+	
+	/** The local table info. */
 	protected TableInfo localTableInfo = null;
+	
+	/** The comms. */
 	protected TableCommsClientService comms;
+	
+	/** The app. */
 	protected DefaultSynergyNetApp app;
 
+	/** The content. */
 	private ContentSystem content;
+	
+	/** The ortho node. */
 	private Node orthoNode;
 
+	/** The networked content manager. */
 	private NetworkedContentManager networkedContentManager;
 
+	/**
+	 * Instantiates a new transfer controller.
+	 *
+	 * @param app the app
+	 * @param comms the comms
+	 * @param networkedContentManager the networked content manager
+	 */
 	public TransferController(DefaultSynergyNetApp app, TableCommsClientService comms,NetworkedContentManager networkedContentManager){		
 		this.app = app;
 		this.content = ContentSystem.getContentSystemForSynergyNetApp(app);
@@ -97,17 +120,37 @@ public class TransferController{
 		log.info("Transfer controller created.");
 	}
 
+	/**
+	 * Sets the local table info.
+	 *
+	 * @param localTableInfo the new local table info
+	 */
 	public void setLocalTableInfo(TableInfo localTableInfo){
 		this.localTableInfo = localTableInfo;
 	}
 
+	/**
+	 * Gets the local table info.
+	 *
+	 * @return the local table info
+	 */
 	public TableInfo getLocalTableInfo(){
 		return localTableInfo;
 	}
 	
+	/** The arrival location stats. */
 	private Vector2f arrivalLocationStats;
+	
+	/** The target table. */
 	private VirtualTable targetTable;
 
+	/**
+	 * Checks if is destination table available.
+	 *
+	 * @param s the s
+	 * @param fm the fm
+	 * @return true, if is destination table available
+	 */
 	public boolean isDestinationTableAvailable(Spatial s, FlickMover fm){
 		 Ray ray = new Ray(s.getLocalTranslation(), fm.getLinearVelocity().normalize());
          for(VirtualTable virtualTable : virtualTables){
@@ -130,6 +173,13 @@ public class TransferController{
          return false;
 	}
 
+	/**
+	 * Within stopping distance.
+	 *
+	 * @param s the s
+	 * @param fm the fm
+	 * @return true, if successful
+	 */
 	private boolean withinStoppingDistance(Spatial s, FlickMover fm) {
 		
 		float maxDimension = SpatialUtility.getMaxDimension(s);
@@ -143,6 +193,12 @@ public class TransferController{
 		}
 	}
 	
+	/**
+	 * Apply transferable content item.
+	 *
+	 * @param message the message
+	 * @return the content item
+	 */
 	public ContentItem applyTransferableContentItem(TransferableContentItem message){
 		ContentItem item = message.getContentItem();
 		item.name = content.generateUniqueName();
@@ -210,6 +266,13 @@ public class TransferController{
 		return item;
 	}
 
+	/**
+	 * To local string.
+	 *
+	 * @param s the s
+	 * @return the string
+	 * @throws Exception the exception
+	 */
 	private String toLocalString(String s) throws Exception{
 		String result = "";
 		
@@ -223,6 +286,11 @@ public class TransferController{
 		return result;
 	}
 		
+	/**
+	 * Register remote table.
+	 *
+	 * @param remoteTableInfo the remote table info
+	 */
 	public void registerRemoteTable(final TableInfo remoteTableInfo)	{
 		
 		VirtualTable temp = findTableById(remoteTableInfo.getTableId());
@@ -261,6 +329,11 @@ public class TransferController{
 
 	}
 	
+	/**
+	 * Clean up unregistered table.
+	 *
+	 * @param msg the msg
+	 */
 	public void cleanUpUnregisteredTable(UnregisterTableMessage msg){
 
 		if(msg.getSender().equals(localTableInfo.getTableId())){
@@ -281,6 +354,11 @@ public class TransferController{
 
 	}
 
+	/**
+	 * Detach virtual table.
+	 *
+	 * @param table the table
+	 */
 	private void detachVirtualTable(final VirtualTable table){
         GameTaskQueueManager.getManager().update(new Callable<Object>() {
   		    public Object call() throws Exception {
@@ -291,6 +369,12 @@ public class TransferController{
         });
 	}
 
+	/**
+	 * Find table by id.
+	 *
+	 * @param tableId the table id
+	 * @return the virtual table
+	 */
 	private VirtualTable findTableById(TableIdentity tableId){
 		for(VirtualTable table : virtualTables)
 			if(table.getTableId().equals(tableId))
@@ -298,6 +382,9 @@ public class TransferController{
 		return null;
 	}
 	
+	/**
+	 * Update.
+	 */
 	public void update(){
 		Iterator<FlickMover> iter = FlickSystem.getInstance().getMovingElements().iterator();
 		while(iter.hasNext()){
@@ -326,6 +413,13 @@ public class TransferController{
 		}
 	}
 
+	/**
+	 * Leaving table.
+	 *
+	 * @param targetSpatial the target spatial
+	 * @param fm the fm
+	 * @return true, if successful
+	 */
 	private boolean leavingTable(Spatial targetSpatial, FlickMover fm ) {
 		if (targetSpatial.getWorldTranslation().x > SynergyNetDesktop.getInstance().getDisplayWidth()){
 			if (fm.getLinearVelocity().x > 0)return true;				
@@ -341,6 +435,11 @@ public class TransferController{
 		return false;
 	}
 
+	/**
+	 * Send registration message.
+	 *
+	 * @param targeTableId the targe table id
+	 */
 	public void sendRegistrationMessage(TableIdentity targeTableId) {
 		try {
 			for(Class<?> receiverClass: networkedContentManager.getReceiverClasses()){
@@ -352,6 +451,12 @@ public class TransferController{
 		}
 	}
 	
+	/**
+	 * Check location conflict.
+	 *
+	 * @param virtualRemoteTable the virtual remote table
+	 * @return true, if successful
+	 */
 	private boolean checkLocationConflict(VirtualTable virtualRemoteTable) {
 		VirtualTable virtualLocalTable = new VirtualTable(localTableInfo);
 		virtualLocalTable.setModelBound(new OrthogonalBoundingBox());
@@ -363,6 +468,14 @@ public class TransferController{
 		return false;
 	}
 	
+	/**
+	 * Transfer.
+	 *
+	 * @param fm the fm
+	 * @param s the s
+	 * @param thisArrivalLocationStats the this arrival location stats
+	 * @param table the table
+	 */
 	public void transfer(FlickMover fm, Spatial s, float[] thisArrivalLocationStats, VirtualTable table) {		
 		if (fm.toBeTransferred && leavingTable(s, fm)){
 		
@@ -390,20 +503,45 @@ public class TransferController{
 		
 	}
 	
+	/**
+	 * The Class CustomThread.
+	 */
 	public class CustomThread implements Runnable {
 
-		   private FlickMover fm;
-		   private float[] thisArrivalLocationStats;
-		   private Vector3f initialPos;
-		   private VirtualTable vt;
-		   private float maxDistance;
+		   /** The fm. */
+   		private FlickMover fm;
+		   
+   		/** The this arrival location stats. */
+   		private float[] thisArrivalLocationStats;
+		   
+   		/** The initial pos. */
+   		private Vector3f initialPos;
+		   
+   		/** The vt. */
+   		private VirtualTable vt;
+		   
+   		/** The max distance. */
+   		private float maxDistance;
 		   	   
-		   public CustomThread(FlickMover fm, float[] thisArrivalLocationStats, VirtualTable vt) {
+		   /**
+   		 * Instantiates a new custom thread.
+   		 *
+   		 * @param fm the fm
+   		 * @param thisArrivalLocationStats the this arrival location stats
+   		 * @param vt the vt
+   		 */
+   		public CustomThread(FlickMover fm, float[] thisArrivalLocationStats, VirtualTable vt) {
 			   this.vt = vt;
 			   setup(fm, thisArrivalLocationStats);
 		   }
 		
-		   private void setup(FlickMover fm, float[] thisArrivalLocationStats) {
+		   /**
+   		 * Setup.
+   		 *
+   		 * @param fm the fm
+   		 * @param thisArrivalLocationStats the this arrival location stats
+   		 */
+   		private void setup(FlickMover fm, float[] thisArrivalLocationStats) {
 		       this.fm = fm;
 		       this.thisArrivalLocationStats = thisArrivalLocationStats;
 		       this.maxDistance = SpatialUtility.getMaxDimension(fm.getTargetSpatial());
@@ -412,6 +550,9 @@ public class TransferController{
 		   }
 		   
 
+			/* (non-Javadoc)
+			 * @see java.lang.Runnable#run()
+			 */
 			public void run() {
 				   
 				   while (fm.getTargetSpatial().getWorldTranslation().distance(initialPos) < maxDistance){	 

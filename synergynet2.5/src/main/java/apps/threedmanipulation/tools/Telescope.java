@@ -19,17 +19,36 @@ import com.jme.scene.Spatial;
 import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
 
+
+/**
+ * The Class Telescope.
+ */
 public class Telescope {
 
+	/** The cam node. */
 	private CameraNode camNode;
 
+	/** The t renderer. */
 	private TextureRenderer tRenderer;
+	
+	/** The fake tex. */
 	private Texture2D fakeTex;
+	
+	/** The telescope len. */
 	private TelescopeLen telescopeLen;
+	
+	/** The tool listeners. */
 	protected List<ToolListener> toolListeners = new ArrayList<ToolListener>();  
+	
+	/** The world node. */
 	private Node worldNode;
+	
+	/** The ortho node. */
 	private Node orthoNode;
 	
+	/**
+	 * Cleanup.
+	 */
 	public void cleanup() {
 		tRenderer.cleanup();
 		worldNode.detachChild(camNode);
@@ -38,10 +57,28 @@ public class Telescope {
 		orthoNode.updateGeometricState(0f, false);
 	}
 
+	/**
+	 * Render.
+	 *
+	 * @param renderedNode the rendered node
+	 */
 	public void render(Node renderedNode) {
 		tRenderer.render(renderedNode, fakeTex);
 	}
 	
+	/**
+	 * Instantiates a new telescope.
+	 *
+	 * @param name the name
+	 * @param contentSystem the content system
+	 * @param worldNode the world node
+	 * @param orthoNode the ortho node
+	 * @param manipulatableOjbects the manipulatable ojbects
+	 * @param mainCameraPosition the main camera position
+	 * @param initTelescopePosition the init telescope position
+	 * @param initTelescopeZoom the init telescope zoom
+	 * @param telescopeRadius the telescope radius
+	 */
 	public Telescope(String name, ContentSystem contentSystem, Node worldNode, Node orthoNode, List<Spatial> manipulatableOjbects, Vector3f mainCameraPosition, Vector2f initTelescopePosition, float initTelescopeZoom, float telescopeRadius){
 		
 		this.worldNode = worldNode;
@@ -91,15 +128,30 @@ public class Telescope {
 		
 	}
 	
+	/**
+	 * Adds the tool listener.
+	 *
+	 * @param l the l
+	 */
 	public void addToolListener(ToolListener l){
 		toolListeners.add(l);
 	}
 
+	/**
+	 * Removes the tool listener.
+	 *
+	 * @param l the l
+	 */
 	public void removeToolListener(ToolListener l){
 		if (toolListeners.contains(l))
 			toolListeners.remove(l);
 	}
 	
+	/**
+	 * Gets the telescope lens.
+	 *
+	 * @return the telescope lens
+	 */
 	public TelescopeLen getTelescopeLens(){
 		return this.telescopeLen;
 	}

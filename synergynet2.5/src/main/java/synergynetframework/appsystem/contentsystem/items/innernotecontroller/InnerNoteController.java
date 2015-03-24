@@ -13,18 +13,36 @@ import synergynetframework.appsystem.contentsystem.items.QuadContentItem;
 import synergynetframework.appsystem.contentsystem.items.listener.InnerNoteEditListener;
 import synergynetframework.appsystem.contentsystem.items.listener.ItemEventAdapter;
 
+
+/**
+ * The Class InnerNoteController.
+ */
 public class InnerNoteController implements InnerNoteEventListener{
 
+	/** The items. */
 	protected List<ContentItem> items = new ArrayList<ContentItem>();
+	
+	/** The note editors. */
 	protected Map<QuadContentItem, InnerNoteEditor> noteEditors = new HashMap<QuadContentItem, InnerNoteEditor> ();
+	
+	/** The self. */
 	protected InnerNoteController self;
 	
+	/** The inner note event listeners. */
 	protected transient List<InnerNoteEventListener> innerNoteEventListeners = new ArrayList<InnerNoteEventListener>();
 	
+	/**
+	 * Instantiates a new inner note controller.
+	 */
 	public InnerNoteController(){
 		self = this;
 	}
 	
+	/**
+	 * Adds the note controller.
+	 *
+	 * @param collection the collection
+	 */
 	public void addNoteController(Collection<ContentItem> collection){
 		this.items.clear();
 		for (ContentItem item: collection)
@@ -33,6 +51,11 @@ public class InnerNoteController implements InnerNoteEventListener{
 		this.addNoteController();
 	}
 	
+	/**
+	 * Adds the note controller.
+	 *
+	 * @param item the item
+	 */
 	public void addNoteController(ContentItem item){
 		this.items.add(item);
 		final QuadContentItem quadItem = (QuadContentItem)item;
@@ -54,6 +77,12 @@ public class InnerNoteController implements InnerNoteEventListener{
 		});
 	}
 	
+	/**
+	 * Adds the note controller.
+	 *
+	 * @param parentItem the parent item
+	 * @param mainSubItem the main sub item
+	 */
 	public void addNoteController(final ContentItem parentItem, final QuadContentItem mainSubItem){
 		this.items.add(parentItem);
 		mainSubItem.addItemListener(new ItemEventAdapter(){
@@ -71,6 +100,9 @@ public class InnerNoteController implements InnerNoteEventListener{
 		});
 	}
 	
+	/**
+	 * Adds the note controller.
+	 */
 	private void addNoteController(){
 		for (final ContentItem ci: items){
 			final QuadContentItem quadItem = (QuadContentItem)ci;
@@ -93,6 +125,11 @@ public class InnerNoteController implements InnerNoteEventListener{
 		}
 	}
 	
+	/**
+	 * Adds the note editor.
+	 *
+	 * @param quadItem the quad item
+	 */
 	public void addNoteEditor(QuadContentItem quadItem){
 		if (noteEditors.containsKey(quadItem))
 			return;
@@ -100,6 +137,12 @@ public class InnerNoteController implements InnerNoteEventListener{
 		quadItem.setRotateTranslateScalable(false);
 	}
 	
+	/**
+	 * Adds the note editor.
+	 *
+	 * @param quadItem the quad item
+	 * @param parentItem the parent item
+	 */
 	public void addNoteEditor(QuadContentItem quadItem, ContentItem parentItem){
 		if (noteEditors.containsKey(quadItem))
 			return;
@@ -107,6 +150,11 @@ public class InnerNoteController implements InnerNoteEventListener{
 		((OrthoContentItem)parentItem).setRotateTranslateScalable(false);
 	}
 	
+	/**
+	 * Removes the note editor.
+	 *
+	 * @param item the item
+	 */
 	public void removeNoteEditor(QuadContentItem item){
 
 		if (noteEditors.containsKey(item)){
@@ -116,6 +164,12 @@ public class InnerNoteController implements InnerNoteEventListener{
 		}
 	}
 	
+	/**
+	 * Removes the note editor.
+	 *
+	 * @param item the item
+	 * @param parentItem the parent item
+	 */
 	public void removeNoteEditor(QuadContentItem item, ContentItem parentItem){
 
 		if (noteEditors.containsKey(item)){
@@ -125,6 +179,9 @@ public class InnerNoteController implements InnerNoteEventListener{
 		}
 	}
 	
+	/**
+	 * Removes the all note editors.
+	 */
 	public void removeAllNoteEditors(){
 		List<QuadContentItem> items = new ArrayList<QuadContentItem>();
 		for (QuadContentItem item:noteEditors.keySet()){
@@ -136,10 +193,21 @@ public class InnerNoteController implements InnerNoteEventListener{
 		}
 	}
 	
+	/**
+	 * Gets the node editors.
+	 *
+	 * @return the node editors
+	 */
 	public Map<QuadContentItem, InnerNoteEditor> getNodeEditors(){
 		return this.noteEditors;
 	}
 	
+	/**
+	 * Gets the node editor.
+	 *
+	 * @param item the item
+	 * @return the node editor
+	 */
 	public InnerNoteEditor getNodeEditor(QuadContentItem item){
 		if (!this.noteEditors.containsKey(item)){
 			return null;
@@ -149,12 +217,18 @@ public class InnerNoteController implements InnerNoteEventListener{
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.innernotecontroller.InnerNoteEventListener#noteBringToTop(synergynetframework.appsystem.contentsystem.items.ContentItem)
+	 */
 	@Override
 	public void noteBringToTop(ContentItem edittedItem) {
 		for (InnerNoteEventListener l: innerNoteEventListeners)
 			l.noteBringToTop(edittedItem);			
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.innernotecontroller.InnerNoteEventListener#noteChanged(synergynetframework.appsystem.contentsystem.items.ContentItem, java.lang.String)
+	 */
 	@Override
 	public void noteChanged(ContentItem item, String text) {
 		for (InnerNoteEventListener l: innerNoteEventListeners)
@@ -162,6 +236,9 @@ public class InnerNoteController implements InnerNoteEventListener{
 	
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.innernotecontroller.InnerNoteEventListener#noteLabelOn(synergynetframework.appsystem.contentsystem.items.ContentItem, boolean)
+	 */
 	@Override
 	public void noteLabelOn(ContentItem item, boolean noteLabelOn) {
 		for (InnerNoteEventListener l: innerNoteEventListeners)
@@ -169,6 +246,9 @@ public class InnerNoteController implements InnerNoteEventListener{
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.innernotecontroller.InnerNoteEventListener#noteRotated(synergynetframework.appsystem.contentsystem.items.ContentItem, float, float)
+	 */
 	@Override
 	public void noteRotated(ContentItem edittedItem, float newAngle,
 			float oldAngle) {
@@ -176,6 +256,9 @@ public class InnerNoteController implements InnerNoteEventListener{
 			l.noteRotated(edittedItem, newAngle, oldAngle);	
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.innernotecontroller.InnerNoteEventListener#noteScaled(synergynetframework.appsystem.contentsystem.items.ContentItem, float, float)
+	 */
 	@Override
 	public void noteScaled(ContentItem edittedItem, float newScaleFactor,
 			float oldScaleFactor) {
@@ -183,6 +266,9 @@ public class InnerNoteController implements InnerNoteEventListener{
 			l.noteScaled(edittedItem, newScaleFactor, oldScaleFactor);	
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.innernotecontroller.InnerNoteEventListener#noteTranslated(synergynetframework.appsystem.contentsystem.items.ContentItem, float, float, float, float)
+	 */
 	@Override
 	public void noteTranslated(ContentItem edittedItem, float newLocationX,
 			float newLocationY, float oldLocationX, float oldLocationY) {
@@ -191,6 +277,11 @@ public class InnerNoteController implements InnerNoteEventListener{
 		
 	}
 	
+	/**
+	 * Adds the inner note event listener.
+	 *
+	 * @param l the l
+	 */
 	public void addInnerNoteEventListener(InnerNoteEventListener l){
 		if (this.innerNoteEventListeners==null)
 			this.innerNoteEventListeners = new ArrayList<InnerNoteEventListener>();
@@ -199,10 +290,18 @@ public class InnerNoteController implements InnerNoteEventListener{
 			this.innerNoteEventListeners.add(l);
 	}
 	
+	/**
+	 * Removes the inner note event listeners.
+	 */
 	public void removeInnerNoteEventListeners(){
 		innerNoteEventListeners.clear();
 	}
 	
+	/**
+	 * Removes the inner note event listener.
+	 *
+	 * @param l the l
+	 */
 	public void removeInnerNoteEventListener(InnerNoteEditListener l){
 		innerNoteEventListeners.remove(l);
 	}

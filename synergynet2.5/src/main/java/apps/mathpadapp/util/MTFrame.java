@@ -48,19 +48,45 @@ import synergynetframework.appsystem.contentsystem.items.TextLabel.Alignment;
 import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAdapter;
 import synergynetframework.jme.cursorsystem.elements.twod.OrthoBringToTop;
 
+
+/**
+ * The Class MTFrame.
+ */
 public abstract class  MTFrame extends GraphNode{
 	
+	/** The window. */
 	protected Window window;
+	
+	/** The top panel. */
 	protected Window topPanel;
+	
+	/** The title. */
 	protected TextLabel title;
+	
+	/** The close button. */
 	protected SimpleButton closeButton;
+	
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The link button. */
 	protected SimpleButton linkButton;
 	
+	/**
+	 * Instantiates a new MT frame.
+	 *
+	 * @param contentSystem the content system
+	 */
 	public MTFrame(final ContentSystem contentSystem){
 		this(contentSystem, null);
 	}
 	
+	/**
+	 * Instantiates a new MT frame.
+	 *
+	 * @param contentSystem the content system
+	 * @param graphManager the graph manager
+	 */
 	public MTFrame(final ContentSystem contentSystem, GraphManager graphManager){
 		super(graphManager, (Window) contentSystem.createContentItem(Window.class));
 		this.contentSystem = contentSystem;
@@ -125,22 +151,47 @@ public abstract class  MTFrame extends GraphNode{
 		}
 	}
 	
+	/**
+	 * Gets the window.
+	 *
+	 * @return the window
+	 */
 	public Window getWindow(){
 		return window;
 	}
 	
+	/**
+	 * Gets the top bar.
+	 *
+	 * @return the top bar
+	 */
 	public Window getTopBar(){
 		return topPanel;
 	}
 	
+	/**
+	 * Sets the title.
+	 *
+	 * @param text the new title
+	 */
 	public void setTitle(String text){
 		title.setText(" "+text);
 	}
 	
+	/**
+	 * Gets the title.
+	 *
+	 * @return the title
+	 */
 	public String getTitle(){
 		return title.getText();
 	}
 
+	/**
+	 * Sets the height.
+	 *
+	 * @param height the new height
+	 */
 	public void setHeight(int height) {
 		this.window.setHeight(height);
 		topPanel.setLocalLocation(0, window.getHeight()/2+ topPanel.getHeight()/2 - topPanel.getBorderSize());
@@ -148,6 +199,11 @@ public abstract class  MTFrame extends GraphNode{
 		title.setLocalLocation(topPanel.getLocalLocation().x,0);
 	}
 	
+	/**
+	 * Sets the width.
+	 *
+	 * @param width the new width
+	 */
 	public void setWidth(int width) {
 		this.window.setWidth(width);
 		topPanel.setWidth(window.getWidth());
@@ -157,6 +213,9 @@ public abstract class  MTFrame extends GraphNode{
 		if(linkButton!= null) linkButton.setLocalLocation(topPanel.getWidth()/2 - closeButton.getWidth() - linkButton.getWidth()/2 - topPanel.getBorderSize()-6, topPanel.getHeight()/2 - linkButton.getHeight()/2- 6);
 	}
 	
+	/**
+	 * Close.
+	 */
 	public void close(){
 		if(getGraphManager() != null){
 			this.getGraphManager().detachGraphNode(this);

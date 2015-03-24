@@ -42,9 +42,18 @@ import synergynetframework.appsystem.services.net.tablecomms.messages.TableMessa
 import synergynetframework.appsystem.services.net.tablecomms.server.ServerMessageProcessor;
 import synergynetframework.appsystem.services.net.tablecomms.server.TableCommsServerService;
 
+
+/**
+ * The Class TableJoinRequestProcessor.
+ */
 public class TableJoinRequestProcessor implements ServerMessageProcessor {
+	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(TableJoinRequestProcessor.class.getName());
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.tablecomms.server.ServerMessageProcessor#handle(synergynetframework.appsystem.services.net.tablecomms.server.TableCommsServerService, synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler, synergynetframework.appsystem.services.net.tablecomms.messages.TableMessage)
+	 */
 	public void handle(TableCommsServerService server, ConnectionHandler fromHandler, TableMessage obj) throws IOException {
 		log.info("handle() " + obj);
 		server.getReceivers().put(obj.getSender(), fromHandler);

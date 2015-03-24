@@ -35,19 +35,43 @@ package synergynetframework.appsystem.services.net.peer;
 import synergynetframework.appsystem.services.net.landiscovery.ServiceDescriptor;
 import synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoveryListener;
 
+
+/**
+ * The Class ServerStatusMonitor.
+ */
 public class ServerStatusMonitor implements ServiceDiscoveryListener {
+	
+	/** The server found. */
 	protected boolean serverFound;
+	
+	/** The time out. */
 	protected long timeOut;
+	
+	/** The server service descriptor. */
 	protected ServiceDescriptor serverServiceDescriptor;
+	
+	/** The service type. */
 	private String serviceType;
+	
+	/** The service name. */
 	private String serviceName;
 
+	/**
+	 * Instantiates a new server status monitor.
+	 *
+	 * @param serviceType the service type
+	 * @param serviceName the service name
+	 * @param timeOut the time out
+	 */
 	public ServerStatusMonitor(String serviceType, String serviceName, long timeOut) {
 		this.serviceType = serviceType;
 		this.serviceName = serviceName;
 		this.timeOut = timeOut;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoveryListener#serviceAvailable(synergynetframework.appsystem.services.net.landiscovery.ServiceDescriptor)
+	 */
 	public synchronized void serviceAvailable(ServiceDescriptor sd) {
 		if(sd.getServiceType().equals(serviceType) && sd.getServiceName().equals(serviceName)) {
 			serverFound = true;
@@ -56,18 +80,36 @@ public class ServerStatusMonitor implements ServiceDiscoveryListener {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoveryListener#serviceRemoved(synergynetframework.appsystem.services.net.landiscovery.ServiceDescriptor)
+	 */
 	public void serviceRemoved(ServiceDescriptor sd) {
 		
 	}
 
+	/**
+	 * Connect.
+	 *
+	 * @throws InterruptedException the interrupted exception
+	 */
 	public synchronized void connect() throws InterruptedException {
 		wait(timeOut);		
 	} 
 
+	/**
+	 * Server found.
+	 *
+	 * @return true, if successful
+	 */
 	public synchronized boolean serverFound() {
 		return serverFound;
 	}
 	
+	/**
+	 * Gets the server service descriptor.
+	 *
+	 * @return the server service descriptor
+	 */
 	public ServiceDescriptor getServerServiceDescriptor() {
 		return serverServiceDescriptor;
 	}

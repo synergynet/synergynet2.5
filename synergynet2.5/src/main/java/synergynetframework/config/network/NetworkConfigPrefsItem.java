@@ -41,44 +41,90 @@ import core.ConfigurationSystem;
 
 import synergynetframework.config.PreferencesItem;
 
+
+/**
+ * The Class NetworkConfigPrefsItem.
+ */
 public class NetworkConfigPrefsItem implements PreferencesItem {
 	
+	/** The Constant prefs. */
 	private static final Preferences prefs = ConfigurationSystem.getPreferences(NetworkConfigPrefsItem.class);
 	
+	/** The Constant HTTP_PROXY_HOST. */
 	private static final String HTTP_PROXY_HOST = "HTTP_PROXY_HOST";
+	
+	/** The Constant HTTP_PROXY_PORT. */
 	private static final String HTTP_PROXY_PORT = "HTTP_PROXY_PORT";
+	
+	/** The Constant HTTP_PROXY_ENABLED. */
 	private static final String HTTP_PROXY_ENABLED = "HTTP_PROXY_ENABLED";
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.config.PreferencesItem#getConfigurationPanel()
+	 */
 	@Override
 	public JPanel getConfigurationPanel() {
 		return new NetworkConfigPrefsPanel(this);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.config.PreferencesItem#getName()
+	 */
 	@Override
 	public String getName() {
 		return "Network";
 	}
 
+	/**
+	 * Gets the proxy host.
+	 *
+	 * @return the proxy host
+	 */
 	public String getProxyHost() {
 		return prefs.get(HTTP_PROXY_HOST, "");
 	}
 	
+	/**
+	 * Sets the proxy host.
+	 *
+	 * @param host the new proxy host
+	 */
 	public void setProxyHost(String host) {
 		prefs.put(HTTP_PROXY_HOST, host);
 	}
 	
+	/**
+	 * Gets the proxy port.
+	 *
+	 * @return the proxy port
+	 */
 	public int getProxyPort() {
 		return prefs.getInt(HTTP_PROXY_PORT, 8080);
 	}
 
+	/**
+	 * Sets the proxy port.
+	 *
+	 * @param port the new proxy port
+	 */
 	public void setProxyPort(int port) {
 		prefs.putInt(HTTP_PROXY_PORT, port);
 	}
 	
+	/**
+	 * Sets the proxy enabled.
+	 *
+	 * @param b the new proxy enabled
+	 */
 	public void setProxyEnabled(boolean b) {
 		prefs.putBoolean(HTTP_PROXY_ENABLED, b);
 	}
 	
+	/**
+	 * Gets the proxy enabled.
+	 *
+	 * @return the proxy enabled
+	 */
 	public boolean getProxyEnabled() {
 		return prefs.getBoolean(HTTP_PROXY_ENABLED, false);
 	}

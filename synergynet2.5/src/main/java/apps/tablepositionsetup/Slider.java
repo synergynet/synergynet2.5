@@ -13,13 +13,37 @@ import synergynetframework.appsystem.contentsystem.items.TextLabel;
 import synergynetframework.appsystem.contentsystem.items.listener.ItemListener;
 import synergynetframework.appsystem.contentsystem.items.utils.Location;
 
+
+/**
+ * The Class Slider.
+ */
 public class Slider {
 
+	/** The suffix text. */
 	private TextLabel prefixText, distanceText, suffixText = null;
+	
+	/** The marker run. */
 	private LineItem markerOne, markerTwo, markerDistance, markerRun = null;
+	
+	/** The result. */
 	private float result = 0;
+	
+	/** The loc y. */
 	private int height, min, max, width, locX, locY = 0;
 
+	/**
+	 * Instantiates a new slider.
+	 *
+	 * @param contentSystem the content system
+	 * @param x the x
+	 * @param y the y
+	 * @param widthNew the width new
+	 * @param heightNew the height new
+	 * @param maxValue the max value
+	 * @param minValue the min value
+	 * @param prefix the prefix
+	 * @param suffix the suffix
+	 */
 	public Slider(ContentSystem contentSystem, int x, int y, int widthNew, int heightNew, int maxValue, int minValue, String prefix, String suffix){
 		this.locX = x;
 		this.locY = y;
@@ -119,12 +143,20 @@ public class Slider {
 		suffixText.setLocalLocation(distanceText.getLocation().x + distanceText.getWidth()/2 + suffixText.getWidth()/2, locY+height/2 + distanceText.getHeight()/2 + 10);
 	}
 	
+	/**
+	 * Sets the text.
+	 */
 	private void setText(){
 		distanceText.setText(new DecimalFormat("0.##").format(result));
 		distanceText.setLocalLocation(prefixText.getLocation().x + prefixText.getWidth()/2 + distanceText.getWidth()/2, locY+height/2 + distanceText.getHeight()/2 + 10);
 		suffixText.setLocalLocation(distanceText.getLocation().x + distanceText.getWidth()/2 + suffixText.getWidth()/2, locY+height/2 + distanceText.getHeight()/2 + 10);
 	}
 
+	/**
+	 * Sets the value.
+	 *
+	 * @param value the new value
+	 */
 	public void setValue(float value){
 		result = value;
 		float newMarkerXPos = ((result/(max-min))*width) + markerOne.getSourceLocation().x;
@@ -135,10 +167,18 @@ public class Slider {
 		markerTwo.setAsTopObject();
 	}
 
+	/**
+	 * Gets the value.
+	 *
+	 * @return the value
+	 */
 	public float getValue(){
 		return result;
 	}
 
+	/**
+	 * Destroy slider.
+	 */
 	public void destroySlider(){
 		markerOne.setVisible(false, true);
 		markerTwo.setVisible(false, true);

@@ -26,21 +26,51 @@ import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
 import com.jme.util.TextureManager;
 
+
+/**
+ * The Class TV.
+ */
 public class TV extends Node{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 6173587080007220150L;
 	
+	/** The j me video image. */
 	protected JMFVideoImage jMEVideoImage;
+	
+	/** The video player. */
 	protected VideoPlayer videoPlayer;
+	
+	/** The frame width. */
 	protected float frameWidth;
+	
+	/** The video quad. */
 	protected Quad videoQuad;
+	
+	/** The tv frame texture. */
 	protected URL tvFrameTexture;
+	
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The listeners. */
 	protected List<KeyListener> listeners = new ArrayList<KeyListener>();
+	
+	/** The width. */
 	protected float width = 160;
+	
+	/** The height. */
 	protected float height = 120;
 	
 	
+	/**
+	 * Instantiates a new tv.
+	 *
+	 * @param contentSystem the content system
+	 * @param videoURL the video url
+	 * @param frameWidth the frame width
+	 * @param tvFrameTexture the tv frame texture
+	 */
 	public TV(ContentSystem contentSystem, URL videoURL, float frameWidth, URL tvFrameTexture){
 		this.frameWidth = frameWidth;
 		this.tvFrameTexture = tvFrameTexture;
@@ -56,6 +86,12 @@ public class TV extends Node{
 		this.updateGeometricState(0f, false);
 	}
 	
+	/**
+	 * Builds the video.
+	 *
+	 * @param contentSystem the content system
+	 * @param videoURL the video url
+	 */
 	public void buildVideo(ContentSystem contentSystem, URL videoURL){
 		
 		videoPlayer = (VideoPlayer)contentSystem.createContentItem(VideoPlayer.class);
@@ -77,6 +113,9 @@ public class TV extends Node{
 					
 	}
 	
+	/**
+	 * Builds the frame.
+	 */
 	public void buildFrame(){
 		width = videoPlayer.getVideoWidth()/1.5f;
 		height = videoPlayer.getVideoHeight()/1.5f;
@@ -113,6 +152,9 @@ public class TV extends Node{
 			
 	}
 	
+	/**
+	 * Builds the close button.
+	 */
 	public void buildCloseButton(){
 		RoundButton close = new RoundButton("Close TV Button", 15f, 8f, ThreeDManipulation.class.getResource("taskbar.png"),  
 				ThreeDManipulation.class.getResource("onbutton.jpg"));
@@ -130,14 +172,29 @@ public class TV extends Node{
 		});    
 	}
 	
+	/**
+	 * Tv show.
+	 *
+	 * @param b the b
+	 */
 	public void tvShow(boolean b){
 		videoPlayer.setPlaying(b);
 	}
 	
+	/**
+	 * Update.
+	 *
+	 * @param tpf the tpf
+	 */
 	public void update (float tpf){	
 		if(contentSystem != null) contentSystem.update(tpf);				
 	}
 	
+	/**
+	 * Adds the key listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void addKeyListener(KeyListener listener){
 		this.listeners.add(listener);
 	}

@@ -40,23 +40,42 @@ import synergynetframework.appsystem.contentsystem.items.utils.Background;
 import synergynetframework.appsystem.contentsystem.items.utils.Border;
 
 
+
+/**
+ * The Class JMEThreeDContainer.
+ */
 public class JMEThreeDContainer extends JMEThreeDContentItem implements IThreeDContainerImplementation {
 
+	/** The node. */
 	protected Node node;
 	
+	/**
+	 * Instantiates a new JME three d container.
+	 *
+	 * @param contentItem the content item
+	 */
 	public JMEThreeDContainer(ContentItem contentItem) {
 		super(contentItem, new Node(contentItem.getName()));
 		this.node = (Node)this.spatial;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEContentItem#setBackGround(synergynetframework.appsystem.contentsystem.items.utils.Background)
+	 */
 	@Override
 	public void setBackGround(Background backGround) {	
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEContentItem#setBorder(synergynetframework.appsystem.contentsystem.items.utils.Border)
+	 */
 	@Override
 	public void setBorder(Border border) {	
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IThreeDContainerImplementation#addSubItem(synergynetframework.appsystem.contentsystem.items.ContentItem)
+	 */
 	@Override
 	public void addSubItem(ContentItem contentItem) {
 		
@@ -68,6 +87,9 @@ public class JMEThreeDContainer extends JMEThreeDContentItem implements IThreeDC
 				
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IThreeDContainerImplementation#removeSubItem(synergynetframework.appsystem.contentsystem.items.ContentItem)
+	 */
 	@Override
 	public void removeSubItem(ContentItem contentItem) {		
 		Spatial parentSpatial = ((Spatial)(contentItem.getImplementationObject())).getParent();
@@ -78,6 +100,9 @@ public class JMEThreeDContainer extends JMEThreeDContentItem implements IThreeDC
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEContentItem#setBoundaryEnabled(boolean)
+	 */
 	@Override
 	public void setBoundaryEnabled(boolean isBoundaryEnabled) {
 		

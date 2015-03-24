@@ -42,28 +42,64 @@ import synergynetframework.appsystem.contentsystem.items.listener.ItemEventAdapt
 import synergynetframework.appsystem.contentsystem.items.listener.ListEventAdapter;
 import synergynetframework.appsystem.contentsystem.items.listener.ListEventListener;
 
+
+/**
+ * The Class ListContainer.
+ */
 public class ListContainer extends Window {
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 4456150243914896154L;
 
+	/** The list items. */
 	protected List<QuadContentItem> listItems = new ArrayList<QuadContentItem>();
+	
+	/** The sub menus. */
 	protected Map<SimpleButton, ListContainer> subMenus = new HashMap<SimpleButton, ListContainer>();
+	
+	/** The space to top. */
 	protected int spaceToTop = 30;
+	
+	/** The line space. */
 	protected int lineSpace = 5;
+	
+	/** The space to side. */
 	protected int spaceToSide = 20;
+	
+	/** The space to bottom. */
 	protected int spaceToBottom = 10;
+	
+	/** The item height. */
 	protected int itemHeight = 30;
+	
+	/** The item width. */
 	protected int itemWidth = 100;
 	
+	/** The is horizontal. */
 	protected boolean isHorizontal = false;
+	
+	/** The is auto fit size. */
 	protected boolean isAutoFitSize = true;
 	
+	/** The list event listeners. */
 	protected transient List<ListEventListener> listEventListeners = new ArrayList<ListEventListener>();
 	
+	/**
+	 * Instantiates a new list container.
+	 *
+	 * @param contentSystem the content system
+	 * @param name the name
+	 */
 	public ListContainer(ContentSystem contentSystem, String name) {
 		super(contentSystem, name);
 	}
 	
+	/**
+	 * Adds the sub item.
+	 *
+	 * @param index the index
+	 * @param item the item
+	 */
 	public void addSubItem(int index, QuadContentItem item){
 		if (!listItems.contains(item)){
 			listItems.add(index, item);
@@ -72,6 +108,11 @@ public class ListContainer extends Window {
 		}		
 	}
 	
+	/**
+	 * Adds the sub item.
+	 *
+	 * @param item the item
+	 */
 	public void addSubItem(QuadContentItem item){
 		if (!listItems.contains(item)){
 			listItems.add(item);
@@ -80,6 +121,12 @@ public class ListContainer extends Window {
 		}		
 	}
 	
+	/**
+	 * Adds the sub menu.
+	 *
+	 * @param subMenu the sub menu
+	 * @param title the title
+	 */
 	public void addSubMenu(final ListContainer subMenu, String title){
 		if (!subMenus.values().contains(subMenu)){
 			SimpleButton button = (SimpleButton)this.contentSystem.createContentItem(SimpleButton.class);
@@ -110,10 +157,20 @@ public class ListContainer extends Window {
 		}		
 	}
 	
+	/**
+	 * Gets the sub menus.
+	 *
+	 * @return the sub menus
+	 */
 	public Map<SimpleButton, ListContainer> getSubMenus() {
 		return subMenus;
 	}
 
+	/**
+	 * Removes the sub item.
+	 *
+	 * @param item the item
+	 */
 	public void removeSubItem(QuadContentItem item){
 		if (listItems.contains(item)){
 			listItems.remove(item);
@@ -122,6 +179,9 @@ public class ListContainer extends Window {
 		}				
 	}
 	
+	/**
+	 * Clear.
+	 */
 	public void clear(){
 		for (QuadContentItem item:listItems){		
 			super.removeSubItem(item);
@@ -131,58 +191,126 @@ public class ListContainer extends Window {
 		listItems.clear();
 	}
 	
+	/**
+	 * Gets the item width.
+	 *
+	 * @return the item width
+	 */
 	public int getItemWidth() {
 		return itemWidth;
 	}
 	
+	/**
+	 * Gets the item height.
+	 *
+	 * @return the item height
+	 */
 	public int getItemHeight() {
 		return itemHeight;
 	}
 
+	/**
+	 * Sets the item height.
+	 *
+	 * @param itemHeight the new item height
+	 */
 	public void setItemHeight(int itemHeight) {
 		this.itemHeight = itemHeight;
 	}
 	
+	/**
+	 * Sets the item width.
+	 *
+	 * @param itemWidth the new item width
+	 */
 	public void setItemWidth(int itemWidth) {
 		this.itemWidth = itemWidth;
 	}
 
+	/**
+	 * Gets the list items.
+	 *
+	 * @return the list items
+	 */
 	public List<QuadContentItem> getListItems(){
 		return listItems;
 	}
 
+	/**
+	 * Gets the space to top.
+	 *
+	 * @return the space to top
+	 */
 	public int getSpaceToTop() {
 		return spaceToTop;
 	}
 
+	/**
+	 * Sets the space to top.
+	 *
+	 * @param spaceToTop the new space to top
+	 */
 	public void setSpaceToTop(int spaceToTop) {
 		this.spaceToTop = spaceToTop;
 	}
 
+	/**
+	 * Gets the line space.
+	 *
+	 * @return the line space
+	 */
 	public int getLineSpace() {
 		return lineSpace;
 	}
 
+	/**
+	 * Sets the line space.
+	 *
+	 * @param lineSpace the new line space
+	 */
 	public void setLineSpace(int lineSpace) {
 		this.lineSpace = lineSpace;
 	}
 
+	/**
+	 * Gets the space to side.
+	 *
+	 * @return the space to side
+	 */
 	public int getSpaceToSide() {
 		return spaceToSide;
 	}
 
+	/**
+	 * Sets the space to side.
+	 *
+	 * @param spaceToSide the new space to side
+	 */
 	public void setSpaceToSide(int spaceToSide) {
 		this.spaceToSide = spaceToSide;
 	}
 
+	/**
+	 * Gets the space to bottom.
+	 *
+	 * @return the space to bottom
+	 */
 	public int getSpaceToBottom() {
 		return spaceToBottom;
 	}
 
+	/**
+	 * Sets the space to bottom.
+	 *
+	 * @param spaceToBottom the new space to bottom
+	 */
 	public void setSpaceToBottom(int spaceToBottom) {
 		this.spaceToBottom = spaceToBottom;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.ContentItem#setVisible(boolean)
+	 */
 	@Override
 	public void setVisible(boolean isVisible) {
 		super.setVisible(isVisible);
@@ -201,6 +329,11 @@ public class ListContainer extends Window {
 	}
 	
 	
+	/**
+	 * Adds the list event listener.
+	 *
+	 * @param l the l
+	 */
 	public void addListEventListener(ListEventAdapter l){
 		if (this.listEventListeners==null)
 			this.listEventListeners = new ArrayList<ListEventListener>();
@@ -209,28 +342,56 @@ public class ListContainer extends Window {
 			this.listEventListeners.add(l);
 	}
 	
+	/**
+	 * Removes the list event listeners.
+	 */
 	public void removeListEventListeners(){
 		listEventListeners.clear();
 	}
 	
+	/**
+	 * Removes the list event listener.
+	 *
+	 * @param l the l
+	 */
 	public void removeListEventListener(ListEventListener l){
 		listEventListeners.remove(l);
 	}
 	
+	/**
+	 * Sets the horizontal.
+	 *
+	 * @param isHorizontal the new horizontal
+	 */
 	public void setHorizontal(boolean isHorizontal){
 		this.isHorizontal = isHorizontal;
 		((IListContainerImplementation)this.contentItemImplementation).setHorizontal(isHorizontal);
 	}
 	
+	/**
+	 * Sets the auto fit size.
+	 *
+	 * @param isAutoFitSize the new auto fit size
+	 */
 	public void setAutoFitSize(boolean isAutoFitSize){
 		this.isAutoFitSize = isAutoFitSize;
 		((IListContainerImplementation)this.contentItemImplementation).setAutoFitSize(isAutoFitSize);
 	}
 	
+	/**
+	 * Checks if is horizontal.
+	 *
+	 * @return true, if is horizontal
+	 */
 	public boolean isHorizontal(){
 		return isHorizontal;
 	}
 	
+	/**
+	 * Checks if is auto fit size.
+	 *
+	 * @return true, if is auto fit size
+	 */
 	public boolean isAutoFitSize(){
 		return isAutoFitSize;
 	}

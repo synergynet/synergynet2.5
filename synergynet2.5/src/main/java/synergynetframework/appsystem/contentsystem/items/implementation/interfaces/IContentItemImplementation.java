@@ -39,26 +39,147 @@ import synergynetframework.appsystem.contentsystem.items.utils.Border;
 import synergynetframework.appsystem.contentsystem.items.utils.Direction;
 import synergynetframework.appsystem.contentsystem.items.utils.Location;
 
+
+/**
+ * The Interface IContentItemImplementation.
+ */
 public interface IContentItemImplementation {
 	
+	/**
+	 * Sets the local location.
+	 *
+	 * @param location the new local location
+	 */
 	public void setLocalLocation(Location location);
+	
+	/**
+	 * Sets the location.
+	 *
+	 * @param location the new location
+	 */
 	public void setLocation(Location location);
+	
+	/**
+	 * Sets the angle.
+	 *
+	 * @param angle the new angle
+	 */
 	public void setAngle(float angle);	
+	
+	/**
+	 * Sets the scale.
+	 *
+	 * @param scaleFactor the new scale
+	 */
 	public void setScale(float scaleFactor);	
+	
+	/**
+	 * Sets the scale.
+	 *
+	 * @param scaleFactor the scale factor
+	 * @param direction the direction
+	 */
 	public void setScale(float scaleFactor, Direction direction);	
+	
+	/**
+	 * Sets the back ground.
+	 *
+	 * @param backGround the new back ground
+	 */
 	public void setBackGround(Background backGround);	
+	
+	/**
+	 * Sets the border.
+	 *
+	 * @param border the new border
+	 */
 	public void setBorder(Border border);	
+	
+	/**
+	 * Sets the visible.
+	 *
+	 * @param isVisible the new visible
+	 */
 	public void setVisible(boolean isVisible);
+	
+	/**
+	 * Sets the visible.
+	 *
+	 * @param isVisible the is visible
+	 * @param isUntouchable the is untouchable
+	 */
 	public void setVisible(boolean isVisible, boolean isUntouchable);
+	
+	/**
+	 * Sets the manipulate.
+	 *
+	 * @param manipulate the new manipulate
+	 */
 	public void setManipulate(boolean manipulate);	
+	
+	/**
+	 * Sets the boundary enabled.
+	 *
+	 * @param isBoundaryEnabled the new boundary enabled
+	 */
 	public void setBoundaryEnabled(boolean isBoundaryEnabled);
+	
+	/**
+	 * Contains.
+	 *
+	 * @param point the point
+	 * @return true, if successful
+	 */
 	public boolean contains(Point2D.Float point);
+	
+	/**
+	 * Gets the implementation object.
+	 *
+	 * @return the implementation object
+	 */
 	public Object getImplementationObject();
+	
+	/**
+	 * Adds the multitouch listener.
+	 */
 	public void addMultitouchListener();
+	
+	/**
+	 * Inits the.
+	 */
 	public void init();
+	
+	/**
+	 * Checks for collision.
+	 *
+	 * @param contentItem the content item
+	 * @return true, if successful
+	 */
 	public boolean hasCollision(ContentItem contentItem);
+	
+	/**
+	 * Update.
+	 */
 	public void update();
+	
+	/**
+	 * Update.
+	 *
+	 * @param interpolation the interpolation
+	 */
 	public void update(float interpolation);
+	
+	/**
+	 * Sets the name.
+	 *
+	 * @param name the new name
+	 */
 	public void setName(String name);
+	
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
 	public void setId(String id);
 }

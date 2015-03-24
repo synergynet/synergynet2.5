@@ -44,20 +44,40 @@ import synergynetframework.appsystem.contentsystem.items.DropDownList.DropDownLi
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IDropDownListImplementation;
 import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAdapter;
 
+
+/**
+ * The Class JMEDropDownList.
+ */
 public class JMEDropDownList extends JMEWindow implements IDropDownListImplementation{
 	
+	/** The list. */
 	private DropDownList list;
+	
+	/** The selected item box. */
 	private TextLabel selectedItemBox;
+	
+	/** The drop down button. */
 	private SimpleButton dropDownButton;
+	
+	/** The drop down list. */
 	private ListContainer dropDownList;
 	
+	/** The listeners. */
 	private transient List<DropDownListListener> listeners = new ArrayList<DropDownListListener>();
 
+	/**
+	 * Instantiates a new JME drop down list.
+	 *
+	 * @param contentItem the content item
+	 */
 	public JMEDropDownList(ContentItem contentItem) {
 		super(contentItem);		
 		list = ((DropDownList)contentItem);	
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEWindow#init()
+	 */
 	public void init(){
 		super.init();
 		selectedItemBox = (TextLabel)this.contentItem.getContentSystem().createContentItem(TextLabel.class);
@@ -86,6 +106,9 @@ public class JMEDropDownList extends JMEWindow implements IDropDownListImplement
 		render();
 	}
 	
+	/**
+	 * Render.
+	 */
 	public void render(){
 			
 		dropDownButton.setHeight(list.getHeight());
@@ -123,11 +146,17 @@ public class JMEDropDownList extends JMEWindow implements IDropDownListImplement
 	
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IDropDownListImplementation#setLineSpace(int)
+	 */
 	@Override
 	public void setLineSpace(int lineSpace) {
 		render();	
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IDropDownListImplementation#addListItem(synergynetframework.appsystem.contentsystem.items.DropDownList.DropDownListItem)
+	 */
 	@Override
 	public void addListItem(final DropDownListItem item) {
 		SimpleButton button = (SimpleButton)item.getItemButton();
@@ -144,21 +173,33 @@ public class JMEDropDownList extends JMEWindow implements IDropDownListImplement
 		render();		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IDropDownListImplementation#removeItem(synergynetframework.appsystem.contentsystem.items.DropDownList.DropDownListItem)
+	 */
 	@Override
 	public void removeItem(DropDownListItem item) {
 		dropDownList.removeSubItem(item.getItemButton());
 		render();		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IDropDownListImplementation#addDropDownListListener(synergynetframework.appsystem.contentsystem.items.DropDownList.DropDownListListener)
+	 */
 	public void addDropDownListListener(DropDownListListener listener){
 		if(!listeners.contains(listener)) listeners.add(listener);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IDropDownListImplementation#removeDropDownListListeners()
+	 */
 	@Override
 	public void removeDropDownListListeners(){
 		listeners.clear();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IDropDownListImplementation#setSelectedItem(synergynetframework.appsystem.contentsystem.items.DropDownList.DropDownListItem)
+	 */
 	@Override
 	public void setSelectedItem(DropDownListItem selectedItem){
 		render();
@@ -166,6 +207,9 @@ public class JMEDropDownList extends JMEWindow implements IDropDownListImplement
 			listener.itemSelected(selectedItem);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IDropDownListImplementation#removeDropDownListListener(synergynetframework.appsystem.contentsystem.items.DropDownList.DropDownListListener)
+	 */
 	@Override
 	public void removeDropDownListListener(DropDownListListener listener) {
 		listeners.remove(listener);

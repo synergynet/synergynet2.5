@@ -48,12 +48,26 @@ import synergynetframework.jme.gfx.twod.utils.GraphicsImageQuad;
 
 import com.jmex.awt.swingui.ImageGraphics;
 
+
+/**
+ * The Class JMEFrame.
+ */
 public class JMEFrame extends JMEQuadContentItem implements IFrameImplementation {
 	
+	/** The gfx. */
 	protected ImageGraphics gfx;
+	
+	/** The item. */
 	protected Frame item;
+	
+	/** The graphics image quad. */
 	protected GraphicsImageQuad graphicsImageQuad;
 	
+	/**
+	 * Instantiates a new JME frame.
+	 *
+	 * @param contentItem the content item
+	 */
 	public JMEFrame(ContentItem contentItem){	
 		super(contentItem, new GraphicsImageQuad(contentItem.getName(), 250, 250, 250, 250));
 		graphicsImageQuad = (GraphicsImageQuad)this.spatial;
@@ -62,32 +76,50 @@ public class JMEFrame extends JMEQuadContentItem implements IFrameImplementation
 		graphicsImageQuad.setLocalTranslation(0, 0, 0);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEContentItem#init()
+	 */
 	@Override
 	public void init(){
 		super.init();
 		resize();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEQuadContentItem#setHeight(int)
+	 */
 	@Override
 	public void setHeight(int height) {
 		resize();		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEQuadContentItem#setWidth(int)
+	 */
 	@Override
 	public void setWidth(int width) {
 		resize();	
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEOrthoContentItem#setBackGround(synergynetframework.appsystem.contentsystem.items.utils.Background)
+	 */
 	@Override
 	public void setBackGround(Background backGround) {
 		render();		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEOrthoContentItem#setBorder(synergynetframework.appsystem.contentsystem.items.utils.Border)
+	 */
 	@Override
 	public void setBorder(Border border) {
 		render();		
 	}
 
+	/**
+	 * Render.
+	 */
 	protected void render() {
 		
 		//draw background
@@ -106,10 +138,16 @@ public class JMEFrame extends JMEQuadContentItem implements IFrameImplementation
 		graphicsImageQuad.updateGraphics();
 	}
 	
+	/**
+	 * Draw.
+	 */
 	protected void draw(){
 		
 	}
 
+	/**
+	 * Resize.
+	 */
 	protected void resize(){
 		
 		int w = item.getWidth();
@@ -124,12 +162,18 @@ public class JMEFrame extends JMEQuadContentItem implements IFrameImplementation
 		render();
 	}
 	
+	/**
+	 * Draw background.
+	 */
 	protected void drawBackground(){
 		gfx.setColor(item.getBackgroundColour());
 		gfx.fillRect(0, 0, item.getWidth(), item.getHeight());	
 		
 	}
 	
+	/**
+	 * Draw border.
+	 */
 	protected void drawBorder(){
 		int borderSize = item.getBorderSize();	
 		gfx.setColor(item.getBorderColour());
@@ -145,6 +189,9 @@ public class JMEFrame extends JMEQuadContentItem implements IFrameImplementation
 		
 	}
 	
+	/**
+	 * Draw images.
+	 */
 	protected void drawImages(){
 		//draw images
 		if(item.getImageResources() != null){
@@ -158,41 +205,65 @@ public class JMEFrame extends JMEQuadContentItem implements IFrameImplementation
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEQuadContentItem#setAutoFitSize(boolean)
+	 */
 	@Override
 	public void setAutoFitSize(boolean isEnabled) {
 		render();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IFrameImplementation#drawImage(java.net.URL)
+	 */
 	@Override
 	public void drawImage(URL imageResource){
 		render();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IFrameImplementation#drawImage(java.net.URL, int, int, int, int)
+	 */
 	@Override
 	public void drawImage(URL imageResource, int x, int y, int width, int height){
 		render();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IFrameImplementation#removeImage(java.net.URL)
+	 */
 	@Override
 	public void removeImage(URL imageResource){
 		render();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IFrameImplementation#getImages()
+	 */
 	@Override
 	public HashMap<URL, ImageInfo> getImages(){
 		return item.getImages();		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IFrameImplementation#removeAllImages()
+	 */
 	@Override
 	public void removeAllImages() {
 		render();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IFrameImplementation#getGraphicsContext()
+	 */
 	@Override
 	public Graphics2D getGraphicsContext() {
 		return gfx;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IFrameImplementation#flushGraphics()
+	 */
 	@Override
 	public void flushGraphics() {
 		graphicsImageQuad.updateGraphics();		

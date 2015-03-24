@@ -38,13 +38,59 @@ import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.appsystem.contentsystem.items.OrthoContentItem;
 import synergynetframework.appsystem.services.net.networkedcontentmanager.utils.RemoteDesktop;
 
+
+/**
+ * The listener interface for receiving networkedContent events.
+ * The class that is interested in processing a networkedContent
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addNetworkedContentListener<code> method. When
+ * the networkedContent event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see NetworkedContentEvent
+ */
 public interface NetworkedContentListener {
+	
+	/**
+	 * Render synchronised date.
+	 *
+	 * @param item the item
+	 * @param itemAttrs the item attrs
+	 */
 	public void renderSynchronisedDate(ContentItem item,  Map<String, String> itemAttrs);
+	
+	/**
+	 * Content loaded.
+	 */
 	public void contentLoaded();
+	
+	/**
+	 * Channel switched.
+	 */
 	public void channelSwitched();
 	
+	/**
+	 * Remote content loaded.
+	 *
+	 * @param remoteDesktop the remote desktop
+	 */
 	public void remoteContentLoaded(RemoteDesktop remoteDesktop);
+	
+	/**
+	 * Render remote desktop.
+	 *
+	 * @param remoteDesktop the remote desktop
+	 * @param item the item
+	 * @param map the map
+	 */
 	public void renderRemoteDesktop(RemoteDesktop remoteDesktop, OrthoContentItem item, Map<String, String> map);
+	
+	/**
+	 * Content item loaded.
+	 *
+	 * @param item the item
+	 */
 	public void contentItemLoaded(ContentItem item);
 
 }

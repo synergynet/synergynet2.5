@@ -38,25 +38,52 @@ import apps.mtdesktop.desktop.DesktopClient;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.UnicastApplicationMessage;
 
+
+/**
+ * The Class UnicastSearchTableMessage.
+ */
 public class UnicastSearchTableMessage extends UnicastApplicationMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3611717853521792797L;
+	
+	/** The position. */
 	private DesktopClient.Position position;
 	
+	/**
+	 * Instantiates a new unicast search table message.
+	 */
 	public UnicastSearchTableMessage(){
 		super();
 	}
 	
+	/**
+	 * Instantiates a new unicast search table message.
+	 *
+	 * @param targetClass the target class
+	 * @param targetTableId the target table id
+	 * @param position the position
+	 */
 	public UnicastSearchTableMessage(Class<?> targetClass, TableIdentity targetTableId, DesktopClient.Position position){
 		super(targetClass);
 		this.setRecipient(targetTableId);
 		this.setClientPosition(position);
 	}
 	
+	/**
+	 * Sets the client position.
+	 *
+	 * @param position the new client position
+	 */
 	public void setClientPosition(DesktopClient.Position position){
 		this.position = position;
 	}
 	
+	/**
+	 * Gets the client position.
+	 *
+	 * @return the client position
+	 */
 	public DesktopClient.Position getClientPosition(){
 		return position;
 	}

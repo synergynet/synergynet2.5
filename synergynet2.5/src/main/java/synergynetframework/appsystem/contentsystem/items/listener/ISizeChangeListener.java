@@ -31,7 +31,31 @@
 
 package synergynetframework.appsystem.contentsystem.items.listener;
 
+
+/**
+ * The listener interface for receiving ISizeChange events.
+ * The class that is interested in processing a ISizeChange
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addISizeChangeListener<code> method. When
+ * the ISizeChange event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see ISizeChangeEvent
+ */
 public interface ISizeChangeListener {
+	
+	/**
+	 * Change height.
+	 *
+	 * @param height the height
+	 */
 	public void changeHeight(int height);
+	
+	/**
+	 * Change width.
+	 *
+	 * @param width the width
+	 */
 	public void changeWidth(int width);
 }

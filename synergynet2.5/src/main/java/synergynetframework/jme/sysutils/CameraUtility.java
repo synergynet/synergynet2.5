@@ -38,7 +38,17 @@ import com.jme.math.Vector3f;
 import com.jme.renderer.Camera;
 import com.jme.system.DisplaySystem;
 
+
+/**
+ * The Class CameraUtility.
+ */
 public class CameraUtility {
+	
+	/**
+	 * Gets the camera.
+	 *
+	 * @return the camera
+	 */
 	public static Camera getCamera() {	
 		DisplaySystem display = DisplaySystem.getDisplaySystem();
 		Camera cam = display.getRenderer().createCamera(display.getWidth(),display.getHeight());
@@ -56,12 +66,22 @@ public class CameraUtility {
 		return cam;
 	}
 	
+	/**
+	 * Camera perspective.
+	 *
+	 * @param cam the cam
+	 */
 	public static void cameraPerspective(Camera cam) {
 		cam.setFrustumPerspective( 45.0f, (float) DisplaySystem.getDisplaySystem().getWidth() / (float) DisplaySystem.getDisplaySystem().getHeight(), 1, 1000 );
 		cam.setParallelProjection(false);
 		cam.update();
 	}
 
+	/**
+	 * Camera parallel.
+	 *
+	 * @param cam the cam
+	 */
 	public static void cameraParallel(Camera cam) {
 		cam.setParallelProjection( true );
 //		float aspect = (float) DisplaySystem.getDisplaySystem().getWidth() / DisplaySystem.getDisplaySystem().getHeight();

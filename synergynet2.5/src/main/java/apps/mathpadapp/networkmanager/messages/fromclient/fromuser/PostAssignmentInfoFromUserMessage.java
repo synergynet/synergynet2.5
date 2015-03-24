@@ -36,11 +36,26 @@ import apps.mathpadapp.controllerapp.assignmentcontroller.AssignmentInfo;
 import apps.mathpadapp.networkmanager.utils.UserIdentity;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class PostAssignmentInfoFromUserMessage.
+ */
 public class PostAssignmentInfoFromUserMessage extends UserToControllerMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 5452006817534079833L;
+	
+	/** The info. */
 	protected AssignmentInfo info;
 	
+	/**
+	 * Instantiates a new post assignment info from user message.
+	 *
+	 * @param targetClass the target class
+	 * @param info the info
+	 * @param tableId the table id
+	 * @param userId the user id
+	 */
 	public PostAssignmentInfoFromUserMessage(Class<?> targetClass, AssignmentInfo info, TableIdentity tableId, UserIdentity userId) {
 		super(targetClass);
 		this.info = info;
@@ -48,6 +63,11 @@ public class PostAssignmentInfoFromUserMessage extends UserToControllerMessage{
 		this.setRecipient(tableId);
 	}
 
+	/**
+	 * Gets the assignment info.
+	 *
+	 * @return the assignment info
+	 */
 	public AssignmentInfo getAssignmentInfo(){
 		return info;
 	}

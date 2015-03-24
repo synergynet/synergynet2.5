@@ -34,30 +34,56 @@ package synergynetframework.appsystem.contentsystem.items;
 import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundWindowImplementation;
 
+
+/**
+ * The Class RoundWindow.
+ */
 public class RoundWindow extends OrthoContainer implements IRoundWindowImplementation {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1632594088675731017L;
 	
+	/** The radius. */
 	private int radius = 30;
 
+	/**
+	 * Instantiates a new round window.
+	 *
+	 * @param contentSystem the content system
+	 * @param name the name
+	 */
 	public RoundWindow(ContentSystem contentSystem, String name) {
 		super(contentSystem, name);
 	}
 	
 
+	/**
+	 * Gets the radius.
+	 *
+	 * @return the radius
+	 */
 	public int getRadius() {
 		return radius;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundWindowImplementation#setRadius(int)
+	 */
 	public void setRadius(int radius) {
 		this.radius = radius;
 		((IRoundWindowImplementation)this.contentItemImplementation).setRadius(radius);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundWindowImplementation#getBackgroundFrame()
+	 */
 	public RoundFrame getBackgroundFrame(){
 		return ((IRoundWindowImplementation)this.contentItemImplementation).getBackgroundFrame();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.OrthoContentItem#makeFlickable(float)
+	 */
 	@Override
 	public void makeFlickable(float deceleration) {
 		super.makeFlickable(deceleration);

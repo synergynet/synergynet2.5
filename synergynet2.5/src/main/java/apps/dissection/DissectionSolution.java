@@ -34,24 +34,61 @@ package apps.dissection;
 
 import synergynetframework.appsystem.contentsystem.items.ImageTextLabel;
 
+
+/**
+ * The Class DissectionSolution.
+ */
 public class DissectionSolution {
+	
+	/** The name. */
 	private String name;
+	
+	/** The graphic. */
 	private ImageTextLabel graphic;
 	
+	/**
+	 * Instantiates a new dissection solution.
+	 *
+	 * @param name the name
+	 * @param graphic the graphic
+	 */
 	public DissectionSolution(String name, ImageTextLabel graphic) {
 		this.name = name;
 		this.graphic = graphic;
 	}
 	
+	/**
+	 * Sets the name.
+	 *
+	 * @param name the new name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
+	
+	/**
+	 * Sets the graphic.
+	 *
+	 * @param graphic the new graphic
+	 */
 	public void setGraphic(ImageTextLabel graphic) {
 		this.graphic = graphic;
 	}
+	
+	/**
+	 * Gets the graphic.
+	 *
+	 * @return the graphic
+	 */
 	public ImageTextLabel getGraphic() {
 		return graphic;
 	}	

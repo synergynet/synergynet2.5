@@ -17,17 +17,42 @@ import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
 import com.jme.util.TextureManager;
 
+
+/**
+ * The Class Clock.
+ */
 public class Clock extends Node {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1111175967783111868L;
 	
+	/** The height. */
 	protected float radius =10, height = 3;
+	
+	/** The second hand texture. */
 	protected URL textureURL, hourHandTexture, minHandTexture, secondHandTexture;
+	
+	/** The clock face. */
 	protected Disk clockFace;
+	
+	/** The second hand. */
 	protected Quad hourHand, minHand, secondHand;
+	
+	/** The name. */
 	protected String name;
 
 	
+	/**
+	 * Instantiates a new clock.
+	 *
+	 * @param name the name
+	 * @param radius the radius
+	 * @param height the height
+	 * @param bgTexture the bg texture
+	 * @param hourHandTexture the hour hand texture
+	 * @param minHandTexture the min hand texture
+	 * @param secondHandTexture the second hand texture
+	 */
 	public Clock(String name, float radius, float height, URL bgTexture, URL hourHandTexture, URL minHandTexture, URL secondHandTexture){
 		super(name);
 		this.name = name;
@@ -40,6 +65,9 @@ public class Clock extends Node {
 		init();		
 	}
 
+	/**
+	 * Inits the.
+	 */
 	protected void init(){
 		
 		clockFace = new Disk(name + "clock", 16, 32, radius);
@@ -80,6 +108,9 @@ public class Clock extends Node {
 		
 	}
 	
+	/**
+	 * Creates the hands.
+	 */
 	private void createHands(){
 
 		hourHand = new Quad(this.name+"hourHand", 2, 2*(radius-5));
@@ -146,6 +177,14 @@ public class Clock extends Node {
 		this.updateGeometricState(0f, false);				
 		
 	}
+	
+	/**
+	 * Sets the time.
+	 *
+	 * @param hour the hour
+	 * @param min the min
+	 * @param second the second
+	 */
 	public void setTime(int hour, int min, int second){
 		//set hour hand
 	

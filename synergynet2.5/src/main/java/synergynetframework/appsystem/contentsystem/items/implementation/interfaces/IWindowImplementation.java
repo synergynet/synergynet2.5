@@ -33,9 +33,30 @@ package synergynetframework.appsystem.contentsystem.items.implementation.interfa
 
 import synergynetframework.appsystem.contentsystem.items.Frame;
 
+
+/**
+ * The Interface IWindowImplementation.
+ */
 public interface IWindowImplementation extends IOrthoContainerImplementation{
 
+	/**
+	 * Sets the height.
+	 *
+	 * @param height the new height
+	 */
 	public void setHeight(int height);
+	
+	/**
+	 * Sets the width.
+	 *
+	 * @param width the new width
+	 */
 	public void setWidth(int width);
+	
+	/**
+	 * Gets the background frame.
+	 *
+	 * @return the background frame
+	 */
 	public Frame getBackgroundFrame();
 }

@@ -67,46 +67,105 @@ import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.jme.config.AppConfig;
 import synergynetframework.jme.sysutils.CameraUtility;
 
+
+/**
+ * The Class ThreeDButtonsExperiment.
+ */
 public class ThreeDButtonsExperiment extends DefaultSynergyNetApp {
 
+	/** The Constant DISPLAYLOCATION_3D. */
 	public final static Vector3f DISPLAYLOCATION_3D = new Vector3f(0, -2, -10);
+	
+	/** The Constant DISPLAYLOCATION_3D_LEFT. */
 	public final static Vector3f DISPLAYLOCATION_3D_LEFT = new Vector3f(-10, -2, -10);
+	
+	/** The Constant DISPLAYLOCATION_3D_RIGHT. */
 	public final static Vector3f DISPLAYLOCATION_3D_RIGHT = new Vector3f(10, -2, -10);
+	
+	/** The Constant HIDDENLOCATION_3D. */
 	public final static Vector3f HIDDENLOCATION_3D = new Vector3f(10000, 10000, 10000);
+	
+	/** The Constant DISPLAYLOCATION_2D. */
 	public final static Vector2f DISPLAYLOCATION_2D = new Vector2f(512, 350);
+	
+	/** The Constant HIDDENLOCATION_2D. */
 	public final static Vector2f HIDDENLOCATION_2D = new Vector2f(10000, 10000);
 	
+	/** The Constant TASKGROUP_MOUSE. */
 	public final static String TASKGROUP_MOUSE = "Mouse";
+	
+	/** The Constant TASKGROUP_MT. */
 	public final static String TASKGROUP_MT = "MT";
+	
+	/** The Constant TASKGROUP_MTANGLE. */
 	public final static String TASKGROUP_MTANGLE = "MTAngle";
 	
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The color highlighted calculator. */
 	protected ColorHighlightedCalculator colorHighlightedCalculator;
+	
+	/** The calculator. */
 	protected NormalCalculator calculator;
+	
+	/** The three d calculator. */
 	protected ThreeDCalculator threeDCalculator;
+	
+	/** The two d calculator. */
 	protected TwoDCalculator twoDCalculator;
 	
+	/** The Normal calculator start button. */
 	protected SimpleButton NormalCalculatorStartButton;
+	
+	/** The Color calculator start button. */
 	protected SimpleButton ColorCalculatorStartButton;
+	
+	/** The Two d calculator start button. */
 	protected SimpleButton TwoDCalculatorStartButton;
+	
+	/** The Three d calculator start button. */
 	protected SimpleButton ThreeDCalculatorStartButton;
 	
+	/** The task group. */
 	protected String taskGroup="";
+	
+	/** The conditions. */
 	protected List<String> conditions = new ArrayList<String>();
+	
+	/** The pc conditions. */
 	protected List<String> pcConditions = new ArrayList<String>();
+	
+	/** The mt conditions. */
 	protected List<String> mtConditions = new ArrayList<String>();
+	
+	/** The mt view conditions. */
 	protected List<String> mtViewConditions = new ArrayList<String>();
 	
+	/** The target string displayer. */
 	protected TextLabel targetStringDisplayer;
+	
+	/** The target title displayer. */
 	protected TextLabel targetTitleDisplayer;
 	
+	/** The control menu. */
 	protected ListContainer controlMenu;
+	
+	/** The log writter. */
 	protected DateTextWritter logWritter;
 	
+	/**
+	 * Instantiates a new three d buttons experiment.
+	 *
+	 * @param info the info
+	 */
 	public ThreeDButtonsExperiment(ApplicationInfo info) {
 		super(info);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		SynergyNetAppUtils.addTableOverlay(this);
@@ -119,14 +178,23 @@ public class ThreeDButtonsExperiment extends DefaultSynergyNetApp {
 		loadConditions();	
 	}
 	
+	/**
+	 * Load conditions.
+	 */
 	private void loadConditions(){
 		ConditionsReader.readConditions(pcConditions, mtConditions, mtViewConditions);
 	}
 
+	/**
+	 * Clear question label.
+	 */
 	private void clearQuestionLabel(){
 		targetStringDisplayer.setText("");
 	}
 	
+	/**
+	 * Builds the scence.
+	 */
 	private void buildScence(){
 		buildTargetStringLabel();
 		buildCalculator();   			
@@ -137,6 +205,9 @@ public class ThreeDButtonsExperiment extends DefaultSynergyNetApp {
 		controlMenu.setVisible(true);
 	}
 	
+	/**
+	 * Builds the start buttons.
+	 */
 	private void buildStartButtons(){
 		NormalCalculatorStartButton = (SimpleButton)contentSystem.createContentItem(SimpleButton.class);	
 		NormalCalculatorStartButton.setAutoFitSize(true);
@@ -194,6 +265,9 @@ public class ThreeDButtonsExperiment extends DefaultSynergyNetApp {
 		});
 	}
 	
+	/**
+	 * Hide all start buttons.
+	 */
 	private void hideAllStartButtons(){
 		NormalCalculatorStartButton.setVisible(false);
 		ColorCalculatorStartButton.setVisible(false);
@@ -201,6 +275,9 @@ public class ThreeDButtonsExperiment extends DefaultSynergyNetApp {
 		TwoDCalculatorStartButton.setVisible(false);		
 	}
 	
+	/**
+	 * Builds the menu.
+	 */
 	private void buildMenu(){
 		controlMenu = (ListContainer)contentSystem.createContentItem(ListContainer.class);
 		controlMenu.setBackgroundColour(Color.BLUE);
@@ -258,6 +335,9 @@ public class ThreeDButtonsExperiment extends DefaultSynergyNetApp {
 		controlMenu.addSubItem(mtAngleButton);
 	} 
 	
+	/**
+	 * Builds the target string label.
+	 */
 	private void buildTargetStringLabel(){
 		targetTitleDisplayer = (TextLabel)contentSystem.createContentItem(TextLabel.class);
 		targetTitleDisplayer.setLocalLocation(400, 700);
@@ -274,6 +354,9 @@ public class ThreeDButtonsExperiment extends DefaultSynergyNetApp {
 		targetStringDisplayer.setText("");
 	}
 	
+	/**
+	 * Move to next task.
+	 */
 	private void moveToNextTask(){
 		this.hideAll();
 		this.hideAllStartButtons();
@@ -288,6 +371,9 @@ public class ThreeDButtonsExperiment extends DefaultSynergyNetApp {
 		}
 	}
 	
+	/**
+	 * Builds the calculator.
+	 */
 	private void buildCalculator(){
 		
 		colorHighlightedCalculator = new ColorHighlightedCalculator("colorHighlightedcalculator", targetStringDisplayer, logWritter);
@@ -346,6 +432,12 @@ public class ThreeDButtonsExperiment extends DefaultSynergyNetApp {
 		});
 	}
 	
+	/**
+	 * Sets the three d calculator angle.
+	 *
+	 * @param angle the angle
+	 * @param axis the axis
+	 */
 	private void setThreeDCalculatorAngle(float angle, Vector3f axis){
 		Quaternion tq = new Quaternion();
 		tq.fromAngleAxis(angle, axis);
@@ -355,6 +447,9 @@ public class ThreeDButtonsExperiment extends DefaultSynergyNetApp {
 	}
 	
 	
+	/**
+	 * Hide all.
+	 */
 	public void hideAll(){
 		
 		showLabel(false);
@@ -366,6 +461,11 @@ public class ThreeDButtonsExperiment extends DefaultSynergyNetApp {
 		clearQuestionLabel();
 	}
 	
+	/**
+	 * Show label.
+	 *
+	 * @param b the b
+	 */
 	public void showLabel(boolean b){
 		if (b){
 			targetTitleDisplayer.setLocalLocation(400, 700);
@@ -377,10 +477,16 @@ public class ThreeDButtonsExperiment extends DefaultSynergyNetApp {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	public void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);		
 	}
 
+	/**
+	 * Setup lighting.
+	 */
 	protected void setupLighting() {
 		LightState lightState = DisplaySystem.getDisplaySystem().getRenderer().createLightState();
 		worldNode.setRenderState(lightState);
@@ -403,6 +509,9 @@ public class ThreeDButtonsExperiment extends DefaultSynergyNetApp {
 		worldNode.updateRenderState();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#getCamera()
+	 */
 	protected Camera getCamera() {
 		if(cam == null) {
 			cam = CameraUtility.getCamera();
@@ -413,6 +522,9 @@ public class ThreeDButtonsExperiment extends DefaultSynergyNetApp {
 		return cam;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onActivate()
+	 */
 	@Override
 	public void onActivate() {
 		super.onActivate();
@@ -420,6 +532,11 @@ public class ThreeDButtonsExperiment extends DefaultSynergyNetApp {
 	}
 	
 	
+	/**
+	 * Run task.
+	 *
+	 * @param condition the condition
+	 */
 	private void runTask(String condition){
 		this.hideAll();
 		this.hideAllStartButtons();

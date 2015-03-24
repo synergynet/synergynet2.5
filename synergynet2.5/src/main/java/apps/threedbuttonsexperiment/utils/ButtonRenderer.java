@@ -9,8 +9,20 @@ import com.jme.scene.Spatial;
 import synergynetframework.appsystem.contentsystem.items.Frame;
 import synergynetframework.jme.gfx.twod.utils.GraphicsImageQuad;
 
+
+/**
+ * The Class ButtonRenderer.
+ */
 public class ButtonRenderer {
 	
+	/**
+	 * Render button.
+	 *
+	 * @param button the button
+	 * @param text the text
+	 * @param buttonWidth the button width
+	 * @param pressed the pressed
+	 */
 	public static void RenderButton(Frame button, String text, int buttonWidth, boolean pressed){
 		
 		button.setBorderSize(0);

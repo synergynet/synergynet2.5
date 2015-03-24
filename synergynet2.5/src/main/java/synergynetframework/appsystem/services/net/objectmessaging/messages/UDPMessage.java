@@ -33,6 +33,9 @@
 
 package synergynetframework.appsystem.services.net.objectmessaging.messages;
 
+/**
+ * The Interface UDPMessage.
+ */
 public interface UDPMessage extends Message{
 
 }

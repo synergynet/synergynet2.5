@@ -13,20 +13,44 @@ import synergynetframework.appsystem.contentsystem.items.ListContainer;
 import synergynetframework.appsystem.contentsystem.items.SimpleButton;
 import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAdapter;
 
+
+/**
+ * The Class ControlMenu.
+ */
 public class ControlMenu {
+	
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The content sub menu. */
 	protected ContentSubMenu contentSubMenu;
+	
+	/** The control menu. */
 	protected ListContainer controlMenu;
+	
+	/** The listeners. */
 	protected List<BasketControlMenuListener> listeners = new ArrayList<BasketControlMenuListener>();
 	
+	/** The are tables locked. */
 	private boolean areTablesLocked = false;
 	
+	/**
+	 * Instantiates a new control menu.
+	 *
+	 * @param contentSystem the content system
+	 * @param contentSubMenu the content sub menu
+	 */
 	public ControlMenu(ContentSystem contentSystem, ContentSubMenu contentSubMenu){
 		this.contentSystem = contentSystem;
 		this.contentSubMenu = contentSubMenu;
 		LoadControlMenu();
 	}
 
+	/**
+	 * Load control menu.
+	 *
+	 * @return the list container
+	 */
 	private ListContainer LoadControlMenu(){
 		
 		controlMenu = (ListContainer)contentSystem.createContentItem(ListContainer.class);
@@ -138,25 +162,78 @@ public class ControlMenu {
 		return controlMenu;
 	}
 	
+	/**
+	 * Sets the location.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 */
 	public void setLocation(float x, float y){
 		controlMenu.setLocalLocation(x, y);
 	}
 	
+	/**
+	 * Adds the control menu listener.
+	 *
+	 * @param l the l
+	 */
 	public void addControlMenuListener(BasketControlMenuListener l){
 		listeners.add(l);
 	}
 	
+	/**
+	 * Sets the visible.
+	 *
+	 * @param isVisible the new visible
+	 */
 	public void setVisible(boolean isVisible){
 		controlMenu.setVisible(isVisible); 
 	}
 	
 	
+	/**
+	 * The listener interface for receiving basketControlMenu events.
+	 * The class that is interested in processing a basketControlMenu
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addBasketControlMenuListener<code> method. When
+	 * the basketControlMenu event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see BasketControlMenuEvent
+	 */
 	public interface BasketControlMenuListener{
+		
+		/**
+		 * Send desktop data.
+		 */
 		public void sendDesktopData();
+		
+		/**
+		 * Capture student tables.
+		 */
 		public void captureStudentTables();
+		
+		/**
+		 * Swap baskets.
+		 */
 		public void swapBaskets();
+		
+		/**
+		 * Clear local table.
+		 */
 		public void clearLocalTable();
+		
+		/**
+		 * Clear student tables.
+		 */
 		public void clearStudentTables();
+		
+		/**
+		 * Lock student tables.
+		 *
+		 * @param lock the lock
+		 */
 		public void lockStudentTables(boolean lock);
 	}
 }

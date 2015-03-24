@@ -38,17 +38,34 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+
+/**
+ * The Class LoggingConfigPanel.
+ */
 public class LoggingConfigPanel extends JPanel {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1959347964561111506L;
+	
+	/** The prefs item. */
 	private LoggingConfigPrefsItem prefsItem;
+	
+	/** The logging level combo box. */
 	private JComboBox loggingLevelComboBox;
 
+    /**
+     * Instantiates a new logging config panel.
+     *
+     * @param loggingConfigPrefsItem the logging config prefs item
+     */
     public LoggingConfigPanel(LoggingConfigPrefsItem loggingConfigPrefsItem) {
     	this.prefsItem = loggingConfigPrefsItem;
         initComponents();
     }
 
+	/**
+	 * Inits the components.
+	 */
 	private void initComponents() {
 
     	final JLabel loggingLevelText = new JLabel();

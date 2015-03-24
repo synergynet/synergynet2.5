@@ -63,39 +63,84 @@ import synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp;
 import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightConfirmVisualExit;
 
+
+/**
+ * The Class XmlPuzzleApp.
+ */
 public class XmlPuzzleApp extends DefaultSynergyNetApp {
 
+	/** The puzzle name. */
 	private String puzzleName = "";
+	
+	/** The question values. */
 	private List<String> questionValues = new ArrayList<String>();
+	
+	/** The answer values. */
 	private List<String> answerValues = new ArrayList<String>();
+	
+	/** The question text. */
 	private List<TextLabel> questionText = new ArrayList<TextLabel>();
+	
+	/** The answer text. */
 	private List<TextLabel> answerText = new ArrayList<TextLabel>();
+	
+	/** The max question length. */
 	private int maxQuestionLength = 20;
+	
+	/** The max answer length. */
 	private int maxAnswerLength = 20;
+	
+	/** The questions remaining. */
 	private int questionsRemaining = 1;
 
+	/** The Constant TRANSLATION_THRESHOLD. */
 	final private static float TRANSLATION_THRESHOLD = 20;
+	
+	/** The Constant ROTATION_THRESHOLD. */
 	final private static float ROTATION_THRESHOLD = 0.5f;
+	
+	/** The Constant SCALE_THRESHOLD. */
 	final private static float SCALE_THRESHOLD = 0.5f;
 
+	/** The list layout. */
 	private static boolean LIST_LAYOUT = true;
+	
+	/** The highlight questions. */
 	private static boolean HIGHLIGHT_QUESTIONS = true;
 
+	/** The title text. */
 	private TextLabel titleText;
+	
+	/** The start button. */
 	private ImageTextLabel startButton;
+	
+	/** The mode text. */
 	private TextLabel modeText;
+	
+	/** The mode selected text. */
 	private TextLabel modeSelectedText;
 
+	/** The mode. */
 	private int mode = 1;
 
+	/** The font size. */
 	private int fontSize = 30;
 
+	/**
+	 * Instantiates a new xml puzzle app.
+	 *
+	 * @param info the info
+	 */
 	public XmlPuzzleApp(ApplicationInfo info) {
 		super(info);
 	}
 
+	/** The content system. */
 	private ContentSystem contentSystem;
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		SynergyNetAppUtils.addTableOverlay(this);
@@ -104,6 +149,9 @@ public class XmlPuzzleApp extends DefaultSynergyNetApp {
 		readIn();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onActivate()
+	 */
 	@Override
 	public void onActivate() {
 		contentSystem.removeAllContentItems();
@@ -249,6 +297,9 @@ public class XmlPuzzleApp extends DefaultSynergyNetApp {
 
 	}
 
+	/**
+	 * Change mode.
+	 */
 	private void changeMode() {
 		if (mode ==1){
 			modeSelectedText.setTextColour(Color.orange);
@@ -272,6 +323,9 @@ public class XmlPuzzleApp extends DefaultSynergyNetApp {
 
 	}
 
+	/**
+	 * Adds the questions.
+	 */
 	private void addQuestions() {
 		
 		float yDecrement = DisplaySystem.getDisplaySystem().getHeight()/(questionValues.size()+1);
@@ -345,8 +399,12 @@ public class XmlPuzzleApp extends DefaultSynergyNetApp {
 
 	}
 
+	/** The save it. */
 	private int saveIt = 0;
 
+	/**
+	 * Adds the answers.
+	 */
 	private void addAnswers() {
 		for (int i = 0; i < questionText.size(); i++){
 			answerText.add((TextLabel)this.contentSystem.createContentItem(TextLabel.class));
@@ -398,10 +456,19 @@ public class XmlPuzzleApp extends DefaultSynergyNetApp {
 		}
 	}
 
+	/**
+	 * Read in.
+	 */
 	private void readIn() {
 		getXML("questionsAndAnswers.xml");
 	}
 
+	/**
+	 * Gets the xml.
+	 *
+	 * @param resourceName the resource name
+	 * @return the xml
+	 */
 	public void getXML(String resourceName){
 
 		Document document = null;
@@ -428,6 +495,12 @@ public class XmlPuzzleApp extends DefaultSynergyNetApp {
 		}
 	}
 
+	/**
+	 * Gets the values.
+	 *
+	 * @param document the document
+	 * @return the values
+	 */
 	private void getValues(Document document) {
 
 		NodeList list = document.getElementsByTagName("Name");
@@ -459,12 +532,20 @@ public class XmlPuzzleApp extends DefaultSynergyNetApp {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	@Override
 		protected void stateUpdate(float tpf) {
 			super.stateUpdate(tpf);
 			if(contentSystem != null) contentSystem.update(tpf);
 		}
 
+	/**
+	 * Check answers.
+	 *
+	 * @param q the q
+	 */
 	private void checkAnswers(int q) {
 		boolean correct = false;
 
@@ -534,6 +615,12 @@ public class XmlPuzzleApp extends DefaultSynergyNetApp {
 
 	}
 
+	/**
+	 * Matching position.
+	 *
+	 * @param i the i
+	 * @return true, if successful
+	 */
 	private boolean matchingPosition(int i) {
 		float distance = answerText.get(i).getWidth()/2 + questionText.get(i).getWidth()/2;
 		if (LIST_LAYOUT){

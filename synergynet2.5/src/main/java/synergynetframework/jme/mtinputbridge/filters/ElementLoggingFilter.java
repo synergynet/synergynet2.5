@@ -55,6 +55,7 @@ import synergynetframework.mtinput.IMultiTouchInputFilter;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 import synergynetframework.mtinput.events.MultiTouchObjectEvent;
 
+
 /**
  * Logs all actions made on spatials to a log file.
  * 
@@ -63,19 +64,44 @@ import synergynetframework.mtinput.events.MultiTouchObjectEvent;
  */
 public class ElementLoggingFilter implements IMultiTouchInputFilter {
 
+	/** The Constant CURSOR_PRESSED. */
 	public static final String CURSOR_PRESSED = "CURSOR_PRESSED";
+	
+	/** The Constant CURSOR_CLICKED. */
 	public static final String CURSOR_CLICKED = "CURSOR_CLICKED";
+	
+	/** The Constant CURSOR_RELEASED. */
 	public static final String CURSOR_RELEASED = "CURSOR_RELEASED";
+	
+	/** The Constant CURSOR_CHANGED. */
 	public static final String CURSOR_CHANGED = "CURSOR_CHANGED";
+	
+	/** The Constant OBJECT_ADDED. */
 	public static final String OBJECT_ADDED = "OBJECT_ADDED";
+	
+	/** The Constant OBJECT_CHANGED. */
 	public static final String OBJECT_CHANGED = "OBJECT_CHANGED";
+	
+	/** The Constant OBJECT_REMOVED. */
 	public static final String OBJECT_REMOVED = "OBJECT_REMOVED";
 	
+	/** The next. */
 	private IMultiTouchEventListener next;
+	
+	/** The pick system. */
 	private IJMEMultiTouchPicker pickSystem;
+	
+	/** The record file. */
 	private File recordFile;
+	
+	/** The pw. */
 	private PrintWriter pw;
 	
+	/**
+	 * Instantiates a new element logging filter.
+	 *
+	 * @throws FileNotFoundException the file not found exception
+	 */
 	public ElementLoggingFilter() throws FileNotFoundException {
 		if(!AppConfig.recordTableDir.exists()) AppConfig.recordTableDir.mkdir();
 		recordFile = new File(AppConfig.recordTableDir, getFileNameFromDate());
@@ -84,11 +110,21 @@ public class ElementLoggingFilter implements IMultiTouchInputFilter {
 		this.pickSystem = MultiTouchInputFilterManager.getInstance().getPickingSystem();
 	}
 	
+	/**
+	 * Gets the file name from date.
+	 *
+	 * @return the file name from date
+	 */
 	private String getFileNameFromDate() {		
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss.S");
 		return "Element_Log_" + formatter.format(new Date());	
 	}	
 	
+	/**
+	 * Write file header.
+	 *
+	 * @param appClass the app class
+	 */
 	private void writeFileHeader(Class<?> appClass) {
 		pw.println("# Recorded from ElementLoggingFilter v0.1");
 		pw.println("# App: " + appClass.getName());
@@ -97,10 +133,16 @@ public class ElementLoggingFilter implements IMultiTouchInputFilter {
 		pw.println("# System.nanoTime(), event type, screen_x , screen_y, picked spatial name, translation_x, translation_y, translation_z, scale_x, scale_y, scale_z, rotation_x, rotation_y, rotation_z, rotation_w");
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchInputFilter#setNext(synergynetframework.mtinput.IMultiTouchEventListener)
+	 */
 	public void setNext(IMultiTouchEventListener el) {
 		this.next = el;		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorChanged(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorChanged(MultiTouchCursorEvent event) {
 		Spatial spatial = getPickedSpatial(event);
 		if(spatial != null)
@@ -126,6 +168,9 @@ public class ElementLoggingFilter implements IMultiTouchInputFilter {
 		next.cursorChanged(event);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorClicked(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorClicked(MultiTouchCursorEvent event) {
 		Spatial spatial = getPickedSpatial(event);
 		if(spatial != null)
@@ -151,6 +196,9 @@ public class ElementLoggingFilter implements IMultiTouchInputFilter {
 		next.cursorClicked(event);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorPressed(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorPressed(MultiTouchCursorEvent event) {
 		Spatial spatial = getPickedSpatial(event);
 		if(spatial != null)
@@ -176,6 +224,9 @@ public class ElementLoggingFilter implements IMultiTouchInputFilter {
 		next.cursorPressed(event);		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorReleased(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorReleased(MultiTouchCursorEvent event) {
 		Spatial spatial = getPickedSpatial(event);
 		if(spatial != null)
@@ -201,21 +252,39 @@ public class ElementLoggingFilter implements IMultiTouchInputFilter {
 		next.cursorReleased(event);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectAdded(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectAdded(MultiTouchObjectEvent event) {
 		next.objectAdded(event);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectChanged(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectChanged(MultiTouchObjectEvent event) {
 		next.objectChanged(event);		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectRemoved(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectRemoved(MultiTouchObjectEvent event) {
 		next.objectRemoved(event);		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchInputFilter#update(float)
+	 */
 	public void update(float tpf) {	
 	}
 	
+	/**
+	 * Gets the picked spatial.
+	 *
+	 * @param event the event
+	 * @return the picked spatial
+	 */
 	private Spatial getPickedSpatial(MultiTouchCursorEvent event)
 	{
 		PickRequest req = new PickRequest(event.getCursorID(), MultiTouchCursorSystem.tableToScreen(event.getPosition()));

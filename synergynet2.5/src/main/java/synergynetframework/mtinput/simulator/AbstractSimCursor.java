@@ -32,29 +32,99 @@
 
 package synergynetframework.mtinput.simulator;
 
+
+/**
+ * The Class AbstractSimCursor.
+ */
 public abstract class AbstractSimCursor {
 	
+	/** The Constant KEY_SHIFT. */
 	public static final String KEY_SHIFT = "shift";
+	
+	/** The Constant KEY_CONTROL. */
 	public static final String KEY_CONTROL = "control";
+	
+	/** The Constant KEY_SPACE. */
 	public static final String KEY_SPACE = "space";
 	
+	/** The Constant MOUSE_BUTTON_LEFT. */
 	public static final int MOUSE_BUTTON_LEFT = 0;
+	
+	/** The Constant MOUSE_BUTTON_MIDDLE. */
 	public static final int MOUSE_BUTTON_MIDDLE = 1;
+	
+	/** The Constant MOUSE_BUTTON_RIGHT. */
 	public static final int MOUSE_BUTTON_RIGHT = 2;
 	
 	
+	/**
+	 * Mouse pressed.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @param buttonNumber the button number
+	 */
 	public abstract void mousePressed(int x, int y, int buttonNumber);
+	
+	/**
+	 * Mouse dragged.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @param buttonNumber the button number
+	 */
 	public abstract void mouseDragged(int x, int y, int buttonNumber);
+	
+	/**
+	 * Mouse released.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @param buttonNumber the button number
+	 */
 	public abstract void mouseReleased(int x, int y, int buttonNumber);	
+	
+	/**
+	 * Mouse moved.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 */
 	public abstract void mouseMoved(int x, int y);
+	
+	/**
+	 * Key pressed.
+	 *
+	 * @param key the key
+	 */
 	public abstract void keyPressed(String key);
+	
+	/**
+	 * Key released.
+	 *
+	 * @param key the key
+	 */
 	public abstract void keyReleased(String key);
 
 	
+	/**
+	 * Gets the scaled x.
+	 *
+	 * @param x the x
+	 * @param width the width
+	 * @return the scaled x
+	 */
 	public static float getScaledX(int x, int width) {
 		return (float) x / (float) width;
 	}
 	
+	/**
+	 * Gets the scaled y.
+	 *
+	 * @param y the y
+	 * @param height the height
+	 * @return the scaled y
+	 */
 	public static float getScaledY(int y, int height) {
 		return (float) y / (float) height;
 	}

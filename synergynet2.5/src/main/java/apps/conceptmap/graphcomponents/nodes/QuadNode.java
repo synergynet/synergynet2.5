@@ -40,14 +40,28 @@ import synergynetframework.appsystem.contentsystem.items.SimpleButton;
 import synergynetframework.appsystem.contentsystem.items.listener.ScreenCursorListener;
 import synergynetframework.appsystem.contentsystem.items.utils.Location;
 
+
+/**
+ * The Class QuadNode.
+ */
 public abstract class QuadNode extends GraphNode{
 
+	/** The content item. */
 	protected QuadContentItem contentItem;
 	
+	/**
+	 * Instantiates a new quad node.
+	 *
+	 * @param contentSystem the content system
+	 * @param gManager the g manager
+	 */
 	public QuadNode(ContentSystem contentSystem, GraphManager gManager) {
 		super(contentSystem, gManager);
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.conceptmap.graphcomponents.nodes.GraphNode#setNodeContent(synergynetframework.appsystem.contentsystem.items.ContentItem)
+	 */
 	protected void setNodeContent(ContentItem nodeItem){
 		this.contentItem = (QuadContentItem)nodeItem;
 		container.addSubItem(contentItem);
@@ -82,6 +96,9 @@ public abstract class QuadNode extends GraphNode{
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see apps.conceptmap.graphcomponents.nodes.GraphNode#setLinkButtonLocation(java.lang.String)
+	 */
 	@Override
 	public void setLinkButtonLocation(String location) {
 		if(contentItem != null){
@@ -90,6 +107,9 @@ public abstract class QuadNode extends GraphNode{
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.conceptmap.graphcomponents.nodes.GraphNode#setCloseButtonLocation(java.lang.String)
+	 */
 	@Override
 	public void setCloseButtonLocation(String location) {
 		if(contentItem != null){
@@ -98,6 +118,13 @@ public abstract class QuadNode extends GraphNode{
 		}	
 	}
 	
+	/**
+	 * Position button.
+	 *
+	 * @param button the button
+	 * @param contentItem the content item
+	 * @param location the location
+	 */
 	protected void positionButton(SimpleButton button, QuadContentItem contentItem, String location){
 		if(location.equals(GraphNode.TOP_RIGHT_CORNER)){
 			Location newLocation = new Location(contentItem.getWidth()/2, contentItem.getHeight()/2,0);
@@ -128,6 +155,11 @@ public abstract class QuadNode extends GraphNode{
 		}
 	}
 
+	/**
+	 * Gets the node content.
+	 *
+	 * @return the node content
+	 */
 	public QuadContentItem getNodeContent(){
 		return contentItem;
 	}

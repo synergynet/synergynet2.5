@@ -22,30 +22,64 @@ import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
 import com.jme.util.TextureManager;
 
+
+/**
+ * The Class TargetObjectCollection.
+ */
 public class TargetObjectCollection {
 
 	
+    /** The Constant NO_COLOR. */
     private static final ColorRGBA NO_COLOR = ColorRGBA.black;
+    
+    /** The Constant AMBIENT_GRAY_COLOR. */
     @SuppressWarnings("unused")
 	private static final ColorRGBA AMBIENT_GRAY_COLOR = new ColorRGBA(0.7f, 0.7f, 0.7f, 1.0f);
+    
+    /** The Constant AMBIENT_COLORED_COLOR. */
     @SuppressWarnings("unused")
 	private static final ColorRGBA AMBIENT_COLORED_COLOR = new ColorRGBA(0.8f, 0.8f, 0.2f, 1.0f);
+    
+    /** The Constant SPECULAR_COLOR. */
     @SuppressWarnings("unused")
 	private static final ColorRGBA SPECULAR_COLOR = ColorRGBA.white;
+    
+    /** The Constant DIFFUSE_COLOR. */
     private static final ColorRGBA DIFFUSE_COLOR = new ColorRGBA(0.1f, 0.5f, 0.8f, 1.0f);
+    
+    /** The Constant EMISSIVE_COLOR. */
     @SuppressWarnings("unused")
 	private static final ColorRGBA EMISSIVE_COLOR = new ColorRGBA(0.3f, 0.2f, 0.2f, 0.0f);
+    
+    /** The Constant NO_SHININESS. */
     private static final float NO_SHININESS = 0.0f;
+    
+    /** The Constant LOW_SHININESS. */
     @SuppressWarnings("unused")
 	private static final float LOW_SHININESS = 5.0f;
+    
+    /** The Constant HIGH_SHININESS. */
     @SuppressWarnings("unused")
 	private static final float HIGH_SHININESS = 100.0f;
 	
+	/** The cube. */
 	private Spatial cube;
+	
+	/** The tube. */
 	private Spatial tube;
+	
+	/** The ball. */
 	private Spatial ball;
+	
+	/** The sheet. */
 	private Spatial sheet;
 	
+	/**
+	 * Instantiates a new target object collection.
+	 *
+	 * @param worldNode the world node
+	 * @param pass the pass
+	 */
 	public TargetObjectCollection(Node worldNode, DirectionalShadowMapPass pass){
 	
 		cube = new Box("cube", new Vector3f(0, 0, 0), 3f, 3f, 3f);
@@ -128,6 +162,12 @@ public class TargetObjectCollection {
 		
 	}
 	
+	/**
+	 * Gets the object.
+	 *
+	 * @param objectName the object name
+	 * @return the object
+	 */
 	public Spatial getObject(String objectName){
 		if (objectName.equals("cube"))
 			return cube;
@@ -140,6 +180,9 @@ public class TargetObjectCollection {
 	}
 	
 	
+	/**
+	 * Hide all objects.
+	 */
 	public void hideAllObjects(){
 		cube.setCullHint(CullHint.Always);
 		tube.setCullHint(CullHint.Always);

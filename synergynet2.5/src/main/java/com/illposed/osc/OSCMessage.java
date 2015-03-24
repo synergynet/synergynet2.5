@@ -49,9 +49,16 @@ import java.util.Vector;
 
 import com.illposed.osc.utility.*;
 
+
+/**
+ * The Class OSCMessage.
+ */
 public class OSCMessage extends OSCPacket {
 
+	/** The address. */
 	protected String address;
+	
+	/** The arguments. */
 	protected Vector<Object> arguments;
 
 	/**
@@ -65,7 +72,8 @@ public class OSCMessage extends OSCPacket {
 	}
 
 	/**
-	 * Create an OSCMessage with an address already initialized
+	 * Create an OSCMessage with an address already initialized.
+	 *
 	 * @param newAddress The recepient of this OSC message
 	 */
 	public OSCMessage(String newAddress) {
@@ -73,7 +81,8 @@ public class OSCMessage extends OSCPacket {
 	}
 
 	/**
-	 * Create an OSCMessage with an address and arguments already initialized
+	 * Create an OSCMessage with an address and arguments already initialized.
+	 *
 	 * @param newAddress    The recepient of this OSC message
 	 * @param newArguments  The data sent to the receiver
 	 */
@@ -91,6 +100,8 @@ public class OSCMessage extends OSCPacket {
 	}
 	
 	/**
+	 * Gets the address.
+	 *
 	 * @return the address of this OSC Message
 	 */
 	public String getAddress() {
@@ -98,22 +109,35 @@ public class OSCMessage extends OSCPacket {
 	}
 	
 	/**
-	 * Set the address of this messsage
-	 * @param anAddress
+	 * Set the address of this messsage.
+	 *
+	 * @param anAddress the new address
 	 */
 	public void setAddress(String anAddress) {
 		address = anAddress;
 	}
 	
+	/**
+	 * Adds the argument.
+	 *
+	 * @param argument the argument
+	 */
 	public void addArgument(Object argument) {
 		arguments.add(argument);
 	}
 	
+	/**
+	 * Gets the arguments.
+	 *
+	 * @return the arguments
+	 */
 	public Object[] getArguments() {
 		return arguments.toArray();
 	}
 
 	/**
+	 * Compute address byte array.
+	 *
 	 * @param stream OscPacketByteArrayConverter
 	 */
 	protected void computeAddressByteArray(OSCJavaToByteArrayConverter stream) {
@@ -121,6 +145,8 @@ public class OSCMessage extends OSCPacket {
 	}
 
 	/**
+	 * Compute arguments byte array.
+	 *
 	 * @param stream OscPacketByteArrayConverter
 	 */
 	protected void computeArgumentsByteArray(OSCJavaToByteArrayConverter stream) {
@@ -137,6 +163,8 @@ public class OSCMessage extends OSCPacket {
 	}
 
 	/**
+	 * Compute byte array.
+	 *
 	 * @param stream OscPacketByteArrayConverter
 	 */
 	protected void computeByteArray(OSCJavaToByteArrayConverter stream) {

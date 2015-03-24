@@ -33,12 +33,94 @@ package synergynetframework.appsystem.contentsystem.items.listener;
 
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 
+
+/**
+ * The listener interface for receiving item events.
+ * The class that is interested in processing a item
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addItemListener<code> method. When
+ * the item event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see ItemEvent
+ */
 public interface ItemListener {
+	
+	/**
+	 * Cursor pressed.
+	 *
+	 * @param item the item
+	 * @param id the id
+	 * @param x the x
+	 * @param y the y
+	 * @param pressure the pressure
+	 */
 	public void cursorPressed(ContentItem item, long id, float x, float y, float pressure);
+	
+	/**
+	 * Cursor changed.
+	 *
+	 * @param item the item
+	 * @param id the id
+	 * @param x the x
+	 * @param y the y
+	 * @param pressure the pressure
+	 */
 	public void cursorChanged(ContentItem item, long id, float x, float y, float pressure);
+	
+	/**
+	 * Cursor released.
+	 *
+	 * @param item the item
+	 * @param id the id
+	 * @param x the x
+	 * @param y the y
+	 * @param pressure the pressure
+	 */
 	public void cursorReleased(ContentItem item, long id, float x, float y, float pressure);
+	
+	/**
+	 * Cursor clicked.
+	 *
+	 * @param item the item
+	 * @param id the id
+	 * @param x the x
+	 * @param y the y
+	 * @param pressure the pressure
+	 */
 	public void cursorClicked(ContentItem item, long id, float x, float y, float pressure);
+	
+	/**
+	 * Cursor right clicked.
+	 *
+	 * @param item the item
+	 * @param id the id
+	 * @param x the x
+	 * @param y the y
+	 * @param pressure the pressure
+	 */
 	public void cursorRightClicked(ContentItem item, long id, float x, float y, float pressure);
+	
+	/**
+	 * Cursor long held.
+	 *
+	 * @param item the item
+	 * @param id the id
+	 * @param x the x
+	 * @param y the y
+	 * @param pressure the pressure
+	 */
 	public void cursorLongHeld(ContentItem item, long id, float x, float y, float pressure);
+	
+	/**
+	 * Cursor double clicked.
+	 *
+	 * @param item the item
+	 * @param id the id
+	 * @param x the x
+	 * @param y the y
+	 * @param pressure the pressure
+	 */
 	public void cursorDoubleClicked(ContentItem item, long id, float x, float y, float pressure);
 }

@@ -41,16 +41,36 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 
+
+/**
+ * The Class RestoreFileReader.
+ */
 public class RestoreFileReader 
 {
+	
+	/** The mystery item states. */
 	private HashMap<String, ContentItemState> mysteryItemStates = new HashMap<String, ContentItemState>();
+	
+	/** The restore folder. */
 	private File restoreFolder;
 
 	
+	/**
+	 * Instantiates a new restore file reader.
+	 *
+	 * @param restoreFolder the restore folder
+	 */
 	public RestoreFileReader(File restoreFolder) {
 		this.restoreFolder = restoreFolder;
 	}
 	
+	/**
+	 * Gets the last app state.
+	 *
+	 * @param appID the app id
+	 * @return the last app state
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public  HashMap<String, ContentItemState> getLastAppState(String appID) throws IOException
 	{
 		mysteryItemStates.clear();
@@ -67,6 +87,11 @@ public class RestoreFileReader
 		return mysteryItemStates;
 	}
 	
+	/**
+	 * Process line.
+	 *
+	 * @param str the str
+	 */
 	private void processLine(String str)
 	{
         String[] temp;

@@ -22,51 +22,109 @@ import com.jme.math.Vector2f;
 import com.jme.scene.Node;
 import com.jme.scene.Spatial;
 
+
+/**
+ * The Class GanttChart.
+ */
 public class GanttChart extends Node {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 7525345654371240326L;
 	
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The width. */
 	protected int width;
+	
+	/** The heigth. */
 	protected int heigth;
 	
+	/** The schedule width ratio. */
 	private float scheduleWidthRatio=0.75f;
+	
+	/** The schedule height ratio. */
 	private float scheduleHeightRatio=0.85f;
+	
+	/** The task width ratio. */
 	private float taskWidthRatio=0.25f;
 	
+	/** The schedule height offside. */
 	private int scheduleHeightOffside =22;
+	
+	/** The schedule width offside. */
 	private int scheduleWidthOffside =13;
 	
+	/** The task rows. */
 	private int taskRows=20;
+	
+	/** The row height. */
 	private int rowHeight = 30;
+	
+	/** The periods. */
 	private int periods=15;
+	
+	/** The period length. */
 	private int periodLength=70;
 	
+	/** The panel. */
 	protected Window panel;
+	
+	/** The schedule area. */
 	protected Window scheduleArea;
+	
+	/** The task area. */
 	protected Window taskArea;
+	
+	/** The timebar area. */
 	protected Window timebarArea;
 	
+	/** The schedule panel. */
 	protected Window schedulePanel;
+	
+	/** The task area panel. */
 	protected Window taskAreaPanel;
 	
+	/** The timebar. */
 	protected DrawableFrame timebar;
+	
+	/** The schedule. */
 	protected DrawableFrame schedule;
+	
+	/** The task panel. */
 	protected DrawableFrame taskPanel;
 	
+	/** The x. */
 	private int x ;
+	
+	/** The y. */
 	private int y ;
 	
+	/** The schedule panel orgin. */
 	private Vector2f schedulePanelOrgin=new Vector2f();
 	
+	/** The crh. */
 	protected ClipRectangleHud crh;
+	
+	/** The task crh. */
 	protected ClipRectangleHud taskCRH;
+	
+	/** The schedule crh. */
 	protected ClipRectangleHud scheduleCRH;
 	
+	/** The task collection. */
 	protected TaskCollection taskCollection;
 	
+	/** The gantt chart. */
 	protected GanttChart ganttChart;
 	
+	/**
+	 * Instantiates a new gantt chart.
+	 *
+	 * @param contentSystem the content system
+	 * @param width the width
+	 * @param heigth the heigth
+	 */
 	public GanttChart(ContentSystem contentSystem, int width, int heigth){
 		this.contentSystem = contentSystem;
 		this.width = width;
@@ -79,6 +137,9 @@ public class GanttChart extends Node {
 		this.setVisibility(false);
 	}
 	
+	/**
+	 * Inits the.
+	 */
 	protected void init(){
 		
 		x = -((int) (width*scheduleWidthRatio-scheduleWidthOffside-3)/2-periods*periodLength/2);
@@ -101,6 +162,9 @@ public class GanttChart extends Node {
 	
 	}
 	
+	/**
+	 * Builds the schedule area.
+	 */
 	protected void buildScheduleArea(){
 		
 		scheduleArea = (Window) contentSystem.createContentItem(Window.class);
@@ -142,6 +206,9 @@ public class GanttChart extends Node {
 		
 	}
 	
+	/**
+	 * Builds the task area.
+	 */
 	protected void buildTaskArea(){
 		
 		taskArea = (Window) contentSystem.createContentItem(Window.class);
@@ -180,6 +247,9 @@ public class GanttChart extends Node {
 		taskCRH.setSpatialClip((Spatial)(taskAreaPanel.getImplementationObject()), true);
 	}
 	
+	/**
+	 * Builds the time bar area.
+	 */
 	protected void buildTimeBarArea(){
 		timebarArea = (Window) contentSystem.createContentItem(Window.class);
 		timebarArea.setWidth((int) (width*scheduleWidthRatio-scheduleWidthOffside-3));
@@ -208,6 +278,9 @@ public class GanttChart extends Node {
 	
 	}
 	
+	/**
+	 * Builds the scroll bars.
+	 */
 	protected void buildScrollBars(){
 		ScrollBar scrollBar = new ScrollBar((int)(width*scheduleWidthRatio-scheduleWidthOffside-3), 20, periods*periodLength, contentSystem, Direction.H);	
 		scrollBar.getScrollBarContentItem().setLocalLocation((int)((width-width*scheduleWidthRatio)/2)-scheduleWidthOffside-3, -heigth/2+15);
@@ -240,6 +313,9 @@ public class GanttChart extends Node {
 		panel.addSubItem(scrollBarV.getScrollBarContentItem());
 	}
 	
+	/**
+	 * Builds the buttons.
+	 */
 	protected void buildButtons(){
 		
 		LightImageLabel addbutton = (LightImageLabel)contentSystem.createContentItem(LightImageLabel.class);
@@ -320,6 +396,9 @@ public class GanttChart extends Node {
 
 	}
 	
+	/**
+	 * Update.
+	 */
 	public void update(){
 		crh.updateEquations();
 		taskCRH.updateEquations();
@@ -327,6 +406,11 @@ public class GanttChart extends Node {
 		
 	}
 	
+	/**
+	 * Sets the visibility.
+	 *
+	 * @param b the new visibility
+	 */
 	public void setVisibility(boolean b){
 		if (b){
 			this.setCullHint(CullHint.Never);			
@@ -338,6 +422,11 @@ public class GanttChart extends Node {
 		this.setIsCollidable(b);
 	}
 	
+	/**
+	 * Checks if is visible.
+	 *
+	 * @return true, if is visible
+	 */
 	public boolean isVisible(){
 		return this.isCollidable();
 	}

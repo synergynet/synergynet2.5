@@ -35,8 +35,19 @@ package synergynetframework.appsystem.services.net.tablecomms.client;
 import synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler;
 import synergynetframework.appsystem.services.net.tablecomms.messages.TableMessage;
 
+
+/**
+ * The Interface ClientMessageProcessor.
+ */
 public interface ClientMessageProcessor {
 
+	/**
+	 * Handle.
+	 *
+	 * @param tableCommsClientService the table comms client service
+	 * @param connectionHandler the connection handler
+	 * @param obj the obj
+	 */
 	void handle(TableCommsClientService tableCommsClientService, ConnectionHandler connectionHandler, TableMessage obj);
 
 }

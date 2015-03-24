@@ -41,10 +41,21 @@ import synergynetframework.appsystem.contentsystem.items.OrthoContentItem;
 import synergynetframework.appsystem.contentsystem.items.SketchPad;
 import synergynetframework.appsystem.contentsystem.jme.items.utils.DrawData;
 
+
+/**
+ * The Class SyncRenderer.
+ */
 public class SyncRenderer {
 	
+	/** The data masks. */
 	protected Map<Short, Float> dataMasks = new HashMap<Short, Float>();
 	
+	/**
+	 * Render sync data.
+	 *
+	 * @param item the item
+	 * @param itemAttrs the item attrs
+	 */
 	@SuppressWarnings("unchecked")
 	public void renderSyncData( OrthoContentItem item, Map<Short, Object> itemAttrs) {
 		//set the item with scale
@@ -103,20 +114,40 @@ public class SyncRenderer {
 		
 	}
 	
+	/**
+	 * Sets the data mask.
+	 *
+	 * @param attribute the attribute
+	 * @param value the value
+	 */
 	public void setDataMask(Short attribute, float value){
 		dataMasks.put(attribute, value);
 		System.out.println("Mask : "+attribute+ " is applied");
 	}
 	
+	/**
+	 * Removes the data mask.
+	 *
+	 * @param attribute the attribute
+	 */
 	public void removeDataMask(Short attribute){
 		if(dataMasks.containsKey(attribute)) dataMasks.remove(attribute);
 	}
 	
+	/**
+	 * Gets the mask value.
+	 *
+	 * @param attribute the attribute
+	 * @return the mask value
+	 */
 	public float getMaskValue(Short attribute){
 		if(dataMasks.containsKey(attribute)) return dataMasks.get(attribute);
 		else return -1.0f;
 	}
 	
+	/**
+	 * Reset data masks.
+	 */
 	public void resetDataMasks(){
 		dataMasks.clear();
 	}

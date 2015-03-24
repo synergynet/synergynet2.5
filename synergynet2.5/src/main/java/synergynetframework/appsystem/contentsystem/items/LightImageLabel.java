@@ -40,57 +40,102 @@ import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILightImageLabelImplementation;
 
 
+
+/**
+ * The Class LightImageLabel.
+ */
 public class LightImageLabel extends QuadContentItem implements Serializable, Cloneable, ILightImageLabelImplementation {
 	
+	/** The image resource. */
 	protected URL imageResource;
+	
+	/** The use alpha. */
 	protected boolean useAlpha = true;
+	
+	/** The is aspect ration enabled. */
 	protected boolean isAspectRationEnabled = false;
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -701321502547177425L;
 
+	/**
+	 * Instantiates a new light image label.
+	 *
+	 * @param contentSystem the content system
+	 * @param name the name
+	 */
 	public LightImageLabel(ContentSystem contentSystem, String name) {
 		super(contentSystem, name);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILightImageLabelImplementation#drawImage(java.net.URL)
+	 */
 	public void drawImage(URL imageResource){
 		this.imageResource = imageResource;
 		((ILightImageLabelImplementation)this.contentItemImplementation).drawImage(imageResource);
 
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILightImageLabelImplementation#drawImage(java.awt.Image)
+	 */
 	@Override
 	public void drawImage(Image image) {
 		((ILightImageLabelImplementation)this.contentItemImplementation).drawImage(image);		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILightImageLabelImplementation#getImageResource()
+	 */
 	public URL getImageResource(){
 		return imageResource;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILightImageLabelImplementation#useAlpha(boolean)
+	 */
 	public void useAlpha(boolean useAlpha){
 		this.useAlpha = useAlpha;
 		((ILightImageLabelImplementation)this.contentItemImplementation).drawImage(imageResource);
 
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILightImageLabelImplementation#isAplaEnabled()
+	 */
 	public boolean isAplaEnabled(){
 		return useAlpha;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILightImageLabelImplementation#enableAspectRatio(boolean)
+	 */
 	@Override
 	public void enableAspectRatio(boolean isAspectRationEnabled) {
 		this.isAspectRationEnabled = isAspectRationEnabled;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILightImageLabelImplementation#isAspectRatioEnabled()
+	 */
 	@Override
 	public boolean isAspectRatioEnabled() {
 		return isAspectRationEnabled;
 	}
 	
+	/**
+	 * Sets the image label height.
+	 *
+	 * @param height the new image label height
+	 */
 	public void setImageLabelHeight(int height) {
 		((ILightImageLabelImplementation)this.contentItemImplementation).setHeight(height);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.QuadContentItem#clone()
+	 */
 	public Object clone() throws CloneNotSupportedException {
 		LightImageLabel clonedItem = (LightImageLabel)super.clone();
 		clonedItem.imageResource = imageResource;

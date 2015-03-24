@@ -42,15 +42,39 @@ import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
 import com.jme.util.TextureManager;
 
+
+/**
+ * A factory for creating ImageQuad objects.
+ */
 public class ImageQuadFactory {
 	
+	/** The Constant ALPHA_ENABLE. */
 	public static final int ALPHA_ENABLE = 0;
+	
+	/** The Constant ALPHA_DISABLE. */
 	public static final int ALPHA_DISABLE = 1;
 	
+	/**
+	 * Creates a new ImageQuad object.
+	 *
+	 * @param name the name
+	 * @param width the width
+	 * @param resource the resource
+	 * @return the quad
+	 */
 	public static Quad createQuadWithImageResource(String name, float width, URL resource) {
 		return createQuadWithImageResource(name, width, resource, ALPHA_DISABLE);
 	}
 	
+	/**
+	 * Creates a new ImageQuad object.
+	 *
+	 * @param name the name
+	 * @param width the width
+	 * @param resource the resource
+	 * @param useAlpha the use alpha
+	 * @return the quad
+	 */
 	public static Quad createQuadWithUncompressedImageResource(String name, float width, URL resource, int useAlpha) {
 		TextureState ts = DisplaySystem.getDisplaySystem().getRenderer().createTextureState();
 		Texture t = TextureManager.loadTexture(resource, Texture.MinificationFilter.NearestNeighborLinearMipMap, Texture.MagnificationFilter.NearestNeighbor, com.jme.image.Image.Format.GuessNoCompression,1,true);
@@ -74,6 +98,15 @@ public class ImageQuadFactory {
 		return q;
 	}
 	
+	/**
+	 * Creates a new ImageQuad object.
+	 *
+	 * @param name the name
+	 * @param width the width
+	 * @param resource the resource
+	 * @param useAlpha the use alpha
+	 * @return the quad
+	 */
 	public static Quad createQuadWithImageResource(String name, float width, URL resource, int useAlpha) {
 		TextureState ts = DisplaySystem.getDisplaySystem().getRenderer().createTextureState();
 		Texture t = TextureManager.loadTexture(resource, Texture.MinificationFilter.Trilinear, Texture.MagnificationFilter.Bilinear);
@@ -98,6 +131,14 @@ public class ImageQuadFactory {
 		return q;
 	}
 	
+	/**
+	 * Creates a new ImageQuad object.
+	 *
+	 * @param name the name
+	 * @param width the width
+	 * @param img the img
+	 * @return the quad
+	 */
 	public static Quad createQuadWithImage(String name, float width, Image img) {
 		TextureState ts = DisplaySystem.getDisplaySystem().getRenderer().createTextureState();
 		Texture t = TextureManager.loadTexture(img, Texture.MinificationFilter.Trilinear, Texture.MagnificationFilter.Bilinear, false);
@@ -113,6 +154,14 @@ public class ImageQuadFactory {
 		return q;		
 	}
 	
+	/**
+	 * Creates a new ImageQuad object.
+	 *
+	 * @param name the name
+	 * @param width the width
+	 * @param tex the tex
+	 * @return the quad
+	 */
 	public static Quad createQuadWithTexture(String name, float width, Texture tex) {		
 		TextureState ts = DisplaySystem.getDisplaySystem().getRenderer().createTextureState();
 		ts.setTexture(tex);

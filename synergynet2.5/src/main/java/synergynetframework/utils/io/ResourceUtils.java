@@ -42,18 +42,23 @@ import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+
+/**
+ * The Class ResourceUtils.
+ */
 public class ResourceUtils {
+	
 	/**
 	 * List directory contents for a resource folder. Not recursive.
 	 * This is basically a brute-force implementation.
 	 * Works for regular files and also JARs.
-	 * 
+	 *
 	 * @author Greg Briggs, modified by Andrew Hatch to allow for class-relative paths
 	 * @param clazz Any java class that lives in the same place as the resources you want.
 	 * @param path Should end with "/".
 	 * @return Just the name of each member item, not the full paths.
-	 * @throws URISyntaxException 
-	 * @throws IOException 
+	 * @throws URISyntaxException the URI syntax exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static String[] getResourceListing(Class<?> clazz, String path) throws URISyntaxException, IOException {
 		URL dirURL = clazz.getResource(path);

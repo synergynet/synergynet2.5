@@ -60,41 +60,93 @@ import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightConfirmVisualExit;
 import synergynetframework.jme.sysutils.SpatialUtility;
 
+
+/**
+ * The Class PegsAndHolesApp.
+ */
 public class PegsAndHolesApp extends DefaultSynergyNetApp {
 	
+	/** The shape files. */
 	private static String[] shapeFiles = {"circle", "equilateralTriangle", "hexagon", "isometricTriangle", "octagon", "oval", "pentagon", "rectangle", "rightAngleTriangle", "semiCircle", "square"};
+	
+	/** The solved. */
 	private boolean[] solved;
 	
+	/** The Constant DUPLICATE_SHAPES. */
 	final private static boolean DUPLICATE_SHAPES = false;
+	
+	/** The Constant HOLE_OFFSET. */
 	final private static int HOLE_OFFSET = 200;
+	
+	/** The Constant SQUARE_WIDTH. */
 	final private static int SQUARE_WIDTH = 600;
+	
+	/** The Constant SQUARE_HEIGHT. */
 	final private static int SQUARE_HEIGHT = 600;
+	
+	/** The Constant NUMBER_OF_SHAPES. */
 	final private static int NUMBER_OF_SHAPES = 9;
+	
+	/** The Constant NUMBER_OF_COLUMNS. */
 	final private static int NUMBER_OF_COLUMNS = 3;
+	
+	/** The Constant DISTANCE_THRESHOLD. */
 	final private static int DISTANCE_THRESHOLD = 20;
+	
+	/** The Constant VERTEX_THRESHOLD. */
 	final private static int VERTEX_THRESHOLD = 5;
 	
+	/** The puzzle name. */
 	private String puzzleName = "Pegs and Holes";
+	
+	/** The shapes. */
 	private List<String> shapes = new ArrayList<String>();
+	
+	/** The holes. */
 	private List<ObjShape> holes = new ArrayList<ObjShape>();
+	
+	/** The pegs. */
 	private List<ObjShape> pegs = new ArrayList<ObjShape>();
+	
+	/** The holes remaining. */
 	private int holesRemaining = 1;
 
+	/** The title text. */
 	private TextLabel titleText;
+	
+	/** The start button. */
 	private ImageTextLabel startButton;
+	
+	/** The mode text. */
 	private TextLabel modeText;
+	
+	/** The mode selected text. */
 	private TextLabel modeSelectedText;
 	
+	/** The square. */
 	private TextLabel square;
+	
+	/** The mode. */
 	private int mode = 1;
+	
+	/** The font size. */
 	private int fontSize = 30;
 
+	/**
+	 * Instantiates a new pegs and holes app.
+	 *
+	 * @param info the info
+	 */
 	public PegsAndHolesApp(ApplicationInfo info) {
 		super(info);
 	}
 
+	/** The content system. */
 	private ContentSystem contentSystem;
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		SynergyNetAppUtils.addTableOverlay(this);
@@ -102,6 +154,9 @@ public class PegsAndHolesApp extends DefaultSynergyNetApp {
 		setMenuController(new HoldTopRightConfirmVisualExit(this));
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onActivate()
+	 */
 	@Override
 	public void onActivate() {
 		contentSystem.removeAllContentItems();
@@ -258,6 +313,9 @@ public class PegsAndHolesApp extends DefaultSynergyNetApp {
 
 	}
 
+	/**
+	 * Change mode.
+	 */
 	private void changeMode() {
 		if (mode == 1){
 			modeSelectedText.setTextColour(Color.orange);
@@ -275,6 +333,9 @@ public class PegsAndHolesApp extends DefaultSynergyNetApp {
 
 	}
 
+	/**
+	 * Adds the holes.
+	 */
 	private void addHoles() {
 		
 		square = (TextLabel)this.contentSystem.createContentItem(TextLabel.class);
@@ -318,8 +379,12 @@ public class PegsAndHolesApp extends DefaultSynergyNetApp {
 
 	}
 
+	/** The save it. */
 	private int saveIt = 0;
 
+	/**
+	 * Adds the pegs.
+	 */
 	private void addPegs() {
 		for (int i = 0; i < shapes.size(); i++){
 			pegs.add((ObjShape)this.contentSystem.createContentItem(ObjShape.class));			
@@ -396,12 +461,20 @@ public class PegsAndHolesApp extends DefaultSynergyNetApp {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	@Override
 	protected void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);
 		if(contentSystem != null) contentSystem.update(tpf);
 	}
 
+	/**
+	 * Check answers.
+	 *
+	 * @param q the q
+	 */
 	private void checkAnswers(int q) {
 
 		int[] results = matchingPosition(q);
@@ -479,6 +552,12 @@ public class PegsAndHolesApp extends DefaultSynergyNetApp {
 
 	}
 
+	/**
+	 * Matching position.
+	 *
+	 * @param i the i
+	 * @return the int[]
+	 */
 	private int[] matchingPosition(int i) {
 		int[] result = {0,0};
 		

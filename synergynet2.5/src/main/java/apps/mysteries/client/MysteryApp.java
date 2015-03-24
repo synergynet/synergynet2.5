@@ -92,34 +92,80 @@ import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightConfirmVisualExit;
 import synergynetframework.config.position.PositionConfigPrefsItem;
 
+
+/**
+ * The Class MysteryApp.
+ */
 public class MysteryApp extends DefaultSynergyNetApp implements NetworkedContentListener {
 
+	/** The sub app londonfire. */
 	public final String SUB_APP_LONDONFIRE = "LONDON FIRE";
+	
+	/** The sub app tippingwaitresses. */
 	public final String SUB_APP_TIPPINGWAITRESSES = "TIPPING WAITRESSES";
+	
+	/** The sub app robertdixon. */
 	public final String SUB_APP_ROBERTDIXON = "ROBERT DIXON";
+	
+	/** The sub app dinnerdisaster. */
 	public final String SUB_APP_DINNERDISASTER = "DINNER DISASTER";
+	
+	/** The sub app waltzer. */
 	public final String SUB_APP_WALTZER = "WALTZER";
+	
+	/** The sub app sneakysydney. */
 	public final String SUB_APP_SNEAKYSYDNEY = "SNEAKY SYDNEY";
+	
+	/** The sub app schooltrip. */
 	public final String SUB_APP_SCHOOLTRIP = "SCHOOL TRIP";
 
+	/** The comms. */
 	private TableCommsClientService comms;
+	
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The message handler. */
 	protected DefaultMessageHandler messageHandler;
+	
+	/** The networked content manager. */
 	protected NetworkedContentManager networkedContentManager;
+	
+	/** The transfer controller. */
 	protected TransferController transferController;
+	
+	/** The sub app menu. */
 	protected SubAppMenu subAppMenu;
+	
+	/** The menu. */
 	protected ListContainer menu;
 
+	/** The inner note controller. */
 	protected InnerNoteController innerNoteController;
 
+	/** The restore folder. */
 	private File restoreFolder;
+	
+	/** The exit settings file. */
 	private File exitSettingsFile;
+	
+	/** The restore. */
 	public static boolean restore = true;
+	
+	/** The current sub app. */
 	protected String currentSubApp = "";
+	
+	/** The is log enabled. */
 	private boolean isLogEnabled = false;
 
+	/** The channe label. */
 	protected MultiLineTextLabel channeLabel;
 
+	/**
+	 * Instantiates a new mystery app.
+	 *
+	 * @param info the info
+	 */
 	public MysteryApp(ApplicationInfo info) {
 		super(info);
 
@@ -138,6 +184,9 @@ public class MysteryApp extends DefaultSynergyNetApp implements NetworkedContent
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 
@@ -245,6 +294,9 @@ public class MysteryApp extends DefaultSynergyNetApp implements NetworkedContent
 		channeLabel.setVisible(false);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onActivate()
+	 */
 	@Override
 	public void onActivate() {
 		if (networkedContentManager!=null) return;
@@ -309,6 +361,9 @@ public class MysteryApp extends DefaultSynergyNetApp implements NetworkedContent
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	@Override
 	public void stateUpdate(float tpf) {
 
@@ -325,10 +380,19 @@ public class MysteryApp extends DefaultSynergyNetApp implements NetworkedContent
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onDeactivate()
+	 */
 	@Override
 	public void onDeactivate() {}
 
 
+	/**
+	 * Load content.
+	 *
+	 * @param filePath the file path
+	 * @param name the name
+	 */
 	public void loadContent(String filePath, String name){
 
 		this.removeAllItems();
@@ -337,6 +401,9 @@ public class MysteryApp extends DefaultSynergyNetApp implements NetworkedContent
 		this.contentLoaded();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.networkedcontentmanager.NetworkedContentListener#renderSynchronisedDate(synergynetframework.appsystem.contentsystem.items.ContentItem, java.util.Map)
+	 */
 	@Override
 	public void renderSynchronisedDate(ContentItem item,
 			Map<String, String> itemAttrs) {
@@ -344,16 +411,25 @@ public class MysteryApp extends DefaultSynergyNetApp implements NetworkedContent
 		SynchronisedDataRender.renderNote((OrthoContentItem)item, itemAttrs, this.innerNoteController);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.networkedcontentmanager.NetworkedContentListener#contentLoaded()
+	 */
 	@Override
 	public void contentLoaded() {
 		//addSynchronisedDateListeners();
 		//this.innerNoteController.addNoteController(networkedContentManager.getOnlineItems().values());
 	}
 
+	/**
+	 * Removes the all items.
+	 */
 	public void removeAllItems(){
 		//this.innerNoteController.removeAllNoteEditors();
 	}
 
+	/**
+	 * Adds the synchronised date listeners.
+	 */
 	@SuppressWarnings("unused")
 	private void addSynchronisedDateListeners(){
 
@@ -416,6 +492,11 @@ public class MysteryApp extends DefaultSynergyNetApp implements NetworkedContent
 
 	}
 
+	/**
+	 * Adds the item listeners.
+	 *
+	 * @param item the item
+	 */
 	private void addItemListeners(ContentItem item){
 		OrthoContentItem orthoItem = (OrthoContentItem)item;
 		orthoItem.addBringToTopListener(new BringToTopListener(){
@@ -476,6 +557,12 @@ public class MysteryApp extends DefaultSynergyNetApp implements NetworkedContent
 		});
 	}
 
+	/**
+	 * Log content state.
+	 *
+	 * @param mysteryID the mystery id
+	 * @throws FileNotFoundException the file not found exception
+	 */
 	private void logContentState(String mysteryID) throws FileNotFoundException {
 		if(!restoreFolder.exists()) restoreFolder.mkdir();
 		File restoreFile = new File(restoreFolder, mysteryID);
@@ -503,6 +590,9 @@ public class MysteryApp extends DefaultSynergyNetApp implements NetworkedContent
 		pw.close();
 	}
 
+	/**
+	 * Check last exit settings.
+	 */
 	private void checkLastExitSettings(){
 		try{
 			if(!exitSettingsFile.exists()) exitSettingsFile.createNewFile();
@@ -526,6 +616,9 @@ public class MysteryApp extends DefaultSynergyNetApp implements NetworkedContent
 		}
 	}
 
+	/**
+	 * Sets the safe exit.
+	 */
 	private void setSafeExit(){
 		try{
 			if(!exitSettingsFile.exists()) exitSettingsFile.createNewFile();
@@ -540,19 +633,31 @@ public class MysteryApp extends DefaultSynergyNetApp implements NetworkedContent
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.networkedcontentmanager.NetworkedContentListener#channelSwitched()
+	 */
 	@Override
 	public void channelSwitched() {
 		this.channeLabel.setLines(this.networkedContentManager.getCurrentScreenChannel(), 1);
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.networkedcontentmanager.NetworkedContentListener#remoteContentLoaded(synergynetframework.appsystem.services.net.networkedcontentmanager.utils.RemoteDesktop)
+	 */
 	@Override
 	public void remoteContentLoaded(RemoteDesktop remoteDesktop) {}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.networkedcontentmanager.NetworkedContentListener#renderRemoteDesktop(synergynetframework.appsystem.services.net.networkedcontentmanager.utils.RemoteDesktop, synergynetframework.appsystem.contentsystem.items.OrthoContentItem, java.util.Map)
+	 */
 	@Override
 	public void renderRemoteDesktop(RemoteDesktop remoteDesktop, OrthoContentItem item, Map<String, String> map) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.networkedcontentmanager.NetworkedContentListener#contentItemLoaded(synergynetframework.appsystem.contentsystem.items.ContentItem)
+	 */
 	@Override
 	public void contentItemLoaded(ContentItem item) {
 		this.innerNoteController.addNoteController(item);

@@ -65,15 +65,37 @@ import synergynetframework.appsystem.contentsystem.items.listener.ScreenCursorLi
 import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAdapter;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class ProjectorNode.
+ */
 public class ProjectorNode extends GraphNode implements DataSourceListener, ControllerNetworkListener{
 
+	/** The table id. */
 	protected TableIdentity tableId;
+	
+	/** The controller manager. */
 	protected ControllerManager controllerManager;
+	
+	/** The window. */
 	protected Window window;
+	
+	/** The image. */
 	protected ImageTextLabel image;
+	
+	/** The data sources. */
 	protected List<GraphNode> dataSources;
+	
+	/** The is show on. */
 	private boolean isShowOn = false;
 	
+	/**
+	 * Instantiates a new projector node.
+	 *
+	 * @param tableId the table id
+	 * @param contentSystem the content system
+	 * @param controllerManager the controller manager
+	 */
 	public ProjectorNode(final TableIdentity tableId, final ContentSystem contentSystem, final ControllerManager controllerManager) {
 		super(controllerManager.getGraphManager(), (Window) contentSystem.createContentItem(Window.class));
 		this.controllerManager = controllerManager;
@@ -260,6 +282,11 @@ public class ProjectorNode extends GraphNode implements DataSourceListener, Cont
 	}
 	
 	
+	/**
+	 * Gets the table id.
+	 *
+	 * @return the table id
+	 */
 	public TableIdentity getTableId(){
 		return tableId;
 	}
@@ -272,6 +299,11 @@ public class ProjectorNode extends GraphNode implements DataSourceListener, Cont
 		this.isUsed = isUsed; 
 	}
 	*/
+	/**
+	 * Sync content.
+	 *
+	 * @param syncData the sync data
+	 */
 	private void syncContent(HashMap<UserIdentity, HashMap<Short, Object>> syncData){
 		if(/*isShowOn && */ !dataSources.isEmpty()){
 			UnicastMathPadSyncMessage msg = new UnicastMathPadSyncMessage(MathPadProjector.class, syncData, tableId);
@@ -279,14 +311,27 @@ public class ProjectorNode extends GraphNode implements DataSourceListener, Cont
 		}
 	}
 	
+	/**
+	 * Checks if is show on.
+	 *
+	 * @return true, if is show on
+	 */
 	public boolean isShowOn(){
 		return isShowOn;
 	}
 	
+	/**
+	 * Sets the text.
+	 *
+	 * @param text the new text
+	 */
 	public void setText(String text){
 		image.setCRLFSeparatedString(text);
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.controllerapp.projectorcontroller.DataSourceListener#sourceDataUpdated(synergynetframework.appsystem.services.net.localpresence.TableIdentity, java.util.HashMap)
+	 */
 	@Override
 	public void sourceDataUpdated(TableIdentity tableId, HashMap<UserIdentity, MathToolInitSettings> items) {
 		for(GraphNode dataSource: dataSources){
@@ -297,6 +342,9 @@ public class ProjectorNode extends GraphNode implements DataSourceListener, Cont
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.controllerapp.projectorcontroller.DataSourceListener#syncDataReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity, java.util.HashMap)
+	 */
 	@Override
 	public void syncDataReceived(TableIdentity tableId,	HashMap<UserIdentity, HashMap<Short, Object>> syncData) {
 		for(GraphNode dataSource: dataSources){
@@ -306,28 +354,52 @@ public class ProjectorNode extends GraphNode implements DataSourceListener, Cont
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#projectorFound(synergynetframework.appsystem.services.net.localpresence.TableIdentity, boolean)
+	 */
 	@Override
 	public void projectorFound(TableIdentity tableId, boolean isLeaseSuccessful) {	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#remoteDesktopContentReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity, java.util.HashMap)
+	 */
 	@Override
 	public void remoteDesktopContentReceived(TableIdentity tableId,	HashMap<UserIdentity, MathToolInitSettings> items) {}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#resultsReceivedFromUser(synergynetframework.appsystem.services.net.localpresence.TableIdentity, apps.mathpadapp.networkmanager.utils.UserIdentity, apps.mathpadapp.controllerapp.assignmentcontroller.AssignmentInfo)
+	 */
 	@Override
 	public void resultsReceivedFromUser(TableIdentity tableId,	UserIdentity userId, AssignmentInfo assignInfo) {}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#tableIdReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity)
+	 */
 	@Override
 	public void tableIdReceived(TableIdentity tableId) {}
 
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#userIdsReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity, java.util.List)
+	 */
 	@Override
 	public void userIdsReceived(TableIdentity tableId,	List<UserIdentity> userIds) {}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#userMathPadReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity, apps.mathpadapp.networkmanager.utils.UserIdentity, apps.mathpadapp.mathtool.MathToolInitSettings)
+	 */
 	@Override
 	public void userMathPadReceived(TableIdentity tableId, UserIdentity userId,	MathToolInitSettings mathToolSettings) {}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#userRegistrationReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity, apps.mathpadapp.networkmanager.utils.UserIdentity)
+	 */
 	@Override
 	public void userRegistrationReceived(TableIdentity tableId,	UserIdentity userId) {}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#userUnregistrationReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity, apps.mathpadapp.networkmanager.utils.UserIdentity)
+	 */
 	@Override
 	public void userUnregistrationReceived(TableIdentity tableId,	UserIdentity userId) {
 		UnregisterUserMessage msg = new UnregisterUserMessage(MathPadProjector.class, this.tableId, userId);

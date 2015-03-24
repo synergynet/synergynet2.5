@@ -31,6 +31,9 @@
 
 package synergynetframework.appsystem.contentsystem.items.implementation.interfaces;
 
+/**
+ * The Interface IThreeDContentItemImplementation.
+ */
 public interface IThreeDContentItemImplementation extends IContentItemImplementation{
 	
 }

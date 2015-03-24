@@ -53,12 +53,26 @@ import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 import com.jme.math.Vector2f;
 import com.jmex.awt.swingui.ImageGraphics;
 
+
+/**
+ * The Class JMERoundFrame.
+ */
 public class JMERoundFrame extends JMERoundContentItem implements IRoundFrameImplementation {
 	
+	/** The gfx. */
 	protected ImageGraphics gfx;
+	
+	/** The item. */
 	protected RoundFrame item;
+	
+	/** The graphics image disc. */
 	protected GraphicsImageDisc graphicsImageDisc;
 	
+	/**
+	 * Instantiates a new JME round frame.
+	 *
+	 * @param contentItem the content item
+	 */
 	public JMERoundFrame(ContentItem contentItem) {
 		super(contentItem, new GraphicsImageDisc(contentItem.getName(), 100));
 		graphicsImageDisc = (GraphicsImageDisc)this.spatial;
@@ -67,27 +81,42 @@ public class JMERoundFrame extends JMERoundContentItem implements IRoundFrameImp
 		graphicsImageDisc.setLocalTranslation(0, 0, 0);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEContentItem#init()
+	 */
 	@Override
 	public void init(){
 		super.init();
 		updateSize();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEOrthoContentItem#setBackGround(synergynetframework.appsystem.contentsystem.items.utils.Background)
+	 */
 	@Override
 	public void setBackGround(Background backGround) {
 		render();		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEOrthoContentItem#setBorder(synergynetframework.appsystem.contentsystem.items.utils.Border)
+	 */
 	@Override
 	public void setBorder(Border border) {
 		render();		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMERoundContentItem#setRadius(float)
+	 */
 	@Override
 	public void setRadius(float radius) {
 		updateSize();
 	}
 
+	/**
+	 * Render.
+	 */
 	protected void render() {
 		
 		//draw background
@@ -107,10 +136,16 @@ public class JMERoundFrame extends JMERoundContentItem implements IRoundFrameImp
 		this.spatial.updateGeometricState(0f, false);
 	}
 	
+	/**
+	 * Draw.
+	 */
 	protected void draw(){
 		
 	}
 
+	/**
+	 * Update size.
+	 */
 	protected void updateSize(){
 		
 		float r = item.getRadius();	
@@ -123,6 +158,9 @@ public class JMERoundFrame extends JMERoundContentItem implements IRoundFrameImp
 		render();
 	}
 	
+	/**
+	 * Draw border.
+	 */
 	private void drawBorder(){
 			
 		int borderSize = item.getBorderSize();	
@@ -133,6 +171,9 @@ public class JMERoundFrame extends JMERoundContentItem implements IRoundFrameImp
 		
 	}
 
+	/**
+	 * Draw images.
+	 */
 	protected void drawImages(){
 		//draw images
 		if(item.getImageResources() != null){
@@ -146,31 +187,49 @@ public class JMERoundFrame extends JMERoundContentItem implements IRoundFrameImp
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundFrameImplementation#drawImage(java.net.URL)
+	 */
 	@Override
 	public void drawImage(URL imageResource) {
 		render();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundFrameImplementation#drawImage(java.net.URL, int, int, int, int)
+	 */
 	@Override
 	public void drawImage(URL imageResource, int x, int y, int width, int height) {
 		render();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundFrameImplementation#getImages()
+	 */
 	@Override
 	public HashMap<URL, ImageInfo> getImages() {
 		return item.getImages();		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundFrameImplementation#removeAllImages()
+	 */
 	@Override
 	public void removeAllImages() {
 		render();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundFrameImplementation#removeImage(java.net.URL)
+	 */
 	@Override
 	public void removeImage(URL imageResource) {
 		render();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEOrthoContentItem#cursorChanged(synergynetframework.jme.cursorsystem.elements.twod.OrthoCursorEventDispatcher, synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorChanged(OrthoCursorEventDispatcher commonCursorEventDispatcher,ScreenCursor c, MultiTouchCursorEvent event) {
 		super.cursorChanged(commonCursorEventDispatcher, c, event);
@@ -180,6 +239,9 @@ public class JMERoundFrame extends JMERoundContentItem implements IRoundFrameImp
 
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEOrthoContentItem#cursorClicked(synergynetframework.jme.cursorsystem.elements.twod.OrthoCursorEventDispatcher, synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorClicked(OrthoCursorEventDispatcher commonCursorEventDispatcher,ScreenCursor c, MultiTouchCursorEvent event) {
 		super.cursorClicked(commonCursorEventDispatcher, c, event);
@@ -189,6 +251,9 @@ public class JMERoundFrame extends JMERoundContentItem implements IRoundFrameImp
 
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEOrthoContentItem#cursorPressed(synergynetframework.jme.cursorsystem.elements.twod.OrthoCursorEventDispatcher, synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorPressed(OrthoCursorEventDispatcher commonCursorEventDispatcher,ScreenCursor c, MultiTouchCursorEvent event) {
 		super.cursorPressed(commonCursorEventDispatcher, c, event);
@@ -198,6 +263,9 @@ public class JMERoundFrame extends JMERoundContentItem implements IRoundFrameImp
 
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEOrthoContentItem#cursorReleased(synergynetframework.jme.cursorsystem.elements.twod.OrthoCursorEventDispatcher, synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorReleased(OrthoCursorEventDispatcher commonCursorEventDispatcher,ScreenCursor c, MultiTouchCursorEvent event) {
 		super.cursorReleased(commonCursorEventDispatcher, c, event);

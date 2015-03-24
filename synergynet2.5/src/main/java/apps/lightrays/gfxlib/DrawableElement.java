@@ -37,62 +37,137 @@ import java.awt.Color;
 import java.awt.Composite;
 import java.awt.Graphics2D;
 
+
+/**
+ * The Class DrawableElement.
+ */
 public abstract class DrawableElement {
 	
+	/** The opacity. */
 	protected float opacity = 1.0f;
+	
+	/** The x. */
 	protected int x;
+	
+	/** The y. */
 	protected int y;
+	
+	/** The z. */
 	protected int z;
+	
+	/** The colour. */
 	protected Color colour;
 
+	/**
+	 * Instantiates a new drawable element.
+	 */
 	public DrawableElement() {}
 	
+	/**
+	 * Draw.
+	 *
+	 * @param gfx the gfx
+	 * @param tick_count the tick_count
+	 */
 	public abstract void draw(Graphics2D gfx, long tick_count);
 	
 
-	/*** Utility Methods ***/
+	/**
+	 * * Utility Methods **.
+	 *
+	 * @return the alpha composite
+	 */
 	protected Composite getAlphaComposite() {
 		return AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity);
 	}
 	
-	/*** GETTERS AND SETTERS ****/
+	/**
+	 * * GETTERS AND SETTERS ***.
+	 *
+	 * @return the opacity
+	 */
 	
 	public float getOpacity() {
 		return opacity;
 	}
 
+	/**
+	 * Sets the opacity.
+	 *
+	 * @param opacity the new opacity
+	 */
 	public void setOpacity(float opacity) {
 		this.opacity = opacity;
 	}
 
+	/**
+	 * Gets the x.
+	 *
+	 * @return the x
+	 */
 	public int getX() {
 		return x;
 	}
 
+	/**
+	 * Sets the x.
+	 *
+	 * @param x the new x
+	 */
 	public void setX(int x) {
 		this.x = x;
 	}
 
+	/**
+	 * Gets the y.
+	 *
+	 * @return the y
+	 */
 	public int getY() {
 		return y;
 	}
 
+	/**
+	 * Sets the y.
+	 *
+	 * @param y the new y
+	 */
 	public void setY(int y) {
 		this.y = y;
 	}
 
+	/**
+	 * Gets the z.
+	 *
+	 * @return the z
+	 */
 	public int getZ() {
 		return z;
 	}
 
+	/**
+	 * Sets the z.
+	 *
+	 * @param z the new z
+	 */
 	public void setZ(int z) {
 		this.z = z;
 	}
 
+	/**
+	 * Gets the c.
+	 *
+	 * @return the c
+	 */
 	public Color getC() {
 		return colour;
 	}
 
+	/**
+	 * Sets the c.
+	 *
+	 * @param colour the new c
+	 */
 	public void setC(Color colour) {
 		this.colour = colour;
 	}	

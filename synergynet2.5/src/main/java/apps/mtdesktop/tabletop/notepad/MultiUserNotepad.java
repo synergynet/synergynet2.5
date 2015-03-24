@@ -17,17 +17,38 @@ import synergynetframework.appsystem.contentsystem.items.Window;
 import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonListener;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class MultiUserNotepad.
+ */
 public class MultiUserNotepad implements DesktopKeyboardListener{
 	
+	/** The font size. */
 	public int fontSize = 18;
+	
+	/** The pad width. */
 	public int padWidth = 300;
+	
+	/** The pad height. */
 	public int padHeight = 250;
 	
+	/** The window. */
 	protected Window window;
+	
+	/** The doc. */
 	protected HtmlFrame doc;
+	
+	/** The color map. */
 	protected Map<TableIdentity, Color> colorMap = new HashMap<TableIdentity, Color>(); 
+	
+	/** The set. */
 	private SimpleAttributeSet set = new SimpleAttributeSet();
     
+	/**
+	 * Instantiates a new multi user notepad.
+	 *
+	 * @param contentSystem the content system
+	 */
 	public MultiUserNotepad(ContentSystem contentSystem){
 		window = (Window)contentSystem.createContentItem(Window.class);
 		doc = (HtmlFrame)contentSystem.createContentItem(HtmlFrame.class);
@@ -82,21 +103,38 @@ public class MultiUserNotepad implements DesktopKeyboardListener{
 		clear.setLocalLocation(0, -100);
 	}
 	
+	/**
+	 * Register user.
+	 *
+	 * @param tableId the table id
+	 * @param color the color
+	 */
 	public void registerUser(TableIdentity tableId, Color color){
 		if(colorMap.containsKey(tableId)) colorMap.remove(tableId); 
 		colorMap.put(tableId, color);
 	}
 	
+	/**
+	 * Unregister user.
+	 *
+	 * @param tableId the table id
+	 */
 	public void unregisterUser(TableIdentity tableId){
 		if(colorMap.containsKey(tableId)) 
 			colorMap.remove(tableId);
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.tabletop.TabletopContentManager.DesktopKeyboardListener#keyPressed(synergynetframework.appsystem.services.net.localpresence.TableIdentity, java.awt.event.KeyEvent)
+	 */
 	@Override
 	public void keyPressed(TableIdentity tableId, KeyEvent evt) {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.tabletop.TabletopContentManager.DesktopKeyboardListener#keyReleased(synergynetframework.appsystem.services.net.localpresence.TableIdentity, java.awt.event.KeyEvent)
+	 */
 	@Override
 	public void keyReleased(TableIdentity tableId, KeyEvent evt) {
 		if(!colorMap.containsKey(tableId)) return;
@@ -113,11 +151,19 @@ public class MultiUserNotepad implements DesktopKeyboardListener{
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.tabletop.TabletopContentManager.DesktopKeyboardListener#keyTyped(synergynetframework.appsystem.services.net.localpresence.TableIdentity, java.awt.event.KeyEvent)
+	 */
 	@Override
 	public void keyTyped(TableIdentity tableId, KeyEvent evt) {
 		
 	}
 
+	/**
+	 * Gets the window.
+	 *
+	 * @return the window
+	 */
 	public Window getWindow() {
 		return window;
 	}

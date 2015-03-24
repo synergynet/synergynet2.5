@@ -50,29 +50,46 @@ package com.illposed.osc;
 
 import com.illposed.osc.utility.*;
 
+
+/**
+ * The Class OSCPacket.
+ */
 public abstract class OSCPacket {
 
+	/** The is byte array computed. */
 	protected boolean isByteArrayComputed;
+	
+	/** The byte array. */
 	protected byte[] byteArray;
 
+	/**
+	 * Instantiates a new OSC packet.
+	 */
 	public OSCPacket() {
 		super();
 	}
 
+	/**
+	 * Compute byte array.
+	 */
 	protected void computeByteArray() {
 		OSCJavaToByteArrayConverter stream = new OSCJavaToByteArrayConverter();
 		computeByteArray(stream);
 	}
 
 	/**
-	 * @param stream OscPacketByteArrayConverter
+	 * Compute byte array.
 	 *
+	 * @param stream OscPacketByteArrayConverter
+	 * 
 	 * Subclasses should implement this method to product a byte array
 	 * formatted according to the OSC/SuperCollider specification.
 	 */
 	protected abstract void computeByteArray(OSCJavaToByteArrayConverter stream);
 
 	/**
+	 * Gets the byte array.
+	 *
 	 * @return byte[]
 	 */
 	public byte[] getByteArray() {
@@ -81,6 +98,9 @@ public abstract class OSCPacket {
 		return byteArray;
 	}
 
+	/**
+	 * Inits the.
+	 */
 	protected void init() {
 		
 	}

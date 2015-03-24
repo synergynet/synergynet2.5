@@ -43,10 +43,18 @@ import javax.xml.xpath.XPathExpressionException;
 
 import org.xml.sax.SAXException;
 
+
+/**
+ * The Class LocationAttributeLoader.
+ */
 public class LocationAttributeLoader extends AttributesLoader {
 
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(LocationAttributeLoader.class.getName());	
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.contentloader.attributesloader.AttributesLoader#loadAttributes(java.util.Map, java.lang.String)
+	 */
 	public void loadAttributes(Map<String, Map<String, String>> items, String filePath){
 		
 		try {

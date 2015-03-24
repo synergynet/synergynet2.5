@@ -47,7 +47,17 @@ import com.jme.scene.Spatial.LightCombineMode;
 
 import core.SynergyNetDesktop;
 
+
+/**
+ * The Class SynergyNetAppUtils.
+ */
 public class SynergyNetAppUtils {
+	
+	/**
+	 * Adds the table overlay.
+	 *
+	 * @param app the app
+	 */
 	public static void addTableOverlay(SynergyNetApp app) {
 		TableOverlayNode tableOverlay = new TableOverlayNode(-10f);
 		tableOverlay.setRenderQueueMode(Renderer.QUEUE_ORTHO);
@@ -58,6 +68,11 @@ public class SynergyNetAppUtils {
 		app.getOrthoNode().attachChild(tableOverlay);
 	}
 
+	/**
+	 * Adds the escape key to exit.
+	 *
+	 * @param inputHandler the input handler
+	 */
 	public static void addEscapeKeyToExit(InputHandler inputHandler) {
         KeyBindingManager.getKeyBindingManager().set("exit", KeyInput.KEY_ESCAPE);
         inputHandler.addAction(

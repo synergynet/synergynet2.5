@@ -36,6 +36,9 @@ package synergynetframework.appsystem.services.net.objectmessaging.utility.seria
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+/**
+ * The Interface NonNull.
+ */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface NonNull {
 }

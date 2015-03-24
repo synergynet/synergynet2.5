@@ -71,13 +71,30 @@ import synergynetframework.appsystem.services.net.tablecomms.messages.control.fr
 import synergynetframework.appsystem.services.net.tablecomms.server.TableCommsServerService;
 import synergynetframework.appsystem.table.appregistry.NetworkRegistry;
 
+
+/**
+ * The Class TableCommsClientService.
+ */
 public class TableCommsClientService extends SynergyNetService implements MessageHandler {
+	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(TableCommsClientService.class.getName());
+	
+	/** The message processors. */
 	protected Map<String,ClientMessageProcessor> messageProcessors = new HashMap<String,ClientMessageProcessor>();
+	
+	/** The client. */
 	protected Client client;
+	
+	/** The object queue. */
 	protected List<ObjectQueueEntry> objectQueue = new ArrayList<ObjectQueueEntry>();
+	
+	/** The joined message sent. */
 	protected boolean joinedMessageSent = false;
 
+	/**
+	 * Instantiates a new table comms client service.
+	 */
 	public TableCommsClientService() {
 		
 		Network.register(TableMessage.class);
@@ -114,15 +131,24 @@ public class TableCommsClientService extends SynergyNetService implements Messag
 		client = new Client();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#hasStarted()
+	 */
 	@Override
 	public boolean hasStarted() {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#shutdown()
+	 */
 	@Override
 	public void shutdown() {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#start()
+	 */
 	@Override
 	public void start() throws CouldNotStartServiceException {
 		NetworkServiceDiscoveryService nsds = (NetworkServiceDiscoveryService) ServiceManager.getInstance().get(NetworkServiceDiscoveryService.class);
@@ -155,9 +181,17 @@ public class TableCommsClientService extends SynergyNetService implements Messag
 
 
 
+	/** The app listeners. */
 	protected Map<String,TableCommsApplicationListener> appListeners = new HashMap<String,TableCommsApplicationListener>();
+	
+	/** The currently online. */
 	private List<TableIdentity> currentlyOnline = new ArrayList<TableIdentity>();
 
+	/**
+	 * Gets the currently online.
+	 *
+	 * @return the currently online
+	 */
 	public List<TableIdentity> getCurrentlyOnline() {
 		return currentlyOnline;
 	}
@@ -166,9 +200,10 @@ public class TableCommsClientService extends SynergyNetService implements Messag
 	 * Register a TableCommsApplicationListener object for listening. Convenience method that calls
 	 * register() with the class name of the caller object. This allows an associated class to
 	 * register a different TableCommsApplicationListener.
-	 * @param caller
-	 * @param applistener
-	 * @throws IOException
+	 *
+	 * @param caller the caller
+	 * @param applistener the applistener
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public void register(Object caller, TableCommsApplicationListener applistener) throws IOException {
 		register(caller.getClass().getName(), applistener);
@@ -176,21 +211,31 @@ public class TableCommsClientService extends SynergyNetService implements Messag
 
 	/**
 	 * Register a TableCommsApplicationListener object for listening.
-	 * @param name
-	 * @param applistener
-	 * @throws IOException
+	 *
+	 * @param name the name
+	 * @param applistener the applistener
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public void register(String name, TableCommsApplicationListener applistener) throws IOException {
 		appListeners.put(name, applistener);
 		sendMessage(new ApplicationCommsRequest(name));
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#stop()
+	 */
 	@Override
 	public void stop() throws ServiceNotRunningException {
 		if(client != null) client.stop();
 		ServiceManager.getInstance().unregister(this.getClass().getName());
 	}
 
+	/**
+	 * Send message.
+	 *
+	 * @param obj the obj
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void sendMessage(Object obj) throws IOException {
 		if(client != null) {			
 			if(!joinedMessageSent) {
@@ -204,6 +249,9 @@ public class TableCommsClientService extends SynergyNetService implements Messag
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.connections.MessageHandler#messageReceived(java.lang.Object, synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler)
+	 */
 	public void messageReceived(Object obj, ConnectionHandler handler) {
 		log.info("Received " + obj);
 		ObjectQueueEntry entry = new ObjectQueueEntry(obj, handler);
@@ -212,6 +260,9 @@ public class TableCommsClientService extends SynergyNetService implements Messag
 		//		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#update()
+	 */
 	public void update() {
 		ObjectQueueEntry objQE = null;
 		//		synchronized(objectQueue) {
@@ -234,21 +285,41 @@ public class TableCommsClientService extends SynergyNetService implements Messag
 		}
 	}
 
+	/**
+	 * Checks if is connected.
+	 *
+	 * @return true, if is connected
+	 */
 	public boolean isConnected() {
 		return client != null && client.isConnected();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.connections.MessageHandler#handlerDisconnected(synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler)
+	 */
 	public void handlerDisconnected(ConnectionHandler connectionHandler) {
 		client = null;
 		for(TableCommsApplicationListener l: appListeners.values()) l.tableDisconnected();
 	}
 
+	/**
+	 * Gets the processor.
+	 *
+	 * @param msg the msg
+	 * @return the processor
+	 */
 	public ClientMessageProcessor getProcessor(TableMessage msg) {
 		String classname = "synergynetframework.appsystem.services.net.tablecomms.client.processors." + getClassName(msg.getClass()) + "Processor";
 		return getProcessor(classname);
 	}
 
 
+	/**
+	 * Gets the processor.
+	 *
+	 * @param classname the classname
+	 * @return the processor
+	 */
 	public ClientMessageProcessor getProcessor(String classname) {		
 		ClientMessageProcessor p = messageProcessors.get(classname);
 		if(p == null) {
@@ -266,6 +337,12 @@ public class TableCommsClientService extends SynergyNetService implements Messag
 		return p;
 	}
 
+	/**
+	 * Gets the class name.
+	 *
+	 * @param c the c
+	 * @return the class name
+	 */
 	public static String getClassName(Class<?> c) {
 		String fqClassName = c.getName();
 		int indxDot;
@@ -277,22 +354,41 @@ public class TableCommsClientService extends SynergyNetService implements Messag
 	}
 
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 * @throws CouldNotStartServiceException the could not start service exception
+	 */
 	public static void main(String[] args) throws  CouldNotStartServiceException {
 		ServiceManager.getInstance().get(NetworkServiceDiscoveryService.class);
 		TableCommsClientService client = new TableCommsClientService();
 		client.start();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.connections.MessageHandler#handlerConnected(synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler)
+	 */
 	@Override
 	public void handlerConnected(ConnectionHandler connectionHandler) {
 		 
 
 	}
 
+	/**
+	 * Checks if is client connected.
+	 *
+	 * @return true, if is client connected
+	 */
 	public boolean isClientConnected() {
 		return (client != null && client.isConnected());
 	}
 
+	/**
+	 * Gets the client.
+	 *
+	 * @return the client
+	 */
 	public Client getClient(){
 		return client;
 	}

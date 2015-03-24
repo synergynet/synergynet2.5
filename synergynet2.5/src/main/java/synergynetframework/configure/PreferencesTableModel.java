@@ -39,19 +39,37 @@ import java.util.prefs.Preferences;
 
 import javax.swing.table.AbstractTableModel;
 
+
+/**
+ * The Class PreferencesTableModel.
+ */
 public class PreferencesTableModel extends AbstractTableModel implements PreferenceChangeListener {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2200658451282335653L;
+	
+	/** The prefs. */
 	private Preferences prefs;
 
+	/**
+	 * Instantiates a new preferences table model.
+	 *
+	 * @param p the p
+	 */
 	public PreferencesTableModel(Preferences p) {
 		this.prefs = p;
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.swing.table.TableModel#getColumnCount()
+	 */
 	public int getColumnCount() {
 		return 2;
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.swing.table.TableModel#getRowCount()
+	 */
 	public int getRowCount() {
 		try {
 			return prefs.keys().length;
@@ -61,6 +79,9 @@ public class PreferencesTableModel extends AbstractTableModel implements Prefere
 		return 0;
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.swing.table.TableModel#getValueAt(int, int)
+	 */
 	public Object getValueAt(int rowIndex, int columnIndex) {		
 		if(columnIndex == 0) { // keys
 			try {
@@ -82,11 +103,17 @@ public class PreferencesTableModel extends AbstractTableModel implements Prefere
 		return "Error!";
 	}
 	
-	 public boolean isCellEditable(int row, int col) {
+	 /* (non-Javadoc)
+ 	 * @see javax.swing.table.AbstractTableModel#isCellEditable(int, int)
+ 	 */
+ 	public boolean isCellEditable(int row, int col) {
 		return col == 1; 
 	 }
 	 
-	 public void setValueAt(Object obj, int row, int col) {
+	 /* (non-Javadoc)
+ 	 * @see javax.swing.table.AbstractTableModel#setValueAt(java.lang.Object, int, int)
+ 	 */
+ 	public void setValueAt(Object obj, int row, int col) {
 		if(isCellEditable(row, col)) {
 			try {
 				prefs.put(prefs.keys()[row], obj.toString());
@@ -96,6 +123,9 @@ public class PreferencesTableModel extends AbstractTableModel implements Prefere
 		}
 	 }
 
+	/* (non-Javadoc)
+	 * @see java.util.prefs.PreferenceChangeListener#preferenceChange(java.util.prefs.PreferenceChangeEvent)
+	 */
 	public void preferenceChange(PreferenceChangeEvent evt) {
 		fireTableDataChanged();		
 	}

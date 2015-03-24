@@ -34,21 +34,43 @@ package apps.mathpadapp.networkmanager.messages.fromprojector;
 
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class ProjectorResponse.
+ */
 public class ProjectorResponse extends ProjectorToControllerMessage {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -546746344864227474L;
+	
+	/** The lease succeed. */
 	private boolean leaseSucceed = false;
 	
+	/**
+	 * Instantiates a new projector response.
+	 *
+	 * @param targetClass the target class
+	 * @param leaseSucceed the lease succeed
+	 * @param id the id
+	 */
 	public ProjectorResponse(Class<?> targetClass, boolean leaseSucceed, TableIdentity id) {
 		super(targetClass);
 		this.leaseSucceed = leaseSucceed;
 		this.setRecipient(id);
 	}
 
+	/**
+	 * Checks if is lease successful.
+	 *
+	 * @return true, if is lease successful
+	 */
 	public boolean isLeaseSuccessful(){
 		return leaseSucceed;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return "Projector Response";
 	}

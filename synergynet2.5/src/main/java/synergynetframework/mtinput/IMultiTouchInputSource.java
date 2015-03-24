@@ -34,6 +34,7 @@ package synergynetframework.mtinput;
 
 import synergynetframework.mtinput.exceptions.MultiTouchInputException;
 
+
 /**
  * Generic type for multi-touch input services.  Allows for the registration
  * and de-registration of listeners to multi-touch events, as defined in
@@ -52,14 +53,23 @@ public interface IMultiTouchInputSource {
 	/**
 	 * Register the listener to receive multi-touch events, as defined in
 	 * IMultiTouchInputListener.
-	 * @param listener
+	 *
+	 * @param listener the listener
 	 */
 	public void registerMultiTouchEventListener(IMultiTouchEventListener listener);
+	
+	/**
+	 * Register multi touch event listener.
+	 *
+	 * @param listener the listener
+	 * @param index the index
+	 */
 	public void registerMultiTouchEventListener(IMultiTouchEventListener listener, int index);
 	
 	/**
 	 * Stops the listener from receiving multi-touch events.
-	 * @param listener
+	 *
+	 * @param listener the listener
 	 */
 	public void unregisterMultiTouchEventListener(IMultiTouchEventListener listener);
 	
@@ -72,5 +82,11 @@ public interface IMultiTouchInputSource {
 	public void setClickSensitivity(long time, float distance);
 	
 
+	/**
+	 * Update.
+	 *
+	 * @param tpf the tpf
+	 * @throws MultiTouchInputException the multi touch input exception
+	 */
 	public void update(float tpf) throws MultiTouchInputException;
 }

@@ -27,35 +27,73 @@ package synergynetframework.appsystem.contentsystem.items.utils.vnc;
 import java.util.Vector;
 import java.util.Hashtable;
 
+
+/**
+ * The Class CapsContainer.
+ */
 @SuppressWarnings({"rawtypes", "unchecked"})
 class CapsContainer {
 
   // Public methods
 
 
-public CapsContainer() {
+/**
+   * Instantiates a new caps container.
+   */
+  public CapsContainer() {
     infoMap = new Hashtable(64, (float)0.25);
     orderedList = new Vector(32, 8);
   }
 
+  /**
+   * Adds the.
+   *
+   * @param capinfo the capinfo
+   */
   public void add(CapabilityInfo capinfo) {
     Integer key = new Integer(capinfo.getCode());
     infoMap.put(key, capinfo);
   }
 
+  /**
+   * Adds the.
+   *
+   * @param code the code
+   * @param vendor the vendor
+   * @param name the name
+   * @param desc the desc
+   */
   public void add(int code, String vendor, String name, String desc) {
     Integer key = new Integer(code);
     infoMap.put(key, new CapabilityInfo(code, vendor, name, desc));
   }
 
+  /**
+   * Checks if is known.
+   *
+   * @param code the code
+   * @return true, if is known
+   */
   public boolean isKnown(int code) {
     return infoMap.containsKey(new Integer(code));
   }
 
+  /**
+   * Gets the info.
+   *
+   * @param code the code
+   * @return the info
+   */
   public CapabilityInfo getInfo(int code) {
     return (CapabilityInfo)infoMap.get(new Integer(code));
   }
 
+  /**
+   * Gets the description.
+   *
+   * @param code the code
+   * @return the description
+   */
   public String getDescription(int code) {
     CapabilityInfo capinfo = (CapabilityInfo)infoMap.get(new Integer(code));
     if (capinfo == null)
@@ -64,6 +102,12 @@ public CapsContainer() {
     return capinfo.getDescription();
   }
 
+  /**
+   * Enable.
+   *
+   * @param other the other
+   * @return true, if successful
+   */
   public boolean enable(CapabilityInfo other) {
     Integer key = new Integer(other.getCode());
     CapabilityInfo capinfo = (CapabilityInfo)infoMap.get(key);
@@ -77,6 +121,12 @@ public CapsContainer() {
     return enabled;
   }
 
+  /**
+   * Checks if is enabled.
+   *
+   * @param code the code
+   * @return true, if is enabled
+   */
   public boolean isEnabled(int code) {
     CapabilityInfo capinfo = (CapabilityInfo)infoMap.get(new Integer(code));
     if (capinfo == null)
@@ -85,10 +135,21 @@ public CapsContainer() {
     return capinfo.isEnabled();
   }
 
+  /**
+   * Num enabled.
+   *
+   * @return the int
+   */
   public int numEnabled() {
     return orderedList.size();
   }
 
+  /**
+   * Gets the by order.
+   *
+   * @param idx the idx
+   * @return the by order
+   */
   public int getByOrder(int idx) {
     int code;
     try {
@@ -101,7 +162,10 @@ public CapsContainer() {
 
   // Protected data
 
+  /** The info map. */
   protected Hashtable infoMap;
+  
+  /** The ordered list. */
   protected Vector orderedList;
 }
 

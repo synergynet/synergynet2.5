@@ -48,6 +48,7 @@ import synergynetframework.mtinput.IMultiTouchEventListener;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 import synergynetframework.mtinput.events.MultiTouchObjectEvent;
 
+
 /**
  * Relies on MultiTouch table input events being supplied with the
  * coordinate mode as CoordinateMode.ZERO_TO_ONE_YFLIP
@@ -60,14 +61,27 @@ public class MultiTouchCursorSystem implements IMultiTouchEventListener {
 
 //	private static Logger log = Logger.getLogger(MultiTouchCursorSystemImpl.class.getName());
 
-	protected IJMEMultiTouchPicker pickSystem;
+	/** The pick system. */
+protected IJMEMultiTouchPicker pickSystem;
+	
+	/** The spatial registry. */
 	protected MultiTouchElementRegistry spatialRegistry = MultiTouchElementRegistry.getInstance();
+	
+	/** The cursor registry. */
 	protected CursorRegistry cursorRegistry = CursorRegistry.getInstance();
 
+	/**
+	 * Sets the pick system.
+	 *
+	 * @param pickSystem the new pick system
+	 */
 	public void setPickSystem(IJMEMultiTouchPicker pickSystem) {
 		this.pickSystem = pickSystem;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorPressed(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorPressed(MultiTouchCursorEvent event) {
 		ScreenCursor c = new ScreenCursor(event.getCursorID());
 		cursorRegistry.addCursor(c);
@@ -112,6 +126,9 @@ public class MultiTouchCursorSystem implements IMultiTouchEventListener {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorReleased(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorReleased(MultiTouchCursorEvent event) {
 		List<MultiTouchElement> nodes = spatialRegistry.getRegisteredElementsForCursorID(event.getCursorID());
 		ScreenCursor c = CursorRegistry.getInstance().getCursor(event.getCursorID());
@@ -125,6 +142,9 @@ public class MultiTouchCursorSystem implements IMultiTouchEventListener {
 		cursorRegistry.removeCursor(c.getID());
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorChanged(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorChanged(MultiTouchCursorEvent event) {
 		ScreenCursor c = cursorRegistry.getCursor(event.getCursorID());
 		c.addPositionItem(new ScreenCursorRecord(tableToScreen(event.getPosition()), tableToScreen(event.getVelocity())));
@@ -136,6 +156,9 @@ public class MultiTouchCursorSystem implements IMultiTouchEventListener {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorClicked(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorClicked(MultiTouchCursorEvent event) {
 		ScreenCursor c = cursorRegistry.getCursor(event.getCursorID());
 		List<MultiTouchElement> items = spatialRegistry.getRegisteredElementsForCursorID(c.getID());
@@ -148,22 +171,43 @@ public class MultiTouchCursorSystem implements IMultiTouchEventListener {
 
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectAdded(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectAdded(MultiTouchObjectEvent event) {
 		//TODO: Fiducials/objects
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectChanged(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectChanged(MultiTouchObjectEvent event) {
 		//TODO: Fiducials/objects
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectRemoved(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectRemoved(MultiTouchObjectEvent event) {
 		//TODO: Fiducials/objects
 	}
 
+	/**
+	 * Table to screen.
+	 *
+	 * @param f the f
+	 * @return the vector2f
+	 */
 	public static Vector2f tableToScreen(Point2D.Float f) {
 		return new Vector2f(f.x * DisplaySystem.getDisplaySystem().getWidth(), f.y * DisplaySystem.getDisplaySystem().getHeight());
 	}
 
+	/**
+	 * Screen to table.
+	 *
+	 * @param v the v
+	 * @return the point2 d. float
+	 */
 	public static Point2D.Float screenToTable(Vector2f v) {
 		return new Point2D.Float(v.x / DisplaySystem.getDisplaySystem().getWidth(), v.y / DisplaySystem.getDisplaySystem().getHeight());
 	}

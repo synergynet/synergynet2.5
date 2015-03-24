@@ -35,17 +35,52 @@ package synergynetframework.appsystem.contentsystem.contentsaver;
 
 import java.util.Map;
 
+
+/**
+ * The Interface IContentSaver.
+ */
 public interface IContentSaver {
 	
+	/**
+	 * Save.
+	 */
 	public void save();
 	
+	/**
+	 * Sets the file.
+	 *
+	 * @param fileName the new file
+	 */
 	public void setFile(String fileName);
 	
+	/**
+	 * Adds the common attribute.
+	 *
+	 * @param attributeName the attribute name
+	 * @param attributeValue the attribute value
+	 */
 	public void addCommonAttribute(String attributeName, String attributeValue);
 	
+	/**
+	 * Adds the items.
+	 *
+	 * @param items the items
+	 */
 	public void addItems(Map<String, Map<String, String>> items);
+	
+	/**
+	 * Adds the item.
+	 *
+	 * @param itemID the item id
+	 * @param attributes the attributes
+	 */
 	public void addItem(String itemID, Map<String, String> attributes);
 	
+	/**
+	 * Adds the sub saver.
+	 *
+	 * @param attributeSaver the attribute saver
+	 */
 	public void addSubSaver(IContentSaver attributeSaver);
 	
 }

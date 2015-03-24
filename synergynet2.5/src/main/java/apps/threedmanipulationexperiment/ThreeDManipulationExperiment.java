@@ -68,44 +68,90 @@ import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightE
 import synergynetframework.jme.config.AppConfig;
 import synergynetframework.jme.sysutils.CameraUtility;
 
+
+/**
+ * The Class ThreeDManipulationExperiment.
+ */
 public class ThreeDManipulationExperiment extends DefaultSynergyNetApp {
 
+	/** The Constant DISPLAYLOCATION_MANIPULATIONOBJECT_MODE_INDIRECT. */
 	public final static Vector3f DISPLAYLOCATION_MANIPULATIONOBJECT_MODE_INDIRECT = new Vector3f(-10f, 5f, 100f);
+	
+	/** The Constant DISPLAYLOCATION_MANIPULATIONOBJECT_MODE_DIRECT. */
 	public final static Vector3f DISPLAYLOCATION_MANIPULATIONOBJECT_MODE_DIRECT = new Vector3f(-10f, -5f, 100f);
+	
+	/** The Constant DISPLAYLOCATION_TOUCHPAD. */
 	public final static Vector2f DISPLAYLOCATION_TOUCHPAD = new Vector2f(250, 200);
+	
+	/** The Constant HIDDENLOCATION. */
 	public final static Vector3f HIDDENLOCATION = new Vector3f(10000, 10000, 10000);
 
+	/** The Constant MODE_DIRECTMANIPULATION. */
 	public final static String MODE_DIRECTMANIPULATION = "Direct";
+	
+	/** The Constant MODE_INDIRECTMANIPULATION. */
 	public final static String MODE_INDIRECTMANIPULATION = "Indirect";
 	
+	/** The Constant SIZE_BIG. */
 	public final static String SIZE_BIG = "big";
+	
+	/** The Constant SIZE_MIDDIUM. */
 	public final static String SIZE_MIDDIUM = "middium";
+	
+	/** The Constant SIZE_SMALL. */
 	public final static String SIZE_SMALL = "small";
 	
+	/** The Constant RATE_FAST. */
 	public final static String RATE_FAST = "fast";
+	
+	/** The Constant RATE_MIDDIUM. */
 	public final static String RATE_MIDDIUM = "ratemiddium";
+	
+	/** The Constant RATE_SLOW. */
 	public final static String RATE_SLOW = "slow";
 	
+	/** The conditions. */
 	protected List<String> conditions = new ArrayList<String>();
 	
+	/** The content system. */
 	protected ContentSystem contentSystem;
 	
+	/** The next trail button. */
 	protected SimpleButton nextTrailButton;
 	
+	/** The touch pad. */
 	protected TouchPad touchPad;
+	
+	/** The tp1. */
 	protected Teapot tp1;
+	
+	/** The target. */
 	protected Teapot target;
 	  
+	/** The manipulation mode. */
 	private String manipulationMode = "";
 	
+	/** The trail index. */
 	private int trailIndex =0;
+	
+	/** The is experiment completed. */
 	private boolean isExperimentCompleted=false;
+	
+	/** The object rotate translate. */
 	private ObjectRotateTranslate objectRotateTranslate;
 	  
+	/**
+	 * Instantiates a new three d manipulation experiment.
+	 *
+	 * @param info the info
+	 */
 	public ThreeDManipulationExperiment(ApplicationInfo info) {
 		super(info);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 	
@@ -122,10 +168,16 @@ public class ThreeDManipulationExperiment extends DefaultSynergyNetApp {
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	public void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);
 	}
 
+	/**
+	 * Setup lighting.
+	 */
 	protected void setupLighting() {
 		LightState lightState = DisplaySystem.getDisplaySystem().getRenderer().createLightState();
 		worldNode.setRenderState(lightState);
@@ -148,6 +200,9 @@ public class ThreeDManipulationExperiment extends DefaultSynergyNetApp {
 		worldNode.updateRenderState();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#getCamera()
+	 */
 	protected Camera getCamera() {
 		if(cam == null) {
 			cam = CameraUtility.getCamera();
@@ -158,6 +213,9 @@ public class ThreeDManipulationExperiment extends DefaultSynergyNetApp {
 		return cam;
 	}
 	
+	/**
+	 * Builds the sence.
+	 */
 	private void buildSence() {       
         buildManipulatedObjects();	
         buildTargetObject();
@@ -167,6 +225,9 @@ public class ThreeDManipulationExperiment extends DefaultSynergyNetApp {
 		
 	}
 	
+	/**
+	 * Builds the buttons.
+	 */
 	private void buildButtons(){    
        
 		nextTrailButton = (SimpleButton)contentSystem.createContentItem(SimpleButton.class);	
@@ -203,6 +264,9 @@ public class ThreeDManipulationExperiment extends DefaultSynergyNetApp {
 	}
 	
 	
+	/**
+	 * Builds the target object.
+	 */
 	private void buildTargetObject(){
 
 		TextLabel targetTitle = (TextLabel)contentSystem.createContentItem(TextLabel.class);
@@ -233,6 +297,9 @@ public class ThreeDManipulationExperiment extends DefaultSynergyNetApp {
      
 	}
 	
+	/**
+	 * Builds the manipulated objects.
+	 */
 	private void buildManipulatedObjects(){
 		
 			TextLabel manipulateObjectTitle = (TextLabel)contentSystem.createContentItem(TextLabel.class);
@@ -284,6 +351,11 @@ public class ThreeDManipulationExperiment extends DefaultSynergyNetApp {
 			touchPad.setLocation(new Vector2f(HIDDENLOCATION.x, HIDDENLOCATION.y));
 	}
 	
+	/**
+	 * Sets the manipulation mode.
+	 *
+	 * @param mode the new manipulation mode
+	 */
 	private void setManipulationMode(String mode){
 		this.manipulationMode=mode;
 		if (mode.equals(MODE_DIRECTMANIPULATION)){
@@ -296,6 +368,11 @@ public class ThreeDManipulationExperiment extends DefaultSynergyNetApp {
 		}
 	}
 	
+	/**
+	 * Sets the size.
+	 *
+	 * @param size the new size
+	 */
 	private void setSize(String size){
 		if (size.equals(SIZE_BIG)){
 			tp1.setLocalScale(2f);
@@ -316,6 +393,11 @@ public class ThreeDManipulationExperiment extends DefaultSynergyNetApp {
 		tp1.updateGeometricState(0f, false);
 	}
 	
+	/**
+	 * Sets the rate.
+	 *
+	 * @param rate the new rate
+	 */
 	private void setRate(String rate){
 		if (rate.equals(RATE_FAST)){
 	
@@ -328,6 +410,11 @@ public class ThreeDManipulationExperiment extends DefaultSynergyNetApp {
 		}
 	}
 	
+	/**
+	 * End trail.
+	 *
+	 * @param touchNumber the touch number
+	 */
 	private void endTrail(int touchNumber){
 				
 		MaterialState materialState = (MaterialState)tp1.getRenderState(StateType.Material);
@@ -346,10 +433,16 @@ public class ThreeDManipulationExperiment extends DefaultSynergyNetApp {
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#cleanup()
+	 */
 	public void cleanup() {
 		super.cleanup();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#stateRender(float)
+	 */
 	@Override
 	protected void stateRender(float tpf) {
 		super.stateRender(tpf);
@@ -357,6 +450,9 @@ public class ThreeDManipulationExperiment extends DefaultSynergyNetApp {
 	}
 	
 	
+	/**
+	 * Move to next condition.
+	 */
 	private void moveToNextCondition(){
 
 		if (conditions.size()<=0){
@@ -376,6 +472,9 @@ public class ThreeDManipulationExperiment extends DefaultSynergyNetApp {
 		}
 	}
 	
+	/**
+	 * Reset trail.
+	 */
 	private void resetTrail(){
 		Quaternion tq = new Quaternion();
 		tq.fromAngleAxis(2.36f, Vector3f.UNIT_XYZ);
@@ -404,6 +503,11 @@ public class ThreeDManipulationExperiment extends DefaultSynergyNetApp {
            
 	}
 	
+	/**
+	 * Sets the up condition.
+	 *
+	 * @param condition the new up condition
+	 */
 	private void setupCondition(String condition){
 			
 		if (condition.equals("DirectNormalNormal")){

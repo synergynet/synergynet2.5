@@ -38,11 +38,19 @@ import java.util.Vector;
 
 import com.illposed.osc.utility.*;
 
+
+/**
+ * The Class OSCBundle.
+ */
 public class OSCBundle extends OSCPacket {
 
+	/** The timestamp. */
 	protected Date timestamp;
 	//	protected OSCPacket[] packets;
+	/** The packets. */
 	protected Vector<OSCPacket> packets;
+	
+	/** The Constant SECONDS_FROM_1900_to_1970. */
 	public static final BigInteger SECONDS_FROM_1900_to_1970 =
 		new BigInteger("2208988800");
 	// 17 leap years
@@ -56,14 +64,17 @@ public class OSCBundle extends OSCPacket {
 	}
 	
 	/**
-	 * Create an OSCBundle with the specified timestamp
-	 * @param timestamp
+	 * Create an OSCBundle with the specified timestamp.
+	 *
+	 * @param timestamp the timestamp
 	 */
 	public OSCBundle(Date timestamp) {
 		this(null, timestamp);
 	}
 
 	/**
+	 * Instantiates a new OSC bundle.
+	 *
 	 * @param newPackets Array of OSCPackets to initialize this object with
 	 */
 	public OSCBundle(OSCPacket[] newPackets) {
@@ -71,8 +82,10 @@ public class OSCBundle extends OSCPacket {
 	}
 
 	/**
+	 * Instantiates a new OSC bundle.
+	 *
 	 * @param newPackets OscPacket[]
-	 * @param time java.lang.Time
+	 * @param newTimestamp the new timestamp
 	 */
 	public OSCBundle(OSCPacket[] newPackets, Date newTimestamp) {
 		super();
@@ -88,7 +101,8 @@ public class OSCBundle extends OSCPacket {
 	}
 	
 	/**
-	 * Return the timestamp for this bundle
+	 * Return the timestamp for this bundle.
+	 *
 	 * @return a Date
 	 */
 	public Date getTimestamp() {
@@ -96,23 +110,26 @@ public class OSCBundle extends OSCPacket {
 	}
 	
 	/**
-	 * Set the timestamp for this bundle
-	 * @param timestamp
+	 * Set the timestamp for this bundle.
+	 *
+	 * @param timestamp the new timestamp
 	 */
 	public void setTimestamp(Date timestamp) {
 		this.timestamp = timestamp;
 	}
 	
 	/**
-	 * Add a packet to the list of packets in this bundle
-	 * @param packet
+	 * Add a packet to the list of packets in this bundle.
+	 *
+	 * @param packet the packet
 	 */
 	public void addPacket(OSCPacket packet) {
 		packets.add(packet);
 	}
 	
 	/**
-	 * Get the packets contained in this bundle
+	 * Get the packets contained in this bundle.
+	 *
 	 * @return an array of packets
 	 */
 	public OSCPacket[] getPackets() {
@@ -121,6 +138,11 @@ public class OSCBundle extends OSCPacket {
 		return packetArray;
 	}
 
+	/**
+	 * Compute time tag byte array.
+	 *
+	 * @param stream the stream
+	 */
 	protected void computeTimeTagByteArray(OSCJavaToByteArrayConverter stream) {
 		long millisecs = timestamp.getTime();
 		long secsSince1970 = (long) (millisecs / 1000);
@@ -133,6 +155,8 @@ public class OSCBundle extends OSCPacket {
 	}
 
 	/**
+	 * Compute byte array.
+	 *
 	 * @param stream OscPacketByteArrayConverter
 	 */
 	protected void computeByteArray(OSCJavaToByteArrayConverter stream) {

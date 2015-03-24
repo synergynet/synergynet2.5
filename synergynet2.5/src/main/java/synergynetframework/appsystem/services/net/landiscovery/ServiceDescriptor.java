@@ -34,52 +34,132 @@ package synergynetframework.appsystem.services.net.landiscovery;
 
 import java.net.InetAddress;
 
+
+/**
+ * The Class ServiceDescriptor.
+ */
 public class ServiceDescriptor implements Comparable<ServiceDescriptor> {
 
+	/** The service address. */
 	private InetAddress serviceAddress;
+	
+	/** The service port. */
 	private int servicePort;
+	
+	/** The service type. */
 	private String serviceType;
+	
+	/** The service name. */
 	private String serviceName;
+	
+	/** The user data. */
 	private String userData;
 	
+	/**
+	 * Instantiates a new service descriptor.
+	 */
 	public ServiceDescriptor() {}
 
+	/**
+	 * Sets the service address.
+	 *
+	 * @param serviceAddress the new service address
+	 */
 	public void setServiceAddress(InetAddress serviceAddress) {
 		this.serviceAddress = serviceAddress;
 	}
+	
+	/**
+	 * Gets the service address.
+	 *
+	 * @return the service address
+	 */
 	public InetAddress getServiceAddress() {
 		return serviceAddress;
 	}
+	
+	/**
+	 * Sets the service port.
+	 *
+	 * @param servicePort the new service port
+	 */
 	public void setServicePort(int servicePort) {
 		this.servicePort = servicePort;
 	}
+	
+	/**
+	 * Gets the service port.
+	 *
+	 * @return the service port
+	 */
 	public int getServicePort() {
 		return servicePort;
 	}
+	
+	/**
+	 * Sets the service type.
+	 *
+	 * @param serviceType the new service type
+	 */
 	public void setServiceType(String serviceType) {
 		this.serviceType = serviceType;
 	}
+	
+	/**
+	 * Gets the service type.
+	 *
+	 * @return the service type
+	 */
 	public String getServiceType() {
 		return serviceType;
 	}
+	
+	/**
+	 * Sets the service name.
+	 *
+	 * @param serviceName the new service name
+	 */
 	public void setServiceName(String serviceName) {
 		this.serviceName = serviceName;
 	}
+	
+	/**
+	 * Gets the service name.
+	 *
+	 * @return the service name
+	 */
 	public String getServiceName() {
 		return serviceName;
 	}
 
+	/**
+	 * Gets the user data.
+	 *
+	 * @return the user data
+	 */
 	public String getUserData() {
 		return userData;
 	}
+	
+	/**
+	 * Sets the user data.
+	 *
+	 * @param userData the new user data
+	 */
 	public void setUserData(String userData) {
 		this.userData = userData;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	public int hashCode() {
 		return getStringRepresentation().hashCode();
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	public boolean equals(Object obj) {
 		if(obj instanceof ServiceDescriptor) {
 			return ((ServiceDescriptor)obj).getStringRepresentation().equals(getStringRepresentation());
@@ -87,14 +167,28 @@ public class ServiceDescriptor implements Comparable<ServiceDescriptor> {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
 	public int compareTo(ServiceDescriptor o) {
 		return o.getStringRepresentation().compareTo(getStringRepresentation());
 	}
 
+	/**
+	 * Gets the string representation.
+	 *
+	 * @return the string representation
+	 */
 	public String getStringRepresentation() {
 		return getServiceType() + "|" + getServiceName() + "@" + getServiceAddress().getHostAddress() + "|" + getServicePort() + "|" + getUserData();
 	}
 
+	/**
+	 * Gets the service descriptor from string representation.
+	 *
+	 * @param s the s
+	 * @return the service descriptor from string representation
+	 */
 	public static ServiceDescriptor getServiceDescriptorFromStringRepresentation(String s) {
 		try {
 			ServiceDescriptor sd = new ServiceDescriptor();

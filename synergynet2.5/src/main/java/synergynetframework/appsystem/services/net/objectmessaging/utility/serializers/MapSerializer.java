@@ -41,19 +41,47 @@ import java.util.Map.Entry;
 import synergynetframework.appsystem.services.net.objectmessaging.Network;
 import synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler;
 
+
+/**
+ * The Class MapSerializer.
+ */
 public class MapSerializer extends Serializer {
+	
+	/** The Constant instance. */
 	static private final MapSerializer instance = new MapSerializer();
 
+	/** The key class. */
 	private Class<?> keyClass;
+	
+	/** The value class. */
 	private Class<?> valueClass;
+	
+	/** The key serializer. */
 	private Serializer keySerializer;
+	
+	/** The value serializer. */
 	private Serializer valueSerializer;
+	
+	/** The keys are not null. */
 	private boolean keysAreNotNull;
+	
+	/** The values are not null. */
 	private boolean valuesAreNotNull;
 
+	/**
+	 * Instantiates a new map serializer.
+	 */
 	public MapSerializer () {
 	}
 
+	/**
+	 * Instantiates a new map serializer.
+	 *
+	 * @param keyClass the key class
+	 * @param keysAreNotNull the keys are not null
+	 * @param valueClass the value class
+	 * @param valuesAreNotNull the values are not null
+	 */
 	public MapSerializer (Class<?> keyClass, boolean keysAreNotNull, Class<?> valueClass, boolean valuesAreNotNull) {
 		this.keyClass = keyClass;
 		this.keysAreNotNull = keysAreNotNull;
@@ -63,6 +91,9 @@ public class MapSerializer extends Serializer {
 		valueSerializer = valueClass == null ? null : Network.getRegisteredClass(valueClass).serializer;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.utility.serializers.Serializer#writeObjectData(synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler, java.nio.ByteBuffer, java.lang.Object, boolean)
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void writeObjectData (ConnectionHandler connectionHandler, ByteBuffer buffer, Object object, boolean lengthKnown)
 		throws SerializationException {
@@ -89,6 +120,9 @@ public class MapSerializer extends Serializer {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.utility.serializers.Serializer#readObjectData(synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler, java.nio.ByteBuffer, java.lang.Class, boolean)
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public <T> T readObjectData (ConnectionHandler connectionHandler, ByteBuffer buffer, Class<T> type, boolean lengthKnown)
 		throws SerializationException {
@@ -117,6 +151,18 @@ public class MapSerializer extends Serializer {
 		return (T)map;
 	}
 
+	/**
+	 * Put.
+	 *
+	 * @param connectionHandler the connection handler
+	 * @param buffer the buffer
+	 * @param object the object
+	 * @param keyClass the key class
+	 * @param keysAreNotNull the keys are not null
+	 * @param valueClass the value class
+	 * @param valuesAreNotNull the values are not null
+	 * @throws SerializationException the serialization exception
+	 */
 	static public void put (ConnectionHandler connectionHandler, ByteBuffer buffer, Object object, Class<?> keyClass, boolean keysAreNotNull,
 		Class<?> valueClass, boolean valuesAreNotNull) throws SerializationException {
 		instance.keyClass = keyClass;
@@ -126,6 +172,20 @@ public class MapSerializer extends Serializer {
 		instance.writeObjectData(connectionHandler, buffer, object, false);
 	}
 
+	/**
+	 * Gets the.
+	 *
+	 * @param <T> the generic type
+	 * @param connectionHandler the connection handler
+	 * @param buffer the buffer
+	 * @param type the type
+	 * @param keyClass the key class
+	 * @param keysAreNotNull the keys are not null
+	 * @param valueClass the value class
+	 * @param valuesAreNotNull the values are not null
+	 * @return the t
+	 * @throws SerializationException the serialization exception
+	 */
 	static public <T> T get (ConnectionHandler connectionHandler, ByteBuffer buffer, Class<T> type, Class<?> keyClass, boolean keysAreNotNull,
 		Class<?> valueClass, boolean valuesAreNotNull) throws SerializationException {
 		instance.keyClass = keyClass;

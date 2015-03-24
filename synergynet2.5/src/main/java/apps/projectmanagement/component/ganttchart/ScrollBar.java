@@ -13,21 +13,55 @@ import apps.projectmanagement.gesture.ScrollBarControl.ScrollBarListener;
 
 import com.jme.scene.Spatial;
 
+
+/**
+ * The Class ScrollBar.
+ */
 public class ScrollBar {
 
+	/** The length. */
 	private int length;
+	
+	/** The heigth. */
 	private int heigth;
+	
+	/** The content length. */
 	private int contentLength;
+	
+	/** The frame. */
 	private Window frame;
+	
+	/** The handle bar. */
 	private Frame handleBar;
+	
+	/** The content system. */
 	private ContentSystem contentSystem;
+	
+	/** The border size. */
 	private int borderSize = 2;
 	
-	public enum Direction{H, V};
+	/**
+	 * The Enum Direction.
+	 */
+	public enum Direction{/** The h. */
+H, /** The v. */
+ V};
+	
+	/** The direction. */
 	protected Direction direction = Direction.H;
 	
+	/** The scroll bar listeners. */
 	protected List<ScrollListener> scrollBarListeners = new ArrayList<ScrollListener>();
 	
+	/**
+	 * Instantiates a new scroll bar.
+	 *
+	 * @param length the length
+	 * @param heigth the heigth
+	 * @param contentLength the content length
+	 * @param contentSystem the content system
+	 * @param direction the direction
+	 */
 	public ScrollBar(int length, int heigth, int contentLength, ContentSystem contentSystem, Direction direction){
 		this.length = length;
 		this.heigth = heigth;
@@ -38,6 +72,9 @@ public class ScrollBar {
 		init();
 	}
 	
+	/**
+	 * Inits the.
+	 */
 	protected void init(){
 		frame = (Window) contentSystem.createContentItem(Window.class);
 		if (this.direction==Direction.H){
@@ -95,19 +132,52 @@ public class ScrollBar {
 	
 	}
 	
+	/**
+	 * Adds the scroll bar listener.
+	 *
+	 * @param l the l
+	 */
 	public void addScrollBarListener(ScrollListener l){
 		scrollBarListeners.add(l);
 	}
 
+	/**
+	 * Removes the scroll bar listener.
+	 *
+	 * @param l the l
+	 */
 	public void removeScrollBarListener(ScrollListener l){
 		if (scrollBarListeners.contains(l))
 			scrollBarListeners.remove(l);
 	}
 
+	/**
+	 * The listener interface for receiving scroll events.
+	 * The class that is interested in processing a scroll
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addScrollListener<code> method. When
+	 * the scroll event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see ScrollEvent
+	 */
 	public interface ScrollListener {
+		
+		/**
+		 * Moved.
+		 *
+		 * @param scrollBarMovedDistance the scroll bar moved distance
+		 * @param contentMovedDistance the content moved distance
+		 */
 		public void moved(float scrollBarMovedDistance, float contentMovedDistance);
 	}
 	
+	/**
+	 * Gets the scroll bar content item.
+	 *
+	 * @return the scroll bar content item
+	 */
 	public Window getScrollBarContentItem(){
 		return frame;
 	}

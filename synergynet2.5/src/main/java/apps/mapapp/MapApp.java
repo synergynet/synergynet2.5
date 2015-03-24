@@ -46,15 +46,30 @@ import synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp;
 import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightExit;
 
+
+/**
+ * The Class MapApp.
+ */
 public class MapApp extends DefaultSynergyNetApp {
 	
+	/** The content system. */
 	private ContentSystem contentSystem;
+	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(TableCommsClientService.class.getName());
 
+	/**
+	 * Instantiates a new map app.
+	 *
+	 * @param info the info
+	 */
 	public MapApp(ApplicationInfo info) {
 		super(info);		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		contentSystem = ContentSystem.getContentSystemForSynergyNetApp(this);		
@@ -92,9 +107,15 @@ public class MapApp extends DefaultSynergyNetApp {
         background.setBringToTopable(false);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onDeactivate()
+	 */
 	@Override
 	protected void onDeactivate() {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	@Override
 	protected void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);

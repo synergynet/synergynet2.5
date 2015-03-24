@@ -41,15 +41,30 @@ import synergynetframework.jme.cursorsystem.ThreeDMultiTouchElement;
 import synergynetframework.jme.cursorsystem.cursordata.ScreenCursor;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 
+
+/**
+ * The Class MultiTouchRotateXY.
+ */
 public class MultiTouchRotateXY extends ThreeDMultiTouchElement {
 
+	/** The Constant AXIS_X. */
 	public static final Vector3f AXIS_X = new Vector3f(1,0,0).normalize();
+	
+	/** The Constant AXIS_Y. */
 	public static final Vector3f AXIS_Y = new Vector3f(0,1,0).normalize();
 	
+	/**
+	 * Instantiates a new multi touch rotate xy.
+	 *
+	 * @param pickingAndTargetSpatial the picking and target spatial
+	 */
 	public MultiTouchRotateXY(Spatial pickingAndTargetSpatial) {
 		super(pickingAndTargetSpatial);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorChanged(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorChanged(ScreenCursor c, MultiTouchCursorEvent event) {		
 		
@@ -81,13 +96,22 @@ public class MultiTouchRotateXY extends ThreeDMultiTouchElement {
 				
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorClicked(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorClicked(ScreenCursor c, MultiTouchCursorEvent event) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorPressed(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorPressed(ScreenCursor c, MultiTouchCursorEvent event) {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorReleased(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorReleased(ScreenCursor c, MultiTouchCursorEvent event) {}
 

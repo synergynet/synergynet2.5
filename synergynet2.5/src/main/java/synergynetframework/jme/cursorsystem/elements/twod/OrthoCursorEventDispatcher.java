@@ -42,39 +42,78 @@ import synergynetframework.jme.cursorsystem.cursordata.ScreenCursor;
 import synergynetframework.mtinput.RightClickDetector;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 
+
+/**
+ * The Class OrthoCursorEventDispatcher.
+ */
 public class OrthoCursorEventDispatcher extends TwoDMultiTouchElement{
 		
+	/** The listeners. */
 	protected List<CommonCursorEventListener> listeners = new ArrayList<CommonCursorEventListener>();
+	
+	/** The right click distance. */
 	protected float rightClickDistance = 10f;
 	
+	/**
+	 * Instantiates a new ortho cursor event dispatcher.
+	 *
+	 * @param pickingAndTargetSpatial the picking and target spatial
+	 */
 	public OrthoCursorEventDispatcher(Spatial pickingAndTargetSpatial) {
 		super(pickingAndTargetSpatial);		
 	}
 	
+	/**
+	 * Instantiates a new ortho cursor event dispatcher.
+	 *
+	 * @param pickingSpatial the picking spatial
+	 * @param targetSpatial the target spatial
+	 */
 	public OrthoCursorEventDispatcher(Spatial pickingSpatial,
 			Spatial targetSpatial) {
 		super(pickingSpatial, targetSpatial);
 	}
 	
+	/**
+	 * Sets the right click distance.
+	 *
+	 * @param rightClickDistance the new right click distance
+	 */
 	public void setRightClickDistance(float rightClickDistance){
 		this.rightClickDistance = rightClickDistance;
 	}
 	
+	/**
+	 * Adds the multi touch listener.
+	 *
+	 * @param l the l
+	 */
 	public void addMultiTouchListener(CommonCursorEventListener l) {
 		if(!listeners.contains(l))
 			listeners.add(l);
 	}
 	
+	/**
+	 * Removes the multi touch listener.
+	 *
+	 * @param l the l
+	 */
 	public void removeMultiTouchListener(CommonCursorEventListener l) {
 		listeners.remove(l);
 	}
 		
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorChanged(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorChanged(ScreenCursor c, MultiTouchCursorEvent event) {
 		for (CommonCursorEventListener l: listeners)
 			l.cursorChanged(this, c, event);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorClicked(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorClicked(ScreenCursor c, MultiTouchCursorEvent event) {
 		for (CommonCursorEventListener l: listeners){
@@ -86,23 +125,80 @@ public class OrthoCursorEventDispatcher extends TwoDMultiTouchElement{
 	
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorPressed(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorPressed(ScreenCursor c, MultiTouchCursorEvent event) {
 		for (CommonCursorEventListener l: listeners)
 			l.cursorPressed(this, c, event);		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorReleased(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorReleased(ScreenCursor c, MultiTouchCursorEvent event) {
 		for (CommonCursorEventListener l: listeners)
 			l.cursorReleased(this, c, event);		
 	}
 	
+	/**
+	 * The listener interface for receiving commonCursorEvent events.
+	 * The class that is interested in processing a commonCursorEvent
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addCommonCursorEventListener<code> method. When
+	 * the commonCursorEvent event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see CommonCursorEventEvent
+	 */
 	public interface CommonCursorEventListener {
+		
+		/**
+		 * Cursor pressed.
+		 *
+		 * @param commonCursorEventDispatcher the common cursor event dispatcher
+		 * @param c the c
+		 * @param event the event
+		 */
 		public void cursorPressed(OrthoCursorEventDispatcher commonCursorEventDispatcher, ScreenCursor c, MultiTouchCursorEvent event);
+		
+		/**
+		 * Cursor changed.
+		 *
+		 * @param commonCursorEventDispatcher the common cursor event dispatcher
+		 * @param c the c
+		 * @param event the event
+		 */
 		public void cursorChanged(OrthoCursorEventDispatcher commonCursorEventDispatcher, ScreenCursor c, MultiTouchCursorEvent event);
+		
+		/**
+		 * Cursor released.
+		 *
+		 * @param commonCursorEventDispatcher the common cursor event dispatcher
+		 * @param c the c
+		 * @param event the event
+		 */
 		public void cursorReleased(OrthoCursorEventDispatcher commonCursorEventDispatcher, ScreenCursor c, MultiTouchCursorEvent event);
+		
+		/**
+		 * Cursor clicked.
+		 *
+		 * @param commonCursorEventDispatcher the common cursor event dispatcher
+		 * @param c the c
+		 * @param event the event
+		 */
 		public void cursorClicked(OrthoCursorEventDispatcher commonCursorEventDispatcher, ScreenCursor c, MultiTouchCursorEvent event);
+		
+		/**
+		 * Cursor right clicked.
+		 *
+		 * @param commonCursorEventDispatcher the common cursor event dispatcher
+		 * @param c the c
+		 * @param event the event
+		 */
 		public void cursorRightClicked(OrthoCursorEventDispatcher commonCursorEventDispatcher, ScreenCursor c, MultiTouchCursorEvent event);
 	}
 

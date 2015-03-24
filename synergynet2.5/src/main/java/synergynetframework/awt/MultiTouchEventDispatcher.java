@@ -41,6 +41,7 @@ import synergynetframework.mtinput.IMultiTouchEventListener;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 import synergynetframework.mtinput.events.MultiTouchObjectEvent;
 
+
 /**
  * Experimental class to have multi-touch input cause AWT events.
  * @author dcs0ah1
@@ -48,12 +49,21 @@ import synergynetframework.mtinput.events.MultiTouchObjectEvent;
  */
 public class MultiTouchEventDispatcher implements IMultiTouchEventListener {
 
+	/** The target. */
 	private Component target;
 
+	/**
+	 * Instantiates a new multi touch event dispatcher.
+	 *
+	 * @param target the target
+	 */
 	public MultiTouchEventDispatcher(Component target) {
 		this.target = target;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorChanged(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorChanged(MultiTouchCursorEvent evt) {
 		int x = (int)(evt.getPosition().x * target.getSize().width);
 		int y = (int)(evt.getPosition().y * target.getSize().height);
@@ -66,9 +76,15 @@ public class MultiTouchEventDispatcher implements IMultiTouchEventListener {
 		target.dispatchEvent(awtEvent);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorClicked(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorClicked(MultiTouchCursorEvent arg0) {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorPressed(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorPressed(MultiTouchCursorEvent evt) {		
 		int x = (int)(evt.getPosition().x * target.getSize().width);
 		int y = (int)(evt.getPosition().y * target.getSize().height);		
@@ -90,6 +106,9 @@ public class MultiTouchEventDispatcher implements IMultiTouchEventListener {
 		target.dispatchEvent(mousePressed);		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorReleased(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorReleased(MultiTouchCursorEvent evt) {
 		int x = (int)(evt.getPosition().x * target.getSize().width);
 		int y = (int)(evt.getPosition().y * target.getSize().height);		
@@ -105,12 +124,21 @@ public class MultiTouchEventDispatcher implements IMultiTouchEventListener {
 		target.dispatchEvent(awtEvent);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectAdded(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectAdded(MultiTouchObjectEvent arg0) {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectChanged(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectChanged(MultiTouchObjectEvent arg0) {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectRemoved(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectRemoved(MultiTouchObjectEvent arg0) {
 	}
 

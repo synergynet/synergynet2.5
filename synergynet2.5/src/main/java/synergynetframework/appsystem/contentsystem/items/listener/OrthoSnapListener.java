@@ -34,6 +34,25 @@ package synergynetframework.appsystem.contentsystem.items.listener;
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.jme.cursorsystem.fixutils.FixLocationStatus;
 
+
+/**
+ * The listener interface for receiving orthoSnap events.
+ * The class that is interested in processing a orthoSnap
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addOrthoSnapListener<code> method. When
+ * the orthoSnap event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see OrthoSnapEvent
+ */
 public interface OrthoSnapListener {
+	
+	/**
+	 * Item snapped.
+	 *
+	 * @param item the item
+	 * @param fixLocationStatus the fix location status
+	 */
 	public void itemSnapped(ContentItem item, FixLocationStatus fixLocationStatus);
 }

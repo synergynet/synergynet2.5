@@ -4,18 +4,49 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
+/**
+ * The Class TrialLog.
+ */
 public class TrialLog implements LogListener {
+	
+	/** The target string. */
 	protected String targetString;
+	
+	/** The start time. */
 	protected long startTime;
+	
+	/** The end time. */
 	protected long endTime;
+	
+	/** The input string. */
 	protected List<KeyPressRecord> inputString;
+	
+	/** The input history. */
 	protected List<KeyPressRecord> inputHistory;
+	
+	/** The number of correction. */
 	protected int numberOfCorrection=0;
+	
+	/** The effective duration. */
 	protected long effectiveDuration;
+	
+	/** The last key press time. */
 	protected long lastKeyPressTime;
+	
+	/** The result. */
 	protected int result;
+	
+	/** The log writter. */
 	protected DateTextWritter logWritter;
 	
+	/**
+	 * Instantiates a new trial log.
+	 *
+	 * @param targetString the target string
+	 * @param startTime the start time
+	 * @param logWritter the log writter
+	 */
 	public TrialLog(String targetString, long startTime, DateTextWritter logWritter) {
 		super();
 		this.targetString = targetString;
@@ -27,30 +58,63 @@ public class TrialLog implements LogListener {
 		
 	}
 
+	/**
+	 * Gets the target string.
+	 *
+	 * @return the target string
+	 */
 	public String getTargetString() {
 		return targetString;
 	}
 
+	/**
+	 * Gets the start time.
+	 *
+	 * @return the start time
+	 */
 	public long getStartTime() {
 		return startTime;
 	}
 
+	/**
+	 * Gets the end time.
+	 *
+	 * @return the end time
+	 */
 	public long getEndTime() {
 		return endTime;
 	}
 
+	/**
+	 * Gets the input string.
+	 *
+	 * @return the input string
+	 */
 	public List<KeyPressRecord> getInputString() {
 		return inputString;
 	}
 
+	/**
+	 * Gets the input history.
+	 *
+	 * @return the input history
+	 */
 	public List<KeyPressRecord> getInputHistory() {
 		return inputHistory;
 	}
 
+	/**
+	 * Gets the number of correction.
+	 *
+	 * @return the number of correction
+	 */
 	public int getNumberOfCorrection() {
 		return numberOfCorrection;
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.threedbuttonsexperiment.logger.LogListener#deleteKeyPressed()
+	 */
 	@Override
 	public void deleteKeyPressed() {
 		long currentKeyPressTime = new Date().getTime();
@@ -69,6 +133,9 @@ public class TrialLog implements LogListener {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.threedbuttonsexperiment.logger.LogListener#keyPressed(java.lang.String)
+	 */
 	@Override
 	public void keyPressed(String key) {
 		
@@ -89,6 +156,9 @@ public class TrialLog implements LogListener {
 		this.lastKeyPressTime = new Date().getTime();
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.threedbuttonsexperiment.logger.LogListener#submitKeyPressed()
+	 */
 	@Override
 	public void submitKeyPressed() {
 		this.endTime = new Date().getTime();

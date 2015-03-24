@@ -6,10 +6,21 @@ import com.jme.image.Texture;
 import com.jme.scene.Skybox;
 import com.jme.util.TextureManager;
 
+
+/**
+ * The Class DefaultSkyBox.
+ */
 public class DefaultSkyBox extends Skybox {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 4131281165000957490L;
 	
+	/**
+	 * Instantiates a new default sky box.
+	 *
+	 * @param name the name
+	 * @param size the size
+	 */
 	public DefaultSkyBox(String name, float size){
 		super(name, size, size, size);
 		

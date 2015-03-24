@@ -34,22 +34,48 @@ package synergynetframework.appsystem.services.net.tablecomms.messages.applicati
 
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class UnicastApplicationMessage.
+ */
 public class UnicastApplicationMessage extends ApplicationMessage {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -8216315929974220508L;
+	
+	/** The recipient. */
 	private TableIdentity recipient;
 
+	/**
+	 * Instantiates a new unicast application message.
+	 */
 	public UnicastApplicationMessage(){
 		super();
 	}
 	
+	/**
+	 * Instantiates a new unicast application message.
+	 *
+	 * @param targetClass the target class
+	 */
 	public UnicastApplicationMessage(Class<?> targetClass) {
 		super(targetClass);
 	}
 	
+	/**
+	 * Sets the recipient.
+	 *
+	 * @param id the new recipient
+	 */
 	public void setRecipient(TableIdentity id) {
 		this.recipient = id;
 	}
 	
+	/**
+	 * Gets the recipient.
+	 *
+	 * @return the recipient
+	 */
 	public TableIdentity getRecipient() {
 		return recipient;
 	}

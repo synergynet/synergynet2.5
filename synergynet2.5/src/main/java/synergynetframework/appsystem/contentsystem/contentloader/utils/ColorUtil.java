@@ -34,7 +34,18 @@ package synergynetframework.appsystem.contentsystem.contentloader.utils;
 
 import java.awt.Color;
 
+
+/**
+ * The Class ColorUtil.
+ */
 public class ColorUtil {
+	
+	/**
+	 * Gets the color.
+	 *
+	 * @param colorName the color name
+	 * @return the color
+	 */
 	public static Color GetColor(String colorName){
 				
 		if (colorName.toLowerCase().equals("blue"))

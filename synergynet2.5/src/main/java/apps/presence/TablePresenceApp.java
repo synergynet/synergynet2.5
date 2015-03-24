@@ -37,13 +37,27 @@ import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightConfirmVisualExit;
 import synergynetframework.appsystem.table.gfx.GFXUtils;
 
+
+/**
+ * The Class TablePresenceApp.
+ */
 public class TablePresenceApp extends DefaultSynergyNetApp {
+	
+	/** The view. */
 	protected TablePresenceView view;
 	
+	/**
+	 * Instantiates a new table presence app.
+	 *
+	 * @param info the info
+	 */
 	public TablePresenceApp(ApplicationInfo info) {
 		super(info);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		setMenuController(new HoldTopRightConfirmVisualExit(this));
@@ -54,6 +68,9 @@ public class TablePresenceApp extends DefaultSynergyNetApp {
 		orthoNode.updateGeometricState(0f, true);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	@Override
 	protected void stateUpdate(float tpf) {
 		view.draw();

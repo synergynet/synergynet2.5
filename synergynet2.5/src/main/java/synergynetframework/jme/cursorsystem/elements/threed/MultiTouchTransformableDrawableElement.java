@@ -49,14 +49,31 @@ import synergynetframework.jme.pickingsystem.AccuratePickingUtility;
 import synergynetframework.jme.pickingsystem.data.ThreeDPickResultData;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 
+
+/**
+ * The Class MultiTouchTransformableDrawableElement.
+ */
 public class MultiTouchTransformableDrawableElement extends ThreeDMultiTouchElement {
+	
+	/** The pixels per unit. */
 	protected float pixelsPerUnit;
+	
+	/** The quad. */
 	protected DrawableSpatialImage quad;
 	
+	/** The interact area. */
 	protected Rectangle interactArea;
 
+	/** The interact area cursors. */
 	protected Set<Long> interactAreaCursors = new HashSet<Long>();
 
+	/**
+	 * Instantiates a new multi touch transformable drawable element.
+	 *
+	 * @param drawableSpatialImage the drawable spatial image
+	 * @param pixelsPerUnit the pixels per unit
+	 * @param interactArea the interact area
+	 */
 	public MultiTouchTransformableDrawableElement(DrawableSpatialImage drawableSpatialImage, float pixelsPerUnit, Rectangle interactArea) {
 		super(drawableSpatialImage.getSpatial());
 		
@@ -65,6 +82,9 @@ public class MultiTouchTransformableDrawableElement extends ThreeDMultiTouchElem
 		this.pixelsPerUnit = pixelsPerUnit;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorChanged(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorChanged(ScreenCursor c, MultiTouchCursorEvent event) {
 		if(screenCursors.size() <2 ) {
@@ -74,9 +94,15 @@ public class MultiTouchTransformableDrawableElement extends ThreeDMultiTouchElem
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorClicked(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorClicked(ScreenCursor c, MultiTouchCursorEvent event) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorPressed(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorPressed(ScreenCursor c, MultiTouchCursorEvent event) {
 		Point p = getOriginElement2DCoordsForEvent(event);
@@ -87,6 +113,9 @@ public class MultiTouchTransformableDrawableElement extends ThreeDMultiTouchElem
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorReleased(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorReleased(ScreenCursor c, MultiTouchCursorEvent event) {		
 		Point p = getOriginElement2DCoordsForEvent(event);
@@ -97,6 +126,12 @@ public class MultiTouchTransformableDrawableElement extends ThreeDMultiTouchElem
 		}
 	}
 
+	/**
+	 * Gets the current element2 d coords for cursor index.
+	 *
+	 * @param index the index
+	 * @return the current element2 d coords for cursor index
+	 */
 	protected Point getCurrentElement2DCoordsForCursorIndex(int index) {	
 		Vector3f cursorPosition = AccuratePickingUtility.getPointOfIntersection(pickingSpatial.getParent(), this.screenCursors.get(index).getCurrentCursorScreenPosition().getPosition(), pickingSpatial);
 		if(cursorPosition == null) return null;
@@ -110,6 +145,12 @@ public class MultiTouchTransformableDrawableElement extends ThreeDMultiTouchElem
 
 	}
 
+	/**
+	 * Gets the origin element2 d coords for cursor.
+	 *
+	 * @param id the id
+	 * @return the origin element2 d coords for cursor
+	 */
 	protected Point getOriginElement2DCoordsForCursor(long id) {
 		ThreeDPickResultData pickResultData = getPickDataForCursorID(id);
 		Vector3f pointOfSelection = pickResultData.getPointOfSelection();
@@ -122,10 +163,22 @@ public class MultiTouchTransformableDrawableElement extends ThreeDMultiTouchElem
 		return p;		
 	}
 
+	/**
+	 * Gets the origin element2 d coords for event.
+	 *
+	 * @param event the event
+	 * @return the origin element2 d coords for event
+	 */
 	protected Point getOriginElement2DCoordsForEvent(MultiTouchCursorEvent event) {
 		return getOriginElement2DCoordsForCursor(event.getCursorID());		
 	}
 
+	/**
+	 * Single cursor changed.
+	 *
+	 * @param c the c
+	 * @param event the event
+	 */
 	protected void singleCursorChanged(ScreenCursor c, MultiTouchCursorEvent event) {
 		long id = getScreenCursorByIndex(0).getID();
 		Vector2f screenPos = c.getCurrentCursorScreenPosition().getPosition();
@@ -146,6 +199,9 @@ public class MultiTouchTransformableDrawableElement extends ThreeDMultiTouchElem
 	}
 
 
+	/**
+	 * Multiple cursors changed.
+	 */
 	protected void multipleCursorsChanged() {
 		long id0 = getScreenCursorByIndex(0).getID();
 		long id1 = getScreenCursorByIndex(1).getID();

@@ -49,31 +49,66 @@ import synergynetframework.jme.cursorsystem.cursordata.WorldCursorRecord;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 
 
+
+/**
+ * The Class FlickMover.
+ */
 public class FlickMover extends ThreeDMultiTouchElement {
 
+	/** The lower threshold. */
 	public static float lowerThreshold = 0.2f;
+	
+	/** The speed limit. */
 	public static float speedLimit = 3000f;
 
+	/** The flick enabled. */
 	private boolean flickEnabled = false;
+	
+	/** The to be transferred. */
 	public boolean toBeTransferred = false;
+	
+	/** The element released. */
 	private boolean elementReleased  = false;
 	
+	/** The network flick mode. */
 	private boolean networkFlickMode = false;
 
 	// units per second
+	/** The linear velocity. */
 	private Vector3f linearVelocity = Vector3f.ZERO;
 
 	// units per second per second
+	/** The deceleration. */
 	private float deceleration = 1f;
 
+	/** The moving element. */
 	private MultiTouchElement movingElement;
+	
+	/** The listeners. */
 	protected List<FlickListener> listeners = new ArrayList<FlickListener>();
 
 
+	/**
+	 * Instantiates a new flick mover.
+	 *
+	 * @param pickSpatial the pick spatial
+	 * @param movingElement the moving element
+	 * @param deceleration the deceleration
+	 * @param networkFlickMode the network flick mode
+	 */
 	public FlickMover(Spatial pickSpatial, MultiTouchElement movingElement, float deceleration, boolean networkFlickMode) {
 		this(pickSpatial, pickSpatial, movingElement, deceleration, networkFlickMode);
 	}
 
+	/**
+	 * Instantiates a new flick mover.
+	 *
+	 * @param pickSpatial the pick spatial
+	 * @param targetSpatial the target spatial
+	 * @param movingElement the moving element
+	 * @param deceleration the deceleration
+	 * @param networkFlickMode the network flick mode
+	 */
 	public FlickMover(Spatial pickSpatial, Spatial targetSpatial, MultiTouchElement movingElement, float deceleration, boolean networkFlickMode) {
 		super(pickSpatial, targetSpatial);
 		this.movingElement = movingElement;
@@ -81,9 +116,15 @@ public class FlickMover extends ThreeDMultiTouchElement {
 		this.networkFlickMode = networkFlickMode;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorClicked(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorClicked(ScreenCursor c, MultiTouchCursorEvent event) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorPressed(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorPressed(ScreenCursor c, MultiTouchCursorEvent event) {
 		switchFlickOff();
@@ -94,6 +135,9 @@ public class FlickMover extends ThreeDMultiTouchElement {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorReleased(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorReleased(ScreenCursor c, MultiTouchCursorEvent event) {
 		if(screenCursors.size() > 1) return;
@@ -103,20 +147,34 @@ public class FlickMover extends ThreeDMultiTouchElement {
 		movingElement.getWorldLocations().clear();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorChanged(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorChanged(ScreenCursor c, MultiTouchCursorEvent event) {}
 
 
+	/**
+	 * Switch flick on.
+	 */
 	private void switchFlickOn() {
 		flickEnabled = true;
 	}
 
+	/**
+	 * Switch flick off.
+	 */
 	private void switchFlickOff() {
 		flickEnabled = false;
 	}
 	
 
 
+	/**
+	 * Update.
+	 *
+	 * @param tpf the tpf
+	 */
 	public void update(float tpf) {
 
 		if(flickEnabled) {
@@ -127,10 +185,18 @@ public class FlickMover extends ThreeDMultiTouchElement {
 		}
 	}	
 
+	/**
+	 * Element released.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean elementReleased(){
 		return elementReleased;
 	}
 
+	/**
+	 * Sets the linear velocity.
+	 */
 	private void setLinearVelocity() {
 		if(movingElement.getWorldLocations().size() < 4) return;
 
@@ -146,6 +212,11 @@ public class FlickMover extends ThreeDMultiTouchElement {
 		linearVelocity.setZ(0);
 	}
 
+	/**
+	 * Apply friction.
+	 *
+	 * @param tpf the tpf
+	 */
 	private void applyFriction(float tpf) {
 		if(linearVelocity == null) return;
 		
@@ -184,6 +255,11 @@ public class FlickMover extends ThreeDMultiTouchElement {
 		
 	}
 	
+	/**
+	 * Move to new position.
+	 *
+	 * @param tpf the tpf
+	 */
 	private void moveToNewPosition(float tpf) {
 		if(linearVelocity == null) return;
 		Vector3f previousSpeed = linearVelocity;
@@ -220,6 +296,9 @@ public class FlickMover extends ThreeDMultiTouchElement {
         }
 	}
 	
+	/**
+	 * Bounce.
+	 */
 	public void bounce() {
 
 		if(movingElement != null){
@@ -239,44 +318,111 @@ public class FlickMover extends ThreeDMultiTouchElement {
 	}
 	
 	
+	/**
+	 * Sets the deceleration.
+	 *
+	 * @param deceleration the new deceleration
+	 */
 	public void setDeceleration(float deceleration)	{
 		this.deceleration = deceleration;
 	}
 
+	/**
+	 * Sets the linear velocity.
+	 *
+	 * @param linearVelocity the new linear velocity
+	 */
 	public void setLinearVelocity(Vector3f linearVelocity)	{
 		this.linearVelocity = linearVelocity;
 		flickEnabled = true;
 	}
 
+	/**
+	 * Gets the deceleration.
+	 *
+	 * @return the deceleration
+	 */
 	public float getDeceleration()	{
 		return deceleration;
 	}
 
+	/**
+	 * Gets the linear velocity.
+	 *
+	 * @return the linear velocity
+	 */
 	public Vector3f getLinearVelocity()	{
 		return linearVelocity;
 	}
 
+	/**
+	 * Gets the moving element.
+	 *
+	 * @return the moving element
+	 */
 	public MultiTouchElement getMovingElement()	{
 		return movingElement;
 	}
 
+	/**
+	 * Adds the flick listener.
+	 *
+	 * @param l the l
+	 */
 	public void addFlickListener(FlickListener l){
 		listeners.add(l);
 	}
 
+	/**
+	 * Removes the flick listener.
+	 *
+	 * @param l the l
+	 */
 	public void removeFlickListener(FlickListener l){
 		if (listeners.contains(l))
 			listeners.remove(l);
 	}
 
+	/**
+	 * The listener interface for receiving flick events.
+	 * The class that is interested in processing a flick
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addFlickListener<code> method. When
+	 * the flick event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see FlickEvent
+	 */
 	public interface FlickListener{
+		
+		/**
+		 * Item flicked.
+		 *
+		 * @param multiTouchElement the multi touch element
+		 * @param targetSpatial the target spatial
+		 * @param newLocationX the new location x
+		 * @param newLocationY the new location y
+		 * @param oldLocationX the old location x
+		 * @param oldLocationY the old location y
+		 */
 		public void itemFlicked(FlickMover multiTouchElement, Spatial targetSpatial,  float newLocationX, float newLocationY, float oldLocationX, float oldLocationY);
 	}
 
+	/**
+	 * Gets the speed.
+	 *
+	 * @return the speed
+	 */
 	public float getSpeed() {
 		return FastMath.sqrt(FastMath.sqr(linearVelocity.x)+FastMath.sqr(linearVelocity.y));
 	}
 
+	/**
+	 * Sets the network flick mode.
+	 *
+	 * @param networkFlickMode the new network flick mode
+	 */
 	public void setNetworkFlickMode(boolean networkFlickMode) {
 		this.networkFlickMode = networkFlickMode;		
 	}	

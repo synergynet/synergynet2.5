@@ -37,20 +37,46 @@ import com.jme.math.Vector3f;
 import com.jme.scene.Spatial;
 import com.jme.system.DisplaySystem;
 
+
+/**
+ * The Class ThreeDPickResultData.
+ */
 public class ThreeDPickResultData extends PickResultData {
+	
+	/** The full cursor screen position at pick. */
 	private Vector3f fullCursorScreenPositionAtPick = new Vector3f();
+	
+	/** The cursor screen position at pick. */
 	protected Vector2f cursorScreenPositionAtPick = new Vector2f();
+	
+	/** The spatial screen location at pick. */
 	protected Vector2f spatialScreenLocationAtPick = new Vector2f();
+	
+	/** The cursor to spatial screen offset. */
 	protected Vector2f cursorToSpatialScreenOffset = new Vector2f();
+	
+	/** The cursor to spatial world offset. */
 	protected Vector3f cursorToSpatialWorldOffset = new Vector3f();
+	
+	/** The point of selection. */
 	private Vector3f pointOfSelection;
 	
+	/**
+	 * Instantiates a new three d pick result data.
+	 *
+	 * @param originatingCursorID the originating cursor id
+	 * @param cursorScreenPositionAtPick the cursor screen position at pick
+	 * @param pickedSpatial the picked spatial
+	 */
 	public ThreeDPickResultData(long originatingCursorID, Vector2f cursorScreenPositionAtPick, Spatial pickedSpatial) {
 		super(originatingCursorID, pickedSpatial);
 		this.cursorScreenPositionAtPick = cursorScreenPositionAtPick;
 		storeAdditionalInfo();
 	}
 	
+	/**
+	 * Store additional info.
+	 */
 	private void storeAdditionalInfo() {
 		// store screen location information
 		DisplaySystem.getDisplaySystem().getScreenCoordinates(pickedSpatial.getWorldTranslation(), fullCursorScreenPositionAtPick);
@@ -63,16 +89,18 @@ public class ThreeDPickResultData extends PickResultData {
 	}
 	
 	/**
-	 * Position of the cursor when the spatial was picked
-	 * @return
+	 * Position of the cursor when the spatial was picked.
+	 *
+	 * @return the cursor screen position at pick
 	 */
 	public Vector2f getCursorScreenPositionAtPick() {
 		return cursorScreenPositionAtPick;
 	}
 
 	/**
-	 * Screen position of the picked spatial when it was picked
-	 * @return
+	 * Screen position of the picked spatial when it was picked.
+	 *
+	 * @return the spatial screen location at pick
 	 */
 	public Vector2f getSpatialScreenLocationAtPick() {
 		return spatialScreenLocationAtPick;
@@ -80,24 +108,27 @@ public class ThreeDPickResultData extends PickResultData {
 
 	/**
 	 * Difference between the screen location of the spatial
-	 * and the screen location of the cursor
-	 * @return
+	 * and the screen location of the cursor.
+	 *
+	 * @return the cursor to spatial screen offset
 	 */
 	public Vector2f getCursorToSpatialScreenOffset() {
 		return cursorToSpatialScreenOffset;
 	}
 	
 	/**
-	 * Where, in world coordinates, the pick was made
-	 * @param pointOfSelection
+	 * Where, in world coordinates, the pick was made.
+	 *
+	 * @param pointOfSelection the new point of selection
 	 */
 	public void setPointOfSelection(Vector3f pointOfSelection) {
 		this.pointOfSelection = pointOfSelection;		
 	}
 	
 	/**
-	 * Where, in world coordinates, the pick was made
-	 * @return
+	 * Where, in world coordinates, the pick was made.
+	 *
+	 * @return the point of selection
 	 */
 	public Vector3f getPointOfSelection() {
 		return this.pointOfSelection;

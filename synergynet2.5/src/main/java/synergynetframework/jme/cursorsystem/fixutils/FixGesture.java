@@ -36,8 +36,29 @@ import synergynetframework.jme.cursorsystem.MultiTouchElement;
 import synergynetframework.jme.cursorsystem.cursordata.ScreenCursor;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 
+
+/**
+ * The Interface FixGesture.
+ */
 public interface FixGesture {
 	
+	/**
+	 * Check for fix gesture.
+	 *
+	 * @param element the element
+	 * @param c the c
+	 * @param event the event
+	 * @return true, if successful
+	 */
 	public boolean checkForFixGesture(MultiTouchElement element, ScreenCursor c, MultiTouchCursorEvent event);
+	
+	/**
+	 * Check for unfix gesture.
+	 *
+	 * @param element the element
+	 * @param c the c
+	 * @param event the event
+	 * @return true, if successful
+	 */
 	public boolean checkForUnfixGesture(MultiTouchElement element, ScreenCursor c, MultiTouchCursorEvent event);
 }

@@ -6,13 +6,29 @@ import com.jmex.awt.swingui.ImageGraphics;
 
 import synergynetframework.appsystem.contentsystem.items.utils.IDrawableContent;
 
+
+/**
+ * The Class ScheduleDrawableContent.
+ */
 public class ScheduleDrawableContent implements IDrawableContent{
 
+	/** The rows. */
 	int rows=20;
+	
+	/** The length. */
 	int length = 150;
+	
+	/** The height. */
 	int height = 30;
 	
 	
+	/**
+	 * Instantiates a new schedule drawable content.
+	 *
+	 * @param rows the rows
+	 * @param length the length
+	 * @param height the height
+	 */
 	public ScheduleDrawableContent(int rows, int length, int height) {
 		this.rows = rows;
 		this.length = length;
@@ -20,6 +36,9 @@ public class ScheduleDrawableContent implements IDrawableContent{
 	}
 
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.utils.IDrawableContent#drawContent(java.lang.Object)
+	 */
 	@Override
 	public void drawContent(Object drawingHandle) {
 		

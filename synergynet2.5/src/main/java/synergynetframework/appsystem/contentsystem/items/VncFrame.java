@@ -37,26 +37,47 @@ import java.io.Serializable;
 import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IVncFrameImplementation;
 
+
+/**
+ * The Class VncFrame.
+ */
 public class VncFrame extends Window implements IVncFrameImplementation, Serializable, Cloneable{
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -8279443252885792111L;
 	
 	
+	/**
+	 * Instantiates a new vnc frame.
+	 *
+	 * @param contentSystem the content system
+	 * @param name the name
+	 */
 	public VncFrame(ContentSystem contentSystem, String name) {
 		super(contentSystem, name);
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IVncFrameImplementation#setConnectionSettings(java.lang.String, int, java.lang.String)
+	 */
 	@Override
 	public void setConnectionSettings(String host, int port, String password) {
 		((IVncFrameImplementation)this.contentItemImplementation).setConnectionSettings(host, port, password);
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IVncFrameImplementation#connect()
+	 */
 	@Override
 	public void connect() {
 		((IVncFrameImplementation)this.contentItemImplementation).connect();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IVncFrameImplementation#disconnect()
+	 */
 	@Override
 	public void disconnect() {
 		((IVncFrameImplementation)this.contentItemImplementation).disconnect();

@@ -39,6 +39,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 /**
  * Determines whether cursor released events constitute a single click.  Needs
  * to know when new cursors are pressed, via newCursorPressed.  When a cursor
@@ -50,17 +51,26 @@ import java.util.Map;
 
 public class ClickDetector {
 	
+	/** The distance. */
 	protected float distance;
+	
+	/** The time. */
 	protected long time;
 	
+	/** The records. */
 	protected Map<Long,CursorDownRecord> records = new HashMap<Long,CursorDownRecord>();
+	
+	/** The old record time threshold. */
 	protected long oldRecordTimeThreshold = 5 * 1000;
+	
+	/** The double click time threshold. */
 	protected long doubleClickTimeThreshold = 500;
 
 	/**
 	 * Click detector, based on supplied sensitivity values.
-	 * @param time
-	 * @param distance
+	 *
+	 * @param time the time
+	 * @param distance the distance
 	 */
 	public ClickDetector(long time, float distance) {
 		setSensitivity(time, distance);
@@ -68,18 +78,29 @@ public class ClickDetector {
 	
 	/**
 	 * Set new sensitivity values.
-	 * @param time
-	 * @param distance
+	 *
+	 * @param time the time
+	 * @param distance the distance
 	 */
 	public void setSensitivity(long time, float distance) {
 		this.time = time;
 		this.distance = distance;
 	}
 	
+	/**
+	 * Gets the distance sensitivity.
+	 *
+	 * @return the distance sensitivity
+	 */
 	public float getDistanceSensitivity() {
 		return this.distance;
 	}
 	
+	/**
+	 * Gets the time sensitivity.
+	 *
+	 * @return the time sensitivity
+	 */
 	public long getTimeSensitivity() {
 		return this.time;
 	}
@@ -87,8 +108,9 @@ public class ClickDetector {
 	/**
 	 * Register cursor - only registered cursors will ever pass the test
 	 * of being a single click when isCursorReleaseASingleClick is called.
-	 * @param id
-	 * @param position
+	 *
+	 * @param id the id
+	 * @param position the position
 	 */
 	public void newCursorPressed(long id, Point2D.Float position) {
 		records.put(id, new CursorDownRecord(id, this, System.currentTimeMillis(), position));
@@ -97,9 +119,10 @@ public class ClickDetector {
 	/**
 	 * Returns true if the released cursor is within the sensitivity values required
 	 * to constitute a single click.
-	 * @param id
-	 * @param position
-	 * @return
+	 *
+	 * @param id the id
+	 * @param position the position
+	 * @return the int
 	 */
 	public int cursorReleasedGetClickCount(long id, Point2D.Float position) {
 		CursorDownRecord record = records.get(id);
@@ -123,6 +146,9 @@ public class ClickDetector {
 		}
 	}
 	
+	/**
+	 * Prints the records.
+	 */
 	protected void printRecords() {
 		for(CursorDownRecord r : records.values()) {
 			System.out.println(r.id + ": " + r.wasClick);
@@ -130,6 +156,14 @@ public class ClickDetector {
 		
 	}
 
+	/**
+	 * Checks if is cursor release a double click.
+	 *
+	 * @param id the id
+	 * @param position the position
+	 * @param causedBy the caused by
+	 * @return true, if is cursor release a double click
+	 */
 	public boolean isCursorReleaseADoubleClick(long id, Point2D.Float position, CursorDownRecord causedBy) {
 		CursorDownRecord record = records.get(id);
 		if(record == null) return false;
@@ -142,6 +176,9 @@ public class ClickDetector {
 		return false;
 	}
 	
+	/**
+	 * Cull old records.
+	 */
 	private void cullOldRecords() {
 		List<Long> toDelete = new ArrayList<Long>();
 		for(CursorDownRecord r : records.values()) {
@@ -154,27 +191,69 @@ public class ClickDetector {
 		}		
 	}
 	
+	/**
+	 * Checks if is close enough.
+	 *
+	 * @param a the a
+	 * @param b the b
+	 * @return true, if is close enough
+	 */
 	private boolean isCloseEnough(Point2D.Float a, Point2D.Float b) {
 		return Point2D.distance(a.x, a.y, b.x, b.y) < distance;
 	}
 	
+	/**
+	 * Sets the double click time threshold.
+	 *
+	 * @param doubleClickTimeThreshold the new double click time threshold
+	 */
 	public void setDoubleClickTimeThreshold(long doubleClickTimeThreshold) {
 		this.doubleClickTimeThreshold = doubleClickTimeThreshold;
 	}
 
+	/**
+	 * Gets the double click time threshold.
+	 *
+	 * @return the double click time threshold
+	 */
 	public long getDoubleClickTimeThreshold() {
 		return doubleClickTimeThreshold;
 	}
 
+	/**
+	 * The Class CursorDownRecord.
+	 */
 	private class CursorDownRecord {
+		
+		/** The id. */
 		public long id;
+		
+		/** The press time. */
 		public long pressTime;
+		
+		/** The release time. */
 		public long releaseTime;
+		
+		/** The position. */
 		public Point2D.Float position;
+		
+		/** The area. */
 		public Rectangle2D.Float area = new Rectangle2D.Float();
+		
+		/** The was click. */
 		public boolean wasClick = false;
+		
+		/** The was double click. */
 		public boolean wasDoubleClick = false;
 		
+		/**
+		 * Instantiates a new cursor down record.
+		 *
+		 * @param id the id
+		 * @param detector the detector
+		 * @param time the time
+		 * @param position the position
+		 */
 		public CursorDownRecord(long id, ClickDetector detector, long time, Point2D.Float position) {
 			this.id = id;
 			this.pressTime = time;

@@ -33,10 +33,62 @@ package synergynetframework.appsystem.contentsystem.items.listener;
 
 import synergynetframework.appsystem.contentsystem.items.SimpleButton;
 
+
+/**
+ * The listener interface for receiving simpleButton events.
+ * The class that is interested in processing a simpleButton
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addSimpleButtonListener<code> method. When
+ * the simpleButton event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see SimpleButtonEvent
+ */
 public interface SimpleButtonListener {
+		
+		/**
+		 * Button pressed.
+		 *
+		 * @param b the b
+		 * @param id the id
+		 * @param x the x
+		 * @param y the y
+		 * @param pressure the pressure
+		 */
 		public void buttonPressed(SimpleButton b, long id, float x, float y, float pressure);
+		
+		/**
+		 * Button dragged.
+		 *
+		 * @param b the b
+		 * @param id the id
+		 * @param x the x
+		 * @param y the y
+		 * @param pressure the pressure
+		 */
 		public void buttonDragged(SimpleButton b, long id, float x, float y, float pressure);
+		
+		/**
+		 * Button released.
+		 *
+		 * @param b the b
+		 * @param id the id
+		 * @param x the x
+		 * @param y the y
+		 * @param pressure the pressure
+		 */
 		public void buttonReleased(SimpleButton b, long id, float x, float y, float pressure);
+		
+		/**
+		 * Button clicked.
+		 *
+		 * @param b the b
+		 * @param id the id
+		 * @param x the x
+		 * @param y the y
+		 * @param pressure the pressure
+		 */
 		public void buttonClicked(SimpleButton b, long id, float x, float y, float pressure);
 
 }

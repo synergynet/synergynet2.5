@@ -37,16 +37,33 @@ import java.nio.ByteBuffer;
 
 import synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler;
 
+
+/**
+ * The Class ShortSerializer.
+ */
 public class ShortSerializer extends Serializer {
+	
+	/** The optimize positive. */
 	private boolean optimizePositive = true;
 
+	/**
+	 * Instantiates a new short serializer.
+	 */
 	public ShortSerializer () {
 	}
 
+	/**
+	 * Instantiates a new short serializer.
+	 *
+	 * @param optimizePositive the optimize positive
+	 */
 	public ShortSerializer (Boolean optimizePositive) {
 		this.optimizePositive = optimizePositive;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.utility.serializers.Serializer#readObjectData(synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler, java.nio.ByteBuffer, java.lang.Class, boolean)
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Short readObjectData (ConnectionHandler connectionHandler, ByteBuffer buffer, Class type, boolean lengthKnown)
 		throws SerializationException {
@@ -54,14 +71,28 @@ public class ShortSerializer extends Serializer {
 		return s;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.utility.serializers.Serializer#writeObjectData(synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler, java.nio.ByteBuffer, java.lang.Object, boolean)
+	 */
 	public void writeObjectData (ConnectionHandler connectionHandler, ByteBuffer buffer, Object object, boolean lengthKnown)
 		throws SerializationException {
 		put(buffer, (Short)object, optimizePositive);
 	}
 
+	/** The Constant SHORT. */
 	static private final byte SHORT = -128;
+	
+	/** The Constant SHORT_POSITIVE. */
 	static private final byte SHORT_POSITIVE = -1;
 
+	/**
+	 * Put.
+	 *
+	 * @param buffer the buffer
+	 * @param value the value
+	 * @param optimizePositive the optimize positive
+	 * @return the short
+	 */
 	static public short put (ByteBuffer buffer, short value, boolean optimizePositive) {
 		if (optimizePositive) {
 			if (value >= 0 && value <= 254) {
@@ -81,6 +112,13 @@ public class ShortSerializer extends Serializer {
 		return 3;
 	}
 
+	/**
+	 * Gets the.
+	 *
+	 * @param buffer the buffer
+	 * @param optimizePositive the optimize positive
+	 * @return the short
+	 */
 	static public short get (ByteBuffer buffer, boolean optimizePositive) {
 		byte value = buffer.get();
 		if (optimizePositive) {

@@ -31,7 +31,17 @@
 
 package synergynetframework.appsystem.contentsystem.items.implementation.interfaces;
 
+
+/**
+ * The Interface IRoundContentItemImplementation.
+ */
 public interface IRoundContentItemImplementation extends IOrthoContentItemImplementation {
+	
+	/**
+	 * Sets the radius.
+	 *
+	 * @param radius the new radius
+	 */
 	public void setRadius(float radius);
 }
 

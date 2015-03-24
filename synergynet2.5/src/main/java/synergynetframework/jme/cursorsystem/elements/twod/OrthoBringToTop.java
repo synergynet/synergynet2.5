@@ -42,28 +42,60 @@ import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 
 import com.jme.scene.Spatial;
 
+
+/**
+ * The Class OrthoBringToTop.
+ */
 public class OrthoBringToTop extends MultiTouchElement {
 
+	/** The managed objects. */
 	private static List<OrthoBringToTop> managedObjects = new ArrayList<OrthoBringToTop>();
+	
+	/** The target spatials. */
 	private static List<Spatial> targetSpatials = new ArrayList<Spatial>();
 	
+	/** The bottom most. */
 	public static int bottomMost = 0;
+	
+	/** The top most. */
 	public static int topMost = 1000;
 	
+	/** The listeners. */
 	protected List<OrthoBringToTopListener> listeners = new ArrayList<OrthoBringToTopListener>();
 	
+	/**
+	 * Sets the top most.
+	 *
+	 * @param i the new top most
+	 */
 	public static void setTopMost(int i) {
 		topMost = i;
 	}
 	
+	/**
+	 * Sets the bottom most.
+	 *
+	 * @param i the new bottom most
+	 */
 	public static void setBottomMost(int i ) {
 		bottomMost = i;
 	}	
 
+	/**
+	 * Instantiates a new ortho bring to top.
+	 *
+	 * @param spatial the spatial
+	 */
 	public OrthoBringToTop(Spatial spatial) {
 		this(spatial, spatial);
 	}
 	
+	/**
+	 * Instantiates a new ortho bring to top.
+	 *
+	 * @param pickingSpatial the picking spatial
+	 * @param targetSpatial the target spatial
+	 */
 	public OrthoBringToTop(Spatial pickingSpatial, Spatial targetSpatial) {
 		super(pickingSpatial, targetSpatial);
 		Iterator<OrthoBringToTop> iter = managedObjects.iterator();
@@ -85,37 +117,67 @@ public class OrthoBringToTop extends MultiTouchElement {
 		this.setPickMeOnly(true);
 	}
 	
+	/**
+	 * Gets the all top level containers with ortho bring to top.
+	 *
+	 * @return the all top level containers with ortho bring to top
+	 */
 	public static List<Spatial> getAllTopLevelContainersWithOrthoBringToTop(){
 		return targetSpatials;
 	}
 	
+	/**
+	 * Adds the ortho bring to top listener.
+	 *
+	 * @param l the l
+	 */
 	public void addOrthoBringToTopListener(OrthoBringToTopListener l){
 		if (!listeners.contains(l))
 			this.listeners.add(l);
 	}
 	
+	/**
+	 * Removes the ortho bring to top listener.
+	 *
+	 * @param l the l
+	 */
 	public void removeOrthoBringToTopListener(OrthoBringToTopListener l){
 		this.listeners.remove(l);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorChanged(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorChanged(ScreenCursor c, MultiTouchCursorEvent event) {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorClicked(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorClicked(ScreenCursor c, MultiTouchCursorEvent event) {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorPressed(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorPressed(ScreenCursor c, MultiTouchCursorEvent event) {
 		setTopObject(this, true);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorReleased(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorReleased(ScreenCursor c, MultiTouchCursorEvent event) {
 	}
 	
 
+	/**
+	 * Re sort by z order.
+	 */
 	private void reSortByZOrder(){
 			
 		int maxIndex=0;
@@ -132,6 +194,12 @@ public class OrthoBringToTop extends MultiTouchElement {
 		}
 	}
 	
+	/**
+	 * Sets the top object.
+	 *
+	 * @param orthoBringToTop the ortho bring to top
+	 * @param enableBroadCast the enable broad cast
+	 */
 	public void setTopObject(OrthoBringToTop orthoBringToTop, boolean enableBroadCast) {
 		
 		reSortByZOrder();	
@@ -154,6 +222,12 @@ public class OrthoBringToTop extends MultiTouchElement {
 		
 	}
 	
+	/**
+	 * Sets the bottom object.
+	 *
+	 * @param orthoBringToTop the ortho bring to top
+	 * @param enableBroadCast the enable broad cast
+	 */
 	public void setBottomObject(OrthoBringToTop orthoBringToTop, boolean enableBroadCast) {
 		
 		reSortByZOrder();	
@@ -176,15 +250,40 @@ public class OrthoBringToTop extends MultiTouchElement {
 		
 	}
 	
+	/**
+	 * The listener interface for receiving orthoBringToTop events.
+	 * The class that is interested in processing a orthoBringToTop
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addOrthoBringToTopListener<code> method. When
+	 * the orthoBringToTop event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see OrthoBringToTopEvent
+	 */
 	public interface OrthoBringToTopListener {
+		
+		/**
+		 * Item bring to top.
+		 */
 		public void ItemBringToTop();			
 	}
 	
+	/**
+	 * Un register.
+	 *
+	 * @param orthoBringToTop the ortho bring to top
+	 */
 	public static void unRegister(OrthoBringToTop orthoBringToTop){
 		if (managedObjects.contains(orthoBringToTop))
 			managedObjects.remove(orthoBringToTop);
 	}
 	
+	/**
+	 * Un register.
+	 *
+	 * @param spatial the spatial
+	 */
 	public static void unRegister(Spatial spatial){
 		
 		Iterator<OrthoBringToTop> iter = managedObjects.iterator();

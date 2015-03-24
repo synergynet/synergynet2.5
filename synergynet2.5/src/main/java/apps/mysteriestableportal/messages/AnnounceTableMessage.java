@@ -34,14 +34,27 @@ package apps.mysteriestableportal.messages;
 
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class AnnounceTableMessage.
+ */
 public class AnnounceTableMessage extends BroadcastApplicationMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3611717853521792797L;
 
+	/**
+	 * Instantiates a new announce table message.
+	 */
 	public AnnounceTableMessage(){
 		super();
 	}
 	
+	/**
+	 * Instantiates a new announce table message.
+	 *
+	 * @param targetClass the target class
+	 */
 	public AnnounceTableMessage(Class<?> targetClass){
 		super(targetClass);
 	}

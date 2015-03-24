@@ -36,8 +36,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+
+/**
+ * The Class TextUtil.
+ */
 public class TextUtil {
 	
+	/**
+	 * Wrap at.
+	 *
+	 * @param content the content
+	 * @param charsPerLine the chars per line
+	 * @return the list
+	 */
 	public static List<String> wrapAt(String content, int charsPerLine) {
 		List<String> lines = new ArrayList<String>();
 		StringTokenizer st = new StringTokenizer(content, " ");

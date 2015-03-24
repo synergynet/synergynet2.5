@@ -41,26 +41,47 @@ import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.contentloader.utils.TextUtil;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMultiLineTextLabelImplementation;
 
+
+/**
+ * The Class MultiLineTextLabel.
+ */
 public class MultiLineTextLabel extends TextLabel implements IMultiLineTextLabelImplementation, Serializable, Cloneable {
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 7970788844569917633L;
 	
+	/** The lines. */
 	protected List<String> lines = new ArrayList<String>();
 	
+	/**
+	 * Instantiates a new multi line text label.
+	 *
+	 * @param contentSystem the content system
+	 * @param name the name
+	 */
 	public MultiLineTextLabel(ContentSystem contentSystem, String name) {
 		super(contentSystem, name);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMultiLineTextLabelImplementation#setLines(java.util.List)
+	 */
 	public void setLines(List<String> lines) {
 		this.lines = lines;
 		((IMultiLineTextLabelImplementation)this.contentItemImplementation).setLines(lines);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMultiLineTextLabelImplementation#setLines(java.lang.String, int)
+	 */
 	public void setLines(String s, int charsPerLine){
 		this.lines = TextUtil.wrapAt(s, charsPerLine);
 		((IMultiLineTextLabelImplementation)this.contentItemImplementation).setLines(s, charsPerLine);
 	}
 		
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMultiLineTextLabelImplementation#setCRLFSeparatedString(java.lang.String)
+	 */
 	public void setCRLFSeparatedString(String s) {
 		this.text = s;
 		lines.clear();
@@ -74,15 +95,28 @@ public class MultiLineTextLabel extends TextLabel implements IMultiLineTextLabel
 		((IMultiLineTextLabelImplementation)this.contentItemImplementation).setCRLFSeparatedString(s);
 	}
 	
+	/**
+	 * Gets the lines.
+	 *
+	 * @return the lines
+	 */
 	public List<String> getLines() {
 		return lines;
 	}
 	
+	/**
+	 * Gets the first line.
+	 *
+	 * @return the first line
+	 */
 	public String getFirstLine() {
 		if(lines.size() > 0) return lines.get(0);
 		return "";
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.TextLabel#clone()
+	 */
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		MultiLineTextLabel clonedItem = (MultiLineTextLabel)super.clone();

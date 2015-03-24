@@ -21,22 +21,38 @@ package synergynetframework.appsystem.contentsystem.items.utils.vnc;
 import java.awt.*;
 import java.io.*;
 
+
 //
 // VncCanvas2 is a special version of VncCanvas which may use Java 2 API.
 //
 
+/**
+ * The Class VncCanvas2.
+ */
 class VncCanvas2 extends VncCanvas {
 
-  /**
-	 * 
-	 */
+  /** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 7476434785306282350L;
 
+/**
+ * Instantiates a new vnc canvas2.
+ *
+ * @param v the v
+ * @throws IOException Signals that an I/O exception has occurred.
+ */
 public VncCanvas2(VncViewer v) throws IOException {
     super(v);
     disableFocusTraversalKeys();
   }
 
+  /**
+   * Instantiates a new vnc canvas2.
+   *
+   * @param v the v
+   * @param maxWidth_ the max width_
+   * @param maxHeight_ the max height_
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   public VncCanvas2(VncViewer v, int maxWidth_, int maxHeight_)
     throws IOException {
 
@@ -44,6 +60,9 @@ public VncCanvas2(VncViewer v) throws IOException {
     disableFocusTraversalKeys();
   }
 
+  /* (non-Javadoc)
+   * @see synergynetframework.appsystem.contentsystem.items.utils.vnc.VncCanvas#paintScaledFrameBuffer(java.awt.Graphics)
+   */
   public void paintScaledFrameBuffer(Graphics g) {
     Graphics2D g2d = (Graphics2D)g;
     g2d.setRenderingHint(RenderingHints.KEY_RENDERING,
@@ -54,7 +73,10 @@ public VncCanvas2(VncViewer v) throws IOException {
   //
   // Try to disable focus traversal keys (JVMs 1.4 and higher).
   //
-@SuppressWarnings("rawtypes")
+/**
+   * Disable focus traversal keys.
+   */
+  @SuppressWarnings("rawtypes")
   private void disableFocusTraversalKeys() {
     try {
       Class[] argClasses = { Boolean.TYPE };

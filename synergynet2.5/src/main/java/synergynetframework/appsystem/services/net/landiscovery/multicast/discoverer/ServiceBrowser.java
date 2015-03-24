@@ -24,20 +24,48 @@ import synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoveryS
 import synergynetframework.appsystem.services.net.landiscovery.multicast.EncoderDecoder;
 import synergynetframework.appsystem.services.net.landiscovery.multicast.ServiceDiscoveryParams;
 
+
+/**
+ * The Class ServiceBrowser.
+ */
 public final class ServiceBrowser implements Runnable, ServiceDiscoverySystem {
+	
+	/** The should run. */
 	protected boolean shouldRun = true;
+	
+	/** The socket. */
 	protected MulticastSocket socket;
 	//	protected DatagramPacket queuedPacket;
+	/** The packet queue. */
 	protected Queue<DatagramPacket> packetQueue = new ConcurrentLinkedQueue<DatagramPacket>();
+	
+	/** The received packet. */
 	protected DatagramPacket receivedPacket;
+	
+	/** The my thread. */
 	protected Thread myThread;
+	
+	/** The query timer. */
 	protected Timer queryTimer;
+	
+	/** The params. */
 	private ServiceDiscoveryParams params;
 	
+	/** The known services. */
 	protected Map<String,ServiceDescriptor> knownServices = new ConcurrentHashMap<String,ServiceDescriptor>();
+	
+	/** The last seen. */
 	protected Map<String,Long> lastSeen = new ConcurrentHashMap<String,Long>();
+	
+	/** The service removal timer. */
 	private Timer serviceRemovalTimer;
 
+	/**
+	 * Instantiates a new service browser.
+	 *
+	 * @param params the params
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public ServiceBrowser(ServiceDiscoveryParams params) throws IOException {
 		this.params = params;		
 		socket = new MulticastSocket(params.getMulticastPort());
@@ -46,16 +74,25 @@ public final class ServiceBrowser implements Runnable, ServiceDiscoverySystem {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoverySystem#start()
+	 */
 	public void start() {
 		startLookup();		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoverySystem#stop()
+	 */
 	public void stop() {
 		stopListener();
 		stopLookup();
 
 	}
 
+	/**
+	 * Start lookup.
+	 */
 	private void startLookup() {
 		if (queryTimer==null) {
 			queryTimer = new Timer("QueryTimer");
@@ -75,7 +112,10 @@ public final class ServiceBrowser implements Runnable, ServiceDiscoverySystem {
 //		}
 //	}
 
-	public void stopLookup() {
+	/**
+ * Stop lookup.
+ */
+public void stopLookup() {
 		if (queryTimer != null) {
 			queryTimer.cancel();
 			queryTimer=null;
@@ -86,18 +126,31 @@ public final class ServiceBrowser implements Runnable, ServiceDiscoverySystem {
 		}
 	}
 
+	/**
+	 * Notify service arrival.
+	 *
+	 * @param descriptor the descriptor
+	 */
 	protected void notifyServiceArrival(ServiceDescriptor descriptor) {
 		for (ServiceDiscoveryListener l : listeners) {
 			l.serviceAvailable(descriptor);			
 		}
 	}
 	
+	/**
+	 * Notify service removal.
+	 *
+	 * @param descriptor the descriptor
+	 */
 	protected void notifyServiceRemoval(ServiceDescriptor descriptor) {
 		for (ServiceDiscoveryListener l : listeners) {
 			l.serviceRemoved(descriptor);			
 		}
 	}
 
+	/**
+	 * Start listener.
+	 */
 	public void startListener() {
 		if (myThread == null) {
 			shouldRun = true;
@@ -106,6 +159,9 @@ public final class ServiceBrowser implements Runnable, ServiceDiscoverySystem {
 		}
 	}
 
+	/**
+	 * Stop listener.
+	 */
 	public void stopListener() {
 		if (myThread != null) {
 			shouldRun = false;
@@ -114,6 +170,9 @@ public final class ServiceBrowser implements Runnable, ServiceDiscoverySystem {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
 	public void run() {
 		while (shouldRun) {
 			/* listen (briefly) for a reply packet */
@@ -159,6 +218,9 @@ public final class ServiceBrowser implements Runnable, ServiceDiscoverySystem {
 		}
 	}
 
+	/**
+	 * Send queued packet.
+	 */
 	protected synchronized void sendQueuedPacket() {
 		if (packetQueue.size() < 1) { return; }
 		try {
@@ -174,6 +236,11 @@ public final class ServiceBrowser implements Runnable, ServiceDiscoverySystem {
 		}
 	}
 
+	/**
+	 * Checks if is reply packet.
+	 *
+	 * @return true, if is reply packet
+	 */
 	protected boolean isReplyPacket(){ 
 		if (receivedPacket==null) {
 			return false;
@@ -193,6 +260,12 @@ public final class ServiceBrowser implements Runnable, ServiceDiscoverySystem {
 		return false;
 	}
 
+	/**
+	 * Gets the reply descriptor.
+	 *
+	 * @return the reply descriptor
+	 * @throws UnknownHostException the unknown host exception
+	 */
 	protected ServiceDescriptor getReplyDescriptor() throws UnknownHostException {
 		String dataStr = new String(receivedPacket.getData());
 		int pos = dataStr.indexOf((char)0);
@@ -204,7 +277,14 @@ public final class ServiceBrowser implements Runnable, ServiceDiscoverySystem {
 		return sd;		
 	}
 
+	/**
+	 * The Class QueryTimerTask.
+	 */
 	private class QueryTimerTask extends TimerTask {
+		
+		/* (non-Javadoc)
+		 * @see java.util.TimerTask#run()
+		 */
 		@Override
 		public void run() {		
 			for(String query : queries) {
@@ -217,7 +297,14 @@ public final class ServiceBrowser implements Runnable, ServiceDiscoverySystem {
 		}
 	}
 	
+	/**
+	 * The Class ServiceRemovalTimerTask.
+	 */
 	private class ServiceRemovalTimerTask extends TimerTask {
+		
+		/* (non-Javadoc)
+		 * @see java.util.TimerTask#run()
+		 */
 		@Override
 		public void run() {			
 			for(String s : lastSeen.keySet()) {
@@ -234,27 +321,51 @@ public final class ServiceBrowser implements Runnable, ServiceDiscoverySystem {
 		
 	}
 
+	/** The listeners. */
 	protected List<ServiceDiscoveryListener> listeners = new ArrayList<ServiceDiscoveryListener>();
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoverySystem#registerListener(synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoveryListener)
+	 */
 	public void registerListener(ServiceDiscoveryListener l) {
 		if(!listeners.contains(l)) listeners.add(l);		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoverySystem#removeListener(synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoveryListener)
+	 */
 	public void removeListener(ServiceDiscoveryListener l) {
 		listeners.remove(l);
 	}
 
 	//list of queries in type:name format
+	/** The queries. */
 	Queue<String> queries = new ConcurrentLinkedQueue<String>();
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoverySystem#registerServiceForListening(java.lang.String, java.lang.String)
+	 */
 	public void registerServiceForListening(String type, String name) {
 		if(!queries.contains(type)) queries.add(getKey(type,name));		
 	}
 
+	/**
+	 * Gets the key.
+	 *
+	 * @param sd the sd
+	 * @return the key
+	 */
 	private String getKey(ServiceDescriptor sd) {
 		return getKey(sd.getServiceType(), sd.getServiceName());
 	}
 	
+	/**
+	 * Gets the key.
+	 *
+	 * @param type the type
+	 * @param name the name
+	 * @return the key
+	 */
 	private String getKey(String type, String name) {
 		return type + ":" + name;
 	}

@@ -20,18 +20,46 @@ import com.jme.system.DisplaySystem;
 import com.jme.util.TextureManager;
 import com.jmex.awt.swingui.ImageGraphics;
 
+
+/**
+ * The Class DisplayNode.
+ */
 public class DisplayNode extends Node {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2429175967783608868L;
 	
+	/** The slope. */
 	protected float width = 1, length = 1, height =1, slope = 0.5f;
+	
+	/** The texture url. */
 	protected URL textureURL;
+	
+	/** The text texture url. */
 	protected URL textTextureURL;
+	
+	/** The rb. */
 	protected RoundedBox rb;
+	
+	/** The quad. */
 	protected GraphicsImageQuad quad;
+	
+	/** The gfx. */
 	protected ImageGraphics gfx;
+	
+	/** The is cool mode. */
 	protected boolean isCoolMode = false;
 	
+	/**
+	 * Instantiates a new display node.
+	 *
+	 * @param name the name
+	 * @param width the width
+	 * @param length the length
+	 * @param height the height
+	 * @param slope the slope
+	 * @param bgTexture the bg texture
+	 */
 	public DisplayNode(String name, float width, float length, float height, float slope, URL bgTexture){
 		super(name);
 		this.width = width;
@@ -43,6 +71,9 @@ public class DisplayNode extends Node {
 		init();		
 	}
 
+	/**
+	 * Inits the.
+	 */
 	protected void init(){
 		
 		Vector3f min = new Vector3f(this.width, this.length, this.height);
@@ -72,6 +103,9 @@ public class DisplayNode extends Node {
 		
 	}
 	
+	/**
+	 * Show cool mode.
+	 */
 	public void showCoolMode(){
 		this.detachChild(rb);
 		this.updateGeometricState(0f, false);
@@ -79,6 +113,11 @@ public class DisplayNode extends Node {
 		render("");
 	}
 	
+	/**
+	 * Render.
+	 *
+	 * @param text the text
+	 */
 	protected void render(String text){
 		
 		if (quad!=null)
@@ -117,10 +156,20 @@ public class DisplayNode extends Node {
 		quad.updateGraphics();
 	}
 	
+	/**
+	 * Sets the text.
+	 *
+	 * @param text the new text
+	 */
 	public void setText(String text){
 		render(text);
 	}
 	
+	/**
+	 * Gets the display quad.
+	 *
+	 * @return the display quad
+	 */
 	public Quad getDisplayQuad(){
 		return quad;
 	}

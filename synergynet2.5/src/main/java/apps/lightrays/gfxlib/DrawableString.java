@@ -36,21 +36,43 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 
+
+/**
+ * The Class DrawableString.
+ */
 public class DrawableString extends DrawableElement {
 
+	/** The string. */
 	protected String string;
+	
+	/** The font. */
 	protected Font font;
+	
+	/** The font_metrics. */
 	protected FontMetrics font_metrics;
 	
+	/**
+	 * Instantiates a new drawable string.
+	 *
+	 * @param s the s
+	 */
 	public DrawableString(String s) {
 		super();
 		this.string = s;
 	}	
 	
+	/**
+	 * Sets the string.
+	 *
+	 * @param s the new string
+	 */
 	public void setString(String s) {
 		this.string = s;
 	}
 	
+	/* (non-Javadoc)
+	 * @see apps.lightrays.gfxlib.DrawableElement#draw(java.awt.Graphics2D, long)
+	 */
 	public void draw(Graphics2D gfx, long tick_count) {
 		gfx.setColor(colour);
 		gfx.setFont(font);
@@ -62,14 +84,29 @@ public class DrawableString extends DrawableElement {
 		gfx.drawString(string, x, y);
 	}
 
+	/**
+	 * Gets the font.
+	 *
+	 * @return the font
+	 */
 	public Font getFont() {
 		return font;
 	}
 
+	/**
+	 * Sets the font.
+	 *
+	 * @param font the new font
+	 */
 	public void setFont(Font font) {
 		this.font = font;
 	}
 
+	/**
+	 * Gets the string.
+	 *
+	 * @return the string
+	 */
 	public String getString() {
 		return string;
 	}

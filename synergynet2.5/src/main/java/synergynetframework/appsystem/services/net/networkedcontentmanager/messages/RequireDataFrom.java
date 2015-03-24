@@ -35,10 +35,21 @@ package synergynetframework.appsystem.services.net.networkedcontentmanager.messa
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.UnicastApplicationMessage;
 
+
+/**
+ * The Class RequireDataFrom.
+ */
 public class RequireDataFrom extends UnicastApplicationMessage {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -512345344864227474L;
 
+	/**
+	 * Instantiates a new require data from.
+	 *
+	 * @param targetClass the target class
+	 * @param id the id
+	 */
 	public RequireDataFrom(Class<?> targetClass, TableIdentity id) {
 		super(targetClass);	
 		this.setRecipient(id);

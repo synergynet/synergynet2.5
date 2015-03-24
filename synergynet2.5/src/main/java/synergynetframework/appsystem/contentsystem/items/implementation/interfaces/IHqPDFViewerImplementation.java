@@ -34,7 +34,23 @@ package synergynetframework.appsystem.contentsystem.items.implementation.interfa
 import java.io.File;
 import java.net.URL;
 
+
+/**
+ * The Interface IHqPDFViewerImplementation.
+ */
 public interface IHqPDFViewerImplementation extends IDocViewerImplementation {
+	
+	/**
+	 * Sets the pdf url.
+	 *
+	 * @param pdfFile the new pdf url
+	 */
 	public void setPdfURL(URL pdfFile);
+	
+	/**
+	 * Sets the pdf file.
+	 *
+	 * @param pdfFile the new pdf file
+	 */
 	void setPdfFile(File pdfFile);
 }

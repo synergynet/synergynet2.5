@@ -33,9 +33,24 @@ package synergynetframework.appsystem.contentsystem.items.implementation.interfa
 
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 
+
+/**
+ * The Interface IThreeDContainerImplementation.
+ */
 public interface IThreeDContainerImplementation extends IThreeDContentItemImplementation {
 
+	/**
+	 * Adds the sub item.
+	 *
+	 * @param contentItem the content item
+	 */
 	public void addSubItem(ContentItem contentItem);		    
+	
+	/**
+	 * Removes the sub item.
+	 *
+	 * @param contentItem the content item
+	 */
 	public void removeSubItem(ContentItem contentItem);
 	
 }

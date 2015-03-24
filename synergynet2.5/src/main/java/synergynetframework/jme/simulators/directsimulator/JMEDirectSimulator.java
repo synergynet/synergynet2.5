@@ -38,11 +38,22 @@ import com.jme.input.MouseInput;
 import synergynetframework.jme.simulators.JMEMouseKeyboardInputManager;
 import synergynetframework.mtinput.simulator.AbstractDirectMultiTouchSimulator;
 
+
+/**
+ * The Class JMEDirectSimulator.
+ */
 public class JMEDirectSimulator extends AbstractDirectMultiTouchSimulator {
 
 	
+	/** The input listener. */
 	protected JMEMouseKeyboardInputManager inputListener;
 	
+	/**
+	 * Instantiates a new JME direct simulator.
+	 *
+	 * @param width the width
+	 * @param height the height
+	 */
 	public JMEDirectSimulator(int width, int height) {
 		super(width, height);
 		inputListener = new JMEMouseKeyboardInputManager(this, tableWidth, tableHeight);
@@ -51,6 +62,9 @@ public class JMEDirectSimulator extends AbstractDirectMultiTouchSimulator {
 		KeyInput.get().addListener(inputListener);  
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchInputSource#update(float)
+	 */
 	public void update(float tpf) {}
 
 }

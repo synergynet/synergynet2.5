@@ -37,6 +37,19 @@ import java.io.IOException;
 import synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler;
 import synergynetframework.appsystem.services.net.tablecomms.messages.TableMessage;
 
+
+/**
+ * The Interface ServerMessageProcessor.
+ */
 public interface ServerMessageProcessor {
+	
+	/**
+	 * Handle.
+	 *
+	 * @param server the server
+	 * @param fromHandler the from handler
+	 * @param obj the obj
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void handle(TableCommsServerService server, ConnectionHandler fromHandler, TableMessage obj) throws IOException;
 }

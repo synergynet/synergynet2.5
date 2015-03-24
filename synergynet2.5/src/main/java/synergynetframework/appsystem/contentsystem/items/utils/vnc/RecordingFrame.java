@@ -28,22 +28,32 @@ import java.io.*;
 import java.awt.*;
 import java.awt.event.*;
 
+
+/**
+ * The Class RecordingFrame.
+ */
 class RecordingFrame extends Frame
   implements WindowListener, ActionListener {
 
-  /**
-	 * 
-	 */
+  /** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 7592379857865047407L;
 
+/** The recording. */
 boolean recording;
 
+  /** The fname field. */
   TextField fnameField;
+  
+  /** The browse button. */
   Button browseButton;
 
+  /** The status label. */
   Label statusLabel;
 
+  /** The close button. */
   Button recordButton, nextButton, closeButton;
+  
+  /** The viewer. */
   VncViewer viewer;
 
   //
@@ -51,6 +61,11 @@ boolean recording;
   // RecordingFrame object.
   //
 
+  /**
+   * Check security.
+   *
+   * @return true, if successful
+   */
   public static boolean checkSecurity() {
     SecurityManager security = System.getSecurityManager();
     if (security != null) {
@@ -71,6 +86,11 @@ boolean recording;
   // Constructor.
   //
 
+  /**
+   * Instantiates a new recording frame.
+   *
+   * @param v the v
+   */
   RecordingFrame(VncViewer v) {
     super("TightVNC Session Recording");
 
@@ -173,6 +193,12 @@ boolean recording;
   // to the given string.
   //
 
+  /**
+   * Next filename.
+   *
+   * @param fname the fname
+   * @return the string
+   */
   protected String nextFilename(String fname) {
     int len = fname.length();
     int suffixPos = len;
@@ -198,6 +224,12 @@ boolean recording;
   // Find next name of a file which does not exist yet.
   //
 
+  /**
+   * Next new filename.
+   *
+   * @param fname the fname
+   * @return the string
+   */
   protected String nextNewFilename(String fname) {
     String newName = fname;
     File f;
@@ -215,6 +247,11 @@ boolean recording;
   // Let the user choose a file name showing a FileDialog.
   //
 
+  /**
+   * Browse file.
+   *
+   * @return true, if successful
+   */
   protected boolean browseFile() {
     File currentFile = new File(fnameField.getText());
 
@@ -242,6 +279,9 @@ boolean recording;
   // Start recording.
   //
 
+  /**
+   * Start recording.
+   */
   public void startRecording() {
     statusLabel.setText("Status: Recording...");
     statusLabel.setFont(new Font("Helvetica", Font.BOLD, 12));
@@ -257,6 +297,9 @@ boolean recording;
   // Stop recording.
   //
 
+  /**
+   * Stop recording.
+   */
   public void stopRecording() {
     statusLabel.setText("Status: Not recording.");
     statusLabel.setFont(new Font("Helvetica", Font.PLAIN, 12));
@@ -272,6 +315,9 @@ boolean recording;
   // Close our window properly.
   //
 
+  /* (non-Javadoc)
+   * @see java.awt.event.WindowListener#windowClosing(java.awt.event.WindowEvent)
+   */
   public void windowClosing(WindowEvent evt) {
     setVisible(false);
   }
@@ -280,11 +326,34 @@ boolean recording;
   // Ignore window events we're not interested in.
   //
 
+  /* (non-Javadoc)
+   * @see java.awt.event.WindowListener#windowActivated(java.awt.event.WindowEvent)
+   */
   public void windowActivated(WindowEvent evt) {}
+  
+  /* (non-Javadoc)
+   * @see java.awt.event.WindowListener#windowDeactivated(java.awt.event.WindowEvent)
+   */
   public void windowDeactivated (WindowEvent evt) {}
+  
+  /* (non-Javadoc)
+   * @see java.awt.event.WindowListener#windowOpened(java.awt.event.WindowEvent)
+   */
   public void windowOpened(WindowEvent evt) {}
+  
+  /* (non-Javadoc)
+   * @see java.awt.event.WindowListener#windowClosed(java.awt.event.WindowEvent)
+   */
   public void windowClosed(WindowEvent evt) {}
+  
+  /* (non-Javadoc)
+   * @see java.awt.event.WindowListener#windowIconified(java.awt.event.WindowEvent)
+   */
   public void windowIconified(WindowEvent evt) {}
+  
+  /* (non-Javadoc)
+   * @see java.awt.event.WindowListener#windowDeiconified(java.awt.event.WindowEvent)
+   */
   public void windowDeiconified(WindowEvent evt) {}
 
 
@@ -292,6 +361,9 @@ boolean recording;
   // Respond to button presses
   //
 
+  /* (non-Javadoc)
+   * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+   */
   public void actionPerformed(ActionEvent evt) {
     if (evt.getSource() == browseButton) {
       if (browseFile() && recording)

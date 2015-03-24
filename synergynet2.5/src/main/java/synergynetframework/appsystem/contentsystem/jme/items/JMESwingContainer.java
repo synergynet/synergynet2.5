@@ -18,19 +18,42 @@ import synergynetframework.appsystem.contentsystem.items.SwingContainer;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ISwingContainerImplementation;
 import synergynetframework.appsystem.contentsystem.items.listener.ItemListener;
 
+
+/**
+ * The Class JMESwingContainer.
+ */
 public class JMESwingContainer extends JMEWindow implements ISwingContainerImplementation {
 
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(JMESwingContainer.class.getName());
+	
+	/** The handler. */
 	protected InputHandler handler;
+	
+	/** The height. */
 	protected int width = 300, height = 300;
+	
+	/** The desktop. */
 	protected JMEDesktop desktop;
+	
+	/** The swing container. */
 	protected SwingContainer swingContainer;
+	
+	/** The robot. */
 	protected Robot robot;
 	
+	/**
+	 * Instantiates a new JME swing container.
+	 *
+	 * @param contentItem the content item
+	 */
 	public JMESwingContainer(ContentItem contentItem) {
 		super(contentItem);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEWindow#init()
+	 */
 	@Override
 	public void init(){
 		this.swingContainer = (SwingContainer)contentItem;
@@ -102,6 +125,9 @@ public class JMESwingContainer extends JMEWindow implements ISwingContainerImple
 	}
 	
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEOrthoContentItem#update(float)
+	 */
 	@Override
 	public void update(float tpf){
         DisplaySystem.getDisplaySystem().getRenderer().draw( node );
@@ -110,6 +136,9 @@ public class JMESwingContainer extends JMEWindow implements ISwingContainerImple
         super.update(tpf);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ISwingContainerImplementation#getJDesktopPane()
+	 */
 	@Override
 	public JDesktopPane getJDesktopPane() {
 		return desktop.getJDesktop();

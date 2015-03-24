@@ -33,6 +33,26 @@ package synergynetframework.appsystem.contentsystem.items.listener;
 
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 
+
+/**
+ * The listener interface for receiving orthoFlick events.
+ * The class that is interested in processing a orthoFlick
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addOrthoFlickListener<code> method. When
+ * the orthoFlick event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see OrthoFlickEvent
+ */
 public interface OrthoFlickListener {
+	
+	/**
+	 * Item flicked.
+	 *
+	 * @param item the item
+	 * @param x the x
+	 * @param y the y
+	 */
 	public void itemFlicked(ContentItem item, float x, float y);
 }

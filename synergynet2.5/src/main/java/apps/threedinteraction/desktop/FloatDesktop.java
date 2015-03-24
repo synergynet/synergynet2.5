@@ -16,13 +16,36 @@ import com.jme.system.DisplaySystem;
 import com.jme.util.TextureManager;
 import com.jmex.effects.cloth.ClothPatch;
 
+
+/**
+ * The Class FloatDesktop.
+ */
 public class FloatDesktop {
+    
+    /** The desktop. */
     private ClothPatch desktop;
+    
+    /** The wind strength. */
     private float windStrength = 1f;
+    
+    /** The wind direction. */
     private Vector3f windDirection = new Vector3f(-1f, -0.2f, -1f);
+    
+    /** The wind. */
     private SpringPointForce wind;
+    
+    /** The desktop shown. */
     private boolean desktopShown = false;
     
+    /**
+     * Instantiates a new float desktop.
+     *
+     * @param name the name
+     * @param location the location
+     * @param width the width
+     * @param height the height
+     * @param worldNode the world node
+     */
     public FloatDesktop(String name, Vector3f location, int width, int height, Node worldNode){
     	desktop = new ClothPatch(name+"desktop", width, height, 1f, 10);
     	wind = new RandomWindForce(windStrength, windDirection );
@@ -74,6 +97,11 @@ public class FloatDesktop {
     		
     }
     
+    /**
+     * Show desktop.
+     *
+     * @param b the b
+     */
     public void showDesktop(boolean b){
     	this.desktopShown = b;
 		if (b)
@@ -82,20 +110,40 @@ public class FloatDesktop {
 			desktop.setCullHint(CullHint.Always);
 	}
     
+    /**
+     * Checks for desktop shown.
+     *
+     * @return true, if successful
+     */
     public boolean hasDesktopShown(){
     	return this.desktopShown;
     }
     
+    /**
+     * The Class RandomWindForce.
+     */
     private class RandomWindForce extends SpringPointForce{
         
+        /** The strength. */
         private final float strength;
+        
+        /** The wind direction. */
         private final Vector3f windDirection;
         
+        /**
+         * Instantiates a new random wind force.
+         *
+         * @param strength the strength
+         * @param direction the direction
+         */
         public RandomWindForce(float strength, Vector3f direction) {
             this.strength = strength;
             this.windDirection = direction;
         }
           
+        /* (non-Javadoc)
+         * @see com.jme.math.spring.SpringPointForce#apply(float, com.jme.math.spring.SpringPoint)
+         */
         public void apply(float dt, SpringPoint node) {
             windDirection.x += dt * (FastMath.nextRandomFloat() - 0.5f);
             windDirection.z += dt * (FastMath.nextRandomFloat() - 0.5f);

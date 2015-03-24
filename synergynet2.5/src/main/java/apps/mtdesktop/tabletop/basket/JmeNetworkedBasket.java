@@ -27,21 +27,48 @@ import synergynetframework.appsystem.contentsystem.items.listener.OrthoControlPo
 import synergynetframework.appsystem.contentsystem.items.listener.ScreenCursorListener;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class JmeNetworkedBasket.
+ */
 public class JmeNetworkedBasket{
 
 	
+	/** The table id. */
 	protected TableIdentity tableId;
+	
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The window. */
 	protected Window window;
 	//protected TextLabel label;
+	/** The hight. */
 	protected int width = (int)(0.6 * DisplaySystem.getDisplaySystem().getWidth()), hight = (int)(0.6 *DisplaySystem.getDisplaySystem().getHeight());
+	
+	/** The default scale. */
 	protected float defaultScale = 0.35f;
+	
+	/** The border width. */
 	protected int borderWidth = 20;
+	
+	/** The current position. */
 	protected DesktopClient.Position currentPosition = DesktopClient.Position.NORTH;
+	
+	/** The note. */
 	protected LightImageLabel bin, copy, note;
+	
+	/** The excluded items. */
 	protected List<Class<? extends ContentItem>> excludedItems = new ArrayList<Class<? extends ContentItem>>();
+	
+	/** The link map. */
 	protected Map<ContentItem, LineItem> linkMap = new HashMap<ContentItem, LineItem>();
 	
+	/**
+	 * Instantiates a new jme networked basket.
+	 *
+	 * @param contentSystem the content system
+	 */
 	public JmeNetworkedBasket(ContentSystem contentSystem){
 		this.contentSystem = contentSystem;
 		window = (Window) contentSystem.createContentItem(Window.class);
@@ -83,10 +110,20 @@ public class JmeNetworkedBasket{
 
 	}
 	
+	/**
+	 * Gets the table id.
+	 *
+	 * @return the table id
+	 */
 	public TableIdentity getTableId() {
 		return tableId;
 	}
 
+	/**
+	 * Sets the table id.
+	 *
+	 * @param tableId the new table id
+	 */
 	public void setTableId(TableIdentity tableId) {
 		this.tableId = tableId;
 		String idLabel = tableId.toString();
@@ -95,6 +132,11 @@ public class JmeNetworkedBasket{
 		//label.setLocalLocation(0 , window.getHeight()/2- label.getHeight()) ;
 	}
 	
+	/**
+	 * Adds the item.
+	 *
+	 * @param basketItem the basket item
+	 */
 	public void addItem(final ContentItem basketItem){
 		window.addSubItem(basketItem);
 		((OrthoContentItem)basketItem).setOrder(999999);
@@ -129,6 +171,11 @@ public class JmeNetworkedBasket{
 
 	}
 	
+	/**
+	 * Detach item.
+	 *
+	 * @param item the item
+	 */
 	public void detachItem(ContentItem item){
 		window.detachSubItem(item);
 		((OrthoContentItem)item).removeScreenCursorListeners();
@@ -137,11 +184,21 @@ public class JmeNetworkedBasket{
 		for(ContentItem i: window.getAllItemsIncludeSystemItems()) ((OrthoContentItem)i).setRotateTranslateScalable(false);
 	}
 	
+	/**
+	 * Removes the item.
+	 *
+	 * @param item the item
+	 */
 	public void removeItem(ContentItem item){
 		((OrthoContentItem)item).removeScreenCursorListeners();
 		window.removeSubItem(item);
 	}
 	
+	/**
+	 * Sets the position.
+	 *
+	 * @param position the new position
+	 */
 	public void setPosition(DesktopClient.Position position){
 		this.currentPosition = position;
 		if(position.equals(DesktopClient.Position.SOUTH)){
@@ -159,6 +216,11 @@ public class JmeNetworkedBasket{
 		}
 	}
 	
+	/**
+	 * Gets the window.
+	 *
+	 * @return the window
+	 */
 	public Window getWindow(){
 		return window;
 	}
@@ -167,10 +229,22 @@ public class JmeNetworkedBasket{
 		return label;
 	}
 	*/
+	/**
+	 * Gets the position.
+	 *
+	 * @return the position
+	 */
 	public DesktopClient.Position getPosition(){
 		return this.currentPosition;
 	}
 	
+	/**
+	 * Gets the component at.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @return the component at
+	 */
 	public String getComponentAt(float x, float y){
 		Point.Float p = new Point.Float(x,y);
 		if(window.getBackgroundFrame().contains(p)){
@@ -184,6 +258,12 @@ public class JmeNetworkedBasket{
 		}
 	}
 	
+	/**
+	 * Checks if is basket component.
+	 *
+	 * @param spatialName the spatial name
+	 * @return true, if is basket component
+	 */
 	public boolean isBasketComponent(String spatialName){
 		if(this.getWindow().getName().equals(spatialName) || this.getWindow().getBackgroundFrame().getName().equals(spatialName) || /*this.getTextLabel().getName().equals(spatialName) || */this.bin.getName().equals(spatialName) || this.copy.getName().equals(spatialName))
 			return true;
@@ -191,14 +271,30 @@ public class JmeNetworkedBasket{
 			return false;
 	}
 	
+	/**
+	 * Exclude item.
+	 *
+	 * @param itemClass the item class
+	 */
 	public void excludeItem(Class<? extends ContentItem> itemClass){
 		this.excludedItems.add(itemClass);
 	}
 	
+	/**
+	 * Gets the excluded items.
+	 *
+	 * @return the excluded items
+	 */
 	public List<Class<? extends ContentItem>> getExcludedItems(){
 		return excludedItems;
 	}
 
+	/**
+	 * Checks if is excluded.
+	 *
+	 * @param contentItem the content item
+	 * @return true, if is excluded
+	 */
 	public boolean isExcluded(ContentItem contentItem) {
 		for(Class<? extends ContentItem> excludedClass: this.excludedItems){
 			if(contentItem.getClass().equals(excludedClass))
@@ -208,6 +304,11 @@ public class JmeNetworkedBasket{
 	}
 
 
+	/**
+	 * Link item.
+	 *
+	 * @param item the item
+	 */
 	public void linkItem(ContentItem item) {
 		if(item == null) return;
 		item.setAngle(this.getWindow().getAngle());
@@ -243,6 +344,11 @@ public class JmeNetworkedBasket{
 		linkMap.put(item, line);
 	}
 	
+	/**
+	 * Unlink item.
+	 *
+	 * @param item the item
+	 */
 	public void unlinkItem(ContentItem item){
 		if(linkMap.containsKey(item)){
 			LineItem line = linkMap.get(item);

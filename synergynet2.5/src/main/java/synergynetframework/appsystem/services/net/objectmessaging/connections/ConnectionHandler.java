@@ -53,36 +53,82 @@ import synergynetframework.appsystem.services.net.objectmessaging.utility.serial
 import synergynetframework.config.position.PositionConfigPrefsItem;
 
 
+
+/**
+ * The Class ConnectionHandler.
+ */
 public class ConnectionHandler {
+	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(ConnectionHandler.class.getName());
 
+	/** The name. */
 	protected String name;
+	
+	/** The id. */
 	protected short id = -1;
+	
+	/** The end point. */
 	protected EndPoint endPoint;
+	
+	/** The tcp. */
 	protected TCPConnectionHandler tcp;
+	
+	/** The udp. */
 	protected UDPConnectionHandler udp;
+	
+	/** The udp remote address. */
 	public InetSocketAddress udpRemoteAddress;
+	
+	/** The handlers. */
 	protected ArrayList<MessageHandler> handlers = new ArrayList<MessageHandler>();
 
 
+	/**
+	 * Instantiates a new connection handler.
+	 *
+	 * @param bufferSize the buffer size
+	 */
 	public ConnectionHandler (int bufferSize) {
 		tcp = new TCPConnectionHandler(this, bufferSize);
 	}
 
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
 	public short getID () {
 		return id;
 	}
 
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
 	public void setID (short id) {
 		this.id = id;
 	}
 
+	/**
+	 * Send message.
+	 *
+	 * @param message the message
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void sendMessage(Message message) throws IOException{
 		if(message == null|| id == -1) return;
 		if(message instanceof UDPMessage) sendUDP(message);
 		else sendTCP(message);
 	}
 
+	/**
+	 * Send tcp.
+	 *
+	 * @param object the object
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void sendTCP (Object object) throws IOException {
 		if (object == null || id == -1) return;
 		try {
@@ -93,6 +139,12 @@ public class ConnectionHandler {
 		}
 	}
 
+	/**
+	 * Send udp.
+	 *
+	 * @param object the object
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void sendUDP (Object object) throws IOException {
 		if (object == null || id == -1) return;
 		try {
@@ -106,6 +158,9 @@ public class ConnectionHandler {
 		}
 	}
 
+	/**
+	 * Close.
+	 */
 	public void close () {
 		tcp.close();
 		if (udp != null && udp.connectedAddress != null) udp.close();
@@ -113,21 +168,39 @@ public class ConnectionHandler {
 		id = -1;
 	}
 
+	/**
+	 * Sets the TCP alive time.
+	 *
+	 * @param keepAliveMillis the new TCP alive time
+	 */
 	public void setTCPAliveTime (int keepAliveMillis) {
 		tcp.aliveTime = keepAliveMillis;
 	}
 
+	/**
+	 * Adds the message handler.
+	 *
+	 * @param handler the handler
+	 */
 	public void addMessageHandler (MessageHandler handler) {
 		if (handler == null) return;
 		for(MessageHandler h: handlers)	if (h == handler) return;
 		handlers.add(handler);
 	}
 
+	/**
+	 * Removes the message handler.
+	 *
+	 * @param handler the handler
+	 */
 	public void removeMessageHandler (MessageHandler handler) {
 		if (handler == null) return;
 		handlers.remove(handler);
 	}
 
+	/**
+	 * Notify connected.
+	 */
 	public void notifyConnected () {
 			SocketChannel socketChannel = tcp.socketChannel;
 			if (socketChannel != null) {
@@ -145,40 +218,83 @@ public class ConnectionHandler {
 			h.handlerConnected(this);
 	}
 
+	/**
+	 * Notify disconnected.
+	 */
 	private void notifyDisconnected () {
 		for (MessageHandler h: handlers)
 			h.handlerDisconnected(this);
 	}
 
+	/**
+	 * Notify received.
+	 *
+	 * @param object the object
+	 */
 	public void notifyReceived (Object object) {
 		for (MessageHandler h: handlers)
 			h.messageReceived(object, this);
 	}
 
+	/**
+	 * Gets the end point.
+	 *
+	 * @return the end point
+	 */
 	public EndPoint getEndPoint () {
 		return endPoint;
 	}
 
+	/**
+	 * Sets the end point.
+	 *
+	 * @param endPoint the new end point
+	 */
 	public void setEndPoint (EndPoint endPoint) {
 		this.endPoint = endPoint;
 	}
 
+	/**
+	 * Gets the TCP connection.
+	 *
+	 * @return the TCP connection
+	 */
 	public TCPConnectionHandler getTCPConnection(){
 		return tcp;
 	}
 
+	/**
+	 * Sets the TCP connection.
+	 *
+	 * @param tcp the new TCP connection
+	 */
 	public void setTCPConnection(TCPConnectionHandler tcp){
 		this.tcp = tcp;
 	}
 
+	/**
+	 * Gets the UDP connection.
+	 *
+	 * @return the UDP connection
+	 */
 	public UDPConnectionHandler getUDPConnection(){
 		return udp;
 	}
 
+	/**
+	 * Sets the UDP connection.
+	 *
+	 * @param udp the new UDP connection
+	 */
 	public void setUDPConnection(UDPConnectionHandler udp){
 		this.udp = udp;
 	}
 
+	/**
+	 * Gets the remote address tcp.
+	 *
+	 * @return the remote address tcp
+	 */
 	public InetSocketAddress getRemoteAddressTCP () {
 		SocketChannel socketChannel = tcp.socketChannel;
 		if (socketChannel != null) {
@@ -190,16 +306,29 @@ public class ConnectionHandler {
 		return null;
 	}
 
+	/**
+	 * Gets the remote address udp.
+	 *
+	 * @return the remote address udp
+	 */
 	public InetSocketAddress getRemoteAddressUDP () {
 		InetSocketAddress connectedAddress = udp.connectedAddress;
 		if (connectedAddress != null) return connectedAddress;
 		return udpRemoteAddress;
 	}
 
+	/**
+	 * Sets the name.
+	 *
+	 * @param name the new name
+	 */
 	public void setName (String name) {
 		this.name = name;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString () {
 		if (name != null) return name;
 		return "Connection " + id;

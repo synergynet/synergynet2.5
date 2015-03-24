@@ -39,10 +39,18 @@ import synergynetframework.appsystem.contentsystem.contentloader.config.Attribut
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.appsystem.contentsystem.items.MultiLineTextLabel;
 
+
+/**
+ * The Class MultiLineTextLabelRender.
+ */
 public class MultiLineTextLabelRender extends TextLabelRender {
 	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(MultiLineTextLabelRender.class.getName());
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.contentloader.attributesrender.TextLabelRender#render(java.util.Map, synergynetframework.appsystem.contentsystem.items.ContentItem, synergynetframework.appsystem.contentsystem.ContentSystem)
+	 */
 	@Override
 	protected void render(Map<String, String> itemAttrs,
 			ContentItem contentItem, ContentSystem contentsys) {

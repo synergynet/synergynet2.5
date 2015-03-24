@@ -34,25 +34,52 @@ package apps.mathpadapp.networkmanager.messages.fromcontroller.unicast.totable;
 
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class UnicastEnableRemoteDesktopMessage.
+ */
 public class UnicastEnableRemoteDesktopMessage extends ControllerToTableMessage {	
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 259614974289184624L;
+	
+	/** The is remote desktop enabled. */
 	private boolean isRemoteDesktopEnabled = false;
 	
+	/**
+	 * Instantiates a new unicast enable remote desktop message.
+	 *
+	 * @param targetClass the target class
+	 * @param id the id
+	 * @param isRemoteDesktopEnabled the is remote desktop enabled
+	 */
 	public UnicastEnableRemoteDesktopMessage(Class<?> targetClass, TableIdentity id, boolean isRemoteDesktopEnabled) {
 		super(targetClass);
 		this.isRemoteDesktopEnabled = isRemoteDesktopEnabled;
 		this.setRecipient(id);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return "Unicast Enable Remote Desktop";
 	}
 	
+	/**
+	 * Checks if is remote desktop enabled.
+	 *
+	 * @return true, if is remote desktop enabled
+	 */
 	public boolean isRemoteDesktopEnabled() {
 		return isRemoteDesktopEnabled;
 	}
 
+	/**
+	 * Sets the remote desktop enabled.
+	 *
+	 * @param isRemoteDesktopEnabled the new remote desktop enabled
+	 */
 	public void setRemoteDesktopEnabled(boolean isRemoteDesktopEnabled) {
 		this.isRemoteDesktopEnabled = isRemoteDesktopEnabled;
 	}

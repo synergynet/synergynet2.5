@@ -64,26 +64,58 @@ import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.jme.config.AppConfig;
 import synergynetframework.jme.sysutils.CameraUtility;
 
+
+/**
+ * The Class ThreeDInteraction.
+ */
 public class ThreeDInteraction extends DefaultSynergyNetApp {
 
+	/** The Constant Status_NORMAL. */
 	public static final String Status_NORMAL = "normal";
+	
+	/** The Constant Status_TRANSFORMTO. */
 	public static final String Status_TRANSFORMTO = "transformto";
+	
+	/** The Constant Status_TRANSFORMBACK. */
 	public static final String Status_TRANSFORMBACK = "transformback";
+	
+	/** The Constant Status_TRANSFORMED. */
 	public static final String Status_TRANSFORMED = "transformed";
 	
+	/** The calculator. */
 	protected CalculatorNode calculator;
+	
+	/** The tv. */
 	protected TV tv;
+	
+	/** The clock. */
 	protected Clock clock;
+	
+	/** The tv buttons. */
 	protected Node tvButtons;
+	
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The scene status. */
 	protected String sceneStatus = ThreeDInteraction.Status_NORMAL;
+	
+	/** The date. */
 	protected Date date = new Date();
 
 	
+	/**
+	 * Instantiates a new three d interaction.
+	 *
+	 * @param info the info
+	 */
 	public ThreeDInteraction(ApplicationInfo info) {
 		super(info);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		SynergyNetAppUtils.addTableOverlay(this);
@@ -94,6 +126,9 @@ public class ThreeDInteraction extends DefaultSynergyNetApp {
 	}
 
 	
+	/**
+	 * Builds the scence.
+	 */
 	private void buildScence(){
 		buildCalculator();
 		buildTV();
@@ -308,6 +343,9 @@ public class ThreeDInteraction extends DefaultSynergyNetApp {
 		
 	}
 	
+	/**
+	 * Builds the calculator.
+	 */
 	private void buildCalculator(){
 		calculator = new CalculatorNode("calculator");
 		worldNode.attachChild(calculator);
@@ -343,6 +381,9 @@ public class ThreeDInteraction extends DefaultSynergyNetApp {
 		*/	
 	}
 	
+	/**
+	 * Builds the tv.
+	 */
 	private void buildTV(){
 		tv = new TV(contentSystem, CommonResources.class.getResource("smallvid.mp4"), 2, ThreeDManipulation.class.getResource(
     	"tvskin.png"));
@@ -351,6 +392,9 @@ public class ThreeDInteraction extends DefaultSynergyNetApp {
     	
 	}
 	
+	/**
+	 * Builds the clock.
+	 */
 	private void buildClock(){
 		clock = new Clock("clock "+name, 10f, 3f, ThreeDManipulation.class.getResource(
     	"clockfack.png"),  ThreeDManipulation.class.getResource(
@@ -362,6 +406,9 @@ public class ThreeDInteraction extends DefaultSynergyNetApp {
 		    	
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	@SuppressWarnings("deprecation")
 	public void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);
@@ -401,6 +448,9 @@ public class ThreeDInteraction extends DefaultSynergyNetApp {
 		
 	}
 
+	/**
+	 * Setup lighting.
+	 */
 	protected void setupLighting() {
 		LightState lightState = DisplaySystem.getDisplaySystem().getRenderer().createLightState();
 		worldNode.setRenderState(lightState);
@@ -423,6 +473,9 @@ public class ThreeDInteraction extends DefaultSynergyNetApp {
 		worldNode.updateRenderState();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#getCamera()
+	 */
 	protected Camera getCamera() {
 		if(cam == null) {
 			cam = CameraUtility.getCamera();
@@ -433,6 +486,9 @@ public class ThreeDInteraction extends DefaultSynergyNetApp {
 		return cam;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onActivate()
+	 */
 	@Override
 	public void onActivate() {
 		super.onActivate();

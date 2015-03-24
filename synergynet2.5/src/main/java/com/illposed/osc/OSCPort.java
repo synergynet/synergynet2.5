@@ -42,22 +42,28 @@ package com.illposed.osc;
 
 import java.net.*;
 
+
+/**
+ * The Class OSCPort.
+ */
 public abstract class OSCPort {
 
+	/** The socket. */
 	protected DatagramSocket socket;
+	
+	/** The port. */
 	protected int port;
 	
-	/**
-	 * The port that the SuperCollider synth engine ususally listens too
-	 */
+	/** The port that the SuperCollider synth engine ususally listens too. */
 	public static final int defaultSCOSCPort = 57110;
 	
-	/**
-	 * The port that the SuperCollider language engine ususally listens too
-	 */
+	/** The port that the SuperCollider language engine ususally listens too. */
 	public static final int defaultSCLangOSCPort = 57120;
 	
 	/**
+	 * Finalize.
+	 *
+	 * @throws Throwable the throwable
 	 * @see java.lang.Object#finalize()
 	 */
 	protected void finalize() throws Throwable {

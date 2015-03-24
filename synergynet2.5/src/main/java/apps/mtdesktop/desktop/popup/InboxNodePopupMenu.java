@@ -17,15 +17,29 @@ import apps.mtdesktop.desktop.tree.TabletopTreeController;
 
 
 
+
+/**
+ * The Class InboxNodePopupMenu.
+ */
 public class InboxNodePopupMenu extends JPopupMenu{
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 5809360199329351914L;
+	
+	/** The selected node. */
 	protected DefaultMutableTreeNode selectedNode;
+	
+	/** The delete. */
 	protected JMenuItem open, refresh, delete;
+	
+	/** The tree controller. */
 	protected TabletopTreeController treeController;
 	
+	/**
+	 * Instantiates a new inbox node popup menu.
+	 *
+	 * @param treeController the tree controller
+	 */
 	public InboxNodePopupMenu(final TabletopTreeController treeController){
 		this.treeController = treeController;
 		open = new JMenuItem( "Open Inbox Folder" );
@@ -88,6 +102,11 @@ public class InboxNodePopupMenu extends JPopupMenu{
 		this.add(delete);
 	}
 	
+	/**
+	 * Sets the selected node.
+	 *
+	 * @param selectedNode the new selected node
+	 */
 	public void setSelectedNode(DefaultMutableTreeNode selectedNode) {
 		this.selectedNode = selectedNode;
 	}

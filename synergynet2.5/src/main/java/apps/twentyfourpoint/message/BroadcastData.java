@@ -40,11 +40,23 @@ import apps.twentyfourpoint.TwentyFourPointApp;
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class BroadcastData.
+ */
 public class BroadcastData extends BroadcastApplicationMessage {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -544446344812321234L;
+	
+	/** The items. */
 	private List<ContentItem> items =new ArrayList<ContentItem>();
 
+	/**
+	 * Instantiates a new broadcast data.
+	 *
+	 * @param items the items
+	 */
 	public BroadcastData(List<ContentItem> items) {
 		super(TwentyFourPointApp.class);
 		this.items.clear();
@@ -53,6 +65,11 @@ public class BroadcastData extends BroadcastApplicationMessage {
 			this.items.add(item);
 	}
 
+	/**
+	 * Gets the items.
+	 *
+	 * @return the items
+	 */
 	public List<ContentItem> getItems() {
 		return items;
 	}

@@ -14,13 +14,30 @@ import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
 import com.jme.util.TextureManager;
 
+
+/**
+ * The Class TouchPadScreen.
+ */
 public class TouchPadScreen extends Node{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 5768509222221148746L;
+	
+	/** The width. */
 	protected float width;
+	
+	/** The screen quad. */
 	protected Quad screenQuad;
+	
+	/** The screen frame. */
 	protected Quad screenFrame;
 		
+	/**
+	 * Instantiates a new touch pad screen.
+	 *
+	 * @param name the name
+	 * @param width the width
+	 */
 	public TouchPadScreen(String name, float width){
 		super(name);
 		this.width = width;
@@ -30,6 +47,9 @@ public class TouchPadScreen extends Node{
 			
 	}
 	
+	/**
+	 * Builds the screen quad.
+	 */
 	public void buildScreenQuad(){
 		screenQuad = new Quad(name+"screenQuad", width+50, width);
 		screenQuad.setModelBound(new OrthogonalBoundingBox());
@@ -63,6 +83,9 @@ public class TouchPadScreen extends Node{
 		
 	}
 	
+	/**
+	 * Builds the screen frame.
+	 */
 	public void buildScreenFrame(){
 		screenFrame = new Quad(name+"screenFrame", width+60, width+30);
 		screenFrame.setModelBound(new OrthogonalBoundingBox());
@@ -101,6 +124,11 @@ public class TouchPadScreen extends Node{
 		//OrthoBringToTop bringToTop = new OrthoBringToTop(screenFrame, this);
 	}
 		
+	/**
+	 * Gets the screen quad.
+	 *
+	 * @return the screen quad
+	 */
 	public Quad getScreenQuad(){
 		return screenQuad;
 	}

@@ -26,16 +26,37 @@ package synergynetframework.appsystem.contentsystem.items.utils.vnc;
 
 import java.io.*;
 
+
+/**
+ * The Class SessionRecorder.
+ */
 class SessionRecorder {
 
+  /** The f. */
   protected FileOutputStream f;
+  
+  /** The df. */
   protected DataOutputStream df;
+  
+  /** The last time offset. */
   protected long startTime, lastTimeOffset;
 
+  /** The buffer. */
   protected byte[] buffer;
+  
+  /** The buffer size. */
   protected int bufferSize;
+  
+  /** The buffer bytes. */
   protected int bufferBytes;
 
+  /**
+   * Instantiates a new session recorder.
+   *
+   * @param name the name
+   * @param bufsize the bufsize
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   public SessionRecorder(String name, int bufsize) throws IOException {
     f = new FileOutputStream(name);
     df = new DataOutputStream(f);
@@ -47,6 +68,12 @@ class SessionRecorder {
     buffer = new byte[bufferSize];
   }
 
+  /**
+   * Instantiates a new session recorder.
+   *
+   * @param name the name
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   public SessionRecorder(String name) throws IOException {
     this(name, 65536);
   }
@@ -55,6 +82,11 @@ class SessionRecorder {
   // Close the file, free resources.
   //
 
+  /**
+   * Close.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   public void close() throws IOException {
     try {
       flush();
@@ -71,6 +103,11 @@ class SessionRecorder {
   // Write the FBS file header as defined in the rfbproxy utility.
   //
 
+  /**
+   * Write header.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   public void writeHeader() throws IOException {
     df.write("FBS 001.000\n".getBytes());
   }
@@ -79,6 +116,12 @@ class SessionRecorder {
   // Write one byte.
   //
 
+  /**
+   * Write byte.
+   *
+   * @param b the b
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   public void writeByte(int b) throws IOException {
     prepareWriting();
     buffer[bufferBytes++] = (byte)b;
@@ -88,6 +131,12 @@ class SessionRecorder {
   // Write 16-bit value, big-endian.
   //
 
+  /**
+   * Write short be.
+   *
+   * @param v the v
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   public void writeShortBE(int v) throws IOException {
     prepareWriting();
     buffer[bufferBytes++] = (byte)(v >> 8);
@@ -98,6 +147,12 @@ class SessionRecorder {
   // Write 32-bit value, big-endian.
   //
 
+  /**
+   * Write int be.
+   *
+   * @param v the v
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   public void writeIntBE(int v) throws IOException {
     prepareWriting();
     buffer[bufferBytes]     = (byte)(v >> 24);
@@ -111,6 +166,12 @@ class SessionRecorder {
   // Write 16-bit value, little-endian.
   //
 
+  /**
+   * Write short le.
+   *
+   * @param v the v
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   public void writeShortLE(int v) throws IOException {
     prepareWriting();
     buffer[bufferBytes++] = (byte)v;
@@ -121,6 +182,12 @@ class SessionRecorder {
   // Write 32-bit value, little-endian.
   //
 
+  /**
+   * Write int le.
+   *
+   * @param v the v
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   public void writeIntLE(int v) throws IOException {
     prepareWriting();
     buffer[bufferBytes]     = (byte)v;
@@ -134,6 +201,14 @@ class SessionRecorder {
   // Write byte arrays.
   //
 
+  /**
+   * Write.
+   *
+   * @param b the b
+   * @param off the off
+   * @param len the len
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   public void write(byte b[], int off, int len) throws IOException {
     prepareWriting();
     while (len > 0) {
@@ -153,6 +228,12 @@ class SessionRecorder {
     }
   }
 
+  /**
+   * Write.
+   *
+   * @param b the b
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   public void write(byte b[]) throws IOException {
     write(b, 0, b.length);
   }
@@ -164,6 +245,12 @@ class SessionRecorder {
   // will not be changed for next write operation.
   //
 
+  /**
+   * Flush.
+   *
+   * @param updateTimeOffset the update time offset
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   public void flush(boolean updateTimeOffset) throws IOException {
     if (bufferBytes > 0) {
       df.writeInt(bufferBytes);
@@ -175,6 +262,11 @@ class SessionRecorder {
     }
   }
 
+  /**
+   * Flush.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   public void flush() throws IOException {
     flush(true);
   }
@@ -184,6 +276,11 @@ class SessionRecorder {
   // buffer before it becomes full.
   //
 
+  /**
+   * Prepare writing.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   protected void prepareWriting() throws IOException {
     if (lastTimeOffset == -1)
       lastTimeOffset = System.currentTimeMillis() - startTime;

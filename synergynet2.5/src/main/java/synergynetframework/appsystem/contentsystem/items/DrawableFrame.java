@@ -38,23 +38,50 @@ import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IDrawableFrameImplementation;
 import synergynetframework.appsystem.contentsystem.items.utils.IDrawableContent;
 
+
+/**
+ * The Class DrawableFrame.
+ */
 public class DrawableFrame extends Frame implements Serializable, Cloneable{
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -8212343252885792979L;
+	
+	/** The drawable content. */
 	protected IDrawableContent drawableContent;
 	
+	/**
+	 * Instantiates a new drawable frame.
+	 *
+	 * @param contentSystem the content system
+	 * @param name the name
+	 */
 	public DrawableFrame(ContentSystem contentSystem, String name) {
 		super(contentSystem, name);
 	}		
 		
+	/**
+	 * Gets the drawable content.
+	 *
+	 * @return the drawable content
+	 */
 	public IDrawableContent getDrawableContent() {
 		return drawableContent;
 	}
 	
+	/**
+	 * Sets the drawable content.
+	 *
+	 * @param drawableContent the new drawable content
+	 */
 	public void setDrawableContent(IDrawableContent drawableContent) {
 		this.drawableContent = drawableContent;
 		((IDrawableFrameImplementation)this.contentItemImplementation).setDrawableContent(drawableContent);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.QuadContentItem#clone()
+	 */
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		DrawableFrame clonedItem = (DrawableFrame)super.clone();

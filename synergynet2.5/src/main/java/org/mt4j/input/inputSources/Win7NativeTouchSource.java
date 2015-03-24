@@ -40,49 +40,94 @@ import synergynetframework.mtinput.ClickDetector;
 import synergynetframework.mtinput.IMultiTouchEventListener;
 import synergynetframework.mtinput.win7.Win7TouchInput;
 
+
 /**
  * Input source for native Windows 7 WM_TOUCH messages for single/multi-touch.
  */
 public class Win7NativeTouchSource{
 	
+	/** The Constant logger. */
 	private static final Logger logger = Logger.getLogger(Win7NativeTouchSource.class.getName());	
 	
+	/** The listeners. */
 	protected List<IMultiTouchEventListener> listeners = new ArrayList<IMultiTouchEventListener>();
+	
+	/** The click detector. */
 	protected ClickDetector clickDetector = new ClickDetector(500, 2f);
 	
+	/** The calling list. */
 	protected List<Callable<Object>> callingList = new ArrayList<Callable<Object>>();
 	
+	/** The win7 touch input. */
 	private Win7TouchInput win7TouchInput;
 	
+	/** The loaded. */
 	static boolean loaded = false;
 
+	/** The app handle. */
 	private int appHandle;
 	
+	/** The wm touch event. */
 	private Windows7TouchEvent wmTouchEvent;
 
+	/** The initialized. */
 	private boolean initialized;
 	
+	/** The success. */
 	private boolean success;
 	
+	/** The Constant dllName32. */
 	private static final String dllName32 = "Win7Touch";
 	
+	/** The Constant dllName64. */
 	private static final String dllName64 = "Win7Touch64";
 		
 	
 	// NATIVE METHODS //
+	/**
+	 * Find window.
+	 *
+	 * @param tmpTitle the tmp title
+	 * @param subWindowTitle the sub window title
+	 * @return the int
+	 */
 	private native int findWindow(String tmpTitle, String subWindowTitle);
 	
+	/**
+	 * Inits the.
+	 *
+	 * @param HWND the hwnd
+	 * @return true, if successful
+	 */
 	private native boolean init(long HWND); 
 	
+	/**
+	 * Gets the system metrics.
+	 *
+	 * @return the system metrics
+	 */
 	private native boolean getSystemMetrics(); 
 	
+	/**
+	 * Quit.
+	 *
+	 * @return true, if successful
+	 */
 	private native boolean quit(); 
 	
+	/**
+	 * Poll event.
+	 *
+	 * @param myEvent the my event
+	 * @return true, if successful
+	 */
 	private native boolean pollEvent(Windows7TouchEvent myEvent);
 	// NATIVE METHODS //
 	
 	/**
 	 * Instantiates a new win7 native touch source.
+	 *
+	 * @param win7TouchInputIn the win7 touch input in
 	 */
 	public Win7NativeTouchSource(Win7TouchInput win7TouchInputIn) {
 		this.win7TouchInput = win7TouchInputIn;
@@ -170,10 +215,18 @@ public class Win7NativeTouchSource{
 
 	}
 	
+	/**
+	 * Checks if is successfully setup.
+	 *
+	 * @return true, if is successfully setup
+	 */
 	public boolean isSuccessfullySetup() {
 		return success;
 	}
 
+	/**
+	 * Poll events.
+	 */
 	public void pollEvents(){
 		if (initialized){ //Only poll events if native c++ core was initialized successfully			
 			while (pollEvent(wmTouchEvent)) {				
@@ -201,6 +254,11 @@ public class Win7NativeTouchSource{
 		}
 	}	
 	
+	/**
+	 * Gets the native window handles.
+	 *
+	 * @return the native window handles
+	 */
 	private void getNativeWindowHandles(){
 
 		SwingUtilities.invokeLater(new Runnable() { 
@@ -215,6 +273,11 @@ public class Win7NativeTouchSource{
 		});
 	}
 
+	/**
+	 * Sets the application handle.
+	 *
+	 * @param HWND the new application handle
+	 */
 	private void setApplicationHandle(int HWND){
 		if (HWND > 0){
 			appHandle = HWND;

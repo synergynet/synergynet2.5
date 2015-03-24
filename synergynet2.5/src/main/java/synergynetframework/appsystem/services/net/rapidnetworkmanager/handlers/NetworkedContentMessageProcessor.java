@@ -16,15 +16,30 @@ import synergynetframework.appsystem.services.net.rapidnetworkmanager.messages.B
 import synergynetframework.appsystem.services.net.rapidnetworkmanager.messages.PostItemConstructionMessage;
 import synergynetframework.appsystem.services.net.rapidnetworkmanager.messages.PostItemsMessage;
 
+
+/**
+ * The Class NetworkedContentMessageProcessor.
+ */
 public class NetworkedContentMessageProcessor implements MessageProcessor{
 	
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The listeners. */
 	protected List<NetworkedContentListener> listeners = new ArrayList<NetworkedContentListener>();
 
+	/**
+	 * Instantiates a new networked content message processor.
+	 *
+	 * @param contentSystem the content system
+	 */
 	public NetworkedContentMessageProcessor(ContentSystem contentSystem){
 		this.contentSystem = contentSystem;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.rapidnetworkmanager.handlers.MessageProcessor#process(java.lang.Object)
+	 */
 	@Override
 	public void process(Object obj){
 		if(obj instanceof PostItemsMessage){
@@ -52,6 +67,12 @@ public class NetworkedContentMessageProcessor implements MessageProcessor{
 		}
 	}
 	
+	/**
+	 * Restore items from construction info.
+	 *
+	 * @param constructionMap the construction map
+	 * @return the list
+	 */
 	private List<ContentItem> restoreItemsFromConstructionInfo(HashMap<ContentItem, HashMap<String, Object>> constructionMap) {
 		List<ContentItem> constructedItems = new ArrayList<ContentItem>();
 		for(ContentItem sentItem: constructionMap.keySet()){
@@ -73,6 +94,11 @@ public class NetworkedContentMessageProcessor implements MessageProcessor{
 	}
 
 
+	/**
+	 * Register content item.
+	 *
+	 * @param item the item
+	 */
 	private void registerContentItem(ContentItem item){
 		if(contentSystem.getAllContentItems().containsKey(item.getName())) 
 			contentSystem.removeContentItem(item);
@@ -80,17 +106,51 @@ public class NetworkedContentMessageProcessor implements MessageProcessor{
 	}
 	
 	
+	/**
+	 * Adds the networked content listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void addNetworkedContentListener(NetworkedContentListener listener){
 		listeners.add(listener);
 	}
 	
+	/**
+	 * Removes the networked content listeners.
+	 */
 	public void removeNetworkedContentListeners(){
 		listeners.clear();
 	}
 	
+	/**
+	 * The listener interface for receiving networkedContent events.
+	 * The class that is interested in processing a networkedContent
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addNetworkedContentListener<code> method. When
+	 * the networkedContent event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see NetworkedContentEvent
+	 */
 	public interface NetworkedContentListener{
+		
+		/**
+		 * Items received.
+		 *
+		 * @param item the item
+		 * @param tableId the table id
+		 */
 		public void itemsReceived(List<ContentItem> item, TableIdentity tableId);
+		
+		/**
+		 * Table disconnected.
+		 */
 		public void tableDisconnected();
+		
+		/**
+		 * Table connected.
+		 */
 		public void tableConnected();
 	}
 }

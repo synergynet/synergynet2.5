@@ -34,17 +34,33 @@ package apps.lightrays.gfxlib;
 
 import java.awt.Graphics2D;
 
+
+/**
+ * The Class DrawableBackgroundColour.
+ */
 public class DrawableBackgroundColour extends DrawableElement {
 	
+	/** The width. */
 	protected int width;
+	
+	/** The height. */
 	protected int height;
 	
+	/**
+	 * Instantiates a new drawable background colour.
+	 *
+	 * @param w the w
+	 * @param h the h
+	 */
 	public DrawableBackgroundColour(int w, int h) {
 		super();
 		this.width = w;
 		this.height = h;
 	}
 	
+	/* (non-Javadoc)
+	 * @see apps.lightrays.gfxlib.DrawableElement#draw(java.awt.Graphics2D, long)
+	 */
 	public void draw(Graphics2D gfx, long tick_count) {
 		gfx.setComposite(getAlphaComposite());
 		gfx.setColor(colour);

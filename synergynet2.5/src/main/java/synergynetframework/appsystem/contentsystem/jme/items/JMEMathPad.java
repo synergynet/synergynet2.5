@@ -49,16 +49,38 @@ import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.appsystem.contentsystem.items.MathPad.MathHandwritingListener;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMathPadImplementation;
 
+
+/**
+ * The Class JMEMathPad.
+ */
 public class JMEMathPad extends JMESketchPad implements IMathPadImplementation{
 
+	/** The Constant RATIO_THRESH. */
 	protected static final double RATIO_THRESH = 0.8416663033577378;
+	
+	/** The engine. */
 	protected Engine engine;
+	
+	/** The last. */
 	protected final java.util.List<Point> last = new ArrayList<Point>(64);
+	
+	/** The math engine enabled. */
 	protected boolean mathEngineEnabled = false;
+	
+	/** The selected symbol. */
 	private static Symbol selectedSymbol = null;
+	
+	/** The listeners. */
 	private transient List<MathHandwritingListener> listeners = new ArrayList<MathHandwritingListener>();
+	
+	/** The expressions. */
 	private List<Expression> expressions = new ArrayList<Expression>();
 	
+	/**
+	 * Instantiates a new JME math pad.
+	 *
+	 * @param contentItem the content item
+	 */
 	public JMEMathPad(ContentItem contentItem) {
 		super(contentItem);
 		
@@ -70,6 +92,9 @@ public class JMEMathPad extends JMESketchPad implements IMathPadImplementation{
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMESketchPad#cursorDragged(long, int, int)
+	 */
 	@Override
 	public void cursorDragged(long id, int x, int y){
 		Point p = lastPoint.get(id);		
@@ -78,6 +103,9 @@ public class JMEMathPad extends JMESketchPad implements IMathPadImplementation{
 		if(mathEngineEnabled) last.add(new Point(x,y));
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMESketchPad#cursorReleased(long, int, int)
+	 */
 	@Override
 	public void cursorReleased(long cursorID, int x, int y) {
 		if(!mathEngineEnabled || last.isEmpty())  return;
@@ -118,12 +146,18 @@ public class JMEMathPad extends JMESketchPad implements IMathPadImplementation{
 	    }
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMESketchPad#cursorClicked(long, int, int)
+	 */
 	@Override
 	public void cursorClicked(long cursorID, int x, int y) {
 	        Point p = new Point(x,y);
 	        if(mathEngineEnabled) selectedSymbol = getSelectedSymbol(p);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMESketchPad#clearAll()
+	 */
 	@Override
 	public void clearAll() {
 		super.clearAll();
@@ -132,23 +166,38 @@ public class JMEMathPad extends JMESketchPad implements IMathPadImplementation{
 		drawingFinished();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMathPadImplementation#addMathHandwritingListener(synergynetframework.appsystem.contentsystem.items.MathPad.MathHandwritingListener)
+	 */
 	@Override
 	public void addMathHandwritingListener(MathHandwritingListener listener) {
 		if(!listeners.contains(listener)) listeners.add(listener);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMathPadImplementation#clearMathExpressions()
+	 */
 	@Override
 	public void clearMathExpressions() {
 		engine.clear();
 		expressions.clear();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMathPadImplementation#startNewExpression()
+	 */
 	@Override
 	public void startNewExpression() {
 		if(engine.getExpression() != null) expressions.add(engine.getExpression());
 		engine.clear();
 	}
 	
+	/**
+	 * Gets the selected symbol.
+	 *
+	 * @param p the p
+	 * @return the selected symbol
+	 */
 	private Symbol getSelectedSymbol(Point p) {
 		if(engine.getSymbols() == null || engine.getSymbols().isEmpty()) return null;
 		Iterator it = engine.getSymbols().iterator();
@@ -161,6 +210,9 @@ public class JMEMathPad extends JMESketchPad implements IMathPadImplementation{
 		return null;
 	}
 
+	/**
+	 * Delete symbol.
+	 */
 	@SuppressWarnings("unused")
 	private void deleteSymbol() {
 		if (selectedSymbol != null) {
@@ -190,32 +242,50 @@ public class JMEMathPad extends JMESketchPad implements IMathPadImplementation{
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMathPadImplementation#removeHandwritingListener(synergynetframework.appsystem.contentsystem.items.MathPad.MathHandwritingListener)
+	 */
 	@Override
 	public void removeHandwritingListener(MathHandwritingListener listener) {
 		if(listeners.contains(listener)) listeners.remove(listener);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMathPadImplementation#removeHandwritingListeners()
+	 */
 	@Override
 	public void removeHandwritingListeners() {
 		listeners.clear();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMathPadImplementation#getCurrentExpression()
+	 */
 	@Override
 	public Expression getCurrentExpression() {
 		return engine.getExpression();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMathPadImplementation#getMathExpressions()
+	 */
 	@Override
 	public List<Expression> getMathExpressions() {
 		return expressions;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMESketchPad#renderSketch()
+	 */
 	public void renderSketch(){
 		super.renderSketch();
 		this.drawLineGrid();
 		super.redrawContent();
 	}
 	
+	/**
+	 * Draw line grid.
+	 */
 	private void drawLineGrid(){
 		/*
 		if(drawGfx != null){	
@@ -227,6 +297,9 @@ public class JMEMathPad extends JMESketchPad implements IMathPadImplementation{
 		*/
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMathPadImplementation#setMathEngineEnabled(boolean)
+	 */
 	@Override
 	public void setMathEngineEnabled(boolean isEnabled) {
 		mathEngineEnabled = isEnabled;

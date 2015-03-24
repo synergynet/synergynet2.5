@@ -34,16 +34,33 @@ import synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp;
 import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightConfirmVisualExit;
 
+
+/**
+ * The Class MTTableClient.
+ */
 public class MTTableClient extends DefaultSynergyNetApp{
 
+	/** The content system. */
 	private ContentSystem contentSystem;
+	
+	/** The manager. */
 	private TabletopContentManager manager;
+	
+	/** The background. */
 	public static LightImageLabel background;
 	
+	/**
+	 * Instantiates a new MT table client.
+	 *
+	 * @param info the info
+	 */
 	public MTTableClient(ApplicationInfo info) {
 		super(info);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		
@@ -231,6 +248,9 @@ public class MTTableClient extends DefaultSynergyNetApp{
 		});
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onActivate()
+	 */
 	@Override
 	public void onActivate() {
 		
@@ -262,6 +282,9 @@ public class MTTableClient extends DefaultSynergyNetApp{
 		RapidNetworkManager.connect(this);
 	}
 	
+	/**
+	 * Announce.
+	 */
 	public void announce(){
 		try {
 			String fileServerUrl = "http://"+InetAddress.getLocalHost().getHostAddress()+":"+ MTDesktopConfigurations.SERVER_PORT;
@@ -272,6 +295,9 @@ public class MTTableClient extends DefaultSynergyNetApp{
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#cleanup()
+	 */
 	@Override
 	public void cleanup(){
   		File outboxFolder = new File(MTDesktopConfigurations.OutboxFolder);
@@ -282,6 +308,9 @@ public class MTTableClient extends DefaultSynergyNetApp{
   		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	@Override
 	protected void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);

@@ -34,10 +34,20 @@ package apps.mathpadapp.networkmanager.messages.fromcontroller.unicast.totable;
 
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.UnicastApplicationMessage;
 
+
+/**
+ * The Class ControllerToTableMessage.
+ */
 public abstract class ControllerToTableMessage extends UnicastApplicationMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -6950926015767190632L;
 	
+	/**
+	 * Instantiates a new controller to table message.
+	 *
+	 * @param targetClass the target class
+	 */
 	public ControllerToTableMessage(Class<?> targetClass){
 		super(targetClass);		
 	}

@@ -40,12 +40,23 @@ import synergynetframework.appsystem.services.net.tablecomms.client.TableCommsAp
 import synergynetframework.appsystem.services.net.tablecomms.messages.TableMessage;
 
 
+
+/**
+ * The Class DefaultMessageHandler.
+ */
 public class DefaultMessageHandler implements TableCommsApplicationListener{
 
+	/** The message processors. */
 	protected List<MessageProcessor> messageProcessors = new ArrayList<MessageProcessor>();
 	
+	/**
+	 * Instantiates a new default message handler.
+	 */
 	public DefaultMessageHandler() {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.tablecomms.client.TableCommsApplicationListener#messageReceived(java.lang.Object)
+	 */
 	@Override
 	public void messageReceived(Object obj) {
 		if (TableIdentity.getTableIdentity().hashCode()==((TableMessage)obj).getSender().hashCode()) return;
@@ -57,24 +68,45 @@ public class DefaultMessageHandler implements TableCommsApplicationListener{
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.tablecomms.client.TableCommsApplicationListener#tableDisconnected()
+	 */
 	@Override
 	public void tableDisconnected() {
 		 
 		
 	}
 	
+	/**
+	 * Register message processor.
+	 *
+	 * @param messageProcessor the message processor
+	 */
 	public void registerMessageProcessor(MessageProcessor messageProcessor){
 		if(!messageProcessors.contains(messageProcessor)) messageProcessors.add(messageProcessor);
 	}
 	
+	/**
+	 * Removes the message processor.
+	 *
+	 * @param messageProcessor the message processor
+	 */
 	public void removeMessageProcessor(MessageProcessor messageProcessor){
 		messageProcessors.remove(messageProcessor);
 	}
 	
+	/**
+	 * Removes the message processors.
+	 */
 	public void removeMessageProcessors(){
 		messageProcessors.clear();
 	}
 	
+	/**
+	 * Gets the message processors.
+	 *
+	 * @return the message processors
+	 */
 	public List<MessageProcessor> getMessageProcessors(){
 		return messageProcessors;
 	}

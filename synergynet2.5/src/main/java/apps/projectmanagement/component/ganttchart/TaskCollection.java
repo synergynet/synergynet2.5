@@ -4,14 +4,29 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+
+/**
+ * The Class TaskCollection.
+ */
 public class TaskCollection {
 
+	/** The task rows. */
 	protected List<TaskRow> taskRows = new ArrayList<TaskRow>();
 	
+	/**
+	 * Gets the task rows.
+	 *
+	 * @return the task rows
+	 */
 	public List<TaskRow> getTaskRows(){
 		return taskRows;
 	}
 	
+	/**
+	 * Adds the task row.
+	 *
+	 * @param taskRow the task row
+	 */
 	public void addTaskRow(TaskRow taskRow){
 		taskRows.add(taskRow);
 		taskRow.setRowIndex(taskRows.size()-1);
@@ -25,17 +40,31 @@ public class TaskCollection {
 		
 	}
 	
+	/**
+	 * Removes the task row.
+	 *
+	 * @param taskRow the task row
+	 */
 	public void removeTaskRow(TaskRow taskRow){
 		taskRow.clear();
 		taskRows.remove(taskRow);
 		updateRowIndex();
 	}
 	
+	/**
+	 * Swap task row.
+	 *
+	 * @param row1 the row1
+	 * @param row2 the row2
+	 */
 	public void swapTaskRow(int row1, int row2){
 		Collections.swap(taskRows, row1, row2);
 		updateRowIndex();
 	}
 	
+	/**
+	 * Update row index.
+	 */
 	protected void updateRowIndex(){
 		for (int i=0; i<taskRows.size(); i++){
 			taskRows.get(i).setRowIndex(i);

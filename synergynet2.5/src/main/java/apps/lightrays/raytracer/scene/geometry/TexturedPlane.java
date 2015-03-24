@@ -5,15 +5,35 @@ import apps.lightrays.raytracer.scene.OpticalProperties;
 import apps.lightrays.raytracer.scene.Point;
 import apps.lightrays.raytracer.scene.Vector;
 
+
+/**
+ * The Class TexturedPlane.
+ */
 public class TexturedPlane extends Plane {
 		
 		// the tile
+		/** The pixels. */
 		int pixels[];
+		
+		/** The width. */
 		int width;
+		
+		/** The height. */
 		int height;
 		
+		/** The cos_inv. */
 		double  cos_inv;
 		
+		/**
+		 * Instantiates a new textured plane.
+		 *
+		 * @param center the center
+		 * @param perpendicular the perpendicular
+		 * @param prop the prop
+		 * @param pixels the pixels
+		 * @param width the width
+		 * @param height the height
+		 */
 		public TexturedPlane (Point center, Vector perpendicular, OpticalProperties prop, int pixels [], int width, int height)
 		{
 			super(center, perpendicular, prop);
@@ -22,6 +42,9 @@ public class TexturedPlane extends Plane {
 			this.pixels = pixels;
 		}
 		
+		/* (non-Javadoc)
+		 * @see apps.lightrays.raytracer.scene.geometry.Plane#getPixel(apps.lightrays.raytracer.scene.Point)
+		 */
 		public Colour getPixel(Point p)
 		{
 			// texture mapping
@@ -40,6 +63,9 @@ public class TexturedPlane extends Plane {
 			return new Colour(rgb);
 		}
 		
+		/* (non-Javadoc)
+		 * @see apps.lightrays.raytracer.scene.geometry.Plane#toString()
+		 */
 		public String toString() {
 			return "TEXTUREDPLANE";
 		}

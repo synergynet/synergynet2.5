@@ -34,9 +34,18 @@ package synergynetframework.appsystem.services.net.tablecomms.messages.control;
 
 import synergynetframework.appsystem.services.net.tablecomms.messages.TableMessage;
 
+
+/**
+ * The Class TableControlMessage.
+ */
 public class TableControlMessage extends TableMessage {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 6999668008712178282L;
 
+	/**
+	 * Instantiates a new table control message.
+	 */
 	public TableControlMessage(){
 		super();
 	}

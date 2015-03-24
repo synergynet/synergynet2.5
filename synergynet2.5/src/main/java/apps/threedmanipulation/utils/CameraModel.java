@@ -19,14 +19,30 @@ import com.jme.scene.state.ZBufferState;
 import com.jme.system.DisplaySystem;
 import com.jme.util.TextureManager;
 
+
+/**
+ * The Class CameraModel.
+ */
 public class CameraModel extends Node {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 5885506028867024173L;
 
+	/** The name. */
 	protected String name;
+	
+	/** The texture url. */
 	protected String textureURL;
+	
+	/** The body. */
 	protected Cylinder body;
 	
+	/**
+	 * Instantiates a new camera model.
+	 *
+	 * @param name the name
+	 * @param textureURL the texture url
+	 */
 	public CameraModel(String name, String textureURL){
 		this.name = name;
 		this.textureURL = textureURL;
@@ -34,6 +50,9 @@ public class CameraModel extends Node {
 		this.buildCamera();
 	}
 	
+	/**
+	 * Builds the camera.
+	 */
 	private void buildCamera(){
 		body  = new Cylinder(name + "body", 20, 50, 3, 10, true);
 		body.setModelBound(new BoundingBox());
@@ -115,6 +134,11 @@ public class CameraModel extends Node {
 		this.updateRenderState();
 	}
 	
+	/**
+	 * Gets the camera body.
+	 *
+	 * @return the camera body
+	 */
 	public Spatial getCameraBody(){
 		return body;
 	}

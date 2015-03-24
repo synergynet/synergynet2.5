@@ -5,12 +5,27 @@ import java.awt.Color;
 import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.Window;
 
+
+/**
+ * The Class Radar.
+ */
 public class Radar {
 	
+	/** The size_ratio. */
 	public static float size_ratio = 0.15f;
+	
+	/** The radar window. */
 	private Window radarWindow;
+	
+	/** The viewed area. */
 	private Window viewedArea;
 	
+	/**
+	 * Instantiates a new radar.
+	 *
+	 * @param contentSystem the content system
+	 * @param portal the portal
+	 */
 	public Radar(ContentSystem contentSystem, TablePortal portal){
 		radarWindow = (Window) contentSystem.createContentItem(Window.class);
 		radarWindow.setWidth(portal.backFrame.getWidth());
@@ -39,10 +54,20 @@ public class Radar {
 		viewedArea.getBackgroundFrame().setBringToTopable(false);
 	}
 	
+	/**
+	 * Gets the radar window.
+	 *
+	 * @return the radar window
+	 */
 	public Window getRadarWindow(){
 		return radarWindow;
 	}
 	
+	/**
+	 * Gets the viewed area.
+	 *
+	 * @return the viewed area
+	 */
 	public Window getViewedArea(){
 		return viewedArea;
 	}

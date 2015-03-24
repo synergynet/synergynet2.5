@@ -56,6 +56,7 @@ import synergynetframework.mtinput.IMultiTouchInputSource;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 import synergynetframework.mtinput.exceptions.MultiTouchInputException;
 
+
 /**
  * Support for the Lumin multi-touch table.  This implementation currently
  * only supports cursor information - it does not support objects/fiducials.
@@ -64,21 +65,42 @@ import synergynetframework.mtinput.exceptions.MultiTouchInputException;
  */
 public class LuminMultiTouchInput implements IMultiTouchInputSource {
 	
+	/** The Constant BLOB_CHANGED_THRESHOLD. */
 	private final static float BLOB_CHANGED_THRESHOLD = 0.003f;
 	
+	/** The listeners. */
 	protected List<IMultiTouchEventListener> listeners = new ArrayList<IMultiTouchEventListener>();
+	
+	/** The ja. */
 	protected JavaAdapter ja;	
+	
+	/** The current blobs. */
 	protected BlobJ[] currentBlobs = new BlobJ[0];
 
+	/** The current blob registry. */
 	protected Map<Integer, BlobJ> currentBlobRegistry = new HashMap<Integer,BlobJ>();
+	
+	/** The last known position. */
 	protected Map<Integer, Vector2f> lastKnownPosition = new HashMap<Integer,Vector2f>();
+	
+	/** The same position tolerance. */
 	protected float samePositionTolerance = 0.002f;
+	
+	/** The click detector. */
 	protected ClickDetector clickDetector = new ClickDetector(500, 2f);
+	
+	/** The executor. */
 	ExecutorService executor = Executors.newCachedThreadPool();
 
+	/** The table config. */
 	protected TableConfigPrefsItem tableConfig = new TableConfigPrefsItem();
+	
+	/** The task. */
 	private GetBlobsTask task;
 
+	/**
+	 * Instantiates a new lumin multi touch input.
+	 */
 	public LuminMultiTouchInput() {
 		ja = new JavaAdapter("localhost");
 		task = new GetBlobsTask(ja);
@@ -87,6 +109,11 @@ public class LuminMultiTouchInput implements IMultiTouchInputSource {
 
 
 
+	/**
+	 * Process.
+	 *
+	 * @throws MultiTouchInputException the multi touch input exception
+	 */
 	private void process() throws MultiTouchInputException {
 		try {
 			Future<BlobJ[]> future = executor.submit(task);
@@ -150,26 +177,46 @@ public class LuminMultiTouchInput implements IMultiTouchInputSource {
 		currentBlobRegistry = newRegistry;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchInputSource#setClickSensitivity(long, float)
+	 */
 	public void setClickSensitivity(long time, float distance) {
 		clickDetector.setSensitivity(time, distance);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchInputSource#registerMultiTouchEventListener(synergynetframework.mtinput.IMultiTouchEventListener)
+	 */
 	public void registerMultiTouchEventListener(IMultiTouchEventListener listener) {
 		if(!listeners.contains(listener)) listeners.add(listener);	
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchInputSource#registerMultiTouchEventListener(synergynetframework.mtinput.IMultiTouchEventListener, int)
+	 */
 	public void registerMultiTouchEventListener(IMultiTouchEventListener listener, int index) {
 		if(!listeners.contains(listener)) listeners.add(index, listener);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchInputSource#unregisterMultiTouchEventListener(synergynetframework.mtinput.IMultiTouchEventListener)
+	 */
 	public void unregisterMultiTouchEventListener(IMultiTouchEventListener listener) {
 		listeners.remove(listener);
 	}
 
+	/**
+	 * Sets the same position tolerance.
+	 *
+	 * @param samePositionTolerance the new same position tolerance
+	 */
 	public void setSamePositionTolerance(float samePositionTolerance) {
 		this.samePositionTolerance = samePositionTolerance;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchInputSource#update(float)
+	 */
 	@Override
 	public void update(float tpf) throws MultiTouchInputException {
 		process();

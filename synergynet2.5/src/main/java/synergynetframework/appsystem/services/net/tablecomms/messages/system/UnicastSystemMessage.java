@@ -34,19 +34,39 @@ package synergynetframework.appsystem.services.net.tablecomms.messages.system;
 
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class UnicastSystemMessage.
+ */
 public class UnicastSystemMessage extends SystemMessage {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 8566947414121200446L;
 	
+	/** The recipient. */
 	private TableIdentity recipient;
 
+	/**
+	 * Instantiates a new unicast system message.
+	 */
 	public UnicastSystemMessage(){
 		super();
 	}
 	
+	/**
+	 * Sets the recipient.
+	 *
+	 * @param id the new recipient
+	 */
 	public void setRecipient(TableIdentity id) {
 		this.recipient = id;
 	}
 	
+	/**
+	 * Gets the recipient.
+	 *
+	 * @return the recipient
+	 */
 	public TableIdentity getRecipient() {
 		return recipient;
 	}

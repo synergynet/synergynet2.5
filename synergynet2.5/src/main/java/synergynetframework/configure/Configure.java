@@ -45,12 +45,23 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 
+
+/**
+ * The Class Configure.
+ */
 public abstract class Configure extends JFrame {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 8861853020575988727L;
 	
+	/** The table. */
 	protected JTable table;
 	
+	/**
+	 * Instantiates a new configure.
+	 *
+	 * @throws ClassNotFoundException the class not found exception
+	 */
 	public Configure() throws ClassNotFoundException {
 		final JFrame frame = this;
 		
@@ -114,7 +125,18 @@ public abstract class Configure extends JFrame {
 		pack();
 	}
 
+	/**
+	 * Notify package selected.
+	 *
+	 * @param selection the selection
+	 */
 	public abstract void notifyPackageSelected(String selection);
+	
+	/**
+	 * Gets the selection values.
+	 *
+	 * @return the selection values
+	 */
 	public abstract String[] getSelectionValues();
 	
 }

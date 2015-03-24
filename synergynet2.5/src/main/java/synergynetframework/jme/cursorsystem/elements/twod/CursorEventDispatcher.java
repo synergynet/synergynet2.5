@@ -41,11 +41,25 @@ import synergynetframework.jme.gfx.twod.DrawableSpatialImage;
 import synergynetframework.jme.pickingsystem.AccuratePickingUtility;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 
+
+/**
+ * The Class CursorEventDispatcher.
+ */
 public class CursorEventDispatcher extends TwoDMultiTouchElement {
+	
+	/** The pixels per unit. */
 	protected float pixelsPerUnit;
+	
+	/** The quad. */
 	protected DrawableSpatialImage quad;
 
 
+	/**
+	 * Instantiates a new cursor event dispatcher.
+	 *
+	 * @param drawableSpatialImage the drawable spatial image
+	 * @param pixelsPerUnit the pixels per unit
+	 */
 	public CursorEventDispatcher(DrawableSpatialImage drawableSpatialImage, float pixelsPerUnit) {
 		super(drawableSpatialImage.getSpatial());
 
@@ -53,28 +67,46 @@ public class CursorEventDispatcher extends TwoDMultiTouchElement {
 		this.pixelsPerUnit = pixelsPerUnit;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorChanged(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorChanged(ScreenCursor c, MultiTouchCursorEvent event) {
 		Point p = getCurrentElement2DCoordsForCursor(getScreenCursorByID(event.getCursorID()));
 		quad.cursorDragged(event.getCursorID(), p.x, p.y);		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorClicked(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorClicked(ScreenCursor c, MultiTouchCursorEvent event) {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorPressed(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorPressed(ScreenCursor c, MultiTouchCursorEvent event) {
 		Point p = getCurrentElement2DCoordsForCursor(getScreenCursorByID(event.getCursorID()));
 		quad.cursorPressed(event.getCursorID(), p.x, p.y);		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorReleased(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorReleased(ScreenCursor c, MultiTouchCursorEvent event) {		
 		Point p = getCurrentElement2DCoordsForCursor(getScreenCursorByID(event.getCursorID()));
 		quad.cursorReleased(event.getCursorID(), p.x, p.y);
 	}
 
+	/**
+	 * Gets the current element2 d coords for cursor index.
+	 *
+	 * @param index the index
+	 * @return the current element2 d coords for cursor index
+	 */
 	protected Point getCurrentElement2DCoordsForCursorIndex(int index) {	
 		Vector3f cursorPosition = AccuratePickingUtility.getPointOfIntersection(pickingSpatial.getParent(), this.screenCursors.get(index).getCurrentCursorScreenPosition().getPosition(), pickingSpatial);
 		if(cursorPosition == null) return null;
@@ -88,6 +120,12 @@ public class CursorEventDispatcher extends TwoDMultiTouchElement {
 
 	}
 
+	/**
+	 * Gets the current element2 d coords for cursor.
+	 *
+	 * @param cursor the cursor
+	 * @return the current element2 d coords for cursor
+	 */
 	protected Point getCurrentElement2DCoordsForCursor(ScreenCursor cursor) {
 		if(cursor == null) return null;
 		Vector3f cursorPosition = new Vector3f(cursor.getCurrentCursorScreenPosition().x, cursor.getCurrentCursorScreenPosition().y, 0f);

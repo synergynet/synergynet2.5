@@ -88,27 +88,62 @@ import com.jme.scene.Spatial;
 
 import core.ConfigurationSystem;
 
+
+/**
+ * The Class MysteriesControllerApp.
+ */
 public class MysteriesControllerApp extends DefaultSynergyNetApp implements NetworkedContentListener{
 
+	/** The comms. */
 	protected TableCommsClientService comms;
+	
+	/** The message processor. */
 	protected TableCommsApplicationListener messageProcessor;
+	
+	/** The message handler. */
 	protected DefaultMessageHandler messageHandler;
+	
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The graph manager. */
 	protected GraphManager graphManager;
+	
+	/** The networked content manager. */
 	protected NetworkedContentManager networkedContentManager;
+	
+	/** The transfer controller. */
 	protected TransferController transferController;
 
+	/** The background controller. */
 	protected BackgroundController backgroundController;
+	
+	/** The sub app menu. */
 	protected SubAppMenu subAppMenu;
 
+	/** The current sub app. */
 	protected String currentSubApp = "";
+	
+	/** The inner note controller. */
 	protected InnerNoteController innerNoteController = new InnerNoteController();
 
+	/** The restore folder. */
 	protected File restoreFolder;
+	
+	/** The exit settings file. */
 	protected File exitSettingsFile;
+	
+	/** The restore. */
 	public static boolean restore = true;
+	
+	/** The is log enabled. */
 	protected boolean isLogEnabled = false;
 
+	/**
+	 * Instantiates a new mysteries controller app.
+	 *
+	 * @param info the info
+	 */
 	public MysteriesControllerApp(ApplicationInfo info) {
 		super(info);
 
@@ -125,6 +160,9 @@ public class MysteriesControllerApp extends DefaultSynergyNetApp implements Netw
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 
@@ -148,6 +186,9 @@ public class MysteriesControllerApp extends DefaultSynergyNetApp implements Netw
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onActivate()
+	 */
 	@Override
 	public void onActivate() {
 
@@ -212,6 +253,9 @@ public class MysteriesControllerApp extends DefaultSynergyNetApp implements Netw
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	@Override
 	public void stateUpdate(float tpf) {
 		if(networkedContentManager!= null) networkedContentManager.stateUpdate(tpf);
@@ -227,6 +271,12 @@ public class MysteriesControllerApp extends DefaultSynergyNetApp implements Netw
 
 	}
 
+	/**
+	 * Log content state.
+	 *
+	 * @param mysteryID the mystery id
+	 * @throws FileNotFoundException the file not found exception
+	 */
 	private void logContentState(String mysteryID) throws FileNotFoundException {
 		if(!restoreFolder.exists()) restoreFolder.mkdir();
 		File restoreFile = new File(restoreFolder, mysteryID);
@@ -254,6 +304,9 @@ public class MysteriesControllerApp extends DefaultSynergyNetApp implements Netw
 		pw.close();
 	}
 
+	/**
+	 * Check last exit settings.
+	 */
 	private void checkLastExitSettings(){
 		try{
 			if(!exitSettingsFile.exists()) exitSettingsFile.createNewFile();
@@ -277,6 +330,9 @@ public class MysteriesControllerApp extends DefaultSynergyNetApp implements Netw
 		}
 	}
 
+	/**
+	 * Sets the safe exit.
+	 */
 	@SuppressWarnings("unused")
 	private void setSafeExit(){
 		try{
@@ -292,6 +348,12 @@ public class MysteriesControllerApp extends DefaultSynergyNetApp implements Netw
 		}
 	}
 
+	/**
+	 * Load content.
+	 *
+	 * @param filePath the file path
+	 * @param name the name
+	 */
 	public void loadContent(String filePath, String name){
 
 		this.removeAllItems();
@@ -300,16 +362,25 @@ public class MysteriesControllerApp extends DefaultSynergyNetApp implements Netw
 		this.contentLoaded();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.networkedcontentmanager.NetworkedContentListener#contentLoaded()
+	 */
 	@Override
 	public void contentLoaded() {
 		addSynchronisedDateListeners();
 		this.innerNoteController.addNoteController(networkedContentManager.getOnlineItems().values());
 	}
 
+	/**
+	 * Removes the all items.
+	 */
 	public void removeAllItems(){
 		this.innerNoteController.removeAllNoteEditors();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.networkedcontentmanager.NetworkedContentListener#renderSynchronisedDate(synergynetframework.appsystem.contentsystem.items.ContentItem, java.util.Map)
+	 */
 	@Override
 	public void renderSynchronisedDate(ContentItem item,
 			Map<String, String> itemAttrs) {
@@ -318,6 +389,9 @@ public class MysteriesControllerApp extends DefaultSynergyNetApp implements Netw
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.networkedcontentmanager.NetworkedContentListener#remoteContentLoaded(synergynetframework.appsystem.services.net.networkedcontentmanager.utils.RemoteDesktop)
+	 */
 	@Override
 	public void remoteContentLoaded(RemoteDesktop remoteDesktop) {
 		 
@@ -325,6 +399,9 @@ public class MysteriesControllerApp extends DefaultSynergyNetApp implements Netw
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.networkedcontentmanager.NetworkedContentListener#renderRemoteDesktop(synergynetframework.appsystem.services.net.networkedcontentmanager.utils.RemoteDesktop, synergynetframework.appsystem.contentsystem.items.OrthoContentItem, java.util.Map)
+	 */
 	@Override
 	public void renderRemoteDesktop(RemoteDesktop remoteDesktop,
 			OrthoContentItem item, Map<String, String> itemAttrs) {
@@ -332,6 +409,9 @@ public class MysteriesControllerApp extends DefaultSynergyNetApp implements Netw
 		SynchronisedDataRender.renderRemoteDesktopNote(remoteDesktop, (OrthoContentItem)item, itemAttrs, this.innerNoteController);
 	}
 
+	/**
+	 * Adds the synchronised date listeners.
+	 */
 	private void addSynchronisedDateListeners(){
 
 		//add note listener
@@ -392,6 +472,11 @@ public class MysteriesControllerApp extends DefaultSynergyNetApp implements Netw
 		for (ContentItem item:networkedContentManager.getOnlineItems().values()) addItemListeners(item);
 	}
 
+	/**
+	 * Adds the item listeners.
+	 *
+	 * @param item the item
+	 */
 	private void addItemListeners(ContentItem item){
 		OrthoContentItem orthoItem = (OrthoContentItem)item;
 		orthoItem.addBringToTopListener(new BringToTopListener(){
@@ -446,10 +531,16 @@ public class MysteriesControllerApp extends DefaultSynergyNetApp implements Netw
 		});
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.networkedcontentmanager.NetworkedContentListener#channelSwitched()
+	 */
 	@Override
 	public void channelSwitched() {}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.networkedcontentmanager.NetworkedContentListener#contentItemLoaded(synergynetframework.appsystem.contentsystem.items.ContentItem)
+	 */
 	@Override
 	public void contentItemLoaded(ContentItem item) {
 		this.innerNoteController.addNoteController(item);

@@ -37,23 +37,50 @@ import java.util.HashMap;
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class BroadcastItemConstructionMessage.
+ */
 public class BroadcastItemConstructionMessage extends BroadcastApplicationMessage {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -7039740871298771630L;
+	
+	/** The construct info. */
 	HashMap<ContentItem, HashMap<String, Object>> constructInfo;
 	
+	/**
+	 * Instantiates a new broadcast item construction message.
+	 */
 	public BroadcastItemConstructionMessage(){
 		super();
 	}
+	
+	/**
+	 * Instantiates a new broadcast item construction message.
+	 *
+	 * @param targetClass the target class
+	 * @param constructInfo the construct info
+	 */
 	public BroadcastItemConstructionMessage(Class<?> targetClass, HashMap<ContentItem, HashMap<String, Object>> constructInfo) {
 		super(targetClass);
 		this.constructInfo = constructInfo;
 	}
 
+	/**
+	 * Gets the construction info.
+	 *
+	 * @return the construction info
+	 */
 	public HashMap<ContentItem, HashMap<String, Object>> getConstructionInfo() {
 		return constructInfo;
 	}
 	
+	/**
+	 * Sets the construction info.
+	 *
+	 * @param constructInfo the construct info
+	 */
 	public void setConstructionInfo(HashMap<ContentItem, HashMap<String, Object>> constructInfo){
 		this.constructInfo = constructInfo;
 	}

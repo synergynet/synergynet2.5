@@ -36,14 +36,28 @@ import synergynetframework.appsystem.contentsystem.items.DrawableFrame;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IDrawableFrameImplementation;
 import synergynetframework.appsystem.contentsystem.items.utils.IDrawableContent;
 
+
+/**
+ * The Class JMEDrawableFrame.
+ */
 public class JMEDrawableFrame extends JMEFrame implements IDrawableFrameImplementation {
 	
+	/** The drawable content. */
 	IDrawableContent drawableContent;
+	
+	/**
+	 * Instantiates a new JME drawable frame.
+	 *
+	 * @param contentItem the content item
+	 */
 	public JMEDrawableFrame(ContentItem contentItem) {
 		super(contentItem);
 			
 	}	
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEFrame#draw()
+	 */
 	@Override
 	protected void draw() {
 		super.draw();
@@ -54,6 +68,9 @@ public class JMEDrawableFrame extends JMEFrame implements IDrawableFrameImplemen
 		this.graphicsImageQuad.updateGraphics();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IDrawableFrameImplementation#setDrawableContent(synergynetframework.appsystem.contentsystem.items.utils.IDrawableContent)
+	 */
 	@Override
 	public void setDrawableContent(IDrawableContent drawableContent) {
 		this.drawableContent = ((DrawableFrame)contentItem).getDrawableContent();

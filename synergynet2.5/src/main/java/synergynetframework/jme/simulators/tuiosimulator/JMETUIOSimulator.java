@@ -36,29 +36,51 @@ package synergynetframework.jme.simulators.tuiosimulator;
 import synergynetframework.mtinput.simulator.AbstractMultiTouchSimulator;
 import synergynetframework.mtinput.simulator.IndividualCursor;
 
+
+/**
+ * The Class JMETUIOSimulator.
+ */
 public class JMETUIOSimulator extends AbstractMultiTouchSimulator {
 
+	/**
+	 * Instantiates a new JMETUIO simulator.
+	 *
+	 * @param tableWidth the table width
+	 * @param tableHeight the table height
+	 */
 	public JMETUIOSimulator(int tableWidth, int tableHeight) {
 		super(tableWidth, tableHeight);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.simulator.AbstractMultiTouchSimulator#start()
+	 */
 	@Override
 	public void start() {
 		super.start();
 		TableSimTUIOComms.getInstance().init("localhost", TableSimTUIOComms.DEFAULT_PORT);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.simulator.AbstractMultiTouchSimulator#stop()
+	 */
 	@Override
 	public void stop() {
 		super.stop();
 		TableSimTUIOComms.getInstance().quit();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.simulator.AbstractMultiTouchSimulator#updateCursor(int, float, float)
+	 */
 	@Override
 	public void updateCursor(int id, float x, float y) {
 		TableSimTUIOComms.getInstance().singleCursorMessage(new IndividualCursor(id, x, y));
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.simulator.AbstractMultiTouchSimulator#updateTwoCursors(int, float, float, int, float, float)
+	 */
 	@Override
 	public void updateTwoCursors(int id1, float x, float y, int id2, float x2, float y2) {
 		IndividualCursor[] cursorInfo = new IndividualCursor[2];
@@ -67,21 +89,33 @@ public class JMETUIOSimulator extends AbstractMultiTouchSimulator {
 		TableSimTUIOComms.getInstance().multiCursorMessage(cursorInfo);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.simulator.AbstractMultiTouchSimulator#deleteCursor(int, float, float)
+	 */
 	@Override
 	public void deleteCursor(int id, float x, float y) {
 		TableSimTUIOComms.getInstance().cursorDelete();		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.simulator.AbstractMultiTouchSimulator#deleteTwoCursors(int, float, float, int, float, float)
+	 */
 	@Override
 	public void deleteTwoCursors(int id1, float x1, float y1, int id2, float x2, float y2) {
 		TableSimTUIOComms.getInstance().cursorDelete();		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.simulator.AbstractMultiTouchSimulator#newCursor(int, float, float)
+	 */
 	@Override
 	public void newCursor(int id, float x, float y) {
 		updateCursor(id, x, y);	
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchInputSource#update(float)
+	 */
 	public void update(float tpf) {}
 
 }

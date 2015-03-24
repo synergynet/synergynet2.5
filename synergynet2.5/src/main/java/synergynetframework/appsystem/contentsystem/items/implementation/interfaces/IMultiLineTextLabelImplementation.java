@@ -33,9 +33,32 @@ package synergynetframework.appsystem.contentsystem.items.implementation.interfa
 
 import java.util.List;
 
+
+/**
+ * The Interface IMultiLineTextLabelImplementation.
+ */
 public interface IMultiLineTextLabelImplementation extends ITextLabelImplementation {
+	
+	/**
+	 * Sets the lines.
+	 *
+	 * @param lines the new lines
+	 */
 	public void setLines(List<String> lines);	
+	
+	/**
+	 * Sets the lines.
+	 *
+	 * @param s the s
+	 * @param charsPerLine the chars per line
+	 */
 	public void setLines(String s, int charsPerLine);		
+	
+	/**
+	 * Sets the CRLF separated string.
+	 *
+	 * @param s the new CRLF separated string
+	 */
 	public void setCRLFSeparatedString(String s);
 	
 }

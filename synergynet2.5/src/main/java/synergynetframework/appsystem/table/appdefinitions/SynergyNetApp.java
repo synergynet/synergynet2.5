@@ -70,24 +70,59 @@ import com.jmex.game.state.GameState;
 
 import core.SynergyNetDesktop;
 
+
+/**
+ * The Class SynergyNetApp.
+ */
 public abstract class SynergyNetApp extends GameState {
 	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(SynergyNetApp.class.getName());	
 	
+	/** The input. */
 	protected InputHandler input;	
+	
+	/** The root node. */
 	private Node rootNode;
+	
+	/** The ortho node. */
 	protected Node orthoNode;
+	
+	/** The world node. */
 	protected Node worldNode;
+	
+	/** The activation count. */
 	private int activationCount = 0;
+	
+	/** The info. */
 	protected ApplicationInfo info;
+	
+	/** The application data directory. */
 	protected File applicationDataDirectory;
+	
+	/** The wire state. */
 	private WireframeState wireState;
+	
+	/** The p manager. */
 	protected BasicPassManager pManager;
+	
+	/** The world render pass. */
 	private RenderPass worldRenderPass;
+	
+	/** The ortho render pass. */
 	private RenderPass orthoRenderPass;
+	
+	/** The exit state. */
 	protected boolean exitState = false;
+	
+	/** The update scene monitor. */
 	private boolean updateSceneMonitor = false;
 
+	/**
+	 * Instantiates a new synergy net app.
+	 *
+	 * @param info the info
+	 */
 	public SynergyNetApp(ApplicationInfo info) {
 		super();
 		this.info = info;
@@ -95,6 +130,9 @@ public abstract class SynergyNetApp extends GameState {
 		log.info("Create application Data Directory at: "+this.applicationDataDirectory.getAbsolutePath());
 	}
 
+	/**
+	 * Inits the.
+	 */
 	public void init() {		
 		initInput();
 		pManager = new BasicPassManager();
@@ -136,14 +174,29 @@ public abstract class SynergyNetApp extends GameState {
 		
 	}
 
+	/**
+	 * Gets the ortho node.
+	 *
+	 * @return the ortho node
+	 */
 	public Node getOrthoNode() {
 		return orthoNode;
 	}
 
+	/**
+	 * Gets the world node.
+	 *
+	 * @return the world node
+	 */
 	public Node getWorldNode() {
 		return worldNode;
 	}
 
+	/**
+	 * Creates the world node.
+	 *
+	 * @return the node
+	 */
 	private Node createWorldNode() {
 		Node n = new Node(info.getApplicationName() + "_worldNode");
 		n.setModelBound(new BoundingBox());
@@ -156,6 +209,11 @@ public abstract class SynergyNetApp extends GameState {
 		return n;
 	}
 
+	/**
+	 * Creates the ortho node.
+	 *
+	 * @return the node
+	 */
 	private Node createOrthoNode() {
 		DisplaySystem display = DisplaySystem.getDisplaySystem();
 		Node n = new Node(info.getApplicationName() + "_orthoNode");
@@ -175,6 +233,9 @@ public abstract class SynergyNetApp extends GameState {
 
 
 
+	/**
+	 * On activate.
+	 */
 	public void onActivate() {
 		setActivationCount(getActivationCount() + 1);
 		DisplaySystem.getDisplaySystem().setTitle(name);
@@ -191,6 +252,9 @@ public abstract class SynergyNetApp extends GameState {
 		log.info("SynergyNet Applicaiton Instance '"+name+"' is activated ");
 	}
 	
+	/**
+	 * On deactivate.
+	 */
 	protected void onDeactivate() {		
 		DisplayConfigPrefsItem displayPrefs = new DisplayConfigPrefsItem();
 		if(displayPrefs.getShowSceneMonitor()) {
@@ -202,6 +266,9 @@ public abstract class SynergyNetApp extends GameState {
 		log.info("SynergyNet Applicaiton Instance '"+name+"' is deactivated ");
 	}
 
+	/**
+	 * Request focus.
+	 */
 	protected void requestFocus() {
 		try {
 			SynergyNetDesktop.getInstance().getPickSystem().setPickingRootNode(worldNode);
@@ -214,9 +281,17 @@ public abstract class SynergyNetApp extends GameState {
 	}
 
 
+	/**
+	 * State render.
+	 *
+	 * @param tpf the tpf
+	 */
 	protected void stateRender(float tpf) {
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.jmex.game.state.GameState#setActive(boolean)
+	 */
 	public void setActive(boolean active) {
 		FlickSystem.setNetworkFlickMode(false);
 		if (active) onActivate();
@@ -225,6 +300,9 @@ public abstract class SynergyNetApp extends GameState {
 		requestFocus();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.jmex.game.state.GameState#update(float)
+	 */
 	public final void update(float tpf) {		
 		stateUpdate(tpf);
 		pManager.updatePasses(tpf);
@@ -252,16 +330,27 @@ public abstract class SynergyNetApp extends GameState {
 		menuController.update(tpf);
 	}
 	
+	/**
+	 * Exit app.
+	 */
 	public void exitApp(){
 		exitState = true;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.jmex.game.state.GameState#render(float)
+	 */
 	public final void render(float tpf) {
 		stateRender(tpf);
 		renderPasses(tpf);
 		renderDebug(tpf);
 	}
 
+	/**
+	 * Render passes.
+	 *
+	 * @param tpf the tpf
+	 */
 	private void renderPasses(float tpf) {
 		try{
 			pManager.renderPasses(DisplaySystem.getDisplaySystem().getRenderer());
@@ -270,6 +359,11 @@ public abstract class SynergyNetApp extends GameState {
 		}
 	}
 
+	/**
+	 * Render debug.
+	 *
+	 * @param tpf the tpf
+	 */
 	public void renderDebug(float tpf) {
 		if(InputUtility.showBounds) Debugger.drawBounds(getRootNode(), DisplaySystem.getDisplaySystem().getRenderer(), true);
         if(InputUtility.showNormals) Debugger.drawNormals(getRootNode(), DisplaySystem.getDisplaySystem().getRenderer());		
@@ -279,63 +373,146 @@ public abstract class SynergyNetApp extends GameState {
         }		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.jmex.game.state.GameState#cleanup()
+	 */
 	@Override
 	public void cleanup() {
 
 	}
 
+	/**
+	 * Adds the content.
+	 */
 	public abstract void addContent();	
 
+	/**
+	 * Inits the input.
+	 */
 	protected abstract void initInput();
+	
+	/**
+	 * Gets the camera.
+	 *
+	 * @return the camera
+	 */
 	protected abstract Camera getCamera();	
+	
+	/**
+	 * State update.
+	 *
+	 * @param tpf the tpf
+	 */
 	protected abstract void stateUpdate(float tpf);
 
+	/**
+	 * Sets the activation count.
+	 *
+	 * @param activationCount the new activation count
+	 */
 	public void setActivationCount(int activationCount) {
 		this.activationCount = activationCount;
 	}
 
+	/**
+	 * Gets the activation count.
+	 *
+	 * @return the activation count
+	 */
 	public int getActivationCount() {
 		return activationCount;
 	}
 
+	/**
+	 * Gets the info.
+	 *
+	 * @return the info
+	 */
 	public ApplicationInfo getInfo() {
 		return info;
 	}
 
+	/**
+	 * Gets the application data directory.
+	 *
+	 * @return the application data directory
+	 */
 	public File getApplicationDataDirectory() {
 		if(!applicationDataDirectory.exists()) applicationDataDirectory.mkdirs();	
 		return applicationDataDirectory;
 	}
 
+	/**
+	 * Sets the root node.
+	 *
+	 * @param rootNode the new root node
+	 */
 	public void setRootNode(Node rootNode) {
 		this.rootNode = rootNode;
 	}
 
+	/**
+	 * Gets the root node.
+	 *
+	 * @return the root node
+	 */
 	public Node getRootNode() {
 		return rootNode;
 	}
 
+	/**
+	 * Sets the ortho render pass.
+	 *
+	 * @param orthoRenderPass the new ortho render pass
+	 */
 	public void setOrthoRenderPass(RenderPass orthoRenderPass) {
 		this.orthoRenderPass = orthoRenderPass;
 	}
 
+	/**
+	 * Gets the ortho render pass.
+	 *
+	 * @return the ortho render pass
+	 */
 	public RenderPass getOrthoRenderPass() {
 		return orthoRenderPass;
 	}
 
+	/**
+	 * Sets the world render pass.
+	 *
+	 * @param worldRenderPass the new world render pass
+	 */
 	public void setWorldRenderPass(RenderPass worldRenderPass) {
 		this.worldRenderPass = worldRenderPass;
 	}
 
+	/**
+	 * Gets the world render pass.
+	 *
+	 * @return the world render pass
+	 */
 	public RenderPass getWorldRenderPass() {
 		return worldRenderPass;
 	}
 	
+	/** The menu controller. */
 	protected MenuController menuController = new ApplicationDefined();
+	
+	/**
+	 * Gets the menu controller.
+	 *
+	 * @return the menu controller
+	 */
 	public MenuController getMenuController() {
 		return menuController;
 	}
 	
+	/**
+	 * Sets the menu controller.
+	 *
+	 * @param mc the new menu controller
+	 */
 	public void setMenuController(MenuController mc) {
 		this.menuController = mc;
 	}

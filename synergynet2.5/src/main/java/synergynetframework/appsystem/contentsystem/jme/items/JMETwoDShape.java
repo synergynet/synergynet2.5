@@ -46,21 +46,42 @@ import synergynetframework.appsystem.contentsystem.items.implementation.interfac
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.shapes.TwoDShapeGeometry.ColourRGBA;
 import synergynetframework.appsystem.contentsystem.jme.items.utils.ShapeTriMesh;
 
+
+/**
+ * The Class JMETwoDShape.
+ */
 public class JMETwoDShape extends JMEOrthoContentItem implements ITwoDShape {
 
+	/** The shape tri mesh. */
 	private ShapeTriMesh shapeTriMesh;
+	
+	/** The item. */
 	private TwoDShape item;
 	
+	/**
+	 * Instantiates a new JME two d shape.
+	 *
+	 * @param contentItem the content item
+	 */
 	public JMETwoDShape(ContentItem contentItem) {
 		this(contentItem, new ShapeTriMesh());
 	}
 	
+	/**
+	 * Instantiates a new JME two d shape.
+	 *
+	 * @param contentItem the content item
+	 * @param spatial the spatial
+	 */
 	public JMETwoDShape(ContentItem contentItem, Spatial spatial) {
 		super(contentItem, spatial);
 		this.item = (TwoDShape) contentItem;
 		this.shapeTriMesh = (ShapeTriMesh) this.spatial;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.shapes.ITwoDShape#setShapeGeometry(synergynetframework.appsystem.contentsystem.items.implementation.interfaces.shapes.TwoDShapeGeometry)
+	 */
 	@Override
 	public void setShapeGeometry(TwoDShapeGeometry geom) {
 		shapeTriMesh.updateGeometry(geom);
@@ -69,6 +90,12 @@ public class JMETwoDShape extends JMEOrthoContentItem implements ITwoDShape {
 		shapeTriMesh.updateGeometricState(0f, true);
 	}
 	
+    /**
+     * Sets the colours.
+     *
+     * @param triMesh the tri mesh
+     * @param colours the colours
+     */
     private void setColours(TriMesh triMesh, ColourRGBA[] colours) {
     	FloatBuffer colorBuf = triMesh.getColorBuffer();
     	
@@ -89,6 +116,9 @@ public class JMETwoDShape extends JMEOrthoContentItem implements ITwoDShape {
         colorBuf.flip();
     }
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.shapes.ITwoDShape#setColours(java.awt.Color[])
+	 */
 	@Override
 	public void setColours(Color[] colours) {
 		ColourRGBA[] coloursRGBA = new ColourRGBA[colours.length];

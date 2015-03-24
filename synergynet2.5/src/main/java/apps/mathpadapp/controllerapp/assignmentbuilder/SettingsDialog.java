@@ -49,14 +49,33 @@ import synergynetframework.appsystem.contentsystem.items.TextLabel.Alignment;
 import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAdapter;
 
 
+
+/**
+ * The Class SettingsDialog.
+ */
 public class SettingsDialog {
 	
+	/** The window. */
 	private Window window;
+	
+	/** The top panel. */
 	private Window topPanel;
+	
+	/** The time duration. */
 	private int timeDuration = -1;
+	
+	/** The options. */
 	private SimpleButton[] options = new SimpleButton[2];
+	
+	/** The duration list. */
 	private DropDownList durationList;
 		
+	/**
+	 * Instantiates a new settings dialog.
+	 *
+	 * @param assignmentBuilder the assignment builder
+	 * @param contentSystem the content system
+	 */
 	public SettingsDialog(final AssignmentBuilder assignmentBuilder, final ContentSystem contentSystem){
 		window = (Window) contentSystem.createContentItem(Window.class);
 		window.setWidth(400);
@@ -177,6 +196,11 @@ public class SettingsDialog {
 		this.setSelection(0);
 	}
 	
+	/**
+	 * Sets the selection.
+	 *
+	 * @param selectedOption the new selection
+	 */
 	protected void setSelection(int selectedOption) {
 		if(selectedOption == 0){
 			timeDuration = -1;
@@ -201,6 +225,11 @@ public class SettingsDialog {
 		System.out.println(timeDuration);
 	}
 
+	/**
+	 * Gets the window.
+	 *
+	 * @return the window
+	 */
 	public Window getWindow(){
 		return window;
 	}

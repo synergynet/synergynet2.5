@@ -36,21 +36,38 @@ import apps.conceptmap.utility.GraphManager;
 import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.MultiLineTextLabel;
 
+
+/**
+ * The Class TextNode.
+ */
 public class TextNode extends EditableQuadNode{
 
+	/** The mlt label. */
 	protected MultiLineTextLabel mltLabel;
 	
+	/**
+	 * Instantiates a new text node.
+	 *
+	 * @param contentSystem the content system
+	 * @param gManager the g manager
+	 */
 	public TextNode(ContentSystem contentSystem, GraphManager gManager) {
 		super(contentSystem, gManager);
 		mltLabel = (MultiLineTextLabel) contentSystem.createContentItem(MultiLineTextLabel.class);
 		super.setNodeContent(mltLabel);
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.conceptmap.graphcomponents.nodes.EditableQuadNode#setText(java.lang.String)
+	 */
 	public void setText(String text){
 		mltLabel.setCRLFSeparatedString(text);
 		updateNode();
 	}
 	
+	/* (non-Javadoc)
+	 * @see apps.conceptmap.graphcomponents.nodes.EditableQuadNode#getText()
+	 */
 	public String getText(){
 		String text = "";
 		for(String line: mltLabel.getLines())
@@ -60,6 +77,11 @@ public class TextNode extends EditableQuadNode{
 		return text;
 	}
 	
+	/**
+	 * Gets the multi line text label.
+	 *
+	 * @return the multi line text label
+	 */
 	public MultiLineTextLabel getMultiLineTextLabel(){
 		return mltLabel;
 	}

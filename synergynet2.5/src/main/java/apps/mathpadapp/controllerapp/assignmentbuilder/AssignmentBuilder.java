@@ -46,8 +46,18 @@ import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.SimpleButton;
 import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAdapter;
 
+
+/**
+ * The Class AssignmentBuilder.
+ */
 public class AssignmentBuilder extends MathTool{
 
+	/**
+	 * Instantiates a new assignment builder.
+	 *
+	 * @param contentSystem the content system
+	 * @param graphManager the graph manager
+	 */
 	public AssignmentBuilder(final ContentSystem contentSystem, final GraphManager graphManager) {
 		super(contentSystem, graphManager);
 		
@@ -113,6 +123,11 @@ public class AssignmentBuilder extends MathTool{
 		controlPanel.getContentPanel().setAsTopObject();
 	}
 	
+	/**
+	 * Fire send.
+	 *
+	 * @param receipents the receipents
+	 */
 	public void fireSend(List<Object> receipents){
 		if(assignmentHandler.getAssignment() == null){
 			Assignment assignment = new Assignment(UUID.randomUUID().toString());
@@ -126,11 +141,39 @@ public class AssignmentBuilder extends MathTool{
 		}
 	}
 	
+	/**
+	 * The listener interface for receiving assignmentBuilder events.
+	 * The class that is interested in processing a assignmentBuilder
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addAssignmentBuilderListener<code> method. When
+	 * the assignmentBuilder event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see AssignmentBuilderEvent
+	 */
 	public interface AssignmentBuilderListener extends MathToolListener{
+		
+		/**
+		 * Assignment send request.
+		 *
+		 * @param assignment the assignment
+		 * @param receipents the receipents
+		 * @param solution the solution
+		 */
 		public void assignmentSendRequest(Assignment assignment, List<Object> receipents, AssignmentInfo solution);
+		
+		/**
+		 * Send to dialog displayed.
+		 *
+		 * @param sendToDialog the send to dialog
+		 */
 		public void sendToDialogDisplayed(SendToDialog sendToDialog);
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.mathtool.MathTool#getAssignmentHandler()
+	 */
 	public AssignmentHandler getAssignmentHandler() {
 		return assignmentHandler;
 	}

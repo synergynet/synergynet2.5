@@ -72,19 +72,42 @@ import synergynetframework.jme.cursorsystem.elements.MultiTouchButton.MultiTouch
 import synergynetframework.jme.gfx.twod.ImageQuadFactory;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 
+
+/**
+ * The Class MainMenuApp.
+ */
 public class MainMenuApp extends DefaultSynergyNetApp implements MultiTouchButtonListener {	
 
+	/** The menu items. */
 	protected List<Geometry> menuItems;
+	
+	/** The buttons. */
 	protected Map<String, MultiTouchButton> buttons = new HashMap<String, MultiTouchButton>();
+	
+	/** The mode. */
 	private int mode= 1; 
+	
+	/** The move circle. */
 	private MoveInConcentricCircles moveCircle;
+	
+	/** The drag angle. */
 	private float dragAngle;
+	
+	/** The background. */
 	private ImageTextLabel background;
 
+	/**
+	 * Instantiates a new main menu app.
+	 *
+	 * @param info the info
+	 */
 	public MainMenuApp(ApplicationInfo info) {
 		super(info);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 				
@@ -198,6 +221,9 @@ public class MainMenuApp extends DefaultSynergyNetApp implements MultiTouchButto
 		AnimationSystem.getInstance().add(fadeIn);		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.MultiTouchButton.MultiTouchButtonListener#buttonClicked(synergynetframework.jme.cursorsystem.elements.MultiTouchButton, synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void buttonClicked(MultiTouchButton button, ScreenCursor c, MultiTouchCursorEvent event) {
 		setEnableButtons(false);
 		ApplicationRegistry registry = SynergyNetDesktop.getInstance().getRegistry();		
@@ -208,6 +234,11 @@ public class MainMenuApp extends DefaultSynergyNetApp implements MultiTouchButto
 		AnimationSystem.getInstance().add(seq);
 	}
 
+	/**
+	 * Sets the enable buttons.
+	 *
+	 * @param b the new enable buttons
+	 */
 	private void setEnableButtons(boolean b) {
 		synchronized(buttons) {
 			for(MultiTouchButton btn : buttons.values()) {
@@ -217,6 +248,9 @@ public class MainMenuApp extends DefaultSynergyNetApp implements MultiTouchButto
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	@Override
 	protected void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);
@@ -228,6 +262,9 @@ public class MainMenuApp extends DefaultSynergyNetApp implements MultiTouchButto
 	}	
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onActivate()
+	 */
 	@Override
 	public void onActivate() {
 		super.onActivate();
@@ -238,7 +275,18 @@ public class MainMenuApp extends DefaultSynergyNetApp implements MultiTouchButto
 
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.MultiTouchButton.MultiTouchButtonListener#buttonDragged(synergynetframework.jme.cursorsystem.elements.MultiTouchButton, synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void buttonDragged(MultiTouchButton button, ScreenCursor c, MultiTouchCursorEvent event) {}
+	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.MultiTouchButton.MultiTouchButtonListener#buttonPressed(synergynetframework.jme.cursorsystem.elements.MultiTouchButton, synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void buttonPressed(MultiTouchButton button, ScreenCursor c, MultiTouchCursorEvent event) {}
+	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.MultiTouchButton.MultiTouchButtonListener#buttonReleased(synergynetframework.jme.cursorsystem.elements.MultiTouchButton, synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void buttonReleased(MultiTouchButton button, ScreenCursor c, MultiTouchCursorEvent event) {}
 }

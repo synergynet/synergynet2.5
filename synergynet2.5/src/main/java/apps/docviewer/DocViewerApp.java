@@ -50,14 +50,27 @@ import synergynetframework.appsystem.table.appregistry.groupcontrol.GroupControl
 import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightConfirmVisualExit;
 import synergynetframework.jme.sysutils.CameraUtility;
 
+
+/**
+ * The Class DocViewerApp.
+ */
 public class DocViewerApp extends DefaultSynergyNetApp {
 	
+	/** The content system. */
 	private ContentSystem contentSystem;
 
+	/**
+	 * Instantiates a new doc viewer app.
+	 *
+	 * @param info the info
+	 */
 	public DocViewerApp(ApplicationInfo info) {
 		super(info);		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		
@@ -81,6 +94,9 @@ public class DocViewerApp extends DefaultSynergyNetApp {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#getCamera()
+	 */
 	protected Camera getCamera() {
 		if(cam == null) {
 			cam = CameraUtility.getCamera();
@@ -91,6 +107,9 @@ public class DocViewerApp extends DefaultSynergyNetApp {
 		return cam;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	@Override
 	protected void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);

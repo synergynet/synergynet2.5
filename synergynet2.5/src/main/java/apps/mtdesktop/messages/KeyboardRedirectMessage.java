@@ -36,25 +36,52 @@ package apps.mtdesktop.messages;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.UnicastApplicationMessage;
 
+
+/**
+ * The Class KeyboardRedirectMessage.
+ */
 public class KeyboardRedirectMessage extends UnicastApplicationMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3611717853521792797L;
+	
+	/** The keyboard redirection enabled. */
 	public boolean keyboardRedirectionEnabled = false;
 
+	/**
+	 * Instantiates a new keyboard redirect message.
+	 */
 	public KeyboardRedirectMessage(){
 		super();
 	}
 	
+	/**
+	 * Instantiates a new keyboard redirect message.
+	 *
+	 * @param targetClass the target class
+	 * @param targetTableId the target table id
+	 * @param keyboardRedirectionEnabled the keyboard redirection enabled
+	 */
 	public KeyboardRedirectMessage(Class<?> targetClass, TableIdentity targetTableId, boolean keyboardRedirectionEnabled){
 		super(targetClass);
 		this.setRecipient(targetTableId);
 		this.keyboardRedirectionEnabled = keyboardRedirectionEnabled;
 	}
 	
+	/**
+	 * Checks if is keyboard redirection enabled.
+	 *
+	 * @return true, if is keyboard redirection enabled
+	 */
 	public boolean isKeyboardRedirectionEnabled(){
 		return keyboardRedirectionEnabled;
 	}
 	
+	/**
+	 * Enable keyboard redirection.
+	 *
+	 * @param keyboardRedirectionEnabled the keyboard redirection enabled
+	 */
 	public void enableKeyboardRedirection(boolean keyboardRedirectionEnabled){
 		this.keyboardRedirectionEnabled = keyboardRedirectionEnabled;
 	}

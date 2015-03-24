@@ -34,6 +34,7 @@ package synergynetframework.mtinput.events;
 
 import java.awt.geom.Point2D;
 
+
 /**
  * Base class for  multi-touch cursor events whose coordinate system is based
  * on the input service that created it, and its mode. Supports
@@ -44,21 +45,55 @@ import java.awt.geom.Point2D;
  *
  */
 public abstract class MultiTouchEvent {
+	
+	/** The cursor id. */
 	protected long cursorID;
+	
+	/** The position. */
 	protected Point2D.Float position;
+	
+	/** The velocity. */
 	protected Point2D.Float velocity;
+	
+	/** The time of creation nanos. */
 	protected long timeOfCreationNanos;
+	
+	/** The pressure. */
 	protected float pressure;
+	
+	/** The angle. */
 	protected double angle;
 
+	/**
+	 * Instantiates a new multi touch event.
+	 *
+	 * @param id the id
+	 * @param position the position
+	 */
 	public MultiTouchEvent(long id, Point2D.Float position) {
 		this(id, position, new Point2D.Float());
 	}
 	
+	/**
+	 * Instantiates a new multi touch event.
+	 *
+	 * @param id the id
+	 * @param position the position
+	 * @param velocity the velocity
+	 */
 	public MultiTouchEvent(long id, Point2D.Float position, Point2D.Float velocity) {
 		this(id, position, velocity, 1f, 0d);
 	}
 	
+	/**
+	 * Instantiates a new multi touch event.
+	 *
+	 * @param id the id
+	 * @param position the position
+	 * @param velocity the velocity
+	 * @param pressure the pressure
+	 * @param angle the angle
+	 */
 	public MultiTouchEvent(long id, Point2D.Float position, Point2D.Float velocity, float pressure, double angle) {
 		this.cursorID = id;
 		this.position = position;
@@ -67,34 +102,63 @@ public abstract class MultiTouchEvent {
 		this.angle = angle;
 	}
 
+	/**
+	 * Gets the cursor id.
+	 *
+	 * @return the cursor id
+	 */
 	public long getCursorID() {
 		return cursorID;
 	}
 	
 	/**
-	 * Position in the coordinate system of the table
-	 * @return
+	 * Position in the coordinate system of the table.
+	 *
+	 * @return the position
 	 */
 	public Point2D.Float getPosition() {
 		return position;
 	}
 
+	/**
+	 * Gets the velocity.
+	 *
+	 * @return the velocity
+	 */
 	public Point2D.Float getVelocity() {
 		return velocity;
 	}
 	
+	/**
+	 * Gets the pressure.
+	 *
+	 * @return the pressure
+	 */
 	public float getPressure() {
 		return pressure;
 	}
 
+	/**
+	 * Gets the angle.
+	 *
+	 * @return the angle
+	 */
 	public double getAngle() {
 		return angle;
 	}
 	
+	/**
+	 * Gets the time of creation nanos.
+	 *
+	 * @return the time of creation nanos
+	 */
 	public long getTimeOfCreationNanos() {
 		return timeOfCreationNanos;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return getClass().getName() + " " + cursorID + " @" + position + " vel: " + velocity;
 	}

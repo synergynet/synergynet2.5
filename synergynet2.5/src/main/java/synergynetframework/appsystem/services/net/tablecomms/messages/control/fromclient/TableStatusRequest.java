@@ -34,13 +34,25 @@ package synergynetframework.appsystem.services.net.tablecomms.messages.control.f
 
 import synergynetframework.appsystem.services.net.tablecomms.messages.control.FromClientTableControlMessage;
 
+
+/**
+ * The Class TableStatusRequest.
+ */
 public class TableStatusRequest extends FromClientTableControlMessage {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -7058841800721219572L;
 	
+	/**
+	 * Instantiates a new table status request.
+	 */
 	public TableStatusRequest(){
 		super();
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return TableStatusRequest.class.getName() + " from " + getSender();
 	}

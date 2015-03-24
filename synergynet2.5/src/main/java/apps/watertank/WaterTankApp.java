@@ -41,14 +41,27 @@ import synergynetframework.jme.cursorsystem.elements.twod.CursorEventDispatcher;
 import com.jme.bounding.OrthogonalBoundingBox;
 import com.jme.system.DisplaySystem;
 
+
+/**
+ * The Class WaterTankApp.
+ */
 public class WaterTankApp extends DefaultSynergyNetApp {
 	
+	/**
+	 * Instantiates a new water tank app.
+	 *
+	 * @param info the info
+	 */
 	public WaterTankApp(ApplicationInfo info) {
 		super(info);
 	}
 
+	/** The wt. */
 	protected WaterTank wt;
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		
@@ -63,6 +76,9 @@ public class WaterTankApp extends DefaultSynergyNetApp {
 		new CursorEventDispatcher(wt, 1);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onActivate()
+	 */
 	@Override
 	public void onActivate() {
 		super.onActivate();

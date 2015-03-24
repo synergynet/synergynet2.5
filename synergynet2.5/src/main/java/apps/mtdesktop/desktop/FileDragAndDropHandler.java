@@ -20,14 +20,19 @@ import apps.mtdesktop.desktop.tree.nodes.OutboxNode;
 
 
 
+
+/**
+ * The Class FileDragAndDropHandler.
+ */
 public class FileDragAndDropHandler extends TransferHandler {
     
-	  /**
-	 * 
-	 */
+	  /** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -371630949779707923L;
 
 	
+	/* (non-Javadoc)
+	 * @see javax.swing.TransferHandler#importData(javax.swing.JComponent, java.awt.datatransfer.Transferable)
+	 */
 	@SuppressWarnings("rawtypes")
 	public boolean importData(JComponent comp, Transferable t) {
     // Make sure we have the right starting points
@@ -68,7 +73,10 @@ public class FileDragAndDropHandler extends TransferHandler {
   }
   
 // We only support file lists on FSTrees...
-  public boolean canImport(JComponent comp, DataFlavor[] transferFlavors) {
+  /* (non-Javadoc)
+ * @see javax.swing.TransferHandler#canImport(javax.swing.JComponent, java.awt.datatransfer.DataFlavor[])
+ */
+public boolean canImport(JComponent comp, DataFlavor[] transferFlavors) {
     if (comp instanceof TabletopTree) {
       for (int i = 0; i < transferFlavors.length; i++) {
         if (!transferFlavors[i].equals(DataFlavor.javaFileListFlavor)) {

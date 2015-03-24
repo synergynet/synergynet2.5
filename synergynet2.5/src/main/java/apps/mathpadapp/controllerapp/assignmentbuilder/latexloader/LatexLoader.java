@@ -49,13 +49,30 @@ import java.io.OutputStream;
 import javax.imageio.ImageIO;
 
 
+
+/**
+ * The Class LatexLoader.
+ */
 public class LatexLoader {
     
+	/** The engine. */
 	protected SnuggleEngine engine = new SnuggleEngine();
+    
+    /** The session. */
     protected SnuggleSession session = engine.createSession();
     
+	/**
+	 * Instantiates a new latex loader.
+	 */
 	public LatexLoader(){}
 	
+	/**
+	 * Convert latex to image.
+	 *
+	 * @param strInput the str input
+	 * @return the image
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public Image convertLatexToImage(String strInput) throws IOException{
 
         SnuggleInput input = new SnuggleInput(strInput);
@@ -87,6 +104,12 @@ public class LatexLoader {
         return image;
  	}
 	
+	/**
+	 * Delete dir.
+	 *
+	 * @param dir the dir
+	 * @return true, if successful
+	 */
 	private boolean deleteDir(File dir) {
         if (dir.isDirectory()) {
             String[] children = dir.list();
@@ -102,6 +125,11 @@ public class LatexLoader {
     } 
 
 	
+    /**
+     * The main method.
+     *
+     * @param args the arguments
+     */
     public static void main(String[] args){
     	LatexLoader loader = new LatexLoader();
     	try {

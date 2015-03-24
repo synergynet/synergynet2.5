@@ -45,18 +45,37 @@ import synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp;
 import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightConfirmVisualExit;
 
+
+/**
+ * The Class FridgeMagnetsApp.
+ */
 public class FridgeMagnetsApp extends DefaultSynergyNetApp {
 
 	
+	/**
+	 * Instantiates a new fridge magnets app.
+	 *
+	 * @param info the info
+	 */
 	public FridgeMagnetsApp(ApplicationInfo info) {
 		super(info);
 	}
 
+	/** The content system. */
 	private ContentSystem contentSystem;
+	
+	/** The random. */
 	Random random = new Random();
+	
+	/** The alphabet. */
 	private String[] alphabet = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
+	
+	/** The vowels. */
 	private String[] vowels = {"A", "E", "I", "O", "U"};
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		SynergyNetAppUtils.addTableOverlay(this);
@@ -64,6 +83,9 @@ public class FridgeMagnetsApp extends DefaultSynergyNetApp {
 		setMenuController(new HoldTopRightConfirmVisualExit(this));
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onActivate()
+	 */
 	@Override
 	public void onActivate() {
 		contentSystem.removeAllContentItems();
@@ -76,6 +98,11 @@ public class FridgeMagnetsApp extends DefaultSynergyNetApp {
 		
 	}
 	
+	/**
+	 * Adds the letters.
+	 *
+	 * @param current the current
+	 */
 	private void addLetters(int current) {
 
 		TextLabel letter = ((TextLabel)this.contentSystem.createContentItem(TextLabel.class));

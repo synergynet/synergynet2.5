@@ -35,11 +35,26 @@ package apps.realgravity;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+
+/**
+ * The Class FormingEntity.
+ */
 public class FormingEntity {
+	
+	/** The id. */
 	public long id;
+	
+	/** The posy. */
 	public int posx, posy; // screen coords
+	
+	/** The dragy. */
 	public int dragx, dragy; // screen coords
 	
+	/**
+	 * Render.
+	 *
+	 * @param gfx the gfx
+	 */
 	public void render(Graphics2D gfx) {
 		gfx.setColor(Color.blue);
 		gfx.drawLine(posx, posy, dragx, dragy);

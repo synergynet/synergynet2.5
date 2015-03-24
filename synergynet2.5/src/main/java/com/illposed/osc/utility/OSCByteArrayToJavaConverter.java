@@ -40,24 +40,41 @@ import java.util.Date;
 
 import com.illposed.osc.*;
 
+
 /**
- * @author cramakrishnan
+ * The Class OSCByteArrayToJavaConverter.
  *
+ * @author cramakrishnan
  */
 public class OSCByteArrayToJavaConverter {
 
+	/** The bytes. */
 	byte[] bytes;
+	
+	/** The bytes length. */
 	int bytesLength;
+	
+	/** The stream position. */
 	int streamPosition;
 
+	/** The int bytes. */
 	private byte[] intBytes   = new byte[4];
+	
+	/** The float bytes. */
 	private byte[] floatBytes = new byte[4];
 
+	/** The second bytes. */
 	private	byte[] secondBytes = new byte[8];
+	
+	/** The picosec bytes. */
 	private	byte[] picosecBytes = new byte[8];
 
 	/**
-	 * Helper object for converting from a byte array to Java objects
+	 * Helper object for converting from a byte array to Java objects.
+	 *
+	 * @param byteArray the byte array
+	 * @param bytesLength the bytes length
+	 * @return the OSC packet
 	 */
 	/*public OSCByteArrayToJavaConverter() {
 		super();
@@ -73,12 +90,22 @@ public class OSCByteArrayToJavaConverter {
 			return convertMessage();
 	}
 
+	/**
+	 * Checks if is bundle.
+	 *
+	 * @return true, if is bundle
+	 */
 	private boolean isBundle() {
 		// only need the first 7 to check if it is a bundle
 		String bytesAsString = new String(bytes, 0, 7);
 		return bytesAsString.startsWith("#bundle");
 	}                               
                                
+	/**
+	 * Convert bundle.
+	 *
+	 * @return the OSC bundle
+	 */
 	private OSCBundle convertBundle() {
 		// skip the "#bundle " stuff
 		streamPosition = 8;
@@ -100,6 +127,11 @@ public class OSCByteArrayToJavaConverter {
 		return bundle;
 	}
 
+	/**
+	 * Convert message.
+	 *
+	 * @return the OSC message
+	 */
 	private OSCMessage convertMessage() {
 		OSCMessage message = new OSCMessage();
 		message.setAddress(readString());
@@ -122,6 +154,11 @@ public class OSCByteArrayToJavaConverter {
 		return message;
 	}
 
+	/**
+	 * Read string.
+	 *
+	 * @return the string
+	 */
 	private String readString() {
 		int strLen = lengthOfCurrentString();
 		char[] stringChars = new char[strLen];
@@ -134,6 +171,8 @@ public class OSCByteArrayToJavaConverter {
 	}
 
 	/**
+	 * Read types.
+	 *
 	 * @return a char array with the types of the arguments
 	 */
 	private char[] readTypes() {
@@ -155,6 +194,8 @@ public class OSCByteArrayToJavaConverter {
 	}
 
 	/**
+	 * Read argument.
+	 *
 	 * @param c type of argument
 	 * @return a Java representation of the argument
 	 */
@@ -182,6 +223,8 @@ public class OSCByteArrayToJavaConverter {
 	}
 
 	/**
+	 * Read char.
+	 *
 	 * @return a Character
 	 */
 	private Object readChar() {
@@ -189,6 +232,8 @@ public class OSCByteArrayToJavaConverter {
 	}
 
 	/**
+	 * Read double.
+	 *
 	 * @return a Double
 	 */
 	private Object readDouble() {
@@ -196,6 +241,8 @@ public class OSCByteArrayToJavaConverter {
 	}
 
 	/**
+	 * Read float.
+	 *
 	 * @return a Float
 	 */
 	private Object readFloat() {
@@ -215,6 +262,8 @@ public class OSCByteArrayToJavaConverter {
 	}
 
 	/**
+	 * Read big integer.
+	 *
 	 * @return a BigInteger
 	 */
 	private Object readBigInteger() {
@@ -234,6 +283,8 @@ public class OSCByteArrayToJavaConverter {
 	}
 
 	/**
+	 * Read integer.
+	 *
 	 * @return an Integer
 	 */
 	private Object readInteger() {
@@ -253,6 +304,8 @@ public class OSCByteArrayToJavaConverter {
 	}
 	
 	/**
+	 * Read time tag.
+	 *
 	 * @return a Date
 	 */
 	private Date readTimeTag() {
@@ -276,8 +329,10 @@ public class OSCByteArrayToJavaConverter {
 	}
 
 	/**
-	 * @param types
-	 * @param i
+	 * Read array.
+	 *
+	 * @param types the types
+	 * @param i the i
 	 * @return an Array
 	 */
 	private Object[] readArray(char[] types, int i) {
@@ -291,6 +346,11 @@ public class OSCByteArrayToJavaConverter {
 		return array;
 	}
 
+	/**
+	 * Length of current string.
+	 *
+	 * @return the int
+	 */
 	private int lengthOfCurrentString() {
 		int i = 0;
 		while (bytes[streamPosition + i] != 0)
@@ -298,6 +358,9 @@ public class OSCByteArrayToJavaConverter {
 		return i;
 	}
 
+	/**
+	 * Move to four byte boundry.
+	 */
 	private void moveToFourByteBoundry() {
 		// If i'm already at a 4 byte boundry, I need to move to the next one
 		int mod = streamPosition % 4;

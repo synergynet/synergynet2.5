@@ -39,13 +39,26 @@ import synergynetframework.jme.cursorsystem.elements.twod.ClipRegistry;
 
 import com.jme.scene.Spatial;
 
+
+/**
+ * The Class CullManager.
+ */
 public class CullManager{
 	
+	/** The framerate. */
 	private float framerate;
+	
+	/** The delay. */
 	private float delay = 0.5f;
 	
+	/** The crh. */
 	private ClipRectangleHud crh;
 	
+	/**
+	 * Instantiates a new cull manager.
+	 *
+	 * @param portal the portal
+	 */
 	public CullManager(TablePortal portal){
 		Frame frame = (Frame) portal.displayPanel.contentSystem.createContentItem(Frame.class);
 		frame.setWidth(GraphConfig.MAIN_WINDOW_WIDTH - portal.controlPanel.getWidth() - 30);
@@ -58,6 +71,11 @@ public class CullManager{
 		crh = new ClipRectangleHud(spat,frame.getWidth(),frame.getHeight());
 	}
 
+	/**
+	 * Register item for clipping.
+	 *
+	 * @param item the item
+	 */
 	public void registerItemForClipping(ContentItem item) {
 			crh.setSpatialClip((Spatial)item.getImplementationObject(), true);
 			ClipRegistry.getInstance().registerClipRegion((Spatial)item.getImplementationObject(), crh);
@@ -95,6 +113,11 @@ public class CullManager{
 	}
 	
 	
+	/**
+	 * Update.
+	 *
+	 * @param interpolation the interpolation
+	 */
 	public void update(float interpolation){
 		if((framerate - interpolation) > 0){
 			framerate-= interpolation;

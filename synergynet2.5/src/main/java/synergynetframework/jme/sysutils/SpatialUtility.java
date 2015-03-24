@@ -41,11 +41,24 @@ import com.jme.math.Vector3f;
 import com.jme.scene.Spatial;
 import com.jme.scene.TriMesh;
 
+
+/**
+ * The Class SpatialUtility.
+ */
 public class SpatialUtility {	
 	
+	/** The relevant coords collection. */
 	private static HashMap<Spatial, ArrayList<Integer>> relevantCoordsCollection = new HashMap<Spatial, ArrayList<Integer>>();
+	
+	/** The edge collection. */
 	private static HashMap<Spatial, ArrayList<Vector3f[]>> edgeCollection = new HashMap<Spatial, ArrayList<Vector3f[]>>();
 	
+	/**
+	 * Gets the max dimension.
+	 *
+	 * @param targetSpatial the target spatial
+	 * @return the max dimension
+	 */
 	public static float getMaxDimension(Spatial targetSpatial){
 		float result = -1;
 		if(!(targetSpatial instanceof TriMesh)) return result;
@@ -74,6 +87,13 @@ public class SpatialUtility {
 	}
 	
 	
+	/**
+	 * Generate relevant coords.
+	 *
+	 * @param s the s
+	 * @param coordsIndex the coords index
+	 * @return the array list
+	 */
 	public static ArrayList<Vector3f> generateRelevantCoords(Spatial s, ArrayList<Integer> coordsIndex) {
 		
 		TriMesh geom = (TriMesh)s;
@@ -95,6 +115,12 @@ public class SpatialUtility {
 		return coordsTwo;
 	}
 	
+	/**
+	 * Gets the index of relevant coords.
+	 *
+	 * @param s the s
+	 * @return the index of relevant coords
+	 */
 	public static ArrayList<Integer> getIndexOfRelevantCoords(Spatial s) {		
 		
 		if (relevantCoordsCollection.containsKey(s))return relevantCoordsCollection.get(s);
@@ -127,6 +153,13 @@ public class SpatialUtility {
         return coordsIndex;
 	}
 	
+	/**
+	 * Find edges.
+	 *
+	 * @param s the s
+	 * @param removeContainer the remove container
+	 * @return the array list
+	 */
 	public static ArrayList<Vector3f[]> findEdges(Spatial s, boolean removeContainer) {	
 		
 		if (edgeCollection.containsKey(s))return edgeCollection.get(s);
@@ -185,6 +218,13 @@ public class SpatialUtility {
     	
 	}	
 
+	/**
+	 * Contains same edge.
+	 *
+	 * @param vec the vec
+	 * @param edges the edges
+	 * @return the array list
+	 */
 	private static ArrayList<Vector3f[]> containsSameEdge(Vector3f[] vec, ArrayList<Vector3f[]> edges) {	
 		
 		boolean result = false;

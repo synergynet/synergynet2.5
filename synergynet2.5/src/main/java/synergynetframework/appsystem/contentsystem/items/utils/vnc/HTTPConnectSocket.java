@@ -28,8 +28,21 @@ package synergynetframework.appsystem.contentsystem.items.utils.vnc;
 import java.net.*;
 import java.io.*;
 
+
+/**
+ * The Class HTTPConnectSocket.
+ */
 class HTTPConnectSocket extends Socket {
 
+  /**
+   * Instantiates a new HTTP connect socket.
+   *
+   * @param host the host
+   * @param port the port
+   * @param proxyHost the proxy host
+   * @param proxyPort the proxy port
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   @SuppressWarnings("deprecation")
 public HTTPConnectSocket(String host, int port,
 			   String proxyHost, int proxyPort)

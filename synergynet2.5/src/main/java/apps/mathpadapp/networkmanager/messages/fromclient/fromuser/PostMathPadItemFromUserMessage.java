@@ -37,11 +37,26 @@ import apps.mathpadapp.mathtool.MathToolInitSettings;
 import apps.mathpadapp.networkmanager.utils.UserIdentity;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class PostMathPadItemFromUserMessage.
+ */
 public class PostMathPadItemFromUserMessage extends UserToControllerMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -7600576282368122789L;
+	
+	/** The pad settings. */
 	private MathToolInitSettings padSettings;
 	
+	/**
+	 * Instantiates a new post math pad item from user message.
+	 *
+	 * @param targetClass the target class
+	 * @param padSettings the pad settings
+	 * @param tableId the table id
+	 * @param userId the user id
+	 */
 	public PostMathPadItemFromUserMessage(Class<?> targetClass, MathToolInitSettings padSettings, TableIdentity tableId, UserIdentity userId) {
 		super(targetClass);
 		this.padSettings = padSettings;
@@ -49,6 +64,11 @@ public class PostMathPadItemFromUserMessage extends UserToControllerMessage{
 		this.setRecipient(tableId);
 	}
 
+	/**
+	 * Gets the math pad init settings.
+	 *
+	 * @return the math pad init settings
+	 */
 	public MathToolInitSettings getMathPadInitSettings(){
 		return padSettings;
 	}

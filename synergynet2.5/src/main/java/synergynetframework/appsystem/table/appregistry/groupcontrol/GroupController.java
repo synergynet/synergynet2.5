@@ -27,11 +27,23 @@ import synergynetframework.appsystem.contentsystem.jme.items.utils.DrawData;
 import synergynetframework.appsystem.contentsystem.jme.items.utils.DrawLine;
 import synergynetframework.appsystem.table.appdefinitions.SynergyNetApp;
 
+
+/**
+ * The Class GroupController.
+ */
 public class GroupController {
 	
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The group bounds. */
 	protected Map<Long, GroupBoundaries> groupBounds = new HashMap<Long, GroupBoundaries>();
 	
+	/**
+	 * Instantiates a new group controller.
+	 *
+	 * @param app the app
+	 */
 	public GroupController(SynergyNetApp app){
 		contentSystem = ContentSystem.getContentSystemForSynergyNetApp(app);
 		final SketchPad backgroundController;

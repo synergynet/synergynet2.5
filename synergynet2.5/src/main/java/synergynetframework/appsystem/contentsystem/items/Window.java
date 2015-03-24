@@ -34,39 +34,81 @@ package synergynetframework.appsystem.contentsystem.items;
 import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IWindowImplementation;
 
+
+/**
+ * The Class Window.
+ */
 public class Window extends OrthoContainer {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -278216111222663419L;
 	
+	/** The height. */
 	protected int height = 300;
+	
+	/** The width. */
 	protected int width = 400;
 		
+	/**
+	 * Instantiates a new window.
+	 *
+	 * @param contentSystem the content system
+	 * @param name the name
+	 */
 	public Window(ContentSystem contentSystem, String name) {
 		super(contentSystem, name);	
 	}
 
+	/**
+	 * Gets the height.
+	 *
+	 * @return the height
+	 */
 	public int getHeight() {
 		return height;
 	}
 
+	/**
+	 * Sets the height.
+	 *
+	 * @param height the new height
+	 */
 	public void setHeight(int height) {
 		this.height = height;
 		((IWindowImplementation)this.contentItemImplementation).setHeight(height);
 	}
 
+	/**
+	 * Gets the width.
+	 *
+	 * @return the width
+	 */
 	public int getWidth() {
 		return width;
 	}
 
+	/**
+	 * Sets the width.
+	 *
+	 * @param width the new width
+	 */
 	public void setWidth(int width) {
 		this.width = width;
 		((IWindowImplementation)this.contentItemImplementation).setWidth(width);
 	}
 	
+	/**
+	 * Gets the background frame.
+	 *
+	 * @return the background frame
+	 */
 	public Frame getBackgroundFrame(){
 		return ((IWindowImplementation)this.contentItemImplementation).getBackgroundFrame();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.OrthoContentItem#makeFlickable(float)
+	 */
 	@Override
 	public void makeFlickable(float deceleration) {
 		super.makeFlickable(deceleration);

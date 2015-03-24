@@ -40,16 +40,33 @@ import synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp;
 import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 
 
+
+/**
+ * The Class ProjectManagementApp.
+ */
 public class ProjectManagementApp extends DefaultSynergyNetApp {
 	
+	/** The content system. */
 	protected ContentSystem contentSystem;	
+	
+	/** The gantt chart. */
 	protected GanttChart ganttChart;
+	
+	/** The project management menu. */
 	protected ProjectManagementMenu projectManagementMenu;
 	
+	/**
+	 * Instantiates a new project management app.
+	 *
+	 * @param info the info
+	 */
 	public ProjectManagementApp(ApplicationInfo info) {
 		super(info);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 				
@@ -61,12 +78,18 @@ public class ProjectManagementApp extends DefaultSynergyNetApp {
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	@Override
 	public void stateUpdate(float tpf) {
 		if(contentSystem != null) contentSystem.update(tpf);
 		projectManagementMenu.update(tpf);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onDeactivate()
+	 */
 	@Override
 	public void onDeactivate() {
 		super.onDeactivate();

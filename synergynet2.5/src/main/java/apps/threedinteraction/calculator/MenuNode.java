@@ -10,17 +10,32 @@ import com.jme.scene.Node;
 import data.DataResources;
 
 
+
+/**
+ * The Class MenuNode.
+ */
 public class MenuNode extends Node {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2429175967783608868L;
+	
+	/** The text string. */
 	protected String textString="";
 	
+	/**
+	 * Instantiates a new menu node.
+	 *
+	 * @param name the name
+	 */
 	public MenuNode(String name){
 		super(name);	
 		init();
 		
 	}
 
+	/**
+	 * Inits the.
+	 */
 	protected void init(){
 		
 		float width = 20f;

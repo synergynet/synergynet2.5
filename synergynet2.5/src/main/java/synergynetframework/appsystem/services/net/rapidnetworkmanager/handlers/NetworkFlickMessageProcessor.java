@@ -11,13 +11,27 @@ import synergynetframework.appsystem.services.net.rapidnetworkmanager.messages.n
 import synergynetframework.appsystem.services.net.rapidnetworkmanager.messages.networkflick.UnregisterTableMessage;
 import synergynetframework.appsystem.services.net.rapidnetworkmanager.utils.networkflick.TransferController;
 
+
+/**
+ * The Class NetworkFlickMessageProcessor.
+ */
 public class NetworkFlickMessageProcessor implements MessageProcessor{
 
+	/** The transfer controller. */
 	protected TransferController transferController;
 	
+	/**
+	 * Instantiates a new network flick message processor.
+	 *
+	 * @param transferController the transfer controller
+	 */
 	public NetworkFlickMessageProcessor(TransferController transferController){
 		this.transferController = transferController;
 	}
+	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.rapidnetworkmanager.handlers.MessageProcessor#process(java.lang.Object)
+	 */
 	@Override
 	public void process(final Object obj) {
 

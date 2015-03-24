@@ -34,7 +34,31 @@ package synergynetframework.jme.gfx.twod.keyboard;
 
 import java.awt.event.KeyEvent;
 
+
+/**
+ * The listener interface for receiving MTKey events.
+ * The class that is interested in processing a MTKey
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addMTKeyListener<code> method. When
+ * the MTKey event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see MTKeyEvent
+ */
 public interface MTKeyListener {
+	
+	/**
+	 * Key pressed event.
+	 *
+	 * @param evt the evt
+	 */
 	public void keyPressedEvent(KeyEvent evt);
+	
+	/**
+	 * Key released event.
+	 *
+	 * @param evt the evt
+	 */
 	public void keyReleasedEvent(KeyEvent evt);
 }

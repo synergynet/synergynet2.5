@@ -41,21 +41,47 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+
+/**
+ * The Class ControlPanel.
+ */
 public class ControlPanel extends JPanel implements ActionListener {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2131856892054887302L;
+	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(ControlPanel.class.getName());
+	
+	/** The Constant CMD_START. */
 	private static final String CMD_START = "CMD_START";
+	
+	/** The Constant CMD_DISPLAYMODE. */
 	private static final String CMD_DISPLAYMODE = "CMD_DISPLAYMODE";
+	
+	/** The Constant CMD_REGISTRYEDIT. */
 	private static final String CMD_REGISTRYEDIT = "CMD_REGISTRYEDIT";
+	
+	/** The start button. */
 	private JButton startButton;
+	
+	/** The display mode button. */
 	private JButton displayModeButton;
+	
+	/** The registry button. */
 	private JButton registryButton;
 	
+	/**
+	 * Instantiates a new control panel.
+	 */
 	public ControlPanel() {
 		super();
 		init();
 	}
 
+	/**
+	 * Inits the.
+	 */
 	private void init() {
 		setLayout(new FlowLayout());
 		
@@ -80,6 +106,9 @@ public class ControlPanel extends JPanel implements ActionListener {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals(CMD_START)) {
 			try {
@@ -106,6 +135,9 @@ public class ControlPanel extends JPanel implements ActionListener {
 		
 	}
 
+	/**
+	 * Enable launch.
+	 */
 	public void enableLaunch() {
 		displayModeButton.setEnabled(true);
 		startButton.setEnabled(true);		

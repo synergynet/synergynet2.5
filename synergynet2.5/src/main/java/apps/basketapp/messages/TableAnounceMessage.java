@@ -36,14 +36,27 @@ package apps.basketapp.messages;
 
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class TableAnounceMessage.
+ */
 public class TableAnounceMessage extends BroadcastApplicationMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3611717853521792797L;
 	
+	/**
+	 * Instantiates a new table anounce message.
+	 */
 	public TableAnounceMessage(){
 		super();
 	}
 	
+	/**
+	 * Instantiates a new table anounce message.
+	 *
+	 * @param targetClass the target class
+	 */
 	public TableAnounceMessage(Class<?> targetClass){
 		super(targetClass);
 	}

@@ -34,11 +34,21 @@ package synergynetframework.appsystem.services.net.rapidnetworkmanager.messages.
 
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class UnregisterTableMessage.
+ */
 public class UnregisterTableMessage extends BroadcastApplicationMessage{
 	
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Instantiates a new unregister table message.
+	 *
+	 * @param targetClass the target class
+	 */
 	public UnregisterTableMessage(Class<?> targetClass){
 		super(targetClass);
 	}

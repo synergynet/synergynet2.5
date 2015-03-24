@@ -34,25 +34,52 @@ package apps.mathpadapp.networkmanager.messages.fromcontroller.unicast.totable;
 
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class UnicastSyncWithTableMessage.
+ */
 public class UnicastSyncWithTableMessage extends ControllerToTableMessage {	
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -1301794444207865934L;
+	
+	/** The is synchronisation on. */
 	private boolean isSynchronisationOn;
 	
+	/**
+	 * Instantiates a new unicast sync with table message.
+	 *
+	 * @param targetClass the target class
+	 * @param tableId the table id
+	 * @param isSynchronisation the is synchronisation
+	 */
 	public UnicastSyncWithTableMessage(Class<?> targetClass, TableIdentity tableId, boolean isSynchronisation) {
 		super(targetClass);
 		this.isSynchronisationOn = isSynchronisation;
 		this.setRecipient(tableId);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return "Enable Synchronisation Message";
 	}
 
+	/**
+	 * Checks if is synchronisation on.
+	 *
+	 * @return true, if is synchronisation on
+	 */
 	public boolean isSynchronisationOn() {
 		return isSynchronisationOn;
 	}
 
+	/**
+	 * Sets the synchronisation on.
+	 *
+	 * @param isSynchronisationOn the new synchronisation on
+	 */
 	public void setSynchronisationOn(boolean isSynchronisationOn) {
 		this.isSynchronisationOn = isSynchronisationOn;
 	}

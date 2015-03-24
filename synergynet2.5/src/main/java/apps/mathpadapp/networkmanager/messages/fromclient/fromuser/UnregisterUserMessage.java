@@ -36,18 +36,35 @@ import apps.mathpadapp.networkmanager.utils.UserIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
 
+
+/**
+ * The Class UnregisterUserMessage.
+ */
 public class UnregisterUserMessage extends BroadcastApplicationMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -7600576282368122789L;
 	
+	/** The user id. */
 	protected UserIdentity userId;
 
+	/**
+	 * Instantiates a new unregister user message.
+	 *
+	 * @param targetClass the target class
+	 * @param userId the user id
+	 */
 	public UnregisterUserMessage(Class<?> targetClass, UserIdentity userId) {
 		super(targetClass);
 		this.userId = userId;
 	}
 	
 	
+	/**
+	 * Gets the sender user identity.
+	 *
+	 * @return the sender user identity
+	 */
 	public UserIdentity getSenderUserIdentity(){
 		return userId;
 	}

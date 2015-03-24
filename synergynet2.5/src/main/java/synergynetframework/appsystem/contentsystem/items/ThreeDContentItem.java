@@ -35,29 +35,55 @@ import java.io.Serializable;
 
 import synergynetframework.appsystem.contentsystem.ContentSystem;
 
+
+/**
+ * The Class ThreeDContentItem.
+ */
 public class ThreeDContentItem extends ContentItem implements Cloneable, Serializable{
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3271026777712734168L;
 	
+	/** The parent. */
 	protected ThreeDContainer parent=null;
 
 	
+	/**
+	 * Instantiates a new three d content item.
+	 *
+	 * @param contentSystem the content system
+	 * @param name the name
+	 */
 	public ThreeDContentItem(ContentSystem contentSystem, String name) {
 		super(contentSystem, name);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.ContentItem#bindImplementationOjbect()
+	 */
 	public void bindImplementationOjbect(){
 		super.bindImplementationOjbect();
 		this.enableMultiTouchElementListeners();
 	}
 	
+	/**
+	 * Enable multi touch element listeners.
+	 */
 	public void enableMultiTouchElementListeners(){
 	}
 	
+	/**
+	 * Gets the parent.
+	 *
+	 * @return the parent
+	 */
 	public ThreeDContainer getParent(){
 		return parent;
 	}	
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.ContentItem#clone()
+	 */
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		ThreeDContentItem clonedItem = (ThreeDContentItem)super.clone();

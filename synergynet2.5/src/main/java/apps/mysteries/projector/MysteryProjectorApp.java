@@ -67,23 +67,49 @@ import synergynetframework.appsystem.table.SynergyNetAppUtils;
 import synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp;
 import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 
+
+/**
+ * The Class MysteryProjectorApp.
+ */
 public class MysteryProjectorApp extends DefaultSynergyNetApp implements NetworkedContentListener {
 
 	
+	/** The comms. */
 	private TableCommsClientService comms;
+	
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The message handler. */
 	protected DefaultMessageHandler messageHandler;
+	
+	/** The networked content manager. */
 	protected NetworkedContentManager networkedContentManager;
 	
+	/** The inner note controller. */
 	protected InnerNoteController innerNoteController;
 	
+	/** The restore folder. */
 	private File restoreFolder;
+	
+	/** The exit settings file. */
 	private File exitSettingsFile;
+	
+	/** The restore. */
 	public static boolean restore = true;
+	
+	/** The current sub app. */
 	protected String currentSubApp = "";
+	
+	/** The is log enabled. */
 	private boolean isLogEnabled = false;
 	
 
+	/**
+	 * Instantiates a new mystery projector app.
+	 *
+	 * @param info the info
+	 */
 	public MysteryProjectorApp(ApplicationInfo info) {
 		super(info);
 
@@ -102,6 +128,9 @@ public class MysteryProjectorApp extends DefaultSynergyNetApp implements Network
 			
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		
@@ -110,6 +139,9 @@ public class MysteryProjectorApp extends DefaultSynergyNetApp implements Network
 
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onActivate()
+	 */
 	@Override
 	public void onActivate() {
 		if(comms == null) {
@@ -145,6 +177,9 @@ public class MysteryProjectorApp extends DefaultSynergyNetApp implements Network
 		}	
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	@Override
 	public void stateUpdate(float tpf) {
 		
@@ -162,10 +197,19 @@ public class MysteryProjectorApp extends DefaultSynergyNetApp implements Network
 
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onDeactivate()
+	 */
 	@Override
 	public void onDeactivate() {}
 
 	
+	/**
+	 * Load content.
+	 *
+	 * @param filePath the file path
+	 * @param name the name
+	 */
 	public void loadContent(String filePath, String name){
 		
 		this.removeAllItems();
@@ -176,14 +220,23 @@ public class MysteryProjectorApp extends DefaultSynergyNetApp implements Network
 	
 	
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.networkedcontentmanager.NetworkedContentListener#contentLoaded()
+	 */
 	@Override
 	public void contentLoaded() {}
 	
+	/**
+	 * Removes the all items.
+	 */
 	public void removeAllItems(){	
 		this.innerNoteController.removeAllNoteEditors();		
 		networkedContentManager.removeAllItems();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.networkedcontentmanager.NetworkedContentListener#renderSynchronisedDate(synergynetframework.appsystem.contentsystem.items.ContentItem, java.util.Map)
+	 */
 	@Override
 	public void renderSynchronisedDate(ContentItem item,
 			Map<String, String> itemAttrs) {
@@ -197,6 +250,12 @@ public class MysteryProjectorApp extends DefaultSynergyNetApp implements Network
 		}
 	}
 	
+	/**
+	 * Log content state.
+	 *
+	 * @param mysteryID the mystery id
+	 * @throws FileNotFoundException the file not found exception
+	 */
 	private void logContentState(String mysteryID) throws FileNotFoundException {
 		if(!restoreFolder.exists()) restoreFolder.mkdir();
 		File restoreFile = new File(restoreFolder, mysteryID);
@@ -224,6 +283,9 @@ public class MysteryProjectorApp extends DefaultSynergyNetApp implements Network
 		pw.close();
 	}
 	
+	/**
+	 * Check last exit settings.
+	 */
 	private void checkLastExitSettings(){
 		try{
 			if(!exitSettingsFile.exists()) exitSettingsFile.createNewFile();
@@ -262,20 +324,32 @@ public class MysteryProjectorApp extends DefaultSynergyNetApp implements Network
 	}
 	*/
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.networkedcontentmanager.NetworkedContentListener#channelSwitched()
+	 */
 	@Override
 	public void channelSwitched() {
 	
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.networkedcontentmanager.NetworkedContentListener#contentItemLoaded(synergynetframework.appsystem.contentsystem.items.ContentItem)
+	 */
 	@Override
 	public void contentItemLoaded(ContentItem item) {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.networkedcontentmanager.NetworkedContentListener#remoteContentLoaded(synergynetframework.appsystem.services.net.networkedcontentmanager.utils.RemoteDesktop)
+	 */
 	@Override
 	public void remoteContentLoaded(RemoteDesktop remoteDesktop) {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.networkedcontentmanager.NetworkedContentListener#renderRemoteDesktop(synergynetframework.appsystem.services.net.networkedcontentmanager.utils.RemoteDesktop, synergynetframework.appsystem.contentsystem.items.OrthoContentItem, java.util.Map)
+	 */
 	@Override
 	public void renderRemoteDesktop(RemoteDesktop remoteDesktop,
 			OrthoContentItem item, Map<String, String> map) {

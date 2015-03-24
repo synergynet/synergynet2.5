@@ -39,47 +39,78 @@ import synergynetframework.appsystem.contentsystem.items.QuadContentItem;
 import synergynetframework.appsystem.contentsystem.items.SimpleButton;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IListContainerImplementation;
 
+
+/**
+ * The Class JMEListContainer.
+ */
 public class JMEListContainer extends JMEWindow implements IListContainerImplementation{
 	
+	/** The list. */
 	private ListContainer list;
 	
+	/**
+	 * Instantiates a new JME list container.
+	 *
+	 * @param contentItem the content item
+	 */
 	public JMEListContainer(ContentItem contentItem) {
 		super(contentItem);		
 		list =  ((ListContainer)contentItem);	
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IListContainerImplementation#addSubItem(int, synergynetframework.appsystem.contentsystem.items.QuadContentItem)
+	 */
 	@Override
 	public void addSubItem(int index, QuadContentItem item) {
 		render();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IListContainerImplementation#addSubItem(synergynetframework.appsystem.contentsystem.items.QuadContentItem)
+	 */
 	@Override
 	public void addSubItem(QuadContentItem item) {
 		render();
 	}
 	
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IListContainerImplementation#addSubMenu(synergynetframework.appsystem.contentsystem.items.SimpleButton, synergynetframework.appsystem.contentsystem.items.ListContainer)
+	 */
 	@Override
 	public void addSubMenu(SimpleButton button, ListContainer listContainer) {
 		render();
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IListContainerImplementation#removeItem(synergynetframework.appsystem.contentsystem.items.QuadContentItem)
+	 */
 	@Override
 	public void removeItem(QuadContentItem item) {
 		render();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IListContainerImplementation#setHorizontal(boolean)
+	 */
 	@Override
 	public void setHorizontal(boolean isHorizontal){
 		render();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IListContainerImplementation#setAutoFitSize(boolean)
+	 */
 	@Override
 	public void setAutoFitSize(boolean AutoFitSize){
 		render();
 	}
 	
+	/**
+	 * Render.
+	 */
 	public void render(){
 		/*	
 		Map<SimpleButton, ListContainer> subMenus = list.getSubMenus();
@@ -170,30 +201,45 @@ public class JMEListContainer extends JMEWindow implements IListContainerImpleme
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IListContainerImplementation#setLineSpace(int)
+	 */
 	@Override
 	public void setLineSpace(int lineSpace) {
 		render();
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IListContainerImplementation#setSpaceToBottom(int)
+	 */
 	@Override
 	public void setSpaceToBottom(int spaceToBottom) {
 		render();
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IListContainerImplementation#setSpaceToSide(int)
+	 */
 	@Override
 	public void setSpaceToSide(int spaceToSide) {
 		render();
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IListContainerImplementation#setSpaceToTop(int)
+	 */
 	@Override
 	public void setSpaceToTop(int spaceToTop) {
 		render();
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IListContainerImplementation#updateVisibility()
+	 */
 	@Override
 	public void updateVisibility() {
 		render();

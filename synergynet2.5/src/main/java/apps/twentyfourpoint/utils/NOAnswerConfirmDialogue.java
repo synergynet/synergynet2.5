@@ -43,16 +43,40 @@ import synergynetframework.appsystem.contentsystem.items.SimpleButton;
 import synergynetframework.appsystem.contentsystem.items.Window;
 import synergynetframework.appsystem.contentsystem.items.listener.ItemEventAdapter;
 
+
+/**
+ * The Class NOAnswerConfirmDialogue.
+ */
 public class NOAnswerConfirmDialogue {
 
+	/** The window. */
 	protected Window window;
+	
+	/** The label. */
 	protected MultiLineTextLabel label;
+	
+	/** The ok button. */
 	protected SimpleButton okButton;
+	
+	/** The cancel button. */
 	protected SimpleButton cancelButton;
+	
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The app. */
 	protected TwentyFourPointApp app;
+	
+	/** The no answer label. */
 	protected MultiLineTextLabel noAnswerLabel;
 	
+	/**
+	 * Instantiates a new NO answer confirm dialogue.
+	 *
+	 * @param contentSystem the content system
+	 * @param app the app
+	 * @param noAnswerLabel the no answer label
+	 */
 	public NOAnswerConfirmDialogue(ContentSystem contentSystem, TwentyFourPointApp app, MultiLineTextLabel noAnswerLabel){
 		this.contentSystem = contentSystem;
 		this.app = app;
@@ -60,6 +84,9 @@ public class NOAnswerConfirmDialogue {
 		loadContent();
 	}
 	
+	/**
+	 * Load content.
+	 */
 	protected void loadContent(){
 		window = (Window)contentSystem.createContentItem(Window.class);
 		
@@ -104,6 +131,9 @@ public class NOAnswerConfirmDialogue {
 	
 	}
 	
+	/**
+	 * Clear content.
+	 */
 	public void clearContent(){
 		contentSystem.removeContentItem(window);
 		contentSystem.removeContentItem(label);

@@ -32,8 +32,28 @@
 package synergynetframework.appsystem.contentsystem.items.implementation.interfaces;
 
 
+
+/**
+ * The Interface IVncFrameImplementation.
+ */
 public interface IVncFrameImplementation extends IWindowImplementation {
+	
+	/**
+	 * Sets the connection settings.
+	 *
+	 * @param host the host
+	 * @param port the port
+	 * @param password the password
+	 */
 	public void setConnectionSettings(String host, int port, String password);
+	
+	/**
+	 * Connect.
+	 */
 	public void connect();
+	
+	/**
+	 * Disconnect.
+	 */
 	public void disconnect();
 }

@@ -33,7 +33,33 @@ package synergynetframework.appsystem.contentsystem.items.listener;
 
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 
+
+/**
+ * The listener interface for receiving innerNoteEdit events.
+ * The class that is interested in processing a innerNoteEdit
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addInnerNoteEditListener<code> method. When
+ * the innerNoteEdit event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see InnerNoteEditEvent
+ */
 public interface InnerNoteEditListener {
+	
+	/**
+	 * Note changed.
+	 *
+	 * @param item the item
+	 * @param text the text
+	 */
 	public void noteChanged(ContentItem item, String text);
+	
+	/**
+	 * Note label on.
+	 *
+	 * @param item the item
+	 * @param noteLabelOn the note label on
+	 */
 	public void noteLabelOn(ContentItem item, boolean noteLabelOn);
 }

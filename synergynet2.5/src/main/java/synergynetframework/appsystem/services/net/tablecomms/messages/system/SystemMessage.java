@@ -34,10 +34,18 @@ package synergynetframework.appsystem.services.net.tablecomms.messages.system;
 
 import synergynetframework.appsystem.services.net.tablecomms.messages.TableMessage;
 
+
+/**
+ * The Class SystemMessage.
+ */
 public class SystemMessage extends TableMessage {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -6631967024758750134L;
 
+	/**
+	 * Instantiates a new system message.
+	 */
 	public SystemMessage(){
 		super();
 	}

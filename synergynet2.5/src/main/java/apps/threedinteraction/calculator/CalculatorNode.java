@@ -12,21 +12,44 @@ import com.jme.math.Vector3f;
 import com.jme.scene.Node;
 
 
+
+/**
+ * The Class CalculatorNode.
+ */
 public class CalculatorNode extends Node {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2429175967783608868L;
+	
+	/** The text string. */
 	protected String textString="";
+	
+	/** The left number. */
 	protected String leftNumber ="";
+	
+	/** The right number. */
 	protected String rightNumber = "";
+	
+	/** The operator. */
 	protected String operator ="";
+	
+	/** The display node. */
 	protected DisplayNode displayNode;
 	
+	/**
+	 * Instantiates a new calculator node.
+	 *
+	 * @param name the name
+	 */
 	public CalculatorNode(String name){
 		super(name);	
 		init();
 		
 	}
 
+	/**
+	 * Inits the.
+	 */
 	protected void init(){
 		
 		float width = 20f;
@@ -393,6 +416,12 @@ public class CalculatorNode extends Node {
 		
 	}
 	
+	/**
+	 * Checks if is integer.
+	 *
+	 * @param number the number
+	 * @return true, if is integer
+	 */
 	private boolean isInteger(String number){
 		try{
 			Integer.parseInt(number);
@@ -403,6 +432,12 @@ public class CalculatorNode extends Node {
 		return true;
 	}
 	
+	/**
+	 * Checks if is float.
+	 *
+	 * @param number the number
+	 * @return true, if is float
+	 */
 	private boolean isFloat(String number){
 		try{
 			Double.parseDouble(number);
@@ -413,6 +448,9 @@ public class CalculatorNode extends Node {
 		return true;
 	}
 	
+	/**
+	 * Clear.
+	 */
 	private void clear(){
 		textString="";
 		displayNode.setText(textString);

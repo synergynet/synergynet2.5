@@ -37,30 +37,52 @@ import java.io.OutputStream;
 
 import uk.ac.ed.ph.snuggletex.jeuclid.SimpleMathMLImageSavingCallback;
 
+
+/**
+ * The Class ImageOptions.
+ */
 public class ImageOptions extends SimpleMathMLImageSavingCallback {
 
+	/** The out. */
 	OutputStream out;
 	
+	/**
+	 * Instantiates a new image options.
+	 *
+	 * @param out the out
+	 */
 	public ImageOptions(OutputStream out){
 		this.out = out;
 	}
 	
+	/* (non-Javadoc)
+	 * @see uk.ac.ed.ph.snuggletex.jeuclid.SimpleMathMLImageSavingCallback#getImageOutputFile(int)
+	 */
 	@Override
 	public File getImageOutputFile(int arg0) {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see uk.ac.ed.ph.snuggletex.jeuclid.SimpleMathMLImageSavingCallback#getImageOutputStream(int)
+	 */
 	@Override
 	public OutputStream getImageOutputStream(int arg0) {
 		return out;
 	}
 
+	/* (non-Javadoc)
+	 * @see uk.ac.ed.ph.snuggletex.jeuclid.SimpleMathMLImageSavingCallback#getImageURL(int)
+	 */
 	@Override
 	public String getImageURL(int arg0) {
 		return null;
 	}
 
 
+	/* (non-Javadoc)
+	 * @see uk.ac.ed.ph.snuggletex.jeuclid.MathMLImageSavingCallback#imageSavingFailed(java.lang.Object, int, java.lang.String, java.lang.Throwable)
+	 */
 	@Override
 	public void imageSavingFailed(Object arg0, int arg1, String arg2,
 			Throwable arg3) {
@@ -68,12 +90,18 @@ public class ImageOptions extends SimpleMathMLImageSavingCallback {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see uk.ac.ed.ph.snuggletex.jeuclid.SimpleMathMLImageSavingCallback#imageSavingSucceeded(java.lang.Object, int, java.lang.String)
+	 */
 	@Override
 	public void imageSavingSucceeded(Object arg0, int arg1, String arg2) {
 		 
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see uk.ac.ed.ph.snuggletex.jeuclid.SimpleMathMLImageSavingCallback#setFontSize(java.lang.String)
+	 */
 	@Override
 	public void setFontSize(String size){
 		super.setFontSize("48");

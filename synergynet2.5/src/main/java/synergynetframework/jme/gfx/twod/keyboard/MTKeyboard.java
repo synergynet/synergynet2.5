@@ -49,20 +49,53 @@ import synergynetframework.jme.gfx.twod.DrawableSpatialImage;
 import synergynetframework.jme.gfx.twod.keyboard.Key;
 import synergynetframework.jme.gfx.twod.utils.GraphicsImageQuad;
 
+
+/**
+ * The Class MTKeyboard.
+ */
 public class MTKeyboard extends GraphicsImageQuad implements DrawableSpatialImage {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 6323388632774505481L;
+	
+	/** The gfx. */
 	private ImageGraphics gfx;
+	
+	/** The img width. */
 	private int imgWidth;
+	
+	/** The img height. */
 	private int imgHeight;
+	
+	/** The keyboard image. */
 	private Image keyboardImage;
 
+	/** The current keys pressed. */
 	protected Map<Integer,Key> currentKeysPressed = new HashMap<Integer,Key>();
+	
+	/** The listeners. */
 	protected List<MTKeyListener> listeners = new ArrayList<MTKeyListener>();
+	
+	/** The keys. */
 	protected List<Key> keys;
+	
+	/** The caps lock on. */
 	protected boolean capsLockOn;
+	
+	/** The fake component. */
 	protected JFrame fakeComponent;
 
+	/**
+	 * Instantiates a new MT keyboard.
+	 *
+	 * @param name the name
+	 * @param keyboardImage the keyboard image
+	 * @param keys the keys
+	 * @param width the width
+	 * @param height the height
+	 * @param imgWidth the img width
+	 * @param imgHeight the img height
+	 */
 	public MTKeyboard(String name, Image keyboardImage, List<Key> keys, float width, float height, int imgWidth, int imgHeight) {
 		super(name, width, height, imgWidth, imgHeight);
 		fakeComponent = new JFrame();
@@ -79,23 +112,40 @@ public class MTKeyboard extends GraphicsImageQuad implements DrawableSpatialImag
 		draw();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#draw()
+	 */
 	public void draw() {
 		gfx.drawImage(keyboardImage, 0, 0, imgWidth, imgHeight, null);
 		updateGraphics();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#getSpatial()
+	 */
 	public Spatial getSpatial() {
 		return this;
 	}
 
+	/**
+	 * Adds the key listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void addKeyListener(MTKeyListener listener) {
 		if(!listeners.contains(listener)) listeners.add(listener);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#cursorDragged(long, int, int)
+	 */
 	@Override
 	public void cursorDragged(long id, int x, int y) {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#cursorPressed(long, int, int)
+	 */
 	@Override
 	public void cursorPressed(long cursorID, int x, int y) {
 		Key k = getKeyAtLocation(x, y);
@@ -111,6 +161,9 @@ public class MTKeyboard extends GraphicsImageQuad implements DrawableSpatialImag
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#cursorReleased(long, int, int)
+	 */
 	@Override
 	public void cursorReleased(long cursorID, int x, int y) {
 		Key k = getKeyAtLocation(x, y);
@@ -130,23 +183,47 @@ public class MTKeyboard extends GraphicsImageQuad implements DrawableSpatialImag
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#cursorClicked(long, int, int)
+	 */
 	@Override
 	public void cursorClicked(long cursorID, int x, int y) {}
 
 	
+	/**
+	 * Checks if is key pressed.
+	 *
+	 * @param vk the vk
+	 * @return true, if is key pressed
+	 */
 	public boolean isKeyPressed(int vk) {
 		return currentKeysPressed.keySet().contains(vk);
 	}
 
+	/**
+	 * Upper case mode on.
+	 *
+	 * @return true, if successful
+	 */
 	private boolean upperCaseModeOn() {
 		// xor of shift pressed and caps lock on
 		return isKeyPressed(KeyEvent.VK_SHIFT) ^ capsLockOn;
 	}
 	
+	/**
+	 * Toggle caps lock.
+	 */
 	private void toggleCapsLock() {
 		capsLockOn = !capsLockOn;
 	}
 
+	/**
+	 * Gets the key at location.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @return the key at location
+	 */
 	private Key getKeyAtLocation(int x, int y) {
 		for(Key k : keys) {
 			if(k.area.contains(x, y)) {
@@ -158,6 +235,11 @@ public class MTKeyboard extends GraphicsImageQuad implements DrawableSpatialImag
 
 
 
+	/**
+	 * Gets the modifiers.
+	 *
+	 * @return the modifiers
+	 */
 	private int getModifiers() {
 		int modifiers = 0;
 		if(isKeyPressed(KeyEvent.VK_SHIFT)){

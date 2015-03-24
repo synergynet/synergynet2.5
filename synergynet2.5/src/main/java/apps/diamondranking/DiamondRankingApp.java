@@ -65,20 +65,42 @@ import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightConfirmVisualExit;
 import synergynetframework.jme.cursorsystem.fixutils.FixLocationStatus;
 
+
+/**
+ * The Class DiamondRankingApp.
+ */
 public class DiamondRankingApp extends DefaultSynergyNetApp {
 	
+	/** The content system. */
 	protected ContentSystem contentSystem;	
 	
+	/** The items. */
 	protected Map<String, Map<ContentItem, Location>> items = new HashMap <String, Map<ContentItem, Location>>();
+	
+	/** The lock url. */
 	protected URL lockURL = DiamondRankingApp.class.getResource("padlock.jpg");
+	
+	/** The clicks per item map. */
 	protected Map<ContentItem, ArrayList<CursorPoint>> clicksPerItemMap = new HashMap<ContentItem, ArrayList<CursorPoint>>();	
+	
+	/** The init location. */
 	protected Location initLocation =new Location(0,0,0);
+	
+	/** The current sub app. */
 	protected String currentSubApp = "";
 	
+	/**
+	 * Instantiates a new diamond ranking app.
+	 *
+	 * @param info the info
+	 */
 	public DiamondRankingApp(ApplicationInfo info) {
 		super(info);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		contentSystem = ContentSystem.getContentSystemForSynergyNetApp(this);
@@ -258,6 +280,12 @@ public class DiamondRankingApp extends DefaultSynergyNetApp {
 		
 	}
 		
+	/**
+	 * Load content.
+	 *
+	 * @param filePath the file path
+	 * @param name the name
+	 */
 	private void loadContent(String filePath, String name){
 		
 		Set<ContentItem> contentItems = contentSystem.loadContentItems(filePath);
@@ -275,6 +303,11 @@ public class DiamondRankingApp extends DefaultSynergyNetApp {
 		
 	}
 
+	/**
+	 * Gets the inits the locations.
+	 *
+	 * @return the inits the locations
+	 */
 	private Location getInitLocations(){
 		
 		for (ContentItem item:items.get(currentSubApp).keySet()){	
@@ -285,6 +318,9 @@ public class DiamondRankingApp extends DefaultSynergyNetApp {
 		return null;
 	}
 	
+	/**
+	 * Hide all items.
+	 */
 	private void hideAllItems(){
 		
 		for (String key:items.keySet()){
@@ -301,6 +337,9 @@ public class DiamondRankingApp extends DefaultSynergyNetApp {
 		}
 	}
 	
+	/**
+	 * Adds the lock feature for content.
+	 */
 	@SuppressWarnings("unused")
 	private void addLockFeatureForContent(){
 		clicksPerItemMap.clear();
@@ -378,6 +417,13 @@ public class DiamondRankingApp extends DefaultSynergyNetApp {
 		}
 	}
 
+	/**
+	 * Adds the fix location mt element.
+	 *
+	 * @param fixLocations the fix locations
+	 * @param tolerance the tolerance
+	 * @param fileName the file name
+	 */
 	private void addFixLocationMTElement(List<FixLocationStatus> fixLocations, float tolerance, String fileName){
 		for (ContentItem item: items.get(fileName).keySet()){
 			if (item instanceof OrthoContentItem){
@@ -387,6 +433,12 @@ public class DiamondRankingApp extends DefaultSynergyNetApp {
 		}	
 	}
 	
+	/**
+	 * Gets the fix locations.
+	 *
+	 * @param fileName the file name
+	 * @return the fix locations
+	 */
 	private List<FixLocationStatus> getFixLocations(String fileName){
 		List<FixLocationStatus> fixLocations = new ArrayList<FixLocationStatus>();		
 		for (ContentItem item: items.get(fileName).keySet()){
@@ -399,6 +451,13 @@ public class DiamondRankingApp extends DefaultSynergyNetApp {
 		return fixLocations;
 	}
 	
+	/**
+	 * Clicks on corners.
+	 *
+	 * @param item the item
+	 * @param clickPoints the click points
+	 * @return true, if successful
+	 */
 	public boolean clicksOnCorners(ContentItem item, ArrayList<CursorPoint> clickPoints){
 		/*
 		if(item instanceof Frame){
@@ -427,29 +486,58 @@ public class DiamondRankingApp extends DefaultSynergyNetApp {
 		return false;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	@Override
 	public void stateUpdate(float tpf) {
 		if(contentSystem != null) contentSystem.update(tpf);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onDeactivate()
+	 */
 	@Override
 	public void onDeactivate() {
 		super.onDeactivate();
 	}
 	
+	/**
+	 * The Class CursorPoint.
+	 */
 	class CursorPoint{
+		
+		/** The id. */
 		private long id;
+		
+		/** The point. */
 		private Point2D.Float point;
 		
+		/**
+		 * Instantiates a new cursor point.
+		 *
+		 * @param id the id
+		 * @param point the point
+		 */
 		public CursorPoint(long id, Point2D.Float point){
 			this.id = id;
 			this.point = point;
 		}
 		
+		/**
+		 * Gets the cursor id.
+		 *
+		 * @return the cursor id
+		 */
 		public long getCursorId(){
 			return id;
 		}
 		
+		/**
+		 * Gets the point.
+		 *
+		 * @return the point
+		 */
 		public Point2D.Float getPoint(){
 			return point;
 		}

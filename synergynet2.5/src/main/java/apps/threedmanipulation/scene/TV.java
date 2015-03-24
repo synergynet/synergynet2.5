@@ -20,18 +20,42 @@ import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
 import com.jme.util.TextureManager;
 
+
+/**
+ * The Class TV.
+ */
 public class TV extends Node{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 6173587082857220150L;
 	
+	/** The j me video image. */
 	protected JMFVideoImage jMEVideoImage;
+	
+	/** The video player. */
 	protected VideoPlayer videoPlayer;
+	
+	/** The frame width. */
 	protected float frameWidth;
+	
+	/** The video quad. */
 	protected Quad videoQuad;
+	
+	/** The tv frame texture. */
 	protected URL tvFrameTexture;
+	
+	/** The content system. */
 	protected ContentSystem contentSystem;
 	
 	
+	/**
+	 * Instantiates a new tv.
+	 *
+	 * @param contentSystem the content system
+	 * @param videoURL the video url
+	 * @param frameWidth the frame width
+	 * @param tvFrameTexture the tv frame texture
+	 */
 	public TV(ContentSystem contentSystem, URL videoURL, float frameWidth, URL tvFrameTexture){
 		this.frameWidth = frameWidth;
 		this.tvFrameTexture = tvFrameTexture;
@@ -47,6 +71,12 @@ public class TV extends Node{
 		this.updateGeometricState(0f, false);
 	}
 	
+	/**
+	 * Builds the video.
+	 *
+	 * @param contentSystem the content system
+	 * @param videoURL the video url
+	 */
 	public void buildVideo(ContentSystem contentSystem, URL videoURL){
 		videoPlayer = (VideoPlayer)contentSystem.createContentItem(VideoPlayer.class);
 		videoPlayer.setVideoURL(videoURL);
@@ -61,6 +91,9 @@ public class TV extends Node{
 					
 	}
 	
+	/**
+	 * Builds the frame.
+	 */
 	public void buildFrame(){
 		float width = videoPlayer.getVideoWidth();
 		float height = videoPlayer.getVideoHeight();
@@ -116,6 +149,11 @@ public class TV extends Node{
 		right.updateRenderState();				
 	}
 	
+	/**
+	 * Update.
+	 *
+	 * @param tpf the tpf
+	 */
 	public void update (float tpf){	
 		if(contentSystem != null) contentSystem.update(tpf);				
 	}

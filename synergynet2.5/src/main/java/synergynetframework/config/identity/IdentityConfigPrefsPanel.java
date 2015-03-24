@@ -44,16 +44,31 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+
+/**
+ * The Class IdentityConfigPrefsPanel.
+ */
 public class IdentityConfigPrefsPanel extends JPanel{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -7919638840040288563L;
+	
+	/** The prefs item. */
 	private IdentityConfigPrefsItem prefsItem;	
 
+    /**
+     * Instantiates a new identity config prefs panel.
+     *
+     * @param prefsItem the prefs item
+     */
     public IdentityConfigPrefsPanel(IdentityConfigPrefsItem prefsItem) {
     	this.prefsItem = prefsItem;
         initComponents();
     }
 
+    /**
+     * Inits the components.
+     */
     private void initComponents() {
 		ButtonGroup group = new ButtonGroup();
 		final JRadioButton defineIdBox = new JRadioButton();

@@ -32,8 +32,32 @@
 
 package synergynetframework.appsystem.services.net.landiscovery;
 
+
+/**
+ * The listener interface for receiving serviceDiscovery events.
+ * The class that is interested in processing a serviceDiscovery
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addServiceDiscoveryListener<code> method. When
+ * the serviceDiscovery event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see ServiceDiscoveryEvent
+ */
 public interface ServiceDiscoveryListener {
+	
+	/**
+	 * Service available.
+	 *
+	 * @param descriptor the descriptor
+	 */
 	public void serviceAvailable(ServiceDescriptor descriptor);
+	
+	/**
+	 * Service removed.
+	 *
+	 * @param descriptor the descriptor
+	 */
 	public void serviceRemoved(ServiceDescriptor descriptor);
 	
 }

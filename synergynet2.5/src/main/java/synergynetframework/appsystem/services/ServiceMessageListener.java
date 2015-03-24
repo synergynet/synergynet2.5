@@ -32,6 +32,25 @@
 
 package synergynetframework.appsystem.services;
 
+
+/**
+ * The listener interface for receiving serviceMessage events.
+ * The class that is interested in processing a serviceMessage
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addServiceMessageListener<code> method. When
+ * the serviceMessage event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see ServiceMessageEvent
+ */
 public interface ServiceMessageListener {
+	
+	/**
+	 * Service message.
+	 *
+	 * @param service the service
+	 * @param msg the msg
+	 */
 	public void serviceMessage(SynergyNetService service, String msg);
 }

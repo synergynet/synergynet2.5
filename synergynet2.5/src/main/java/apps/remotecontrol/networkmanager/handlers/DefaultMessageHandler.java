@@ -44,14 +44,27 @@ import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.client.TableCommsApplicationListener;
 import synergynetframework.appsystem.services.net.tablecomms.messages.TableMessage;
 
+
+/**
+ * The Class DefaultMessageHandler.
+ */
 public class DefaultMessageHandler implements TableCommsApplicationListener{
 
+	/** The manager. */
 	protected NetworkedContentManager manager;
 	
+	/**
+	 * Instantiates a new default message handler.
+	 *
+	 * @param manager the manager
+	 */
 	public DefaultMessageHandler(NetworkedContentManager manager){
 		this.manager = manager;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.tablecomms.client.TableCommsApplicationListener#messageReceived(java.lang.Object)
+	 */
 	@Override
 	public void messageReceived(Object obj) {
 		if (TableIdentity.getTableIdentity().hashCode()==((TableMessage)obj).getSender().hashCode()) return;
@@ -77,6 +90,9 @@ public class DefaultMessageHandler implements TableCommsApplicationListener{
 		manager.fireMessageReceived(obj);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.tablecomms.client.TableCommsApplicationListener#tableDisconnected()
+	 */
 	@Override
 	public void tableDisconnected() {
 		 

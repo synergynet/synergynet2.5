@@ -27,20 +27,45 @@ import synergynetframework.jme.cursorsystem.MultiTouchCursorSystem;
 import synergynetframework.mtinput.MultiTouchInputComponent;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 
+
+/**
+ * The Class MouseCursor.
+ */
 public class MouseCursor implements DesktopMouseListener{
 	
+	/** The cursor. */
 	protected LightImageLabel cursor;
+	
+	/** The table id. */
 	protected TableIdentity tableId;
 	
+	/** The cursor width. */
 	private int cursorWidth = 25;
+	
+	/** The cursor height. */
 	private int cursorHeight = 40;
 	
+	/** The cursor shift x. */
 	private int cursorShiftX = -cursorWidth/2;
+	
+	/** The cursor shift y. */
 	private int cursorShiftY = cursorHeight/2;
 	
+	/** The input. */
 	private MultiTouchInputComponent input;
+	
+	/** The cursor id. */
 	private int cursorId;
 	
+	/**
+	 * Instantiates a new mouse cursor.
+	 *
+	 * @param contentSystem the content system
+	 * @param input the input
+	 * @param tableId the table id
+	 * @param cursorId the cursor id
+	 * @param color the color
+	 */
 	public MouseCursor(ContentSystem contentSystem, MultiTouchInputComponent input, TableIdentity tableId, int cursorId, Color color){
 		
         BufferedImage cursorImage = null;
@@ -73,14 +98,27 @@ public class MouseCursor implements DesktopMouseListener{
 		}
 	}
 	
+	/**
+	 * Gets the cursor.
+	 *
+	 * @return the cursor
+	 */
 	public LightImageLabel getCursor(){
 		return cursor;
 	}
 	
+	/**
+	 * Gets the table identity.
+	 *
+	 * @return the table identity
+	 */
 	public TableIdentity getTableIdentity(){
 		return tableId;
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.tabletop.TabletopContentManager.DesktopMouseListener#mousePressed(synergynetframework.appsystem.services.net.localpresence.TableIdentity, apps.mtdesktop.messages.util.MouseEventInfo)
+	 */
 	public void mousePressed(TableIdentity tableId, MouseEventInfo evt) {
 		if(this.tableId == null || !this.tableId.equals(tableId)) return;
 		Point.Float tablePos = MultiTouchCursorSystem.screenToTable(new Vector2f(evt.getX()+cursorShiftX, evt.getY()+cursorShiftY));
@@ -89,6 +127,9 @@ public class MouseCursor implements DesktopMouseListener{
 		cursor.setOrder(99999999);
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.tabletop.TabletopContentManager.DesktopMouseListener#mouseReleased(synergynetframework.appsystem.services.net.localpresence.TableIdentity, apps.mtdesktop.messages.util.MouseEventInfo)
+	 */
 	public void mouseReleased(TableIdentity tableId, MouseEventInfo evt) {
 		if(this.tableId == null || !this.tableId.equals(tableId)) return;
 		Point.Float tablePos = MultiTouchCursorSystem.screenToTable(new Vector2f(evt.getX()+cursorShiftX, evt.getY()+cursorShiftY));
@@ -97,9 +138,15 @@ public class MouseCursor implements DesktopMouseListener{
 		cursor.setOrder(99999999);
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.tabletop.TabletopContentManager.DesktopMouseListener#mouseClicked(synergynetframework.appsystem.services.net.localpresence.TableIdentity, apps.mtdesktop.messages.util.MouseEventInfo)
+	 */
 	public void mouseClicked(TableIdentity tableId, MouseEventInfo evt) {
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.tabletop.TabletopContentManager.DesktopMouseListener#mouseMoved(synergynetframework.appsystem.services.net.localpresence.TableIdentity, apps.mtdesktop.messages.util.MouseEventInfo)
+	 */
 	public void mouseMoved(TableIdentity tableId, MouseEventInfo evt) {
 		if(this.tableId == null || !this.tableId.equals(tableId)) return;
 		Point.Float tablePos = MultiTouchCursorSystem.screenToTable(new Vector2f(evt.getX()+cursorShiftX, evt.getY()+cursorShiftY));
@@ -111,6 +158,9 @@ public class MouseCursor implements DesktopMouseListener{
 
 
 
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.tabletop.TabletopContentManager.DesktopMouseListener#mouseDragged(synergynetframework.appsystem.services.net.localpresence.TableIdentity, apps.mtdesktop.messages.util.MouseEventInfo)
+	 */
 	public void mouseDragged(TableIdentity tableId, MouseEventInfo evt) {
 		if(this.tableId == null || !this.tableId.equals(tableId)) return;
 		Point.Float tablePos = MultiTouchCursorSystem.screenToTable(new Vector2f(evt.getX()+cursorShiftX, evt.getY()+cursorShiftY));
@@ -120,6 +170,11 @@ public class MouseCursor implements DesktopMouseListener{
 		cursor.setOrder(99999999);
 	}
 	
+	/**
+	 * Sets the orientation.
+	 *
+	 * @param position the new orientation
+	 */
 	public void setOrientation(DesktopClient.Position position) {
 		if(position.equals(DesktopClient.Position.SOUTH)){
 			cursor.setAngle(0);

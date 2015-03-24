@@ -32,9 +32,18 @@
 
 package synergynetframework.appsystem.services.net.tablecomms.messages.control;
 
+
+/**
+ * The Class FromClientTableControlMessage.
+ */
 public class FromClientTableControlMessage extends TableControlMessage {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -8124102760701125892L;
 
+	/**
+	 * Instantiates a new from client table control message.
+	 */
 	public FromClientTableControlMessage(){
 		super();
 	}

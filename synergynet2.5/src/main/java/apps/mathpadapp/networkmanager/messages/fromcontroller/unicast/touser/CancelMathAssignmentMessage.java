@@ -34,10 +34,22 @@ package apps.mathpadapp.networkmanager.messages.fromcontroller.unicast.touser;
 import apps.mathpadapp.networkmanager.utils.UserIdentity;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class CancelMathAssignmentMessage.
+ */
 public class CancelMathAssignmentMessage extends ControllerToUserMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3928170469720204433L;
 
+	/**
+	 * Instantiates a new cancel math assignment message.
+	 *
+	 * @param targetClass the target class
+	 * @param tableId the table id
+	 * @param userId the user id
+	 */
 	public CancelMathAssignmentMessage(Class<?> targetClass, TableIdentity tableId, UserIdentity userId) {
 		super(targetClass);
 		this.setRecipient(tableId);

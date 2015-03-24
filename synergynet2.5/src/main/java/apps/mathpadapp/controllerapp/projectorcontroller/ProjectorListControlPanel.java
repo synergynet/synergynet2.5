@@ -49,15 +49,37 @@ import synergynetframework.appsystem.contentsystem.items.SimpleButton;
 import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonListener;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class ProjectorListControlPanel.
+ */
 public class ProjectorListControlPanel {
 	
+	/** The container. */
 	protected OrthoContainer container;
+	
+	/** The projector list. */
 	private MTList projectorList;
+	
+	/** The projector panel manager. */
 	private MTListManager projectorPanelManager;
+	
+	/** The Constant controlProjectorPanelHeight. */
 	public static final int controlProjectorPanelHeight = 140;
+	
+	/** The controller manager. */
 	private ControllerManager controllerManager;
+	
+	/** The content system. */
 	private ContentSystem contentSystem;
 	
+	/**
+	 * Instantiates a new projector list control panel.
+	 *
+	 * @param contentSystem the content system
+	 * @param projectorList the projector list
+	 * @param controllerManager the controller manager
+	 */
 	public ProjectorListControlPanel(ContentSystem contentSystem, final MTList projectorList, ControllerManager controllerManager){
 		container  = (OrthoContainer) contentSystem.createContentItem(OrthoContainer.class);
 		this.contentSystem = contentSystem;
@@ -87,8 +109,14 @@ public class ProjectorListControlPanel {
 		}
 	}
 	
+	/**
+	 * The Class ButtonAction.
+	 */
 	class ButtonAction implements SimpleButtonListener{
 
+		/* (non-Javadoc)
+		 * @see synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonListener#buttonClicked(synergynetframework.appsystem.contentsystem.items.SimpleButton, long, float, float, float)
+		 */
 		@Override
 		public void buttonClicked(SimpleButton b, long id, float x, float y,
 				float pressure) {
@@ -124,10 +152,16 @@ public class ProjectorListControlPanel {
 			}
 		}
 
+		/* (non-Javadoc)
+		 * @see synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonListener#buttonDragged(synergynetframework.appsystem.contentsystem.items.SimpleButton, long, float, float, float)
+		 */
 		@Override
 		public void buttonDragged(SimpleButton b, long id, float x, float y, float pressure) {
 		}
 
+		/* (non-Javadoc)
+		 * @see synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonListener#buttonPressed(synergynetframework.appsystem.contentsystem.items.SimpleButton, long, float, float, float)
+		 */
 		@Override
 		public void buttonPressed(SimpleButton b, long id, float x, float y, float pressure) {
 			Color bgColor = b.getBackgroundColour();
@@ -135,6 +169,9 @@ public class ProjectorListControlPanel {
 			b.setTextColour(bgColor);
 		}
 
+		/* (non-Javadoc)
+		 * @see synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonListener#buttonReleased(synergynetframework.appsystem.contentsystem.items.SimpleButton, long, float, float, float)
+		 */
 		@Override
 		public void buttonReleased(SimpleButton b, long id, float x, float y, float pressure) {
 			Color bgColor = b.getBackgroundColour();
@@ -144,6 +181,11 @@ public class ProjectorListControlPanel {
 		
 	}
 	
+	/**
+	 * Gets the container.
+	 *
+	 * @return the container
+	 */
 	public OrthoContainer getContainer(){
 		return container;
 	}

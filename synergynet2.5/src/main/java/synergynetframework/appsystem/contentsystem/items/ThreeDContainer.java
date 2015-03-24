@@ -37,16 +37,33 @@ import java.util.List;
 import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IThreeDContainerImplementation;
 
+
+/**
+ * The Class ThreeDContainer.
+ */
 public class ThreeDContainer extends ThreeDContentItem {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2782161111250661239L;
 	
+	/** The sub content items. */
 	private List<ContentItem> subContentItems = new ArrayList<ContentItem>();
 	
+	/**
+	 * Instantiates a new three d container.
+	 *
+	 * @param contentSystem the content system
+	 * @param name the name
+	 */
 	public ThreeDContainer(ContentSystem contentSystem, String name) {
 		super(contentSystem, name);
 	}
 	
+	/**
+	 * Adds the sub item.
+	 *
+	 * @param contentItem the content item
+	 */
 	public void addSubItem(ThreeDContentItem contentItem){
 		
 		if (!subContentItems.contains(contentItem)){
@@ -57,10 +74,21 @@ public class ThreeDContainer extends ThreeDContentItem {
 		}
 	}
 	
+	/**
+	 * Contains.
+	 *
+	 * @param contentItem the content item
+	 * @return true, if successful
+	 */
 	public boolean contains(ContentItem contentItem){
 	    return subContentItems.contains(contentItem);
 	}
 	    
+	/**
+	 * Removes the sub item.
+	 *
+	 * @param contentItem the content item
+	 */
 	public void removeSubItem(ThreeDContentItem contentItem){
 		if (subContentItems.contains(contentItem)){
 			this.subContentItems.remove(contentItem);
@@ -72,6 +100,11 @@ public class ThreeDContainer extends ThreeDContentItem {
 		}
 	}
 	
+	/**
+	 * Gets the all items include system items.
+	 *
+	 * @return the all items include system items
+	 */
 	public List<ContentItem> getAllItemsIncludeSystemItems(){
 	    return this.subContentItems;
 	}

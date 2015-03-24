@@ -38,25 +38,47 @@ import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.appsystem.contentsystem.items.MultiLineTextLabel;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMultiLineTextLabelImplementation;
 
+
+/**
+ * The Class JMEMultiLineTextLabel.
+ */
 public class JMEMultiLineTextLabel extends JMETextLabel implements IMultiLineTextLabelImplementation {
 
+	/** The text height. */
 	private int textHeight;
+	
+	/** The text width. */
 	private int textWidth;
+	
+	/** The item. */
 	private MultiLineTextLabel item;
+	
+	/** The text descent. */
 	private int textDescent;
 	
+	/**
+	 * Instantiates a new JME multi line text label.
+	 *
+	 * @param contentItem the content item
+	 */
 	public JMEMultiLineTextLabel(ContentItem contentItem) {
 		super(contentItem);
 		this.item = (MultiLineTextLabel)contentItem;
 
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEFrame#init()
+	 */
 	@Override
 	public void init(){
 		super.init();
 		resize();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMETextLabel#draw()
+	 */
 	@Override
 	protected void draw() {	
 		
@@ -69,6 +91,9 @@ public class JMEMultiLineTextLabel extends JMETextLabel implements IMultiLineTex
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMETextLabel#resize()
+	 */
 	@Override
 	protected void resize(){
 		
@@ -106,21 +131,33 @@ public class JMEMultiLineTextLabel extends JMETextLabel implements IMultiLineTex
 	
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMETextLabel#setText(java.lang.String)
+	 */
 	@Override
 	public void setText(String s) {
 		this.setCRLFSeparatedString(s);	
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMultiLineTextLabelImplementation#setCRLFSeparatedString(java.lang.String)
+	 */
 	@Override
 	public void setCRLFSeparatedString(String s) {
 		this.resize();		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMultiLineTextLabelImplementation#setLines(java.util.List)
+	 */
 	@Override
 	public void setLines(List<String> lines) {
 		this.resize();		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMultiLineTextLabelImplementation#setLines(java.lang.String, int)
+	 */
 	@Override
 	public void setLines(String s, int charsPerLine) {
 		this.resize();		

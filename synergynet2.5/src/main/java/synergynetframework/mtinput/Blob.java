@@ -32,19 +32,43 @@
 
 package synergynetframework.mtinput;
 
+
+/**
+ * The Class Blob.
+ */
 public class Blob {
+	
+	/** The id. */
 	public long id;
+	
+	/** The x. */
 	public int x;
+	
+	/** The y. */
 	public int y;
+	
+	/** The width. */
 	public int width;
+	
+	/** The pressure. */
 	public float pressure;
 	
+	/**
+	 * Instantiates a new blob.
+	 *
+	 * @param cursorID the cursor id
+	 * @param x the x
+	 * @param y the y
+	 */
 	public Blob(long cursorID, int x, int y) {
 		this.id = cursorID;
 		this.x = x;
 		this.y = y;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return getClass().getName() + " " + id + " @" + x + "," + y;
 	}

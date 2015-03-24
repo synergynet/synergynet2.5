@@ -42,6 +42,7 @@ import synergynetframework.mtinput.IMultiTouchEventListener;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 import synergynetframework.mtinput.events.MultiTouchObjectEvent;
 
+
 /**
  * Experimental class to let a multi-touch cursor control the mouse.
  * @author dcs0ah1
@@ -49,9 +50,17 @@ import synergynetframework.mtinput.events.MultiTouchObjectEvent;
  */
 public class MultiTouchAWTRobot implements IMultiTouchEventListener {
 
+	/** The frame. */
 	private JFrame frame;
+	
+	/** The robot. */
 	private Robot robot;
 
+	/**
+	 * Instantiates a new multi touch awt robot.
+	 *
+	 * @param frame the frame
+	 */
 	public MultiTouchAWTRobot(JFrame frame) {
 		this.frame = frame;
 		try {
@@ -61,12 +70,18 @@ public class MultiTouchAWTRobot implements IMultiTouchEventListener {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorChanged(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorChanged(MultiTouchCursorEvent evt) {
 		int x = (int)(evt.getPosition().x * frame.getSize().width);
 		int y = (int)(evt.getPosition().y * frame.getSize().height);
 		robot.mouseMove(x, y);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorClicked(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorClicked(MultiTouchCursorEvent evt) {
 		int x = (int)(evt.getPosition().x * frame.getSize().width);
 		int y = (int)(evt.getPosition().y * frame.getSize().height);				
@@ -75,6 +90,9 @@ public class MultiTouchAWTRobot implements IMultiTouchEventListener {
 		robot.mouseRelease(MouseEvent.BUTTON1_MASK);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorPressed(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorPressed(MultiTouchCursorEvent evt) {
 		int x = (int)(evt.getPosition().x * frame.getSize().width);
 		int y = (int)(evt.getPosition().y * frame.getSize().height);				
@@ -82,6 +100,9 @@ public class MultiTouchAWTRobot implements IMultiTouchEventListener {
 		robot.mousePress(MouseEvent.BUTTON1_MASK);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorReleased(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorReleased(MultiTouchCursorEvent evt) {
 		int x = (int)(evt.getPosition().x * frame.getSize().width);
 		int y = (int)(evt.getPosition().y * frame.getSize().height);
@@ -89,8 +110,19 @@ public class MultiTouchAWTRobot implements IMultiTouchEventListener {
 		robot.mouseRelease(MouseEvent.BUTTON1_MASK);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectAdded(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectAdded(MultiTouchObjectEvent arg0) {}
+	
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectChanged(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectChanged(MultiTouchObjectEvent arg0) {}
+	
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectRemoved(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectRemoved(MultiTouchObjectEvent arg0) {}
 
 }

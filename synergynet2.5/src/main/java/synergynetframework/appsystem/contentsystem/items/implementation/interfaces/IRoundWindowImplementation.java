@@ -33,8 +33,23 @@ package synergynetframework.appsystem.contentsystem.items.implementation.interfa
 
 import synergynetframework.appsystem.contentsystem.items.RoundFrame;
 
+
+/**
+ * The Interface IRoundWindowImplementation.
+ */
 public interface IRoundWindowImplementation extends IOrthoContainerImplementation {
 	
+	/**
+	 * Sets the radius.
+	 *
+	 * @param radius the new radius
+	 */
 	public void setRadius(int radius);
+	
+	/**
+	 * Gets the background frame.
+	 *
+	 * @return the background frame
+	 */
 	public RoundFrame getBackgroundFrame();
 }

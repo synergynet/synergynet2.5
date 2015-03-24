@@ -33,6 +33,16 @@ package synergynetframework.appsystem.contentsystem.items.implementation.interfa
 
 import synergynetframework.appsystem.contentsystem.items.utils.IDrawableContent;
 
+
+/**
+ * The Interface IDrawableFrameImplementation.
+ */
 public interface IDrawableFrameImplementation extends IFrameImplementation{
+	
+	/**
+	 * Sets the drawable content.
+	 *
+	 * @param drawableContent the new drawable content
+	 */
 	public void setDrawableContent(IDrawableContent drawableContent);
 }

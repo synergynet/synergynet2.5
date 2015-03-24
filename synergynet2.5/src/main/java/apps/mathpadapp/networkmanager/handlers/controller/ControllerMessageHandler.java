@@ -56,15 +56,28 @@ import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.messages.TableMessage;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class ControllerMessageHandler.
+ */
 public class ControllerMessageHandler extends DefaultMessageHandler{
 
+	/** The controller manager. */
 	private ControllerManager controllerManager;
 	
+	/**
+	 * Instantiates a new controller message handler.
+	 *
+	 * @param controllerManager the controller manager
+	 */
 	public ControllerMessageHandler(ControllerManager controllerManager){
 		super(controllerManager);
 		this.controllerManager = controllerManager;
 	}
 	
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.handlers.DefaultMessageHandler#messageReceived(java.lang.Object)
+	 */
 	@Override
 	public void messageReceived(Object obj) {
 		
@@ -110,6 +123,11 @@ public class ControllerMessageHandler extends DefaultMessageHandler{
 		}
 	}
 	
+	/**
+	 * Gets the controller manager.
+	 *
+	 * @return the controller manager
+	 */
 	public ControllerManager getControllerManager(){
 		return controllerManager;
 	}

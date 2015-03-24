@@ -31,6 +31,14 @@
 
 package synergynetframework.appsystem.contentsystem.items.implementation.interfaces;
 
+
+/**
+ * The Interface IDocViewerImplementation.
+ */
 public interface IDocViewerImplementation extends IFrameImplementation{
+	
+	/**
+	 * Change page.
+	 */
 	public void changePage();
 }

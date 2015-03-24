@@ -39,11 +39,24 @@ import java.util.List;
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class BroadcastData.
+ */
 public class BroadcastData extends BroadcastApplicationMessage {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -546746344864227474L;
+	
+	/** The items. */
 	private List<ContentItem> items =new ArrayList<ContentItem>();
 
+	/**
+	 * Instantiates a new broadcast data.
+	 *
+	 * @param targetClass the target class
+	 * @param collection the collection
+	 */
 	public BroadcastData(Class<?> targetClass, Collection<ContentItem> collection) {
 		super(targetClass);
 		this.items.clear();
@@ -56,6 +69,11 @@ public class BroadcastData extends BroadcastApplicationMessage {
 		}
 	}
 
+	/**
+	 * Gets the items.
+	 *
+	 * @return the items
+	 */
 	public List<ContentItem> getItems() {
 		return items;
 	}

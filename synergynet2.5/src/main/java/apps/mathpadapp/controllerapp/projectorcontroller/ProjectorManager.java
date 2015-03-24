@@ -36,20 +36,40 @@ import java.util.HashMap;
 
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class ProjectorManager.
+ */
 public class ProjectorManager {
 	
+	/** The instance. */
 	private static ProjectorManager instance;
+	
+	/** The projector nodes. */
 	protected HashMap<TableIdentity, ProjectorNode> projectorNodes;
 	
+	/**
+	 * Gets the single instance of ProjectorManager.
+	 *
+	 * @return single instance of ProjectorManager
+	 */
 	public static ProjectorManager getInstance(){
 		if(instance == null) instance = new ProjectorManager();
 		return instance;
 	}
 	
+	/**
+	 * Instantiates a new projector manager.
+	 */
 	private ProjectorManager(){
 		projectorNodes = new HashMap<TableIdentity, ProjectorNode>();
 	}
 
+	/**
+	 * Gets the projector nodes.
+	 *
+	 * @return the projector nodes
+	 */
 	public HashMap<TableIdentity, ProjectorNode> getProjectorNodes() {
 		return projectorNodes;
 	}

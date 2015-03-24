@@ -39,13 +39,27 @@ import javax.jmdns.JmDNS;
 import synergynetframework.appsystem.services.net.landiscovery.ServiceAnnounceSystem;
 import synergynetframework.appsystem.services.net.landiscovery.ServiceDescriptor;
 
+
+/**
+ * The Class MDNSServiceAnnouncer.
+ */
 public class MDNSServiceAnnouncer implements ServiceAnnounceSystem {
+	
+	/** The jmdns. */
 	private JmDNS jmdns;
 
+	/**
+	 * Instantiates a new MDNS service announcer.
+	 *
+	 * @param jmdns the jmdns
+	 */
 	public MDNSServiceAnnouncer(final JmDNS jmdns) {
 		this.jmdns = jmdns;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.landiscovery.ServiceAnnounceSystem#registerService(synergynetframework.appsystem.services.net.landiscovery.ServiceDescriptor)
+	 */
 	public void registerService(ServiceDescriptor sd) {
 		try {
 			jmdns.registerService(MDNSServiceHelper.getInfoForDescriptor(sd));
@@ -54,10 +68,16 @@ public class MDNSServiceAnnouncer implements ServiceAnnounceSystem {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.landiscovery.ServiceAnnounceSystem#unregisterService(synergynetframework.appsystem.services.net.landiscovery.ServiceDescriptor)
+	 */
 	public void unregisterService(ServiceDescriptor sd) {
 		jmdns.unregisterService(MDNSServiceHelper.getInfoForDescriptor(sd));		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.landiscovery.ServiceAnnounceSystem#stop()
+	 */
 	@Override
 	public void stop() {	
 	}

@@ -47,39 +47,73 @@ import javax.media.ResourceUnavailableException;
 import javax.media.format.RGBFormat;
 import javax.media.renderer.VideoRenderer;
 
+
+/**
+ * The Class ByteBufferRenderer.
+ */
 public class ByteBufferRenderer implements VideoRenderer {
 
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(ByteBufferRenderer.class.getName()); 
 	
+	/* (non-Javadoc)
+	 * @see javax.media.renderer.VideoRenderer#getComponent()
+	 */
 	public java.awt.Component getComponent() {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.media.renderer.VideoRenderer#setComponent(java.awt.Component)
+	 */
 	public boolean setComponent(java.awt.Component arg0) {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.media.renderer.VideoRenderer#setBounds(java.awt.Rectangle)
+	 */
 	public void setBounds(java.awt.Rectangle arg0) {
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.media.renderer.VideoRenderer#getBounds()
+	 */
 	public java.awt.Rectangle getBounds() {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.media.Renderer#getSupportedInputFormats()
+	 */
 	public Format[] getSupportedInputFormats() {
 		return new Format[] { new RGBFormat() };
 	}
 
+	/** The vf. */
 	private RGBFormat vf;
+	
+	/** The pixels. */
 	private int[] pixels;
 
+	/** The listener. */
 	public static ByteBufferRendererListener listener = null;
+	
+	/** The use fobs optimization. */
 	public static boolean useFOBSOptimization = false;
+	
+	/** The use fobs patch. */
 	public static boolean useFOBSPatch = false;
+	
+	/** The printframes. */
 	public static boolean printframes = false;
 
+	/** The mylistener. */
 	private ByteBufferRendererListener mylistener;
 
+	/* (non-Javadoc)
+	 * @see javax.media.Renderer#setInputFormat(javax.media.Format)
+	 */
 	@SuppressWarnings("unchecked")
 	public Format setInputFormat(Format format) {
 		mylistener = listener;
@@ -156,17 +190,30 @@ public class ByteBufferRenderer implements VideoRenderer {
 		return format;
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.media.Renderer#start()
+	 */
 	public void start() {
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.media.Renderer#stop()
+	 */
 	public void stop() {
 	}
 
+	/** The time. */
 	private long time = 0;
+	
+	/** The frames. */
 	private long frames = 0;
 
+	/** The nativebuffer. */
 	private ByteBuffer nativebuffer;
 
+	/* (non-Javadoc)
+	 * @see javax.media.Renderer#process(javax.media.Buffer)
+	 */
 	public int process(Buffer buf) {
 		frames++;
 		if (time == 0) {
@@ -215,23 +262,41 @@ public class ByteBufferRenderer implements VideoRenderer {
 		return BUFFER_PROCESSED_OK;
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.media.PlugIn#getName()
+	 */
 	public String getName() {
 		return "ByteBuffer Renderer";
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.media.PlugIn#open()
+	 */
 	public void open() throws ResourceUnavailableException {
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.media.PlugIn#close()
+	 */
 	public void close() {
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.media.PlugIn#reset()
+	 */
 	public void reset() {
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.media.Controls#getControls()
+	 */
 	public Object[] getControls() {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.media.Controls#getControl(java.lang.String)
+	 */
 	public Object getControl(String arg0) {
 		return null;
 	}

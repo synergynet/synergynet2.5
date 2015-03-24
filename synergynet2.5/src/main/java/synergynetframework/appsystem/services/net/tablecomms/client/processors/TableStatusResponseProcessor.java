@@ -41,8 +41,15 @@ import synergynetframework.appsystem.services.net.tablecomms.client.TableCommsCl
 import synergynetframework.appsystem.services.net.tablecomms.messages.TableMessage;
 import synergynetframework.appsystem.services.net.tablecomms.messages.control.fromserver.TableStatusResponse;
 
+
+/**
+ * The Class TableStatusResponseProcessor.
+ */
 public class TableStatusResponseProcessor implements ClientMessageProcessor {
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.tablecomms.client.ClientMessageProcessor#handle(synergynetframework.appsystem.services.net.tablecomms.client.TableCommsClientService, synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler, synergynetframework.appsystem.services.net.tablecomms.messages.TableMessage)
+	 */
 	public void handle(TableCommsClientService tableCommsClientService, ConnectionHandler handler, TableMessage obj) {		
 		TableStatusResponse ts = (TableStatusResponse) obj;
 		List<TableIdentity> online = tableCommsClientService.getCurrentlyOnline();

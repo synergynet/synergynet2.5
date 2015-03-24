@@ -55,18 +55,34 @@ import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightC
 import synergynetframework.jme.config.AppConfig;
 import synergynetframework.jme.sysutils.CameraUtility;
 
+
+/**
+ * The Class UserDefinedGestures.
+ */
 public class UserDefinedGestures extends DefaultSynergyNetApp {
 
+	/** The content system. */
 	protected ContentSystem contentSystem;
 	
+	/** The s pass. */
 	private static DirectionalShadowMapPass sPass;
+	
+	/** The task engine. */
 	private TaskEngine taskEngine;
 
   
+	/**
+	 * Instantiates a new user defined gestures.
+	 *
+	 * @param info the info
+	 */
 	public UserDefinedGestures(ApplicationInfo info) {
 		super(info);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		
@@ -96,6 +112,9 @@ public class UserDefinedGestures extends DefaultSynergyNetApp {
 
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	public void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);
 		
@@ -124,6 +143,9 @@ public class UserDefinedGestures extends DefaultSynergyNetApp {
 		}
 	}
 
+	/**
+	 * Setup lighting.
+	 */
 	protected void setupLighting() {
 		LightState lightState = DisplaySystem.getDisplaySystem().getRenderer().createLightState();
 		worldNode.setRenderState(lightState);
@@ -146,6 +168,9 @@ public class UserDefinedGestures extends DefaultSynergyNetApp {
 		worldNode.updateRenderState();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#getCamera()
+	 */
 	protected Camera getCamera() {
 		if(cam == null) {
 			cam = CameraUtility.getCamera();
@@ -158,6 +183,9 @@ public class UserDefinedGestures extends DefaultSynergyNetApp {
 
 	}
 	
+	/**
+	 * Builds the sence.
+	 */
 	private void buildSence() {
         
         Background background = new Background("background", 100, 80, 100, null, new Vector3f(50, 30f, 10 ), null, new Vector3f(12, 1.5f, 1 ));
@@ -167,10 +195,16 @@ public class UserDefinedGestures extends DefaultSynergyNetApp {
         
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#cleanup()
+	 */
 	public void cleanup() {
 		super.cleanup();		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#stateRender(float)
+	 */
 	@Override
 	protected void stateRender(float tpf) {
 		super.stateRender(tpf);	    

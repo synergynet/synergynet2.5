@@ -15,26 +15,60 @@ import synergynetframework.appsystem.contentsystem.items.SimpleButton;
 import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAdapter;
 import synergynetframework.appsystem.contentsystem.items.utils.Location;
 
+
+/**
+ * The Class StaffNode.
+ */
 public class StaffNode {
 
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The width. */
 	protected int width = 80;
+	
+	/** The heigth. */
 	protected int heigth = 100;
 	
+	/** The detail page width. */
 	protected int detailPageWidth =150;
+	
+	/** The detail page height. */
 	protected int detailPageHeight =150;
 	
+	/** The detail page. */
 	protected DrawableFrame detailPage;
+	
+	/** The brief page. */
 	protected LightImageLabel briefPage;
 	
+	/** The container. */
 	protected OrthoContainer container;
+	
+	/** The switch button. */
 	protected SimpleButton switchButton;
+	
+	/** The copy button. */
 	protected SimpleButton copyButton;
+	
+	/** The close button. */
 	protected SimpleButton closeButton;
 	
+	/** The closable. */
 	protected boolean closable;
+	
+	/** The staff model. */
 	protected StaffModel staffModel; 
 	
+	/**
+	 * Instantiates a new staff node.
+	 *
+	 * @param contentSystem the content system
+	 * @param staffModel the staff model
+	 * @param width the width
+	 * @param heigth the heigth
+	 * @param closable the closable
+	 */
 	public StaffNode(ContentSystem contentSystem, StaffModel staffModel, int width, int heigth, boolean closable){
 		this.contentSystem = contentSystem;
 		this.width = width;
@@ -44,10 +78,21 @@ public class StaffNode {
 		init();
 	}
 	
+	/**
+	 * Instantiates a new staff node.
+	 *
+	 * @param contentSystem the content system
+	 * @param staffModel the staff model
+	 * @param width the width
+	 * @param heigth the heigth
+	 */
 	public StaffNode(ContentSystem contentSystem, StaffModel staffModel, int width, int heigth){
 		this(contentSystem, staffModel, width, heigth, false);
 	}
 	
+	/**
+	 * Inits the.
+	 */
 	protected void init(){
 		
 		container = (OrthoContainer)contentSystem.createContentItem(OrthoContainer.class);
@@ -63,14 +108,28 @@ public class StaffNode {
 	
 	}
 	
+	/**
+	 * Sets the location.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 */
 	public void setLocation(float x, float y){
 		container.setLocation(x, y);
 	}
 	
+	/**
+	 * Gets the location.
+	 *
+	 * @return the location
+	 */
 	public Location getLocation(){
 		return container.getLocalLocation();
 	}
 	
+	/**
+	 * Builds the pages.
+	 */
 	protected void buildPages(){
 		
 		briefPage = (LightImageLabel)contentSystem.createContentItem(LightImageLabel.class);
@@ -90,6 +149,11 @@ public class StaffNode {
 			
 	}
 	
+	/**
+	 * Show detail page.
+	 *
+	 * @param show the show
+	 */
 	public void showDetailPage(boolean show){
 		if (show){
 			detailPage.setVisible(true);
@@ -110,6 +174,11 @@ public class StaffNode {
 		}
 	}
 	
+	/**
+	 * Checks if is detail page shown.
+	 *
+	 * @return true, if is detail page shown
+	 */
 	public boolean isDetailPageShown(){
 		if (detailPage.isVisible())
 			return true;
@@ -117,6 +186,9 @@ public class StaffNode {
 			return false;
 	}
 	
+	/**
+	 * Builds the buttons.
+	 */
 	protected void buildButtons(){
 		switchButton = this.createButtonWithImage(ProjectManagementApp.class.getResource("paste.png"));
 		switchButton.setBackgroundColour(Color.white);
@@ -173,6 +245,12 @@ public class StaffNode {
 	}
 	
 	
+	/**
+	 * Creates the button with image.
+	 *
+	 * @param imageResource the image resource
+	 * @return the simple button
+	 */
 	protected SimpleButton createButtonWithImage(URL imageResource){
 		SimpleButton btn = (SimpleButton) contentSystem.createContentItem(SimpleButton.class);
 		btn.setBackgroundColour(Color.white);
@@ -186,10 +264,18 @@ public class StaffNode {
 		return btn;
 	}
 	
+	/**
+	 * Sets the visibility.
+	 *
+	 * @param visible the new visibility
+	 */
 	public void setVisibility(boolean visible){
 		container.setVisible(visible);
 	}
 	
+	/**
+	 * Clear.
+	 */
 	public void clear(){
 		switchButton.removeButtonListeners();
 		copyButton.removeButtonListeners();

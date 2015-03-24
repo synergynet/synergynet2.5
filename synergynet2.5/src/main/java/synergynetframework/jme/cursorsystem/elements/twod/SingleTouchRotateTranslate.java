@@ -46,20 +46,38 @@ import com.jme.scene.TriMesh;
 import synergynetframework.jme.cursorsystem.cursordata.ScreenCursor;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 
+
 /**
- * Assumes Single Cursor only
+ * Assumes Single Cursor only.
  */
 public class SingleTouchRotateTranslate extends OrthoControlPointRotateTranslateScale {
+	
+	/** The vertices. */
 	List<Vector3f> vertices = new ArrayList<Vector3f>();
+	
+	/** The old spatial pos. */
 	private Vector3f oldSpatialPos;
+	
+	/** The rotate mode. */
 	private boolean rotateMode = false;
 
 
 
+	/**
+	 * Instantiates a new single touch rotate translate.
+	 *
+	 * @param pickingAndTargetSpatial the picking and target spatial
+	 */
 	public SingleTouchRotateTranslate(TriMesh pickingAndTargetSpatial) {
 		this(pickingAndTargetSpatial, pickingAndTargetSpatial);
 	}
 
+	/**
+	 * Instantiates a new single touch rotate translate.
+	 *
+	 * @param pickingSpatial the picking spatial
+	 * @param targetSpatial the target spatial
+	 */
 	public SingleTouchRotateTranslate(TriMesh pickingSpatial, Spatial targetSpatial) {
 		super(pickingSpatial, targetSpatial);
 		FloatBuffer fb = pickingSpatial.getVertexBuffer();		
@@ -71,6 +89,9 @@ public class SingleTouchRotateTranslate extends OrthoControlPointRotateTranslate
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale#cursorClicked(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorClicked(ScreenCursor c, MultiTouchCursorEvent event) {
 		if(event.getClickCount() == 2) {
@@ -81,6 +102,9 @@ public class SingleTouchRotateTranslate extends OrthoControlPointRotateTranslate
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale#cursorPressed(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorPressed(ScreenCursor c, MultiTouchCursorEvent event) {
 		cursor1OldPos.x = c.getCurrentCursorScreenPosition().x;
@@ -93,11 +117,17 @@ public class SingleTouchRotateTranslate extends OrthoControlPointRotateTranslate
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale#cursorReleased(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorReleased(ScreenCursor c, MultiTouchCursorEvent event) {
 		rotateMode = false;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale#cursorChanged(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorChanged(ScreenCursor c, MultiTouchCursorEvent event) {		
 		updateCursor1();
@@ -118,6 +148,12 @@ public class SingleTouchRotateTranslate extends OrthoControlPointRotateTranslate
 		setOldCursor();
 	}
 
+	/**
+	 * Checks if is close to vertex.
+	 *
+	 * @param point the point
+	 * @return true, if is close to vertex
+	 */
 	public boolean isCloseToVertex(Vector3f point) {
 		for(Vector3f t : vertices) {
 			Vector3f v = new Vector3f(t);

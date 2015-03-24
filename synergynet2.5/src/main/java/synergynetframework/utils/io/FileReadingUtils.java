@@ -39,7 +39,20 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * The Class FileReadingUtils.
+ */
 public class FileReadingUtils {
+	
+	/**
+	 * Read as string list.
+	 *
+	 * @param is the is
+	 * @param ignoreEmptyLines the ignore empty lines
+	 * @return the list
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static List<String> readAsStringList(InputStream is, boolean ignoreEmptyLines) throws IOException {
 		List<String> contents = new ArrayList<String>();
 		

@@ -40,32 +40,74 @@ import java.util.Map;
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.appsystem.contentsystem.items.listener.ItemListener;
 
+
+/**
+ * The Class LongHoldDetector.
+ */
 public class LongHoldDetector {
 	
+	/** The distance. */
 	protected float distance=2f;
+	
+	/** The time. */
 	protected long time = 2000;
+	
+	/** The records. */
 	protected Map<Long,CursorDownRecord> records = new HashMap<Long,CursorDownRecord>();
+	
+	/** The item listeners. */
 	protected List<ItemListener> itemListeners;
+	
+	/** The item. */
 	protected ContentItem item;
 
+	/**
+	 * Instantiates a new long hold detector.
+	 *
+	 * @param time the time
+	 * @param distance the distance
+	 * @param itemListeners the item listeners
+	 * @param item the item
+	 */
 	public LongHoldDetector(long time, float distance, List<ItemListener> itemListeners, ContentItem item) {
 		setSensitivity(time, distance);
 		this.itemListeners = itemListeners;
 	}
 	
+	/**
+	 * Sets the sensitivity.
+	 *
+	 * @param time the time
+	 * @param distance the distance
+	 */
 	public void setSensitivity(long time, float distance) {
 		this.time = time;
 		this.distance = distance;
 	}
 	
+	/**
+	 * Gets the distance sensitivity.
+	 *
+	 * @return the distance sensitivity
+	 */
 	public float getDistanceSensitivity() {
 		return this.distance;
 	}
 	
+	/**
+	 * Gets the time sensitivity.
+	 *
+	 * @return the time sensitivity
+	 */
 	public long getTimeSensitivity() {
 		return this.time;
 	}
 	
+	/**
+	 * Update.
+	 *
+	 * @param tpf the tpf
+	 */
 	public void update(float tpf){
 		
 		for (Long key: records.keySet()){
@@ -79,6 +121,12 @@ public class LongHoldDetector {
 		
 	}
 	
+	/**
+	 * Update cursor postion.
+	 *
+	 * @param id the id
+	 * @param position the position
+	 */
 	public void updateCursorPostion(long id, Point2D.Float position){
 		if (records.containsKey(id)){
 			records.get(id).currentPosition.x = position.x;
@@ -86,26 +134,62 @@ public class LongHoldDetector {
 		}
 	}
 	
+	/**
+	 * Register cursor.
+	 *
+	 * @param id the id
+	 * @param position the position
+	 */
 	public void registerCursor(long id,  Point2D.Float position){
 		if (!records.containsKey(id)){
 			records.put(id, new CursorDownRecord(id, time, distance, position));
 		}
 	}
 	
+	/**
+	 * Unregister cursor.
+	 *
+	 * @param id the id
+	 */
 	public void unregisterCursor(long id){
 		if (records.containsKey(id))
 			records.remove(id);
 	}
 	
+	/**
+	 * The Class CursorDownRecord.
+	 */
 	private class CursorDownRecord {
+		
+		/** The id. */
 		public long id;
+		
+		/** The press time. */
 		public long pressTime;
+		
+		/** The current time. */
 		public long currentTime;
+		
+		/** The press position. */
 		public Point2D.Float pressPosition;
+		
+		/** The current position. */
 		public Point2D.Float currentPosition;
+		
+		/** The time. */
 		public long time;
+		
+		/** The distance. */
 		public float distance;
 		
+		/**
+		 * Instantiates a new cursor down record.
+		 *
+		 * @param id the id
+		 * @param time the time
+		 * @param distance the distance
+		 * @param position the position
+		 */
 		public CursorDownRecord(long id, long time, float distance, Point2D.Float position) {
 			this.id = id;
 			this.pressTime = System.nanoTime();
@@ -116,16 +200,29 @@ public class LongHoldDetector {
 			this.distance = distance;
 		}
 		
+		/**
+		 * Reset.
+		 */
 		public void reset(){
 			this.pressTime = System.nanoTime();
 			this.pressPosition.x = currentPosition.x;
 			this.pressPosition.y = currentPosition.y;
 		}
 		
+		/**
+		 * Checks if is move away from origin.
+		 *
+		 * @return true, if is move away from origin
+		 */
 		private boolean isMoveAwayFromOrigin(){
 			return !this.isCloseEnough(this.currentPosition, this.pressPosition);
 		}
 		
+		/**
+		 * Checks if is long held.
+		 *
+		 * @return true, if is long held
+		 */
 		public boolean isLongHeld(){
 			this.currentTime = System.nanoTime();
 			if (isMoveAwayFromOrigin()){
@@ -143,10 +240,20 @@ public class LongHoldDetector {
 			}
 		}
 		
+		/**
+		 * Checks if is close enough.
+		 *
+		 * @param a the a
+		 * @param b the b
+		 * @return true, if is close enough
+		 */
 		private boolean isCloseEnough(Point2D.Float a, Point2D.Float b) {
 			return Point2D.distance(a.x, a.y, b.x, b.y) < distance;
 		}
 		
+		/* (non-Javadoc)
+		 * @see java.lang.Object#toString()
+		 */
 		public String toString() {
 			return this.getClass().getName() + ":" + id;
 		}

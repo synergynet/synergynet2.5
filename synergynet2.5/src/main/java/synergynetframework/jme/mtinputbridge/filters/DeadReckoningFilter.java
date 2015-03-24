@@ -51,6 +51,7 @@ import synergynetframework.mtinput.IMultiTouchInputFilter;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 import synergynetframework.mtinput.events.MultiTouchObjectEvent;
 
+
 /**
  * Use dead reckoning and picking system to detect false cursor position.
  * 
@@ -59,29 +60,56 @@ import synergynetframework.mtinput.events.MultiTouchObjectEvent;
  */
 public class DeadReckoningFilter implements IMultiTouchInputFilter {
 
+	/** The Constant CURSOR_PRESSED. */
 	public static final String CURSOR_PRESSED = "CURSOR_PRESSED";
+	
+	/** The Constant CURSOR_CLICKED. */
 	public static final String CURSOR_CLICKED = "CURSOR_CLICKED";
+	
+	/** The Constant CURSOR_RELEASED. */
 	public static final String CURSOR_RELEASED = "CURSOR_RELEASED";
+	
+	/** The Constant CURSOR_CHANGED. */
 	public static final String CURSOR_CHANGED = "CURSOR_CHANGED";
+	
+	/** The Constant OBJECT_ADDED. */
 	public static final String OBJECT_ADDED = "OBJECT_ADDED";
+	
+	/** The Constant OBJECT_CHANGED. */
 	public static final String OBJECT_CHANGED = "OBJECT_CHANGED";
+	
+	/** The Constant OBJECT_REMOVED. */
 	public static final String OBJECT_REMOVED = "OBJECT_REMOVED";
 	
+	/** The Constant DEAD_RECKONING_THRESHOLD. */
 	private static final int DEAD_RECKONING_THRESHOLD = 100; // 100 pixels
 	
+	/** The next. */
 	private IMultiTouchEventListener next;
+	
+	/** The pick system. */
 	private IJMEMultiTouchPicker pickSystem;
 
+	/** The cursor history map. */
 	private Map<Long, List<CursorRecord>> cursorHistoryMap = new HashMap<Long,List<CursorRecord>>();
 	
+	/**
+	 * Instantiates a new dead reckoning filter.
+	 */
 	public DeadReckoningFilter() {
 		this.pickSystem = MultiTouchInputFilterManager.getInstance().getPickingSystem();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchInputFilter#setNext(synergynetframework.mtinput.IMultiTouchEventListener)
+	 */
 	public void setNext(IMultiTouchEventListener el) {
 		this.next = el;		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorChanged(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorChanged(MultiTouchCursorEvent event) {
 		Spatial currentPickedSpatial = getPickedSpatial(event);
 		if(checkFalseExpectedPosition(event) && checkFalsePickedSpatial(currentPickedSpatial, event.getCursorID()))
@@ -91,10 +119,16 @@ public class DeadReckoningFilter implements IMultiTouchInputFilter {
 		next.cursorChanged(event);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorClicked(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorClicked(MultiTouchCursorEvent event) {
 		next.cursorClicked(event);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorPressed(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorPressed(MultiTouchCursorEvent event) {
 		Vector2f screenPosition = MultiTouchCursorSystem.tableToScreen(event.getPosition());
 		Spatial spatial = getPickedSpatial(event);
@@ -102,26 +136,47 @@ public class DeadReckoningFilter implements IMultiTouchInputFilter {
 		next.cursorPressed(event);		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorReleased(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorReleased(MultiTouchCursorEvent event) {
 		resetCursorHistory(event.getCursorID());
 		next.cursorReleased(event);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectAdded(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectAdded(MultiTouchObjectEvent event) {
 		next.objectAdded(event);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectChanged(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectChanged(MultiTouchObjectEvent event) {
 		next.objectChanged(event);		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectRemoved(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectRemoved(MultiTouchObjectEvent event) {
 		next.objectRemoved(event);		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchInputFilter#update(float)
+	 */
 	public void update(float tpf) {	
 	}
 	
+	/**
+	 * Gets the picked spatial.
+	 *
+	 * @param event the event
+	 * @return the picked spatial
+	 */
 	private Spatial getPickedSpatial(MultiTouchCursorEvent event)
 	{
 		PickRequest req = new PickRequest(event.getCursorID(), MultiTouchCursorSystem.tableToScreen(event.getPosition()));
@@ -139,10 +194,22 @@ public class DeadReckoningFilter implements IMultiTouchInputFilter {
 		return null;
 	}
 	
+	/**
+	 * Reset cursor history.
+	 *
+	 * @param cursorID the cursor id
+	 */
 	private void resetCursorHistory(long cursorID){
 		if(cursorHistoryMap.containsKey(cursorID)) cursorHistoryMap.remove(cursorID);
 	}
 	
+	/**
+	 * Update cursor history.
+	 *
+	 * @param cursorID the cursor id
+	 * @param screenPosition the screen position
+	 * @param pickedSpatial the picked spatial
+	 */
 	private void updateCursorHistory(long cursorID, Vector2f screenPosition, Spatial pickedSpatial){
 		if(cursorHistoryMap.containsKey(cursorID)){
 			List<CursorRecord> recordStack = cursorHistoryMap.get(cursorID);
@@ -154,6 +221,12 @@ public class DeadReckoningFilter implements IMultiTouchInputFilter {
 		}
 	}
 	
+	/**
+	 * Gets the expected position.
+	 *
+	 * @param cursorID the cursor id
+	 * @return the expected position
+	 */
 	private Vector2f getExpectedPosition(long cursorID)
 	{
 		if(!cursorHistoryMap.containsKey(cursorID)) return null;
@@ -171,6 +244,12 @@ public class DeadReckoningFilter implements IMultiTouchInputFilter {
 		return lastPosition.add(velocity.mult(System.nanoTime()- lastTime));
 	}
 	
+	/**
+	 * Check false expected position.
+	 *
+	 * @param event the event
+	 * @return true, if successful
+	 */
 	private boolean checkFalseExpectedPosition(MultiTouchCursorEvent event) {
 		Vector2f currentCursorPosition = MultiTouchCursorSystem.tableToScreen(event.getPosition());
 		Vector2f expectedCursorPosition = getExpectedPosition(event.getCursorID());
@@ -181,6 +260,13 @@ public class DeadReckoningFilter implements IMultiTouchInputFilter {
 		return distance > DEAD_RECKONING_THRESHOLD;
 	}
 	
+	/**
+	 * Check false picked spatial.
+	 *
+	 * @param currentPickedSpatial the current picked spatial
+	 * @param cursorID the cursor id
+	 * @return true, if successful
+	 */
 	private boolean checkFalsePickedSpatial(Spatial currentPickedSpatial, long cursorID)
 	{
 		boolean falsePickedSpatial = false;
@@ -197,26 +283,57 @@ public class DeadReckoningFilter implements IMultiTouchInputFilter {
 		return falsePickedSpatial;
 	}
 	
+	/**
+	 * The Class CursorRecord.
+	 */
 	class CursorRecord
 	{
+		
+		/** The screen position. */
 		private Vector2f screenPosition;
+		
+		/** The picked spatial. */
 		private Spatial pickedSpatial;
+		
+		/** The record time. */
 		private long recordTime;
 		
+		/**
+		 * Instantiates a new cursor record.
+		 *
+		 * @param screenPosition the screen position
+		 * @param pickedSpatial the picked spatial
+		 * @param recordTime the record time
+		 */
 		public CursorRecord(Vector2f screenPosition, Spatial pickedSpatial, long recordTime){
 			this.screenPosition = screenPosition;
 			this.pickedSpatial = pickedSpatial;
 			this.recordTime = recordTime;
 		}
 		
+		/**
+		 * Gets the screen position.
+		 *
+		 * @return the screen position
+		 */
 		public Vector2f getScreenPosition(){
 			return screenPosition;
 		}
 		
+		/**
+		 * Gets the picked spatial.
+		 *
+		 * @return the picked spatial
+		 */
 		public Spatial getPickedSpatial(){
 			return pickedSpatial;
 		}
 		
+		/**
+		 * Gets the record time.
+		 *
+		 * @return the record time
+		 */
 		public long getRecordTime(){
 			return recordTime;
 		}

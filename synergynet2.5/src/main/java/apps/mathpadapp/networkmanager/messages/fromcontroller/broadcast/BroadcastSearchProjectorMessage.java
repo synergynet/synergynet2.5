@@ -34,14 +34,27 @@ package apps.mathpadapp.networkmanager.messages.fromcontroller.broadcast;
 
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class BroadcastSearchProjectorMessage.
+ */
 public class BroadcastSearchProjectorMessage extends BroadcastApplicationMessage {	
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 259614974289184624L;
 
+	/**
+	 * Instantiates a new broadcast search projector message.
+	 *
+	 * @param targetClass the target class
+	 */
 	public BroadcastSearchProjectorMessage(Class<?> targetClass) {
 		super(targetClass);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return "Search Projector";
 	}

@@ -44,15 +44,28 @@ import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.messages.TableMessage;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class ProjectorMessageHandler.
+ */
 public class ProjectorMessageHandler extends DefaultMessageHandler{
 
+	/** The projector manager. */
 	private ProjectorManager projectorManager;
 	
+	/**
+	 * Instantiates a new projector message handler.
+	 *
+	 * @param projectorManager the projector manager
+	 */
 	public ProjectorMessageHandler(ProjectorManager projectorManager){
 		super(projectorManager);
 		this.projectorManager = projectorManager;
 	}
 	
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.handlers.DefaultMessageHandler#messageReceived(java.lang.Object)
+	 */
 	@Override
 	public void messageReceived(Object obj) {
 		
@@ -75,6 +88,11 @@ public class ProjectorMessageHandler extends DefaultMessageHandler{
 		}
 	}
 	
+	/**
+	 * Gets the projector manager.
+	 *
+	 * @return the projector manager
+	 */
 	public ProjectorManager getProjectorManager(){
 		return projectorManager;
 	}

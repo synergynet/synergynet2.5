@@ -41,11 +41,24 @@ import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.contentloader.config.AttributeConstants;
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 
+
+/**
+ * The Class AttributeRender.
+ */
 public class AttributeRender {
 
+	/** The Constant CONTENT_ITEM_RENDER_FOLDER. */
 	public static final String CONTENT_ITEM_RENDER_FOLDER = "synergynetframework.appsystem.contentsystem.contentloader.attributesrender";
+	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(AttributeRender.class.getName());	
 	
+	/**
+	 * Render.
+	 *
+	 * @param items the items
+	 * @param contentSystem the content system
+	 */
 	public static void render(Map<ContentItem, Map<String, String>> items, ContentSystem contentSystem) {
 		
 		String contentItemTypeName;

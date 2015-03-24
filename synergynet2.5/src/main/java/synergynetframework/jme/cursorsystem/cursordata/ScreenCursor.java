@@ -36,50 +36,88 @@ import java.util.ArrayList;
 
 import synergynetframework.jme.pickingsystem.data.PickResultData;
 
+
 /**
- * Coordinate sytem for this class is jme screen coordinates
- * 
- * @author dcs0ah1
+ * Coordinate sytem for this class is jme screen coordinates.
  *
+ * @author dcs0ah1
  */
 
 public class ScreenCursor {
+	
+	/** The Constant EPSILON. */
 	private static final float EPSILON = 0.1f;
+	
+	/** The id. */
 	protected long id;
+	
+	/** The screen positions. */
 	protected ArrayList<ScreenCursorRecord> screenPositions;
+	
+	/** The cursor created time. */
 	protected long cursorCreatedTime;
+	
+	/** The pick result. */
 	protected PickResultData pickResult;
+	
+	/** The old cursor. */
 	protected ScreenCursorRecord oldCursor;
 	
 
+	/**
+	 * Instantiates a new screen cursor.
+	 *
+	 * @param id the id
+	 */
 	public ScreenCursor(long id) {
 		this.id = id;
 		screenPositions = new ArrayList<ScreenCursorRecord>(100);
 		cursorCreatedTime = System.nanoTime();
 	}
 
+	/**
+	 * Adds the position item.
+	 *
+	 * @param item the item
+	 */
 	public void addPositionItem(ScreenCursorRecord item) {
 		screenPositions.add(item);
 	}
 	
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
 	public long getID() {
 		return id;
 	}
 	
+	/**
+	 * Gets the cursor origin.
+	 *
+	 * @return the cursor origin
+	 */
 	public ScreenCursorRecord getCursorOrigin() {
 		if(screenPositions.size() <= 0) return null;
 		return screenPositions.get(0);
 	}
 	
 	/**
-	 * Get current position in jME Screen Coordinates
-	 * @return
+	 * Get current position in jME Screen Coordinates.
+	 *
+	 * @return the current cursor screen position
 	 */
 	public ScreenCursorRecord getCurrentCursorScreenPosition() {
 		if(screenPositions.size() <= 0) return null;		
 		return screenPositions.get(screenPositions.size() - 1);
 	}
 	
+	/**
+	 * Gets the old cursor screen position.
+	 *
+	 * @return the old cursor screen position
+	 */
 	public ScreenCursorRecord getOldCursorScreenPosition() {
 		if (oldCursor!=null)
 			return oldCursor;
@@ -87,36 +125,63 @@ public class ScreenCursor {
 			return screenPositions.get(screenPositions.size() - 1);
 	}
 	
+	/**
+	 * Sets the old cursor screen position.
+	 *
+	 * @param c the new old cursor screen position
+	 */
 	public void setOldCursorScreenPosition(ScreenCursorRecord c){
 		oldCursor=c;
 	}
 	
 	
+	/**
+	 * Gets the current position index.
+	 *
+	 * @return the current position index
+	 */
 	public int getCurrentPositionIndex() {
 		return screenPositions.size() - 1;
 	}
 	
 	/**
-	 * Get position at specified index in jME Screen Coordinates
-	 * @param i
-	 * @return
+	 * Get position at specified index in jME Screen Coordinates.
+	 *
+	 * @param i the i
+	 * @return the position at index
 	 */
 	public ScreenCursorRecord getPositionAtIndex(int i) {
 		return screenPositions.get(i);
 	}
 	
+	/**
+	 * Gets the points.
+	 *
+	 * @return the points
+	 */
 	public ArrayList<ScreenCursorRecord> getPoints() {
 		return screenPositions;
 	}
 
+	/**
+	 * Gets the num points.
+	 *
+	 * @return the num points
+	 */
 	public int getNumPoints() {
 		return screenPositions.size();
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	public int hashCode() {
 		return (int)id;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	public boolean equals(Object obj) {
 		if(obj instanceof ScreenCursor) {
 			return obj.hashCode() == hashCode();
@@ -124,18 +189,37 @@ public class ScreenCursor {
 			return false;
 	}
 	
+	/**
+	 * Gets the cursor created time.
+	 *
+	 * @return the cursor created time
+	 */
 	public long getCursorCreatedTime() {
 		return this.cursorCreatedTime;
 	}
 	
+	/**
+	 * Gets the cursor live time.
+	 *
+	 * @return the cursor live time
+	 */
 	public long getCursorLiveTime() {
 		return System.nanoTime() - this.cursorCreatedTime;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return id + "@" + getCurrentCursorScreenPosition();
 	}
 
+	/**
+	 * Checks if is probably the same as.
+	 *
+	 * @param c the c
+	 * @return true, if is probably the same as
+	 */
 	public boolean isProbablyTheSameAs(ScreenCursor c) {
 		float dx = Math.abs(this.getCurrentCursorScreenPosition().x - c.getCurrentCursorScreenPosition().x);
 		float dy = Math.abs(this.getCurrentCursorScreenPosition().y - c.getCurrentCursorScreenPosition().y);
@@ -145,10 +229,20 @@ public class ScreenCursor {
 			return false;
 	}
 
+	/**
+	 * Sets the pick result.
+	 *
+	 * @param pr the new pick result
+	 */
 	public void setPickResult(PickResultData pr) {
 		this.pickResult = pr;
 	}
 
+	/**
+	 * Gets the pick result.
+	 *
+	 * @return the pick result
+	 */
 	public PickResultData getPickResult() {
 		return pickResult;
 	}

@@ -38,7 +38,15 @@ import java.nio.ByteBuffer;
 
 import synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler;
 
+
+/**
+ * The Class StringSerializer.
+ */
 public class StringSerializer extends Serializer {
+	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.utility.serializers.Serializer#readObjectData(synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler, java.nio.ByteBuffer, java.lang.Class, boolean)
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public String readObjectData (ConnectionHandler connectionHandler, ByteBuffer buffer, Class type, boolean lengthKnown)
 		throws SerializationException {
@@ -46,12 +54,21 @@ public class StringSerializer extends Serializer {
 		return s;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.utility.serializers.Serializer#writeObjectData(synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler, java.nio.ByteBuffer, java.lang.Object, boolean)
+	 */
 	public void writeObjectData (ConnectionHandler connectionHandler, ByteBuffer buffer, Object object, boolean lengthKnown)
 		throws SerializationException {
 		String s = (String)object;
 		put(buffer, s);
 	}
 
+	/**
+	 * Put.
+	 *
+	 * @param buffer the buffer
+	 * @param value the value
+	 */
 	static public void put (ByteBuffer buffer, String value) {
 		try {
 			byte[] b = value.getBytes("UTF-8");
@@ -61,6 +78,12 @@ public class StringSerializer extends Serializer {
 		}
 	}
 
+	/**
+	 * Gets the.
+	 *
+	 * @param buffer the buffer
+	 * @return the string
+	 */
 	static public String get (ByteBuffer buffer) {
 		byte[] b = new byte[IntSerializer.get(buffer, true)];
 		buffer.get(b);

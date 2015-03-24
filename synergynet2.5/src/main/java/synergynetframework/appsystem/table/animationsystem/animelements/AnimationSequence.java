@@ -37,22 +37,49 @@ import java.util.List;
 
 import synergynetframework.appsystem.table.animationsystem.AnimationElement;
 
+
+/**
+ * The Class AnimationSequence.
+ */
 public class AnimationSequence extends AnimationElement {
+	
+	/** The elements. */
 	protected List<AnimationElement> elements = new ArrayList<AnimationElement>();
+	
+	/** The current element. */
 	protected AnimationElement currentElement = null;
+	
+	/** The repeating. */
 	protected boolean repeating = false;
+	
+	/** The current index. */
 	protected int currentIndex = 0;
+	
+	/** The finished. */
 	protected boolean finished = false;
 	
+	/**
+	 * Instantiates a new animation sequence.
+	 */
 	public AnimationSequence() {
 	}
 	
+	/**
+	 * Instantiates a new animation sequence.
+	 *
+	 * @param elems the elems
+	 */
 	public AnimationSequence(AnimationElement... elems) {
 		for(AnimationElement elem : elems) {
 			addAnimationElement(elem);
 		}
 	}
 	
+	/**
+	 * Adds the animation element.
+	 *
+	 * @param elem the elem
+	 */
 	public void addAnimationElement(AnimationElement elem) {
 		if(currentElement == null) { 
 			currentElement = elem;
@@ -61,18 +88,32 @@ public class AnimationSequence extends AnimationElement {
 		elements.add(elem);
 	}
 	
+	/**
+	 * Sets the repeating.
+	 *
+	 * @param b the new repeating
+	 */
 	public void setRepeating(boolean b) {
 		repeating = b;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.animationsystem.AnimationElement#elementStart(float)
+	 */
 	@Override
 	public void elementStart(float tpf) {}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.animationsystem.AnimationElement#isFinished()
+	 */
 	@Override
 	public boolean isFinished() {
 		return finished ;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.animationsystem.AnimationElement#updateAnimationState(float)
+	 */
 	@Override
 	public void updateAnimationState(float tpf) {
 		if(currentElement == null) return;
@@ -87,6 +128,11 @@ public class AnimationSequence extends AnimationElement {
 		}
 	}
 
+	/**
+	 * Gets the next element.
+	 *
+	 * @return the next element
+	 */
 	private AnimationElement getNextElement() {
 		if(repeating) {			
 			currentIndex++;
@@ -102,6 +148,9 @@ public class AnimationSequence extends AnimationElement {
 		}		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.animationsystem.AnimationElement#reset()
+	 */
 	@Override
 	public void reset() {
 		currentIndex = 0;
@@ -109,6 +158,11 @@ public class AnimationSequence extends AnimationElement {
 	}
 
 	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		AnimationSequence seq = new AnimationSequence();
 		seq.setRepeating(false);

@@ -45,14 +45,27 @@ import synergynetframework.appsystem.contentsystem.items.Window;
 import synergynetframework.appsystem.contentsystem.items.TextLabel.Alignment;
 import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAdapter;
 
+
+/**
+ * The Class ResultList.
+ */
 public class ResultList extends MTList{
 
+	/** The view answer dialog. */
 	private ViewAnswerDialog viewAnswerDialog;
 	
+	/**
+	 * Instantiates a new result list.
+	 *
+	 * @param contentSystem the content system
+	 */
 	public ResultList(ContentSystem contentSystem) {
 		super(contentSystem);
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.util.MTList#createListItem(java.lang.String, java.lang.Object, synergynetframework.appsystem.contentsystem.items.ListContainer)
+	 */
 	@Override
 	protected ContentItem createListItem(String str, Object item, final ListContainer targetList){
 		

@@ -55,12 +55,40 @@ import org.xml.sax.SAXParseException;
 
 import data.DataResources;
 
+
+/**
+ * The Class AttributesLoader.
+ */
 public abstract class AttributesLoader {
+	
+	/** The root attribute node map. */
 	protected NamedNodeMap rootAttributeNodeMap;
+	
+	/** The attribute node map. */
 	protected NamedNodeMap attributeNodeMap;
+	
+	/** The list. */
 	protected NodeList list;
 	
+	/**
+	 * Load attributes.
+	 *
+	 * @param items the items
+	 * @param filePath the file path
+	 */
 	public abstract void loadAttributes(Map<String, Map<String, String>> items, String filePath);
+	
+	/**
+	 * Gets the attri notes.
+	 *
+	 * @param filePath the file path
+	 * @param schemaName the schema name
+	 * @return the attri notes
+	 * @throws ParserConfigurationException the parser configuration exception
+	 * @throws SAXException the SAX exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws XPathExpressionException the x path expression exception
+	 */
 	protected void getAttriNotes(String filePath, final String schemaName) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException{
 		
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();

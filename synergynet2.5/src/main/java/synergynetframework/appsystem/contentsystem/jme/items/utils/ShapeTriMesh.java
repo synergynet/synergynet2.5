@@ -47,14 +47,28 @@ import com.jme.scene.TexCoords;
 import com.jme.scene.TriMesh;
 import com.jme.util.geom.BufferUtils;
 
+
+/**
+ * The Class ShapeTriMesh.
+ */
 public class ShapeTriMesh extends TriMesh {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 5434466779604169019L;
 
+	/**
+	 * Instantiates a new shape tri mesh.
+	 */
 	public ShapeTriMesh() {
 		super();
 		this.setName(UUID.randomUUID().toString());
 	}
 	
+	/**
+	 * Update geometry.
+	 *
+	 * @param geom the geom
+	 */
 	public void updateGeometry(TwoDShapeGeometry geom) {		
     	Vector3f[] tri_vertexes = convertVectors(geom.getTriVertexes()); 		
 		Vector3f[] normals = convertVectors(geom.getNormals());		
@@ -70,6 +84,12 @@ public class ShapeTriMesh extends TriMesh {
 				BufferUtils.createIntBuffer(tri_indexes));
     }
 
+	/**
+	 * Convert triangle indexes.
+	 *
+	 * @param triIndexes the tri indexes
+	 * @return the int[]
+	 */
 	private int[] convertTriangleIndexes(TriangleIndexes[] triIndexes) {
 		int[] idxs = new int[3 * triIndexes.length];
 		int j = 0;
@@ -82,6 +102,12 @@ public class ShapeTriMesh extends TriMesh {
 		return idxs;
 	}
 
+	/**
+	 * Convert textures.
+	 *
+	 * @param texCoords the tex coords
+	 * @return the vector2f[]
+	 */
 	private Vector2f[] convertTextures(FloatPoint[] texCoords) {
 		Vector2f[] t = new Vector2f[texCoords.length];
 		for(int i = 0; i < texCoords.length; i++) {
@@ -90,6 +116,12 @@ public class ShapeTriMesh extends TriMesh {
 		return t;
 	}
 
+	/**
+	 * Convert colours.
+	 *
+	 * @param colors the colors
+	 * @return the color rgb a[]
+	 */
 	private ColorRGBA[] convertColours(ColourRGBA[] colors) {
 		ColorRGBA[] c = new ColorRGBA[colors.length];
 		for(int i = 0; i < colors.length; i++) {
@@ -98,6 +130,12 @@ public class ShapeTriMesh extends TriMesh {
 		return c;
 	}
 
+	/**
+	 * Convert vectors.
+	 *
+	 * @param triVertexes the tri vertexes
+	 * @return the vector3f[]
+	 */
 	private Vector3f[] convertVectors(FloatVector[] triVertexes) {
 		Vector3f[] v = new Vector3f[triVertexes.length];
 		for(int i = 0; i < triVertexes.length; i++) {

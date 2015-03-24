@@ -39,7 +39,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+
+/**
+ * The Class FileUtils.
+ */
 public class FileUtils {
+	
+	/**
+	 * Copy files.
+	 *
+	 * @param src the src
+	 * @param dest the dest
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static void copyFiles(File src, File dest) throws IOException {
 		if (!src.exists()) {
 			throw new IOException("Resource does not exist: " + src.getAbsolutePath());
@@ -62,6 +74,13 @@ public class FileUtils {
 		}
 	}
 
+	/**
+	 * Stream copy.
+	 *
+	 * @param is the is
+	 * @param os the os
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static void streamCopy(InputStream is, OutputStream os) throws IOException {
 		byte[] buffer = new byte[1024];
 		int bytesRead;

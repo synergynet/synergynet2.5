@@ -38,16 +38,31 @@ import java.util.Map;
 import synergynetframework.appsystem.services.net.objectmessaging.messages.UDPMessage;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class SynchroniseData.
+ */
 public class SynchroniseData extends BroadcastApplicationMessage implements UDPMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -546746341111227474L;
 	
+	/** The items. */
 	protected Map<String, Map<String, String>> items = new HashMap<String, Map<String, String>>();
 
+	/**
+	 * Instantiates a new synchronise data.
+	 */
 	public SynchroniseData(){
 		super();
 	}
 	
+	/**
+	 * Instantiates a new synchronise data.
+	 *
+	 * @param targetClass the target class
+	 * @param items the items
+	 */
 	public SynchroniseData(Class<?> targetClass, Map<String, Map<String, String>> items) {
 		super(targetClass);
 		this.items.clear();
@@ -61,6 +76,11 @@ public class SynchroniseData extends BroadcastApplicationMessage implements UDPM
 		}
 	}
 
+	/**
+	 * Gets the items.
+	 *
+	 * @return the items
+	 */
 	public Map<String, Map<String, String>> getItems() {
 		return items;
 	}

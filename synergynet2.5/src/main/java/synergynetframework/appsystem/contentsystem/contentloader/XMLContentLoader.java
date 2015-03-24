@@ -70,12 +70,21 @@ import synergynetframework.appsystem.contentsystem.contentloader.config.Attribut
 import synergynetframework.appsystem.contentsystem.contentloader.contentitemcreator.ContentItemCreator;
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 
+
+/**
+ * The Class XMLContentLoader.
+ */
 public class XMLContentLoader implements IContentLoader {
 	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(XMLContentLoader.class.getName());	
 	//get the list of ContentItems and the related attributes 
+	/** The items. */
 	Map<String, Map<String, String>> items = new HashMap <String, Map<String, String>>();
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.contentloader.IContentLoader#loadContent(java.lang.String, synergynetframework.appsystem.contentsystem.ContentSystem)
+	 */
 	public  Set<ContentItem> loadContent(String xmlPath, ContentSystem contentsys){
 		try {
 			return loadXMLContent(xmlPath, contentsys);
@@ -91,6 +100,17 @@ public class XMLContentLoader implements IContentLoader {
 		return null;
 	}
 	
+	/**
+	 * Load xml content.
+	 *
+	 * @param xmlPath the xml path
+	 * @param contentsys the contentsys
+	 * @return the sets the
+	 * @throws ParserConfigurationException the parser configuration exception
+	 * @throws SAXException the SAX exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws XPathExpressionException the x path expression exception
+	 */
 	private Set<ContentItem> loadXMLContent(String xmlPath, ContentSystem contentsys) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		factory.setNamespaceAware(true);
@@ -136,6 +156,12 @@ public class XMLContentLoader implements IContentLoader {
 		return (Set<ContentItem>)contentItems.keySet();
 	}
 	
+	/**
+	 * Gets the item attributes.
+	 *
+	 * @param attributeNodeMap the attribute node map
+	 * @return the item attributes
+	 */
 	private Map<String, String> getItemAttributes(NamedNodeMap attributeNodeMap){
 		
 		Map<String, String> itemAttributes = new HashMap <String, String>();
@@ -151,6 +177,12 @@ public class XMLContentLoader implements IContentLoader {
 		return itemAttributes;
 	}
 	
+	/**
+	 * Load attributes.
+	 *
+	 * @param attrs the attrs
+	 * @param list the list
+	 */
 	private void loadAttributes(NamedNodeMap attrs, NodeList list){
 		//get Attributes Files 
 		String defaultAppearanceFilePath="";

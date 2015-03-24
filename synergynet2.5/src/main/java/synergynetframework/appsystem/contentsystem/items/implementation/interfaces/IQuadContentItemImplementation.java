@@ -31,8 +31,30 @@
 
 package synergynetframework.appsystem.contentsystem.items.implementation.interfaces;
 
+
+/**
+ * The Interface IQuadContentItemImplementation.
+ */
 public interface IQuadContentItemImplementation extends IOrthoContentItemImplementation {
+	
+	/**
+	 * Sets the width.
+	 *
+	 * @param width the new width
+	 */
 	public void setWidth(int width);
+	
+	/**
+	 * Sets the height.
+	 *
+	 * @param height the new height
+	 */
 	public void setHeight(int height);
+	
+	/**
+	 * Sets the auto fit size.
+	 *
+	 * @param isEnabled the new auto fit size
+	 */
 	public void setAutoFitSize(boolean isEnabled);
 }

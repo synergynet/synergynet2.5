@@ -39,20 +39,38 @@ import synergynetframework.jme.gfx.JMEGfxUtils;
 import com.jme.math.Vector3f;
 import com.jme.scene.TriMesh;
 
+
+/**
+ * The Class SolutionFinder.
+ */
 public class SolutionFinder implements ItemListener {
 
+	/** The tq. */
 	private TriMesh tq;
+	
+	/** The tt. */
 	private TriMesh tt;
 	
 	
+	/** The triangle vertices. */
 	private Vector3f[] triangleVertices; 
+	
+	/** The quadril vertices. */
 	private Vector3f[] quadrilVertices; 
+	
+	/** The quadril vertex. */
 	private Vector3f quadrilVertex; 
 		
+	/** The shape names. */
 	private String[] shapeNames = {"Pentagon1", "Right-angle-Triangle", "Trapezium", "Parallelogram", "Square", "Quadrilateral", "Pentagon2", "Pentagon3"}; 
+	
+	/** The user shapes. */
 	private boolean[] userShapes = new boolean[shapeNames.length]; 
+	
+	/** The solutions. */
 	private DissectionSolution[] solutions; 
 	
+	/** The log. */
 	private LogWriter log; 
 	
 	
@@ -64,7 +82,12 @@ public class SolutionFinder implements ItemListener {
 //		solutionSound.setLooping(false);
 //	}
 //	
-	public SolutionFinder(String logName) {
+	/**
+ * Instantiates a new solution finder.
+ *
+ * @param logName the log name
+ */
+public SolutionFinder(String logName) {
 		
 		for (int i = 0; i < shapeNames.length; i++)
 			userShapes[i] = false; 
@@ -73,6 +96,9 @@ public class SolutionFinder implements ItemListener {
 		log.write("Application started, users are trying to find the solutions...");
 	}	
 
+	/**
+	 * Check for solution.
+	 */
 	public void checkForSolution() {		
 		if (checkIfAllSolutionsAreFound()) { 
 			log.write("All Shapes have been constructed...");
@@ -84,6 +110,11 @@ public class SolutionFinder implements ItemListener {
 		}	
 	}
 		
+	/**
+	 * Check if all solutions are found.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean checkIfAllSolutionsAreFound() {
 		for (int i = 0; i < shapeNames.length; i++)
 			if (userShapes[i] == false)
@@ -91,6 +122,9 @@ public class SolutionFinder implements ItemListener {
 		return true; 
 	}
 
+	/**
+	 * Check for shapes.
+	 */
 	public void checkForShapes() {
 		
 		float t = 10; 
@@ -146,6 +180,11 @@ public class SolutionFinder implements ItemListener {
 		
 	}
 
+	/**
+	 * Check the shape.
+	 *
+	 * @param id the id
+	 */
 	public void checkTheShape(int id) {
 		if (!userShapes[id]) {
 			log.write(shapeNames[id] + " have been constructed...");
@@ -158,76 +197,139 @@ public class SolutionFinder implements ItemListener {
 
 	}
 
+	/**
+	 * Calculate quadrilateral vertices.
+	 */
 	public void calculateQuadrilateralVertices() {
 			Vector3f[] vertices = JMEGfxUtils.getWorldVertices(tq, 0);
 			Vector3f[] vertices1 = JMEGfxUtils.getWorldVertices(tq, 1);
 			setQuadrilVertices(vertices, vertices1[2]);		
 	}
 
+	/**
+	 * Calculate triangle vertices.
+	 */
 	public void calculateTriangleVertices()
 	{
 		Vector3f[] vertices = JMEGfxUtils.getWorldVertices(tt, 0);
 		setTriangleVertices(vertices);
 	}
 	
+	/**
+	 * Sets the tq.
+	 *
+	 * @param tq the new tq
+	 */
 	public void setTq(TriMesh tq) {
 		this.tq = tq;
 	}
 
+	/**
+	 * Sets the tt.
+	 *
+	 * @param tt the new tt
+	 */
 	public void setTt(TriMesh tt) {
 		this.tt = tt;
 	}
 
+	/**
+	 * Gets the tt.
+	 *
+	 * @return the tt
+	 */
 	public TriMesh getTt() {
 		return tt;
 	}
 
+	/**
+	 * Sets the triangle vertices.
+	 *
+	 * @param triangleVertices the new triangle vertices
+	 */
 	public void setTriangleVertices(Vector3f[] triangleVertices) {
 		this.triangleVertices = triangleVertices;
 	}
 
+	/**
+	 * Sets the quadril vertices.
+	 *
+	 * @param quadrilVertices the quadril vertices
+	 * @param vert3 the vert3
+	 */
 	public void setQuadrilVertices(Vector3f[] quadrilVertices, Vector3f vert3) {
 		this.quadrilVertices = quadrilVertices;
 		this.quadrilVertex = vert3;
 	}
 
+	/**
+	 * Sets the solutions.
+	 *
+	 * @param sol the new solutions
+	 */
 	public void setSolutions(DissectionSolution[] sol) {
 		this.solutions = sol;
 	}
 
+	/**
+	 * Gets the shape names.
+	 *
+	 * @return the shape names
+	 */
 	public String[] getShapeNames()
 	{
 		return shapeNames; 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.listener.ItemListener#cursorClicked(synergynetframework.appsystem.contentsystem.items.ContentItem, long, float, float, float)
+	 */
 	@Override
 	public void cursorClicked(ContentItem item, long id, float x, float y,
 			float pressure) {
 		checkForSolution();	
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.listener.ItemListener#cursorReleased(synergynetframework.appsystem.contentsystem.items.ContentItem, long, float, float, float)
+	 */
 	@Override
 	public void cursorReleased(ContentItem item, long id, float x, float y,
 			float pressure) {
 		checkForSolution();		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.listener.ItemListener#cursorChanged(synergynetframework.appsystem.contentsystem.items.ContentItem, long, float, float, float)
+	 */
 	@Override
 	public void cursorChanged(ContentItem item, long id, float x, float y,
 			float pressure) {}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.listener.ItemListener#cursorLongHeld(synergynetframework.appsystem.contentsystem.items.ContentItem, long, float, float, float)
+	 */
 	@Override
 	public void cursorLongHeld(ContentItem item, long id, float x, float y,
 			float pressure) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.listener.ItemListener#cursorPressed(synergynetframework.appsystem.contentsystem.items.ContentItem, long, float, float, float)
+	 */
 	@Override
 	public void cursorPressed(ContentItem item, long id, float x, float y,
 			float pressure) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.listener.ItemListener#cursorRightClicked(synergynetframework.appsystem.contentsystem.items.ContentItem, long, float, float, float)
+	 */
 	@Override
 	public void cursorRightClicked(ContentItem item, long id, float x, float y,
 			float pressure) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.listener.ItemListener#cursorDoubleClicked(synergynetframework.appsystem.contentsystem.items.ContentItem, long, float, float, float)
+	 */
 	@Override
 	public void cursorDoubleClicked(ContentItem item, long id, float x,
 			float y, float pressure) {}

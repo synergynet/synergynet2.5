@@ -35,24 +35,49 @@ package synergynetframework.appsystem.services.tablecontrolclient.messages;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 import synergynetframework.appsystem.services.tablecontrolclient.TableControlClientService;
 
+
+/**
+ * The Class ChangeApplicationMessage.
+ */
 public class ChangeApplicationMessage extends BroadcastApplicationMessage {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 8824389874185097707L;
 
+	/** The application name. */
 	private String applicationName;
 
+	/**
+	 * Instantiates a new change application message.
+	 *
+	 * @param applicationName the application name
+	 */
 	public ChangeApplicationMessage(String applicationName) {
 		super(TableControlClientService.class);
 		this.applicationName = applicationName;
 	}
 
+	/**
+	 * Sets the application class.
+	 *
+	 * @param applicationName the new application class
+	 */
 	public void setApplicationClass(String applicationName) {
 		this.applicationName = applicationName;
 	}
 
+	/**
+	 * Gets the application name.
+	 *
+	 * @return the application name
+	 */
 	public String getApplicationName() {
 		return applicationName;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return ChangeApplicationMessage.class.getName() + " change to " + getApplicationName();
 	}

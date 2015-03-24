@@ -24,45 +24,109 @@ import com.jme.math.Vector3f;
 import com.jme.scene.Node;
 
 
+
+/**
+ * The Class Calculator.
+ */
 public abstract class Calculator extends Node {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2123175967783608868L;
 	
+	/** The text string. */
 	protected String textString="";
+	
+	/** The left number. */
 	protected String leftNumber ="";
+	
+	/** The right number. */
 	protected String rightNumber = "";
+	
+	/** The operator. */
 	protected String operator ="";
 	
+	/** The display node. */
 	protected DisplayNode displayNode;
+	
+	/** The log listener. */
 	protected LogListener logListener;
+	
+	/** The task listeners. */
 	protected List<TaskListener> taskListeners = new ArrayList<TaskListener>();
 	
+	/** The button z offset. */
 	protected float buttonZOffset=0.05f;
+	
+	/** The angle. */
 	protected float angle=0;
+	
+	/** The skin url. */
 	protected URL skinURL= ThreeDManipulation.class.getResource("calculator/body2D.png");
 	
+	/** The button node0. */
 	protected ButtonNode buttonNode0;
+	
+	/** The button node1. */
 	protected ButtonNode buttonNode1;
+	
+	/** The button node2. */
 	protected ButtonNode buttonNode2;
+	
+	/** The button node3. */
 	protected ButtonNode buttonNode3;
+	
+	/** The button node4. */
 	protected ButtonNode buttonNode4;
+	
+	/** The button node5. */
 	protected ButtonNode buttonNode5;
+	
+	/** The button node6. */
 	protected ButtonNode buttonNode6;
+	
+	/** The button node7. */
 	protected ButtonNode buttonNode7;
+	
+	/** The button node8. */
 	protected ButtonNode buttonNode8;
+	
+	/** The button node9. */
 	protected ButtonNode buttonNode9;
+	
+	/** The button node delete. */
 	protected ButtonNode buttonNodeDelete;
+	
+	/** The button node plus. */
 	protected ButtonNode buttonNodePlus;
+	
+	/** The button node substract. */
 	protected ButtonNode buttonNodeSubstract;
+	
+	/** The button node result. */
 	protected ButtonNode buttonNodeResult;
+	
+	/** The button node dot. */
 	protected ButtonNode buttonNodeDot;
 	
+	/** The trail count. */
 	protected int trailCount=3;
+	
+	/** The current trail number. */
 	protected int currentTrailNumber = 0;
 	
+	/** The target number label. */
 	protected TextLabel targetNumberLabel;
+	
+	/** The log writter. */
 	protected DateTextWritter logWritter;
 
+	/**
+	 * Instantiates a new calculator.
+	 *
+	 * @param name the name
+	 * @param targetNumberLabel the target number label
+	 * @param logWritter the log writter
+	 */
 	public Calculator(String name, TextLabel targetNumberLabel, DateTextWritter logWritter){
 		super(name);	
 		setCalculatorProperty();
@@ -74,11 +138,17 @@ public abstract class Calculator extends Node {
 		
 	}
 	
+	/**
+	 * Reset task.
+	 */
 	public void resetTask(){
 		currentTrailNumber =0;
 		startNewTrail();
 	}
 	
+	/**
+	 * Start new trail.
+	 */
 	public void startNewTrail(){
 		textString="";
 		displayNode.setText(textString);
@@ -87,6 +157,9 @@ public abstract class Calculator extends Node {
 		targetNumberLabel.setText(targetNumber);
 	}
 
+	/**
+	 * Inits the.
+	 */
 	protected void init(){
 		
 		float width = 20f;
@@ -488,25 +561,57 @@ public abstract class Calculator extends Node {
 		
 	}
 	
+	/**
+	 * Sets the calculator property.
+	 */
 	protected void setCalculatorProperty(){}
+	
+	/**
+	 * Sets the button property.
+	 */
 	protected abstract void setButtonProperty();
 
+	/**
+	 * Gets the trail count.
+	 *
+	 * @return the trail count
+	 */
 	public int getTrailCount() {
 		return trailCount;
 	}
 
+	/**
+	 * Sets the trail count.
+	 *
+	 * @param trailCount the new trail count
+	 */
 	public void setTrailCount(int trailCount) {
 		this.trailCount = trailCount;
 	}
 
+	/**
+	 * Gets the current trail number.
+	 *
+	 * @return the current trail number
+	 */
 	public int getCurrentTrailNumber() {
 		return currentTrailNumber;
 	}
 
+	/**
+	 * Sets the current trail number.
+	 *
+	 * @param currentTrailNumber the new current trail number
+	 */
 	public void setCurrentTrailNumber(int currentTrailNumber) {
 		this.currentTrailNumber = currentTrailNumber;
 	}
 	
+	/**
+	 * Adds the task listener.
+	 *
+	 * @param l the l
+	 */
 	public void addTaskListener(TaskListener l){
 		taskListeners.add(l);
 	}

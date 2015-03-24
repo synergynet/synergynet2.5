@@ -53,66 +53,121 @@ import synergynetframework.jme.cursorsystem.cursordata.ScreenCursor;
 import synergynetframework.jme.cursorsystem.cursordata.ScreenCursorRecord;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 
+
 /**
+ * The Class OjbectManipulationforCCTV.
  *
  * @author dcs0ah1, pwpp25, dcs2ima
- *
  */
 public class OjbectManipulationforCCTV extends OjbectManipulation{
 
+	/** The mode cameramanipulation. */
 	public static String MODE_CAMERAMANIPULATION = "cameramanipulation";
+	
+	/** The mode objectmanipulation. */
 	public static String MODE_OBJECTMANIPULATION = "objectmanipulation";
 	
+	/** The cursor1 pos. */
 	protected Vector2f cursor1Pos = new Vector2f();
+	
+	/** The cursor2 pos. */
 	protected Vector2f cursor2Pos = new Vector2f();
+	
+	/** The cursor1 old pos. */
 	protected Vector2f cursor1OldPos = new Vector2f();
+	
+	/** The cursor2 old pos. */
 	protected Vector2f cursor2OldPos = new Vector2f();
+	
+	/** The pick results. */
 	protected PickResults pickResults = null;
 
+	/** The max scale. */
 	protected float maxScale = 2.0f;
+	
+	/** The min scale. */
 	protected float minScale = 0.5f;
 
+	/** The more than two gives rts. */
 	private boolean moreThanTwoGivesRTS = false;
+	
+	/** The controlled spatial. */
 	protected Spatial controlledSpatial;
+	
+	/** The screen angle. */
 	protected float screenAngle =0;
+	
+	/** The cam node. */
 	protected CameraNode camNode;
+	
+	/** The manipulatable ojbects. */
 	protected List<Spatial> manipulatableOjbects;
 	
+	/** The pick root node. */
 	protected Node pickRootNode; 
 	
+	/** The mode. */
 	protected String mode=MODE_CAMERAMANIPULATION;
 	
+	/* (non-Javadoc)
+	 * @see apps.threedmanipulation.gestures.OjbectManipulation#getControlledSpatial()
+	 */
 	public Spatial getControlledSpatial() {
 		return controlledSpatial;
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.threedmanipulation.gestures.OjbectManipulation#getCamNode()
+	 */
 	public CameraNode getCamNode() {
 		return camNode;
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.threedmanipulation.gestures.OjbectManipulation#setCamNode(com.jme.scene.CameraNode)
+	 */
 	public void setCamNode(CameraNode camNode) {
 		this.camNode = camNode;
 	}
 	
+	/* (non-Javadoc)
+	 * @see apps.threedmanipulation.gestures.OjbectManipulation#setMode(java.lang.String)
+	 */
 	public void setMode(String mode){
 		this.mode = mode;
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.threedmanipulation.gestures.OjbectManipulation#setControlledSpatial(com.jme.scene.Spatial)
+	 */
 	public void setControlledSpatial(Spatial controlledSpatial) {
 		this.controlledSpatial = controlledSpatial;
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.threedmanipulation.gestures.OjbectManipulation#getScreenAngle()
+	 */
 	public float getScreenAngle() {
 		return screenAngle;
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.threedmanipulation.gestures.OjbectManipulation#setScreenAngle(float)
+	 */
 	public void setScreenAngle(float screenAngle) {
 		this.screenAngle = screenAngle;
 	}
 
+	/** The listeners. */
 	protected List<RotateTranslateScaleListener> listeners = new ArrayList<RotateTranslateScaleListener>();
 
 
+	/**
+	 * Instantiates a new ojbect manipulationfor cctv.
+	 *
+	 * @param pickingAndTargetSpatial the picking and target spatial
+	 * @param manipulatableOjbects the manipulatable ojbects
+	 */
 	public OjbectManipulationforCCTV(Spatial pickingAndTargetSpatial, List<Spatial> manipulatableOjbects) {
 		this(pickingAndTargetSpatial, pickingAndTargetSpatial);
 		
@@ -124,14 +179,26 @@ public class OjbectManipulationforCCTV extends OjbectManipulation{
 		
 	}
 
+	/**
+	 * Instantiates a new ojbect manipulationfor cctv.
+	 *
+	 * @param pickingSpatial the picking spatial
+	 * @param targetSpatial the target spatial
+	 */
 	public OjbectManipulationforCCTV(Spatial pickingSpatial, Spatial targetSpatial) {
 		super(pickingSpatial, targetSpatial);
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.threedmanipulation.gestures.OjbectManipulation#allowMoreThanTwoToRotateAndScale(boolean)
+	 */
 	public void allowMoreThanTwoToRotateAndScale(boolean b) {
 		moreThanTwoGivesRTS = b;
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.threedmanipulation.gestures.OjbectManipulation#cursorChanged(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorChanged(ScreenCursor c, MultiTouchCursorEvent event) {
 		if (controlledSpatial==null && this.mode.equals(MODE_OBJECTMANIPULATION))
@@ -160,6 +227,9 @@ public class OjbectManipulationforCCTV extends OjbectManipulation{
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.threedmanipulation.gestures.OjbectManipulation#cursorPressed(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorPressed(ScreenCursor c, MultiTouchCursorEvent event) {
 		
@@ -190,12 +260,21 @@ public class OjbectManipulationforCCTV extends OjbectManipulation{
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.threedmanipulation.gestures.OjbectManipulation#cursorReleased(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorReleased(ScreenCursor c, MultiTouchCursorEvent event) {}
 
+	/* (non-Javadoc)
+	 * @see apps.threedmanipulation.gestures.OjbectManipulation#cursorClicked(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorClicked(ScreenCursor c, MultiTouchCursorEvent event) {}
 
+	/* (non-Javadoc)
+	 * @see apps.threedmanipulation.gestures.OjbectManipulation#applySingleCursorTransform()
+	 */
 	protected void applySingleCursorTransform() {
 
 		int previousPostionIndex=0;
@@ -286,6 +365,9 @@ public class OjbectManipulationforCCTV extends OjbectManipulation{
 
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.threedmanipulation.gestures.OjbectManipulation#applyMultiCursorTransform()
+	 */
 	protected void applyMultiCursorTransform() {
 
 		if (controlledSpatial==null) return;
@@ -378,6 +460,9 @@ public class OjbectManipulationforCCTV extends OjbectManipulation{
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.threedmanipulation.gestures.OjbectManipulation#updateCursor1()
+	 */
 	protected void updateCursor1() {
 
 		//cursor1Pos.x = getScreenCursorByIndex(0).getCurrentCursorScreenPosition().x;
@@ -395,6 +480,9 @@ public class OjbectManipulationforCCTV extends OjbectManipulation{
 		//cursor1OldPos.y = getScreenCursorByIndex(0).getOldCursorScreenPosition().y;
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.threedmanipulation.gestures.OjbectManipulation#updateCursor2()
+	 */
 	protected void updateCursor2() {
 		//cursor2Pos.x = getScreenCursorByIndex(1).getCurrentCursorScreenPosition().x;
 		//cursor2Pos.y = getScreenCursorByIndex(1).getCurrentCursorScreenPosition().y;
@@ -411,17 +499,26 @@ public class OjbectManipulationforCCTV extends OjbectManipulation{
 		//cursor2OldPos.y = getScreenCursorByIndex(1).getOldCursorScreenPosition().y;
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.threedmanipulation.gestures.OjbectManipulation#setScaleLimits(float, float)
+	 */
 	public void setScaleLimits(float min, float max) {
 		minScale = min;
 		maxScale = max;
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.threedmanipulation.gestures.OjbectManipulation#setRotateLimits(float, float)
+	 */
 	public void setRotateLimits(float min, float max) {
 //		minRotate = min;
 //		maxRotate = max;
 		//TODO: implement!
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.threedmanipulation.gestures.OjbectManipulation#setOldCursor()
+	 */
 	protected void setOldCursor(){
 		for (ScreenCursor c:screenCursors){
 			ScreenCursorRecord s = new ScreenCursorRecord(c.getCurrentCursorScreenPosition().x, c.getCurrentCursorScreenPosition().y );
@@ -429,21 +526,73 @@ public class OjbectManipulationforCCTV extends OjbectManipulation{
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.threedmanipulation.gestures.OjbectManipulation#addRotateTranslateScaleListener(apps.threedmanipulation.gestures.OjbectManipulation.RotateTranslateScaleListener)
+	 */
 	public void addRotateTranslateScaleListener(RotateTranslateScaleListener l){
 		listeners.add(l);
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.threedmanipulation.gestures.OjbectManipulation#removeRotateTranslateScaleListener(apps.threedmanipulation.gestures.OjbectManipulation.RotateTranslateScaleListener)
+	 */
 	public void removeRotateTranslateScaleListener(RotateTranslateScaleListener l){
 		if (listeners.contains(l))
 			listeners.remove(l);
 	}
 
+	/**
+	 * The listener interface for receiving rotateTranslateScale events.
+	 * The class that is interested in processing a rotateTranslateScale
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addRotateTranslateScaleListener<code> method. When
+	 * the rotateTranslateScale event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see RotateTranslateScaleEvent
+	 */
 	public interface RotateTranslateScaleListener {
+		
+		/**
+		 * Item rotated.
+		 *
+		 * @param multiTouchElement the multi touch element
+		 * @param targetSpatial the target spatial
+		 * @param newAngle the new angle
+		 * @param oldAngle the old angle
+		 */
 		public void itemRotated(OjbectManipulationforCCTV multiTouchElement, Spatial targetSpatial, float newAngle, float oldAngle);
+		
+		/**
+		 * Item moved.
+		 *
+		 * @param multiTouchElement the multi touch element
+		 * @param targetSpatial the target spatial
+		 * @param newLocationX the new location x
+		 * @param newLocationY the new location y
+		 * @param oldLocationX the old location x
+		 * @param oldLocationY the old location y
+		 */
 		public void itemMoved(OjbectManipulationforCCTV multiTouchElement, Spatial targetSpatial,  float newLocationX, float newLocationY, float oldLocationX, float oldLocationY);
+		
+		/**
+		 * Item scaled.
+		 *
+		 * @param multiTouchElement the multi touch element
+		 * @param targetSpatial the target spatial
+		 * @param scaleChange the scale change
+		 */
 		public void itemScaled(OjbectManipulationforCCTV multiTouchElement, Spatial targetSpatial,  float scaleChange);
 	}
 
+	/**
+	 * Screen to table.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @return the vector2f
+	 */
 	private Vector2f screenToTable(float x, float y) {
 
 		if (targetSpatial.getParent()==null)

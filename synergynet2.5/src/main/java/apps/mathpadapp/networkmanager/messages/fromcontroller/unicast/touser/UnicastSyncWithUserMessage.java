@@ -35,11 +35,26 @@ package apps.mathpadapp.networkmanager.messages.fromcontroller.unicast.touser;
 import apps.mathpadapp.networkmanager.utils.UserIdentity;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class UnicastSyncWithUserMessage.
+ */
 public class UnicastSyncWithUserMessage extends ControllerToUserMessage {	
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -4567182029942298153L;
+	
+	/** The is synchronisation on. */
 	private boolean isSynchronisationOn;
 	
+	/**
+	 * Instantiates a new unicast sync with user message.
+	 *
+	 * @param targetClass the target class
+	 * @param tableId the table id
+	 * @param userId the user id
+	 * @param isSynchronisation the is synchronisation
+	 */
 	public UnicastSyncWithUserMessage(Class<?> targetClass, TableIdentity tableId, UserIdentity userId, boolean isSynchronisation) {
 		super(targetClass);
 		this.isSynchronisationOn = isSynchronisation;
@@ -47,14 +62,27 @@ public class UnicastSyncWithUserMessage extends ControllerToUserMessage {
 		this.setRecipientUser(userId);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return "Enable Synchronisation Message";
 	}
 
+	/**
+	 * Checks if is synchronisation on.
+	 *
+	 * @return true, if is synchronisation on
+	 */
 	public boolean isSynchronisationOn() {
 		return isSynchronisationOn;
 	}
 
+	/**
+	 * Sets the synchronisation on.
+	 *
+	 * @param isSynchronisationOn the new synchronisation on
+	 */
 	public void setSynchronisationOn(boolean isSynchronisationOn) {
 		this.isSynchronisationOn = isSynchronisationOn;
 	}

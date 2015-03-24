@@ -34,14 +34,27 @@ package synergynetframework.appsystem.services.net.networkedcontentmanager.messa
 
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class ClearTable.
+ */
 public class ClearTable extends BroadcastApplicationMessage {	
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -1777799851207865934L;
 	
+	/**
+	 * Instantiates a new clear table.
+	 *
+	 * @param targetClass the target class
+	 */
 	public ClearTable(Class<?> targetClass) {
 		super(targetClass);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return "Clear Table";
 	}

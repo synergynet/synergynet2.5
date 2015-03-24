@@ -1,17 +1,35 @@
 package apps.lightrays.raytracer.scene;
 
 
+
+/**
+ * The Class CameraAnimation.
+ */
 public class CameraAnimation {
 
+	/** The start eye position. */
 	public Vector startEyePosition;
+	
+	/** The end eye position. */
 	public Vector endEyePosition;
+	
+	/** The frames. */
 	public int frames;
 	
+	/**
+	 * Instantiates a new camera animation.
+	 */
 	public CameraAnimation() {
 		
 	}
 	
 	
+	/**
+	 * Gets the camera position for frame.
+	 *
+	 * @param frame the frame
+	 * @return the camera position for frame
+	 */
 	public Vector getCameraPositionForFrame(int frame) {
 		Vector v = new Vector();
 		

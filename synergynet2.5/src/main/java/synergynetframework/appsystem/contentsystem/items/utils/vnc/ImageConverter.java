@@ -12,17 +12,26 @@ import java.awt.MediaTracker;
 //import java.awt.GraphicsDevice; 
 //import java.awt.GraphicsEnvironment; 
 import java.awt.image.PixelGrabber; 
+
 //import java.util.ArrayList;  
 
+/**
+ * The Class ImageConverter.
+ */
 public class ImageConverter extends Component {  
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The media tracker. */
 	private MediaTracker mediaTracker; 
 //	private Image image;  
-	private ImageConverter(Image image) {         
+	/**
+ * Instantiates a new image converter.
+ *
+ * @param image the image
+ */
+private ImageConverter(Image image) {         
 		super();         
 		this.mediaTracker = new MediaTracker(this);
 		this.mediaTracker.addImage(image, 0);         
@@ -46,7 +55,13 @@ public class ImageConverter extends Component {
 //		
 //	}  
 	
-	private static byte[] convertIntToByteArray(int integer) { 
+	/**
+ * Convert int to byte array.
+ *
+ * @param integer the integer
+ * @return the byte[]
+ */
+private static byte[] convertIntToByteArray(int integer) { 
 		byte[] bytes = new byte[4];
 		bytes[0] =(byte)( integer >> 24 );    
 		bytes[1] =(byte)( (integer << 8) >> 24 );    
@@ -62,7 +77,13 @@ public class ImageConverter extends Component {
 //		
 //	}  
 	
-	private static byte[] convertIntArrayToByteArray(int[] integers) {       
+	/**
+ * Convert int array to byte array.
+ *
+ * @param integers the integers
+ * @return the byte[]
+ */
+private static byte[] convertIntArrayToByteArray(int[] integers) {       
 		byte[] bytes = new byte[integers.length*4];        
 		for (int index = 0; index < integers.length; index++)         
 		{                
@@ -100,7 +121,13 @@ public class ImageConverter extends Component {
 //		
 //	}  
 	
-	public static byte[] convertToBytes(Image image) {
+	/**
+ * Convert to bytes.
+ *
+ * @param image the image
+ * @return the byte[]
+ */
+public static byte[] convertToBytes(Image image) {
 		//ImageConverter converter = new ImageConverter(image);
 		//BufferedImage bufferedImage = converter.convert();  
 		PixelGrabber pixelGrabber = new PixelGrabber(image,0,0,image.getWidth(null),image.getHeight(null),true);
@@ -121,6 +148,12 @@ public class ImageConverter extends Component {
 		
 	}  
 	
+    /**
+     * To buffered image.
+     *
+     * @param src the src
+     * @return the buffered image
+     */
     public static BufferedImage toBufferedImage(Image src) {
         int w = src.getWidth(null);
         int h = src.getHeight(null);

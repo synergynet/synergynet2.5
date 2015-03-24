@@ -65,6 +65,7 @@ import com.jme.system.canvas.JMECanvas;
 import com.jme.util.ImageUtils;
 import com.jme.util.WeakIdentityCache;
 
+
 /**
  * <code>LWJGLDisplaySystem</code> defines an implementation of
  * <code>DisplaySystem</code> that uses the LWJGL API for window creation and
@@ -82,13 +83,20 @@ import com.jme.util.WeakIdentityCache;
  */
 
 public class LWJGLDisplaySystem extends DisplaySystem {
+    
+    /** The Constant logger. */
     private static final Logger logger = Logger.getLogger(LWJGLDisplaySystem.class.getName());
 
+    /** The renderer. */
     private LWJGLRenderer renderer;
 
+    /** The headless display. */
     private Pbuffer headlessDisplay;
 
+    /** The current context. */
     private RenderContext<? extends Object> currentContext = null;
+    
+    /** The context store. */
     private WeakIdentityCache<Object, RenderContext<? extends Object>> contextStore = new WeakIdentityCache<Object, RenderContext<? extends Object>>();
 
     /**
@@ -102,6 +110,13 @@ public class LWJGLDisplaySystem extends DisplaySystem {
     }
 
     /**
+     * Checks if is valid display mode.
+     *
+     * @param width the width
+     * @param height the height
+     * @param bpp the bpp
+     * @param freq the freq
+     * @return true, if is valid display mode
      * @see com.jme.system.DisplaySystem#isValidDisplayMode(int, int, int, int)
      */
     public boolean isValidDisplayMode( int width, int height, int bpp, int freq ) {
@@ -109,6 +124,9 @@ public class LWJGLDisplaySystem extends DisplaySystem {
     }
 
     /**
+     * Sets the v sync enabled.
+     *
+     * @param enabled the new v sync enabled
      * @see com.jme.system.DisplaySystem#setVSyncEnabled(boolean)
      */
     public void setVSyncEnabled( boolean enabled ) {
@@ -128,6 +146,12 @@ public class LWJGLDisplaySystem extends DisplaySystem {
      * <code>createWindow</code> will create a LWJGL display context. This
      * window will be a purely native context as defined by the LWJGL API.
      *
+     * @param w the w
+     * @param h the h
+     * @param bpp the bpp
+     * @param frq the frq
+     * @param fs the fs
+     * @throws JmeException the jme exception
      * @see com.jme.system.DisplaySystem#createWindow(int, int, int, int,
      *      boolean)
      */
@@ -160,6 +184,9 @@ public class LWJGLDisplaySystem extends DisplaySystem {
      * context. This window will be a purely native context as defined by the
      * LWJGL API.
      *
+     * @param w the w
+     * @param h the h
+     * @param bpp the bpp
      * @see com.jme.system.DisplaySystem#createHeadlessWindow(int, int, int)
      */
     public void createHeadlessWindow( int w, int h, int bpp ) {
@@ -189,6 +216,9 @@ public class LWJGLDisplaySystem extends DisplaySystem {
      * <code>createCanvas</code> will create an OpenGL capable Canvas context. This
      * window will be a purely native context as defined by the LWJGL API.
      *
+     * @param w the w
+     * @param h the h
+     * @return the JME canvas
      * @see com.jme.system.DisplaySystem#createCanvas(int, int)
      */
     @Override
@@ -200,6 +230,11 @@ public class LWJGLDisplaySystem extends DisplaySystem {
      * <code>createCanvas</code> will create an OpenGL capable Canvas context. This
      * window will be a purely native context as defined by the LWJGL API.
      *
+     * @param w the w
+     * @param h the h
+     * @param type the type
+     * @param props the props
+     * @return the JME canvas
      * @see com.jme.system.DisplaySystem#createCanvas(int, int, String, HashMap)
      */
     @Override
@@ -242,6 +277,11 @@ public class LWJGLDisplaySystem extends DisplaySystem {
      * If a window is not already created, it calls createWindow and exits.
      * Other wise it calls reinitDisplay and renderer.reinit(width,height)
      *
+     * @param w the w
+     * @param h the h
+     * @param bpp the bpp
+     * @param frq the frq
+     * @param fs the fs
      * @see com.jme.system.DisplaySystem#recreateWindow(int, int, int, int,
      *      boolean)
      */
@@ -274,6 +314,7 @@ public class LWJGLDisplaySystem extends DisplaySystem {
      * <code>LWJGLRenderer</code>). This will give the needed access to
      * display data to the window.
      *
+     * @return the renderer
      * @see com.jme.system.DisplaySystem#getRenderer()
      */
     public LWJGLRenderer getRenderer() {
@@ -295,6 +336,9 @@ public class LWJGLDisplaySystem extends DisplaySystem {
         return false;        
     }
     
+    /* (non-Javadoc)
+     * @see com.jme.system.DisplaySystem#isActive()
+     */
     @Override
     public boolean isActive()
     {
@@ -325,6 +369,11 @@ public class LWJGLDisplaySystem extends DisplaySystem {
     /**
      * <code>createTextureRenderer</code> builds the renderer used to render
      * to a texture.
+     *
+     * @param width the width
+     * @param height the height
+     * @param target the target
+     * @return the texture renderer
      */
     public TextureRenderer createTextureRenderer( int width, int height, TextureRenderer.Target target) {
         if ( !isCreated() ) {
@@ -499,6 +548,11 @@ public class LWJGLDisplaySystem extends DisplaySystem {
     }
 
     // Grab a display mode for use with init / reinit display
+    /**
+     * Select mode.
+     *
+     * @return the display mode
+     */
     private DisplayMode selectMode() {
         DisplayMode mode;
         if ( fs ) {
@@ -546,9 +600,12 @@ public class LWJGLDisplaySystem extends DisplaySystem {
     }
     
     /**
-     * @see com.jme.system.DisplaySystem#setIcon(com.jme.image.Image[])
+     * Sets the icon.
+     *
      * @author Tony Vera
      * @author Tijl Houtbeckers - some changes to handeling non-RGBA8888 Images.
+     * @param iconImages the new icon
+     * @see com.jme.system.DisplaySystem#setIcon(com.jme.image.Image[])
      */
     public void setIcon(Image[] iconImages) {
         ByteBuffer[] iconData = new ByteBuffer[iconImages.length];
@@ -568,11 +625,17 @@ public class LWJGLDisplaySystem extends DisplaySystem {
         Display.setIcon(iconData);
     }
 
+    /* (non-Javadoc)
+     * @see com.jme.system.DisplaySystem#getAdapter()
+     */
     @Override
     public String getAdapter() {
         return Display.getAdapter();
     }
 
+    /* (non-Javadoc)
+     * @see com.jme.system.DisplaySystem#getDriverVersion()
+     */
     @Override
     public String getDriverVersion() {
         return Display.getVersion();
@@ -580,8 +643,8 @@ public class LWJGLDisplaySystem extends DisplaySystem {
     
     /**
      * <code>getDisplayVendor</code> returns the vendor of the graphics
-     * adapter
-     * 
+     * adapter.
+     *
      * @return The adapter vendor
      */
     public String getDisplayVendor() {
@@ -593,8 +656,8 @@ public class LWJGLDisplaySystem extends DisplaySystem {
     }
 
     /**
-     * <code>getDisplayRenderer</code> returns details of the adapter
-     * 
+     * <code>getDisplayRenderer</code> returns details of the adapter.
+     *
      * @return The adapter details
      */
     public String getDisplayRenderer() {
@@ -606,8 +669,8 @@ public class LWJGLDisplaySystem extends DisplaySystem {
     }
 
     /**
-     * <code>getDisplayAPIVersion</code> returns the API version supported
-     * 
+     * <code>getDisplayAPIVersion</code> returns the API version supported.
+     *
      * @return The api version supported
      */
     public String getDisplayAPIVersion() {
@@ -634,6 +697,9 @@ public class LWJGLDisplaySystem extends DisplaySystem {
 
     }
 
+    /* (non-Javadoc)
+     * @see com.jme.system.DisplaySystem#getCurrentContext()
+     */
     @Override
     public RenderContext<? extends Object> getCurrentContext() {
         return currentContext;
@@ -656,6 +722,12 @@ public class LWJGLDisplaySystem extends DisplaySystem {
         return currentContext;
     }
 
+    /**
+     * Inits the for canvas.
+     *
+     * @param width the width
+     * @param height the height
+     */
     public void initForCanvas(int width, int height) {
         renderer = new LWJGLRenderer(width, height);
         renderer.setHeadless(true);
@@ -683,6 +755,9 @@ public class LWJGLDisplaySystem extends DisplaySystem {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.jme.system.DisplaySystem#moveWindowTo(int, int)
+     */
     @Override
     public void moveWindowTo(int locX, int locY) {
         if (!isFullScreen()) {

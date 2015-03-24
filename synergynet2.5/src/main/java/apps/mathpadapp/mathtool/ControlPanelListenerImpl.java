@@ -39,25 +39,44 @@ import apps.mathpadapp.mathtool.MathToolControlPanel.ControlPanelListener;
 
 import synergynetframework.appsystem.contentsystem.items.MathPad;
 
+
+/**
+ * The Class ControlPanelListenerImpl.
+ */
 public class ControlPanelListenerImpl implements ControlPanelListener{
 		
+		/** The math tool. */
 		private MathTool mathTool;
 		
+		/**
+		 * Instantiates a new control panel listener impl.
+		 *
+		 * @param mathTool the math tool
+		 */
 		public ControlPanelListenerImpl(MathTool mathTool){
 			this.mathTool = mathTool;
 		}
 	
+		/* (non-Javadoc)
+		 * @see apps.mathpadapp.mathtool.MathToolControlPanel.ControlPanelListener#padCleared()
+		 */
 		@Override
 		public void padCleared() {
 			for(MathPad mathPad: mathTool.getAllPads())	
 				mathPad.clearAll();
 		}
 
+		/* (non-Javadoc)
+		 * @see apps.mathpadapp.mathtool.MathToolControlPanel.ControlPanelListener#writingStateChanged(apps.mathpadapp.mathtool.MathTool.WritingState)
+		 */
 		@Override
 		public void writingStateChanged(WritingState writingState) {
 			mathTool.setWritingState(writingState);
 		}
 
+		/* (non-Javadoc)
+		 * @see apps.mathpadapp.mathtool.MathToolControlPanel.ControlPanelListener#textColorChanged(java.awt.Color)
+		 */
 		@Override
 		public void textColorChanged(Color textColor) {
 			mathTool.backTextColor = textColor;
@@ -67,17 +86,29 @@ public class ControlPanelListenerImpl implements ControlPanelListener{
 			}
 		}
 
+		/* (non-Javadoc)
+		 * @see apps.mathpadapp.mathtool.MathToolControlPanel.ControlPanelListener#lineWidthChanged(float)
+		 */
 		@Override
 		public void lineWidthChanged(float lineWidth) {
 			for(MathPad mathPad: mathTool.getAllPads())	
 				mathPad.setLineWidth(lineWidth);			}
 
+		/* (non-Javadoc)
+		 * @see apps.mathpadapp.mathtool.MathToolControlPanel.ControlPanelListener#padCreated(synergynetframework.appsystem.contentsystem.items.MathPad)
+		 */
 		@Override
 		public void padCreated(MathPad newPad) {}
 
+		/* (non-Javadoc)
+		 * @see apps.mathpadapp.mathtool.MathToolControlPanel.ControlPanelListener#padChanged(int)
+		 */
 		@Override
 		public void padChanged(int nextPadIndex) {}
 
+		/* (non-Javadoc)
+		 * @see apps.mathpadapp.mathtool.MathToolControlPanel.ControlPanelListener#answerPadDisplayed()
+		 */
 		@Override
 		public void answerPadDisplayed() {
 			System.out.println("Displayed................");
@@ -85,6 +116,9 @@ public class ControlPanelListenerImpl implements ControlPanelListener{
 
 		}
 
+		/* (non-Javadoc)
+		 * @see apps.mathpadapp.mathtool.MathToolControlPanel.ControlPanelListener#padRemoved(int)
+		 */
 		@Override
 		public void padRemoved(final int padIndex) {
 			mathTool.removePad(padIndex);

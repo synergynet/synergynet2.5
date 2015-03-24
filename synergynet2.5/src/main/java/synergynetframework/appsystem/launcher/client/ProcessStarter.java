@@ -42,7 +42,18 @@ import java.net.URLClassLoader;
 
 import synergynetframework.appsystem.launcher.client.SynergyNetLauncher.OSName;
 
+
+/**
+ * The Class ProcessStarter.
+ */
 public class ProcessStarter {
+	
+	/**
+	 * Start.
+	 *
+	 * @param resource the resource
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static void start(String resource) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(SynergyNetLauncher.class.getResourceAsStream(resource)));
 		String cmd = br.readLine();
@@ -84,6 +95,11 @@ public class ProcessStarter {
 		}
 	}
 
+	/**
+	 * Gets the classpath string.
+	 *
+	 * @return the classpath string
+	 */
 	public static String getClasspathString() {
 		StringBuffer classpath = new StringBuffer();
 		ClassLoader applicationClassLoader = SynergyNetLauncher.class.getClassLoader();
@@ -100,6 +116,11 @@ public class ProcessStarter {
 
 
 
+	/**
+	 * Gets the os name.
+	 *
+	 * @return the os name
+	 */
 	public static OSName getOsName() {
 		OSName os = null;
 		if (System.getProperty("os.name").toLowerCase().indexOf("windows") > -1) {

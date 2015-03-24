@@ -34,28 +34,57 @@ package synergynetframework.appsystem.services.net.networkedcontentmanager.messa
 
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class BroadcastEnableRemoteDesktop.
+ */
 public class BroadcastEnableRemoteDesktop extends BroadcastApplicationMessage {	
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 259614974289184624L;
+	
+	/** The is remote desktop enabled. */
 	private boolean isRemoteDesktopEnabled = false;
 	
+	/**
+	 * Instantiates a new broadcast enable remote desktop.
+	 */
 	public BroadcastEnableRemoteDesktop() {
 		super();
 	}
 	
+	/**
+	 * Instantiates a new broadcast enable remote desktop.
+	 *
+	 * @param targetClass the target class
+	 * @param isRemoteDesktopEnabled the is remote desktop enabled
+	 */
 	public BroadcastEnableRemoteDesktop(Class<?> targetClass, boolean isRemoteDesktopEnabled) {
 		super(targetClass);
 		this.isRemoteDesktopEnabled = isRemoteDesktopEnabled;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return "Broadcast Enable Remote Desktop";
 	}
 	
+	/**
+	 * Checks if is remote desktop enabled.
+	 *
+	 * @return true, if is remote desktop enabled
+	 */
 	public boolean isRemoteDesktopEnabled() {
 		return isRemoteDesktopEnabled;
 	}
 
+	/**
+	 * Sets the remote desktop enabled.
+	 *
+	 * @param isRemoteDesktopEnabled the new remote desktop enabled
+	 */
 	public void setRemoteDesktopEnabled(boolean isRemoteDesktopEnabled) {
 		this.isRemoteDesktopEnabled = isRemoteDesktopEnabled;
 	}

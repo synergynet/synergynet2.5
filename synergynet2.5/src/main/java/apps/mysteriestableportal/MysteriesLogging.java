@@ -46,6 +46,7 @@ import synergynetframework.appsystem.contentsystem.items.listener.OrthoControlPo
 import synergynetframework.jme.config.AppConfig;
 import synergynetframework.jme.mtinputbridge.MultiTouchInputFilterManager;
 
+
 /**
  * Logs all actions to a log file.
  * 
@@ -54,14 +55,28 @@ import synergynetframework.jme.mtinputbridge.MultiTouchInputFilterManager;
  */
 public class MysteriesLogging {
 
+	/** The Constant ITEM_ROTATED. */
 	public static final String ITEM_ROTATED = "ITEM_ROTATED";
+	
+	/** The Constant ITEM_TRANSLATED. */
 	public static final String ITEM_TRANSLATED = "ITEM_TRANSLATED";
+	
+	/** The Constant ITEM_SCALED. */
 	public static final String ITEM_SCALED = "ITEM_SCALED";
 	
+	/** The record file. */
 	private File recordFile;
+	
+	/** The pw. */
 	private PrintWriter pw;
 	
 
+	/**
+	 * Instantiates a new mysteries logging.
+	 *
+	 * @param appClass the app class
+	 * @throws FileNotFoundException the file not found exception
+	 */
 	public MysteriesLogging(Class<?> appClass) throws FileNotFoundException {
 		if(!AppConfig.recordTableDir.exists()) AppConfig.recordTableDir.mkdir();
 		recordFile = new File(AppConfig.recordTableDir, getFileNameFromDate());
@@ -69,10 +84,20 @@ public class MysteriesLogging {
 		writeFileHeader(appClass);
 	}
 	
+	/**
+	 * Instantiates a new mysteries logging.
+	 *
+	 * @throws FileNotFoundException the file not found exception
+	 */
 	public MysteriesLogging() throws FileNotFoundException {
 		this(MultiTouchInputFilterManager.getInstance().getLoggingClass());
 	}
 	
+	/**
+	 * Gets the file name from date.
+	 *
+	 * @return the file name from date
+	 */
 	private String getFileNameFromDate() {		
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss.S");
 		return formatter.format(new Date());	
@@ -80,6 +105,11 @@ public class MysteriesLogging {
 	
 
 	
+	/**
+	 * Write file header.
+	 *
+	 * @param appClass the app class
+	 */
 	private void writeFileHeader(Class<?> appClass) {
 		pw.println("# Recorded from LoggingFilter v0.1");
 		if(appClass != null)
@@ -91,12 +121,22 @@ public class MysteriesLogging {
 		pw.println("# event type, time, item, x, y, angle, scale");
 	}
 
+	/**
+	 * Register items for logging.
+	 *
+	 * @param items the items
+	 */
 	public void registerItemsForLogging(List<ContentItem> items){
 		for(ContentItem item: items){
 			this.registerItemForLogging(item);
 		}
 	}
 	
+	/**
+	 * Register item for logging.
+	 *
+	 * @param item the item
+	 */
 	public void registerItemForLogging(ContentItem item){
 		((OrthoContentItem)item).addOrthoControlPointRotateTranslateScaleListener(new OrthoControlPointRotateTranslateScaleListener(){
 

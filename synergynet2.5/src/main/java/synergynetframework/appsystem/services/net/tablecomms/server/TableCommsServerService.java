@@ -70,24 +70,52 @@ import synergynetframework.appsystem.services.net.tablecomms.messages.control.fr
 import synergynetframework.appsystem.services.net.tablecomms.server.processors.TableStatusRequestProcessor;
 import synergynetframework.appsystem.table.appregistry.NetworkRegistry;
 
+
+/**
+ * The Class TableCommsServerService.
+ */
 public class TableCommsServerService extends SynergyNetService implements MessageHandler {
+	
+	/** The Constant TCP_PORT. */
 	public static final int TCP_PORT = 1874;
+	
+	/** The Constant UDP_PORT. */
 	public static final int UDP_PORT = 1876;
+	
+	/** The Constant SERVICE_TYPE. */
 	public static final String SERVICE_TYPE = "SynergyNet";
+	
+	/** The Constant SERVICE_NAME. */
 	public static final String SERVICE_NAME = "tablecomms";
 
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(TableCommsServerService.class.getName());
+	
+	/** The server. */
 	private Server server;
+	
+	/** The has started. */
 	protected boolean hasStarted = false;
 
+	/** The message processors. */
 	protected Map<String,ServerMessageProcessor> messageProcessors = new HashMap<String,ServerMessageProcessor>();
+	
+	/** The receivers. */
 	protected Map<TableIdentity,ConnectionHandler> receivers = new HashMap<TableIdentity,ConnectionHandler>();
 
 	// which TCPConnectionHandlers are registered for a particular application?
+	/** The app receivers. */
 	protected Map<String,List<ConnectionHandler>> appReceivers = new HashMap<String,List<ConnectionHandler>>();
+	
+	/** The object queue. */
 	protected List<ObjectQueueEntry> objectQueue = new ArrayList<ObjectQueueEntry>();	
+	
+	/** The monitors. */
 	protected List<ServerMonitor> monitors = new ArrayList<ServerMonitor>();
 
+	/**
+	 * Instantiates a new table comms server service.
+	 */
 	public TableCommsServerService() {
 		
 		Network.register(TableMessage.class);
@@ -123,14 +151,30 @@ public class TableCommsServerService extends SynergyNetService implements Messag
 		}
 	}
 
+	/**
+	 * Register server monitor.
+	 *
+	 * @param m the m
+	 */
 	public void registerServerMonitor(ServerMonitor m) {
 		if(!monitors.contains(m)) monitors.add(m);
 	}
 
+	/**
+	 * Gets the receivers.
+	 *
+	 * @return the receivers
+	 */
 	public Map<TableIdentity, ConnectionHandler> getReceivers() {
 		return receivers;
 	}
 
+	/**
+	 * Gets the handlers for application.
+	 *
+	 * @param name the name
+	 * @return the handlers for application
+	 */
 	public List<ConnectionHandler> getHandlersForApplication(String name) {
 		List<ConnectionHandler> list = appReceivers.get(name);
 		if(list == null) { 
@@ -140,6 +184,12 @@ public class TableCommsServerService extends SynergyNetService implements Messag
 		return list;
 	}
 
+	/**
+	 * Gets the table identity for handler.
+	 *
+	 * @param handler the handler
+	 * @return the table identity for handler
+	 */
 	public TableIdentity getTableIdentityForHandler(ConnectionHandler handler) {
 		for(TableIdentity id : receivers.keySet()) {
 			ConnectionHandler h = receivers.get(id);
@@ -148,22 +198,45 @@ public class TableCommsServerService extends SynergyNetService implements Messag
 		return null;
 	}
 
+	/**
+	 * Register handler for application.
+	 *
+	 * @param name the name
+	 * @param handler the handler
+	 */
 	public void registerHandlerForApplication(String name, ConnectionHandler handler) {
 		List<ConnectionHandler> list = getHandlersForApplication(name);
 		if(!list.contains(handler)) list.add(handler);
 	}
 
+	/**
+	 * Unregister handler for application.
+	 *
+	 * @param name the name
+	 * @param handler the handler
+	 */
 	public void unregisterHandlerForApplication(String name, ConnectionHandler handler) {
 		List<ConnectionHandler> list = getHandlersForApplication(name);
 		list.remove(handler);
 	}
 
+	/**
+	 * Removes the application association for handler.
+	 *
+	 * @param handler the handler
+	 */
 	public void removeApplicationAssociationForHandler(ConnectionHandler handler) {
 		for(List<ConnectionHandler> list : appReceivers.values()) {
 			list.remove(handler);
 		}
 	}
 
+	/**
+	 * Gets the applications registered for handler.
+	 *
+	 * @param handler the handler
+	 * @return the applications registered for handler
+	 */
 	public List<String> getApplicationsRegisteredForHandler(ConnectionHandler handler) {
 		List<String> apps = new ArrayList<String>();
 		for(String s : appReceivers.keySet()) {
@@ -173,21 +246,36 @@ public class TableCommsServerService extends SynergyNetService implements Messag
 		return apps;
 	}
 
+	/**
+	 * Gets the applications registered for table.
+	 *
+	 * @param id the id
+	 * @return the applications registered for table
+	 */
 	public List<String> getApplicationsRegisteredForTable(TableIdentity id) {
 		ConnectionHandler handler = receivers.get(id);
 		return getApplicationsRegisteredForHandler(handler);
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#hasStarted()
+	 */
 	@Override
 	public boolean hasStarted() {
 		return hasStarted;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#shutdown()
+	 */
 	@Override
 	public void shutdown() {		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#start()
+	 */
 	@Override
 	public void start() throws CouldNotStartServiceException {
 		synchronized(this) {
@@ -208,6 +296,11 @@ public class TableCommsServerService extends SynergyNetService implements Messag
 		}
 	}
 
+	/**
+	 * Advertise service.
+	 *
+	 * @throws CouldNotStartServiceException the could not start service exception
+	 */
 	private void advertiseService() throws CouldNotStartServiceException {
 		NetworkServiceDiscoveryService nsds = (NetworkServiceDiscoveryService) ServiceManager.getInstance().get(NetworkServiceDiscoveryService.class);				
 		ServiceAnnounceSystem sa = nsds.getServiceAnnouncer();
@@ -225,11 +318,17 @@ public class TableCommsServerService extends SynergyNetService implements Messag
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#stop()
+	 */
 	@Override
 	public void stop() {
 		server.stop();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.connections.MessageHandler#messageReceived(java.lang.Object, synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler)
+	 */
 	public void messageReceived(Object obj, ConnectionHandler handler) {
 		log.info("Received object " + obj);
 		//		ObjectQueueEntry entry = new ObjectQueueEntry(obj, handler);
@@ -289,11 +388,23 @@ public class TableCommsServerService extends SynergyNetService implements Messag
 	}
 
 
+	/**
+	 * Gets the processor.
+	 *
+	 * @param msg the msg
+	 * @return the processor
+	 */
 	public ServerMessageProcessor getProcessor(TableMessage msg) {
 		String classname = "synergynetframework.appsystem.services.net.tablecomms.server.processors." + getClassName(msg.getClass()) + "Processor";
 		return getProcessor(classname);
 	}
 
+	/**
+	 * Gets the processor.
+	 *
+	 * @param classname the classname
+	 * @return the processor
+	 */
 	public ServerMessageProcessor getProcessor(String classname) {		
 		ServerMessageProcessor p = messageProcessors.get(classname);
 		if(p == null) {
@@ -311,11 +422,20 @@ public class TableCommsServerService extends SynergyNetService implements Messag
 		return p;
 	}
 
+	/**
+	 * Broadcast.
+	 *
+	 * @param obj the obj
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void broadcast(TableMessage obj) throws IOException {
 		log.info("Broadcasting " + obj);
 		server.sendMessageToAll(obj);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.connections.MessageHandler#handlerDisconnected(synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler)
+	 */
 	public void handlerDisconnected(ConnectionHandler connectionHandler) {
 		log.info("Handler disconnected.");
 		TableIdentity id = getTableIdentityForHandler(connectionHandler);
@@ -334,6 +454,12 @@ public class TableCommsServerService extends SynergyNetService implements Messag
 		}
 	}
 
+	/**
+	 * Gets the class name.
+	 *
+	 * @param c the c
+	 * @return the class name
+	 */
 	public static String getClassName(Class<?> c) {
 		String fqClassName = c.getName();
 		int indxDot;
@@ -344,13 +470,24 @@ public class TableCommsServerService extends SynergyNetService implements Messag
 		return fqClassName;
 	}
 
+	/**
+	 * Gets the monitors.
+	 *
+	 * @return the monitors
+	 */
 	public List<ServerMonitor> getMonitors() {
 		return monitors;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#update()
+	 */
 	@Override
 	public void update() {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.connections.MessageHandler#handlerConnected(synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler)
+	 */
 	@Override
 	public void handlerConnected(ConnectionHandler connectionHandler) {
 		 

@@ -37,8 +37,27 @@ import java.nio.ByteBuffer;
 
 import synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler;
 
+
+/**
+ * The Interface CustomSerialization.
+ */
 public interface CustomSerialization {
+	
+	/**
+	 * Write object data.
+	 *
+	 * @param connectionHandler the connection handler
+	 * @param buffer the buffer
+	 * @throws SerializationException the serialization exception
+	 */
 	public void writeObjectData (ConnectionHandler connectionHandler, ByteBuffer buffer) throws SerializationException;
 
+	/**
+	 * Read object data.
+	 *
+	 * @param connectionHandler the connection handler
+	 * @param buffer the buffer
+	 * @throws SerializationException the serialization exception
+	 */
 	public void readObjectData (ConnectionHandler connectionHandler, ByteBuffer buffer) throws SerializationException;
 }

@@ -35,14 +35,29 @@ package apps.mathpadapp.networkmanager.utils;
 import java.io.Serializable;
 import java.util.UUID;
 
+
+/**
+ * The Class UserIdentity.
+ */
 public class UserIdentity implements Serializable {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2402500916173474669L;
+	
+	/** The uid. */
 	protected String uid;
+	
+	/** The password. */
 	protected String password;
 
+	/**
+	 * Instantiates a new user identity.
+	 */
 	public UserIdentity() {}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	public boolean equals(Object obj) {
 		if(obj instanceof UserIdentity) {
 			UserIdentity t = (UserIdentity) obj;
@@ -51,30 +66,59 @@ public class UserIdentity implements Serializable {
 		return false;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	public int hashCode() {
 		return uid.hashCode();
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return uid;
 	}
 	
+	/**
+	 * Sets the user identity.
+	 *
+	 * @param uid the new user identity
+	 */
 	public void setUserIdentity(String uid){
 		this.uid = uid;
 	}
 	
+	/**
+	 * Generate unique user identity.
+	 */
 	public void generateUniqueUserIdentity(){
 		uid = UUID.randomUUID().toString();
 	}
 	
+	/**
+	 * Gets the user identity.
+	 *
+	 * @return the user identity
+	 */
 	public String getUserIdentity(){
 		return uid;
 	}
 	
+	/**
+	 * Sets the password.
+	 *
+	 * @param password the new password
+	 */
 	public void setPassword(String password){
 		this.password = password;
 	}
 	
+	/**
+	 * Gets the password.
+	 *
+	 * @return the password
+	 */
 	public String getPassword(){
 		return password;
 	}

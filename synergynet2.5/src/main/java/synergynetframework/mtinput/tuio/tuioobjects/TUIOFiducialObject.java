@@ -32,50 +32,110 @@
 
 package synergynetframework.mtinput.tuio.tuioobjects;
 
+
+/**
+ * The Class TUIOFiducialObject.
+ */
 public class TUIOFiducialObject extends TUIOObjectRepresentation {
 
+	/** The fiducial id. */
 	private int fiducialId;
+	
+	/** The angle. */
 	private float angle;
+	
+	/** The angle velocity. */
 	private float angleVelocity;
+	
+	/** The angle acceleration. */
 	private float angleAcceleration;
 
+	/**
+	 * Instantiates a new TUIO fiducial object.
+	 *
+	 * @param id the id
+	 * @param fiducial_id the fiducial_id
+	 */
 	public TUIOFiducialObject(long id, int fiducial_id) {
 		super(id);
 		this.fiducialId = fiducial_id;
 	}
 
+	/**
+	 * Gets the fiducial id.
+	 *
+	 * @return the fiducial id
+	 */
 	public int getFiducialId() {
 		return fiducialId;
 	}
 
+	/**
+	 * Sets the fiducial id.
+	 *
+	 * @param fiducialId the new fiducial id
+	 */
 	public void setFiducialId(int fiducialId) {
 		this.fiducialId = fiducialId;
 	}
 
+	/**
+	 * Gets the angle.
+	 *
+	 * @return the angle
+	 */
 	public float getAngle() {
 		return angle;
 	}
 	
+	/**
+	 * Sets the angle.
+	 *
+	 * @param angle the new angle
+	 */
 	public void setAngle(float angle) {
 		this.angle = angle;		
 	}
 	
+	/**
+	 * Gets the angle velocity.
+	 *
+	 * @return the angle velocity
+	 */
 	public float getAngleVelocity() {
 		return angleVelocity;
 	}
 
+	/**
+	 * Sets the angle velocity.
+	 *
+	 * @param r_speed the new angle velocity
+	 */
 	public void setAngleVelocity(float r_speed) {
 		this.angleVelocity = r_speed;		
 	}
 
+	/**
+	 * Gets the angle acceleration.
+	 *
+	 * @return the angle acceleration
+	 */
 	public float getAngleAcceleration() {
 		return angleAcceleration;
 	}
 	
+	/**
+	 * Sets the angle acceleration.
+	 *
+	 * @param r_accel the new angle acceleration
+	 */
 	public void setAngleAcceleration(float r_accel) {
 		this.angleAcceleration = r_accel;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return "TUIOFiducialObject(" + fiducialId + ") @" + this.getPosition() + " rot:" + angle + " rotVel:" + angleVelocity;
 	}

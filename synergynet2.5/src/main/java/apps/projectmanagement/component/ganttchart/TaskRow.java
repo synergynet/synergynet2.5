@@ -23,28 +23,77 @@ import synergynetframework.appsystem.contentsystem.items.SimpleButton;
 import synergynetframework.appsystem.contentsystem.items.TextLabel;
 import synergynetframework.appsystem.contentsystem.items.Window;
 
+
+/**
+ * The Class TaskRow.
+ */
 public class TaskRow {
 
+	/** The y. */
 	private float y;
+	
+	/** The length per day. */
 	private float lengthPerDay;
+	
+	/** The content system. */
 	private ContentSystem contentSystem;
+	
+	/** The period bar extra. */
 	private Window periodBarExtra;
+	
+	/** The period bar. */
 	private Frame periodBar;
+	
+	/** The milestone. */
 	private LightImageLabel milestone;
+	
+	/** The touch pad. */
 	private TouchPadScreen touchPad;
+	
+	/** The period bar width. */
 	private float periodBarWidth;
+	
+	/** The input box. */
 	private InputBox inputBox;
+	
+	/** The row heigth. */
 	private float rowHeigth;
+	
+	/** The row index. */
 	private int rowIndex=0;
+	
+	/** The orgin. */
 	private Vector2f orgin;
+	
+	/** The period bar parent. */
 	private Window periodBarParent;
+	
+	/** The task bar parent. */
 	private Window taskBarParent;
+	
+	/** The menu. */
 	private Menu menu;
+	
+	/** The period string. */
 	private TextLabel periodString;
+	
+	/** The root node. */
 	private Node rootNode;
 	
+	/** The task row command listeners. */
 	protected List<TaskRowCommandListener> taskRowCommandListeners = new ArrayList<TaskRowCommandListener>();
 	
+	/**
+	 * Instantiates a new task row.
+	 *
+	 * @param rootNode the root node
+	 * @param contentSystem the content system
+	 * @param periodBarParent the period bar parent
+	 * @param taskBarParent the task bar parent
+	 * @param rowHeigth the row heigth
+	 * @param lengthPerDay the length per day
+	 * @param orgin the orgin
+	 */
 	public TaskRow(Node rootNode, ContentSystem contentSystem, Window periodBarParent, Window taskBarParent, float rowHeigth, float lengthPerDay, Vector2f orgin){
 		
 		this.rowHeigth = rowHeigth;
@@ -63,6 +112,9 @@ public class TaskRow {
 		
 	}
 	
+	/**
+	 * Clear.
+	 */
 	public void clear(){
 		periodBarParent.removeSubItem(periodBar, true);
 		periodBarParent.removeSubItem(periodBarExtra, true);
@@ -78,6 +130,9 @@ public class TaskRow {
 		
 	}
 	
+	/**
+	 * Builds the input box.
+	 */
 	protected void buildInputBox(){
 		inputBox = new InputBox(contentSystem, 136, (int) (rowHeigth*0.6));
 			
@@ -92,6 +147,9 @@ public class TaskRow {
 		this.inputBox.getInputBox().setBringToTopable(false);
 	}
 	
+	/**
+	 * Builds the menu.
+	 */
 	protected void buildMenu(){
 		menu = new Menu(contentSystem);		
 		this.taskBarParent.addSubItem(menu.getMenuNode());
@@ -171,6 +229,9 @@ public class TaskRow {
 		});
 	}
 	
+	/**
+	 * Builds the period bar.
+	 */
 	protected void buildPeriodBar(){
 		
 		
@@ -267,14 +328,29 @@ public class TaskRow {
 		
 	}
 	
+	/**
+	 * Gets the period bar width.
+	 *
+	 * @return the period bar width
+	 */
 	public float getPeriodBarWidth(){
 		return periodBarWidth;
 	}
 	
+	/**
+	 * Gets the period bar.
+	 *
+	 * @return the period bar
+	 */
 	public Frame getPeriodBar(){
 		return periodBar;
 	}
 	
+	/**
+	 * Sets the start day.
+	 *
+	 * @param startDay the new start day
+	 */
 	public void setStartDay(int startDay){
 		float startPoint = this.lengthPerDay*startDay;
 		float periodBarX = startPoint+periodBarWidth/2;
@@ -283,21 +359,39 @@ public class TaskRow {
 		periodString.setText((getStartDay()+1)+" - "+(getStartDay()+getDays()));
 	}
 	
+	/**
+	 * Gets the start day.
+	 *
+	 * @return the start day
+	 */
 	public int getStartDay(){
 		float periodBarX = periodBarParent.getWidth()/2 + periodBar.getLocalLocation().x-periodBarWidth/2;
 		return (int) (periodBarX/lengthPerDay);
 	}
 	
+	/**
+	 * Gets the days.
+	 *
+	 * @return the days
+	 */
 	public int getDays(){
 		return (int) (periodBarWidth/lengthPerDay);
 	}
 	
+	/**
+	 * Sets the row index.
+	 *
+	 * @param rowIndex the new row index
+	 */
 	public void setRowIndex(int rowIndex){
 		this.rowIndex = rowIndex;
 		
 		update();
 	}
 	
+	/**
+	 * Update.
+	 */
 	private void update(){
 		this.y = -(this.rowHeigth/2+rowIndex*rowHeigth)+orgin.y;
 		
@@ -312,21 +406,66 @@ public class TaskRow {
 			
 	}
 	
+	/**
+	 * Adds the task row command listener.
+	 *
+	 * @param l the l
+	 */
 	public void addTaskRowCommandListener(TaskRowCommandListener l){
 		taskRowCommandListeners.add(l);
 	}
 
+	/**
+	 * Removes the menu command listener.
+	 *
+	 * @param l the l
+	 */
 	public void removeMenuCommandListener(MenuCommandListener l){
 		if (taskRowCommandListeners.contains(l))
 			taskRowCommandListeners.remove(l);
 	}
 	
+	/**
+	 * The listener interface for receiving taskRowCommand events.
+	 * The class that is interested in processing a taskRowCommand
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addTaskRowCommandListener<code> method. When
+	 * the taskRowCommand event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see TaskRowCommandEvent
+	 */
 	public interface TaskRowCommandListener {
+		
+		/**
+		 * Select task.
+		 */
 		public void selectTask();
+		
+		/**
+		 * Edits the task.
+		 */
 		public void editTask();
+		
+		/**
+		 * Toggle control panel.
+		 */
 		public void toggleControlPanel();
+		
+		/**
+		 * Adds the sequence line.
+		 */
 		public void addSequenceLine();
+		
+		/**
+		 * Adds the milestone.
+		 */
 		public void addMilestone();
+		
+		/**
+		 * Delete.
+		 */
 		public void delete();
 		
 	}

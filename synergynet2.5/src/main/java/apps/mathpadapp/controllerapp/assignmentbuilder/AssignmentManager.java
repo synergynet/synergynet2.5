@@ -37,11 +37,23 @@ import java.util.HashMap;
 import apps.mathpadapp.controllerapp.assignmentcontroller.AssignmentSession;
 
 
+
+/**
+ * The Class AssignmentManager.
+ */
 public class AssignmentManager {
 	
+	/** The assignment sessions. */
 	private HashMap<String,AssignmentSession> assignmentSessions;
+	
+	/** The instance. */
 	private static AssignmentManager instance;
 	
+	/**
+	 * Gets the manager.
+	 *
+	 * @return the manager
+	 */
 	public static AssignmentManager getManager() {
 		synchronized(AssignmentManager.class) {
 			if(instance == null) instance = new AssignmentManager();
@@ -49,10 +61,18 @@ public class AssignmentManager {
 		}
 	}
 
+	/**
+	 * Instantiates a new assignment manager.
+	 */
 	private AssignmentManager() {				
 		assignmentSessions = new HashMap<String,AssignmentSession>();
 	}
 	
+	/**
+	 * Gets the assignment sessions.
+	 *
+	 * @return the assignment sessions
+	 */
 	public HashMap<String,AssignmentSession> getAssignmentSessions(){
 		return assignmentSessions;
 	}

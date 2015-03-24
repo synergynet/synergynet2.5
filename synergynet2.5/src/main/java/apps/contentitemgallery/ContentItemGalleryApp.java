@@ -65,15 +65,30 @@ import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightConfirmVisualExit;
 import synergynetframework.jme.sysutils.CameraUtility;
 
+
+/**
+ * The Class ContentItemGalleryApp.
+ */
 public class ContentItemGalleryApp extends DefaultSynergyNetApp {
 	
+	/** The content system. */
 	private ContentSystem contentSystem;
+	
+	/** The inner note controller. */
 	InnerNoteController innerNoteController;
 
+	/**
+	 * Instantiates a new content item gallery app.
+	 *
+	 * @param info the info
+	 */
 	public ContentItemGalleryApp(ApplicationInfo info) {
 		super(info);		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		
@@ -105,12 +120,18 @@ public class ContentItemGalleryApp extends DefaultSynergyNetApp {
 		keyBoard.setLocalLocation(200, 200);
 	}
 	
+	/**
+	 * Adds the control bar.
+	 */
 	private void addControlBar(){
 		ControlBar controlBar = (ControlBar)contentSystem.createContentItem(ControlBar.class);
 		controlBar.setLocalLocation(507, 700);
 		controlBar.setControlBarLength(400);
 	}
 	
+	/**
+	 * Adds the window.
+	 */
 	private void addWindow(){
 		ListContainer window = (ListContainer)contentSystem.createContentItem(ListContainer.class);
 		window.setBackgroundColour(Color.BLUE);
@@ -120,6 +141,9 @@ public class ContentItemGalleryApp extends DefaultSynergyNetApp {
 		window.placeRandom();
 	}
 	
+	/**
+	 * Adds the multi line text label.
+	 */
 	private void addMultiLineTextLabel(){
 		MultiLineTextLabel mlt = (MultiLineTextLabel)this.contentSystem.createContentItem(MultiLineTextLabel.class);
 		mlt.setAutoFitSize(true);
@@ -128,6 +152,9 @@ public class ContentItemGalleryApp extends DefaultSynergyNetApp {
 		mlt.setFont(new Font("Arial", Font.PLAIN,15));
 	}
 	
+	/**
+	 * Adds the drop down list.
+	 */
 	private void addDropDownList(){
 		DropDownList dropDownList = (DropDownList)this.contentSystem.createContentItem(DropDownList.class);
 		dropDownList.placeRandom();
@@ -135,6 +162,9 @@ public class ContentItemGalleryApp extends DefaultSynergyNetApp {
 		dropDownList.addListItem("Option 2", "Option 2");
 	}
 	
+	/**
+	 * Adds the round frame.
+	 */
 	private void addRoundFrame(){
 		RoundFrame roundFrame = (RoundFrame) this.contentSystem.createContentItem(RoundFrame.class);
 		roundFrame.placeRandom();
@@ -143,6 +173,9 @@ public class ContentItemGalleryApp extends DefaultSynergyNetApp {
 		roundFrame.setRadius(40);
 	}
 	
+	/**
+	 * Adds the frame.
+	 */
 	private void addFrame(){
 		Frame frame = (Frame)contentSystem.createContentItem(Frame.class);
 		frame.placeRandom();
@@ -153,6 +186,9 @@ public class ContentItemGalleryApp extends DefaultSynergyNetApp {
 		frame.setWidth(60);
 	}
 	
+	/**
+	 * Adds the ppt viewer.
+	 */
 	private void addPPTViewer(){
 		PPTViewer ppt = (PPTViewer)contentSystem.createContentItem(PPTViewer.class);
 		ppt.setPPTFile(CommonResources.class.getResource("synergynet-july09.ppt"));
@@ -160,6 +196,11 @@ public class ContentItemGalleryApp extends DefaultSynergyNetApp {
 		ppt.setScale(0.5f);
 	}
 	
+	/**
+	 * Adds the pdf viewer.
+	 *
+	 * @throws URISyntaxException the URI syntax exception
+	 */
 	private void addPDFViewer() throws URISyntaxException{
 		PDFViewer pdf = (PDFViewer)this.contentSystem.createContentItem(PDFViewer.class);
 		pdf.setPdfFile(new File(CommonResources.class.getResource("test.pdf").toURI()));
@@ -169,6 +210,9 @@ public class ContentItemGalleryApp extends DefaultSynergyNetApp {
 		pdf.makeFlickable(2f);
 	}
 	
+	/**
+	 * Adds the media player.
+	 */
 	private void addMediaPlayer(){
 		MediaPlayer video = (MediaPlayer)contentSystem.createContentItem(MediaPlayer.class);
 		video.setMediaURL(CommonResources.class.getResource("smallvid.mp4")); 
@@ -179,6 +223,9 @@ public class ContentItemGalleryApp extends DefaultSynergyNetApp {
 		innerNoteController.addNoteController(video, (QuadContentItem) video.getPlayerFrame());
 	}
 	
+	/**
+	 * Adds the simple button.
+	 */
 	private void addSimpleButton(){
 		final SimpleButton button1 = (SimpleButton)contentSystem.createContentItem(SimpleButton.class);	
 		button1.setText("I'm a Button");
@@ -196,6 +243,9 @@ public class ContentItemGalleryApp extends DefaultSynergyNetApp {
 		});	
 	}
 	
+	/**
+	 * Adds the list container.
+	 */
 	private void addListContainer(){
 		ListContainer menu = (ListContainer)contentSystem.createContentItem(ListContainer.class);
 		menu.setBackgroundColour(Color.BLUE);
@@ -238,6 +288,9 @@ public class ContentItemGalleryApp extends DefaultSynergyNetApp {
 		
 	}
 	
+	/**
+	 * Adds the round list container.
+	 */
 	private void addRoundListContainer(){
 		
 		final RoundListContainer menu = (RoundListContainer)this.contentSystem.createContentItem(RoundListContainer.class);
@@ -278,6 +331,9 @@ public class ContentItemGalleryApp extends DefaultSynergyNetApp {
 			
 	}
 
+	/**
+	 * Adds the round image label.
+	 */
 	private void addRoundImageLabel(){
 		
 		RoundImageLabel roundImageLabel1 = (RoundImageLabel)this.contentSystem.createContentItem(RoundImageLabel.class);
@@ -302,6 +358,9 @@ public class ContentItemGalleryApp extends DefaultSynergyNetApp {
 		roundListContainer.makeFlickable(3f);
 	}
 	
+	/**
+	 * Adds the round text label.
+	 */
 	private void addRoundTextLabel(){
 		RoundTextLabel roundTextLabel = (RoundTextLabel)this.contentSystem.createContentItem(RoundTextLabel.class);
 		roundTextLabel.placeRandom();
@@ -311,6 +370,9 @@ public class ContentItemGalleryApp extends DefaultSynergyNetApp {
 
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#getCamera()
+	 */
 	protected Camera getCamera() {
 		if(cam == null) {
 			cam = CameraUtility.getCamera();
@@ -321,6 +383,9 @@ public class ContentItemGalleryApp extends DefaultSynergyNetApp {
 		return cam;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	@Override
 	protected void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);

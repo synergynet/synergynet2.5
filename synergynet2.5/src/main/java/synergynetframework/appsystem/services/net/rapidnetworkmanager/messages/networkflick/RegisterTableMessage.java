@@ -36,22 +36,49 @@ import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.rapidnetworkmanager.utils.networkflick.TableInfo;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.UnicastApplicationMessage;
 
+
+/**
+ * The Class RegisterTableMessage.
+ */
 public class RegisterTableMessage extends UnicastApplicationMessage{
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The table info. */
 	private TableInfo tableInfo;
 	
+	/**
+	 * Instantiates a new register table message.
+	 *
+	 * @param targetClass the target class
+	 * @param tableInfo the table info
+	 * @param targetTable the target table
+	 */
 	public RegisterTableMessage(Class<?> targetClass, TableInfo tableInfo, TableIdentity targetTable){
 		super(targetClass);
 		this.tableInfo = tableInfo;
 		this.setRecipient(targetTable);
 	}
 	
+	/**
+	 * Instantiates a new register table message.
+	 *
+	 * @param targetClass the target class
+	 * @param tablePositionX the table position x
+	 * @param tablePositionY the table position y
+	 * @param angle the angle
+	 */
 	public RegisterTableMessage(Class<?> targetClass, int tablePositionX, int tablePositionY, float angle)	{
 		super(targetClass);
 		this.tableInfo = new TableInfo(this.getSender(), tablePositionX, tablePositionY, angle);
 	}
 	
+	/**
+	 * Gets the table info.
+	 *
+	 * @return the table info
+	 */
 	public TableInfo getTableInfo(){
 		return tableInfo;
 	}

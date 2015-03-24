@@ -11,20 +11,43 @@ import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.appsystem.contentsystem.items.Frame;
 import synergynetframework.appsystem.contentsystem.items.MultiLineTextLabel;
 
+
+/**
+ * The Class DinnerDisasterBuilder.
+ */
 public class DinnerDisasterBuilder {
 	
+	/** The font. */
 	Font font = new Font("Arial", Font.PLAIN,  16);
+	
+	/** The text color. */
 	Color textColor = Color.black;
+	
+	/** The back color. */
 	Color backColor = Color.white;
+	
+	/** The border color. */
 	Color borderColor = Color.gray;
+	
+	/** The random generator. */
 	Random randomGenerator = new Random();
 	
+	/** The border size. */
 	int borderSize = 2;
 	
+	/**
+	 * Instantiates a new dinner disaster builder.
+	 */
 	public DinnerDisasterBuilder(){
 		
 	}
 	
+	/**
+	 * Builds the.
+	 *
+	 * @param contentSystem the content system
+	 * @return the list
+	 */
 	public List<ContentItem> build(ContentSystem contentSystem){
 		
 		List<ContentItem> items = new ArrayList<ContentItem>();

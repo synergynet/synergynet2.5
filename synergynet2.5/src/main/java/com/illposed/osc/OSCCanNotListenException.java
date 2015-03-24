@@ -35,9 +35,12 @@
  */
 package com.illposed.osc;
 
+
 /**
- * @author cramakrishnan
+ * The Class OSCCanNotListenException.
  *
+ * @author cramakrishnan
+ * 
  * Copyright (C) 2004, C. Ramakrishnan / Auracle
  * All rights reserved.
  * 
@@ -45,20 +48,20 @@ package com.illposed.osc;
  */
 public class OSCCanNotListenException extends Exception {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -932015208334917542L;
 
 	/**
-	 * 
+	 * Instantiates a new OSC can not listen exception.
 	 */
 	public OSCCanNotListenException() {
 		super();
 	}
 
 	/**
-	 * @param message
+	 * Instantiates a new OSC can not listen exception.
+	 *
+	 * @param message the message
 	 */
 	public OSCCanNotListenException(String message) {
 		super(message);

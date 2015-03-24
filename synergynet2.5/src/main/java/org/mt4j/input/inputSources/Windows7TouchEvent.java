@@ -18,6 +18,10 @@
 
 package org.mt4j.input.inputSources;
 
+
+/**
+ * The Class Windows7TouchEvent.
+ */
 public class Windows7TouchEvent{
 
 	/** The Constant TOUCH_DOWN. */
@@ -41,9 +45,9 @@ public class Windows7TouchEvent{
     /** The y value. */
     public int y;
     
-    /** The contact size area X dimension */
+    /**  The contact size area X dimension. */
     public int contactSizeX;
     
-    /** The contact size area Y dimension */
+    /**  The contact size area Y dimension. */
     public int contactSizeY;
 }

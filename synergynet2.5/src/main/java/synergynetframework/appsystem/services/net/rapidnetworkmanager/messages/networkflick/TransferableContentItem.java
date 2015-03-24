@@ -36,68 +36,153 @@ import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.UnicastApplicationMessage;
 
+
+/**
+ * The Class TransferableContentItem.
+ */
 public class TransferableContentItem extends UnicastApplicationMessage{
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -86970287707283307L;
+	
+	/** The item. */
 	private ContentItem item;
+	
+	/** The deceleration. */
 	private float deceleration;
+	
+	/** The velocity y. */
 	private float velocityX, velocityY;
+	
+	/** The this arrival location stats. */
 	private float[] thisArrivalLocationStats;
+	
+	/** The rotation. */
 	private float rotation;
+	
+	/** The scale. */
 	private float scale;
 	
+	/**
+	 * Instantiates a new transferable content item.
+	 *
+	 * @param targetClass the target class
+	 * @param item the item
+	 * @param targetTableId the target table id
+	 */
 	public TransferableContentItem(Class<?> targetClass, ContentItem item, TableIdentity targetTableId){
 		super(targetClass);
 		this.item = item;
 		this.setRecipient(targetTableId);
 	}
 	
+	/**
+	 * Gets the content item.
+	 *
+	 * @return the content item
+	 */
 	public ContentItem getContentItem(){
 		return item;
 	}
 	
+	/**
+	 * Gets the deceleration.
+	 *
+	 * @return the deceleration
+	 */
 	public float getDeceleration(){
 		return deceleration;
 	}
 	
+	/**
+	 * Sets the deceleration.
+	 *
+	 * @param deceleration the new deceleration
+	 */
 	public void setDeceleration(float deceleration){
 		this.deceleration = deceleration;
 	}
 	
+	/**
+	 * Gets the linear velocity x.
+	 *
+	 * @return the linear velocity x
+	 */
 	public float getLinearVelocityX(){
 		return velocityX;
 	}
 	
+	/**
+	 * Gets the linear velocity y.
+	 *
+	 * @return the linear velocity y
+	 */
 	public float getLinearVelocityY(){
 		return velocityY;
 	}
 	
+	/**
+	 * Sets the linear velocity.
+	 *
+	 * @param velocityX the velocity x
+	 * @param velocityY the velocity y
+	 */
 	public void setLinearVelocity(float velocityX, float velocityY){
 		this.velocityX = velocityX;
 		this.velocityY = velocityY;		
 	}
 	
+	/**
+	 * Sets the rotation.
+	 *
+	 * @param rotation the new rotation
+	 */
 	public void setRotation(float rotation) {
 		this.rotation = rotation;
 	}
 	
+	/**
+	 * Gets the roation.
+	 *
+	 * @return the roation
+	 */
 	public float getRoation() {
 		return rotation;
 	}
 	
+	/**
+	 * Sets the scale.
+	 *
+	 * @param scale the new scale
+	 */
 	public void setScale(float scale) {
 		this.scale = scale;
 	}
 	
+	/**
+	 * Gets the scale.
+	 *
+	 * @return the scale
+	 */
 	public float getScale() {
 		return scale;
 	}
 
+	/**
+	 * Sets the location stats.
+	 *
+	 * @param thisArrivalLocationStats the new location stats
+	 */
 	public void setLocationStats(float[] thisArrivalLocationStats) {
 		this.thisArrivalLocationStats = thisArrivalLocationStats ;
 		
 	}
 	
+	/**
+	 * Gets the location stats.
+	 *
+	 * @return the location stats
+	 */
 	public float[] getLocationStats() {
 		return thisArrivalLocationStats;
 		

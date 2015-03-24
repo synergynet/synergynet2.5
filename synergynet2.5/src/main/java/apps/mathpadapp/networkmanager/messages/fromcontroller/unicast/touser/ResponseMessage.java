@@ -34,21 +34,45 @@ package apps.mathpadapp.networkmanager.messages.fromcontroller.unicast.touser;
 import apps.mathpadapp.networkmanager.utils.UserIdentity;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class ResponseMessage.
+ */
 public class ResponseMessage extends ControllerToUserMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -1176769954620248957L;
+	
+	/** The message. */
 	protected String message;
 	
+	/**
+	 * Instantiates a new response message.
+	 *
+	 * @param targetClass the target class
+	 * @param tableId the table id
+	 * @param userId the user id
+	 */
 	public ResponseMessage(Class<?> targetClass, TableIdentity tableId, UserIdentity userId) {
 		super(targetClass);
 		this.setRecipient(tableId);
 		this.setRecipientUser(userId);
 	}
 	
+	/**
+	 * Sets the message.
+	 *
+	 * @param message the new message
+	 */
 	public void setMessage(String message){
 		this.message = message;
 	}
 	
+	/**
+	 * Gets the message.
+	 *
+	 * @return the message
+	 */
 	public String getMessage(){
 		return message;
 	}

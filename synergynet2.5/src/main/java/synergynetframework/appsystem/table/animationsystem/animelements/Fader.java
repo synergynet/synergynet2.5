@@ -44,33 +44,87 @@ import com.jme.scene.state.RenderState.StateType;
 
 import synergynetframework.appsystem.table.animationsystem.AnimationElement;
 
+
+/**
+ * The Class Fader.
+ */
 public class Fader extends AnimationElement {
 
+	/** The Constant MODE_FADE_IN. */
 	public static final int MODE_FADE_IN = 0;
+	
+	/** The Constant MODE_FADE_OUT. */
 	public static final int MODE_FADE_OUT = 1;
 
+	/** The fade duration seconds. */
 	protected float fadeDurationSeconds = 1f;
+	
+	/** The spatials. */
 	protected List<Geometry> spatials;	
+	
+	/** The alphas. */
 	protected Map<Integer,BlendState> alphas;
+	
+	/** The alpha. */
 	protected float alpha;
+	
+	/** The mode. */
 	private int mode;
+	
+	/** The wait time. */
 	protected float waitTime;
+	
+	/** The will wait. */
 	protected boolean willWait = true;
+	
+	/** The waiting. */
 	protected boolean waiting = false;
+	
+	/** The wait time elapsed. */
 	protected float waitTimeElapsed = 0f;
 	
+	/**
+	 * Instantiates a new fader.
+	 *
+	 * @param g the g
+	 * @param modeFadeIn the mode fade in
+	 * @param durationSeconds the duration seconds
+	 * @param thenWaitSeconds the then wait seconds
+	 */
 	public Fader(Geometry g, int modeFadeIn, float durationSeconds, float thenWaitSeconds) {
 		this(createListFromGeometry(g), modeFadeIn, durationSeconds, thenWaitSeconds);
 	}
 
+	/**
+	 * Instantiates a new fader.
+	 *
+	 * @param g the g
+	 * @param modeFadeIn the mode fade in
+	 * @param durationSeconds the duration seconds
+	 */
 	public Fader(Geometry g, int modeFadeIn, float durationSeconds) {
 		this(createListFromGeometry(g), modeFadeIn, durationSeconds, 0f);
 	}
 	
+	/**
+	 * Instantiates a new fader.
+	 *
+	 * @param spatials the spatials
+	 * @param fadeMode the fade mode
+	 * @param durationSeconds the duration seconds
+	 */
 	public Fader(List<Geometry> spatials, int fadeMode, float durationSeconds) {
 		this(spatials, fadeMode, durationSeconds, 0f);
 	}
 	
+	/**
+	 * Instantiates a new fader.
+	 *
+	 * @param spatials the spatials
+	 * @param fadeMode the fade mode
+	 * @param durationSeconds the duration seconds
+	 * @param thenWaitSeconds the then wait seconds
+	 */
 	public Fader(List<Geometry> spatials, int fadeMode, float durationSeconds, float thenWaitSeconds) {
 		this.spatials = spatials;
 		if(thenWaitSeconds > 0f) {
@@ -88,6 +142,12 @@ public class Fader extends AnimationElement {
 		setAlphas();
 	}
 
+	/**
+	 * Creates the list from geometry.
+	 *
+	 * @param g the g
+	 * @return the list
+	 */
 	public static List<Geometry> createListFromGeometry(Geometry... g) {
 		List<Geometry> list = new ArrayList<Geometry>();
 		for(Geometry t : g) {
@@ -96,10 +156,18 @@ public class Fader extends AnimationElement {
 		return list;
 	}
 
+	/**
+	 * Sets the fade duration.
+	 *
+	 * @param seconds the new fade duration
+	 */
 	public void setFadeDuration(float seconds) {
 		this.fadeDurationSeconds = seconds;
 	}
 
+	/**
+	 * Sets the alphas.
+	 */
 	private void setAlphas() {
 		ColorRGBA c = new ColorRGBA(alpha, alpha, alpha, alpha);
 		for(int i = 0; i < spatials.size(); i++) {
@@ -107,6 +175,11 @@ public class Fader extends AnimationElement {
 		}		
 	}
 
+	/**
+	 * Gets the alpha states.
+	 *
+	 * @return the alpha states
+	 */
 	private void getAlphaStates() {
 		alphas = new HashMap<Integer,BlendState>();
 		for(int i = 0; i < spatials.size(); i++) {
@@ -115,10 +188,16 @@ public class Fader extends AnimationElement {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.animationsystem.AnimationElement#elementStart(float)
+	 */
 	@Override
 	public void elementStart(float tpf) {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.animationsystem.AnimationElement#isFinished()
+	 */
 	@Override
 	public boolean isFinished() {
 		if(mode == MODE_FADE_IN) {
@@ -143,6 +222,9 @@ public class Fader extends AnimationElement {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.animationsystem.AnimationElement#reset()
+	 */
 	@Override
 	public void reset() {
 		if(mode == MODE_FADE_IN) {
@@ -152,6 +234,9 @@ public class Fader extends AnimationElement {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.animationsystem.AnimationElement#updateAnimationState(float)
+	 */
 	@Override
 	public void updateAnimationState(float tpf) {
 		if(mode == MODE_FADE_IN) {

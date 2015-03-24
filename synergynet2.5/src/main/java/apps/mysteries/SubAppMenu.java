@@ -42,6 +42,10 @@ import synergynetframework.appsystem.contentsystem.items.SimpleButton;
 import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAdapter;
 import synergynetframework.appsystem.contentsystem.items.listener.SubAppMenuEventListener;
 
+
+/**
+ * The Class SubAppMenu.
+ */
 public class SubAppMenu {
 	/*
 	public final static String SUB_APP_LONDONFIRE = "LONDON FIRE";
@@ -69,22 +73,46 @@ public class SubAppMenu {
 	public final static String SUB_APP_SWIM = "SWIMMING RACE";
 	*/
 	
+	/** The Constant SUB_APP_DINNERDISASTER. */
 	public final static String SUB_APP_DINNERDISASTER = "DINNER DISASTER";
+	
+	/** The Constant SUB_APP_VLE. */
 	public final static String SUB_APP_VLE = "VLE";
+	
+	/** The Constant SUB_APP_SNEAKYSYDNEY. */
 	public final static String SUB_APP_SNEAKYSYDNEY = "SNEAKY SYDNEY";
+	
+	/** The Constant SUB_APP_SCHOOL_TRIP. */
 	public final static String SUB_APP_SCHOOL_TRIP = "SCHOOL TRIP";
+	
+	/** The Constant SUB_APP_WILF. */
 	public final static String SUB_APP_WILF = "WILF";
+	
+	/** The Constant SUB_APP_LOGIC. */
 	public final static String SUB_APP_LOGIC = "Sports Day";
 
 
 
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The sub app menu event listener. */
 	protected List<SubAppMenuEventListener> subAppMenuEventListener = new ArrayList<SubAppMenuEventListener>();
 	
+	/**
+	 * Instantiates a new sub app menu.
+	 *
+	 * @param contentSystem the content system
+	 */
 	public SubAppMenu(ContentSystem contentSystem){
 		this.contentSystem = contentSystem;
 	}
 	
+	/**
+	 * Gets the sub app menu.
+	 *
+	 * @return the sub app menu
+	 */
 	public ListContainer getSubAppMenu(){
 
 		final ListContainer menu = (ListContainer)contentSystem.createContentItem(ListContainer.class);
@@ -302,6 +330,11 @@ public class SubAppMenu {
 	}
 	
 
+	/**
+	 * Adds the sub app menu event listener.
+	 *
+	 * @param l the l
+	 */
 	public void addSubAppMenuEventListener(SubAppMenuEventListener l){
 		if (this.subAppMenuEventListener==null)
 			this.subAppMenuEventListener = new ArrayList<SubAppMenuEventListener>();
@@ -310,10 +343,18 @@ public class SubAppMenu {
 			this.subAppMenuEventListener.add(l);
 	}
 	
+	/**
+	 * Removes the sub app menu event listeners.
+	 */
 	public void removeSubAppMenuEventListeners(){
 		subAppMenuEventListener.clear();
 	}
 	
+	/**
+	 * Removes the sub app menu event listener.
+	 *
+	 * @param l the l
+	 */
 	public void removeSubAppMenuEventListener(SubAppMenuEventListener l){
 		subAppMenuEventListener.remove(l);
 	}

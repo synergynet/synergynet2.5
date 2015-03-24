@@ -60,17 +60,27 @@ import java.io.IOException;
 import com.illposed.osc.utility.OSCByteArrayToJavaConverter;
 import com.illposed.osc.utility.OSCPacketDispatcher;
 
+
+/**
+ * The Class OSCPortIn.
+ */
 public class OSCPortIn extends OSCPort implements Runnable {
 
 	// state for listening
+	/** The is listening. */
 	protected boolean isListening;
+	
+	/** The converter. */
 	protected OSCByteArrayToJavaConverter converter = new OSCByteArrayToJavaConverter();
+	
+	/** The dispatcher. */
 	protected OSCPacketDispatcher dispatcher = new OSCPacketDispatcher();
 	
 	/**
-	 * Create an OSCPort that listens on port
-	 * @param port
-	 * @throws SocketException
+	 * Create an OSCPort that listens on port.
+	 *
+	 * @param port the port
+	 * @throws SocketException the socket exception
 	 */
 	public OSCPortIn(int port) throws SocketException {
 		socket = new DatagramSocket(port);
@@ -78,6 +88,8 @@ public class OSCPortIn extends OSCPort implements Runnable {
 	}
 
 	/**
+	 * Run.
+	 *
 	 * @see java.lang.Runnable#run()
 	 */
 	public void run() {
@@ -98,7 +110,7 @@ public class OSCPortIn extends OSCPort implements Runnable {
 	}
 	
 	/**
-	 * Start listening for incoming OSCPackets
+	 * Start listening for incoming OSCPackets.
 	 */
 	public void startListening() {
 		isListening = true;
@@ -107,21 +119,24 @@ public class OSCPortIn extends OSCPort implements Runnable {
 	}
 	
 	/**
-	 * Stop listening for incoming OSCPackets
+	 * Stop listening for incoming OSCPackets.
 	 */
 	public void stopListening() {
 		isListening = false;
 	}
 	
 	/**
-	 * Am I listening for packets?
+	 * Am I listening for packets?.
+	 *
+	 * @return true, if is listening
 	 */
 	public boolean isListening() {
 		return isListening;
 	}
 	
 	/**
-	 * Register the listener for incoming OSCPackets addressed to an Address
+	 * Register the listener for incoming OSCPackets addressed to an Address.
+	 *
 	 * @param anAddress  the address to listen for
 	 * @param listener   the object to invoke when a message comes in
 	 */

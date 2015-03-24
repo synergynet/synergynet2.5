@@ -10,26 +10,52 @@ import com.jme.renderer.pass.RenderPass;
 import com.jme.scene.Node;
 import com.jme.system.DisplaySystem;
 
+
+/**
+ * The Class StereoRenderPass.
+ */
 public class StereoRenderPass extends RenderPass {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2172286953053652452L;
+	
+	/** The focus distance. */
 	protected float focusDistance = 25f;
-    /**
-     * intraocular distance
-     */
+    
+    /** intraocular distance. */
     
     protected Node rootNode;
+    
+    /** The eye distance. */
     protected float eyeDistance = 1f;
+    
+    /** The stereo mode. */
     protected StereoMode stereoMode = StereoMode.ANAGLYPH;
+    
+    /** The projection mode. */
     protected ProjectionMode projectionMode = ProjectionMode.ASYMMETRIC_FRUSTUM;
+    
+    /** The saved node loc. */
     protected Vector3f savedCameraLocation = new Vector3f(),  savedNodeLoc = new Vector3f();
+    
+    /** The temp2. */
     protected Vector3f temp = new Vector3f(),  temp2 = new Vector3f();
 
+    /**
+     * The Enum CameraSide.
+     */
     protected enum CameraSide {
+        
+        /** The left. */
         LEFT,
+        
+        /** The right. */
         RIGHT
     }
 
+    /**
+     * The Enum StereoMode.
+     */
     public enum StereoMode {
 
         /**
@@ -72,12 +98,19 @@ public class StereoRenderPass extends RenderPass {
         ASYMMETRIC_FRUSTUM
     }
 
+    /**
+     * Instantiates a new stereo render pass.
+     *
+     * @param rootNode the root node
+     */
     public StereoRenderPass(Node rootNode) {
     	this.rootNode = rootNode;
     }
 
     /**
      * Sets how the render pass transffers stereo information to the framebuffer.
+     *
+     * @param stereoMode the new stereo mode
      */
     public void setStereoMode(StereoMode stereoMode) {
         this.stereoMode = stereoMode;
@@ -85,35 +118,54 @@ public class StereoRenderPass extends RenderPass {
 
     /**
      * Sets the method that the render pass uses to simulate stereo with two cameras.
+     *
+     * @param projectionMode the new projection
      */
     public void setProjection(ProjectionMode projectionMode) {
         this.projectionMode = projectionMode;
     }
 
     /**
-     * Set the distance to where the two eyes focus
+     * Set the distance to where the two eyes focus.
+     *
+     * @param focusDistance the new focus distance
      */
     public void setFocusDistance(float focusDistance) {
         this.focusDistance = focusDistance;
     }
 
+    /**
+     * Gets the focus distance.
+     *
+     * @return the focus distance
+     */
     public float getFocusDistance() {
         return focusDistance;
     }
 
     /**
-     * Set the distance between the stereo cameras
+     * Set the distance between the stereo cameras.
+     *
+     * @param eyeDistance the new eye distance
      */
     public void setEyeDistance(float eyeDistance) {
         this.eyeDistance = eyeDistance;
     }
 
+    /**
+     * Gets the eye distance.
+     *
+     * @return the eye distance
+     */
     public float getEyeDistance() {
         return eyeDistance;
     }
 
     /**
      * Sets up the camera frustum for a left or right eye.
+     *
+     * @param cam the cam
+     * @param side the side
      */
     protected void setFrustum(Camera cam, CameraSide side) {
 
@@ -168,6 +220,9 @@ public class StereoRenderPass extends RenderPass {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.jme.renderer.pass.RenderPass#doRender(com.jme.renderer.Renderer)
+     */
     @Override
     public void doRender(Renderer renderer) {
 

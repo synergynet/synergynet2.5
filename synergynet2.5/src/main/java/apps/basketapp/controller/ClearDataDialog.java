@@ -49,11 +49,23 @@ import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAd
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.rapidnetworkmanager.RapidNetworkManager;
 
+
+/**
+ * The Class ClearDataDialog.
+ */
 public class ClearDataDialog extends MTFrame{
 
+	/** The table ids. */
 	protected HashMap<String,TableIdentity> tableIds;
+	
+	/** The table list. */
 	protected DropDownList tableList;
 	
+	/**
+	 * Instantiates a new clear data dialog.
+	 *
+	 * @param contentSystem the content system
+	 */
 	public ClearDataDialog(ContentSystem contentSystem) {
 		super(contentSystem);
 		this.setTitle("Clear Data Dialog");

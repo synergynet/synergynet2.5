@@ -39,24 +39,52 @@ import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.UnicastApplicationMessage;
 
+
+/**
+ * The Class PostItemsMessage.
+ */
 public class PostItemsMessage extends UnicastApplicationMessage {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -546746344864227474L;
+	
+	/** The items. */
 	private List<ContentItem> items = new ArrayList<ContentItem>();
 	
+	/**
+	 * Instantiates a new post items message.
+	 */
 	public PostItemsMessage(){
 		super();
 	}
+	
+	/**
+	 * Instantiates a new post items message.
+	 *
+	 * @param targetClass the target class
+	 * @param targetTableId the target table id
+	 * @param items the items
+	 */
 	public PostItemsMessage(Class<?> targetClass,TableIdentity targetTableId, List<ContentItem> items) {
 		super(targetClass);
 		this.setItems(items);
 		this.setRecipient(targetTableId);
 	}
 
+	/**
+	 * Gets the items.
+	 *
+	 * @return the items
+	 */
 	public List<ContentItem> getItems() {
 		return items;
 	}
 	
+	/**
+	 * Sets the items.
+	 *
+	 * @param items the new items
+	 */
 	public void setItems(List<ContentItem> items){
 		for(ContentItem item: items){
 			try {

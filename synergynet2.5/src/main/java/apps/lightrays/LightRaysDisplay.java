@@ -31,19 +31,44 @@ import com.jmex.awt.swingui.ImageGraphics;
 import synergynetframework.appsystem.table.gfx.FullScreenCanvas;
 import synergynetframework.jme.gfx.twod.DrawableSpatialImage;
 
+
+/**
+ * The Class LightRaysDisplay.
+ */
 public class LightRaysDisplay extends FullScreenCanvas implements DrawableSpatialImage {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -8495609533882350013L;
 
+	/** The gfx. */
 	private ImageGraphics gfx;
 
+	/** The tracer. */
 	private RayTracerEngine tracer;
+	
+	/** The raytrace. */
 	private Image raytrace;
+	
+	/** The buf_img. */
 	private BufferedImage buf_img;
+	
+	/** The off_gfx. */
 	private Graphics off_gfx;
+	
+	/** The info_font. */
 	private Font info_font = new Font("Arial", Font.PLAIN, 8);
+	
+	/** The fm. */
 	private FontMetrics fm;
+	
+	/** The messages. */
 	private List<String> messages = new ArrayList<String>();
 
+	/**
+	 * Instantiates a new light rays display.
+	 *
+	 * @param name the name
+	 */
 	public LightRaysDisplay(String name) {
 		super(name);
 		gfx = getGraphics();
@@ -80,22 +105,37 @@ public class LightRaysDisplay extends FullScreenCanvas implements DrawableSpatia
 		tracer.start();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#cursorDragged(long, int, int)
+	 */
 	@Override
 	public void cursorDragged(long id, int x, int y) {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#cursorPressed(long, int, int)
+	 */
 	@Override
 	public void cursorPressed(long cursorID, int x, int y) {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#cursorReleased(long, int, int)
+	 */
 	@Override
 	public void cursorReleased(long cursorID, int x, int y) {
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#cursorClicked(long, int, int)
+	 */
 	@Override
 	public void cursorClicked(long cursorID, int x, int y) {}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#draw()
+	 */
 	public void draw() {
 		
 		if(gfx == null) return;
@@ -126,6 +166,9 @@ public class LightRaysDisplay extends FullScreenCanvas implements DrawableSpatia
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#getSpatial()
+	 */
 	public Spatial getSpatial() {
 		return this;
 	}

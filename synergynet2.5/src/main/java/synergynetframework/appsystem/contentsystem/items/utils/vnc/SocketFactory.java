@@ -28,11 +28,33 @@ import java.applet.*;
 import java.net.*;
 import java.io.*;
 
+
+/**
+ * A factory for creating Socket objects.
+ */
 public interface SocketFactory {
 
+  /**
+   * Creates a new Socket object.
+   *
+   * @param host the host
+   * @param port the port
+   * @param applet the applet
+   * @return the socket
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   public Socket createSocket(String host, int port, Applet applet)
     throws IOException;
 
+  /**
+   * Creates a new Socket object.
+   *
+   * @param host the host
+   * @param port the port
+   * @param args the args
+   * @return the socket
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   public Socket createSocket(String host, int port, String[] args)
     throws IOException;
 }

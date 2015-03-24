@@ -20,17 +20,34 @@ import synergynetframework.appsystem.contentsystem.items.listener.OrthoControlPo
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp;
 
+
+/**
+ * The Class StateRecorder.
+ */
 public class StateRecorder {
 
+	/** The restore folder. */
 	private File restoreFolder;
+	
+	/** The restore file name. */
 	private String restoreFileName = "restore"+TableIdentity.getTableIdentity();
+	
+	/** The content system. */
 	private ContentSystem contentSystem;
 	
+	/**
+	 * Instantiates a new state recorder.
+	 *
+	 * @param app the app
+	 */
 	public StateRecorder(DefaultSynergyNetApp app){
 		restoreFolder = new File(app.getApplicationDataDirectory(), "restore"+app.getName());
 		contentSystem = ContentSystem.getContentSystemForSynergyNetApp(app);
 	}
 	
+	/**
+	 * Reset.
+	 */
 	public void reset(){
 		if(!restoreFolder.exists()) restoreFolder.mkdir();
 		File restoreFile = new File(restoreFolder, restoreFileName);
@@ -45,6 +62,11 @@ public class StateRecorder {
 		}
 	}
 	
+	/**
+	 * Load mystery state.
+	 *
+	 * @return the list
+	 */
 	public List<ContentItem> loadMysteryState(){
 		List<ContentItem> items = new ArrayList<ContentItem>();
 		if(!restoreFolder.exists()) return items;
@@ -85,6 +107,12 @@ public class StateRecorder {
 	    return items;
 	}
 
+	/**
+	 * Register mystery content items.
+	 *
+	 * @param mysteryPath the mystery path
+	 * @param items the items
+	 */
 	public void registerMysteryContentItems(final String mysteryPath, final List<ContentItem> items) {
 		logMysteryState(mysteryPath, items);
 		for(ContentItem item: items){
@@ -119,6 +147,12 @@ public class StateRecorder {
 		}
 	}
 	
+	/**
+	 * Process item line.
+	 *
+	 * @param line the line
+	 * @param items the items
+	 */
 	private void processItemLine(String line, List<ContentItem> items) {
 		if(line == null) return;
 		String[] itemAttrs = line.split(",");
@@ -139,6 +173,12 @@ public class StateRecorder {
 		}
 	}
 
+	/**
+	 * Log mystery state.
+	 *
+	 * @param mysteryPath the mystery path
+	 * @param items the items
+	 */
 	private void logMysteryState(String mysteryPath, List<ContentItem> items){
 		if(mysteryPath == null) return;
 		try{

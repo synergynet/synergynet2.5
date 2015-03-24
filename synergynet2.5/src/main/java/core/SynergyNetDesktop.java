@@ -96,50 +96,94 @@ import com.jme.util.GameTaskQueueManager;
 import com.jme.util.Timer;
 import com.jmex.game.state.GameStateManager;
 
+
+/**
+ * The Class SynergyNetDesktop.
+ */
 public class SynergyNetDesktop extends BaseGame {
 	
+	/** The Constant APPNAME. */
 	private static final String APPNAME = "SynergyNetDesktop";
+	
+	/** The Constant VERSION_STRING. */
 	private static final String VERSION_STRING = "2.5";
 	
+	/** The config file. */
 	protected static String configFile = "appsetup/demotableconfiguration.xml";
+	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(SynergyNetDesktop.class.getName());	
+	
+	/** The timer. */
 	private Timer timer;	
+	
+	/** The tpf. */
 	private float tpf;
 
+	/** The task manager. */
 	protected ApplicationTaskManager taskManager = ApplicationTaskManager.getInstance();
+	
+	/** The registry. */
 	protected ApplicationRegistry registry = ApplicationRegistry.getInstance();
 
+	/**
+	 * Gets the registry.
+	 *
+	 * @return the registry
+	 */
 	public ApplicationRegistry getRegistry() {
 		return registry;
 	}
 
+	/** The multi touch input source. */
 	protected IMultiTouchInputSource multiTouchInputSource;
+	
+	/** The cursor system. */
 	protected MultiTouchCursorSystem cursorSystem = new MultiTouchCursorSystem();
 
 
+	/** The pick system. */
 	protected IJMEMultiTouchPicker pickSystem = JMEMultiTouchPickSystem.getInstance();
 //	protected DesktopActionListener desktopActionListener = new DesktopActionListener();
 //	public DesktopActionListener getDesktopActionListener() {
 //		return desktopActionListener;
 //	}
 
-	private MultiTouchInputComponent inputComponent;
+	/** The input component. */
+private MultiTouchInputComponent inputComponent;
 
+	/** The instance. */
 	private static SynergyNetDesktop instance;
 
+	/**
+	 * Gets the single instance of SynergyNetDesktop.
+	 *
+	 * @return single instance of SynergyNetDesktop
+	 */
 	public static SynergyNetDesktop getInstance() {
 		if(instance == null) instance = new SynergyNetDesktop();
 		return instance;
 	}
 
+	/**
+	 * Instantiates a new synergy net desktop.
+	 */
 	private SynergyNetDesktop() {
 		super();
 	}
 
+	/**
+	 * Gets the multi touch input component.
+	 *
+	 * @return the multi touch input component
+	 */
 	public MultiTouchInputComponent getMultiTouchInputComponent() {
 		return inputComponent;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.jme.app.BaseGame#update(float)
+	 */
 	protected final void update(float interpolation) {
 		timer.update();
 		tpf = timer.getTimePerFrame();		
@@ -177,11 +221,17 @@ public class SynergyNetDesktop extends BaseGame {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.jme.app.BaseGame#render(float)
+	 */
 	protected final void render(float interpolation) {	
 		display.getRenderer().clearBuffers();
 		GameStateManager.getInstance().render(tpf);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.jme.app.BaseGame#initSystem()
+	 */
 	protected final void initSystem() {
 		NetworkConfigPrefsItem netPrefs = new NetworkConfigPrefsItem();
 		if(netPrefs.getProxyEnabled()) {
@@ -218,6 +268,9 @@ public class SynergyNetDesktop extends BaseGame {
 		timer = Timer.getTimer();		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.jme.app.BaseGame#initGame()
+	 */
 	protected final void initGame() {		
 		instance = this;
 		display.setTitle("SynergyNet Desktop");
@@ -275,22 +328,51 @@ public class SynergyNetDesktop extends BaseGame {
 		}		
 	}
 	
+	/**
+	 * Gets the display width.
+	 *
+	 * @return the display width
+	 */
 	public int getDisplayWidth() {
 		return display.getWidth();
 	}
 	
+	/**
+	 * Gets the display height.
+	 *
+	 * @return the display height
+	 */
 	public int getDisplayHeight() {
 		return display.getHeight();
 	}
 	
+	/**
+	 * Table to screen x.
+	 *
+	 * @param x the x
+	 * @return the int
+	 */
 	public int tableToScreenX(float x) {
 		return (int)(getDisplayWidth() * x);
 	}
 	
+	/**
+	 * Table to screen y.
+	 *
+	 * @param y the y
+	 * @return the int
+	 */
 	public int tableToScreenY(float y) {
 		return (int)(getDisplayHeight() * y);
 	}
 
+	/**
+	 * Show main menu.
+	 *
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws ClassNotFoundException the class not found exception
+	 */
 	public void showMainMenu() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		try {
 			taskManager.setActiveApplication(registry.getDefaultApp());
@@ -299,9 +381,15 @@ public class SynergyNetDesktop extends BaseGame {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.jme.app.BaseGame#reinit()
+	 */
 	protected void reinit() {
 	}	
 
+	/* (non-Javadoc)
+	 * @see com.jme.app.BaseGame#cleanup()
+	 */
 	protected void cleanup() {
 		log.info("Cleaning up resources.");
 		log.info("SynergyNet Services shutting down...");
@@ -315,11 +403,17 @@ public class SynergyNetDesktop extends BaseGame {
 		System.exit(0);
 	}
 
+	/**
+	 * Exit.
+	 */
 	public static void exit() {
 		instance.finish();
 		log.info("Done.");		
 	}
 
+	/**
+	 * Configure and start table input.
+	 */
 	private void configureAndStartTableInput() {
 		TableConfigPrefsItem tablePrefs = new TableConfigPrefsItem();
 		TableType tabletype = tablePrefs.getTableType();
@@ -404,6 +498,15 @@ public class SynergyNetDesktop extends BaseGame {
 		
 	}
 
+	/**
+	 * Load filters.
+	 *
+	 * @param inputComponent2 the input component2
+	 * @throws BackingStoreException the backing store exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws ClassNotFoundException the class not found exception
+	 */
 	private void loadFilters(MultiTouchInputComponent inputComponent2) throws BackingStoreException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		Preferences filterPrefs = Preferences.userNodeForPackage(IMultiTouchInputFilter.class);
 		
@@ -432,14 +535,29 @@ public class SynergyNetDesktop extends BaseGame {
 		}
 	}
 
+	/**
+	 * Gets the pick system.
+	 *
+	 * @return the pick system
+	 */
 	public IJMEMultiTouchPicker getPickSystem() {
 		return pickSystem;
 	}
 
+	/**
+	 * Gets the cursor system.
+	 *
+	 * @return the cursor system
+	 */
 	public MultiTouchCursorSystem getCursorSystem() {
 		return cursorSystem;
 	}
 	
+	/**
+	 * Gets the synergy net local working directory.
+	 *
+	 * @return the synergy net local working directory
+	 */
 	public static File getSynergyNetLocalWorkingDirectory() {
 		String userHome = System.getProperty("user.home", ".");
 		File workingDirectory = new File(".");
@@ -465,6 +583,11 @@ public class SynergyNetDesktop extends BaseGame {
 		return workingDirectory;
 	}
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 
 		//set logging level

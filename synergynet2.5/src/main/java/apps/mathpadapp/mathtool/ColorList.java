@@ -45,14 +45,29 @@ import synergynetframework.appsystem.contentsystem.items.DropDownList;
 import synergynetframework.appsystem.contentsystem.items.DropDownList.DropDownListItem;
 import synergynetframework.appsystem.contentsystem.items.DropDownList.DropDownListListener;
 
+
+/**
+ * The Class ColorList.
+ */
 public class ColorList {
 	
+	/** The colors. */
 	protected ArrayList<String> colors = new ArrayList<String>();
+	
+	/** The color list. */
 	protected DropDownList colorList;
+	
+	/** The color list action. */
 	protected ColorListAction colorListAction;
 	
+	/** The listeners. */
 	protected transient List<ColorListListener> listeners = new ArrayList<ColorListListener>();
 	
+	/**
+	 * Instantiates a new color list.
+	 *
+	 * @param contentSystem the content system
+	 */
 	public ColorList(ContentSystem contentSystem){
 		// Set color list
 		colors.add("black");
@@ -81,6 +96,11 @@ public class ColorList {
 		this.setSelectedColor(Color.black);
 	}
 	
+	/**
+	 * Sets the selected color.
+	 *
+	 * @param color the new selected color
+	 */
 	protected void setSelectedColor(Color color) {
 		if(colorList ==null) return;
 		for(int i=0; i<colors.size(); i++){
@@ -111,7 +131,14 @@ public class ColorList {
 		}
 	}
 	
+	/**
+	 * The Class ColorListAction.
+	 */
 	class ColorListAction implements DropDownListListener{
+		
+		/* (non-Javadoc)
+		 * @see synergynetframework.appsystem.contentsystem.items.DropDownList.DropDownListListener#itemSelected(synergynetframework.appsystem.contentsystem.items.DropDownList.DropDownListItem)
+		 */
 		@Override
 		public void itemSelected(DropDownListItem item) {
 			Color selectedColor = null;
@@ -128,21 +155,57 @@ public class ColorList {
 		}
 	}
 	
+	/**
+	 * Adds the color list listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void addColorListListener(ColorListListener listener){
 		if(!listeners.contains(listener)) listeners.add(listener);
 	}
 	
+	/**
+	 * Removes the color list listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void removeColorListListener(ColorListListener listener){
 		listeners.remove(listener);
 	}
 	
+	/**
+	 * Removes the color list listeners.
+	 */
 	public void removeColorListListeners(){
 		listeners.clear();
 	}
+	
+	/**
+	 * The listener interface for receiving colorList events.
+	 * The class that is interested in processing a colorList
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addColorListListener<code> method. When
+	 * the colorList event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see ColorListEvent
+	 */
 	public interface ColorListListener{
+		
+		/**
+		 * Color selected.
+		 *
+		 * @param color the color
+		 */
 		public void colorSelected(Color color);
 	}
 	
+	/**
+	 * Gets the drop down list.
+	 *
+	 * @return the drop down list
+	 */
 	public DropDownList getDropDownList(){
 		return colorList;
 	}

@@ -33,8 +33,46 @@ package synergynetframework.appsystem.contentsystem.items.listener;
 
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 
+
+/**
+ * The listener interface for receiving orthoControlPointRotateTranslateScale events.
+ * The class that is interested in processing a orthoControlPointRotateTranslateScale
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addOrthoControlPointRotateTranslateScaleListener<code> method. When
+ * the orthoControlPointRotateTranslateScale event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see OrthoControlPointRotateTranslateScaleEvent
+ */
 public interface OrthoControlPointRotateTranslateScaleListener {
+	
+	/**
+	 * Item scaled.
+	 *
+	 * @param item the item
+	 * @param newScaleFactor the new scale factor
+	 * @param oldScaleFactor the old scale factor
+	 */
 	public void itemScaled(ContentItem item, float newScaleFactor, float oldScaleFactor);
+	
+	/**
+	 * Item translated.
+	 *
+	 * @param item the item
+	 * @param newLocationX the new location x
+	 * @param newLocationY the new location y
+	 * @param oldLocationX the old location x
+	 * @param oldLocationY the old location y
+	 */
 	public void itemTranslated(ContentItem item, float newLocationX, float newLocationY, float oldLocationX, float oldLocationY);
+	
+	/**
+	 * Item rotated.
+	 *
+	 * @param item the item
+	 * @param newAngle the new angle
+	 * @param oldAngle the old angle
+	 */
 	public void itemRotated(ContentItem item, float newAngle, float oldAngle);
 }

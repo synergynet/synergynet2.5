@@ -37,8 +37,18 @@ import com.jme.scene.Spatial;
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 
 
+
+/**
+ * The Class JMEThreeDContentItem.
+ */
 public class JMEThreeDContentItem extends JMEContentItem {
 	
+	/**
+	 * Instantiates a new JME three d content item.
+	 *
+	 * @param contentItem the content item
+	 * @param spatial the spatial
+	 */
 	public JMEThreeDContentItem(ContentItem contentItem, Spatial spatial) {
 		super(contentItem, spatial);
 		

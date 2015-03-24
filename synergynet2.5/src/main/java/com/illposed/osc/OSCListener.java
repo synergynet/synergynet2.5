@@ -37,9 +37,18 @@ package com.illposed.osc;
 
 import java.util.Date;
 
+
 /**
- * @author cramakrishnan
+ * The listener interface for receiving OSC events.
+ * The class that is interested in processing a OSC
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addOSCListener<code> method. When
+ * the OSC event occurs, that object's appropriate
+ * method is invoked.
  *
+ * @author cramakrishnan
+ * 
  * Copyright (C) 2003, C. Ramakrishnan / Auracle
  * All rights reserved.
  * 
@@ -50,7 +59,8 @@ import java.util.Date;
 public interface OSCListener {
 	
 	/**
-	 * Accept an incoming OSCMessage
+	 * Accept an incoming OSCMessage.
+	 *
 	 * @param time     the time this message is to be executed. null means execute now
 	 * @param message  the message
 	 */

@@ -52,12 +52,27 @@ import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAd
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.rapidnetworkmanager.RapidNetworkManager;
 
+
+/**
+ * The Class ClearDataDialog.
+ */
 public class ClearDataDialog extends MTFrame  implements NetworkListener{
 
+	/** The table ids. */
 	protected HashMap<String,TableIdentity> tableIds;
+	
+	/** The table list. */
 	protected DropDownList tableList;
+	
+	/** The manager. */
 	protected NetworkedContentManager manager;
 	
+	/**
+	 * Instantiates a new clear data dialog.
+	 *
+	 * @param manager the manager
+	 * @param contentSystem the content system
+	 */
 	public ClearDataDialog(NetworkedContentManager manager, ContentSystem contentSystem) {
 		super(contentSystem);
 		this.manager = manager;
@@ -151,12 +166,18 @@ public class ClearDataDialog extends MTFrame  implements NetworkListener{
 		});
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.util.MTFrame#close()
+	 */
 	@Override
 	public void close(){
 		if(manager != null) manager.removeNetworkListener(ClearDataDialog.this);
 		super.close();
 	}
 	
+	/* (non-Javadoc)
+	 * @see apps.remotecontrol.networkmanager.managers.NetworkedContentManager.NetworkListener#messageReceived(java.lang.Object)
+	 */
 	@Override
 	public void messageReceived(Object obj) {
 		

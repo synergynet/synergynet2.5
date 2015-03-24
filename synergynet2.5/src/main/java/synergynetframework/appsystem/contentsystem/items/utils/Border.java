@@ -34,29 +34,71 @@ package synergynetframework.appsystem.contentsystem.items.utils;
 import java.awt.Color;
 import java.io.Serializable;
 
+
+/**
+ * The Class Border.
+ */
 public class Border implements Serializable, Cloneable{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 7008375275087161863L;
+	
+	/** The border colour. */
 	protected Color borderColour = Color.red;
+	
+	/** The border size. */
 	protected int borderSize = 4;
 		
+	/**
+	 * Instantiates a new border.
+	 *
+	 * @param borderColour the border colour
+	 * @param borderSize the border size
+	 */
 	public Border(Color borderColour, int borderSize) {
 		this.borderColour = borderColour;
 		this.borderSize = borderSize;
 	}
+	
+	/**
+	 * Gets the border colour.
+	 *
+	 * @return the border colour
+	 */
 	public Color getBorderColour() {
 		return borderColour;
 	}
+	
+	/**
+	 * Sets the border colour.
+	 *
+	 * @param borderColour the new border colour
+	 */
 	public void setBorderColour(Color borderColour) {
 		this.borderColour = borderColour;
 	}
+	
+	/**
+	 * Gets the border size.
+	 *
+	 * @return the border size
+	 */
 	public int getBorderSize() {
 		return borderSize;
 	}
+	
+	/**
+	 * Sets the border size.
+	 *
+	 * @param borderSize the new border size
+	 */
 	public void setBorderSize(int borderSize) {
 		this.borderSize = borderSize;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#clone()
+	 */
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		Border clonedItem = (Border)super.clone();

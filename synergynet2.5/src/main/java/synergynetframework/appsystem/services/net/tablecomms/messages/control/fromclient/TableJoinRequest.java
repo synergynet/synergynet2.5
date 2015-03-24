@@ -34,13 +34,25 @@ package synergynetframework.appsystem.services.net.tablecomms.messages.control.f
 
 import synergynetframework.appsystem.services.net.tablecomms.messages.control.FromClientTableControlMessage;
 
+
+/**
+ * The Class TableJoinRequest.
+ */
 public class TableJoinRequest extends FromClientTableControlMessage {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -3309285892078279006L;
 	
+	/**
+	 * Instantiates a new table join request.
+	 */
 	public TableJoinRequest(){
 		super();
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return TableJoinRequest.class.getName() + " from " + getSender();
 	}

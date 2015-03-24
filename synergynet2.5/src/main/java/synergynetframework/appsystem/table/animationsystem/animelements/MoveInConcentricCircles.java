@@ -43,22 +43,51 @@ import com.jme.math.Vector3f;
 import com.jme.scene.Geometry;
 import com.jme.system.DisplaySystem;
 
+
+/**
+ * The Class MoveInConcentricCircles.
+ */
 public class MoveInConcentricCircles extends AnimationElement {
 
+	/** The spatials. */
 	protected List<Geometry> spatials;
+	
+	/** The n. */
 	protected int n;
+	
+	/** The rpm. */
 	protected float rpm = 1f;
+	
+	/** The angle offset. */
 	protected float angleOffset = 0f;
+	
+	/** The neg angle offset. */
 	protected float negAngleOffset = 0f;
+	
+	/** The item width. */
 	protected float itemWidth;
+	
+	/** The mode. */
 	private int mode = 0;
+	
+	/** The drag angle. */
 	private float dragAngle = 0f;
+	
+	/** The last drag angle. */
 	private float lastDragAngle = 0f;
 	
+	/** The count per level. */
 	protected int[] countPerLevel = {1, 5, 9, 15};
 	
+	/** The spatials levels. */
 	protected List<List<Geometry>> spatialsLevels = new ArrayList<List<Geometry>>();
 
+	/**
+	 * Instantiates a new move in concentric circles.
+	 *
+	 * @param spatials the spatials
+	 * @param itemWidth the item width
+	 */
 	public MoveInConcentricCircles(List<Geometry> spatials, float itemWidth) {
 		this.spatials = spatials;
 		n = spatials.size();
@@ -66,6 +95,9 @@ public class MoveInConcentricCircles extends AnimationElement {
 		populateSpatialLevels();
 	}
 	
+	/**
+	 * Populate spatial levels.
+	 */
 	protected void populateSpatialLevels() {
 		int level = 0;
 		int count = 0;
@@ -85,10 +117,21 @@ public class MoveInConcentricCircles extends AnimationElement {
 		}
 	}
 	
+	/**
+	 * Sets the rpm.
+	 *
+	 * @param rpm the new rpm
+	 */
 	public void setRPM(float rpm) {
 		this.rpm = rpm;
 	}
 	
+	/**
+	 * Sets the geometries.
+	 *
+	 * @param level the level
+	 * @param cs the cs
+	 */
 	public void setGeometries(int level, List<Geometry> cs) {
 		float r = level * itemWidth * 1.5f;
 		float currentAngle = angleOffset;	
@@ -104,6 +147,13 @@ public class MoveInConcentricCircles extends AnimationElement {
 		}
 	}
 
+	/**
+	 * Sets the geometry.
+	 *
+	 * @param q the q
+	 * @param currentAngle the current angle
+	 * @param r the r
+	 */
 	protected void setGeometry(Geometry q, float currentAngle, float r) {
 		Vector3f location = new Vector3f(r * FastMath.sin(currentAngle), r * FastMath.cos(currentAngle), 0f);
 		location.x += DisplaySystem.getDisplaySystem().getRenderer().getWidth() / 2;
@@ -115,10 +165,20 @@ public class MoveInConcentricCircles extends AnimationElement {
 		q.setLocalRotation(a);	
 	}
 	
+	/**
+	 * Sets the mode.
+	 *
+	 * @param mode the new mode
+	 */
 	public void setMode(int mode){
 		this.mode = mode;
 	}
 	
+	/**
+	 * Sets the drag angle.
+	 *
+	 * @param dragAngle the new drag angle
+	 */
 	public void setDragAngle(float dragAngle){
 		if (mode == 2){
 			this.dragAngle = dragAngle - lastDragAngle;
@@ -128,6 +188,9 @@ public class MoveInConcentricCircles extends AnimationElement {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.animationsystem.AnimationElement#updateAnimationState(float)
+	 */
 	@Override
 	public void updateAnimationState(float tpf) {
 				
@@ -153,14 +216,23 @@ public class MoveInConcentricCircles extends AnimationElement {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.animationsystem.AnimationElement#isFinished()
+	 */
 	@Override
 	public boolean isFinished() {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.animationsystem.AnimationElement#elementStart(float)
+	 */
 	@Override
 	public void elementStart(float tpf) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.animationsystem.AnimationElement#reset()
+	 */
 	@Override
 	public void reset() {
 		int level = 0;

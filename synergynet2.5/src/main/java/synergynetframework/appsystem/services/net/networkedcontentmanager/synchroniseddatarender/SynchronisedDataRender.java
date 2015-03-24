@@ -42,7 +42,19 @@ import synergynetframework.appsystem.contentsystem.items.innernotecontroller.Inn
 import synergynetframework.appsystem.contentsystem.items.innernotecontroller.InnerNoteEditor;
 import synergynetframework.appsystem.services.net.networkedcontentmanager.utils.RemoteDesktop;
 
+
+/**
+ * The Class SynchronisedDataRender.
+ */
 public class SynchronisedDataRender {
+	
+	/**
+	 * Render.
+	 *
+	 * @param item the item
+	 * @param itemAttrs the item attrs
+	 * @param innerNoteController the inner note controller
+	 */
 	public static void render(OrthoContentItem item, Map<String, String> itemAttrs, InnerNoteController innerNoteController){
 		
 		InnerNoteEditor innerNoteEditor =null;
@@ -106,6 +118,14 @@ public class SynchronisedDataRender {
 		
 	}
 	
+	/**
+	 * Render remote desktop.
+	 *
+	 * @param desktopItem the desktop item
+	 * @param item the item
+	 * @param itemAttrs the item attrs
+	 * @param innerNoteController the inner note controller
+	 */
 	public static void renderRemoteDesktop(RemoteDesktop desktopItem, OrthoContentItem item, Map<String, String> itemAttrs, InnerNoteController innerNoteController) {
 		if(desktopItem == null) return;
 		InnerNoteEditor innerNoteEditor =null;
@@ -167,6 +187,13 @@ public class SynchronisedDataRender {
 		}		
 	}
 	
+	/**
+	 * Render note.
+	 *
+	 * @param item the item
+	 * @param itemAttrs the item attrs
+	 * @param innerNoteController the inner note controller
+	 */
 	public static void renderNote(OrthoContentItem item, Map<String, String> itemAttrs, InnerNoteController innerNoteController){
 		if (itemAttrs.get(AttributeConstants.ITEM_INNER_NOTE)!=null){
 			item.setNote(itemAttrs.get(AttributeConstants.ITEM_INNER_NOTE));
@@ -187,6 +214,14 @@ public class SynchronisedDataRender {
 		}
 	}
 	
+	/**
+	 * Render remote desktop note.
+	 *
+	 * @param desktopItem the desktop item
+	 * @param item the item
+	 * @param itemAttrs the item attrs
+	 * @param innerNoteController the inner note controller
+	 */
 	public static void renderRemoteDesktopNote(RemoteDesktop desktopItem, OrthoContentItem item, Map<String, String> itemAttrs, InnerNoteController innerNoteController){
 		
 		if (itemAttrs.get(AttributeConstants.ITEM_INNER_NOTE)!=null){

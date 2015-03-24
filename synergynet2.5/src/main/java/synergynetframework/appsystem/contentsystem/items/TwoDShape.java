@@ -38,24 +38,53 @@ import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.shapes.ITwoDShape;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.shapes.TwoDShapeGeometry;
 
+
+/**
+ * The Class TwoDShape.
+ */
 public class TwoDShape extends OrthoContentItem implements Cloneable {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 7358045606444271667L;
+	
+	/** The shape geometry. */
 	private TwoDShapeGeometry shapeGeometry;
 	
+	/**
+	 * Instantiates a new two d shape.
+	 *
+	 * @param contentSystem the content system
+	 * @param name the name
+	 */
 	public TwoDShape(ContentSystem contentSystem, String name) {
 		super(contentSystem, name);
 	}
 
+	/**
+	 * Sets the shape geometry.
+	 *
+	 * @param geom the new shape geometry
+	 */
 	public void setShapeGeometry(TwoDShapeGeometry geom) {
 		this.shapeGeometry = geom;
 		ITwoDShape impl = (ITwoDShape) contentItemImplementation;
 		impl.setShapeGeometry(geom);
 	}
 
+	/**
+	 * Gets the shape geometry.
+	 *
+	 * @return the shape geometry
+	 */
 	public TwoDShapeGeometry getShapeGeometry() {
 		return shapeGeometry;
 	}
 	
+	/**
+	 * Sets the colours.
+	 *
+	 * @param colours the new colours
+	 */
 	public void setColours(Color[] colours) {
 		ITwoDShape impl = (ITwoDShape) contentItemImplementation;
 		impl.setColours(colours);

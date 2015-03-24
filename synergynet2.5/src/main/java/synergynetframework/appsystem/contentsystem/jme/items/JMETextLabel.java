@@ -41,14 +41,32 @@ import synergynetframework.appsystem.contentsystem.items.TextLabel;
 import synergynetframework.appsystem.contentsystem.items.TextLabel.Alignment;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ITextLabelImplementation;
 
+
+/**
+ * The Class JMETextLabel.
+ */
 public class JMETextLabel extends JMEFrame implements ITextLabelImplementation{
 	
+	/** The text. */
 	protected StringBuffer text = new StringBuffer();
+	
+	/** The item. */
 	private TextLabel item;
+	
+	/** The text height. */
 	private int textHeight;
+	
+	/** The text width. */
 	private int textWidth;	
+	
+	/** The text descent. */
 	private int textDescent;
 	
+	/**
+	 * Instantiates a new JME text label.
+	 *
+	 * @param contentItem the content item
+	 */
 	public JMETextLabel(ContentItem contentItem) {
 		super(contentItem);
 		item = (TextLabel)contentItem;
@@ -56,6 +74,9 @@ public class JMETextLabel extends JMEFrame implements ITextLabelImplementation{
 		text.append(item.getText());		
 	}	
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEFrame#draw()
+	 */
 	@Override
 	protected void draw() {
 		super.draw();
@@ -72,30 +93,45 @@ public class JMETextLabel extends JMEFrame implements ITextLabelImplementation{
 		this.graphicsImageQuad.updateGraphics();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEFrame#setAutoFitSize(boolean)
+	 */
 	@Override
 	public void setAutoFitSize(boolean isEnabled) {
 		resize();
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ITextLabelImplementation#setFont(java.awt.Font)
+	 */
 	@Override
 	public void setFont(Font font) {
 		resize();
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ITextLabelImplementation#setText(java.lang.String)
+	 */
 	@Override
 	public void setText(String text) {
 		resize();
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ITextLabelImplementation#setTextColour(java.awt.Color)
+	 */
 	@Override
 	public void setTextColour(Color textColour) {
 		resize();
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEFrame#resize()
+	 */
 	protected void resize(){	
 				
 		text.setLength(0);
@@ -125,22 +161,34 @@ public class JMETextLabel extends JMEFrame implements ITextLabelImplementation{
 		this.render();		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ITextLabelImplementation#setAlignment(synergynetframework.appsystem.contentsystem.items.TextLabel.Alignment)
+	 */
 	@Override
 	public void setAlignment(Alignment textAlignment) {
 		resize();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ITextLabelImplementation#getAlignment()
+	 */
 	@Override
 	public Alignment getAlignment() {
 		return item.getAlignment();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEFrame#drawImage(java.net.URL)
+	 */
 	@Override
 	public void drawImage(URL imageResource){
 		super.drawImage(imageResource);
 		this.setFont(new Font("Times New Roman", Font.PLAIN, 12));
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEFrame#removeAllImages()
+	 */
 	@Override
 	public void removeAllImages() {
 		super.removeAllImages();

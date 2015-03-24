@@ -37,30 +37,55 @@ import synergynetframework.jme.pickingsystem.data.ThreeDPickResultData;
 
 import com.jme.scene.Spatial;
 
+
 /**
- * 
- * @author ashatch
+ * The Class ThreeDMultiTouchElement.
  *
+ * @author ashatch
  */
 
 public abstract class ThreeDMultiTouchElement extends MultiTouchElement {
+	
+	/**
+	 * Instantiates a new three d multi touch element.
+	 *
+	 * @param pickingAndTargetSpatial the picking and target spatial
+	 */
 	public ThreeDMultiTouchElement(Spatial pickingAndTargetSpatial) {
 		super(pickingAndTargetSpatial);
 	}
 	
+	/**
+	 * Instantiates a new three d multi touch element.
+	 *
+	 * @param pickingSpatial the picking spatial
+	 * @param targetSpatial the target spatial
+	 */
 	public ThreeDMultiTouchElement(Spatial pickingSpatial, Spatial targetSpatial) {
 		super(pickingSpatial, targetSpatial);
 	}
 	
 	// utility methods that simply do type casting on parent methods	
+	/**
+	 * Register screen cursor.
+	 *
+	 * @param c the c
+	 * @param nodeloc the nodeloc
+	 */
 	public void registerScreenCursor(ScreenCursor c, ThreeDPickResultData nodeloc) {
 		super.registerScreenCursor(c, nodeloc);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#getPickDataForCursorID(long)
+	 */
 	public ThreeDPickResultData getPickDataForCursorID(long id) {
 		return (ThreeDPickResultData)super.getPickDataForCursorID(id);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#getPickResultFromCursorIndex(int)
+	 */
 	public ThreeDPickResultData getPickResultFromCursorIndex(int index) {
 		return (ThreeDPickResultData) super.getPickResultFromCursorIndex(index);
 	}

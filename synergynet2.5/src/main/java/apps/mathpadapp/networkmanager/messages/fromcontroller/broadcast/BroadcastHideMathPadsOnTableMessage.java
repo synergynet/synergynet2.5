@@ -34,21 +34,43 @@ package apps.mathpadapp.networkmanager.messages.fromcontroller.broadcast;
 
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class BroadcastHideMathPadsOnTableMessage.
+ */
 public class BroadcastHideMathPadsOnTableMessage extends BroadcastApplicationMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 6448601837962845275L;
 
+	/** The is hide enabled. */
 	protected boolean isHideEnabled;
 	
+	/**
+	 * Instantiates a new broadcast hide math pads on table message.
+	 *
+	 * @param targetClass the target class
+	 * @param isHideEnabled the is hide enabled
+	 */
 	public BroadcastHideMathPadsOnTableMessage(Class<?> targetClass, boolean isHideEnabled) {
 		super(targetClass);
 		this.isHideEnabled = isHideEnabled;
 	}
 	
+	/**
+	 * Enable hide math pads.
+	 *
+	 * @param isHideEnabled the is hide enabled
+	 */
 	public void enableHideMathPads(boolean isHideEnabled){
 		this.isHideEnabled = isHideEnabled;
 	}
 	
+	/**
+	 * Checks if is hide math pads enabled.
+	 *
+	 * @return true, if is hide math pads enabled
+	 */
 	public boolean isHideMathPadsEnabled(){
 		return isHideEnabled;
 	}

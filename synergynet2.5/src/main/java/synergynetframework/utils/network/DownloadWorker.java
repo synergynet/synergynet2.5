@@ -37,11 +37,28 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 
+
+/**
+ * The Class DownloadWorker.
+ */
 public class DownloadWorker implements Runnable {
+	
+	/** The url. */
 	private URL url;
+	
+	/** The file. */
 	private File file;
+	
+	/** The listener. */
 	private DownloadListener listener;
 
+	/**
+	 * Instantiates a new download worker.
+	 *
+	 * @param url the url
+	 * @param f the f
+	 * @param listener the listener
+	 */
 	public DownloadWorker(URL url, File f, DownloadListener listener) {
 		this.url = url;
 		this.file = f;
@@ -51,6 +68,9 @@ public class DownloadWorker implements Runnable {
 		t.start();
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
 	public void run() {
 		try {
 			Downloader.download(file, url);

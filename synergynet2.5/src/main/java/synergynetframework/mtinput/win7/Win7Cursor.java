@@ -34,53 +34,111 @@ package synergynetframework.mtinput.win7;
 
 import java.awt.geom.Point2D;
 
+
+/**
+ * The Class Win7Cursor.
+ */
 public class Win7Cursor {
 	
+	/** The current id. */
 	public static long CURRENT_ID = 0;
 	
+	/** The id. */
 	private long id;
+	
+	/** The creation time. */
 	private long creationTime;
+	
+	/** The position. */
 	private Point2D.Float position;
+	
+	/** The contact size. */
 	private Point2D.Float contactSize;
 
+	/**
+	 * Instantiates a new win7 cursor.
+	 */
 	public Win7Cursor() {
 		CURRENT_ID++;
 		if (CURRENT_ID == Long.MAX_VALUE)CURRENT_ID = 0;
 		id = CURRENT_ID;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return "TUIOFingerCursor(" + this.getId() + ") @" + this.getPosition();
 	}
 	
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
 	public long getId() {
 		return id;
 	}
 
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
 	public void setId(long id) {
 		this.id = id;
 	}
 
+	/**
+	 * Gets the creation time.
+	 *
+	 * @return the creation time
+	 */
 	public long getCreationTime() {
 		return creationTime;
 	}
 
+	/**
+	 * Sets the creation time.
+	 *
+	 * @param creationTime the new creation time
+	 */
 	public void setCreationTime(long creationTime) {
 		this.creationTime = creationTime;
 	}
 
+	/**
+	 * Gets the position.
+	 *
+	 * @return the position
+	 */
 	public Point2D.Float getPosition() {
 		return position;
 	}
 
+	/**
+	 * Sets the position.
+	 *
+	 * @param position the new position
+	 */
 	public void setPosition(Point2D.Float position) {
 		this.position = position;
 	}
 
+	/**
+	 * Gets the contact size.
+	 *
+	 * @return the contact size
+	 */
 	public Point2D.Float getContactSize() {
 		return contactSize;
 	}
 
+	/**
+	 * Sets the contact size.
+	 *
+	 * @param contactSize the new contact size
+	 */
 	public void setContactSize(Point2D.Float contactSize) {
 		this.contactSize = contactSize;
 	}

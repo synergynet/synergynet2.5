@@ -40,16 +40,32 @@ import java.util.Map;
 
 import java.util.Iterator;
 
+
+/**
+ * The Class DrawableStack.
+ */
 public class DrawableStack extends DrawableElement {
 
+	/** The stack. */
 	protected List<DrawableElement> stack;
+	
+	/** The name_stack. */
 	protected Map<String, DrawableElement> name_stack;
 	
+	/**
+	 * Instantiates a new drawable stack.
+	 */
 	public DrawableStack() {
 		stack = new ArrayList<DrawableElement>();
 		name_stack = new HashMap<String, DrawableElement>();
 	}
 	
+	/**
+	 * Push element.
+	 *
+	 * @param name the name
+	 * @param el the el
+	 */
 	public void pushElement(String name, DrawableElement el) {
 		if(name_stack.containsKey(name)) {
 			Object removed = name_stack.remove(name);
@@ -61,10 +77,19 @@ public class DrawableStack extends DrawableElement {
 		name_stack.put(name, el);		
 	}
 	
+	/**
+	 * Gets the element.
+	 *
+	 * @param name the name
+	 * @return the element
+	 */
 	public DrawableElement getElement(String name) {
 		return name_stack.get(name);
 	}
 	
+	/* (non-Javadoc)
+	 * @see apps.lightrays.gfxlib.DrawableElement#draw(java.awt.Graphics2D, long)
+	 */
 	public void draw(Graphics2D gfx, long tick_count) {
 		Iterator<DrawableElement> i = stack.iterator();
 		DrawableElement de;
@@ -75,6 +100,9 @@ public class DrawableStack extends DrawableElement {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		Iterator<DrawableElement> i = stack.iterator();

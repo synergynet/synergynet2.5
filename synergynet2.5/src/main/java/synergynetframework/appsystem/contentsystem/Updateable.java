@@ -32,6 +32,16 @@
 
 package synergynetframework.appsystem.contentsystem;
 
+
+/**
+ * The Interface Updateable.
+ */
 public interface Updateable {
+	
+	/**
+	 * Update.
+	 *
+	 * @param tpf the tpf
+	 */
 	public void update(float tpf);
 }

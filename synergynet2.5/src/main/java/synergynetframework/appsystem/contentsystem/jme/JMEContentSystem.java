@@ -59,20 +59,38 @@ import synergynetframework.jme.cursorsystem.elements.twod.ClipRegistry;
 import synergynetframework.jme.cursorsystem.elements.twod.OrthoBringToTop;
 import synergynetframework.jme.cursorsystem.flicksystem.FlickSystem;
 
+
+/**
+ * The Class JMEContentSystem.
+ */
 public class JMEContentSystem extends ContentSystem {
 
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(JMEContentSystem.class.getName());	
 	
+	/** The ortho node. */
 	protected Node orthoNode;
+	
+	/** The spatial to content item. */
 	protected Map<Spatial, ContentItem> spatialToContentItem = new ConcurrentHashMap<Spatial, ContentItem>();
+	
+	/** The for updating. */
 	protected Map<String,UpdateableJMEContentItemImplementation> forUpdating = new HashMap<String,UpdateableJMEContentItemImplementation>();
 
 
+	/**
+	 * Instantiates a new JME content system.
+	 *
+	 * @param orthoNode the ortho node
+	 */
 	public JMEContentSystem(final Node orthoNode) {
 		this.orthoNode = orthoNode;
 		this.implementationItemFactory = new JMEImplementationItemFactory();
 	}
 
+	/**
+	 * Instantiates a new JME content system.
+	 */
 	public JMEContentSystem(){
 		this.implementationItemFactory = new JMEImplementationItemFactory();
 	}
@@ -83,6 +101,9 @@ public class JMEContentSystem extends ContentSystem {
 	 * found in synergynet.contentsystem.items or use your own. If you use your own
 	 * content item, the content item implementation must live in the same package as
 	 * the content item.
+	 *
+	 * @param contentItemType the content item type
+	 * @return the content item
 	 */
 	@Override
 	public ContentItem createContentItem(Class<? extends ContentItem> contentItemType) {
@@ -96,6 +117,10 @@ public class JMEContentSystem extends ContentSystem {
 	 * found in synergynet.contentsystem.items or use your own. If you use your own
 	 * content item, the content item implementation must live in the same package as
 	 * the content item.
+	 *
+	 * @param contentItemType the content item type
+	 * @param itemName the item name
+	 * @return the content item
 	 */
 	@Override
 	public ContentItem createContentItem(Class<? extends ContentItem> contentItemType, String itemName) {
@@ -130,11 +155,17 @@ public class JMEContentSystem extends ContentSystem {
 		return contentItem;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.ContentSystem#removeContentItem(synergynetframework.appsystem.contentsystem.items.ContentItem)
+	 */
 	@Override
 	public void removeContentItem(ContentItem contentItem) {
 		this.removeContentItem(contentItem, true);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.ContentSystem#removeContentItem(synergynetframework.appsystem.contentsystem.items.ContentItem, boolean)
+	 */
 	@Override
 	public void removeContentItem(ContentItem contentItem, boolean releaseTextures){
 		log.info("Start to remove ContentItem - "+contentItem.getClass().getName());
@@ -177,6 +208,9 @@ public class JMEContentSystem extends ContentSystem {
 		log.info("The ContentItem - "+contentItem.getClass().getName()+" is removed");
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.ContentSystem#removeAllContentItems()
+	 */
 	public void removeAllContentItems(){
 		Iterator <ContentItem> iter = this.contentItems.values().iterator();
 		while(iter.hasNext()){
@@ -212,10 +246,19 @@ public class JMEContentSystem extends ContentSystem {
 		log.info("All content items are removed.");
 	}
 
+	/**
+	 * Gets the content item.
+	 *
+	 * @param spatial the spatial
+	 * @return the content item
+	 */
 	public ContentItem getContentItem(Spatial spatial){
 		return this.spatialToContentItem.get(spatial);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.ContentSystem#isTopLevelContainer(java.lang.Object)
+	 */
 	@Override
 	public boolean isTopLevelContainer(Object item) {
 		Spatial spatial = (Spatial)(item);
@@ -225,6 +268,9 @@ public class JMEContentSystem extends ContentSystem {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.ContentSystem#update(float)
+	 */
 	@Override
 	public void update(float tpf) {
 		for(UpdateableJMEContentItemImplementation item : forUpdating.values()) {
@@ -241,16 +287,25 @@ public class JMEContentSystem extends ContentSystem {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.ContentSystem#getScreenHeight()
+	 */
 	@Override
 	public int getScreenHeight() {
 		return DisplaySystem.getDisplaySystem().getHeight();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.ContentSystem#getScreenWidth()
+	 */
 	@Override
 	public int getScreenWidth() {
 		return DisplaySystem.getDisplaySystem().getWidth();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.ContentSystem#addContentItem(synergynetframework.appsystem.contentsystem.items.ContentItem)
+	 */
 	@Override
 	public void addContentItem(ContentItem contentItem) {
 		contentItem.bindImplementationOjbect();
@@ -267,6 +322,9 @@ public class JMEContentSystem extends ContentSystem {
 		log.info("ContentItem - "+contentItem.getClass().getName()+" is added to the ContentSystem.");
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.ContentSystem#setItemName(synergynetframework.appsystem.contentsystem.items.ContentItem, java.lang.String)
+	 */
 	@Override
 	public void setItemName(ContentItem item, String newName) {
 		if(this.getContentItem(newName) != null) throw new IllegalArgumentException("An item with the same name already exists in the content system");
@@ -300,6 +358,11 @@ public class JMEContentSystem extends ContentSystem {
 		
 	}
 
+	/**
+	 * Gets the ortho root node.
+	 *
+	 * @return the ortho root node
+	 */
 	public Spatial getOrthoRootNode(){
 		return this.orthoNode;
 	}

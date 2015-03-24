@@ -7,18 +7,46 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+
+/**
+ * The Class Level.
+ */
 public class Level
 {
 	// making member variables public is not good!
+	/** The Level number. */
 	public int LevelNumber;
+	
+	/** The Image file name. */
 	public String ImageFileName;
+	
+	/** The Image file location. */
 	public String ImageFileLocation; // the folder that represents the table that the image will be displayed on 
+	
+	/** The Image height. */
 	public int ImageHeight;
+	
+	/** The Image width. */
 	public int ImageWidth;
+	
+	/** The Rows. */
 	public int Rows;
+	
+	/** The Columns. */
 	public int Columns;
+	
+	/** The Image file. */
 	public File ImageFile;
 	
+	/**
+	 * Instantiates a new level.
+	 *
+	 * @param pLevelNumber the level number
+	 * @param pImageFileLocation the image file location
+	 * @param pImageFileName the image file name
+	 * @param pRows the rows
+	 * @param pColumns the columns
+	 */
 	public Level (int pLevelNumber, String pImageFileLocation, String pImageFileName, int pRows, int pColumns)
 	{
 		LevelNumber= pLevelNumber;

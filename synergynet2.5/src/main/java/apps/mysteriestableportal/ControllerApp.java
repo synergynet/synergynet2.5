@@ -43,23 +43,54 @@ import synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp;
 import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightConfirmVisualExit;
 
+
+/**
+ * The Class ControllerApp.
+ */
 public class ControllerApp extends DefaultSynergyNetApp{
 
+	/** The content system. */
 	private ContentSystem contentSystem;
+	
+	/** The items. */
 	private List<ContentItem> items = new ArrayList<ContentItem>();
+	
+	/** The manager. */
 	private NetworkedContentManager manager;
+	
+	/** The graph manager. */
 	private GraphManager graphManager;
+	
+	/** The is menu visible. */
 	private boolean isMenuVisible = true;
+	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(TableCommsClientService.class.getName());
+	
+	/** The controller processor. */
 	private ControllerMessageProcessor controllerProcessor;
+	
+	/** The mystery path. */
 	protected String mysteryPath = ""; 
+	
+	/** The min scale limit. */
 	public static float minScaleLimit = 0.7f;
+	
+	/** The max scale limit. */
 	public static float maxScaleLimit = 3f;
 	
+	/**
+	 * Instantiates a new controller app.
+	 *
+	 * @param info the info
+	 */
 	public ControllerApp(ApplicationInfo info) {
 		super(info);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {		
 		
@@ -106,6 +137,12 @@ public class ControllerApp extends DefaultSynergyNetApp{
 		*/
 	}
 	
+	/**
+	 * Load content.
+	 *
+	 * @param filePath the file path
+	 * @param appName the app name
+	 */
 	protected void loadContent(String filePath, String appName) {
 		removeAllItems();
 		mysteryPath = filePath;
@@ -123,6 +160,9 @@ public class ControllerApp extends DefaultSynergyNetApp{
 		if(manager != null) manager.registerContentItems(items);
 	}
 
+	/**
+	 * Removes the all items.
+	 */
 	public void removeAllItems(){
 		if(manager != null){ 	
 			List<ContentItem> itemsToRemote = new ArrayList<ContentItem>(manager.getOnlineItems().values());
@@ -133,6 +173,11 @@ public class ControllerApp extends DefaultSynergyNetApp{
 		items.clear();
 	}
 	
+	/**
+	 * Removes the items.
+	 *
+	 * @param items the items
+	 */
 	public void removeItems(List<ContentItem> items){
 		if(manager != null){ 	
 			manager.unregisterContentItems(items);
@@ -141,6 +186,9 @@ public class ControllerApp extends DefaultSynergyNetApp{
 		items.clear();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onActivate()
+	 */
 	@Override
 	public void onActivate() {
 		RapidNetworkManager.addNetworkedContentListener(new NetworkedContentListener(){
@@ -188,6 +236,9 @@ public class ControllerApp extends DefaultSynergyNetApp{
 
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	@Override
 	protected void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);
@@ -196,8 +247,22 @@ public class ControllerApp extends DefaultSynergyNetApp{
 		TablePortalManager.getInstance().update(tpf);
 	}
 	
+	/**
+	 * The listener interface for receiving controlApp events.
+	 * The class that is interested in processing a controlApp
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addControlAppListener<code> method. When
+	 * the controlApp event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see ControlAppEvent
+	 */
 	class ControlAppListener implements ControlMenuListener{
 
+		/* (non-Javadoc)
+		 * @see apps.mysteriestableportal.ControlMenu.ControlMenuListener#sendDesktopData()
+		 */
 		@Override
 		public void sendDesktopData() {
 			SendDataDialog sendDataDialog = new SendDataDialog(ControllerApp.this, mysteryPath);
@@ -206,6 +271,9 @@ public class ControllerApp extends DefaultSynergyNetApp{
 			sendDataDialog.getWindow().setAsTopObject();
 		}
 
+		/* (non-Javadoc)
+		 * @see apps.mysteriestableportal.ControlMenu.ControlMenuListener#clearStudentTables()
+		 */
 		@Override
 		public void clearStudentTables() {
 			ClearDataDialog clearDataDialog = new ClearDataDialog(manager,contentSystem);
@@ -214,11 +282,17 @@ public class ControllerApp extends DefaultSynergyNetApp{
 			clearDataDialog.getWindow().setAsTopObject();
 		}
 
+		/* (non-Javadoc)
+		 * @see apps.mysteriestableportal.ControlMenu.ControlMenuListener#clearLocalTable()
+		 */
 		@Override
 		public void clearLocalTable() {
 			removeAllItems();
 		}
 
+		/* (non-Javadoc)
+		 * @see apps.mysteriestableportal.ControlMenu.ControlMenuListener#createTablePortals()
+		 */
 		@Override
 		public void createTablePortals() {
 			int locX = DisplaySystem.getDisplaySystem().getWidth()/2;
@@ -252,11 +326,17 @@ public class ControllerApp extends DefaultSynergyNetApp{
 			}
 		}
 
+		/* (non-Javadoc)
+		 * @see apps.mysteriestableportal.ControlMenu.ControlMenuListener#hideTablePortals()
+		 */
 		@Override
 		public void hideTablePortals() {
 			TablePortalManager.getInstance().hideAll();
 		}
 
+		/* (non-Javadoc)
+		 * @see apps.mysteriestableportal.ControlMenu.ControlMenuListener#lockStudentTables(boolean)
+		 */
 		@Override
 		public void lockStudentTables(boolean lock) {
 			try {
@@ -271,11 +351,23 @@ public class ControllerApp extends DefaultSynergyNetApp{
 		
 	}
 	
+	/**
+	 * Gets the networked content manager.
+	 *
+	 * @return the networked content manager
+	 */
 	public NetworkedContentManager getNetworkedContentManager(){
 		return manager;
 	}
 	
+	/**
+	 * The Class ControllerMessageProcessor.
+	 */
 	public class ControllerMessageProcessor implements MessageProcessor{
+			
+			/* (non-Javadoc)
+			 * @see synergynetframework.appsystem.services.net.rapidnetworkmanager.handlers.MessageProcessor#process(java.lang.Object)
+			 */
 			@Override
 			public void process(Object obj) {
 				if(obj instanceof TableDiscoveryPortalMessage){

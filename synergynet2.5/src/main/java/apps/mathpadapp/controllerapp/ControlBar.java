@@ -56,16 +56,35 @@ import synergynetframework.appsystem.contentsystem.items.ImageTextLabel;
 import synergynetframework.appsystem.contentsystem.items.ListContainer;
 import synergynetframework.appsystem.contentsystem.items.listener.ItemListener;
 
+
+/**
+ * The Class ControlBar.
+ */
 public class ControlBar {
 
+	/** The button width. */
 	public static int BUTTON_WIDTH = 80;
+	
+	/** The button border color. */
 	public static Color BUTTON_BORDER_COLOR = Color.red;
 	
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The controller manager. */
 	protected ControllerManager controllerManager;
+	
+	/** The max number of pads. */
 	protected int MAX_NUMBER_OF_PADS = 1;
+	
+	/** The current no of pads. */
 	public static int currentNoOfPads = 0; 
 	
+	/**
+	 * Instantiates a new control bar.
+	 *
+	 * @param contentSystem the content system
+	 */
 	public ControlBar(ContentSystem contentSystem){
 		this.contentSystem = contentSystem;
 		ListContainer list = (ListContainer) contentSystem.createContentItem(ListContainer.class);
@@ -98,12 +117,31 @@ public class ControlBar {
 		}		
 	}
 	
+	/**
+	 * Sets the controller manager.
+	 *
+	 * @param controllerManager the new controller manager
+	 */
 	public void setControllerManager(ControllerManager controllerManager){
 		this.controllerManager = controllerManager;
 	}
 	
+	/**
+	 * The listener interface for receiving controlBar events.
+	 * The class that is interested in processing a controlBar
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addControlBarListener<code> method. When
+	 * the controlBar event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see ControlBarEvent
+	 */
 	class ControlBarListener implements ItemListener{
 
+		/* (non-Javadoc)
+		 * @see synergynetframework.appsystem.contentsystem.items.listener.ItemListener#cursorChanged(synergynetframework.appsystem.contentsystem.items.ContentItem, long, float, float, float)
+		 */
 		@Override
 		public void cursorChanged(ContentItem item, long id, float x, float y,
 				float pressure) {
@@ -111,6 +149,9 @@ public class ControlBar {
 			
 		}
 
+		/* (non-Javadoc)
+		 * @see synergynetframework.appsystem.contentsystem.items.listener.ItemListener#cursorClicked(synergynetframework.appsystem.contentsystem.items.ContentItem, long, float, float, float)
+		 */
 		@Override
 		public void cursorClicked(ContentItem item, long id, float x, float y,
 				float pressure) {
@@ -142,6 +183,9 @@ public class ControlBar {
 			}
 		}
 
+		/* (non-Javadoc)
+		 * @see synergynetframework.appsystem.contentsystem.items.listener.ItemListener#cursorDoubleClicked(synergynetframework.appsystem.contentsystem.items.ContentItem, long, float, float, float)
+		 */
 		@Override
 		public void cursorDoubleClicked(ContentItem item, long id, float x,
 				float y, float pressure) {
@@ -149,6 +193,9 @@ public class ControlBar {
 			
 		}
 
+		/* (non-Javadoc)
+		 * @see synergynetframework.appsystem.contentsystem.items.listener.ItemListener#cursorLongHeld(synergynetframework.appsystem.contentsystem.items.ContentItem, long, float, float, float)
+		 */
 		@Override
 		public void cursorLongHeld(ContentItem item, long id, float x, float y,
 				float pressure) {
@@ -156,6 +203,9 @@ public class ControlBar {
 			
 		}
 
+		/* (non-Javadoc)
+		 * @see synergynetframework.appsystem.contentsystem.items.listener.ItemListener#cursorPressed(synergynetframework.appsystem.contentsystem.items.ContentItem, long, float, float, float)
+		 */
 		@Override
 		public void cursorPressed(ContentItem item, long id, float x, float y,
 				float pressure) {
@@ -163,6 +213,9 @@ public class ControlBar {
 			
 		}
 
+		/* (non-Javadoc)
+		 * @see synergynetframework.appsystem.contentsystem.items.listener.ItemListener#cursorReleased(synergynetframework.appsystem.contentsystem.items.ContentItem, long, float, float, float)
+		 */
 		@Override
 		public void cursorReleased(ContentItem item, long id, float x, float y,
 				float pressure) {
@@ -170,6 +223,9 @@ public class ControlBar {
 			
 		}
 
+		/* (non-Javadoc)
+		 * @see synergynetframework.appsystem.contentsystem.items.listener.ItemListener#cursorRightClicked(synergynetframework.appsystem.contentsystem.items.ContentItem, long, float, float, float)
+		 */
 		@Override
 		public void cursorRightClicked(ContentItem item, long id, float x,
 				float y, float pressure) {

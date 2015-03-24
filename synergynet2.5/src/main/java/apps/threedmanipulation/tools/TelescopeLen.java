@@ -24,16 +24,42 @@ import com.jme.util.TextureManager;
 import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.jme.cursorsystem.elements.twod.OrthoBringToTop;
 
+
+/**
+ * The Class TelescopeLen.
+ */
 public class TelescopeLen extends Node{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 5768509228421748746L;
+	
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The telescope radius. */
 	protected float telescopeRadius;
+	
+	/** The screen disk. */
 	protected Disk screenDisk;
+	
+	/** The screen frame. */
 	protected Disk screenFrame;
+	
+	/** The cam node. */
 	protected CameraNode camNode;
+	
+	/** The tool listeners. */
 	protected List<ToolListener> toolListeners = new ArrayList<ToolListener>();
 	
+	/**
+	 * Instantiates a new telescope len.
+	 *
+	 * @param name the name
+	 * @param contentSystem the content system
+	 * @param telescopeRadius the telescope radius
+	 * @param camNode the cam node
+	 * @param manipulatableOjbects the manipulatable ojbects
+	 */
 	public TelescopeLen(String name, ContentSystem contentSystem, float telescopeRadius, final CameraNode camNode, List<Spatial> manipulatableOjbects){
 		super(name);
 		this.contentSystem = contentSystem;
@@ -95,15 +121,30 @@ public class TelescopeLen extends Node{
 
 	}
 	
+	/**
+	 * Adds the tool listener.
+	 *
+	 * @param l the l
+	 */
 	public void addToolListener(ToolListener l){
 		toolListeners.add(l);
 	}
 
+	/**
+	 * Removes the tool listener.
+	 *
+	 * @param l the l
+	 */
 	public void removeToolListener(ToolListener l){
 		if (toolListeners.contains(l))
 			toolListeners.remove(l);
 	}
 	
+	/**
+	 * Gets the screen disk.
+	 *
+	 * @return the screen disk
+	 */
 	public Disk getScreenDisk(){
 		return screenDisk;
 	}

@@ -47,38 +47,75 @@ import synergynetframework.appsystem.contentsystem.items.utils.Border;
 import synergynetframework.appsystem.contentsystem.items.utils.Direction;
 import synergynetframework.appsystem.contentsystem.items.utils.Location;
 
+
+/**
+ * The Class JMEContentItem.
+ */
 public class JMEContentItem implements IContentItemImplementation {
 
+	/** The screen width. */
 	protected int screenWidth = DisplaySystem.getDisplaySystem().getWidth();
+	
+	/** The screen heigth. */
 	protected int screenHeigth = DisplaySystem.getDisplaySystem().getHeight();
+	
+	/** The content item. */
 	protected ContentItem contentItem;
+	
+	/** The spatial. */
 	protected Spatial spatial;
+	
+	/** The manipulate. */
 	protected boolean manipulate; 
+	
+	/** The is boundary enabled. */
 	protected boolean isBoundaryEnabled;
+	
+	/** The scale value. */
 	protected float scaleValue = 1f;
+	
+	/** The angle value. */
 	protected float angleValue = 0f;
 	
+	/**
+	 * Instantiates a new JME content item.
+	 *
+	 * @param contentItem the content item
+	 * @param spatial the spatial
+	 */
 	public JMEContentItem(ContentItem contentItem, Spatial spatial){
 		this.contentItem = contentItem;
 		this.spatial = spatial;
 		this.initSpatial();	
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#init()
+	 */
 	public void init(){
 		this.initSpatial();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#addMultitouchListener()
+	 */
 	@Override
 	public void addMultitouchListener() {
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#setName(java.lang.String)
+	 */
 	@Override
 	public void setName(String name){
 		this.spatial.setName(name);
 	}
 	
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#contains(java.awt.geom.Point2D.Float)
+	 */
 	@Override
 	public boolean contains(Float point) {
 		if(this.spatial.getWorldBound().contains(new Vector3f(point.x, point.y, 0)))
@@ -86,6 +123,9 @@ public class JMEContentItem implements IContentItemImplementation {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#setAngle(float)
+	 */
 	@Override
 	public void setAngle(float angle) {	
 		float orientation = angle;
@@ -98,17 +138,29 @@ public class JMEContentItem implements IContentItemImplementation {
 		angleValue = orientation;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#setBackGround(synergynetframework.appsystem.contentsystem.items.utils.Background)
+	 */
 	@Override
 	public void setBackGround(Background backGround) {	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#setBorder(synergynetframework.appsystem.contentsystem.items.utils.Border)
+	 */
 	@Override
 	public void setBorder(Border border) {	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#setBoundaryEnabled(boolean)
+	 */
 	@Override
 	public void setBoundaryEnabled(boolean isBoundaryEnabled) {
 		this.isBoundaryEnabled = isBoundaryEnabled;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#setLocalLocation(synergynetframework.appsystem.contentsystem.items.utils.Location)
+	 */
 	@Override
 	public void setLocalLocation(Location location) {
 		float x = location.getX();
@@ -118,11 +170,17 @@ public class JMEContentItem implements IContentItemImplementation {
 		this.spatial.updateGeometricState(0f, true);	
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#setManipulate(boolean)
+	 */
 	@Override
 	public void setManipulate(boolean manipulate) {
 		this.manipulate = manipulate;		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#setScale(float)
+	 */
 	@Override
 	public void setScale(float scaleFactor) {
 		float scale = scaleFactor;
@@ -131,6 +189,9 @@ public class JMEContentItem implements IContentItemImplementation {
 		scaleValue = scale;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#setScale(float, synergynetframework.appsystem.contentsystem.items.utils.Direction)
+	 */
 	@Override
 	public void setScale(float scaleFactor, Direction direction) {
 		float scale = scaleFactor;
@@ -147,6 +208,9 @@ public class JMEContentItem implements IContentItemImplementation {
 		scaleValue = scale;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#setVisible(boolean)
+	 */
 	@Override
 	public void setVisible(boolean isVisible) {
 		if(isVisible){
@@ -160,6 +224,9 @@ public class JMEContentItem implements IContentItemImplementation {
 	}
 
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#setVisible(boolean, boolean)
+	 */
 	@Override  
 	public void setVisible(boolean isVisible, boolean isUntouchable) {  
 		if(isVisible){  
@@ -173,10 +240,16 @@ public class JMEContentItem implements IContentItemImplementation {
 		} 
 	
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#getImplementationObject()
+	 */
 	public Object getImplementationObject(){
 		return this.spatial;
 	}
 		
+	/**
+	 * Inits the spatial.
+	 */
 	protected void initSpatial(){
 		this.setLocalLocation(contentItem.getLocalLocation());
 		this.setAngle(contentItem.getAngle());
@@ -187,12 +260,18 @@ public class JMEContentItem implements IContentItemImplementation {
 		this.spatial.updateModelBound();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#hasCollision(synergynetframework.appsystem.contentsystem.items.ContentItem)
+	 */
 	@Override
 	public boolean hasCollision(ContentItem contentItem){
 
 		return this.spatial.hasCollision((Spatial)contentItem.getImplementationObject(), true);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#update()
+	 */
 	public void update(){
 		setVisible(this.contentItem.isVisible());
 		setScale(this.contentItem.getScale());
@@ -201,21 +280,35 @@ public class JMEContentItem implements IContentItemImplementation {
 		this.setManipulate(this.contentItem.canManipulate());
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#update(float)
+	 */
 	public void update(float interpolation) {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#setLocation(synergynetframework.appsystem.contentsystem.items.utils.Location)
+	 */
 	@Override
 	public void setLocation(Location location) {
 		Location loc = location;
 		this.setLocalLocation(loc);
 	}
 	
+	/**
+	 * Gets the local location.
+	 *
+	 * @return the local location
+	 */
 	public Location getLocalLocation() {
 		Vector3f loc = this.spatial.getLocalTranslation();
 		return new Location(loc.x, loc.y, loc.z);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#setId(java.lang.String)
+	 */
 	@Override
 	public void setId(String id) {
 		 

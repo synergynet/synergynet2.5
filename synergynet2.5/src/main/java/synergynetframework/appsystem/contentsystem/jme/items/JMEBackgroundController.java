@@ -49,12 +49,26 @@ import synergynetframework.appsystem.contentsystem.jme.JMEContentSystem;
 import synergynetframework.jme.cursorsystem.MultiTouchElementRegistry;
 import synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale;
 
+
+/**
+ * The Class JMEBackgroundController.
+ */
 public class JMEBackgroundController extends JMEQuadContentItem implements IBackgroundControllerImplementation {
 
+	/** The item. */
 	private BackgroundController item;
+	
+	/** The background ortho control point rotate translate scale. */
 	protected OrthoControlPointRotateTranslateScale backgroundOrthoControlPointRotateTranslateScale;
+	
+	/** The background rotate translate scalable. */
 	protected boolean backgroundRotateTranslateScalable;
 	
+	/**
+	 * Instantiates a new JME background controller.
+	 *
+	 * @param contentItem the content item
+	 */
 	public JMEBackgroundController(ContentItem contentItem) {
 		super(contentItem, new Quad(contentItem.getName(),DisplaySystem.getDisplaySystem().getWidth(),DisplaySystem.getDisplaySystem().getHeight()));
 		((Quad)this.spatial).setCullHint(CullHint.Always);
@@ -62,6 +76,9 @@ public class JMEBackgroundController extends JMEQuadContentItem implements IBack
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEContentItem#init()
+	 */
 	public void init(){
 		this.item.setHeight(item.getContentSystem().getScreenHeight());
 		this.item.setWidth(item.getContentSystem().getScreenWidth());
@@ -76,6 +93,9 @@ public class JMEBackgroundController extends JMEQuadContentItem implements IBack
 	}
 	
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IBackgroundControllerImplementation#setBackgroundRotateTranslateScalable(boolean)
+	 */
 	public void setBackgroundRotateTranslateScalable(boolean isEnabled) {
 		this.backgroundRotateTranslateScalable = isEnabled;	
 		
@@ -98,59 +118,89 @@ public class JMEBackgroundController extends JMEQuadContentItem implements IBack
 		}			
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEQuadContentItem#setAutoFitSize(boolean)
+	 */
 	@Override
 	public void setAutoFitSize(boolean isEnabled) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEQuadContentItem#setHeight(int)
+	 */
 	@Override
 	public void setHeight(int height) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEQuadContentItem#setWidth(int)
+	 */
 	@Override
 	public void setWidth(int width) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IFrameImplementation#drawImage(java.net.URL)
+	 */
 	@Override
 	public void drawImage(URL imageResource) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IFrameImplementation#drawImage(java.net.URL, int, int, int, int)
+	 */
 	@Override
 	public void drawImage(URL imageResource, int x, int y, int width, int height) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IFrameImplementation#getImages()
+	 */
 	@Override
 	public HashMap<URL, ImageInfo> getImages() {
 		 
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IFrameImplementation#removeImage(java.net.URL)
+	 */
 	@Override
 	public void removeImage(URL imageResource) {
 		 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IFrameImplementation#removeAllImages()
+	 */
 	@Override
 	public void removeAllImages() {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IFrameImplementation#getGraphicsContext()
+	 */
 	@Override
 	public Graphics2D getGraphicsContext() {
 		 
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IFrameImplementation#flushGraphics()
+	 */
 	@Override
 	public void flushGraphics() {
 		 

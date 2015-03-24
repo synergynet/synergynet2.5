@@ -55,17 +55,38 @@ import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAd
 import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonListener;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class ResultDialog.
+ */
 public class ResultDialog extends MTFrame implements ControllerNetworkListener{
 	
+	/** The Constant windowWidth. */
 	public static final int windowWidth = 400;
+	
+	/** The Constant windowHeight. */
 	public static final int windowHeight = 480;
 	
 	//private ResultListControlPanel controlPanel;
+	/** The result list panel. */
 	public ResultList resultListPanel;
+	
+	/** The assignment id. */
 	private String assignmentId;
+	
+	/** The controller manager. */
 	private ControllerManager controllerManager;
+	
+	/** The result map. */
 	private HashMap<UserIdentity, AssignmentInfo> resultMap = new HashMap<UserIdentity, AssignmentInfo>();
 	
+	/**
+	 * Instantiates a new result dialog.
+	 *
+	 * @param assignmentId the assignment id
+	 * @param contentSystem the content system
+	 * @param controllerManager the controller manager
+	 */
 	public ResultDialog(String assignmentId, final ContentSystem contentSystem, final ControllerManager controllerManager){
 		super(contentSystem);
 		this.assignmentId = assignmentId;
@@ -172,10 +193,18 @@ public class ResultDialog extends MTFrame implements ControllerNetworkListener{
 		if(controllerManager != null) controllerManager.addNetworkListener(this);
 	}
 
+	/**
+	 * Gets the result list.
+	 *
+	 * @return the result list
+	 */
 	public ResultList getResultList() {
 		return this.resultListPanel;
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#userIdsReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity, java.util.List)
+	 */
 	@Override
 	public void userIdsReceived(TableIdentity tableId,
 			List<UserIdentity> userIds) {
@@ -183,6 +212,9 @@ public class ResultDialog extends MTFrame implements ControllerNetworkListener{
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#userRegistrationReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity, apps.mathpadapp.networkmanager.utils.UserIdentity)
+	 */
 	@Override
 	public void userRegistrationReceived(TableIdentity tableId,
 			UserIdentity userId) {
@@ -190,6 +222,9 @@ public class ResultDialog extends MTFrame implements ControllerNetworkListener{
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#userUnregistrationReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity, apps.mathpadapp.networkmanager.utils.UserIdentity)
+	 */
 	@Override
 	public void userUnregistrationReceived(TableIdentity tableId,
 			UserIdentity userId) {
@@ -197,6 +232,9 @@ public class ResultDialog extends MTFrame implements ControllerNetworkListener{
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#resultsReceivedFromUser(synergynetframework.appsystem.services.net.localpresence.TableIdentity, apps.mathpadapp.networkmanager.utils.UserIdentity, apps.mathpadapp.controllerapp.assignmentcontroller.AssignmentInfo)
+	 */
 	@Override
 	public void resultsReceivedFromUser(TableIdentity tableId,	UserIdentity userId, AssignmentInfo assignInfo) {
 		if(resultListPanel.getContainer() != null && assignInfo.getAssignmentId().equals(this.assignmentId)){	
@@ -220,17 +258,26 @@ public class ResultDialog extends MTFrame implements ControllerNetworkListener{
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.util.MTFrame#close()
+	 */
 	public void close(){
 		if(controllerManager != null) controllerManager.removeNetworkListener(ResultDialog.this);
 		contentSystem.removeContentItem(ResultDialog.this.getWindow());
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#projectorFound(synergynetframework.appsystem.services.net.localpresence.TableIdentity, boolean)
+	 */
 	@Override
 	public void projectorFound(TableIdentity tableId, boolean isLeaseSuccessful) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#userMathPadReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity, apps.mathpadapp.networkmanager.utils.UserIdentity, apps.mathpadapp.mathtool.MathToolInitSettings)
+	 */
 	@Override
 	public void userMathPadReceived(TableIdentity tableId,
 			UserIdentity userId, MathToolInitSettings mathToolSettings) {
@@ -238,6 +285,9 @@ public class ResultDialog extends MTFrame implements ControllerNetworkListener{
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#remoteDesktopContentReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity, java.util.HashMap)
+	 */
 	@Override
 	public void remoteDesktopContentReceived(TableIdentity tableId,
 			HashMap<UserIdentity, MathToolInitSettings> items) {
@@ -245,6 +295,9 @@ public class ResultDialog extends MTFrame implements ControllerNetworkListener{
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#syncDataReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity, java.util.HashMap)
+	 */
 	@Override
 	public void syncDataReceived(TableIdentity sender,
 			HashMap<UserIdentity, HashMap<Short, Object>> mathPadSyncData) {
@@ -252,6 +305,9 @@ public class ResultDialog extends MTFrame implements ControllerNetworkListener{
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#tableIdReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity)
+	 */
 	@Override
 	public void tableIdReceived(TableIdentity tableId) {
 		 

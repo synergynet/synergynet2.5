@@ -32,14 +32,28 @@
 
 package apps.twentyfourpoint.utils;
 
+
+/**
+ * The Class IllegalExpressionException.
+ */
 public class IllegalExpressionException extends Exception
 {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3226917972028572391L;
 
+	/**
+	 * Instantiates a new illegal expression exception.
+	 */
 	public IllegalExpressionException()
     {
     }
 
+    /**
+     * Instantiates a new illegal expression exception.
+     *
+     * @param msg the msg
+     */
     public IllegalExpressionException(String msg)
     {
         super(msg);

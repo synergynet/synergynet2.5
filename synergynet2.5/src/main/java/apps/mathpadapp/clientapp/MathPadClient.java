@@ -75,21 +75,45 @@ import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightConfirmVisualExit;
 import synergynetframework.jme.sysutils.CameraUtility;
 
+
+/**
+ * The Class MathPadClient.
+ */
 public class MathPadClient extends DefaultSynergyNetApp{
 
+	/** The comms. */
 	private TableCommsClientService comms = null;
+	
+	/** The message handler. */
 	protected ClientMessageHandler messageHandler;
+	
+	/** The client manager. */
 	protected ClientManager clientManager;
+	
+	/** The content system. */
 	private ContentSystem contentSystem;
+	
+	/** The nsds. */
 	private NetworkServiceDiscoveryService nsds = null;
 	
+	/** The max number of pads. */
 	protected int MAX_NUMBER_OF_PADS = 20;
+	
+	/** The current no of pads. */
 	protected int currentNoOfPads = 0;
 	
+	/**
+	 * Instantiates a new math pad client.
+	 *
+	 * @param info the info
+	 */
 	public MathPadClient(ApplicationInfo info) {
 		super(info);		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		
@@ -182,6 +206,13 @@ public class MathPadClient extends DefaultSynergyNetApp{
 		});
 	}
 	
+	/**
+	 * Login.
+	 *
+	 * @param tool the tool
+	 * @param userName the user name
+	 * @param password the password
+	 */
 	public void login(MathTool tool, String userName, String password){
 		UserIdentity userId = new UserIdentity();
 		userId.setUserIdentity(userName);
@@ -212,15 +243,24 @@ public class MathPadClient extends DefaultSynergyNetApp{
 		tool.setTitle(userId.getUserIdentity());
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onActivate()
+	 */
 	@Override
 	public void onActivate() {
 		this.connect(true);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onDeactivate()
+	 */
 	@Override
 	protected void onDeactivate() {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#getCamera()
+	 */
 	protected Camera getCamera() {
 		if(cam == null) {
 			cam = CameraUtility.getCamera();
@@ -231,6 +271,9 @@ public class MathPadClient extends DefaultSynergyNetApp{
 		return cam;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	@Override
 	protected void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);
@@ -238,6 +281,11 @@ public class MathPadClient extends DefaultSynergyNetApp{
 		if(clientManager != null) clientManager.update(tpf);
 	}
 
+	/**
+	 * Connect.
+	 *
+	 * @param isReconnect the is reconnect
+	 */
 	public void connect(final boolean isReconnect){
 		
 		new Thread(new Runnable(){

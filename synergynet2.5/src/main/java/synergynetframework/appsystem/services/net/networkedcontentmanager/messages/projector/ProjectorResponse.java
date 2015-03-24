@@ -36,25 +36,50 @@ package synergynetframework.appsystem.services.net.networkedcontentmanager.messa
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.UnicastApplicationMessage;
 
+
+/**
+ * The Class ProjectorResponse.
+ */
 public class ProjectorResponse extends UnicastApplicationMessage {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -546746344864227474L;
+	
+	/** The lease succeed. */
 	private boolean leaseSucceed = false;
 
+	/**
+	 * Instantiates a new projector response.
+	 */
 	public ProjectorResponse(){
 		super();
 	}
 	
+	/**
+	 * Instantiates a new projector response.
+	 *
+	 * @param targetClass the target class
+	 * @param leaseSucceed the lease succeed
+	 * @param id the id
+	 */
 	public ProjectorResponse(Class<?> targetClass, boolean leaseSucceed, TableIdentity id) {
 		super(targetClass);
 		this.leaseSucceed = leaseSucceed;
 		this.setRecipient(id);
 	}
 
+	/**
+	 * Checks if is lease succeed.
+	 *
+	 * @return true, if is lease succeed
+	 */
 	public boolean isLeaseSucceed(){
 		return leaseSucceed;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return "Projector Response";
 	}

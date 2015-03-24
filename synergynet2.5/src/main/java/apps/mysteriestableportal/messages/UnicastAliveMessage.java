@@ -35,14 +35,28 @@ package apps.mysteriestableportal.messages;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.UnicastApplicationMessage;
 
+
+/**
+ * The Class UnicastAliveMessage.
+ */
 public class UnicastAliveMessage extends UnicastApplicationMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3611717853521792797L;
 
+	/**
+	 * Instantiates a new unicast alive message.
+	 */
 	public UnicastAliveMessage(){
 		super();
 	}
 	
+	/**
+	 * Instantiates a new unicast alive message.
+	 *
+	 * @param targetClass the target class
+	 * @param targetTableId the target table id
+	 */
 	public UnicastAliveMessage(Class<?> targetClass, TableIdentity targetTableId){
 		super(targetClass);
 		this.setRecipient(targetTableId);

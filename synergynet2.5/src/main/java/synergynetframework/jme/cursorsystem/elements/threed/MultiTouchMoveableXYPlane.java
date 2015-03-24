@@ -46,25 +46,52 @@ import synergynetframework.jme.pickingsystem.data.ThreeDPickResultData;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 
 
+
+/**
+ * The Class MultiTouchMoveableXYPlane.
+ */
 public class MultiTouchMoveableXYPlane extends ThreeDMultiTouchElement {
 	
+	/**
+	 * Instantiates a new multi touch moveable xy plane.
+	 *
+	 * @param s the s
+	 */
 	public MultiTouchMoveableXYPlane(Spatial s) {
 		super(s);
 	}
 	
+	/**
+	 * Instantiates a new multi touch moveable xy plane.
+	 *
+	 * @param pickSpatial the pick spatial
+	 * @param targetSpatial the target spatial
+	 */
 	public MultiTouchMoveableXYPlane(Spatial pickSpatial, Spatial targetSpatial) {
 		super(pickSpatial, targetSpatial);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorClicked(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorClicked(ScreenCursor c, MultiTouchCursorEvent event) {}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorPressed(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorPressed(ScreenCursor c, MultiTouchCursorEvent event) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorReleased(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorReleased(ScreenCursor c, MultiTouchCursorEvent event) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorChanged(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorChanged(ScreenCursor c, MultiTouchCursorEvent event) {		
 		Vector2f screenPos;

@@ -10,17 +10,29 @@ import synergynetframework.appsystem.services.exceptions.ServiceNotRunningExcept
 import synergynetframework.appsystem.services.net.filestore.FileStoreServer;
 import synergynetframework.config.server.ServerConfigPrefsItem;
 
+
+/**
+ * The Class NetworkContentServerService.
+ */
 public class NetworkContentServerService extends SynergyNetService {
 
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(NetworkContentServerService.class.getName());
 	//private WebServerService wss;
+	/** The fss. */
 	private FileStoreServer fss;
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#hasStarted()
+	 */
 	@Override
 	public boolean hasStarted() {
 		return /*wss != null ||*/ fss != null;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#shutdown()
+	 */
 	@Override
 	public void shutdown() {
 		try {
@@ -30,6 +42,9 @@ public class NetworkContentServerService extends SynergyNetService {
 		}		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#start()
+	 */
 	@Override
 	public void start() throws CouldNotStartServiceException {		
 		ServiceManager services = ServiceManager.getInstance();
@@ -43,6 +58,9 @@ public class NetworkContentServerService extends SynergyNetService {
 		log.info("NetworkContentServer service started");
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#stop()
+	 */
 	@Override
 	public void stop() throws ServiceNotRunningException {
 		//wss.stop();
@@ -50,6 +68,9 @@ public class NetworkContentServerService extends SynergyNetService {
 		log.info("NetworkContentServer service stopped");
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#update()
+	 */
 	@Override
 	public void update() {}
 

@@ -56,21 +56,46 @@ import synergynetframework.appsystem.services.net.objectmessaging.messages.frame
 import synergynetframework.appsystem.services.net.objectmessaging.utility.serializers.SerializationException;
 
 
+
+/**
+ * The Class Server.
+ */
 public class Server implements EndPoint {
 	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(Server.class.getName());
 
+	/** The buffer size. */
 	protected int bufferSize;
+	
+	/** The selector. */
 	protected Selector selector;
+	
+	/** The server channel. */
 	protected ServerSocketChannel serverChannel;
+	
+	/** The udp. */
 	protected UDPConnectionHandler udp;
+	
+	/** The connection handlers. */
 	protected Queue<ConnectionHandler> connectionHandlers = new ConcurrentLinkedQueue<ConnectionHandler>();
+	
+	/** The handlers. */
 	protected ArrayList <MessageHandler> handlers = new ArrayList<MessageHandler>();
+	
+	/** The next connection id. */
 	protected short nextConnectionID = 1;
+	
+	/** The shutdown. */
 	private volatile boolean shutdown = false;
+	
+	/** The update lock. */
 	protected Object updateLock = new Object();
+	
+	/** The update thread. */
 	protected Thread updateThread;
 
+	/** The dispatch connection handler. */
 	private MessageHandler dispatchConnectionHandler = new MessageHandler() {
 		public void handlerConnected (ConnectionHandler connectionHandler) {
 			for(MessageHandler h: handlers)
@@ -89,10 +114,18 @@ public class Server implements EndPoint {
 		}
 	};
 
+	/**
+	 * Instantiates a new server.
+	 */
 	public Server () {
 		this(1024 * 1024 * 10);
 	}
 
+	/**
+	 * Instantiates a new server.
+	 *
+	 * @param bufferSize the buffer size
+	 */
 	public Server (int bufferSize) {
 		this.bufferSize = bufferSize;
 		try {
@@ -102,10 +135,23 @@ public class Server implements EndPoint {
 		}
 	}
 
+	/**
+	 * Bind.
+	 *
+	 * @param tcpPort the tcp port
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void bind (int tcpPort) throws IOException {
 		bind(tcpPort, -1);
 	}
 
+	/**
+	 * Bind.
+	 *
+	 * @param tcpPort the tcp port
+	 * @param udpPort the udp port
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void bind (int tcpPort, int udpPort) throws IOException {
 		close();
 		synchronized (updateLock) {
@@ -130,6 +176,9 @@ public class Server implements EndPoint {
 		log.info("Server started.");
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.EndPoint#update(int)
+	 */
 	public void update (int timeout) throws IOException {
 		updateThread = Thread.currentThread();
 		synchronized (updateLock) { 
@@ -236,6 +285,9 @@ public class Server implements EndPoint {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.EndPoint#run()
+	 */
 	public void run () {
 		log.info("Server thread started.");
 		shutdown = false;
@@ -249,6 +301,9 @@ public class Server implements EndPoint {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.EndPoint#stop()
+	 */
 	public void stop () {
 		close();
 		log.info("Server thread stopping.");
@@ -256,6 +311,11 @@ public class Server implements EndPoint {
 		selector.wakeup();
 	}
 
+	/**
+	 * Accept operation.
+	 *
+	 * @param socketChannel the socket channel
+	 */
 	private void acceptOperation (SocketChannel socketChannel) {
 		ConnectionHandler connectionHandler = newConnection(bufferSize);
 		connectionHandler.setEndPoint(this);
@@ -281,10 +341,23 @@ public class Server implements EndPoint {
 	}
 
 
+	/**
+	 * New connection.
+	 *
+	 * @param bufferSize the buffer size
+	 * @return the connection handler
+	 */
 	protected ConnectionHandler newConnection (int bufferSize) {
 		return new ConnectionHandler(bufferSize);
 	}
 
+	/**
+	 * Send message.
+	 *
+	 * @param connectionID the connection id
+	 * @param message the message
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void sendMessage (short connectionID, Message message) throws IOException {
 		for(ConnectionHandler connectionHandler: connectionHandlers) {
 			if (connectionHandler.getID() == connectionID) {
@@ -294,12 +367,25 @@ public class Server implements EndPoint {
 		}
 	}
 	
+	/**
+	 * Send message to all.
+	 *
+	 * @param message the message
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void sendMessageToAll (Message message) throws IOException {
 		for(ConnectionHandler connectionHandler: connectionHandlers){
 			connectionHandler.sendMessage(message);
 		}
 	}
 
+	/**
+	 * Send message to all except.
+	 *
+	 * @param connectionID the connection id
+	 * @param message the message
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void sendMessageToAllExcept (short connectionID, Message message) throws IOException {
 		for(ConnectionHandler connectionHandler: connectionHandlers) {
 			if (connectionHandler.getID() != connectionID) 
@@ -307,12 +393,25 @@ public class Server implements EndPoint {
 		}
 	}
 	
+	/**
+	 * Send to all tcp.
+	 *
+	 * @param object the object
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void sendToAllTCP (Object object) throws IOException {
 		for(ConnectionHandler connectionHandler: connectionHandlers){
 			connectionHandler.sendTCP(object);
 		}
 	}
 
+	/**
+	 * Send to all except tcp.
+	 *
+	 * @param connectionID the connection id
+	 * @param object the object
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void sendToAllExceptTCP (short connectionID, Object object) throws IOException {
 		for(ConnectionHandler connectionHandler: connectionHandlers) {
 			if (connectionHandler.getID() != connectionID) 
@@ -320,6 +419,13 @@ public class Server implements EndPoint {
 		}
 	}
 
+	/**
+	 * Send to tcp.
+	 *
+	 * @param connectionID the connection id
+	 * @param object the object
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void sendToTCP (short connectionID, Object object) throws IOException {
 		for(ConnectionHandler connectionHandler: connectionHandlers) {
 			if (connectionHandler.getID() == connectionID) {
@@ -329,17 +435,37 @@ public class Server implements EndPoint {
 		}
 	}
 
+	/**
+	 * Send to all udp.
+	 *
+	 * @param object the object
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void sendToAllUDP (Object object) throws IOException {
 		for(ConnectionHandler connectionHandler: connectionHandlers)
 			connectionHandler.sendUDP(object);
 	}
 
+	/**
+	 * Send to all except udp.
+	 *
+	 * @param connectionID the connection id
+	 * @param object the object
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void sendToAllExceptUDP (short connectionID, Object object) throws IOException {
 		for(ConnectionHandler connectionHandler: connectionHandlers) {
 			if (connectionHandler.getID() != connectionID) connectionHandler.sendUDP(object);
 		}
 	}
 
+	/**
+	 * Send to udp.
+	 *
+	 * @param connectionID the connection id
+	 * @param object the object
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void sendToUDP (short connectionID, Object object) throws IOException {
 		for(ConnectionHandler connectionHandler: connectionHandlers) {
 			if (connectionHandler.getID() == connectionID) {
@@ -349,6 +475,9 @@ public class Server implements EndPoint {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.EndPoint#addMessageHandler(synergynetframework.appsystem.services.net.objectmessaging.connections.MessageHandler)
+	 */
 	public void addMessageHandler (MessageHandler handler) {
 		if (handler == null) throw new IllegalArgumentException("listener cannot be null.");
 		for(MessageHandler h: handlers)
@@ -356,12 +485,18 @@ public class Server implements EndPoint {
 		handlers.add(handler);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.EndPoint#removeMessageHandler(synergynetframework.appsystem.services.net.objectmessaging.connections.MessageHandler)
+	 */
 	public void removeMessageHandler (MessageHandler handler) {
 		if (handler == null) throw new IllegalArgumentException("handler cannot be null.");
 		handlers.remove(handler);
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.EndPoint#close()
+	 */
 	public void close () {
 		for (ConnectionHandler connectionHandler: connectionHandlers)
 			connectionHandler.close();
@@ -383,14 +518,27 @@ public class Server implements EndPoint {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.EndPoint#getUpdateThread()
+	 */
 	public Thread getUpdateThread () {
 		return updateThread;
 	}
 	
+	/**
+	 * Checks if is running.
+	 *
+	 * @return true, if is running
+	 */
 	public boolean isRunning(){
 		return !shutdown;
 	}
 	
+	/**
+	 * Gets the handlers.
+	 *
+	 * @return the handlers
+	 */
 	public Queue<ConnectionHandler> getHandlers(){
 		return connectionHandlers;
 	}

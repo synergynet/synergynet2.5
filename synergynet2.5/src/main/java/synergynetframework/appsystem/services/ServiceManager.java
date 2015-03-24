@@ -60,12 +60,26 @@ import org.xml.sax.SAXParseException;
 import synergynetframework.appsystem.Resources;
 import synergynetframework.appsystem.services.exceptions.CouldNotStartServiceException;
 
+
+/**
+ * The Class ServiceManager.
+ */
 public class ServiceManager {
+	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(ServiceManager.class.getName());
+	
+	/** The instance. */
 	private static ServiceManager instance;
 
+	/** The services. */
 	protected Map<String, SynergyNetService> services = new HashMap<String,SynergyNetService>();
 
+	/**
+	 * Gets the single instance of ServiceManager.
+	 *
+	 * @return single instance of ServiceManager
+	 */
 	public static ServiceManager getInstance() {
 		synchronized(ServiceManager.class) {
 			if(instance == null) {
@@ -75,6 +89,9 @@ public class ServiceManager {
 		}
 	}
 
+	/**
+	 * Instantiates a new service manager.
+	 */
 	private ServiceManager() {
 		log.info("ServiceManager created. Adding shutdown hook to runtime.");
 		Runtime.getRuntime().addShutdownHook(new Thread() {
@@ -84,6 +101,13 @@ public class ServiceManager {
 		});
 	}
 	
+	/**
+	 * Gets the.
+	 *
+	 * @param theClass the the class
+	 * @return the synergy net service
+	 * @throws CouldNotStartServiceException the could not start service exception
+	 */
 	public SynergyNetService get(Class<? extends SynergyNetService> theClass) throws CouldNotStartServiceException {
 		String classname = theClass.getName();
 		if(services.get(classname) != null) {
@@ -106,6 +130,17 @@ public class ServiceManager {
 		return null;
 	}
 
+	/**
+	 * Load from configuration.
+	 *
+	 * @param configXMLInputStream the config xml input stream
+	 * @throws SAXException the SAX exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ParserConfigurationException the parser configuration exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws ClassNotFoundException the class not found exception
+	 */
 	public void loadFromConfiguration(InputStream configXMLInputStream) throws SAXException, IOException, ParserConfigurationException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		log.info("Loading servcies information from XML");
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -158,6 +193,14 @@ public class ServiceManager {
 
 	}
 
+	/**
+	 * Register and startup.
+	 *
+	 * @param path the path
+	 * @param document the document
+	 * @param classname the classname
+	 * @throws XPathExpressionException the x path expression exception
+	 */
 	@SuppressWarnings("unchecked")
 	private static void registerAndStartup(XPath path, Document document, String classname) throws XPathExpressionException {
 
@@ -186,6 +229,15 @@ public class ServiceManager {
 		}
 	}
 
+	/**
+	 * Gets the dependencies.
+	 *
+	 * @param path the path
+	 * @param document the document
+	 * @param classname the classname
+	 * @return the dependencies
+	 * @throws XPathExpressionException the x path expression exception
+	 */
 	private static List<String> getDependencies(XPath path, Document document, String classname) throws XPathExpressionException {
 		List<String> dependencies = new ArrayList<String>();
 		String eval = "/tns:config/tns:services/tns:service[@classname=\"" + classname + "\"]/tns:depends/*";
@@ -198,6 +250,9 @@ public class ServiceManager {
 		return dependencies;
 	}
 
+	/**
+	 * Shutdown.
+	 */
 	public void shutdown() {
 		for(String key : services.keySet()) {			
 			SynergyNetService s = services.get(key);
@@ -207,10 +262,18 @@ public class ServiceManager {
 		services.clear();
 	}
 	
+	/**
+	 * Unregister.
+	 *
+	 * @param classname the classname
+	 */
 	public void unregister(String classname){
 		if(services.containsKey(classname)) services.remove(classname);
 	}
 	
+	/**
+	 * Update.
+	 */
 	public void update() {
 		for(SynergyNetService s : services.values()) {
 			s.update();

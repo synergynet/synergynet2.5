@@ -33,10 +33,29 @@ package synergynetframework.appsystem.contentsystem.items.listener;
 
 import synergynetframework.appsystem.contentsystem.items.SimpleButton;
 
+
+/**
+ * The Class SimpleButtonAdapter.
+ */
 public class SimpleButtonAdapter implements SimpleButtonListener {
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonListener#buttonClicked(synergynetframework.appsystem.contentsystem.items.SimpleButton, long, float, float, float)
+	 */
 	public void buttonClicked(SimpleButton b, long id, float x, float y, float pressure) {}
+	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonListener#buttonDragged(synergynetframework.appsystem.contentsystem.items.SimpleButton, long, float, float, float)
+	 */
 	public void buttonDragged(SimpleButton b, long id, float x, float y, float pressure) {}
+	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonListener#buttonPressed(synergynetframework.appsystem.contentsystem.items.SimpleButton, long, float, float, float)
+	 */
 	public void buttonPressed(SimpleButton b, long id, float x, float y, float pressure) {}
+	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonListener#buttonReleased(synergynetframework.appsystem.contentsystem.items.SimpleButton, long, float, float, float)
+	 */
 	public void buttonReleased(SimpleButton b, long id, float x, float y, float pressure) {}
 }

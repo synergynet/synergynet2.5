@@ -44,54 +44,112 @@ import synergynetframework.jme.cursorsystem.cursordata.ScreenCursor;
 import synergynetframework.jme.cursorsystem.fixutils.FixLocationStatus;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 
+
+/**
+ * The Class OrthoSnap.
+ */
 public class OrthoSnap extends TwoDMultiTouchElement {
 
+	/** The fix locations. */
 	protected List<FixLocationStatus> fixLocations=null;
+	
+	/** The tolerance. */
 	protected float tolerance = 50;
+	
+	/** The allow snap to occupied location. */
 	protected boolean allowSnapToOccupiedLocation = false;
 	
+	/** The listeners. */
 	protected List<SnapListener> listeners = new ArrayList<SnapListener>();
 	
+	/**
+	 * Instantiates a new ortho snap.
+	 *
+	 * @param pickingAndTargetSpatial the picking and target spatial
+	 */
 	public OrthoSnap(Spatial pickingAndTargetSpatial) {
 		super(pickingAndTargetSpatial);
 	}
 	
+	/**
+	 * Instantiates a new ortho snap.
+	 *
+	 * @param pickingSpatial the picking spatial
+	 * @param targetSpatial the target spatial
+	 */
 	public OrthoSnap(Spatial pickingSpatial, Spatial targetSpatial){
 		super(pickingSpatial, targetSpatial);
 	}
 	
+	/**
+	 * Sets the fix locations.
+	 *
+	 * @param fixLocations the new fix locations
+	 */
 	public void setFixLocations(List<FixLocationStatus> fixLocations) {
 		this.fixLocations = fixLocations;
 	}
 
+	/**
+	 * Gets the tolerance.
+	 *
+	 * @return the tolerance
+	 */
 	public float getTolerance() {
 		return tolerance;
 	}
 
+	/**
+	 * Sets the tolerance.
+	 *
+	 * @param tolerance the new tolerance
+	 */
 	public void setTolerance(float tolerance) {
 		this.tolerance = tolerance;
 	}
 
+	/**
+	 * Checks if is allow snap to occupied location.
+	 *
+	 * @return true, if is allow snap to occupied location
+	 */
 	public boolean isAllowSnapToOccupiedLocation() {
 		return allowSnapToOccupiedLocation;
 	}
 
+	/**
+	 * Allow snap to occupied location.
+	 *
+	 * @param allowSnapToOccupiedLocation the allow snap to occupied location
+	 */
 	public void allowSnapToOccupiedLocation(boolean allowSnapToOccupiedLocation) {
 		this.allowSnapToOccupiedLocation = allowSnapToOccupiedLocation;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorChanged(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorChanged(ScreenCursor c, MultiTouchCursorEvent event) {	
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorClicked(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorClicked(ScreenCursor c, MultiTouchCursorEvent event) {		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorPressed(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorPressed(ScreenCursor c, MultiTouchCursorEvent event) {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorReleased(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorReleased(ScreenCursor c, MultiTouchCursorEvent event) {
 		if (this.fixLocations==null)
@@ -101,6 +159,9 @@ public class OrthoSnap extends TwoDMultiTouchElement {
 
 	}
 	
+	/**
+	 * Snap.
+	 */
 	private void Snap() {
 
 		Vector2f spatialLocationVector = new Vector2f(targetSpatial.getLocalTranslation().x, targetSpatial.getLocalTranslation().y);
@@ -125,6 +186,9 @@ public class OrthoSnap extends TwoDMultiTouchElement {
 		}	
 	}
 	
+	/**
+	 * Un snap.
+	 */
 	private void unSnap(){
 		
 		FixLocationStatus unfixedLocation=null;
@@ -146,16 +210,45 @@ public class OrthoSnap extends TwoDMultiTouchElement {
 		
 	}
 
+	/**
+	 * The listener interface for receiving snap events.
+	 * The class that is interested in processing a snap
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addSnapListener<code> method. When
+	 * the snap event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see SnapEvent
+	 */
 	public interface SnapListener{
+		
+		/**
+		 * Item snapped.
+		 *
+		 * @param multiTouchElement the multi touch element
+		 * @param targetSpatial the target spatial
+		 * @param fixLocationStatus the fix location status
+		 */
 		public void itemSnapped(OrthoSnap multiTouchElement, Spatial targetSpatial, FixLocationStatus fixLocationStatus);		
 
 	}
 
+	/**
+	 * Adds the snap listener.
+	 *
+	 * @param l the l
+	 */
 	public void addSnapListener(SnapListener l){
 		if (!listeners.contains(l))
 			listeners.add(l);
 	}
 	
+	/**
+	 * Removes the snap listener.
+	 *
+	 * @param l the l
+	 */
 	public void removeSnapListener(SnapListener l){
 		if (listeners.contains(l))
 			listeners.remove(l);

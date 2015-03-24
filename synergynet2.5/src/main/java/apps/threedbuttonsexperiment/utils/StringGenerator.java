@@ -4,8 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+
+/**
+ * The Class StringGenerator.
+ */
 public class StringGenerator {
 	
+	/**
+	 * Generate number.
+	 *
+	 * @param length the length
+	 * @return the string
+	 */
 	public static String generateNumber(int length){
 		
 		Random random = new Random();
@@ -26,6 +36,11 @@ public class StringGenerator {
 		return generatedString;
 	}
 	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		
 		for (int i=0; i<100; i++)

@@ -33,15 +33,28 @@ package synergynetframework.appsystem.contentsystem.items.listener;
 
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 
+
+/**
+ * The Class OrthoControlPointRotateTranslateScaleAdapter.
+ */
 public class OrthoControlPointRotateTranslateScaleAdapter implements OrthoControlPointRotateTranslateScaleListener {
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.listener.OrthoControlPointRotateTranslateScaleListener#itemRotated(synergynetframework.appsystem.contentsystem.items.ContentItem, float, float)
+	 */
 	@Override
 	public void itemRotated(ContentItem item, float newAngle, float oldAngle) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.listener.OrthoControlPointRotateTranslateScaleListener#itemScaled(synergynetframework.appsystem.contentsystem.items.ContentItem, float, float)
+	 */
 	@Override
 	public void itemScaled(ContentItem item, float newScaleFactor,
 			float oldScaleFactor) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.listener.OrthoControlPointRotateTranslateScaleListener#itemTranslated(synergynetframework.appsystem.contentsystem.items.ContentItem, float, float, float, float)
+	 */
 	@Override
 	public void itemTranslated(ContentItem item, float newLocationX,
 			float newLocationY, float oldLocationX, float oldLocationY) {}

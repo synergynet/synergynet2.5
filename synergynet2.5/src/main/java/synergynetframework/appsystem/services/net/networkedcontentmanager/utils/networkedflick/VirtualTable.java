@@ -36,26 +36,53 @@ import com.jme.scene.shape.Quad;
 
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class VirtualTable.
+ */
 public class VirtualTable extends Quad{
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3055508502964905444L;
+	
+	/** The table id. */
 	private TableIdentity tableId;
 	
+	/**
+	 * Instantiates a new virtual table.
+	 *
+	 * @param otherTable the other table
+	 */
 	public VirtualTable(VirtualTable otherTable){
 		super(otherTable.getTableId().toString(), otherTable.getWidth(), otherTable.getHeight());
 		this.tableId = otherTable.getTableId();
 	}
 	
+	/**
+	 * Instantiates a new virtual table.
+	 *
+	 * @param remoteTableInfo the remote table info
+	 */
 	public VirtualTable(TableInfo remoteTableInfo)
 	{
 		super(remoteTableInfo.getTableId().toString(), remoteTableInfo.getWidth(), remoteTableInfo.getHeight());
 		this.tableId = remoteTableInfo.getTableId();
 	}
 	
+	/**
+	 * Sets the table id.
+	 *
+	 * @param tableId the new table id
+	 */
 	public void setTableId(TableIdentity tableId)	{
 		this.tableId = tableId;
 	}
 	
+	/**
+	 * Gets the table id.
+	 *
+	 * @return the table id
+	 */
 	public TableIdentity getTableId(){
 		return tableId;
 	}

@@ -36,7 +36,13 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+
+/**
+ * The Class ContentSystemUtils.
+ */
 public class ContentSystemUtils {
+	
+	/** The dummy gfx. */
 	private static Graphics2D dummyGFX;
 
 	static {
@@ -44,16 +50,35 @@ public class ContentSystemUtils {
 		dummyGFX = ( Graphics2D)( bufferedImage.createGraphics() );			
 	}
 
+	/**
+	 * Gets the string width.
+	 *
+	 * @param font the font
+	 * @param text the text
+	 * @return the string width
+	 */
 	public static int getStringWidth(Font font, String text) {
 		dummyGFX.setFont(font);
 		return dummyGFX.getFontMetrics().stringWidth(text);
 	}
 	
+	/**
+	 * Gets the font height.
+	 *
+	 * @param font the font
+	 * @return the font height
+	 */
 	public static int getFontHeight(Font font) {
 		dummyGFX.setFont(font);		
 		return dummyGFX.getFontMetrics().getHeight();
 	}
 
+	/**
+	 * Gets the font descent.
+	 *
+	 * @param font the font
+	 * @return the font descent
+	 */
 	public static int getFontDescent(Font font) {
 		dummyGFX.setFont(font);		
 		return dummyGFX.getFontMetrics().getDescent();

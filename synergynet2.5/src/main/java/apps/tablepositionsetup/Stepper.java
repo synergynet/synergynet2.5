@@ -10,16 +10,45 @@ import synergynetframework.appsystem.contentsystem.items.TextLabel;
 import synergynetframework.appsystem.contentsystem.items.listener.ItemListener;
 import synergynetframework.jme.Updateable;
 
+
+/**
+ * The Class Stepper.
+ */
 public class Stepper implements Updateable{
 
+	/** The suffix text. */
 	private TextLabel distanceText, upper, downer, prefixText, suffixText = null;
+	
+	/** The down. */
 	private boolean up, down = false;
+	
+	/** The scale. */
 	private float result, scale = 0;
+	
+	/** The loc y. */
 	private int locX, locY = 0;
+	
+	/** The measurement. */
 	private String measurement;
+	
+	/** The lower limit. */
 	private float upperLimit, lowerLimit = 0;
+	
+	/** The lower limit set. */
 	private boolean upperLimitSet, lowerLimitSet = false;
 
+	/**
+	 * Instantiates a new stepper.
+	 *
+	 * @param contentSystem the content system
+	 * @param x the x
+	 * @param y the y
+	 * @param startValue the start value
+	 * @param stepSize the step size
+	 * @param prefix the prefix
+	 * @param suffix the suffix
+	 * @param measure the measure
+	 */
 	public Stepper(ContentSystem contentSystem, int x, int y, float startValue, float stepSize, String prefix, String suffix, String measure){
 		this.locX = x;
 		this.locY = y;
@@ -144,32 +173,61 @@ public class Stepper implements Updateable{
 
 	}
 
+	/**
+	 * Gets the value.
+	 *
+	 * @return the value
+	 */
 	public float getValue(){
 		return result;
 	}
 
+	/**
+	 * Sets the value.
+	 *
+	 * @param value the new value
+	 */
 	public void setValue(float value){
 		result = value;		updateStepper();;
 	}
 
+	/**
+	 * Sets the upper limit.
+	 *
+	 * @param limit the new upper limit
+	 */
 	public void setUpperLimit(float limit){
 		upperLimitSet = true;
 		upperLimit = limit;
 	}
 
+	/**
+	 * Un set upper limit.
+	 */
 	public void unSetUpperLimit(){
 		upperLimitSet = false;
 	}
 
+	/**
+	 * Sets the lower limit.
+	 *
+	 * @param limit the new lower limit
+	 */
 	public void setLowerLimit(float limit){
 		lowerLimitSet = true;
 		lowerLimit = limit;
 	}
 
+	/**
+	 * Un set lower limit.
+	 */
 	public void unSetLowerLimit(){
 		lowerLimitSet = false;
 	}
 
+	/**
+	 * Destroy dial.
+	 */
 	public void destroyDial(){
 		distanceText.setVisible(false, true);
 		upper.setVisible(false, true);
@@ -178,12 +236,18 @@ public class Stepper implements Updateable{
 		suffixText.setVisible(false, true);
 	}
 
+	/**
+	 * Update stepper.
+	 */
 	private void updateStepper(){
 		distanceText.setText(" " + new DecimalFormat("0.##").format((float)result) + measurement + " ");
 		distanceText.setLocalLocation(locX + prefixText.getWidth()/2 + distanceText.getWidth()/2, locY);
 		suffixText.setLocalLocation(locX + prefixText.getWidth()/2 + distanceText.getWidth(), locY);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.Updateable#update(float)
+	 */
 	@Override
 	public void update(float timePerFrame) {
 		if (up){

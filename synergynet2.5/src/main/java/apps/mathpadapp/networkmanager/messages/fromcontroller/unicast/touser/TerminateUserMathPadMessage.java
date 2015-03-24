@@ -34,10 +34,22 @@ package apps.mathpadapp.networkmanager.messages.fromcontroller.unicast.touser;
 import apps.mathpadapp.networkmanager.utils.UserIdentity;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class TerminateUserMathPadMessage.
+ */
 public class TerminateUserMathPadMessage extends ControllerToUserMessage {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1558455400434548461L;
 
+	/**
+	 * Instantiates a new terminate user math pad message.
+	 *
+	 * @param targetClass the target class
+	 * @param tableId the table id
+	 * @param userId the user id
+	 */
 	public TerminateUserMathPadMessage(Class<?> targetClass, TableIdentity tableId, UserIdentity userId) {
 		super(targetClass);
 		this.setRecipient(tableId);

@@ -46,12 +46,31 @@ import com.jme.math.Vector3f;
 import com.jme.scene.Spatial;
 import com.jme.scene.shape.Quad;
 
+
+/**
+ * The Class KeyboardWrapper.
+ */
 public class KeyboardWrapper extends OrthoControlPointRotateTranslateScale {
+	
+	/** The keyboard geom. */
 	protected JMEKeyboard keyboardGeom;
+	
+	/** The interact area. */
 	protected Rectangle interactArea;
+	
+	/** The interact area cursors. */
 	protected Set<Long> interactAreaCursors = new HashSet<Long>();
+	
+	/** The keyboard quad. */
 	private Quad keyboardQuad;
 
+	/**
+	 * Instantiates a new keyboard wrapper.
+	 *
+	 * @param keyboardGeom the keyboard geom
+	 * @param targetSpatial the target spatial
+	 * @param interactArea the interact area
+	 */
 	public KeyboardWrapper(JMEKeyboard keyboardGeom, Spatial targetSpatial, Rectangle interactArea) {
 		super((Spatial)keyboardGeom.getImplementationObject(), targetSpatial);
 		this.interactArea = interactArea;
@@ -59,10 +78,19 @@ public class KeyboardWrapper extends OrthoControlPointRotateTranslateScale {
 		this.keyboardQuad = (Quad)keyboardGeom.getImplementationObject();
 	}
 	
+	/**
+	 * Instantiates a new keyboard wrapper.
+	 *
+	 * @param keyboardGeom the keyboard geom
+	 * @param interactArea the interact area
+	 */
 	public KeyboardWrapper(JMEKeyboard keyboardGeom, Rectangle interactArea) {
 		this(keyboardGeom, (Spatial)keyboardGeom.getImplementationObject(), interactArea);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale#cursorPressed(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorPressed(ScreenCursor c, MultiTouchCursorEvent event) {
 		super.cursorPressed(c, event);
@@ -74,6 +102,9 @@ public class KeyboardWrapper extends OrthoControlPointRotateTranslateScale {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale#cursorReleased(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorReleased(ScreenCursor c, MultiTouchCursorEvent event) {	
 		super.cursorReleased(c, event);
@@ -85,6 +116,12 @@ public class KeyboardWrapper extends OrthoControlPointRotateTranslateScale {
 		}		
 	}
 
+	/**
+	 * Gets the current element2 d coords for cursor.
+	 *
+	 * @param cursor the cursor
+	 * @return the current element2 d coords for cursor
+	 */
 	public Point getCurrentElement2DCoordsForCursor(ScreenCursor cursor) {
 		if(cursor == null) return null;
 		Vector3f cursorPosition = new Vector3f(cursor.getCurrentCursorScreenPosition().x, cursor.getCurrentCursorScreenPosition().y, 0f);
@@ -97,11 +134,17 @@ public class KeyboardWrapper extends OrthoControlPointRotateTranslateScale {
 		return p;		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale#cursorChanged(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorChanged(ScreenCursor c, MultiTouchCursorEvent event) {
 		super.cursorChanged(c, event);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale#applyMultiCursorTransform()
+	 */
 	@Override
 	protected void applyMultiCursorTransform() {
 		//long id0 = getScreenCursorByIndex(0).getID();
@@ -112,6 +155,9 @@ public class KeyboardWrapper extends OrthoControlPointRotateTranslateScale {
 		//}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale#applySingleCursorTransform()
+	 */
 	@Override
 	protected void applySingleCursorTransform() {
 		ScreenCursor c = getScreenCursorByIndex(0);
@@ -124,9 +170,48 @@ public class KeyboardWrapper extends OrthoControlPointRotateTranslateScale {
 
 	}
 
+	/**
+	 * The listener interface for receiving keyboardEven events.
+	 * The class that is interested in processing a keyboardEven
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addKeyboardEvenListener<code> method. When
+	 * the keyboardEven event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see KeyboardEvenEvent
+	 */
 	public interface KeyboardEvenListener {
+		
+		/**
+		 * Item rotated.
+		 *
+		 * @param multiTouchElement the multi touch element
+		 * @param targetSpatial the target spatial
+		 * @param newAngle the new angle
+		 * @param oldAngle the old angle
+		 */
 		public void itemRotated(OrthoControlPointRotateTranslateScale multiTouchElement, Spatial targetSpatial, float newAngle, float oldAngle);
+		
+		/**
+		 * Item moved.
+		 *
+		 * @param multiTouchElement the multi touch element
+		 * @param targetSpatial the target spatial
+		 * @param newLocationX the new location x
+		 * @param newLocationY the new location y
+		 * @param oldLocationX the old location x
+		 * @param oldLocationY the old location y
+		 */
 		public void itemMoved(OrthoControlPointRotateTranslateScale multiTouchElement, Spatial targetSpatial,  float newLocationX, float newLocationY, float oldLocationX, float oldLocationY);
+		
+		/**
+		 * Item scaled.
+		 *
+		 * @param multiTouchElement the multi touch element
+		 * @param targetSpatial the target spatial
+		 * @param scaleChange the scale change
+		 */
 		public void itemScaled(OrthoControlPointRotateTranslateScale multiTouchElement, Spatial targetSpatial,  float scaleChange);		
 	}
 }

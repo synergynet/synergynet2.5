@@ -34,23 +34,62 @@ package apps.livingmaps;
 
 import synergynetframework.appsystem.contentsystem.items.utils.Location;
 
+
+/**
+ * The Class ItemMapInfo.
+ */
 public class ItemMapInfo {
+	
+	/**
+	 * Instantiates a new item map info.
+	 *
+	 * @param location the location
+	 * @param zoomLevel the zoom level
+	 */
 	public ItemMapInfo(Location location, int zoomLevel) {
 		this.location = location;
 		this.zoomLevel = zoomLevel;
 	}
+	
+	/** The location. */
 	private Location location;
+	
+	/**
+	 * Gets the location.
+	 *
+	 * @return the location
+	 */
 	public Location getLocation() {
 		return location;
 	}
+	
+	/**
+	 * Sets the location.
+	 *
+	 * @param location the new location
+	 */
 	public void setLocation(Location location) {
 		this.location = location;
 	}
+	
+	/**
+	 * Gets the zoom level.
+	 *
+	 * @return the zoom level
+	 */
 	public int getZoomLevel() {
 		return zoomLevel;
 	}
+	
+	/**
+	 * Sets the zoom level.
+	 *
+	 * @param zoomLevel the new zoom level
+	 */
 	public void setZoomLevel(int zoomLevel) {
 		this.zoomLevel = zoomLevel;
 	}
+	
+	/** The zoom level. */
 	private int zoomLevel;
 }

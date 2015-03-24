@@ -33,6 +33,16 @@ package synergynetframework.appsystem.contentsystem.items.implementation.interfa
 
 import java.net.URL;
 
+
+/**
+ * The Interface IPPTViewerImplementation.
+ */
 public interface IPPTViewerImplementation extends IDocViewerImplementation {
+	
+	/**
+	 * Sets the PPT file.
+	 *
+	 * @param pptFile the new PPT file
+	 */
 	public void setPPTFile(URL pptFile);
 }

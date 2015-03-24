@@ -38,6 +38,7 @@ import java.util.List;
 
 import synergynetframework.jme.cursorsystem.cursordata.ScreenCursor;
 
+
 /**
  * Utility class used predominantly by the cursor system to maintain
  * a record of all currently active cursors.  A singleton. The cursors
@@ -47,7 +48,11 @@ import synergynetframework.jme.cursorsystem.cursordata.ScreenCursor;
  */
 
 public class CursorRegistry {
+	
+	/** The instance. */
 	private static CursorRegistry instance;
+	
+	/** The cursors. */
 	private Hashtable<Long, ScreenCursor> cursors;
 	
 	
@@ -57,15 +62,29 @@ public class CursorRegistry {
 		}
 	}
 	
+	/**
+	 * Gets the single instance of CursorRegistry.
+	 *
+	 * @return single instance of CursorRegistry
+	 */
 	public static CursorRegistry getInstance() {
 		return instance;
 	}
 	
+	/**
+	 * Instantiates a new cursor registry.
+	 */
 	private CursorRegistry() {
 		cursors = new Hashtable<Long,ScreenCursor>();
 	}
 
 
+	/**
+	 * Contains key.
+	 *
+	 * @param id the id
+	 * @return true, if successful
+	 */
 	public boolean containsKey(long id) {
 		return cursors.containsKey(id);
 	}
@@ -73,28 +92,53 @@ public class CursorRegistry {
 	/**
 	 * Returns a cloned List whose contents are the current
 	 * cursors at the time of asking.
-	 * @return
+	 *
+	 * @return the current registered cursors
 	 */
 	public List<ScreenCursor> getCurrentRegisteredCursors() {
 		return new ArrayList<ScreenCursor>(cursors.values());
 	}
 
+	/**
+	 * Adds the cursor.
+	 *
+	 * @param cursor the cursor
+	 */
 	public void addCursor(ScreenCursor cursor) {
 		cursors.put(cursor.getID(), cursor);
 	}
 
+	/**
+	 * Removes the cursor.
+	 *
+	 * @param id the id
+	 */
 	public void removeCursor(long id) {
 		cursors.remove(id);		
 	}
 
+	/**
+	 * Num cursors.
+	 *
+	 * @return the int
+	 */
 	public int numCursors() {
 		return cursors.size();
 	}
 
+	/**
+	 * Gets the cursor.
+	 *
+	 * @param id the id
+	 * @return the cursor
+	 */
 	public ScreenCursor getCursor(long id) {
 		return cursors.get(id);
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return "CursorRegistry has " + numCursors();
 	}

@@ -7,16 +7,38 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
+
+/**
+ * The Class ConditionsReader.
+ */
 public class ConditionsReader {
 	
+	/** The Constant DEVICE_CALCULATOR. */
 	public static final String DEVICE_CALCULATOR = "calculator";
+	
+	/** The Constant DEVICE_KEYBOARD. */
 	public static final String DEVICE_KEYBOARD = "keyboard";
+	
+	/** The Constant FEEDBACK_MODE_NONE. */
 	public static final String FEEDBACK_MODE_NONE = "none";
+	
+	/** The Constant FEEDBACK_MODE_COLORHIGHLIGHTED. */
 	public static final String FEEDBACK_MODE_COLORHIGHLIGHTED = "color";
+	
+	/** The Constant FEEDBACK_MODE_3D. */
 	public static final String FEEDBACK_MODE_3D = "3d";
 	
+	/** The file name. */
 	protected String fileName;
 	
+	/**
+	 * Read conditions.
+	 *
+	 * @param pcConditions the pc conditions
+	 * @param mtConditions the mt conditions
+	 * @param mtViewConditions the mt view conditions
+	 * @return the string
+	 */
 	public static String readConditions(List<String> pcConditions, List<String> mtConditions, List<String> mtViewConditions){
 	
 		String fileName = "apps/threeDButtonsExperiment/conditionsConfig.txt";
@@ -63,6 +85,12 @@ public class ConditionsReader {
 				
 	}
 	
+	/**
+	 * Read conditions.
+	 *
+	 * @param experimentConditions the experiment conditions
+	 * @return the string
+	 */
 	public static String readConditions(List<String> experimentConditions){
 		
 		String fileName = "apps/threeDManipulationExperiment/conditionsConfig.txt";

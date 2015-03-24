@@ -35,14 +35,27 @@ package apps.mysteriestableportal.messages;
 
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class SearchProjectorsMessage.
+ */
 public class SearchProjectorsMessage extends BroadcastApplicationMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3611717853521792797L;
 
+	/**
+	 * Instantiates a new search projectors message.
+	 */
 	public SearchProjectorsMessage(){
 		super();
 	}
 	
+	/**
+	 * Instantiates a new search projectors message.
+	 *
+	 * @param targetClass the target class
+	 */
 	public SearchProjectorsMessage(Class<?> targetClass){
 		super(targetClass);
 	}

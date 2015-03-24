@@ -64,22 +64,47 @@ import synergynetframework.jme.cursorsystem.elements.twod.OrthoCursorEventDispat
 import synergynetframework.jme.gfx.twod.keyboard.Key;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 
+
+/**
+ * The Class JMEKeyboard.
+ */
 public class JMEKeyboard extends JMEQuadContentItem implements IKeyboardImplementation{
 
+	/** The keyboard. */
 	protected Keyboard keyboard;
+	
+	/** The keyboard wrapper. */
 	protected KeyboardWrapper keyboardWrapper;
 	
+	/** The img width. */
 	private int imgWidth;
+	
+	/** The img height. */
 	private int imgHeight;
+	
+	/** The keyboard image. */
 	private ImageIcon keyboardImage;
 	
+	/** The current keys pressed. */
 	protected Map<Integer,Key> currentKeysPressed = new HashMap<Integer,Key>();
+	
+	/** The keys. */
 	protected List<Key> keys;
+	
+	/** The caps lock on. */
 	protected boolean capsLockOn;
+	
+	/** The fake component. */
 	protected JFrame fakeComponent;
 	
+	/** The pixels per unit. */
 	protected float pixelsPerUnit = 2f;
 	
+	/**
+	 * Instantiates a new JME keyboard.
+	 *
+	 * @param contentItem the content item
+	 */
 	public JMEKeyboard(ContentItem contentItem) {
 		super(contentItem, new Quad(contentItem.getName(),1,1));
 		keyboard = (Keyboard) contentItem;
@@ -89,6 +114,9 @@ public class JMEKeyboard extends JMEQuadContentItem implements IKeyboardImplemen
 		fakeComponent.setUndecorated(true);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IKeyboardImplementation#setRotateTranslateScalable(boolean, boolean)
+	 */
 	public void setRotateTranslateScalable(boolean isEnabled, boolean overRide){
 		if (overRide){
 			super.setRotateTranslateScalable(isEnabled);
@@ -97,6 +125,9 @@ public class JMEKeyboard extends JMEQuadContentItem implements IKeyboardImplemen
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEOrthoContentItem#setRotateTranslateScalable(boolean)
+	 */
 	public void setRotateTranslateScalable(boolean isEnable){
 		if (this.orthoControlPointRotateTranslateScale != null && MultiTouchElementRegistry.getInstance().isRegistered(orthoControlPointRotateTranslateScale)){
 			MultiTouchElementRegistry.getInstance().unregister(this.orthoControlPointRotateTranslateScale);
@@ -113,11 +144,21 @@ public class JMEKeyboard extends JMEQuadContentItem implements IKeyboardImplemen
 		keyboardWrapper.setScaleLimits(0.1f, 5f);
 	}
 	
+	/**
+	 * Cursor dragged.
+	 *
+	 * @param id the id
+	 * @param x the x
+	 * @param y the y
+	 */
 	public void cursorDragged(long id, int x, int y) {
 	}
 
 	
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEQuadContentItem#cursorPressed(synergynetframework.jme.cursorsystem.elements.twod.OrthoCursorEventDispatcher, synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorPressed(
 			OrthoCursorEventDispatcher commonCursorEventDispatcher,
@@ -135,6 +176,9 @@ public class JMEKeyboard extends JMEQuadContentItem implements IKeyboardImplemen
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEQuadContentItem#cursorReleased(synergynetframework.jme.cursorsystem.elements.twod.OrthoCursorEventDispatcher, synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorReleased(
 			OrthoCursorEventDispatcher commonCursorEventDispatcher,
@@ -187,47 +231,80 @@ public class JMEKeyboard extends JMEQuadContentItem implements IKeyboardImplemen
 	}
 */
 	
-	@Override
+	/* (non-Javadoc)
+ * @see synergynetframework.appsystem.contentsystem.jme.items.JMEQuadContentItem#setAutoFitSize(boolean)
+ */
+@Override
 	public void setAutoFitSize(boolean isEnabled) {
 		 
 		
 	}
 
+	/**
+	 * Gets the image height.
+	 *
+	 * @return the image height
+	 */
 	public int getImageHeight() {
 		return imgHeight;
 	}
 
+	/**
+	 * Gets the image width.
+	 *
+	 * @return the image width
+	 */
 	public int getImageWidth() {
 		return imgWidth;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEOrthoContentItem#setBackGround(synergynetframework.appsystem.contentsystem.items.utils.Background)
+	 */
 	@Override
 	public void setBackGround(Background backGround) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEOrthoContentItem#setBorder(synergynetframework.appsystem.contentsystem.items.utils.Border)
+	 */
 	@Override
 	public void setBorder(Border border) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IKeyboardImplementation#isKeyPressed(int)
+	 */
 	@Override
 	public boolean isKeyPressed(int vk) {
 		return currentKeysPressed.keySet().contains(vk);
 	}
 
+	/**
+	 * Upper case mode on.
+	 *
+	 * @return true, if successful
+	 */
 	private boolean upperCaseModeOn() {
 		// xor of shift pressed and caps lock on
 		return isKeyPressed(KeyEvent.VK_SHIFT) ^ capsLockOn;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IKeyboardImplementation#setKeyDefinitions(java.util.List)
+	 */
 	@Override
 	public void setKeyDefinitions(List<Key> keyDefinitions) {
 		keys = keyDefinitions;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IKeyboardImplementation#setKeyboardImageResource(java.net.URL)
+	 */
 	@Override
 	public void setKeyboardImageResource(URL keyboardImageResource) {
 		TextureState ts = DisplaySystem.getDisplaySystem().getRenderer().createTextureState();
@@ -238,17 +315,26 @@ public class JMEKeyboard extends JMEQuadContentItem implements IKeyboardImplemen
 		render();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IKeyboardImplementation#getCurrentKeysPressed()
+	 */
 	@Override
 	public ArrayList<Key> getCurrentKeysPressed() {
 		return (ArrayList<Key>)currentKeysPressed.values();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IKeyboardImplementation#setPixelsPerUnit(float)
+	 */
 	@Override
 	public void setPixelsPerUnit(float pixelsPerUnit) {
 		this.pixelsPerUnit = pixelsPerUnit;
 		render();
 	}
 	
+	/**
+	 * Render.
+	 */
 	private void render(){
 		if(keyboardImage != null){
 			imgWidth = (int)(keyboardImage.getIconWidth());
@@ -262,10 +348,20 @@ public class JMEKeyboard extends JMEQuadContentItem implements IKeyboardImplemen
 		}
 	}
 	
+	/**
+	 * Toggle caps lock.
+	 */
 	private void toggleCapsLock() {
 		capsLockOn = !capsLockOn;
 	}
 
+	/**
+	 * Gets the key at location.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @return the key at location
+	 */
 	private Key getKeyAtLocation(int x, int y) {
 		for(Key k : keys) {
 			if(k.area.contains(x, y)) {
@@ -275,6 +371,11 @@ public class JMEKeyboard extends JMEQuadContentItem implements IKeyboardImplemen
 		return null;
 	}
 
+	/**
+	 * Gets the modifiers.
+	 *
+	 * @return the modifiers
+	 */
 	private int getModifiers() {
 		int modifiers = 0;
 		if(isKeyPressed(KeyEvent.VK_SHIFT)){
@@ -283,18 +384,30 @@ public class JMEKeyboard extends JMEQuadContentItem implements IKeyboardImplemen
 		return modifiers;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEQuadContentItem#setHeight(int)
+	 */
 	@Override
 	public void setHeight(int height) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEQuadContentItem#setWidth(int)
+	 */
 	@Override
 	public void setWidth(int width) {
 		 
 		
 	}
 	
+	/**
+	 * Gets the current keyboard2 d coords for cursor.
+	 *
+	 * @param cursor the cursor
+	 * @return the current keyboard2 d coords for cursor
+	 */
 	private Point getCurrentKeyboard2DCoordsForCursor(ScreenCursor cursor) {
 		if(cursor == null) return null;
 		Vector3f cursorPosition = new Vector3f(cursor.getCurrentCursorScreenPosition().x, cursor.getCurrentCursorScreenPosition().y, 0f);

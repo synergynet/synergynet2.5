@@ -37,13 +37,29 @@ import com.jme.scene.Text;
 import com.jme.scene.state.RenderState;
 import com.jme.util.Timer;
 
+
+/**
+ * The Class FPSNode.
+ */
 public class FPSNode extends Node {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 7521550035241588792L;
+	
+	/** The update buffer. */
 	protected StringBuffer updateBuffer = new StringBuffer( 30 );
+	
+	/** The temp buffer. */
 	protected StringBuffer tempBuffer = new StringBuffer();
+	
+	/** The fps. */
 	protected Text fps;
 
+	/**
+	 * Instantiates a new FPS node.
+	 *
+	 * @param name the name
+	 */
 	public FPSNode(String name) {
 		super(name);
 		fps = Text.createDefaultTextLabel( "FPS label" );
@@ -59,6 +75,11 @@ public class FPSNode extends Node {
 		this.updateRenderState();		
 	}
 
+	/**
+	 * Update.
+	 *
+	 * @param timer the timer
+	 */
 	public void update(Timer timer) {
 		updateBuffer.setLength(0);
 		updateBuffer.append("FPS: ").append((int)timer.getFrameRate()).append(" - ");

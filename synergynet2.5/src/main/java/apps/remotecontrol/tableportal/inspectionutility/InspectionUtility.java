@@ -23,27 +23,59 @@ import synergynetframework.mtinput.IMultiTouchEventListener;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 import synergynetframework.mtinput.events.MultiTouchObjectEvent;
 
+
+/**
+ * The Class InspectionUtility.
+ */
 public class InspectionUtility implements IMultiTouchEventListener, CircularLayoutListener{
+	
+	/** The pick system. */
 	private IJMEMultiTouchPicker pickSystem;
+	
+	/** The inspection utility. */
 	private static InspectionUtility inspectionUtility;
+	
+	/** The content system. */
 	private ContentSystem contentSystem;
+	
+	/** The layouts. */
 	private List<CircularLayout> layouts = new ArrayList<CircularLayout>();
 	
+	/**
+	 * Instantiates a new inspection utility.
+	 */
 	private InspectionUtility(){
 		this.pickSystem = MultiTouchInputFilterManager.getInstance().getPickingSystem();
 		SynergyNetDesktop.getInstance().getMultiTouchInputComponent().registerMultiTouchEventListener(this);
 		
 	}
 	
+	/**
+	 * Gets the single instance of InspectionUtility.
+	 *
+	 * @return single instance of InspectionUtility
+	 */
 	public static InspectionUtility getInstance(){
 		inspectionUtility = new InspectionUtility();
 		return inspectionUtility;
 	}
 	
+	/**
+	 * Sets the content system.
+	 *
+	 * @param contentSystem the new content system
+	 */
 	public void setContentSystem(ContentSystem contentSystem){
 		this.contentSystem = contentSystem;
 	}
 	
+	/**
+	 * Gets the picked items.
+	 *
+	 * @param id the id
+	 * @param position the position
+	 * @return the picked items
+	 */
 	public List<ContentItem> getPickedItems(long id, Vector2f position)
 	{
 		PickRequest req = new PickRequest(id, position);
@@ -67,18 +99,27 @@ public class InspectionUtility implements IMultiTouchEventListener, CircularLayo
 		return pickedItems;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorChanged(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorChanged(MultiTouchCursorEvent event) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorClicked(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorClicked(MultiTouchCursorEvent event) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorPressed(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorPressed(MultiTouchCursorEvent event) {
 		int x = SynergyNetDesktop.getInstance().tableToScreenX(event.getPosition().x);
@@ -93,6 +134,13 @@ public class InspectionUtility implements IMultiTouchEventListener, CircularLayo
 	}
 
 
+	/**
+	 * Checks if is circular centre picked.
+	 *
+	 * @param id the id
+	 * @param position the position
+	 * @return true, if is circular centre picked
+	 */
 	private boolean isCircularCentrePicked(long id, Vector2f position) {
 		PickRequest req = new PickRequest(id, position);
 		List<PickResultData> pickResults;
@@ -112,30 +160,45 @@ public class InspectionUtility implements IMultiTouchEventListener, CircularLayo
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorReleased(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorReleased(MultiTouchCursorEvent event) {
 		 
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectAdded(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	@Override
 	public void objectAdded(MultiTouchObjectEvent event) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectChanged(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	@Override
 	public void objectChanged(MultiTouchObjectEvent event) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectRemoved(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	@Override
 	public void objectRemoved(MultiTouchObjectEvent event) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.remotecontrol.tableportal.inspectionutility.CircularLayout.CircularLayoutListener#layoutCollapsed(apps.remotecontrol.tableportal.inspectionutility.CircularLayout)
+	 */
 	@Override
 	public void layoutCollapsed(CircularLayout cl) {
 		layouts.remove(cl);

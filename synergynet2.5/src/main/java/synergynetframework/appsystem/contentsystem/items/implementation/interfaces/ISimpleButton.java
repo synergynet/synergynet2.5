@@ -31,6 +31,9 @@
 
 package synergynetframework.appsystem.contentsystem.items.implementation.interfaces;
 
+/**
+ * The Interface ISimpleButton.
+ */
 public interface ISimpleButton extends ITextLabelImplementation {
 
 }

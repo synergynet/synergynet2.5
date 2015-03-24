@@ -42,6 +42,7 @@ import synergynetframework.mtinput.IMultiTouchEventListener;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 import synergynetframework.mtinput.events.MultiTouchObjectEvent;
 
+
 /**
  * Utility base class for building AWT based multi-touch applications.
  * Listens for multi-touch input, and keeps a track of 'blobs'.  Blobs
@@ -54,13 +55,25 @@ import synergynetframework.mtinput.events.MultiTouchObjectEvent;
 
 public abstract class AWTAppRenderer implements IMultiTouchEventListener {
 	
+	/** The blobs. */
 	protected Map<Long,Blob> blobs = new HashMap<Long,Blob>();
 	
+	/** The height. */
 	protected int height;
+	
+	/** The width. */
 	protected int width;
 	
+	/**
+	 * Render.
+	 *
+	 * @param g2d the g2d
+	 */
 	public abstract void render(Graphics2D g2d);
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorChanged(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorChanged(MultiTouchCursorEvent event) {
 		Blob b = blobs.get(event.getCursorID());
 		b.x = (int) (event.getPosition().x * width);
@@ -68,6 +81,9 @@ public abstract class AWTAppRenderer implements IMultiTouchEventListener {
 		b.pressure = event.getPressure();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorPressed(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorPressed(MultiTouchCursorEvent event) {
 		Blob b = new Blob(event.getCursorID(), (int) (event.getPosition().x * width),(int) (event.getPosition().y * height));
 		synchronized(blobs) {
@@ -75,6 +91,9 @@ public abstract class AWTAppRenderer implements IMultiTouchEventListener {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorReleased(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorReleased(MultiTouchCursorEvent event) {
 		synchronized(blobs) {
 			blobs.remove(event.getCursorID());
@@ -84,7 +103,8 @@ public abstract class AWTAppRenderer implements IMultiTouchEventListener {
 	/**
 	 * Sets the size of the coordinate space that blobs will be reported in.  This should typically
 	 * match the AWT component that will draw the blobs.
-	 * @param d
+	 *
+	 * @param d the new size
 	 */
 	public void setSize(Dimension d) {
 		this.width = d.width;
@@ -93,7 +113,8 @@ public abstract class AWTAppRenderer implements IMultiTouchEventListener {
 	
 	/**
 	 * Get the current blob map.
-	 * @return
+	 *
+	 * @return the blobs
 	 */
 	public Map<Long,Blob> getBlobs() {
 		return blobs;
@@ -101,9 +122,24 @@ public abstract class AWTAppRenderer implements IMultiTouchEventListener {
 
 	// 
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorClicked(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorClicked(MultiTouchCursorEvent event) {}
+	
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectAdded(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectAdded(MultiTouchObjectEvent event) {}
+	
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectChanged(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectChanged(MultiTouchObjectEvent event) {}
+	
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectRemoved(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectRemoved(MultiTouchObjectEvent event) {}
 
 

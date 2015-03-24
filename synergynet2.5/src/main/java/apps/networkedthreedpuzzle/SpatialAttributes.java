@@ -38,46 +38,107 @@ import com.jme.math.Quaternion;
 import com.jme.math.Vector3f;
 
 
+
+/**
+ * The Class SpatialAttributes.
+ */
 public class SpatialAttributes implements Serializable {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 544444444812321234L;
+	
+	/** The spatial name. */
 	private String spatialName;
+	
+	/**
+	 * Gets the spatial name.
+	 *
+	 * @return the spatial name
+	 */
 	public String getSpatialName() {
 		return spatialName;
 	}
 
+	/**
+	 * Sets the spatial name.
+	 *
+	 * @param spatialName the new spatial name
+	 */
 	public void setSpatialName(String spatialName) {
 		this.spatialName = spatialName;
 	}
 
+	/**
+	 * Gets the type.
+	 *
+	 * @return the type
+	 */
 	public String getType() {
 		return type;
 	}
 
+	/**
+	 * Sets the type.
+	 *
+	 * @param type the new type
+	 */
 	public void setType(String type) {
 		this.type = type;
 	}
 
+	/**
+	 * Gets the position.
+	 *
+	 * @return the position
+	 */
 	public Vector3f getPosition() {
 		return position;
 	}
 
+	/**
+	 * Sets the position.
+	 *
+	 * @param position the new position
+	 */
 	public void setPosition(Vector3f position) {
 		this.position = position;
 	}
 
+	/**
+	 * Gets the rotation.
+	 *
+	 * @return the rotation
+	 */
 	public Quaternion getRotation() {
 		return rotation;
 	}
 
+	/**
+	 * Sets the rotation.
+	 *
+	 * @param rotation the new rotation
+	 */
 	public void setRotation(Quaternion rotation) {
 		this.rotation = rotation;
 	}
 
+	/** The type. */
 	private String type;
+	
+	/** The position. */
 	private Vector3f position;
+	
+	/** The rotation. */
 	private Quaternion rotation;
 
+	/**
+	 * Instantiates a new spatial attributes.
+	 *
+	 * @param spatialName the spatial name
+	 * @param type the type
+	 * @param position the position
+	 * @param rotation the rotation
+	 */
 	public SpatialAttributes(String spatialName, String type, Vector3f position,
 			Quaternion rotation) {
 		this.spatialName = spatialName;

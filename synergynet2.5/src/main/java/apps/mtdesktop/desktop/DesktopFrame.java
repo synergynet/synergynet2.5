@@ -42,25 +42,56 @@ import synergynetframework.appsystem.services.net.rapidnetworkmanager.RapidNetwo
 import synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp;
 
 
+
+/**
+ * The Class DesktopFrame.
+ */
 public class DesktopFrame extends JFrame implements mtdesktopNetworkListener, FileTransferListener, ControlPanelListener{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/** The tree. */
 	protected TabletopTree tree;
+	
+	/** The status panel. */
 	protected ConnectionStatusPanel statusPanel;
+	
+	/** The control panel. */
 	protected ControlPanel controlPanel;
+	
+	/** The progress panel. */
 	protected ProgressPanel progressPanel;
+	
+	/** The menu bar. */
 	protected JMenuBar menuBar;
+	
+	/** The menu. */
 	protected JMenu menu;
+	
+	/** The menu2. */
 	protected JMenu menu2;
 	//protected JMenuItem menuItem1;
+	/** The menu item2. */
 	protected JMenuItem menuItem2;
+	
+	/** The menu item3. */
 	protected JMenuItem menuItem3;
+	
+	/** The menu item4. */
 	protected JMenuItem menuItem4;
+	
+	/** The menu item5. */
 	protected JMenuItem menuItem5;
 	
+	/** The table radar. */
 	private TableRadar tableRadar = null;
 
+	/**
+	 * Instantiates a new desktop frame.
+	 *
+	 * @param app the app
+	 */
 	public DesktopFrame(final DefaultSynergyNetApp app){
 		super("Users");
 		
@@ -180,6 +211,9 @@ public class DesktopFrame extends JFrame implements mtdesktopNetworkListener, Fi
 		});
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.desktop.DesktopClient.mtdesktopNetworkListener#connectionUpdate(apps.mtdesktop.desktop.DesktopClient.ConnectionStatus)
+	 */
 	@Override
 	public void connectionUpdate(ConnectionStatus status) {
 		statusPanel.setConnectionStatus(status);
@@ -190,6 +224,9 @@ public class DesktopFrame extends JFrame implements mtdesktopNetworkListener, Fi
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.desktop.DesktopClient.mtdesktopNetworkListener#tableConnected(synergynetframework.appsystem.services.net.localpresence.TableIdentity)
+	 */
 	@Override
 	public void tableConnected(TableIdentity tableId) {
 		String shortTableName = tableId.toString();
@@ -198,33 +235,51 @@ public class DesktopFrame extends JFrame implements mtdesktopNetworkListener, Fi
 		statusPanel.setConnectedTable(tableId);
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.fileutility.FileTransferListener#fileUploadStarted(java.io.File)
+	 */
 	@Override
 	public void fileUploadStarted(File file) {
 		progressPanel.setStatus("Uploading "+file.getName(), true);
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.fileutility.FileTransferListener#fileUploadCompleted(java.io.File)
+	 */
 	@Override
 	public void fileUploadCompleted(File file) {
 		progressPanel.setStatus("Upload complete ", false);
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.fileutility.FileTransferListener#fileDownloadStarted(java.io.File)
+	 */
 	@Override
 	public void fileDownloadStarted(File file) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.fileutility.FileTransferListener#fileDownloadCompleted(java.io.File)
+	 */
 	@Override
 	public void fileDownloadCompleted(File file) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.fileutility.FileTransferListener#fileUploadFailed(java.io.File, java.lang.String)
+	 */
 	@Override
 	public void fileUploadFailed(File file, String responseMessage) {
 		progressPanel.setStatus("Upload failed ", false);
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.fileutility.FileTransferListener#fileDownloadFailed(java.io.File, java.lang.String)
+	 */
 	@Override
 	public void fileDownloadFailed(File file, String responseMessage) {
 		 
@@ -232,11 +287,17 @@ public class DesktopFrame extends JFrame implements mtdesktopNetworkListener, Fi
 	}
 
 	
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.desktop.ControlPanel.ControlPanelListener#deletePressed()
+	 */
 	@Override
 	public void deletePressed() {
 		tree.getController().deleteSelected(tree.getSelectionPaths());
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.desktop.ControlPanel.ControlPanelListener#shareDesktopPressed(boolean)
+	 */
 	@Override
 	public void shareDesktopPressed(boolean isEnabled) {
 		try{
@@ -249,6 +310,11 @@ public class DesktopFrame extends JFrame implements mtdesktopNetworkListener, Fi
 		}
 	}
 	
+	/**
+	 * Gets the tree.
+	 *
+	 * @return the tree
+	 */
 	public TabletopTree getTree(){
 		return tree;
 	}

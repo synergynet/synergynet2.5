@@ -35,7 +35,33 @@ package synergynetframework.utils.network;
 import java.io.File;
 import java.net.URL;
 
+
+/**
+ * The listener interface for receiving download events.
+ * The class that is interested in processing a download
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addDownloadListener<code> method. When
+ * the download event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see DownloadEvent
+ */
 public interface DownloadListener {
+	
+	/**
+	 * Download complete.
+	 *
+	 * @param url the url
+	 * @param f the f
+	 */
 	public void downloadComplete(URL url, File f);
+	
+	/**
+	 * Download error.
+	 *
+	 * @param url the url
+	 * @param f the f
+	 */
 	public void downloadError(URL url, File f);
 }

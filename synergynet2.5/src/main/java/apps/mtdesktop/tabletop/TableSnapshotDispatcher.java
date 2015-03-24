@@ -16,21 +16,45 @@ import com.jme.util.geom.BufferUtils;
 
 
 
+
+/**
+ * The Class TableSnapshotDispatcher.
+ */
 public class TableSnapshotDispatcher {
 	
+	/** The at. */
 	private AffineTransform at;
+	
+	/** The img. */
 	private BufferedImage img;
+	
+	/** The dest. */
 	private BufferedImage dest;
+	
+	/** The g. */
 	private Graphics2D g;
 	
+	/** The width. */
 	private final int width;
+	
+	/** The height. */
 	private final int height;
+    
+    /** The buff. */
     private final ByteBuffer buff;
 	
+	/** The framerate. */
 	private float framerate;
+	
+	/** The snapshot delay. */
 	private float snapshotDelay = 1f;
+	
+	/** The dispatch snapshot enabled. */
 	private boolean dispatchSnapshotEnabled = false;
 	
+	/**
+	 * Instantiates a new table snapshot dispatcher.
+	 */
 	public TableSnapshotDispatcher(){
 		width = DisplaySystem.getDisplaySystem().getWidth();
 		height = DisplaySystem.getDisplaySystem().getHeight();
@@ -42,6 +66,11 @@ public class TableSnapshotDispatcher {
 		g = dest.createGraphics();
 	}
 	
+	/**
+	 * Update.
+	 *
+	 * @param tpf the tpf
+	 */
 	public void update(float tpf){
 		if((framerate - tpf) > 0){
 			framerate-= tpf;
@@ -88,6 +117,11 @@ public class TableSnapshotDispatcher {
 
 	}
 	
+	/**
+	 * Enable.
+	 *
+	 * @param isEnabled the is enabled
+	 */
 	protected void enable(boolean isEnabled){
 		this.dispatchSnapshotEnabled = isEnabled;
 	}

@@ -33,8 +33,15 @@ package synergynetframework.appsystem.contentsystem.items.listener;
 
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 
+
+/**
+ * The Class BringToTopAdapter.
+ */
 public class BringToTopAdapter implements BringToTopListener {
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.listener.BringToTopListener#itemBringToToped(synergynetframework.appsystem.contentsystem.items.ContentItem)
+	 */
 	public void itemBringToToped(ContentItem item) {		
 	}
 }

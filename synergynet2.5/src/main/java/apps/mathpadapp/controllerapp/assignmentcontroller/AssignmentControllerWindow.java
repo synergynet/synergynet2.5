@@ -40,14 +40,30 @@ import apps.mathpadapp.util.MTList;
 import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.jme.cursorsystem.elements.twod.OrthoBringToTop;
 
+
+/**
+ * The Class AssignmentControllerWindow.
+ */
 public class AssignmentControllerWindow extends MTFrame{
 	
+	/** The Constant windowWidth. */
 	public static final int windowWidth = 570;
+	
+	/** The Constant windowHeight. */
 	public static final int windowHeight = 440;
 	
+	/** The control panel. */
 	private AssignmentListControlPanel controlPanel;
+	
+	/** The assign list panel. */
 	public MTList assignListPanel;
 	
+	/**
+	 * Instantiates a new assignment controller window.
+	 *
+	 * @param contentSystem the content system
+	 * @param controllerManager the controller manager
+	 */
 	public AssignmentControllerWindow(final ContentSystem contentSystem, final ControllerManager controllerManager){
 		super(contentSystem);
 		this.setWidth(windowWidth);
@@ -79,6 +95,11 @@ public class AssignmentControllerWindow extends MTFrame{
 		}
 	}
 
+	/**
+	 * Gets the assignment session list.
+	 *
+	 * @return the assignment session list
+	 */
 	public MTList getAssignmentSessionList() {
 		return this.assignListPanel;
 	}

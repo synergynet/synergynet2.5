@@ -42,41 +42,79 @@ import synergynetframework.mtinput.IMultiTouchInputFilter;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 import synergynetframework.mtinput.events.MultiTouchObjectEvent;
 
+
+/**
+ * The Class AveragingFilter.
+ */
 public class AveragingFilter implements IMultiTouchInputFilter {
 
+	/** The Constant CURSOR_PRESSED. */
 	public static final String CURSOR_PRESSED = "CURSOR_PRESSED";
+	
+	/** The Constant CURSOR_CLICKED. */
 	public static final String CURSOR_CLICKED = "CURSOR_CLICKED";
+	
+	/** The Constant CURSOR_RELEASED. */
 	public static final String CURSOR_RELEASED = "CURSOR_RELEASED";
+	
+	/** The Constant CURSOR_CHANGED. */
 	public static final String CURSOR_CHANGED = "CURSOR_CHANGED";
+	
+	/** The Constant OBJECT_ADDED. */
 	public static final String OBJECT_ADDED = "OBJECT_ADDED";
+	
+	/** The Constant OBJECT_CHANGED. */
 	public static final String OBJECT_CHANGED = "OBJECT_CHANGED";
+	
+	/** The Constant OBJECT_REMOVED. */
 	public static final String OBJECT_REMOVED = "OBJECT_REMOVED";
 	
+	/** The next. */
 	private IMultiTouchEventListener next;
 
 	//Averaging
+	/** The Constant POINT_HISTORY_SIZE. */
 	protected static final int POINT_HISTORY_SIZE = 8;
+	
+	/** The Constant FILTER_FACTOR. */
 	protected static final float FILTER_FACTOR = 0.4f;
+	
+	/** The point history. */
 	protected Map<Long, Point2D.Float[]> pointHistory = new HashMap<Long,Point2D.Float[]>();
 	
+	/**
+	 * Instantiates a new averaging filter.
+	 */
 	public AveragingFilter() {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchInputFilter#setNext(synergynetframework.mtinput.IMultiTouchEventListener)
+	 */
 	public void setNext(IMultiTouchEventListener el) {
 		this.next = el;		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorChanged(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorChanged(MultiTouchCursorEvent event) {
 		updatePointHistory(event.getCursorID(), event.getPosition());
 		event.getPosition().setLocation(filteredLocation(event.getCursorID()));
 		next.cursorChanged(event);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorClicked(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorClicked(MultiTouchCursorEvent event) {
 		next.cursorClicked(event);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorPressed(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorPressed(MultiTouchCursorEvent event) {
 		Point2D.Float[] pointArray = new Point2D.Float[POINT_HISTORY_SIZE];
 		for (int i=0; i<POINT_HISTORY_SIZE; i++) pointArray[i] = new Point2D.Float(event.getPosition().x, event.getPosition().y);
@@ -84,22 +122,40 @@ public class AveragingFilter implements IMultiTouchInputFilter {
 		next.cursorPressed(event);		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorReleased(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorReleased(MultiTouchCursorEvent event) {
 		pointHistory.remove(event.getCursorID());
 		next.cursorReleased(event);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectAdded(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectAdded(MultiTouchObjectEvent event) {
 		next.objectAdded(event);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectChanged(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectChanged(MultiTouchObjectEvent event) {
 		next.objectChanged(event);		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectRemoved(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectRemoved(MultiTouchObjectEvent event) {
 	}
 
+	/**
+	 * Update point history.
+	 *
+	 * @param cursorID the cursor id
+	 * @param lastPoint the last point
+	 */
 	private void updatePointHistory(long cursorID, Point2D.Float lastPoint) {
 		Point2D.Float[] history = pointHistory.get(cursorID);
 		for (int i=history.length-1; i>0; i--) {
@@ -108,6 +164,12 @@ public class AveragingFilter implements IMultiTouchInputFilter {
 		history[0] = lastPoint;
 	}	
 	
+	/**
+	 * Filtered location.
+	 *
+	 * @param cursorID the cursor id
+	 * @return the point2 d. float
+	 */
 	private Point2D.Float filteredLocation(long cursorID) {
 		Point2D.Float[] history = pointHistory.get(cursorID);
 		float weight = 1.0f;
@@ -121,6 +183,9 @@ public class AveragingFilter implements IMultiTouchInputFilter {
 		return new Point2D.Float(avgX, avgY);		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchInputFilter#update(float)
+	 */
 	public void update(float tpf) {}
 	
 }

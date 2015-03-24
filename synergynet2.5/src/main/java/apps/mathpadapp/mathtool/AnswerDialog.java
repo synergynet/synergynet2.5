@@ -46,9 +46,21 @@ import synergynetframework.appsystem.contentsystem.items.SimpleButton;
 import synergynetframework.appsystem.contentsystem.items.MathPad.MathHandwritingListener;
 import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAdapter;
 
+
+/**
+ * The Class AnswerDialog.
+ */
 public class AnswerDialog extends MTDialog{
+	
+	/** The math pad. */
 	protected MathPad mathPad;
 
+	/**
+	 * Instantiates a new answer dialog.
+	 *
+	 * @param contentSystem the content system
+	 * @param parentTool the parent tool
+	 */
 	public AnswerDialog(final ContentSystem contentSystem, final MathTool parentTool){
 		super(parentTool, contentSystem);
 		this.getWindow().setBackgroundColour(Color.red);
@@ -141,6 +153,11 @@ public class AnswerDialog extends MTDialog{
 	}
 
 	
+	/**
+	 * Gets the answer pad.
+	 *
+	 * @return the answer pad
+	 */
 	public MathPad getAnswerPad(){
 		return this.mathPad;
 	}

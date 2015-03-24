@@ -42,6 +42,7 @@ import com.jme.scene.Node;
 import com.jme.scene.Spatial;
 import com.jme.system.DisplaySystem;
 
+
 /**
  * Uses the mouse to select a scene object, and smoothly move the camera towards 
  * the selected object focusing at its center. This is used with the OrbitAction.
@@ -51,24 +52,35 @@ import com.jme.system.DisplaySystem;
 public class CameraFocusInputAction extends InputAction {
 
 	// Max time(ms) for double click
+	/** The double click. */
 	private long doubleClick = 500;
 
+	/** The click time. */
 	private long clickTime = doubleClick;
 
+	/** The camera. */
 	private Camera camera = null;
 
+	/** The screen. */
 	private Vector2f screen = null;
 	
+	/** The temp. */
 	private Vector3f temp = null;
 	
+	/** The node. */
 	private Node node = null;
 
+	/** The controller. */
 	private CameraController controller = null;
 
+	/** The enabled. */
 	private boolean enabled = true;
 	
 	/**
 	 * Constructor.
+	 *
+	 * @param camera the camera
+	 * @param orbit the orbit
 	 */
 	public CameraFocusInputAction(Camera camera, OrbitAction orbit) {
 
@@ -89,6 +101,9 @@ public class CameraFocusInputAction extends InputAction {
 	}
 
 	/**
+	 * Perform action.
+	 *
+	 * @param evt the evt
 	 * @see com.jme.input.action.InputActionInterface#performAction(com.jme.input.action.InputActionEvent)
 	 */
 	public void performAction(InputActionEvent evt) {
@@ -158,8 +173,8 @@ public class CameraFocusInputAction extends InputAction {
 	 * Calculates the distance from the object the camera will move to, and 
 	 * initializes and starts the camera controller to move towards the given 
 	 * spatial.
-	 * 
-	 * @param spatial
+	 *
+	 * @param spatial the spatial
 	 */
 	public void moveCameraToSpatial(Spatial spatial) {
 
@@ -189,7 +204,8 @@ public class CameraFocusInputAction extends InputAction {
 	
 	/**
 	 * Returns true if this input action is enabled.
-	 * @return
+	 *
+	 * @return true, if is enabled
 	 */
 	public boolean isEnabled() {
 		
@@ -198,7 +214,8 @@ public class CameraFocusInputAction extends InputAction {
 
 	/**
 	 * Enable or disable this input action.
-	 * @param enabled
+	 *
+	 * @param enabled the new enabled
 	 */
 	public void setEnabled(boolean enabled) {
 		
@@ -207,8 +224,8 @@ public class CameraFocusInputAction extends InputAction {
 	
 	/**
 	 * Set the node that is used when picking in the scene.
-	 * 
-	 * @param node
+	 *
+	 * @param node the new node
 	 */
 	public void setNode(Node node) {
 		
@@ -223,35 +240,47 @@ public class CameraFocusInputAction extends InputAction {
 	 */
 	public class CameraController extends Controller {
 
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 1L;
 
+		/** The camera. */
 		private Camera camera;
 
+		/** The orbit. */
 		private OrbitAction orbit;
 
+		/** The distance. */
 		private float distance = 0.0f;
 
+		/** The camera start. */
 		private Vector3f cameraStart = new Vector3f();
 
+		/** The camera end. */
 		private Vector3f cameraEnd = new Vector3f();
 
+		/** The target start. */
 		private Vector3f targetStart = new Vector3f();
 
+		/** The target end. */
 		private Vector3f targetEnd = new Vector3f();
 
+		/** The temp1. */
 		private Vector3f temp1 = new Vector3f();
 
+		/** The temp2. */
 		private Vector3f temp2 = new Vector3f();
 
+		/** The elapsed time. */
 		private float elapsedTime = 0.0f;
 
+		/** The initialized. */
 		private boolean initialized;
 
 		/**
 		 * Constructor.
-		 * 
-		 * @param camera
-		 * @param orbit
+		 *
+		 * @param camera the camera
+		 * @param orbit the orbit
 		 */
 		public CameraController(Camera camera, OrbitAction orbit) {
 
@@ -288,6 +317,8 @@ public class CameraFocusInputAction extends InputAction {
 
 		/**
 		 * Calculates path locations used for moving the camera.
+		 *
+		 * @param target the target
 		 */
 		private void calculateCoordinates(Vector3f target) {
 
@@ -304,6 +335,9 @@ public class CameraFocusInputAction extends InputAction {
 		}
 
 		/**
+		 * Update.
+		 *
+		 * @param tpf the tpf
 		 * @see com.jme.scene.Controller#update(float)
 		 */
 		@Override

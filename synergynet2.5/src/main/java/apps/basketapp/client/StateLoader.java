@@ -22,11 +22,26 @@ import org.w3c.dom.*;
 import org.xml.sax.InputSource;
 
 
+
+/**
+ * The Class StateLoader.
+ */
 public class StateLoader {
+	
+	/** The db factory. */
 	private DocumentBuilderFactory dbFactory;
+	
+	/** The d builder. */
 	private DocumentBuilder dBuilder;
+	
+	/** The content system. */
 	private ContentSystem contentSystem;
 	
+	/**
+	 * Instantiates a new state loader.
+	 *
+	 * @param contentSystem the content system
+	 */
 	public StateLoader(ContentSystem contentSystem){
 		this.contentSystem = contentSystem;
 	    dbFactory = DocumentBuilderFactory.newInstance();
@@ -38,6 +53,11 @@ public class StateLoader {
 		}		
 	}
 	
+	/**
+	 * Load items.
+	 *
+	 * @return the list
+	 */
 	public List<ContentItem> loadItems(){
 	 	List<ContentItem> contentItems = new ArrayList<ContentItem>();
 
@@ -112,7 +132,14 @@ public class StateLoader {
 		 return contentItems;
 	}
 	
-	 private static String getTagValue(String sTag, Element eElement){
+	 /**
+ 	 * Gets the tag value.
+ 	 *
+ 	 * @param sTag the s tag
+ 	 * @param eElement the e element
+ 	 * @return the tag value
+ 	 */
+ 	private static String getTagValue(String sTag, Element eElement){
 		    NodeList nlList= eElement.getElementsByTagName(sTag).item(0).getChildNodes();
 		    Node nValue = (Node) nlList.item(0); 
 		 

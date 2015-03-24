@@ -41,13 +41,31 @@ import com.jmex.awt.swingui.ImageGraphics;
 
 import synergynetframework.jme.gfx.twod.utils.GraphicsImageQuad;
 
+
+/**
+ * The Class MTText.
+ */
 public class MTText extends GraphicsImageQuad {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The gfx. */
 	protected ImageGraphics gfx;
+	
+	/** The text. */
 	protected StringBuffer text = new StringBuffer();
 
 
+	/**
+	 * Instantiates a new MT text.
+	 *
+	 * @param name the name
+	 * @param colour the colour
+	 * @param font the font
+	 * @param setText the set text
+	 * @param width the width
+	 */
 	public MTText(String name, ColorRGBA colour, Font font, String setText, int width) {
 		super(name, width, getHeight(font), width, (int)getHeight(font));
 		gfx = getImageGraphics();
@@ -56,6 +74,14 @@ public class MTText extends GraphicsImageQuad {
 		setText(setText);
 	}
 
+	/**
+	 * Instantiates a new MT text.
+	 *
+	 * @param name the name
+	 * @param colour the colour
+	 * @param font the font
+	 * @param setText the set text
+	 */
 	public MTText(String name, ColorRGBA colour, Font font, String setText) {
 		super(name, getWidth(setText, font), getHeight(font), (int)getWidth(setText, font), (int)getHeight(font));
 		gfx = getImageGraphics();
@@ -64,6 +90,13 @@ public class MTText extends GraphicsImageQuad {
 		setText(setText);
 	}
 
+	/**
+	 * Gets the width.
+	 *
+	 * @param text the text
+	 * @param font the font
+	 * @return the width
+	 */
 	public static float getWidth(String text, Font font){
 		GraphicsImageQuad temp = new GraphicsImageQuad("temp", 0, 0);
 		ImageGraphics g = temp.getImageGraphics();
@@ -72,6 +105,12 @@ public class MTText extends GraphicsImageQuad {
 		return metrics.stringWidth(text);
 	}
 
+	/**
+	 * Gets the height.
+	 *
+	 * @param font the font
+	 * @return the height
+	 */
 	public static float getHeight(Font font){
 		GraphicsImageQuad temp = new GraphicsImageQuad("temp", 0, 0);
 		ImageGraphics g = temp.getImageGraphics();
@@ -80,6 +119,11 @@ public class MTText extends GraphicsImageQuad {
 		return metrics.getHeight();
 	}
 
+	/**
+	 * Sets the text.
+	 *
+	 * @param newText the new text
+	 */
 	public void setText(String newText){
 		gfx.clearRect(0, 0, imageWidth, imageHeight);
 		this.text.setLength(0);
@@ -87,26 +131,49 @@ public class MTText extends GraphicsImageQuad {
 		draw();
 	}
 
+	/**
+	 * Append text.
+	 *
+	 * @param additionalText the additional text
+	 */
 	public void appendText(String additionalText) {
 		this.text.append(additionalText);
 		draw();
 	}
 
+	/**
+	 * Sets the colour.
+	 *
+	 * @param c the new colour
+	 */
 	public void setColour(ColorRGBA c) {
 		gfx.setColor(new Color(c.r, c.g, c.b));
 	}
 
+	/**
+	 * Change colour.
+	 *
+	 * @param c the c
+	 */
 	public void changeColour(ColorRGBA c) {
 		String thisText = this.text.toString();
 		setColour(c);
 		setText(thisText);
 	}
 
+	/**
+	 * Draw.
+	 */
 	protected void draw() {
 		gfx.drawString(text.toString(), 0, imageHeight - imageHeight/4);
 		updateGraphics();
 	}
 
+	/**
+	 * Sets the font.
+	 *
+	 * @param font the new font
+	 */
 	public void setFont(Font font) {
 		gfx.setFont(font);
 

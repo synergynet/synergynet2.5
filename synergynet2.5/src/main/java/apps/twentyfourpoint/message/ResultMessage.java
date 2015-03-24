@@ -35,34 +35,72 @@ package apps.twentyfourpoint.message;
 import apps.twentyfourpoint.TwentyFourPointApp;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class ResultMessage.
+ */
 public class ResultMessage extends BroadcastApplicationMessage {	
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -1301733331207865934L;
+	
+	/** The win. */
 	private boolean win;
+	
+	/** The result string. */
 	private String resultString;
 	
+	/**
+	 * Instantiates a new result message.
+	 *
+	 * @param win the win
+	 * @param resultString the result string
+	 */
 	public ResultMessage(boolean win, String resultString) {
 		super(TwentyFourPointApp.class);
 		this.win = win;
 		this.resultString = resultString;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return "Send result";
 	}
 
+	/**
+	 * Checks if is win.
+	 *
+	 * @return true, if is win
+	 */
 	public boolean isWin() {
 		return win;
 	}
 
+	/**
+	 * Sets the win.
+	 *
+	 * @param win the new win
+	 */
 	public void setWin(boolean win) {
 		this.win = win;
 	}
 
+	/**
+	 * Gets the result string.
+	 *
+	 * @return the result string
+	 */
 	public String getResultString() {
 		return resultString;
 	}
 
+	/**
+	 * Sets the result string.
+	 *
+	 * @param resultString the new result string
+	 */
 	public void setResultString(String resultString) {
 		this.resultString = resultString;
 	}

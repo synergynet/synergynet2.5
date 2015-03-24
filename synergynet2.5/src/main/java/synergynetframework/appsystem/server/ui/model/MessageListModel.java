@@ -41,17 +41,35 @@ import synergynetframework.appsystem.server.ServerMonitor;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.server.TableCommsServerService;
 
+
+/**
+ * The Class MessageListModel.
+ */
 public class MessageListModel extends DefaultListModel implements ServerMonitor {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 8574695791386702068L;
 	
+	/** The max messages. */
 	private int maxMessages;
+	
+	/** The messages. */
 	private List<Object> messages = new ArrayList<Object>();
 
+	/**
+	 * Instantiates a new message list model.
+	 *
+	 * @param server the server
+	 * @param maxMessages the max messages
+	 */
 	public MessageListModel(TableCommsServerService server, int maxMessages) {
 		this.maxMessages = maxMessages;
 		server.registerServerMonitor(this);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.server.ServerMonitor#serverReceivedMessage(java.lang.Object)
+	 */
 	public void serverReceivedMessage(Object obj) {
 		if(messages.size() > maxMessages) {
 			messages.remove(maxMessages-1);	
@@ -60,17 +78,29 @@ public class MessageListModel extends DefaultListModel implements ServerMonitor 
 		fireContentsChanged(this, 0, getSize());
 	}
 	
+	/* (non-Javadoc)
+	 * @see javax.swing.DefaultListModel#getSize()
+	 */
 	public int getSize() {
 		return messages.size();
 	}
 	
+	/* (non-Javadoc)
+	 * @see javax.swing.DefaultListModel#getElementAt(int)
+	 */
 	public Object getElementAt(int index) {
 		return messages.get(index).toString();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.server.ServerMonitor#tableConnected(synergynetframework.appsystem.services.net.localpresence.TableIdentity)
+	 */
 	public void tableConnected(TableIdentity identity) {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.server.ServerMonitor#tableDisconnected(synergynetframework.appsystem.services.net.localpresence.TableIdentity)
+	 */
 	public void tableDisconnected(TableIdentity identity) {
 	}
 

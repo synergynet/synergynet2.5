@@ -38,17 +38,36 @@ import apps.mathpadapp.networkmanager.utils.UserIdentity;
 
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class PostUserIdsFromTableMessage.
+ */
 public class PostUserIdsFromTableMessage extends TableToControllerMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3460438311855499678L;
+	
+	/** The user ids. */
 	private List<UserIdentity> userIds;
 	
+	/**
+	 * Instantiates a new post user ids from table message.
+	 *
+	 * @param targetClass the target class
+	 * @param userIds the user ids
+	 * @param tableId the table id
+	 */
 	public PostUserIdsFromTableMessage(Class<?> targetClass, List<UserIdentity> userIds, TableIdentity tableId){
 		super(targetClass);
 		this.userIds = userIds;
 		this.setRecipient(tableId);
 	}
 	
+	/**
+	 * Gets the user ids.
+	 *
+	 * @return the user ids
+	 */
 	public List<UserIdentity> getUserIds(){
 		return userIds;
 	}

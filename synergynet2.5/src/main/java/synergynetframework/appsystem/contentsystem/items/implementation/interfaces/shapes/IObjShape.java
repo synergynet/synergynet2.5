@@ -39,9 +39,40 @@ import com.jme.renderer.ColorRGBA;
 
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IFrameImplementation;
 
+
+/**
+ * The Interface IObjShape.
+ */
 public interface IObjShape extends IFrameImplementation {
+	
+	/**
+	 * Sets the shape geometry.
+	 *
+	 * @param geomLoc the new shape geometry
+	 * @throws Exception the exception
+	 */
 	public void setShapeGeometry(URL geomLoc) throws Exception;
+	
+	/**
+	 * Sets the solid colour.
+	 *
+	 * @param colour the new solid colour
+	 */
 	public void setSolidColour(ColorRGBA colour);
+	
+	/**
+	 * Gets the obj file text.
+	 *
+	 * @return the obj file text
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public String getObjFileText() throws IOException;
+	
+	/**
+	 * Sets the shape geometry.
+	 *
+	 * @param geomLoc the new shape geometry
+	 * @throws Exception the exception
+	 */
 	void setShapeGeometry(String geomLoc) throws Exception;
 }

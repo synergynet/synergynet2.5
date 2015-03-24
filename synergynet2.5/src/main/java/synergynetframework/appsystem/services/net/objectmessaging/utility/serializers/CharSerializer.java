@@ -37,7 +37,15 @@ import java.nio.ByteBuffer;
 
 import synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler;
 
+
+/**
+ * The Class CharSerializer.
+ */
 public class CharSerializer extends Serializer {
+	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.utility.serializers.Serializer#readObjectData(synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler, java.nio.ByteBuffer, java.lang.Class, boolean)
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Character readObjectData (ConnectionHandler connectionHandler, ByteBuffer buffer, Class type, boolean lengthKnown)
 		throws SerializationException {
@@ -45,6 +53,9 @@ public class CharSerializer extends Serializer {
 		return ch;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.utility.serializers.Serializer#writeObjectData(synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler, java.nio.ByteBuffer, java.lang.Object, boolean)
+	 */
 	public void writeObjectData (ConnectionHandler connectionHandler, ByteBuffer buffer, Object object, boolean lengthKnown)
 		throws SerializationException {
 		buffer.putChar((Character)object);

@@ -16,10 +16,21 @@ import javax.swing.ImageIcon;
 
 import synergynetframework.appsystem.contentsystem.jme.items.factory.JMEImplementationItemFactory;
 
+
+/**
+ * The Class ImageUtility.
+ */
 public class ImageUtility {
 	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(JMEImplementationItemFactory.class.getName());
 	
+	/**
+	 * To buffered image.
+	 *
+	 * @param image the image
+	 * @return the buffered image
+	 */
 	public static BufferedImage toBufferedImage(Image image) {
         if (image instanceof BufferedImage) {
             return (BufferedImage)image;
@@ -63,6 +74,12 @@ public class ImageUtility {
         return bimage;
     }
 	
+    /**
+     * Checks for alpha.
+     *
+     * @param image the image
+     * @return true, if successful
+     */
     public static boolean hasAlpha(Image image) {
         // If buffered image, the color model is readily available
         if (image instanceof BufferedImage) {

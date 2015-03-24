@@ -39,15 +39,30 @@ import java.security.NoSuchAlgorithmException;
 
 import synergynetframework.utils.crypto.CryptoUtils;
 
+
+/**
+ * The Class URLFileCache.
+ */
 public class URLFileCache {
+	
+	/** The cache dir. */
 	private File cacheDir;
 
+	/**
+	 * Instantiates a new URL file cache.
+	 */
 	public URLFileCache() {
 		String userHome = System.getProperty("user.home");
 		cacheDir = new File(userHome, ".synergynet");
 		if(!cacheDir.exists()) cacheDir.mkdir();
 	}
 
+	/**
+	 * Download.
+	 *
+	 * @param url the url
+	 * @param listener the listener
+	 */
 	public void download(URL url, DownloadListener listener) {
 		try {
 			String cacheFileName = CryptoUtils.md5(url.toString());
@@ -64,6 +79,12 @@ public class URLFileCache {
 
 	}
 
+	/**
+	 * Download.
+	 *
+	 * @param url the url
+	 * @return the file
+	 */
 	public File download(URL url) {				
 		String cacheFileName;
 		File f;

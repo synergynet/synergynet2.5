@@ -1,5 +1,6 @@
 package synergynetframework.appsystem.contentsystem.items.utils.vnc;
 
+
 /* Copyright (C) 2002-2005 RealVNC Ltd.  All Rights Reserved.
  * 
  * This is free software; you can redistribute it and/or modify
@@ -23,12 +24,23 @@ package synergynetframework.appsystem.contentsystem.items.utils.vnc;
 // Representation).
 //
 
+/**
+ * The Class InStream.
+ */
 abstract public class InStream {
 
   // check() ensures there is buffer data for at least one item of size
   // itemSize bytes.  Returns the number of items in the buffer (up to a
   // maximum of nItems).
 
+  /**
+   * Check.
+   *
+   * @param itemSize the item size
+   * @param nItems the n items
+   * @return the int
+   * @throws Exception the exception
+   */
   public final int check(int itemSize, int nItems) throws Exception {
     if (ptr + itemSize * nItems > end) {
       if (ptr + itemSize > end)
@@ -39,6 +51,12 @@ abstract public class InStream {
     return nItems;
   }
 
+  /**
+   * Check.
+   *
+   * @param itemSize the item size
+   * @throws Exception the exception
+   */
   public final void check(int itemSize) throws Exception {
     if (ptr + itemSize > end)
       overrun(itemSize, 1);
@@ -46,15 +64,33 @@ abstract public class InStream {
 
   // readU/SN() methods read unsigned and signed N-bit integers.
 
+  /**
+   * Read s8.
+   *
+   * @return the int
+   * @throws Exception the exception
+   */
   public final int readS8() throws Exception {
     check(1); return b[ptr++];
   }
 
+  /**
+   * Read s16.
+   *
+   * @return the int
+   * @throws Exception the exception
+   */
   public final int readS16() throws Exception {
     check(2); int b0 = b[ptr++];
     int b1 = b[ptr++] & 0xff; return b0 << 8 | b1;
   }
 
+  /**
+   * Read s32.
+   *
+   * @return the int
+   * @throws Exception the exception
+   */
   public final int readS32() throws Exception {
     check(4); int b0 = b[ptr++];
     int b1 = b[ptr++] & 0xff;
@@ -63,20 +99,44 @@ abstract public class InStream {
     return b0 << 24 | b1 << 16 | b2 << 8 | b3;
   }
 
+  /**
+   * Read u8.
+   *
+   * @return the int
+   * @throws Exception the exception
+   */
   public final int readU8() throws Exception {
     return readS8() & 0xff;
   }
 
+  /**
+   * Read u16.
+   *
+   * @return the int
+   * @throws Exception the exception
+   */
   public final int readU16() throws Exception {
     return readS16() & 0xffff;
   }
 
+  /**
+   * Read u32.
+   *
+   * @return the int
+   * @throws Exception the exception
+   */
   public final int readU32() throws Exception {
     return readS32() & 0xffffffff;
   }
 
   // readString() reads a string - a U32 length followed by the data.
 
+  /**
+   * Read string.
+   *
+   * @return the string
+   * @throws Exception the exception
+   */
   public final String readString() throws Exception {
     int len = readU32();
     if (len > maxStringLength)
@@ -97,8 +157,15 @@ abstract public class InStream {
   // maxStringLength protects against allocating a huge buffer.  Set it
   // higher if you need longer strings.
 
+  /** The max string length. */
   public static int maxStringLength = 65535;
 
+  /**
+   * Skip.
+   *
+   * @param bytes the bytes
+   * @throws Exception the exception
+   */
   public final void skip(int bytes) throws Exception {
     while (bytes > 0) {
       int n = check(1, bytes);
@@ -109,6 +176,14 @@ abstract public class InStream {
 
   // readBytes() reads an exact number of bytes into an array at an offset.
 
+  /**
+   * Read bytes.
+   *
+   * @param data the data
+   * @param offset the offset
+   * @param length the length
+   * @throws Exception the exception
+   */
   public void readBytes(byte[] data, int offset, int length) throws Exception {
     int offsetEnd = offset + length;
     while (offset < offsetEnd) {
@@ -122,24 +197,54 @@ abstract public class InStream {
   // readOpaqueN() reads a quantity "without byte-swapping".  Because java has
   // no byte-ordering, we just use big-endian.
 
+  /**
+   * Read opaque8.
+   *
+   * @return the int
+   * @throws Exception the exception
+   */
   public final int readOpaque8() throws Exception {
     return readU8();
   }
 
+  /**
+   * Read opaque16.
+   *
+   * @return the int
+   * @throws Exception the exception
+   */
   public final int readOpaque16() throws Exception {
     return readU16();
   }
 
+  /**
+   * Read opaque32.
+   *
+   * @return the int
+   * @throws Exception the exception
+   */
   public final int readOpaque32() throws Exception {
     return readU32();
   }
 
+  /**
+   * Read opaque24 a.
+   *
+   * @return the int
+   * @throws Exception the exception
+   */
   public final int readOpaque24A() throws Exception {
     check(3); int b0 = b[ptr++];
     int b1 = b[ptr++]; int b2 = b[ptr++];
     return b0 << 24 | b1 << 16 | b2 << 8;
   }
 
+  /**
+   * Read opaque24 b.
+   *
+   * @return the int
+   * @throws Exception the exception
+   */
   public final int readOpaque24B() throws Exception {
     check(3); int b0 = b[ptr++];
     int b1 = b[ptr++]; int b2 = b[ptr++];
@@ -148,21 +253,54 @@ abstract public class InStream {
 
   // pos() returns the position in the stream.
 
+  /**
+   * Pos.
+   *
+   * @return the int
+   */
   abstract public int pos();
 
   // bytesAvailable() returns true if at least one byte can be read from the
   // stream without blocking.  i.e. if false is returned then readU8() would
   // block.
 
+  /**
+   * Bytes available.
+   *
+   * @return true, if successful
+   */
   public boolean bytesAvailable() { return end != ptr; }
 
   // getbuf(), getptr(), getend() and setptr() are "dirty" methods which allow
   // you to manipulate the buffer directly.  This is useful for a stream which
   // is a wrapper around an underlying stream.
 
+  /**
+   * Gets the buf.
+   *
+   * @return the buf
+   */
   public final byte[] getbuf() { return b; }
+  
+  /**
+   * Gets the ptr.
+   *
+   * @return the ptr
+   */
   public final int getptr() { return ptr; }
+  
+  /**
+   * Gets the end.
+   *
+   * @return the end
+   */
   public final int getend() { return end; }
+  
+  /**
+   * Sets the ptr.
+   *
+   * @param p the new ptr
+   */
   public final void setptr(int p) { ptr = p; }
 
   // overrun() is implemented by a derived class to cope with buffer overrun.
@@ -170,10 +308,27 @@ abstract public class InStream {
   // the number of items in the buffer (up to a maximum of nItems).  itemSize
   // is supposed to be "small" (a few bytes).
 
+  /**
+   * Overrun.
+   *
+   * @param itemSize the item size
+   * @param nItems the n items
+   * @return the int
+   * @throws Exception the exception
+   */
   abstract protected int overrun(int itemSize, int nItems) throws Exception;
 
+  /**
+   * Instantiates a new in stream.
+   */
   protected InStream() {}
+  
+  /** The b. */
   protected byte[] b;
+  
+  /** The ptr. */
   protected int ptr;
+  
+  /** The end. */
   protected int end;
 }

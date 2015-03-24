@@ -43,28 +43,59 @@ import synergynetframework.appsystem.contentsystem.items.implementation.interfac
 import synergynetframework.jme.gfx.twod.keyboard.Key;
 import synergynetframework.jme.gfx.twod.keyboard.MTKeyListener;
 
+
+/**
+ * The Class Keyboard.
+ */
 public class Keyboard extends QuadContentItem implements IKeyboardImplementation{
 
+	/** The keyboard image resource. */
 	protected URL keyboardImageResource;
+	
+	/** The key definitions. */
 	protected List<Key> keyDefinitions;
+	
+	/** The pixels per unit. */
 	protected float pixelsPerUnit = 2f;
+	
+	/** The border colour. */
 	protected Color borderColour = Color.white;
+	
+	/** The border size. */
 	protected int borderSize = 4;
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 8945096690371189741L;
 
+	/** The listeners. */
 	protected transient List<MTKeyListener> listeners = new ArrayList<MTKeyListener>();
 
+	/**
+	 * Instantiates a new keyboard.
+	 *
+	 * @param contentSystem the content system
+	 * @param name the name
+	 */
 	public Keyboard(ContentSystem contentSystem, String name) {
 		super(contentSystem, name);
 	}
 	
+	/**
+	 * Fire key pressed.
+	 *
+	 * @param evt the evt
+	 */
 	public void fireKeyPressed(KeyEvent evt) {
 		for(MTKeyListener l : listeners) {
 			l.keyPressedEvent(evt);
 		}		
 	}
 	
+	/**
+	 * Fire key released.
+	 *
+	 * @param evt the evt
+	 */
 	public void fireKeyReleased(KeyEvent evt) {
 		for(MTKeyListener l : listeners) {
 			l.keyReleasedEvent(evt);
@@ -72,45 +103,83 @@ public class Keyboard extends QuadContentItem implements IKeyboardImplementation
 	}
 
 		
+	/**
+	 * Adds the key listener.
+	 *
+	 * @param l the l
+	 */
 	public void addKeyListener(MTKeyListener l) {
 		if(!listeners.contains(l)) listeners.add(l);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IKeyboardImplementation#setRotateTranslateScalable(boolean, boolean)
+	 */
 	public void setRotateTranslateScalable(boolean isEnabled, boolean overRide){
 		((IKeyboardImplementation)this.contentItemImplementation).setRotateTranslateScalable(isEnabled, overRide);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IKeyboardImplementation#setKeyboardImageResource(java.net.URL)
+	 */
 	public void setKeyboardImageResource(URL keyboardImageResource){
 		this.keyboardImageResource = keyboardImageResource;
 		((IKeyboardImplementation)this.contentItemImplementation).setKeyboardImageResource(keyboardImageResource);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IKeyboardImplementation#setKeyDefinitions(java.util.List)
+	 */
 	public void setKeyDefinitions(List<Key> keyDefinitions){
 		this.keyDefinitions = keyDefinitions;
 		((IKeyboardImplementation)this.contentItemImplementation).setKeyDefinitions(keyDefinitions);
 	}
 	
+	/**
+	 * Gets the key definitions.
+	 *
+	 * @return the key definitions
+	 */
 	public List<Key> getKeyDefinitions(){
 		return keyDefinitions;
 	}
 	
+	/**
+	 * Gets the keyboard image resource.
+	 *
+	 * @return the keyboard image resource
+	 */
 	public URL getKeyboardImageResource(){
 		return keyboardImageResource;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IKeyboardImplementation#setPixelsPerUnit(float)
+	 */
 	public void setPixelsPerUnit(float pixelsPerUnit){
 		this.pixelsPerUnit = pixelsPerUnit;
 		((IKeyboardImplementation)this.contentItemImplementation).setPixelsPerUnit(pixelsPerUnit);
 	}
 	
+	/**
+	 * Gets the pixels per unit.
+	 *
+	 * @return the pixels per unit
+	 */
 	public float getPixelsPerUnit(){
 		return pixelsPerUnit;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IKeyboardImplementation#isKeyPressed(int)
+	 */
 	public boolean isKeyPressed(int vk) {
 		return ((IKeyboardImplementation)this.contentItemImplementation).getCurrentKeysPressed().contains(vk);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IKeyboardImplementation#getCurrentKeysPressed()
+	 */
 	public ArrayList<Key> getCurrentKeysPressed() {
 		return new ArrayList<Key>(((IKeyboardImplementation)this.contentItemImplementation).getCurrentKeysPressed());
 	}

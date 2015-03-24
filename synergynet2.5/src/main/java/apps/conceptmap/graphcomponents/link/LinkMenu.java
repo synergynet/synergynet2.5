@@ -52,27 +52,68 @@ import synergynetframework.appsystem.contentsystem.items.SimpleButton;
 import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAdapter;
 import synergynetframework.appsystem.contentsystem.items.utils.Location;
 
+
+/**
+ * The Class LinkMenu.
+ */
 public class LinkMenu{
 	
+	/** The container. */
 	private OrthoContainer container;
+	
+	/** The location_y. */
 	private float location_x, location_y;
+	
+	/** The font size. */
 	private int fontSize = 10;
+	
+	/** The border size. */
 	private int borderSize = 4;
+	
+	/** The bg colour. */
 	private Color bgColour = Color.black;
+	
+	/** The text colour. */
 	private Color textColour = Color.white;
+	
+	/** The border colour. */
 	private Color borderColour = Color.LIGHT_GRAY;
+	
+	/** The font. */
 	private Font font = new Font("Arial", Font.PLAIN, fontSize);
+	
+	/** The item width. */
 	private int itemWidth = 100;
+	
+	/** The item height. */
 	private int itemHeight = 20;
+	
+	/** The distance between items. */
 	private int distanceBetweenItems = 0;
+	
+	/** The is visible. */
 	private boolean isVisible;
+	
+	/** The link. */
 	private GraphLink link;
+	
+	/** The menu buttons. */
 	private ArrayList<SimpleButton> menuButtons = new ArrayList<SimpleButton>();
 
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The graph manager. */
 	protected GraphManager graphManager;
 
 	
+	/**
+	 * Instantiates a new link menu.
+	 *
+	 * @param contentSystem the content system
+	 * @param gManager the g manager
+	 * @param link the link
+	 */
 	public LinkMenu(ContentSystem contentSystem, GraphManager gManager, GraphLink link){
 		this.contentSystem = contentSystem;
 		this.graphManager = gManager;
@@ -86,6 +127,12 @@ public class LinkMenu{
 		}
 	}
 	
+	/**
+	 * Creates the link menu.
+	 *
+	 * @param item the item
+	 * @return the array list
+	 */
 	private ArrayList<SimpleButton> createLinkMenu(GraphLink item) {
 		final GraphLink link = item;
 		final SimpleButton closeBtn = (SimpleButton)contentSystem.createContentItem(SimpleButton.class);
@@ -223,6 +270,12 @@ public class LinkMenu{
 		return menuButtons;
 	}
 	
+	/**
+	 * Sets the location.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 */
 	public void setLocation(float x, float y){
 		location_x = x;
 		location_y = y;
@@ -233,34 +286,65 @@ public class LinkMenu{
 		}
 	}
 	
+	/**
+	 * Gets the location.
+	 *
+	 * @return the location
+	 */
 	public Location getLocation(){
 		return new Location(location_x, location_y, 0);
 	}
 	
+	/**
+	 * Sets the bg colour.
+	 *
+	 * @param bgColour the new bg colour
+	 */
 	public void setBgColour(Color bgColour){
 		this.bgColour = bgColour;
 		for(SimpleButton btn: menuButtons)
 			btn.setBackgroundColour(bgColour);
 	}
 	
+	/**
+	 * Sets the border colour.
+	 *
+	 * @param borderColour the new border colour
+	 */
 	public void setBorderColour(Color borderColour){
 		this.borderColour = borderColour;
 		for(SimpleButton btn: menuButtons)
 			btn.setBorderColour(borderColour);
 	}
 	
+	/**
+	 * Sets the font.
+	 *
+	 * @param font the new font
+	 */
 	public void setFont(Font font){
 		this.font = font;
 		for(SimpleButton btn: menuButtons)
 			btn.setFont(font);
 	}	
 	
+	/**
+	 * Sets the text colour.
+	 *
+	 * @param textColour the new text colour
+	 */
 	public void setTextColour(Color textColour){
 		this.textColour = textColour;
 		for(SimpleButton btn: menuButtons)
 			btn.setTextColour(textColour);
 	}
 	
+	/**
+	 * Sets the menu item size.
+	 *
+	 * @param itemWidth the item width
+	 * @param itemHeight the item height
+	 */
 	public void setMenuItemSize(int itemWidth, int itemHeight){
 		this.itemWidth = itemWidth;
 		this.itemHeight = itemHeight;
@@ -271,6 +355,11 @@ public class LinkMenu{
 		}
 	}
 	
+	/**
+	 * Sets the visible.
+	 *
+	 * @param isVisible the new visible
+	 */
 	public void setVisible(boolean isVisible){
 		this.isVisible = isVisible;
 		if(menuButtons != null){
@@ -281,15 +370,28 @@ public class LinkMenu{
 		}
 	}
 	
+	/**
+	 * Checks if is visible.
+	 *
+	 * @return true, if is visible
+	 */
 	public boolean isVisible(){
 		return isVisible;
 	}
 	
 	
+	/**
+	 * Removes the.
+	 */
 	public void remove(){
 		contentSystem.removeContentItem(container);
 	}
 	
+	/**
+	 * Show and link keyboard.
+	 *
+	 * @param link the link
+	 */
 	private void showAndLinkKeyboard(final GraphLink link){
 		
 		if(link.getKeyboardNode() == null){
@@ -343,14 +445,29 @@ public class LinkMenu{
 			}
 	}
 
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	public String getName() {
 		return container.getName();
 	}
 
+	/**
+	 * Gets the order.
+	 *
+	 * @return the order
+	 */
 	public int getOrder() {
 		return container.getOrder();
 	}
 	
+	/**
+	 * Sets the order.
+	 *
+	 * @param zOrder the new order
+	 */
 	public void setOrder(int zOrder){
 		container.setOrder(zOrder);
 	}

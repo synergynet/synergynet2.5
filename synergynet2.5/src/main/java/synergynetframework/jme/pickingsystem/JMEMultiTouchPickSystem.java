@@ -55,6 +55,7 @@ import com.jme.scene.Spatial;
 import com.jme.scene.Spatial.CullHint;
 import com.jme.system.DisplaySystem;
 
+
 /**
  * Default implementation of IJMEMultiTouchPickSystem.  Pick requests
  * are screen locations.  Pick results are names of Spatials that are
@@ -65,13 +66,22 @@ import com.jme.system.DisplaySystem;
 
 public class JMEMultiTouchPickSystem implements IJMEMultiTouchPicker {
 	
+	/** The instance. */
 	private static JMEMultiTouchPickSystem instance;
 	
+	/** The ortho comparator. */
 	private static Comparator<OrthogonalPickResultData> orthoComparator;	
 	
+	/** The three d pick results. */
 	protected PickResults threeDPickResults = null;
+	
+	/** The ortho pick results. */
 	protected PickResults orthoPickResults = null;
+	
+	/** The pick root node. */
 	protected Node pickRootNode;
+	
+	/** The orthogonal picking root. */
 	protected Node orthogonalPickingRoot;
 	
 	static {
@@ -95,11 +105,19 @@ public class JMEMultiTouchPickSystem implements IJMEMultiTouchPicker {
 		};
 	}
 	
+	/**
+	 * Gets the single instance of JMEMultiTouchPickSystem.
+	 *
+	 * @return single instance of JMEMultiTouchPickSystem
+	 */
 	public static JMEMultiTouchPickSystem getInstance() {
 		if(instance == null) instance = new JMEMultiTouchPickSystem();
 		return instance;
 	}
 	
+	/**
+	 * Instantiates a new JME multi touch pick system.
+	 */
 	private JMEMultiTouchPickSystem() {
 		threeDPickResults = new PointSelectionTrianglePickResults();
 		threeDPickResults.setCheckDistance(true); 
@@ -107,16 +125,25 @@ public class JMEMultiTouchPickSystem implements IJMEMultiTouchPicker {
 		orthoPickResults.setCheckDistance(true);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.pickingsystem.IJMEMultiTouchPicker#setPickingRootNode(com.jme.scene.Node)
+	 */
 	public void setPickingRootNode(Node rootNode) throws PickSystemException {
 		if(rootNode == null) throw new PickSystemException("Cannot set a null root node to pick from!");
 		this.pickRootNode = rootNode;		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.pickingsystem.IJMEMultiTouchPicker#setOrthogonalPickingRoot(com.jme.scene.Node)
+	 */
 	public void setOrthogonalPickingRoot(Node twod) throws PickSystemException {
 		if(twod == null) throw new PickSystemException("Cannot set a null root node to pick from!");
 		this.orthogonalPickingRoot = twod;		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.pickingsystem.IJMEMultiTouchPicker#doPick(synergynetframework.jme.pickingsystem.data.PickRequest)
+	 */
 	public List<PickResultData> doPick(PickRequest pickRequest) throws PickSystemException {
 		
 		List<PickResultData> results = new ArrayList<PickResultData>();	
@@ -128,6 +155,9 @@ public class JMEMultiTouchPickSystem implements IJMEMultiTouchPicker {
 		return results;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.pickingsystem.IJMEMultiTouchPicker#doPick(synergynetframework.jme.pickingsystem.data.PickRequest, boolean)
+	 */
 	public List<PickResultData> doPick(PickRequest pickRequest, boolean worldNodeOnly) throws PickSystemException {
 		List<PickResultData> results = new ArrayList<PickResultData>();		
 		results.addAll(doScenePick(pickRequest));
@@ -139,6 +169,13 @@ public class JMEMultiTouchPickSystem implements IJMEMultiTouchPicker {
 	}
 	
 
+	/**
+	 * Do scene pick.
+	 *
+	 * @param pickRequest the pick request
+	 * @return the list
+	 * @throws PickSystemException the pick system exception
+	 */
 	private List<ThreeDPickResultData> doScenePick(PickRequest pickRequest) throws PickSystemException {		
 		if(pickRootNode == null) throw new PickSystemException("Cannot use the pick system with a null root picking node.  Use setPickingRootNode()");		
 		threeDPickResults.clear();		
@@ -152,6 +189,12 @@ public class JMEMultiTouchPickSystem implements IJMEMultiTouchPicker {
 		return new ArrayList<ThreeDPickResultData>();
 	}
 	
+	/**
+	 * Do orthogonal pick.
+	 *
+	 * @param pickRequest the pick request
+	 * @return the list
+	 */
 	private List<OrthogonalPickResultData> doOrthogonalPick(PickRequest pickRequest) {
 		orthoPickResults.clear();
 		
@@ -170,6 +213,13 @@ public class JMEMultiTouchPickSystem implements IJMEMultiTouchPicker {
 	}
 
 
+	/**
+	 * Gets the all picked.
+	 *
+	 * @param pickRequest the pick request
+	 * @param pickResults the pick results
+	 * @return the all picked
+	 */
 	private List<ThreeDPickResultData> getAllPicked(PickRequest pickRequest, PickResults pickResults) {
 		List<ThreeDPickResultData> prd = new ArrayList<ThreeDPickResultData>();
 		PickData pd;
@@ -192,6 +242,11 @@ public class JMEMultiTouchPickSystem implements IJMEMultiTouchPicker {
 		return prd;
 	}
 	
+	/**
+	 * Prints the pick results.
+	 *
+	 * @param pr2 the pr2
+	 */
 	public static void printPickResults(PickResults pr2) {
 		System.out.println("========\n#picks: " + pr2.getNumber());
 		for (int i = 0; i < pr2.getNumber(); i++) {
@@ -200,6 +255,11 @@ public class JMEMultiTouchPickSystem implements IJMEMultiTouchPicker {
 		System.out.println("--------");
 	}
 		
+	/**
+	 * Prints the pick results.
+	 *
+	 * @param pr2 the pr2
+	 */
 	public static void printPickResults(List<PickResultData> pr2) {
 		System.out.println("========\n#picks: " + pr2.size());
 		for(PickResultData prd : pr2) {

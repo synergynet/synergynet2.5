@@ -35,13 +35,60 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.List;
 
+
+/**
+ * The Interface IRoundTextLabelImplementation.
+ */
 public interface IRoundTextLabelImplementation extends IRoundFrameImplementation{
+	
+	/**
+	 * Sets the text.
+	 *
+	 * @param text the new text
+	 */
 	public void setText(String text);
+	
+	/**
+	 * Sets the font.
+	 *
+	 * @param font the new font
+	 */
 	public void setFont(Font font);
+	
+	/**
+	 * Sets the text colour.
+	 *
+	 * @param textColour the new text colour
+	 */
 	public void setTextColour(Color textColour);
+	
+	/**
+	 * Sets the auto fit size.
+	 *
+	 * @param isEnabled the new auto fit size
+	 */
 	public void setAutoFitSize(boolean isEnabled);
+	
+	/**
+	 * Sets the lines.
+	 *
+	 * @param lines the new lines
+	 */
 	public void setLines(List<String> lines);	
+	
+	/**
+	 * Sets the lines.
+	 *
+	 * @param s the s
+	 * @param charsPerLine the chars per line
+	 */
 	public void setLines(String s, int charsPerLine);		
+	
+	/**
+	 * Sets the CRLF separated string.
+	 *
+	 * @param s the new CRLF separated string
+	 */
 	public void setCRLFSeparatedString(String s);
 
 }

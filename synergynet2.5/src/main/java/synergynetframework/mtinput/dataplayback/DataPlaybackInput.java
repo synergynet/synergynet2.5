@@ -45,41 +45,79 @@ import synergynetframework.mtinput.IMultiTouchInputSource;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 import synergynetframework.mtinput.filters.LoggingFilter;
 
+
+/**
+ * The Class DataPlaybackInput.
+ */
 public class DataPlaybackInput implements IMultiTouchInputSource {
 
+	/** The br. */
 	private BufferedReader br;
+	
+	/** The line. */
 	private String line;
+	
+	/** The start time. */
 	private long startTime;
+	
+	/** The log start time. */
 	private long logStartTime;
 
+	/** The listeners. */
 	private List<IMultiTouchEventListener> listeners = new ArrayList<IMultiTouchEventListener>();
 
+	/**
+	 * Instantiates a new data playback input.
+	 */
 	public DataPlaybackInput() {
 	}
 	
+	/**
+	 * Sets the input stream.
+	 *
+	 * @param is the new input stream
+	 */
 	public synchronized void setInputStream(InputStream is) {
 		br = new BufferedReader(new InputStreamReader(is));
 		init();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchInputSource#registerMultiTouchEventListener(synergynetframework.mtinput.IMultiTouchEventListener)
+	 */
 	public void registerMultiTouchEventListener(IMultiTouchEventListener listener) {
 		if(!listeners.contains(listener)) listeners.add(listener);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchInputSource#registerMultiTouchEventListener(synergynetframework.mtinput.IMultiTouchEventListener, int)
+	 */
 	public void registerMultiTouchEventListener(IMultiTouchEventListener listener, int index) {
 		if(!listeners.contains(listener)) listeners.add(index, listener);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchInputSource#unregisterMultiTouchEventListener(synergynetframework.mtinput.IMultiTouchEventListener)
+	 */
 	public void unregisterMultiTouchEventListener(IMultiTouchEventListener listener) {
 		listeners.remove(listener);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchInputSource#setClickSensitivity(long, float)
+	 */
 	public void setClickSensitivity(long time, float distance) {
 	}
 
+	/**
+	 * Start.
+	 */
 	public void start() {
 	}
 
+	/**
+	 * Inits the.
+	 */
 	private void init() {
 		nextLine();
 		consumeComments();			
@@ -88,6 +126,9 @@ public class DataPlaybackInput implements IMultiTouchInputSource {
 		logStartTime = Long.parseLong(parts[0]);	
 	}
 
+	/**
+	 * Close.
+	 */
 	private void close() {
 		try {
 			br.close();
@@ -96,13 +137,22 @@ public class DataPlaybackInput implements IMultiTouchInputSource {
 		}
 	}
 
+	/**
+	 * Stop.
+	 */
 	public void stop() {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchInputSource#update(float)
+	 */
 	public void update(float tpf) {
 		if(line != null) processLine();
 	}
 
+	/**
+	 * Process line.
+	 */
 	private void processLine() {
 		String[] parts = line.split(",");
 		long t = Long.parseLong(parts[0]);
@@ -143,12 +193,18 @@ public class DataPlaybackInput implements IMultiTouchInputSource {
 		}		
 	}
 
+	/**
+	 * Consume comments.
+	 */
 	private void consumeComments() {		
 		while(line.startsWith("#")) { 
 			nextLine();
 		}
 	}
 
+	/**
+	 * Next line.
+	 */
 	private void nextLine() {
 		try {
 			line = br.readLine();

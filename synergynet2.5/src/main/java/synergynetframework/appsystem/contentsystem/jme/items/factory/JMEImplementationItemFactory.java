@@ -39,14 +39,24 @@ import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.appsystem.contentsystem.items.implementation.IImplementationItemFactory;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation;
 
+
+/**
+ * A factory for creating JMEImplementationItem objects.
+ */
 public class JMEImplementationItemFactory implements IImplementationItemFactory {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3143730708904582391L;
 
+	/** The Constant JME_IMPLEMENTATION_ITEM_FOLDER. */
 	public static final String JME_IMPLEMENTATION_ITEM_FOLDER = "synergynetframework.appsystem.contentsystem.jme.items";
 	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(JMEImplementationItemFactory.class.getName());
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.IImplementationItemFactory#create(synergynetframework.appsystem.contentsystem.items.ContentItem)
+	 */
 	@Override
 	public IContentItemImplementation create(ContentItem contentItem) {
 		

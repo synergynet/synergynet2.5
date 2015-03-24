@@ -52,15 +52,32 @@ import synergynetframework.jme.pickingsystem.PickSystemException;
 import synergynetframework.jme.pickingsystem.data.PickRequest;
 import synergynetframework.jme.pickingsystem.data.PickResultData;
 
+
+/**
+ * The Class WorkspaceManager.
+ */
 public class WorkspaceManager{
 	
+	/** The pick system. */
 	private IJMEMultiTouchPicker pickSystem;
+	
+	/** The network manager. */
 	private NetworkedContentManager networkManager;
+	
+	/** The item loc. */
 	public HashMap<String, Location> itemLoc = new HashMap<String, Location>();
+	
+	/** The inspected portals. */
 	public List<TablePortal> inspectedPortals = new ArrayList<TablePortal>();
 
+	/** The instance. */
 	private static WorkspaceManager instance = new WorkspaceManager();
 	
+	/**
+	 * Gets the single instance of WorkspaceManager.
+	 *
+	 * @return single instance of WorkspaceManager
+	 */
 	public static WorkspaceManager getInstance() {
 		synchronized(TablePortalManager.class) {
 			if(instance == null) instance = new WorkspaceManager();
@@ -68,14 +85,27 @@ public class WorkspaceManager{
 		}
 	}
 	
+	/**
+	 * Sets the networked content manager.
+	 *
+	 * @param networkManager the new networked content manager
+	 */
 	public void setNetworkedContentManager(NetworkedContentManager networkManager){
 		this.networkManager = networkManager;
 	}
 	
+	/**
+	 * Instantiates a new workspace manager.
+	 */
 	private WorkspaceManager(){
 		this.pickSystem = MultiTouchInputFilterManager.getInstance().getPickingSystem();
 	}
 	
+	/**
+	 * Adds the workspace listener.
+	 *
+	 * @param item the item
+	 */
 	public void addWorkspaceListener(ContentItem item){
 		((OrthoContentItem)item).addScreenCursorListener(new ScreenCursorListener(){
 
@@ -110,6 +140,15 @@ public class WorkspaceManager{
 		});
 	}
 	
+	/**
+	 * Gets the target table portal.
+	 *
+	 * @param item the item
+	 * @param id the id
+	 * @param x the x
+	 * @param y the y
+	 * @return the target table portal
+	 */
 	private TablePortal getTargetTablePortal(ContentItem item, long id, float x, float y){
 		List<Spatial> spatials = getPickedSpatials(id, new Vector2f(x,y));
 		TablePortal sourcePortal = getSourceTablePortal(item);
@@ -123,6 +162,12 @@ public class WorkspaceManager{
 		return null;
 	}
 	
+	/**
+	 * Gets the source table portal.
+	 *
+	 * @param item the item
+	 * @return the source table portal
+	 */
 	public TablePortal getSourceTablePortal(ContentItem item){
 		if(!item.getName().contains("@")) return null;
 		String[] strs = item.getName().split("@");
@@ -130,6 +175,13 @@ public class WorkspaceManager{
 		return TablePortalManager.getInstance().getTablePortal(strs[0]);
 	}
 	
+	/**
+	 * Gets the picked spatials.
+	 *
+	 * @param id the id
+	 * @param position the position
+	 * @return the picked spatials
+	 */
 	private List<Spatial> getPickedSpatials(long id, Vector2f position)
 	{
 		PickRequest req = new PickRequest(id, position);
@@ -148,21 +200,42 @@ public class WorkspaceManager{
 		return pickedSpatials;
 	}
 	
+	/**
+	 * Unregister content item.
+	 *
+	 * @param item the item
+	 */
 	public void unregisterContentItem(ContentItem item){
 		((OrthoContentItem)item).removeScreenCursorListeners();
 	}
 	
 
+	/**
+	 * Enable inspection for portal.
+	 *
+	 * @param tablePortal the table portal
+	 */
 	public void enableInspectionForPortal(TablePortal tablePortal) {
 		if(!inspectedPortals.contains(tablePortal)) inspectedPortals.add(tablePortal);
 		System.out.println("inspection enabled");
 	}
 
+	/**
+	 * Disable inspection for portal.
+	 *
+	 * @param tablePortal the table portal
+	 */
 	public void disableInspectionForPortal(TablePortal tablePortal) {
 		inspectedPortals.remove(tablePortal);
 		System.out.println("inspection disabled");
 	}
 	
+	/**
+	 * Checks if is inspection enabled for portal.
+	 *
+	 * @param tablePortal the table portal
+	 * @return true, if is inspection enabled for portal
+	 */
 	public boolean isInspectionEnabledForPortal(TablePortal tablePortal) {
 		return inspectedPortals.contains(tablePortal);
 	}

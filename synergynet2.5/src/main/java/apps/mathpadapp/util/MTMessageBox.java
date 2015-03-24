@@ -40,12 +40,27 @@ import synergynetframework.appsystem.contentsystem.items.MultiLineTextLabel;
 import synergynetframework.appsystem.contentsystem.items.SimpleButton;
 import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAdapter;
 
+
+/**
+ * The Class MTMessageBox.
+ */
 public class MTMessageBox extends MTDialog{
 
+	/** The message box. */
 	protected MultiLineTextLabel messageBox;
+	
+	/** The cancel btn. */
 	protected SimpleButton okBtn, cancelBtn;
+	
+	/** The listeners. */
 	protected transient List<MessageListener> listeners = new ArrayList<MessageListener>();
 	
+	/**
+	 * Instantiates a new MT message box.
+	 *
+	 * @param parentFrame the parent frame
+	 * @param contentSystem the content system
+	 */
 	public MTMessageBox(MTFrame parentFrame, ContentSystem contentSystem) {
 		super(parentFrame, contentSystem);
 		messageBox = (MultiLineTextLabel) contentSystem.createContentItem(MultiLineTextLabel.class);
@@ -135,26 +150,72 @@ public class MTMessageBox extends MTDialog{
 		this.getWindow().addSubItem(cancelBtn);
 	}
 	
+	/**
+	 * Adds the message listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void addMessageListener(MessageListener listener){
 		if(!listeners.contains(listener)) listeners.add(listener);
 	}
 	
+	/**
+	 * Removes the message listeners.
+	 */
 	public void removeMessageListeners(){ listeners.clear();}
 	
+	/**
+	 * Sets the message.
+	 *
+	 * @param text the new message
+	 */
 	public void setMessage(String text){
 		messageBox.setCRLFSeparatedString(text);
 	}
 	
+	/**
+	 * Gets the ok button.
+	 *
+	 * @return the ok button
+	 */
 	public SimpleButton getOkButton(){
 		return okBtn;
 	}
 	
+	/**
+	 * Gets the cancel button.
+	 *
+	 * @return the cancel button
+	 */
 	public SimpleButton getCancelButton(){
 		return cancelBtn;
 	}
 
+	/**
+	 * The listener interface for receiving message events.
+	 * The class that is interested in processing a message
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addMessageListener<code> method. When
+	 * the message event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see MessageEvent
+	 */
 	public interface MessageListener{
+		
+		/**
+		 * Button clicked.
+		 *
+		 * @param buttonId the button id
+		 */
 		public void buttonClicked(String buttonId);
+		
+		/**
+		 * Button released.
+		 *
+		 * @param buttonId the button id
+		 */
 		public void buttonReleased(String buttonId);
 	}
 }

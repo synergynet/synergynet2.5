@@ -38,16 +38,31 @@ import java.util.List;
 import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundListContainerImplementation;
 
+
+/**
+ * The Class RoundListContainer.
+ */
 public class RoundListContainer extends RoundWindow implements IRoundListContainerImplementation {
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 4456222243914896154L;
 
+	/** The list items. */
 	protected List<RoundContentItem> listItems = new ArrayList<RoundContentItem>();
 	
+	/**
+	 * Instantiates a new round list container.
+	 *
+	 * @param contentSystem the content system
+	 * @param name the name
+	 */
 	public RoundListContainer(ContentSystem contentSystem, String name) {
 		super(contentSystem, name);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundListContainerImplementation#addSubItem(int, synergynetframework.appsystem.contentsystem.items.RoundContentItem)
+	 */
 	public void addSubItem(int index, RoundContentItem item){
 		if (!listItems.contains(item)){
 			listItems.add(index, item);
@@ -57,6 +72,9 @@ public class RoundListContainer extends RoundWindow implements IRoundListContain
 		((IRoundListContainerImplementation)this.contentItemImplementation).addSubItem(index, item);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundListContainerImplementation#addSubItem(synergynetframework.appsystem.contentsystem.items.RoundContentItem)
+	 */
 	public void addSubItem(RoundContentItem item){
 		if (!listItems.contains(item)){
 			listItems.add(item);
@@ -66,6 +84,9 @@ public class RoundListContainer extends RoundWindow implements IRoundListContain
 		((IRoundListContainerImplementation)this.contentItemImplementation).addSubItem(item);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundListContainerImplementation#removeSubItem(synergynetframework.appsystem.contentsystem.items.RoundContentItem)
+	 */
 	public void removeSubItem(RoundContentItem item){
 		if (listItems.contains(item)){
 			listItems.remove(item);
@@ -75,6 +96,11 @@ public class RoundListContainer extends RoundWindow implements IRoundListContain
 		((IRoundListContainerImplementation)this.contentItemImplementation).removeSubItem(item);
 	}
 	
+	/**
+	 * Removes the sub item.
+	 *
+	 * @param index the index
+	 */
 	public void removeSubItem(int index){
 		if (listItems.size()>index){		
 			super.removeSubItem(listItems.get(index));
@@ -83,10 +109,18 @@ public class RoundListContainer extends RoundWindow implements IRoundListContain
 		}
 	}
 	
+	/**
+	 * Gets the list items.
+	 *
+	 * @return the list items
+	 */
 	public List<RoundContentItem> getListItems(){
 		return listItems;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundListContainerImplementation#run()
+	 */
 	public void run(){
 		((IRoundListContainerImplementation)this.contentItemImplementation).run();
 	}

@@ -56,19 +56,42 @@ import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightExit;
 import synergynetframework.jme.sysutils.CameraUtility;
 
+
+/**
+ * The Class MathPadController.
+ */
 public class MathPadController extends DefaultSynergyNetApp{
 	
+	/** The comms. */
 	private TableCommsClientService comms;
+	
+	/** The message handler. */
 	protected ControllerMessageHandler messageHandler;
+	
+	/** The controller manager. */
 	protected ControllerManager controllerManager;
+	
+	/** The content system. */
 	private ContentSystem contentSystem;
+	
+	/** The control bar. */
 	private ControlBar controlBar;
+	
+	/** The nsds. */
 	private NetworkServiceDiscoveryService nsds = null;
 
+	/**
+	 * Instantiates a new math pad controller.
+	 *
+	 * @param info the info
+	 */
 	public MathPadController(ApplicationInfo info) {
 		super(info);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		SynergyNetAppUtils.addTableOverlay(this);
@@ -79,15 +102,24 @@ public class MathPadController extends DefaultSynergyNetApp{
 		controlBar = new ControlBar(contentSystem);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onActivate()
+	 */
 	@Override
 	public void onActivate() {
 		connect();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onDeactivate()
+	 */
 	@Override
 	protected void onDeactivate() {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#getCamera()
+	 */
 	protected Camera getCamera() {
 		if(cam == null) {
 			cam = CameraUtility.getCamera();
@@ -98,6 +130,9 @@ public class MathPadController extends DefaultSynergyNetApp{
 		return cam;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	@Override
 	protected void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);
@@ -105,6 +140,9 @@ public class MathPadController extends DefaultSynergyNetApp{
 		if(controllerManager != null) controllerManager.update(tpf);
 	}
 
+	/**
+	 * Connect.
+	 */
 	public void connect(){
 
 		

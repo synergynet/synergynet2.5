@@ -34,14 +34,27 @@ package synergynetframework.appsystem.services.net.networkedcontentmanager.messa
 
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class SearchProjector.
+ */
 public class SearchProjector extends BroadcastApplicationMessage {	
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 259614974289184624L;
 
+	/**
+	 * Instantiates a new search projector.
+	 *
+	 * @param targetClass the target class
+	 */
 	public SearchProjector(Class<?> targetClass) {
 		super(targetClass);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return "Demand Projector";
 	}

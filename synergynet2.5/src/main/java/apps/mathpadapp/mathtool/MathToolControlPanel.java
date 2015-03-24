@@ -81,24 +81,57 @@ import synergynetframework.appsystem.contentsystem.items.OrthoContainer;
 import synergynetframework.appsystem.contentsystem.items.SimpleButton;
 import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAdapter;
 
+
+/**
+ * The Class MathToolControlPanel.
+ */
 public class MathToolControlPanel{
 	
+	/** The content system. */
 	protected ContentSystem contentSystem;
 	
+	/** The back image. */
 	private LightImageLabel backImage;
+	
+	/** The buttons. */
 	private ArrayList<SimpleButton> buttons = new ArrayList<SimpleButton>();
+	
+	/** The no buttons per row. */
 	private final int NO_BUTTONS_PER_ROW = 2;
+	
+	/** The panel. */
 	private OrthoContainer panel;
+	
+	/** The next btn. */
 	private SimpleButton loginBtn, writeBtn, eraseBtn, previousBtn, nextBtn;
+	
+	/** The line width panel. */
 	private LineWidthPanel lineWidthPanel;
+	
+	/** The color list. */
 	private ColorList colorList;
+	
+	/** The current writing state. */
 	private WritingState currentWritingState = WritingState.FREE_DRAW;
+	
+	/** The set solution. */
 	private SimpleButton setSolution;
+	
+	/** The tool. */
 	private MathTool tool;
+	
+	/** The backup line width. */
 	private float backupLineWidth = -1;
 	
+	/** The listeners. */
 	protected transient ArrayList<ControlPanelListener> listeners = new ArrayList<ControlPanelListener>();
 	
+	/**
+	 * Instantiates a new math tool control panel.
+	 *
+	 * @param contentSystem the content system
+	 * @param tool the tool
+	 */
 	public MathToolControlPanel(final ContentSystem contentSystem, final MathTool tool){
 		this.contentSystem = contentSystem;
 		this.tool = tool;
@@ -372,6 +405,9 @@ public class MathToolControlPanel{
 		setLayout();
 	}
 	
+	/**
+	 * Update next previous status.
+	 */
 	protected void updateNextPreviousStatus() {
 		int padIndex = tool.getCurrentPadIndex();
 		previousBtn.removeAllImages();
@@ -387,6 +423,9 @@ public class MathToolControlPanel{
 			nextBtn.drawImage(MathPadResources.class.getResource("buttons/next_off.jpg"));
 	}
 
+	/**
+	 * Sets the layout.
+	 */
 	public void setLayout(){
 		int shiftX=0, shiftY=0;
 		int i=0;
@@ -418,6 +457,9 @@ public class MathToolControlPanel{
 		lineWidthPanel.getContentPanel().setLocalLocation(0,shiftY);
 	}
 	
+	/**
+	 * Update writing state.
+	 */
 	private void updateWritingState(){
 		writeBtn.removeAllImages();
 		eraseBtn.removeAllImages();
@@ -432,37 +474,120 @@ public class MathToolControlPanel{
 		}
 	}
 	
+	/**
+	 * Gets the content panel.
+	 *
+	 * @return the content panel
+	 */
 	public OrthoContainer getContentPanel(){
 		return panel;
 	}
 	
+	/**
+	 * Gets the width.
+	 *
+	 * @return the width
+	 */
 	public int getWidth(){
 		return backImage.getWidth();
 	}
 	
+	/**
+	 * Gets the height.
+	 *
+	 * @return the height
+	 */
 	public int getHeight(){
 		return backImage.getHeight();
 	}
 	
+	/**
+	 * Adds the control panel listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void addControlPanelListener(ControlPanelListener listener){
 		if(!listeners.contains(listener)) listeners.add(listener); 
 	}
 	
+	/**
+	 * Removes the control panel listeners.
+	 */
 	public void removeControlPanelListeners(){
 		listeners.clear();
 	}
 	
+	/**
+	 * The listener interface for receiving controlPanel events.
+	 * The class that is interested in processing a controlPanel
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addControlPanelListener<code> method. When
+	 * the controlPanel event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see ControlPanelEvent
+	 */
 	public interface ControlPanelListener{
+		
+		/**
+		 * Writing state changed.
+		 *
+		 * @param writingState the writing state
+		 */
 		public void writingStateChanged(WritingState writingState);
+		
+		/**
+		 * Pad cleared.
+		 */
 		public void padCleared();
+		
+		/**
+		 * Pad removed.
+		 *
+		 * @param padIndex the pad index
+		 */
 		public void padRemoved(int padIndex);
+		
+		/**
+		 * Text color changed.
+		 *
+		 * @param textColor the text color
+		 */
 		public void textColorChanged(Color textColor);
+		
+		/**
+		 * Line width changed.
+		 *
+		 * @param lineWidth the line width
+		 */
 		public void lineWidthChanged(float lineWidth);
+		
+		/**
+		 * Invoked when pad is created.
+		 *
+		 * @param newPad the new pad
+		 */
 		public void padCreated(MathPad newPad);
+		
+		/**
+		 * Pad changed.
+		 *
+		 * @param padIndex the pad index
+		 */
 		public void padChanged(int padIndex);
+		
+		/**
+		 * Answer pad displayed.
+		 */
 		public void answerPadDisplayed();
 	}
 
+	/**
+	 * Inits the.
+	 *
+	 * @param settings the settings
+	 */
 	public void init(MathToolInitSettings settings) {
 		if(settings.getWritingState() != null){
 			currentWritingState = settings.getWritingState();
@@ -472,33 +597,68 @@ public class MathToolControlPanel{
 			lineWidthPanel.setLineWidth(settings.getLineWidth());
 	}
 	
+	/**
+	 * Sets the writing state.
+	 *
+	 * @param writingState the new writing state
+	 */
 	protected void setWritingState(WritingState writingState){
 		this.currentWritingState = writingState;
 		this.updateWritingState();
 	}
 	
+	/**
+	 * Sets the line width.
+	 *
+	 * @param lineWidth the new line width
+	 */
 	protected void setLineWidth(float lineWidth){
 		if(!(new Float(lineWidth).isNaN()))
 			lineWidthPanel.setLineWidth(lineWidth);
 	}
 
+	/**
+	 * Sets the text color.
+	 *
+	 * @param color the new text color
+	 */
 	protected void setTextColor(Color color) {
 		if(colorList ==null) return;
 		this.colorList.setSelectedColor(color);
 	}
 	
+	/**
+	 * Register button.
+	 *
+	 * @param button the button
+	 */
 	public void registerButton(SimpleButton button){
 		buttons.add(button);
 	}
 	
+	/**
+	 * Unregister button.
+	 *
+	 * @param button the button
+	 */
 	public void unregisterButton(SimpleButton button){
 		buttons.remove(button);
 	}
 	
+	/**
+	 * Gets the solution button.
+	 *
+	 * @return the solution button
+	 */
 	public SimpleButton getSolutionButton(){
 		return setSolution;
 	}
 	
+	/**
+	 * Gets the login button.
+	 *
+	 * @return the login button
+	 */
 	public ContentItem getLoginButton() {
 		return loginBtn;
 	}

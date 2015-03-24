@@ -8,21 +8,42 @@ import javax.swing.ImageIcon;
 import apps.mtdesktop.MTDesktopConfigurations;
 
 
+
+/**
+ * The Class TextNode.
+ */
 public class TextNode extends AssetNode{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -186252460659304007L;
 
+	/** The text. */
 	protected String text;
 
+	/**
+	 * Instantiates a new text node.
+	 *
+	 * @param assetFile the asset file
+	 */
 	public TextNode(File assetFile) {
 		super(assetFile);
 	}
 	
+	/**
+	 * Instantiates a new text node.
+	 *
+	 * @param text the text
+	 */
 	public TextNode(String text){
 		super(null);
 		this.setText(text);
 	}
 
+	/**
+	 * Sets the text.
+	 *
+	 * @param text the new text
+	 */
 	public void setText(String text){
 		this.text = text;
 		if(text != null){
@@ -33,10 +54,18 @@ public class TextNode extends AssetNode{
 		}
 	}
 	
+	/**
+	 * Gets the text.
+	 *
+	 * @return the text
+	 */
 	public String getText(){
 		return text;
 	}
 	
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.desktop.tree.nodes.AssetNode#getIcon()
+	 */
 	@Override
 	public Icon getIcon() {
 		 return new ImageIcon(MTDesktopConfigurations.class.getResource("desktop/treeicons/text.gif"));

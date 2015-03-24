@@ -11,15 +11,33 @@ import synergynetframework.appsystem.services.net.landiscovery.ServiceDescriptor
 import synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoveryListener;
 import synergynetframework.appsystem.services.net.landiscovery.multicast.discoverer.ServiceBrowser;
 
+
+/**
+ * The Class TestClient.
+ */
 public class TestClient implements ServiceDiscoveryListener {
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static void main(String[] args) throws IOException {
 		new TestClient();
 	}
 
+	/** The browser. */
 	ServiceBrowser browser;
+	
+	/** The descriptors. */
 	Vector<ServiceDescriptor> descriptors;
 	
+	/**
+	 * Instantiates a new test client.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	TestClient() throws IOException {
 		ServiceDiscoveryParams params = new ServiceDiscoveryParams();
 		descriptors = new Vector<ServiceDescriptor>();
@@ -51,6 +69,9 @@ public class TestClient implements ServiceDiscoveryListener {
 		System.exit(0);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoveryListener#serviceAvailable(synergynetframework.appsystem.services.net.landiscovery.ServiceDescriptor)
+	 */
 	public void serviceAvailable(ServiceDescriptor descriptor) {
 		int pos = descriptors.indexOf(descriptor);
 		if (pos>-1) {
@@ -59,6 +80,9 @@ public class TestClient implements ServiceDiscoveryListener {
 		descriptors.add(descriptor);		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoveryListener#serviceRemoved(synergynetframework.appsystem.services.net.landiscovery.ServiceDescriptor)
+	 */
 	public void serviceRemoved(ServiceDescriptor descriptor) {
 		
 		

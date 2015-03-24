@@ -40,10 +40,25 @@ import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.contentloader.config.AttributeConstants;
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 
+
+/**
+ * The Class ContentItemCreator.
+ */
 public class ContentItemCreator {
+	
+	/** The Constant CONTENT_ITEM_FOLDER. */
 	public static final String CONTENT_ITEM_FOLDER = "synergynetframework.appsystem.contentsystem.items";
+	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(ContentItemCreator.class.getName());
 		
+	/**
+	 * Creates the.
+	 *
+	 * @param items the items
+	 * @param contentSystem the content system
+	 * @return the map
+	 */
 	public static Map<ContentItem, Map<String, String>> create(Map<String, Map<String, String>> items, ContentSystem contentSystem) {
 			
 		Map<ContentItem, Map<String, String>> contentItems = new HashMap <ContentItem, Map<String, String>>();
@@ -69,6 +84,13 @@ public class ContentItemCreator {
 		
 	}
 
+	/**
+	 * Gets the item class.
+	 *
+	 * @param contentItemTypeName the content item type name
+	 * @return the item class
+	 * @throws ClassNotFoundException the class not found exception
+	 */
 	@SuppressWarnings("unchecked")
 	private static Class<? extends ContentItem> getItemClass(String contentItemTypeName) throws ClassNotFoundException {
 		return (Class<? extends ContentItem>) Class.forName(contentItemTypeName);

@@ -39,28 +39,72 @@ import java.io.Serializable;
 import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ITextLabelImplementation;
 
+
+/**
+ * The Class TextLabel.
+ */
 public class TextLabel extends Frame implements Serializable, Cloneable{
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -8279443252885792979L;
 
+	/** The text. */
 	protected String text ="";
+	
+	/** The font. */
 	protected Font font = new Font("Arial", Font.PLAIN, 16);
+	
+	/** The text colour. */
 	protected Color textColour = Color.black;
-	public enum Alignment{LEFT, RIGHT, CENTER};
+	
+	/**
+	 * The Enum Alignment.
+	 */
+	public enum Alignment{
+/** The left. */
+LEFT, 
+ /** The right. */
+ RIGHT, 
+ /** The center. */
+ CENTER};
+	
+	/** The text alignment. */
 	protected Alignment textAlignment = Alignment.CENTER;
 	
+	/**
+	 * Instantiates a new text label.
+	 *
+	 * @param contentSystem the content system
+	 * @param name the name
+	 */
 	public TextLabel(ContentSystem contentSystem, String name) {
 		super(contentSystem, name);
 	}		
 	
+	/**
+	 * Sets the text.
+	 *
+	 * @param text the new text
+	 */
 	public void setText(String text) {
 		this.text = text;		
 		((ITextLabelImplementation)this.contentItemImplementation).setText(text);
 	}
 	
+	/**
+	 * Gets the text.
+	 *
+	 * @return the text
+	 */
 	public String getText() {
 		return text;
 	}
 
+	/**
+	 * Sets the alignment.
+	 *
+	 * @param alignment the new alignment
+	 */
 	public void setAlignment(Alignment alignment){
 		textAlignment = alignment;
 		((ITextLabelImplementation)this.contentItemImplementation).setAlignment(textAlignment);
@@ -68,28 +112,56 @@ public class TextLabel extends Frame implements Serializable, Cloneable{
 	}
 	
 
+	/**
+	 * Gets the alignment.
+	 *
+	 * @return the alignment
+	 */
 	public Alignment getAlignment() {
 		return textAlignment;
 	}
 	
+	/**
+	 * Sets the font.
+	 *
+	 * @param font the new font
+	 */
 	public void setFont(Font font) {
 		this.font = font;
 		((ITextLabelImplementation)this.contentItemImplementation).setFont(font);
 	}
 	
+	/**
+	 * Gets the font.
+	 *
+	 * @return the font
+	 */
 	public Font getFont() {
 		return font;
 	}
 
+	/**
+	 * Sets the text colour.
+	 *
+	 * @param textColour the new text colour
+	 */
 	public void setTextColour(Color textColour) {
 		this.textColour = textColour;
 		((ITextLabelImplementation)this.contentItemImplementation).setTextColour(textColour);
 	}
 	
+	/**
+	 * Gets the text colour.
+	 *
+	 * @return the text colour
+	 */
 	public Color getTextColour() {
 		return textColour;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.QuadContentItem#clone()
+	 */
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		TextLabel clonedItem = (TextLabel)super.clone();

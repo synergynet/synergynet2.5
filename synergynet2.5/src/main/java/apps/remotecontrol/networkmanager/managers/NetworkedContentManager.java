@@ -64,23 +64,52 @@ import synergynetframework.appsystem.contentsystem.items.utils.Location;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.client.TableCommsClientService;
 
+
+/**
+ * The Class NetworkedContentManager.
+ */
 public class NetworkedContentManager {
 	
+	/** The item added. */
 	public static short ITEM_ADDED = 1;
+	
+	/** The item deleted. */
 	public static short ITEM_DELETED = 2;
 	
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The comms. */
 	protected TableCommsClientService comms;
+	
+	/** The receiver classes. */
 	protected List<Class<?>> receiverClasses;
+	
+	/** The allowed to send message. */
 	protected boolean allowedToSendMessage=true;
+	
+	/** The sync manager. */
 	protected SyncManager syncManager;
+	
+	/** The sync renderer. */
 	protected SyncRenderer syncRenderer;
+	
+	/** The projector tables. */
 	protected List<TableIdentity> projectorTables = new ArrayList<TableIdentity>();
 	
+	/** The online items list. */
 	public Map<String, ContentItem> onlineItemsList = new HashMap<String, ContentItem>();
 
+	/** The listeners. */
 	protected transient List<NetworkListener> listeners = new ArrayList<NetworkListener>();
 
+	/**
+	 * Instantiates a new networked content manager.
+	 *
+	 * @param contentSystem the content system
+	 * @param comms the comms
+	 * @param receiverClasses the receiver classes
+	 */
 	public NetworkedContentManager(ContentSystem contentSystem , TableCommsClientService comms, List<Class<?>> receiverClasses){
 		this.contentSystem = contentSystem;
 		this.comms = comms;
@@ -90,22 +119,47 @@ public class NetworkedContentManager {
 	}
 	
 	
+	/**
+	 * Gets the content system.
+	 *
+	 * @return the content system
+	 */
 	public ContentSystem getContentSystem(){
 		return contentSystem;
 	}
 	
+	/**
+	 * Gets the receiver classes.
+	 *
+	 * @return the receiver classes
+	 */
 	public List<Class<?>> getReceiverClasses(){
 		return receiverClasses;
 	}
 	
+	/**
+	 * Checks if is allowed to send message.
+	 *
+	 * @return true, if is allowed to send message
+	 */
 	public boolean isAllowedToSendMessage(){
 		return this.allowedToSendMessage;
 	}
 	
+	/**
+	 * Allowed to sendmessage.
+	 *
+	 * @param allowedToSendMessage the allowed to send message
+	 */
 	public void allowedToSendmessage(boolean allowedToSendMessage){
 		this.allowedToSendMessage = allowedToSendMessage;
 	}
 	
+	/**
+	 * Send message.
+	 *
+	 * @param obj the obj
+	 */
 	public void sendMessage(Object obj) {
 		if (!this.allowedToSendMessage) return;
 		if(comms != null) {
@@ -117,10 +171,21 @@ public class NetworkedContentManager {
 		}
 	}
 	
+	/**
+	 * Gets the online items.
+	 *
+	 * @return the online items
+	 */
 	public Map<String, ContentItem> getOnlineItems() {
 		return onlineItemsList;
 	}
 	
+	/**
+	 * Register content item.
+	 *
+	 * @param item the item
+	 * @return true, if successful
+	 */
 	private boolean registerContentItem(ContentItem item){
 		boolean isRegistered = false;
 		if(!contentSystem.getAllContentItems().containsKey(item.getName())){ 
@@ -136,6 +201,11 @@ public class NetworkedContentManager {
 	}
 	
 
+	/**
+	 * Register content items.
+	 *
+	 * @param contentItems the content items
+	 */
 	public void registerContentItems(List<ContentItem> contentItems) {
 		HashMap<ContentItem, Short> updatedItems = new HashMap<ContentItem, Short>();
 		for (ContentItem item: contentItems){
@@ -150,6 +220,11 @@ public class NetworkedContentManager {
 	}
 	
 	
+	/**
+	 * Register content items.
+	 *
+	 * @param contentItems the content items
+	 */
 	public void registerContentItems(HashMap<ContentItem, Location> contentItems) {
 		HashMap<ContentItem, Short> updatedItems = new HashMap<ContentItem, Short>();
 		for (ContentItem item: contentItems.keySet()){
@@ -165,6 +240,11 @@ public class NetworkedContentManager {
 	}
 	
 	
+	/**
+	 * Unregister content items.
+	 *
+	 * @param contentItems the content items
+	 */
 	public void unregisterContentItems(List<ContentItem> contentItems) {
 		HashMap<ContentItem, Short> updatedItems = new HashMap<ContentItem, Short>();
 		for(ContentItem item: contentItems){
@@ -183,33 +263,84 @@ public class NetworkedContentManager {
 		updatedItems.clear();
 	}
 	
+	/**
+	 * Adds the network listener.
+	 *
+	 * @param l the l
+	 */
 	public void addNetworkListener(NetworkListener l){ 
 		if(!listeners.contains(l))	listeners.add(l);
 		}
 	
+	/**
+	 * Removes the network listeners.
+	 */
 	public void removeNetworkListeners( ){ listeners.clear();};
 	
+	/**
+	 * Removes the network listener.
+	 *
+	 * @param l the l
+	 */
 	public void removeNetworkListener(NetworkListener  l){ listeners.remove(l);}; 
 	
+	/**
+	 * The listener interface for receiving network events.
+	 * The class that is interested in processing a network
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addNetworkListener<code> method. When
+	 * the network event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see NetworkEvent
+	 */
 	public interface NetworkListener{
+		
+		/**
+		 * Message received.
+		 *
+		 * @param obj the obj
+		 */
 		public void messageReceived(Object obj);
 	}
 	
+	/**
+	 * Gets the online tables.
+	 *
+	 * @return the online tables
+	 */
 	public List<TableIdentity> getOnlineTables(){
 		return comms.getCurrentlyOnline();
 	}
 
+	/**
+	 * Post alive message.
+	 *
+	 * @param tableIdentity the table identity
+	 */
 	public void postAliveMessage(TableIdentity tableIdentity) {
 		for(Class<?> targetClass: this.getReceiverClasses())
 			this.sendMessage(new UnicastAlivePortalMessage(targetClass, tableIdentity));
 	}
 
 
+	/**
+	 * Fire message received.
+	 *
+	 * @param obj the obj
+	 */
 	public void fireMessageReceived(Object obj) {
 		for(NetworkListener listener: listeners) listener.messageReceived(obj);
 	}
 
 
+	/**
+	 * Handle connection request.
+	 *
+	 * @param targetTable the target table
+	 * @param isConnect the is connect
+	 */
 	public void handleConnectionRequest(TableIdentity targetTable, boolean isConnect) {
 		if(isConnect){	
 			for(Class<?> targetClass: this.getReceiverClasses())
@@ -220,27 +351,52 @@ public class NetworkedContentManager {
 		}
 	}
 
+	/**
+	 * Update.
+	 *
+	 * @param tpf the tpf
+	 */
 	public void update(float tpf) {
 		if(syncManager != null) syncManager.update();
 	}
 	
+	/**
+	 * Gets the sync manager.
+	 *
+	 * @return the sync manager
+	 */
 	public SyncManager getSyncManager(){
 		return this.syncManager;
 	}
 
 
+	/**
+	 * Disconnect table.
+	 *
+	 * @param remoteTableId the remote table id
+	 */
 	public void disconnectTable(TableIdentity remoteTableId) {
 		for(Class<?> targetClass: this.getReceiverClasses())
 			this.sendMessage(new ConnectTablePortalMessage(targetClass, remoteTableId, false));
 	}
 
 
+	/**
+	 * Connect table.
+	 *
+	 * @param remoteTableId the remote table id
+	 */
 	public void connectTable(TableIdentity remoteTableId) {
 		for(Class<?> targetClass: this.getReceiverClasses())	
 			this.sendMessage(new ConnectTablePortalMessage(targetClass, remoteTableId, true));
 	}
 
 
+	/**
+	 * Sync content.
+	 *
+	 * @param itemSyncDataMap the item sync data map
+	 */
 	public void syncContent(Map<String, Map<Short, Object>> itemSyncDataMap) {
 		if (onlineItemsList.isEmpty()) return;
 		for (String name : itemSyncDataMap.keySet()){
@@ -259,6 +415,14 @@ public class NetworkedContentManager {
 	}
 
 
+	/**
+	 * Transfer content item.
+	 *
+	 * @param item the item
+	 * @param sourceTableId the source table id
+	 * @param targetTableId the target table id
+	 * @param newLoc the new loc
+	 */
 	public void transferContentItem(ContentItem item, TableIdentity sourceTableId,	TableIdentity targetTableId, Location newLoc) {
 		if(sourceTableId == null || targetTableId == null) return;
 		if(sourceTableId.equals(targetTableId)) return;
@@ -318,6 +482,14 @@ public class NetworkedContentManager {
 		}
 	}
 
+	/**
+	 * Post items to table.
+	 *
+	 * @param itemNames the item names
+	 * @param tableId the table id
+	 * @param targetTableId the target table id
+	 * @param deleteItems the delete items
+	 */
 	public void postItemsToTable(HashMap<String, Location> itemNames, TableIdentity tableId,	TableIdentity targetTableId, boolean deleteItems) {
 		HashMap<ContentItem, Location> requestedItems = new HashMap<ContentItem, Location>();
 		for(String itemName: itemNames.keySet()){
@@ -331,6 +503,11 @@ public class NetworkedContentManager {
 	}
 
 
+	/**
+	 * Process received items.
+	 *
+	 * @param msg the msg
+	 */
 	public void processReceivedItems(PostItemsPortalMessage msg) {
 		if(msg.getTargetTableId().equals(TableIdentity.getTableIdentity())){
 			this.registerContentItems(msg.getItems());	
@@ -344,11 +521,20 @@ public class NetworkedContentManager {
 	}
 
 
+	/**
+	 * Update sync data.
+	 */
 	public void updateSyncData() {
 		this.syncManager.updateSyncData();
 	}
 
 
+	/**
+	 * Sets the remote table mode.
+	 *
+	 * @param tableId the table id
+	 * @param mode the mode
+	 */
 	public void setRemoteTableMode(TableIdentity tableId, RemoteTableMode mode) {
 		if(tableId == null) return;
 		boolean isLocked = false;
@@ -362,14 +548,29 @@ public class NetworkedContentManager {
 	}
 
 
+	/**
+	 * Process table mode.
+	 *
+	 * @param locked the locked
+	 */
 	public void processTableMode(boolean locked) {
 		SynergyNetDesktop.getInstance().getMultiTouchInputComponent().setMultiTouchInputEnabled(!locked);
 	}
 
+	/**
+	 * Register projector.
+	 *
+	 * @param tableId the table id
+	 */
 	public void registerProjector(TableIdentity tableId){
 		if(!projectorTables.contains(tableId)) projectorTables.add(tableId);
 	}
 	
+	/**
+	 * Gets the projectors.
+	 *
+	 * @return the projectors
+	 */
 	public List<TableIdentity> getProjectors(){
 		return projectorTables;
 	}

@@ -38,33 +38,84 @@ import java.util.Vector;
 import apps.twentyfourpoint.utils.IllegalExpressionException;
 
 
+
+/**
+ * The Class Solution.
+ */
 public class Solution {
 
+	/** The numbers. */
 	@SuppressWarnings("rawtypes")
 	static Vector numbers;
+	
+	/** The has solution. */
 	private boolean hasSolution;
+	
+	/** The solution. */
 	@SuppressWarnings("rawtypes")
 	private Vector theSolution;
+	
+	/** The result. */
 	private double theResult;
+	
+	/** The Constant TOTAL_POSITION. */
 	static final int TOTAL_POSITION = 13;
+	
+	/** The Constant NUM_POSITION. */
 	static final int NUM_POSITION[] = { 1, 4, 8, 11 };
+	
+	/** The num combin. */
 	static int numCombin[][] = new int[24][4];
+	
+	/** The has num combin. */
 	static boolean hasNumCombin = false;
+	
+	/** The Constant OP_POSITION. */
 	static final int OP_POSITION[] = { 2, 6, 10 };
+	
+	/** The op combin. */
 	static int opCombin[][] = new int[64][3];
+	
+	/** The has op combin. */
 	static boolean hasOpCombin = false;
+	
+	/** The white space. */
 	static Character whiteSpace = new Character(' ');
+	
+	/** The open paren. */
 	static Character openParen = new Character('(');
+	
+	/** The close paren. */
 	static Character closeParen = new Character(')');
+	
+	/** The addition. */
 	static Character addition = new Character('+');
+	
+	/** The subtract. */
 	static Character subtract = new Character('-');
+	
+	/** The multiply. */
 	static Character multiply = new Character('*');
+	
+	/** The division. */
 	static Character division = new Character('/');
+	
+	/** The Constant PAREN_POSITION. */
 	static final int PAREN_POSITION[] = { 0, 3, 5, 7, 9, 12 };
+	
+	/** The Constant PAREN_COMBIN. */
 	static final int PAREN_COMBIN[][] = { { 0, 0, 0, 0, 0, 0 },
 			{ 1, 0, 2, 0, 0, 0 }, { 1, 0, 0, 0, 2, 0 }, { 0, 1, 0, 0, 2, 0 },
 			{ 0, 1, 0, 0, 0, 2 }, { 0, 0, 0, 1, 0, 2 }, { 1, 0, 2, 1, 0, 2 } };
 
+	/**
+	 * Instantiates a new solution.
+	 *
+	 * @param num0 the num0
+	 * @param num1 the num1
+	 * @param num2 the num2
+	 * @param num3 the num3
+	 */
 	@SuppressWarnings({"rawtypes", "unchecked"})
 	public Solution(int num0, int num1, int num2, int num3) {
 		theSolution = null;
@@ -76,15 +127,28 @@ public class Solution {
 		searchSolution();
 	}
 
+	/**
+	 * Gets the solution.
+	 *
+	 * @return the solution
+	 */
 	@SuppressWarnings("rawtypes")
 	public Vector getSolution() {
 		return theSolution;
 	}
 
+	/**
+	 * Checks for solution.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean hasSolution() {
 		return hasSolution;
 	}
 
+	/**
+	 * Number combination.
+	 */
 	@SuppressWarnings({"rawtypes", "unchecked"})
 	private static void numberCombination() {
 		Vector numbers = new Vector(4);
@@ -120,6 +184,9 @@ public class Solution {
 		hasNumCombin = true;
 	}
 
+	/**
+	 * Operator combination.
+	 */
 	private static void operatorCombination() {
 		int count = 0;
 		if (hasOpCombin)
@@ -142,6 +209,9 @@ public class Solution {
 
 
 
+	/**
+	 * Search solution.
+	 */
 	@SuppressWarnings({"rawtypes", "unchecked"})
 	private void searchSolution() {
 		Vector tmpExpression = new Vector(13);
@@ -218,6 +288,12 @@ public class Solution {
 		hasSolution = false;
 		theSolution = null;
 	}
+	
+	/**
+	 * Prints the solution.
+	 *
+	 * @param theSolution the the solution
+	 */
 	@SuppressWarnings({"rawtypes"})
 	public static void printSolution(Vector theSolution){
 		for (Enumeration e = theSolution.elements(); e.hasMoreElements(); )
@@ -226,6 +302,12 @@ public class Solution {
 		}
 	}
 	
+	/**
+	 * Gets the solution string.
+	 *
+	 * @param theSolution the the solution
+	 * @return the solution string
+	 */
 	@SuppressWarnings({"rawtypes"})
 	public static String getSolutionString(Vector theSolution){
 		StringBuilder sb=new StringBuilder();
@@ -237,6 +319,11 @@ public class Solution {
 		return sb.toString();
 	}
 	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 	Solution solution=new Solution(8,13,3,2);
 	if(solution.hasSolution){

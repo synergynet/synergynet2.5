@@ -26,13 +26,35 @@ import com.jme.scene.Spatial.LightCombineMode;
 import com.jme.scene.state.ZBufferState;
 import com.jme.system.DisplaySystem;
 
+
+/**
+ * The Class CircularLayout.
+ */
 public class CircularLayout {
+	
+	/** The source portal. */
 	public TablePortal sourcePortal;
+	
+	/** The original locs map. */
 	public Map<ContentItem,Location> originalLocsMap;
+	
+	/** The lines. */
 	public List<Line> lines;
+	
+	/** The centre point. */
 	public RoundFrame centrePoint;
+	
+	/** The listeners. */
 	public List<CircularLayoutListener> listeners = new ArrayList<CircularLayoutListener>();
 	
+	/**
+	 * Instantiates a new circular layout.
+	 *
+	 * @param contentSystem the content system
+	 * @param items the items
+	 * @param centre the centre
+	 * @param distance the distance
+	 */
 	public CircularLayout(ContentSystem contentSystem, List<ContentItem> items, Vector3f centre, float distance){
 		lines = new ArrayList<Line>();
 		originalLocsMap = new HashMap<ContentItem, Location>();
@@ -90,6 +112,12 @@ public class CircularLayout {
 		});
 	}
 	
+	/**
+	 * Position item.
+	 *
+	 * @param item the item
+	 * @param angle the angle
+	 */
 	private void positionItem(ContentItem item, float angle){
 		float distance = 1;
 		do{
@@ -100,6 +128,12 @@ public class CircularLayout {
 		}while(itemCollide(item));
 	}
 	
+	/**
+	 * Item collide.
+	 *
+	 * @param item the item
+	 * @return true, if successful
+	 */
 	private boolean itemCollide(ContentItem item){
 		if(item.hasCollision(this.centrePoint))
 			return true;
@@ -110,10 +144,19 @@ public class CircularLayout {
 		return false;
 	}
 	
+	/**
+	 * Adds the layout listener.
+	 *
+	 * @param l the l
+	 */
 	public void addLayoutListener(CircularLayoutListener l){
 		if(!listeners.contains(l)) 
 			listeners.add(l);
 	}
+	
+	/**
+	 * Collapse.
+	 */
 	public void collapse(){
 	
 		for(ContentItem item: originalLocsMap.keySet())
@@ -126,7 +169,24 @@ public class CircularLayout {
 			l.layoutCollapsed(this);
 	}
 	
+	/**
+	 * The listener interface for receiving circularLayout events.
+	 * The class that is interested in processing a circularLayout
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addCircularLayoutListener<code> method. When
+	 * the circularLayout event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see CircularLayoutEvent
+	 */
 	public interface CircularLayoutListener{
+		
+		/**
+		 * Layout collapsed.
+		 *
+		 * @param cl the cl
+		 */
 		public void layoutCollapsed(CircularLayout cl);
 	}
 

@@ -36,25 +36,52 @@ package apps.mtdesktop.messages;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.UnicastApplicationMessage;
 
+
+/**
+ * The Class ShowMultiPadMessage.
+ */
 public class ShowMultiPadMessage extends UnicastApplicationMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3611717853521792797L;
+	
+	/** The show. */
 	public boolean show = false;
 
+	/**
+	 * Instantiates a new show multi pad message.
+	 */
 	public ShowMultiPadMessage(){
 		super();
 	}
 	
+	/**
+	 * Instantiates a new show multi pad message.
+	 *
+	 * @param targetClass the target class
+	 * @param targetTableId the target table id
+	 * @param show the show
+	 */
 	public ShowMultiPadMessage(Class<?> targetClass, TableIdentity targetTableId, boolean show){
 		super(targetClass);
 		this.setRecipient(targetTableId);
 		this.setShow(show);
 	}
 	
+	/**
+	 * Checks if is show.
+	 *
+	 * @return true, if is show
+	 */
 	public boolean isShow(){
 		return show;
 	}
 	
+	/**
+	 * Sets the show.
+	 *
+	 * @param show the new show
+	 */
 	public void setShow(boolean show){
 		this.show = show;
 	}

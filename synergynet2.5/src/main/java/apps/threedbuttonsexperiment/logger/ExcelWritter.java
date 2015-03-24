@@ -14,8 +14,17 @@ import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 
+
+/**
+ * The Class ExcelWritter.
+ */
 public class ExcelWritter {
 	
+	/**
+	 * Txt to excel file.
+	 *
+	 * @param txtFile the txt file
+	 */
 	public static void txtToExcelFile(String txtFile){
 	
 		WritableWorkbook workbook;
@@ -88,6 +97,11 @@ public class ExcelWritter {
 	}
 
 	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		ExcelWritter.txtToExcelFile("log//3DExperimentLog//Excel//1-28 [16~13~33] (Keyboard-3D).txt");
 	}

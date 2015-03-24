@@ -54,6 +54,7 @@ import synergynetframework.mtinput.events.MultiTouchObjectEvent;
 import synergynetframework.mtinput.tuio.tuioobjects.TUIOFiducialObject;
 import synergynetframework.mtinput.tuio.tuioobjects.TUIOFingerCursor;
 
+
 /**
  * Support for tables which use the TUIO protocol. This implementation supports
  * both cursors and objects/fiducials.
@@ -62,37 +63,63 @@ import synergynetframework.mtinput.tuio.tuioobjects.TUIOFingerCursor;
  */
 public class TUIOMultiTouchInput implements IMultiTouchInputSource, TuioListener {
 
+	/** The network client. */
 	protected TuioClient networkClient;
 
+	/** The listeners. */
 	protected List<IMultiTouchEventListener> listeners = new ArrayList<IMultiTouchEventListener>();
+	
+	/** The click detector. */
 	protected ClickDetector clickDetector = new ClickDetector(500, 2f);
 
+	/** The finger cursors. */
 	protected Map<Long,TUIOFingerCursor> fingerCursors = new HashMap<Long,TUIOFingerCursor>();
+	
+	/** The fiducials. */
 	protected Map<Long,TUIOFiducialObject> fiducials = new HashMap<Long,TUIOFiducialObject>();
 
+	/** The calling list. */
 	protected List<Callable<Object>> callingList = new ArrayList<Callable<Object>>();
 
+	/**
+	 * Instantiates a new TUIO multi touch input.
+	 */
 	public TUIOMultiTouchInput() {
 		start();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchInputSource#registerMultiTouchEventListener(synergynetframework.mtinput.IMultiTouchEventListener)
+	 */
 	public void registerMultiTouchEventListener(IMultiTouchEventListener listener) {
 		if(!listeners.contains(listener)) listeners.add(listener);	
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchInputSource#registerMultiTouchEventListener(synergynetframework.mtinput.IMultiTouchEventListener, int)
+	 */
 	public void registerMultiTouchEventListener(IMultiTouchEventListener listener, int index) {
 		if(!listeners.contains(listener)) listeners.add(index, listener);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchInputSource#unregisterMultiTouchEventListener(synergynetframework.mtinput.IMultiTouchEventListener)
+	 */
 	public void unregisterMultiTouchEventListener(IMultiTouchEventListener listener) {
 		listeners.remove(listener);
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchInputSource#setClickSensitivity(long, float)
+	 */
 	public void setClickSensitivity(long time, float distance) {
 		this.clickDetector = new ClickDetector(time, distance);
 	}
 
+	/**
+	 * Start.
+	 */
 	public void start() {
 		synchronized(this) {
 			TableConfigPrefsItem tablePrefs = new TableConfigPrefsItem();
@@ -107,6 +134,9 @@ public class TUIOMultiTouchInput implements IMultiTouchInputSource, TuioListener
 		}
 	}
 
+	/**
+	 * Stop.
+	 */
 	public void stop() {
 		networkClient.removeTuioListener(this);
 		networkClient.disconnect();
@@ -115,6 +145,9 @@ public class TUIOMultiTouchInput implements IMultiTouchInputSource, TuioListener
 
 	// TuioListener methods
 
+	/* (non-Javadoc)
+	 * @see TUIO.TuioListener#addTuioCursor(TUIO.TuioCursor)
+	 */
 	public void addTuioCursor(final TuioCursor tuioCursor) {		
 		final long sessionID = tuioCursor.getSessionID();
 		TUIOFingerCursor fingerCursor = fingerCursors.get(sessionID);
@@ -152,6 +185,9 @@ public class TUIOMultiTouchInput implements IMultiTouchInputSource, TuioListener
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see TUIO.TuioListener#removeTuioCursor(TUIO.TuioCursor)
+	 */
 	public void removeTuioCursor(final TuioCursor tuioCursor) {
 		Callable<Object> c = new Callable<Object>() {
 			
@@ -184,6 +220,9 @@ public class TUIOMultiTouchInput implements IMultiTouchInputSource, TuioListener
 
 	}
 
+	/* (non-Javadoc)
+	 * @see TUIO.TuioListener#updateTuioCursor(TUIO.TuioCursor)
+	 */
 	public void updateTuioCursor(final TuioCursor tuioCursor){
 		Callable<Object> c = new Callable<Object>() {
 			
@@ -215,6 +254,9 @@ public class TUIOMultiTouchInput implements IMultiTouchInputSource, TuioListener
 
 
 	
+	/* (non-Javadoc)
+	 * @see TUIO.TuioListener#addTuioObject(TUIO.TuioObject)
+	 */
 	public void addTuioObject(TuioObject tuioObject){
 		long sessionID = tuioObject.getSessionID();
 		int fiducialID = tuioObject.getSymbolID();
@@ -225,6 +267,9 @@ public class TUIOMultiTouchInput implements IMultiTouchInputSource, TuioListener
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see TUIO.TuioListener#removeTuioObject(TUIO.TuioObject)
+	 */
 	public void removeTuioObject(final TuioObject tuioObject) {
 		Callable<Object> c = new Callable<Object>() {
 			
@@ -250,6 +295,9 @@ public class TUIOMultiTouchInput implements IMultiTouchInputSource, TuioListener
 	}
 
 
+	/* (non-Javadoc)
+	 * @see TUIO.TuioListener#updateTuioObject(TUIO.TuioObject)
+	 */
 	public void updateTuioObject(final TuioObject tuioObject){
 		Callable<Object> c = new Callable<Object>() {
 			
@@ -286,10 +334,16 @@ public class TUIOMultiTouchInput implements IMultiTouchInputSource, TuioListener
 
 	}
 
+	/* (non-Javadoc)
+	 * @see TUIO.TuioListener#refresh(TUIO.TuioTime)
+	 */
 	public void refresh(TuioTime tuioTime) {
 		// unused
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchInputSource#update(float)
+	 */
 	public void update(float tpf) {
 		synchronized(callingList) {
 			for(Callable<Object> c : callingList) {

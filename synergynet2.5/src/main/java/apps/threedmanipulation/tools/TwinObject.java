@@ -12,13 +12,27 @@ import com.jme.scene.Spatial;
 import com.jme.scene.Line;
 import com.jme.util.geom.BufferUtils;
 
+
+/**
+ * The Class TwinObject.
+ */
 public class TwinObject {
 
+	/** The twin object. */
 	private Spatial twinObject;
+	
+	/** The world node. */
 	private Node worldNode;
+	
+	/** The line. */
 	private Line line;
+	
+	/** The manipulated ojbect. */
 	private Spatial manipulatedOjbect;
 	  
+	/**
+	 * Cleanup.
+	 */
 	public void cleanup() {	
 		//remove line from scene
 		worldNode.detachChild(line);
@@ -31,6 +45,16 @@ public class TwinObject {
 		worldNode.updateGeometricState(0f, false);			
 	}
 	
+	/**
+	 * Instantiates a new twin object.
+	 *
+	 * @param name the name
+	 * @param contentSystem the content system
+	 * @param worldNode the world node
+	 * @param manipulatedOjbect the manipulated ojbect
+	 * @param twinObject the twin object
+	 * @param initPosition the init position
+	 */
 	public TwinObject(String name, ContentSystem contentSystem, Node worldNode,  Spatial manipulatedOjbect, Spatial twinObject, Vector3f initPosition){
 		
 		this.worldNode = worldNode;		
@@ -61,6 +85,9 @@ public class TwinObject {
 						
 	}
 	
+	/**
+	 * Update line.
+	 */
 	public void updateLine(){
 				
 		if(twinObject != null && manipulatedOjbect != null){

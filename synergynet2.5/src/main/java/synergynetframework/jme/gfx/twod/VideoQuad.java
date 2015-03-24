@@ -45,13 +45,28 @@ import com.jme.scene.shape.Quad;
 import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
 
+
+/**
+ * The Class VideoQuad.
+ */
 public class VideoQuad extends Quad implements Updateable {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -1917902983466944978L;
 	
+	/** The image. */
 	private JMFVideoImage image;
+	
+	/** The tex. */
 	private Texture tex;
 	
+	/**
+	 * Instantiates a new video quad.
+	 *
+	 * @param objectName the object name
+	 * @param videoResource the video resource
+	 * @param pixelsPerUnit the pixels per unit
+	 */
 	public VideoQuad(String objectName, URL videoResource, float pixelsPerUnit) {
 		super(objectName, 1, 1);
 		ByteBufferRenderer.printframes = false;
@@ -84,6 +99,9 @@ public class VideoQuad extends Quad implements Updateable {
 
 	}	
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.Updateable#update(float)
+	 */
 	public void update(float interpolation) {
 		if (!image.update(tex, false)) {
 			image.waitSome(3);

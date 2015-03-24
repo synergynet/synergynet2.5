@@ -41,12 +41,25 @@ import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.appsystem.contentsystem.items.QuadContentItem;
 import synergynetframework.appsystem.contentsystem.items.listener.ScreenCursorListener;
 
+
+/**
+ * The Class DocNode.
+ */
 public abstract class DocNode extends QuadNode{
 
+	/**
+	 * Instantiates a new doc node.
+	 *
+	 * @param contentSystem the content system
+	 * @param gManager the g manager
+	 */
 	public DocNode(ContentSystem contentSystem, GraphManager gManager) {
 		super(contentSystem, gManager);
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.conceptmap.graphcomponents.nodes.QuadNode#setNodeContent(synergynetframework.appsystem.contentsystem.items.ContentItem)
+	 */
 	protected void setNodeContent(ContentItem nodeItem){
 		this.contentItem = (QuadContentItem)nodeItem;
 		super.setNodeContent(contentItem);

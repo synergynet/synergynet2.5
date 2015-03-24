@@ -34,15 +34,32 @@ package apps.mathpadapp.networkmanager.messages.fromprojector;
 import apps.mathpadapp.networkmanager.utils.UserIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.UnicastApplicationMessage;
 
+
+/**
+ * The Class ProjectorToControllerMessage.
+ */
 public class ProjectorToControllerMessage extends UnicastApplicationMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3611717853521792797L;
+	
+	/** The user id. */
 	protected UserIdentity userId;
 
+	/**
+	 * Instantiates a new projector to controller message.
+	 *
+	 * @param targetClass the target class
+	 */
 	public ProjectorToControllerMessage(Class<?> targetClass){
 		super(targetClass);		
 	}
 	
+	/**
+	 * Gets the sender user identity.
+	 *
+	 * @return the sender user identity
+	 */
 	public UserIdentity getSenderUserIdentity(){
 		return userId;
 	}

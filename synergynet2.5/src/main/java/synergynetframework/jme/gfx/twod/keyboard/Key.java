@@ -35,16 +35,38 @@ package synergynetframework.jme.gfx.twod.keyboard;
 import java.awt.Rectangle;
 import java.io.Serializable;
 
+
+/**
+ * The Class Key.
+ */
 public class Key implements Serializable {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3089776557743879105L;
+	
+	/** The area. */
 	public Rectangle area;
+	
+	/** The key. */
 	public int key;
 	
+	/**
+	 * Instantiates a new key.
+	 *
+	 * @param r the r
+	 * @param key the key
+	 */
 	public Key(Rectangle r, int key) {
 		this.area = r;
 		this.key = key;
 	}
 	
+	/**
+	 * Gets the key text.
+	 *
+	 * @param upperCaseModeOn the upper case mode on
+	 * @return the key text
+	 */
 	private char getKeyText(boolean upperCaseModeOn) {
 		char c = (char) key;
 		
@@ -56,10 +78,19 @@ public class Key implements Serializable {
 		return c;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return key + "(" + getKeyText(false) + ")@" + area;
 	}
 
+	/**
+	 * Gets the key char.
+	 *
+	 * @param upperCaseModeOn the upper case mode on
+	 * @return the key char
+	 */
 	public char getKeyChar(boolean upperCaseModeOn) {
 		return getKeyText(upperCaseModeOn);
 	}

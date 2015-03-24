@@ -37,14 +37,63 @@ import synergynetframework.appsystem.contentsystem.items.OrthoContentItem;
 import synergynetframework.appsystem.contentsystem.items.VideoPlayer;
 import synergynetframework.appsystem.contentsystem.jme.items.JMEMediaPlayer.PlayListener;
 
+
+/**
+ * The Interface IMediaPlayerImplementation.
+ */
 public interface IMediaPlayerImplementation extends IQuadContentItemImplementation {
 
+	/**
+	 * Sets the media url.
+	 *
+	 * @param url the new media url
+	 */
 	public void setMediaURL(URL url);	
+	
+	/**
+	 * Sets the playing.
+	 *
+	 * @param b the new playing
+	 */
 	public void setPlaying(boolean b);	
+	
+	/**
+	 * Sets the pixels per unit.
+	 *
+	 * @param ppu the new pixels per unit
+	 */
 	public void setPixelsPerUnit(float ppu);
+	
+	/**
+	 * Gets the player frame.
+	 *
+	 * @return the player frame
+	 */
 	public OrthoContentItem getPlayerFrame();
+	
+	/**
+	 * Gets the video player.
+	 *
+	 * @return the video player
+	 */
 	public VideoPlayer getVideoPlayer();
+	
+	/**
+	 * Adds the player listener.
+	 *
+	 * @param l the l
+	 */
 	public void addPlayerListener(PlayListener l);
+	
+	/**
+	 * Removes the play listener.
+	 *
+	 * @param l the l
+	 */
 	public void removePlayListener(PlayListener l);
+	
+	/**
+	 * Removes the play listeners.
+	 */
 	public void removePlayListeners();
 }

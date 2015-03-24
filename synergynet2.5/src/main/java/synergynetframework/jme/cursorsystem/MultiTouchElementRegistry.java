@@ -44,6 +44,7 @@ import synergynetframework.jme.pickingsystem.data.PickResultData;
 
 import com.jme.scene.Spatial;
 
+
 /**
  * Whenever a Spatial is to be interacted with, using the multitouch interface,
  * a MultiTouchElement is created.  Creating a MultiTouchElement, or any of its
@@ -63,15 +64,28 @@ import com.jme.scene.Spatial;
 
 public class MultiTouchElementRegistry {
 	
+	/** The instance. */
 	private static MultiTouchElementRegistry instance;
+	
+	/** The cursor id to names. */
 	protected Map<Long, Set<String>>cursorIDToNames;						
+	
+	/** The name to multi touch element. */
 	protected Map<String, List<MultiTouchElement>>nameToMultiTouchElement;		
 	
+	/**
+	 * Instantiates a new multi touch element registry.
+	 */
 	private MultiTouchElementRegistry() {
 		cursorIDToNames = new HashMap<Long, Set<String>>();
 		nameToMultiTouchElement = new HashMap<String, List<MultiTouchElement>>();
 	}
 	
+	/**
+	 * Register.
+	 *
+	 * @param mrs the mrs
+	 */
 	public void register(MultiTouchElement mrs) {
 		List<MultiTouchElement> registeredElements = nameToMultiTouchElement.get(mrs.getName());
 		if(registeredElements == null) {
@@ -82,6 +96,12 @@ public class MultiTouchElementRegistry {
 		registeredElements.add(mrs);
 	}
 	
+	/**
+	 * Gets the element by target spatial.
+	 *
+	 * @param s the s
+	 * @return the element by target spatial
+	 */
 	public MultiTouchElement getElementByTargetSpatial(Spatial s) {
 		for(String key : nameToMultiTouchElement.keySet()) {
 			List<MultiTouchElement> list = nameToMultiTouchElement.get(key);
@@ -94,25 +114,53 @@ public class MultiTouchElementRegistry {
 		return null;
 	}
 	
+	/**
+	 * Unregister.
+	 *
+	 * @param e the e
+	 */
 	public void unregister(MultiTouchElement e) {
 		List<MultiTouchElement> registeredElements = nameToMultiTouchElement.get(e.getName());
 		registeredElements.remove(e);
 	}
 	
+	/**
+	 * Unregister elements for spatial.
+	 *
+	 * @param s the s
+	 */
 	public void unregisterElementsForSpatial(Spatial s) {
 		nameToMultiTouchElement.remove(s.getName());
 	}
 	
+	/**
+	 * Checks if is registered.
+	 *
+	 * @param e the e
+	 * @return true, if is registered
+	 */
 	public boolean isRegistered(MultiTouchElement e){
 		List<MultiTouchElement> registeredElements = nameToMultiTouchElement.get(e.getName());
 		if(registeredElements == null) return false;
 		return registeredElements.contains(e);
 	}
 	
+	/**
+	 * Checks if is registered.
+	 *
+	 * @param s the s
+	 * @return true, if is registered
+	 */
 	public boolean isRegistered(Spatial s) {
 		return nameToMultiTouchElement.containsKey(s.getName());
 	}
 	
+	/**
+	 * Associate cursor id to name.
+	 *
+	 * @param id the id
+	 * @param name the name
+	 */
 	public void associateCursorIDToName(long id, String name) {
 		if(nameToMultiTouchElement.containsKey(name)) {			
 			Set<String> s = cursorIDToNames.get(id);
@@ -123,14 +171,30 @@ public class MultiTouchElementRegistry {
 		}
 	}
 	
+	/**
+	 * Associate cursor id to name.
+	 *
+	 * @param pickResultData the pick result data
+	 */
 	public void associateCursorIDToName(PickResultData pickResultData) {
 		associateCursorIDToName(pickResultData.getOriginatingCursorID(), pickResultData.getPickedSpatialName());
 	}
 	
+	/**
+	 * Removes the cursor id to names associations.
+	 *
+	 * @param id the id
+	 */
 	public void removeCursorIDToNamesAssociations(long id) {
 		cursorIDToNames.remove(id);			
 	}
 	
+	/**
+	 * Gets the registered elements for cursor id.
+	 *
+	 * @param id the id
+	 * @return the registered elements for cursor id
+	 */
 	public List<MultiTouchElement> getRegisteredElementsForCursorID(long id) {
 		Set<String> elementNames = cursorIDToNames.get(id);
 		List<MultiTouchElement> nodes = new ArrayList<MultiTouchElement>();
@@ -145,6 +209,11 @@ public class MultiTouchElementRegistry {
 		return nodes;
 	}
 
+	/**
+	 * Gets the single instance of MultiTouchElementRegistry.
+	 *
+	 * @return single instance of MultiTouchElementRegistry
+	 */
 	public static MultiTouchElementRegistry getInstance() {
 		if(instance == null) instance = new MultiTouchElementRegistry();
 		return instance;

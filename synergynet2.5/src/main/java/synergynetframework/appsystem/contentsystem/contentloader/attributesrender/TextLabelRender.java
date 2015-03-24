@@ -42,10 +42,18 @@ import synergynetframework.appsystem.contentsystem.contentloader.utils.ColorUtil
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.appsystem.contentsystem.items.TextLabel;
 
+
+/**
+ * The Class TextLabelRender.
+ */
 public class TextLabelRender extends FrameRender {
 	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(TextLabelRender.class.getName());
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.contentloader.attributesrender.FrameRender#render(java.util.Map, synergynetframework.appsystem.contentsystem.items.ContentItem, synergynetframework.appsystem.contentsystem.ContentSystem)
+	 */
 	@Override
 	protected void render(Map<String, String> itemAttrs,
 			ContentItem contentItem, ContentSystem contentsys) {

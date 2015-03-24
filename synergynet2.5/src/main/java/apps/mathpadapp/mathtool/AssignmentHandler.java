@@ -40,24 +40,51 @@ import synergynetframework.appsystem.contentsystem.items.MathPad;
 import synergynetframework.appsystem.contentsystem.jme.items.utils.DrawData;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class AssignmentHandler.
+ */
 public class AssignmentHandler {
 	
+	/** The math tool. */
 	protected MathTool mathTool;
+	
+	/** The assignment. */
 	protected Assignment assignment;
+	
+	/** The assignment sender. */
 	protected TableIdentity assignmentSender;
 	
+	/**
+	 * Instantiates a new assignment handler.
+	 *
+	 * @param mathTool the math tool
+	 */
 	public AssignmentHandler(MathTool mathTool){
 		this.mathTool = mathTool;
 	}
 
+	/**
+	 * Gets the assignment.
+	 *
+	 * @return the assignment
+	 */
 	public Assignment getAssignment() {
 		return assignment;
 	}
 
+	/**
+	 * Sets the assignment.
+	 *
+	 * @param assignment the new assignment
+	 */
 	public void setAssignment(Assignment assignment) {
 		this.assignment = assignment;
 	}
 	
+	/**
+	 * Draw assignment.
+	 */
 	public void drawAssignment(){
 		HashMap<Integer, List<DrawData>> drawData = assignment.getDrawData();
 		for(int i: drawData.keySet()){
@@ -71,6 +98,9 @@ public class AssignmentHandler {
 		mathTool.getControlPanel().getSolutionButton().setVisible(true);
 	}
 	
+	/**
+	 * Delete assignment.
+	 */
 	public void deleteAssignment(){
 		for(MathPad pad: mathTool.getAllPads()) pad.clearAll();
 		mathTool.getAnswerDialog().getAnswerPad().clearAll();
@@ -78,10 +108,20 @@ public class AssignmentHandler {
 		assignment = null;
 	}
 
+	/**
+	 * Gets the assignment sender.
+	 *
+	 * @return the assignment sender
+	 */
 	public TableIdentity getAssignmentSender() {
 		return assignmentSender;
 	}
 
+	/**
+	 * Sets the assignment sender.
+	 *
+	 * @param assignmentSender the new assignment sender
+	 */
 	public void setAssignmentSender(TableIdentity assignmentSender) {
 		this.assignmentSender = assignmentSender;
 	}

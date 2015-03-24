@@ -13,29 +13,50 @@ import apps.mtdesktop.fileutility.Uploader;
 
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class FtpServerServlet.
+ */
 public class FtpServerServlet extends HttpServlet{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 6389374451513338270L;
 
+	/** The Constant BUFFER_SIZE. */
 	public static final int BUFFER_SIZE = 5 * 1024;
+	
+	/** The Constant MAX_FILE_SIZE. */
 	public static final int MAX_FILE_SIZE = 5 * 1024 * 1024;
 	
+	/** The listeners. */
 	private List<FtpServletListener> listeners = new ArrayList<FtpServletListener>();
 	
+	/* (non-Javadoc)
+	 * @see javax.servlet.http.HttpServlet#doDelete(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
 	protected void doDelete(HttpServletRequest req,  HttpServletResponse resp) throws ServletException, IOException {
 
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException  {
 		doPut(req, resp);
 	}
 
 
+	/* (non-Javadoc)
+	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doDelete(req, resp);
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.servlet.http.HttpServlet#doPut(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
 	public void doPut(HttpServletRequest req, HttpServletResponse resp)  throws ServletException, IOException {
 		String fileName = req.getHeader(Uploader.FILE_NAME_HEADER);
 		if(fileName == null && !resp.isCommitted()){
@@ -144,18 +165,54 @@ public class FtpServerServlet extends HttpServlet{
 
 	}
 
+	/**
+	 * Gets the temp file.
+	 *
+	 * @param tempFileName the temp file name
+	 * @return the temp file
+	 */
 	private String getTempFile(String tempFileName) {
 		return "c://temp/" + tempFileName + ".tmp";
 	}
 	
+	/**
+	 * Adds the ftp servlet listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void addFtpServletListener(FtpServletListener listener){
 		if(!listeners.contains(listener)) 
 			listeners.add(listener);
 	}
 	
 	
+	/**
+	 * The listener interface for receiving ftpServlet events.
+	 * The class that is interested in processing a ftpServlet
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addFtpServletListener<code> method. When
+	 * the ftpServlet event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see FtpServletEvent
+	 */
 	public interface FtpServletListener{
+		
+		/**
+		 * File uploaded.
+		 *
+		 * @param peerId the peer id
+		 * @param assetId the asset id
+		 * @param file the file
+		 */
 		public void fileUploaded(TableIdentity peerId, String assetId, File file);
+		
+		/**
+		 * File downloaded.
+		 *
+		 * @param file the file
+		 */
 		public void fileDownloaded(File file);
 	}
 }

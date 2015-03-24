@@ -7,15 +7,35 @@ import com.jmex.awt.swingui.ImageGraphics;
 
 import synergynetframework.appsystem.contentsystem.items.utils.IDrawableContent;
 
+
+/**
+ * The Class TimebarDrawableContent.
+ */
 public class TimebarDrawableContent implements IDrawableContent{
 
+	/** The repeats. */
 	int repeats=0;
+	
+	/** The title. */
 	String title = "Week";
+	
+	/** The length. */
 	int length = 70;
+	
+	/** The height. */
 	int height = 20;
 	
+	/** The inner line lenght. */
 	int innerLineLenght = 8;
 	
+	/**
+	 * Instantiates a new timebar drawable content.
+	 *
+	 * @param repeats the repeats
+	 * @param title the title
+	 * @param length the length
+	 * @param height the height
+	 */
 	public TimebarDrawableContent(int repeats, String title, int length, int height){
 		this.repeats = repeats;
 		this.title = title;
@@ -23,6 +43,9 @@ public class TimebarDrawableContent implements IDrawableContent{
 		this.height = height;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.utils.IDrawableContent#drawContent(java.lang.Object)
+	 */
 	@Override
 	public void drawContent(Object drawingHandle) {
 		

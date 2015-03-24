@@ -32,10 +32,41 @@
 
 package synergynetframework.appsystem.services.net.landiscovery;
 
+
+/**
+ * The Interface ServiceDiscoverySystem.
+ */
 public interface ServiceDiscoverySystem {
+	
+	/**
+	 * Start.
+	 */
 	public void start();
+	
+	/**
+	 * Stop.
+	 */
 	public void stop();
+	
+	/**
+	 * Register listener.
+	 *
+	 * @param l the l
+	 */
 	public void registerListener(final ServiceDiscoveryListener l);
+	
+	/**
+	 * Removes the listener.
+	 *
+	 * @param l the l
+	 */
 	public void removeListener(final ServiceDiscoveryListener l);
+	
+	/**
+	 * Register service for listening.
+	 *
+	 * @param type the type
+	 * @param name the name
+	 */
 	public void registerServiceForListening(final String type, final String name);
 }

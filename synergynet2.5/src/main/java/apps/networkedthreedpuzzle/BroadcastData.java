@@ -37,11 +37,23 @@ import java.util.List;
 
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class BroadcastData.
+ */
 public class BroadcastData extends BroadcastApplicationMessage {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 44412344812321234L;
+	
+	/** The updated spatial attributes. */
 	private List<SpatialAttributes> updatedSpatialAttributes = new ArrayList<SpatialAttributes>(); 
 
+	/**
+	 * Instantiates a new broadcast data.
+	 *
+	 * @param updatedSpatialAttributes the updated spatial attributes
+	 */
 	public BroadcastData(List<SpatialAttributes> updatedSpatialAttributes) {
 		super(ThreeDPuzzle.class);
 		this.updatedSpatialAttributes.clear();
@@ -50,6 +62,11 @@ public class BroadcastData extends BroadcastApplicationMessage {
 			this.updatedSpatialAttributes.add(item);
 	}
 	
+	/**
+	 * Gets the updated spatial attributes.
+	 *
+	 * @return the updated spatial attributes
+	 */
 	public List<SpatialAttributes> getUpdatedSpatialAttributes(){
 		return updatedSpatialAttributes;
 	}

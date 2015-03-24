@@ -37,22 +37,47 @@ import java.io.Serializable;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.config.display.DisplayConfigPrefsItem;
 
+
+/**
+ * The Class TableInfo.
+ */
 public class TableInfo implements Serializable{
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2158376162046543629L;
+	
+	/** The table id. */
 	protected TableIdentity tableId;
+	
+	/** The position x. */
 	protected int positionX;
+	
+	/** The position y. */
 	protected int positionY;
+	
+	/** The angle. */
 	protected float angle;
+	
+	/** The width. */
 	private float width;
+	
+	/** The height. */
 	private float height;
 	
+	/**
+	 * Instantiates a new table info.
+	 */
 	public TableInfo()
 	{}
 	
+	/**
+	 * Instantiates a new table info.
+	 *
+	 * @param tableId the table id
+	 * @param positionX the position x
+	 * @param positionY the position y
+	 * @param angle the angle
+	 */
 	public TableInfo(TableIdentity tableId, int positionX, int positionY, float angle)	{
 		this.tableId = tableId;
 		this.positionX = positionX;
@@ -65,39 +90,85 @@ public class TableInfo implements Serializable{
 		this.height = scaleY;
 	}
 	
+	/**
+	 * Sets the table position.
+	 *
+	 * @param positionX the position x
+	 * @param positionY the position y
+	 */
 	public void setTablePosition(int positionX, int positionY)	{
 		this.positionX = positionX;
 		this.positionY = positionY;
 	}
 	
+	/**
+	 * Gets the table position x.
+	 *
+	 * @return the table position x
+	 */
 	public int getTablePositionX()	{
 		return positionX;
 	}
 	
+	/**
+	 * Gets the table position y.
+	 *
+	 * @return the table position y
+	 */
 	public int getTablePositionY()	{
 		return positionY;
 	}
 	
+	/**
+	 * Sets the angle.
+	 *
+	 * @param angle the new angle
+	 */
 	public void setAngle(float angle){
 		this.angle = angle;
 	}
 	
+	/**
+	 * Gets the angle.
+	 *
+	 * @return the angle
+	 */
 	public float getAngle(){
 		return angle;
 	}
 	
+	/**
+	 * Sets the table id.
+	 *
+	 * @param tableId the new table id
+	 */
 	public void setTableId(TableIdentity tableId)	{
 		this.tableId = tableId;
 	}
 	
+	/**
+	 * Gets the table id.
+	 *
+	 * @return the table id
+	 */
 	public TableIdentity getTableId(){
 		return tableId;
 	}
 
+	/**
+	 * Gets the width.
+	 *
+	 * @return the width
+	 */
 	public float getWidth() {
 		return width;
 	}
 	
+	/**
+	 * Gets the height.
+	 *
+	 * @return the height
+	 */
 	public float getHeight() {
 		return height;
 	}

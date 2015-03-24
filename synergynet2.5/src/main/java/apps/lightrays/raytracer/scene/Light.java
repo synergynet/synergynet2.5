@@ -2,16 +2,33 @@ package apps.lightrays.raytracer.scene;
 
 import apps.lightrays.raytracer.scene.geometry.Sphere;
 
+
+/**
+ * The Class Light.
+ */
 public class Light extends Sphere {
 	
+	/** The brightness. */
 	private double brightness = 1.0;
+	
+	/** The relative_brightness. */
 	private double relative_brightness = 1.0;
+	
+	/** The optics. */
 	private OpticalProperties optics;
 	
+	/**
+	 * Instantiates a new light.
+	 */
 	public Light() {
 		super();
 	}
 	
+	/**
+	 * Instantiates a new light.
+	 *
+	 * @param center the center
+	 */
 	public Light(Point center) {
 		super();
 		/*
@@ -27,26 +44,54 @@ public class Light extends Sphere {
 		set(center, radius, optics);
 	}
 	
+	/**
+	 * Sets the brightness.
+	 *
+	 * @param b the new brightness
+	 */
 	public void setBrightness(double b) {
 		this.brightness = b;
 	}
 	
+	/**
+	 * Gets the brightness.
+	 *
+	 * @return the brightness
+	 */
 	public double getBrightness() {
 		return brightness;
 	}
 	
+	/**
+	 * Gets the relative brightness.
+	 *
+	 * @return the relative brightness
+	 */
 	public double getRelativeBrightness() {
 		return relative_brightness;
 	}
 	
+	/**
+	 * Sets the relative brightness.
+	 *
+	 * @param b the new relative brightness
+	 */
 	public void setRelativeBrightness(double b) {
 		this.relative_brightness = b;
 	}
 	
+	/**
+	 * Gets the colour.
+	 *
+	 * @return the colour
+	 */
 	public Colour getColour() {
 		return optics.colour;
 	}
 	
+	/* (non-Javadoc)
+	 * @see apps.lightrays.raytracer.scene.geometry.Sphere#toString()
+	 */
 	public String toString() {
 		return super.toString();
 	}

@@ -54,29 +54,69 @@ import synergynetframework.jme.gfx.JMEGfxUtils;
 import synergynetframework.jme.pickingsystem.data.ThreeDPickResultData;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 
+
+/**
+ * The Class MonitorCameraRotateTranslateZoom.
+ */
 public class MonitorCameraRotateTranslateZoom extends ThreeDMultiTouchElement {
 
+	/** The mode viewrotatable. */
 	public static String MODE_VIEWROTATABLE = "viewrotatable";
+	
+	/** The mode cameramanipulable. */
 	public static String MODE_CAMERAMANIPULABLE = "cameramanipulable";
+	
+	/** The mode remotecontrol. */
 	public static String MODE_REMOTECONTROL = "remotecontrol";
 	
+	/** The scale min. */
 	protected float scaleMin = Float.NaN;
+	
+	/** The scale max. */
 	protected float scaleMax = Float.NaN;
+	
+	/** The pick results. */
 	protected PickResults pickResults = null;
+	
+	/** The pick root node. */
 	protected Node pickRootNode; 
+	
+	/** The telescope manipulate ojbect. */
 	protected OjbectManipulation telescopeManipulateOjbect;
+	
+	/** The manipulatable ojbects. */
 	protected List<Spatial> manipulatableOjbects;
 	
+	/** The mode. */
 	protected String mode = MODE_CAMERAMANIPULABLE;
 	
+	/**
+	 * Instantiates a new monitor camera rotate translate zoom.
+	 *
+	 * @param pickingAndTargetSpatial the picking and target spatial
+	 */
 	public MonitorCameraRotateTranslateZoom(Spatial pickingAndTargetSpatial) {
 		super(pickingAndTargetSpatial);
 	}
 
+	/**
+	 * Instantiates a new monitor camera rotate translate zoom.
+	 *
+	 * @param pickSpatial the pick spatial
+	 * @param targetSpatial the target spatial
+	 */
 	public MonitorCameraRotateTranslateZoom(Spatial pickSpatial, Spatial targetSpatial) {
 		super(pickSpatial, targetSpatial);
 	}
 	
+	/**
+	 * Instantiates a new monitor camera rotate translate zoom.
+	 *
+	 * @param pickSpatial the pick spatial
+	 * @param targetSpatial the target spatial
+	 * @param telescopeManipulateOjbect the telescope manipulate ojbect
+	 * @param manipulatableOjbects the manipulatable ojbects
+	 */
 	public MonitorCameraRotateTranslateZoom(Spatial pickSpatial, Spatial targetSpatial, OjbectManipulation telescopeManipulateOjbect,  List<Spatial> manipulatableOjbects) {
 		super(pickSpatial, targetSpatial);
 		
@@ -87,10 +127,18 @@ public class MonitorCameraRotateTranslateZoom extends ThreeDMultiTouchElement {
 		this.manipulatableOjbects = manipulatableOjbects;
 	}
 	
+	/**
+	 * Sets the mode.
+	 *
+	 * @param mode the new mode
+	 */
 	public void setMode (String mode){
 		this.mode = mode;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorChanged(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorChanged(ScreenCursor c, MultiTouchCursorEvent event) {
 		if(screenCursors.size() <2 ) {
@@ -234,34 +282,69 @@ public class MonitorCameraRotateTranslateZoom extends ThreeDMultiTouchElement {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorClicked(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorClicked(ScreenCursor c, MultiTouchCursorEvent event) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorPressed(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorPressed(ScreenCursor c, MultiTouchCursorEvent event) {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorReleased(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorReleased(ScreenCursor c, MultiTouchCursorEvent event) {}
 
 
+	/**
+	 * Gets the scale min.
+	 *
+	 * @return the scale min
+	 */
 	public float getScaleMin() {
 		return scaleMin;
 	}
 
+	/**
+	 * Sets the scale min.
+	 *
+	 * @param scaleMin the new scale min
+	 */
 	public void setScaleMin(float scaleMin) {
 		this.scaleMin = scaleMin;
 	}
 
+	/**
+	 * Gets the scale max.
+	 *
+	 * @return the scale max
+	 */
 	public float getScaleMax() {
 		return scaleMax;
 	}
 
+	/**
+	 * Sets the scale max.
+	 *
+	 * @param scaleMax the new scale max
+	 */
 	public void setScaleMax(float scaleMax) {
 		this.scaleMax = scaleMax;
 	}
 
+	/**
+	 * Sets the scale limits.
+	 *
+	 * @param min the min
+	 * @param max the max
+	 */
 	public void setScaleLimits(float min, float max) {
 		setScaleMin(min);
 		setScaleMax(max);

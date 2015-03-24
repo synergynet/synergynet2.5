@@ -44,7 +44,18 @@ import synergynetframework.appsystem.services.net.tablecomms.server.TableCommsSe
 import synergynetframework.config.logging.LoggingConfigPrefsItem;
 import synergynetframework.config.logging.LoggingConfigPrefsItem.LoggingLevel;
 
+
+/**
+ * The Class Server.
+ */
 public class Server {
+	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 * @throws CouldNotStartServiceException the could not start service exception
+	 */
 	public static void main(String[] args) throws CouldNotStartServiceException {
 		
 		//set logging level

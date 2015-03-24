@@ -60,28 +60,58 @@ import synergynetframework.appsystem.contentsystem.items.MathPad;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.client.TableCommsClientService;
 
+
+/**
+ * The Class ClientManager.
+ */
 public class ClientManager extends NetworkedContentManager{
 	
 	
+	/**
+	 * Instantiates a new client manager.
+	 *
+	 * @param contentSystem the content system
+	 * @param comms the comms
+	 * @param receiverClasses the receiver classes
+	 */
 	public ClientManager(ContentSystem contentSystem , TableCommsClientService comms, ArrayList<Class<?>> receiverClasses){
 		super(contentSystem, comms, receiverClasses);
 		super.setSyncManager(new SyncManager(this));
 	}
 	
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.NetworkedContentManager#registerMathPad(apps.mathpadapp.networkmanager.utils.UserIdentity, apps.mathpadapp.mathtool.MathTool)
+	 */
 	public void registerMathPad(UserIdentity userId, MathTool tool){
 		super.registerMathPad(userId, tool);
 	}
 	
+	/**
+	 * Block table.
+	 *
+	 * @param tableBlockEnabled the table block enabled
+	 */
 	public void blockTable(boolean tableBlockEnabled) {
 		SynergyNetDesktop.getInstance().getMultiTouchInputComponent().setMultiTouchInputEnabled(!tableBlockEnabled);
 	}
 
+	/**
+	 * Hide math pads.
+	 *
+	 * @param hideMathPadsEnabled the hide math pads enabled
+	 */
 	public void hideMathPads(boolean hideMathPadsEnabled) {
 		for(MathTool tool: this.mathPads.values()){
 			tool.getWindow().setVisible(!hideMathPadsEnabled);
 		}
 	}
 	
+	/**
+	 * Post math pad item to table.
+	 *
+	 * @param sender the sender
+	 * @param recipientUserIdentity the recipient user identity
+	 */
 	public void postMathPadItemToTable(TableIdentity sender, UserIdentity recipientUserIdentity) {
 		if(mathPads.containsKey(recipientUserIdentity)){
 			MathToolInitSettings padSettings = mathPads.get(recipientUserIdentity).getInitSettings();
@@ -90,6 +120,11 @@ public class ClientManager extends NetworkedContentManager{
 		}
 	}
 	
+	/**
+	 * Post all math pads to table.
+	 *
+	 * @param requesterTable the requester table
+	 */
 	public void postAllMathPadsToTable(TableIdentity requesterTable) {
 		HashMap<UserIdentity, MathToolInitSettings> padsInfo = new HashMap<UserIdentity, MathToolInitSettings>();
 		for(UserIdentity userId: mathPads.keySet()){
@@ -100,23 +135,46 @@ public class ClientManager extends NetworkedContentManager{
 		this.sendMessage(msg);
 	}
 
+	/**
+	 * Post all user ids to table.
+	 *
+	 * @param requesterTable the requester table
+	 */
 	public void postAllUserIdsToTable(TableIdentity requesterTable) {
 		PostUserIdsFromTableMessage msg = new PostUserIdsFromTableMessage(MathPadController.class, new ArrayList<UserIdentity>(mathPads.keySet()),requesterTable);
 		this.sendMessage(msg);
 	}
 
+	/**
+	 * Block math pad for user.
+	 *
+	 * @param recipientUserIdentity the recipient user identity
+	 * @param blockPad the block pad
+	 */
 	public void blockMathPadForUser(UserIdentity recipientUserIdentity,	boolean blockPad) {
 		if(mathPads.containsKey(recipientUserIdentity)){
 			mathPads.get(recipientUserIdentity).getWindow().setRotateTranslateScalable(!blockPad);
 		}
 	}
 
+	/**
+	 * Hide math pad for user.
+	 *
+	 * @param recipientUserIdentity the recipient user identity
+	 * @param hidePad the hide pad
+	 */
 	public void hideMathPadForUser(UserIdentity recipientUserIdentity,	boolean hidePad) {
 		if(mathPads.containsKey(recipientUserIdentity)){
 			mathPads.get(recipientUserIdentity).getWindow().setVisible(!hidePad);
 		}
 	}
 
+	/**
+	 * Sets the remote desktop with table enabled.
+	 *
+	 * @param requesterTable the requester table
+	 * @param remoteDesktopEnabled the remote desktop enabled
+	 */
 	public void setRemoteDesktopWithTableEnabled(TableIdentity requesterTable,	boolean remoteDesktopEnabled) {
 		if(remoteDesktopEnabled){
 			HashMap<UserIdentity, MathToolInitSettings> padsInfo = new HashMap<UserIdentity, MathToolInitSettings>();
@@ -130,10 +188,23 @@ public class ClientManager extends NetworkedContentManager{
 		this.getSyncManager().enableUnicastTableSync(requesterTable,remoteDesktopEnabled);
 	}
 
+	/**
+	 * Assignment received to table.
+	 *
+	 * @param sender the sender
+	 * @param assignment the assignment
+	 */
 	public void assignmentReceivedToTable(TableIdentity sender, Assignment assignment) {
 		for(UserIdentity userId: this.mathPads.keySet()) assignmentReceivedToUser(sender, userId, assignment);
 	}
 
+	/**
+	 * Assignment received to user.
+	 *
+	 * @param sender the sender
+	 * @param userId the user id
+	 * @param assignment the assignment
+	 */
 	public void assignmentReceivedToUser(TableIdentity sender,	UserIdentity userId, Assignment assignment) {
 		if(mathPads.containsKey(userId)){
 			for(MathPad pad:mathPads.get(userId).getAllPads()) pad.clearAll();
@@ -160,6 +231,12 @@ public class ClientManager extends NetworkedContentManager{
 		}
 	}
 
+	/**
+	 * Post assignment results.
+	 *
+	 * @param requesterTable the requester table
+	 * @param userId the user id
+	 */
 	public void postAssignmentResults(TableIdentity requesterTable, UserIdentity userId) {
 		if(mathPads.containsKey(userId)){
 			AssignmentInfo info = mathPads.get(userId).getCurrentAssignmentInfo();
@@ -169,6 +246,12 @@ public class ClientManager extends NetworkedContentManager{
 		}
 	}
 
+	/**
+	 * Cancel assignment.
+	 *
+	 * @param sender the sender
+	 * @param recipientUserIdentity the recipient user identity
+	 */
 	public void cancelAssignment(TableIdentity sender,	UserIdentity recipientUserIdentity) {
 		if(mathPads.containsKey(recipientUserIdentity)){
 			AssignmentHandler assignmentHandler = mathPads.get(recipientUserIdentity).getAssignmentHandler();
@@ -192,10 +275,23 @@ public class ClientManager extends NetworkedContentManager{
 		}
 	}
 
+	/**
+	 * Enabled table block.
+	 *
+	 * @param sender the sender
+	 * @param blockEnabled the block enabled
+	 */
 	public void enabledTableBlock(TableIdentity sender, boolean blockEnabled) {
 			SynergyNetDesktop.getInstance().getMultiTouchInputComponent().setMultiTouchInputEnabled(!blockEnabled);
 	}
 
+	/**
+	 * Message received from server.
+	 *
+	 * @param sender the sender
+	 * @param recipientUserIdentity the recipient user identity
+	 * @param message the message
+	 */
 	public void messageReceivedFromServer(TableIdentity sender, UserIdentity recipientUserIdentity, String message) {
 		if(mathPads.containsKey(recipientUserIdentity)){
 			final MTMessageBox msg = new MTMessageBox(mathPads.get(recipientUserIdentity), contentSystem);
@@ -216,6 +312,11 @@ public class ClientManager extends NetworkedContentManager{
 		}
 	}
 
+	/**
+	 * Terminate pad for user.
+	 *
+	 * @param userId the user id
+	 */
 	public void terminatePadForUser(UserIdentity userId) {
 		if(mathPads.containsKey(userId)){
 			MathTool tool = mathPads.remove(userId);
@@ -223,6 +324,11 @@ public class ClientManager extends NetworkedContentManager{
 		}
 	}
 
+	/**
+	 * Post table id.
+	 *
+	 * @param requester the requester
+	 */
 	public void postTableId(TableIdentity requester) {
 		PostTableIdMessage msg = new PostTableIdMessage(MathPadController.class, requester);
 		this.sendMessage(msg);

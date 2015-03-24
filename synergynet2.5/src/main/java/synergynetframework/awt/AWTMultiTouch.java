@@ -49,6 +49,7 @@ import synergynetframework.mtinput.awtmousesim.AWTMouseMultiTouchInput;
 import synergynetframework.mtinput.luminja.LuminMultiTouchInput;
 import synergynetframework.mtinput.tuio.TUIOMultiTouchInput;
 
+
 /**
  * Utility class that creates and launches an AWT/Swing based
  * multi-touch application.  Create a subclass of AWTAppRenderer
@@ -58,16 +59,36 @@ import synergynetframework.mtinput.tuio.TUIOMultiTouchInput;
  */
 public class AWTMultiTouch implements Runnable {
 
+	/** The frame. */
 	protected JFrame frame;
+	
+	/** The buffers. */
 	protected BufferStrategy buffers;
+	
+	/** The mt input. */
 	protected IMultiTouchInputSource mtInput;
+	
+	/** The renderer. */
 	protected AWTAppRenderer renderer;
+	
+	/** The fps. */
 	protected int fps = 25;
 	
+	/**
+	 * Instantiates a new AWT multi touch.
+	 *
+	 * @param c the c
+	 */
 	public AWTMultiTouch(AWTAppRenderer c) {
 		this(c, true);
 	}
 
+	/**
+	 * Instantiates a new AWT multi touch.
+	 *
+	 * @param c the c
+	 * @param fullscreen the fullscreen
+	 */
 	public AWTMultiTouch(AWTAppRenderer c, boolean fullscreen) {
 		renderer = c;
 		frame = new JFrame();
@@ -134,7 +155,8 @@ public class AWTMultiTouch implements Runnable {
 
 	/**
 	 * Get the current calculated frames per second.
-	 * @return
+	 *
+	 * @return the fps
 	 */
 	public long getFPS() {
 		return fps;
@@ -142,7 +164,8 @@ public class AWTMultiTouch implements Runnable {
 
 	/**
 	 * Limit the number of frames per second.
-	 * @param i
+	 *
+	 * @param i the new fps
 	 */
 	public void setFPS(int i) {
 		this.fps  = i;		
@@ -151,6 +174,9 @@ public class AWTMultiTouch implements Runnable {
 
 	// ****** private methods ******
 
+	/**
+	 * Render.
+	 */
 	private void render() {
 		Graphics2D g = (Graphics2D)buffers.getDrawGraphics();
 		renderer.render(g);
@@ -158,6 +184,9 @@ public class AWTMultiTouch implements Runnable {
 		buffers.show();
 	}
 
+	/**
+	 * Setup multi touch table.
+	 */
 	private void setupMultiTouchTable() {		
 
 		Object[] possibilities = {"Mouse Simulation", "TUIO Table", "Evoluce Table"};

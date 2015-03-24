@@ -33,43 +33,102 @@ package synergynetframework.appsystem.contentsystem.items.utils;
 
 import java.io.Serializable;
 
+
+/**
+ * The Class Location.
+ */
 public class Location implements Serializable, Cloneable{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 6434361088366591166L;
+	
+	/** The x. */
 	public float x = 0;
+	
+	/** The y. */
 	public float y = 0;
+	
+	/** The z. */
 	public float z = 0;
 
+	/**
+	 * Instantiates a new location.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @param z the z
+	 */
 	public Location(float x, float y, float z){
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
 	
+	/**
+	 * Gets the x.
+	 *
+	 * @return the x
+	 */
 	public float getX() {
 		return x;
 	}
+	
+	/**
+	 * Sets the x.
+	 *
+	 * @param x the new x
+	 */
 	public void setX(float x) {
 		this.x = x;
 	}
+	
+	/**
+	 * Gets the y.
+	 *
+	 * @return the y
+	 */
 	public float getY() {
 		return y;
 	}
+	
+	/**
+	 * Sets the y.
+	 *
+	 * @param y the new y
+	 */
 	public void setY(float y) {
 		this.y = y;
 	}
+	
+	/**
+	 * Gets the z.
+	 *
+	 * @return the z
+	 */
 	public float getZ() {
 		return z;
 	}
+	
+	/**
+	 * Sets the z.
+	 *
+	 * @param z the new z
+	 */
 	public void setZ(float z) {
 		this.z = z;
 	}	
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString(){
 		return "x = "+x+", y="+y+", z="+z;
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#clone()
+	 */
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		Location clonedItem = (Location)super.clone();

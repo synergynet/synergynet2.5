@@ -56,10 +56,29 @@ import org.xml.sax.SAXParseException;
 
 import synergynetframework.appsystem.Resources;
 
+
+/**
+ * The Class ApplicationRegistryXMLReader.
+ */
 public class ApplicationRegistryXMLReader {
+	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(ApplicationRegistryXMLReader.class.getName());
 
 
+	/**
+	 * Load from configuration.
+	 *
+	 * @param configXMLInputStream the config xml input stream
+	 * @param registry the registry
+	 * @throws SAXException the SAX exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ParserConfigurationException the parser configuration exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws ClassNotFoundException the class not found exception
+	 * @throws XPathExpressionException the x path expression exception
+	 */
 	public static void loadFromConfiguration(InputStream configXMLInputStream, ApplicationRegistry registry) throws SAXException, IOException, ParserConfigurationException, InstantiationException, IllegalAccessException, ClassNotFoundException, XPathExpressionException {
 		log.info("Loading Table Configuration XML");
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -101,6 +120,20 @@ public class ApplicationRegistryXMLReader {
 	}
 
 
+	/**
+	 * Load application configuration.
+	 *
+	 * @param appConfigXML the app config xml
+	 * @param registry the registry
+	 * @param isDefault the is default
+	 * @throws SAXException the SAX exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ParserConfigurationException the parser configuration exception
+	 * @throws XPathExpressionException the x path expression exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws ClassNotFoundException the class not found exception
+	 */
 	private static void loadApplicationConfiguration(String appConfigXML, ApplicationRegistry registry, boolean isDefault) throws SAXException, IOException, ParserConfigurationException, XPathExpressionException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		log.info("Loading Application XML configuration from " + appConfigXML);
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -158,6 +191,16 @@ public class ApplicationRegistryXMLReader {
 		} 
 	}
 	
+	/**
+	 * Gets the controller application.
+	 *
+	 * @param path the path
+	 * @param document the document
+	 * @return the controller application
+	 * @throws XPathExpressionException the x path expression exception
+	 * @throws DOMException the DOM exception
+	 * @throws ClassNotFoundException the class not found exception
+	 */
 	private static ApplicationInfo getControllerApplication(XPath path, Document document) throws XPathExpressionException, DOMException, ClassNotFoundException {
 		Node component = (Node) path.evaluate("/ac:application/ac:controllercomponent", document, XPathConstants.NODE);
 		if(component == null) return null;
@@ -183,6 +226,16 @@ public class ApplicationRegistryXMLReader {
 	}
 
 
+	/**
+	 * Gets the client application.
+	 *
+	 * @param path the path
+	 * @param document the document
+	 * @return the client application
+	 * @throws XPathExpressionException the x path expression exception
+	 * @throws DOMException the DOM exception
+	 * @throws ClassNotFoundException the class not found exception
+	 */
 	public static ApplicationInfo getClientApplication(XPath path, Document document) throws XPathExpressionException, DOMException, ClassNotFoundException {
 		Node component = (Node) path.evaluate("/ac:application/ac:clientcomponent", document, XPathConstants.NODE);
 		if(component == null) return null;
@@ -207,6 +260,16 @@ public class ApplicationRegistryXMLReader {
 		return info;
 	}
 	
+	/**
+	 * Gets the projector application.
+	 *
+	 * @param path the path
+	 * @param document the document
+	 * @return the projector application
+	 * @throws XPathExpressionException the x path expression exception
+	 * @throws DOMException the DOM exception
+	 * @throws ClassNotFoundException the class not found exception
+	 */
 	public static ApplicationInfo getProjectorApplication(XPath path, Document document) throws XPathExpressionException, DOMException, ClassNotFoundException {
 		Node component = (Node) path.evaluate("/ac:application/ac:projectorcomponent", document, XPathConstants.NODE);
 		if(component == null) return null;

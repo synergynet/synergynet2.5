@@ -34,7 +34,15 @@ package synergynetframework.appsystem.contentsystem.items.listener;
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.jme.cursorsystem.fixutils.FixLocationStatus;
 
+
+/**
+ * The Class OrthoSnapAdapter.
+ */
 public class OrthoSnapAdapter implements OrthoSnapListener {
+	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.listener.OrthoSnapListener#itemSnapped(synergynetframework.appsystem.contentsystem.items.ContentItem, synergynetframework.jme.cursorsystem.fixutils.FixLocationStatus)
+	 */
 	public void itemSnapped(ContentItem item, FixLocationStatus fixLocationStatus){
 		
 	}

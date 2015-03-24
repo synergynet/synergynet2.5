@@ -40,34 +40,59 @@ import com.jme.scene.Spatial;
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.appsystem.contentsystem.items.listener.ItemListener;
 
+
+/**
+ * The Class DoubleClickFlip.
+ */
 public class DoubleClickFlip implements ItemListener {
 	
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.listener.ItemListener#cursorChanged(synergynetframework.appsystem.contentsystem.items.ContentItem, long, float, float, float)
+	 */
 	@Override
 	public void cursorChanged(ContentItem item, long id, float x, float y,
 			float pressure) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.listener.ItemListener#cursorLongHeld(synergynetframework.appsystem.contentsystem.items.ContentItem, long, float, float, float)
+	 */
 	@Override
 	public void cursorLongHeld(ContentItem item, long id, float x, float y,
 			float pressure) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.listener.ItemListener#cursorPressed(synergynetframework.appsystem.contentsystem.items.ContentItem, long, float, float, float)
+	 */
 	@Override
 	public void cursorPressed(ContentItem item, long id, float x, float y,
 			float pressure) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.listener.ItemListener#cursorReleased(synergynetframework.appsystem.contentsystem.items.ContentItem, long, float, float, float)
+	 */
 	@Override
 	public void cursorReleased(ContentItem item, long id, float x, float y,
 			float pressure) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.listener.ItemListener#cursorRightClicked(synergynetframework.appsystem.contentsystem.items.ContentItem, long, float, float, float)
+	 */
 	@Override
 	public void cursorRightClicked(ContentItem item, long id, float x, float y,
 			float pressure) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.listener.ItemListener#cursorClicked(synergynetframework.appsystem.contentsystem.items.ContentItem, long, float, float, float)
+	 */
 	@Override
 	public void cursorClicked(ContentItem item, long id, float x, float y,
 			float pressure) {
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.listener.ItemListener#cursorDoubleClicked(synergynetframework.appsystem.contentsystem.items.ContentItem, long, float, float, float)
+	 */
 	@Override
 	public void cursorDoubleClicked(ContentItem item, long id, float x,
 			float y, float pressure) {

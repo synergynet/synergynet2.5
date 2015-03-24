@@ -41,13 +41,33 @@ import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+
+/**
+ * The Class CryptoUtils.
+ */
 public class CryptoUtils {
+	
+	/**
+	 * Md5.
+	 *
+	 * @param s the s
+	 * @return the string
+	 * @throws NoSuchAlgorithmException the no such algorithm exception
+	 */
 	public static String md5(String s) throws NoSuchAlgorithmException {
 		MessageDigest m = MessageDigest.getInstance("MD5");
 		m.update(s.getBytes(),0,s.length());
 		return new BigInteger(1,m.digest()).toString(16);
 	}
 
+	/**
+	 * Md5.
+	 *
+	 * @param file the file
+	 * @return the string
+	 * @throws NoSuchAlgorithmException the no such algorithm exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static String md5(File file) throws NoSuchAlgorithmException, IOException {
 		MessageDigest md = MessageDigest.getInstance("MD5");
 		InputStream is = new FileInputStream(file);

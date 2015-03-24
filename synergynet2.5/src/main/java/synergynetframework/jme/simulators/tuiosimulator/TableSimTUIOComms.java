@@ -39,24 +39,50 @@ import com.illposed.osc.OSCMessage;
 import com.illposed.osc.OSCPacket;
 import com.illposed.osc.OSCPortOut;
 
+
+/**
+ * The Class TableSimTUIOComms.
+ */
 public class TableSimTUIOComms {
+	
+	/** The Constant DEFAULT_PORT. */
 	public static final int DEFAULT_PORT = 3333;
+	
+	/** The instance. */
 	private static TableSimTUIOComms instance;
+	
+	/** The current frame. */
 	private int currentFrame;
+	
+	/** The osc port. */
 	private OSCPortOut oscPort;
 
 	static {
 		instance = new TableSimTUIOComms();
 	}
 
+	/**
+	 * Instantiates a new table sim tuio comms.
+	 */
 	private TableSimTUIOComms() {
 
 	}
 
+	/**
+	 * Gets the single instance of TableSimTUIOComms.
+	 *
+	 * @return single instance of TableSimTUIOComms
+	 */
 	public static TableSimTUIOComms getInstance() {
 		return instance;
 	}
 
+	/**
+	 * Inits the.
+	 *
+	 * @param host the host
+	 * @param port the port
+	 */
 	public void init(String host, int port) {
 		try {
 			oscPort = new OSCPortOut(java.net.InetAddress.getByName(host),port); 
@@ -66,11 +92,17 @@ public class TableSimTUIOComms {
 		reset(); reset(); reset();
 	}
 
+	/**
+	 * Quit.
+	 */
 	public void quit() {
 		reset(); reset(); reset();
 		oscPort.close();
 	}
 
+	/**
+	 * Reset.
+	 */
 	public void reset() {
 		OSCBundle oscBundle = new OSCBundle();
 
@@ -93,6 +125,11 @@ public class TableSimTUIOComms {
 		sendOSC(oscBundle);
 	}
 
+	/**
+	 * Single cursor message.
+	 *
+	 * @param cursorInfo the cursor info
+	 */
 	public void singleCursorMessage(IndividualCursor cursorInfo) {
 		OSCBundle cursorBundle = new OSCBundle();
 
@@ -111,6 +148,11 @@ public class TableSimTUIOComms {
 		sendOSC(cursorBundle);
 	}
 
+	/**
+	 * Multi cursor message.
+	 *
+	 * @param cursors the cursors
+	 */
 	public void multiCursorMessage(IndividualCursor[] cursors) {
 		OSCBundle cursorBundle = new OSCBundle();
 
@@ -133,6 +175,12 @@ public class TableSimTUIOComms {
 		sendOSC(cursorBundle);
 	}
 	
+	/**
+	 * Adds the cursor info to bundle.
+	 *
+	 * @param cursor the cursor
+	 * @param bundle the bundle
+	 */
 	private void addCursorInfoToBundle(IndividualCursor cursor, OSCBundle bundle) {
 		OSCMessage setMessage = new OSCMessage("/tuio/2Dcur");
 		setMessage.addArgument("set");
@@ -145,6 +193,9 @@ public class TableSimTUIOComms {
 		bundle.addPacket(setMessage);
 	}
 
+	/**
+	 * Cursor delete.
+	 */
 	public void cursorDelete() {
 		OSCBundle cursorBundle = new OSCBundle();
 
@@ -161,6 +212,11 @@ public class TableSimTUIOComms {
 		sendOSC(cursorBundle);
 	}
 
+	/**
+	 * Send osc.
+	 *
+	 * @param packet the packet
+	 */
 	private void sendOSC(OSCPacket packet) {
 		try { oscPort.send(packet); }
 		catch (java.io.IOException e) {}

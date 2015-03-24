@@ -46,18 +46,44 @@ import com.jme.scene.Spatial;
 import synergynetframework.jme.cursorsystem.cursordata.WorldCursorRecord;
 import synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale;
 
+
+/**
+ * The Class ScrollBarControl.
+ */
 public class ScrollBarControl extends OrthoControlPointRotateTranslateScale{
 
+	/** The parent spatial. */
 	public Spatial parentSpatial;
 
+	/** The scroll bar listeners. */
 	protected List<ScrollBarListener> scrollBarListeners = new ArrayList<ScrollBarListener>();
 	
+	/** The length. */
 	protected int length;
+	
+	/** The content lenght. */
 	protected int contentLenght;
+	
+	/** The orgin. */
 	protected int orgin;
+	
+	/** The bar length. */
 	protected int barLength;
+	
+	/** The direction. */
 	protected Direction direction;
 	
+	/**
+	 * Instantiates a new scroll bar control.
+	 *
+	 * @param pickingSpatial the picking spatial
+	 * @param targetSpatial the target spatial
+	 * @param length the length
+	 * @param barLength the bar length
+	 * @param contentLength the content length
+	 * @param orgin the orgin
+	 * @param direction the direction
+	 */
 	public ScrollBarControl(Spatial pickingSpatial, Spatial targetSpatial, int length, int barLength, int contentLength, int orgin, Direction direction) {
 		super(pickingSpatial, pickingSpatial);
 		parentSpatial = targetSpatial;
@@ -70,6 +96,9 @@ public class ScrollBarControl extends OrthoControlPointRotateTranslateScale{
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale#applySingleCursorTransform()
+	 */
 	protected void applySingleCursorTransform() {
 
 		Vector2f posChange = cursor1Pos.subtract(cursor1OldPos);
@@ -103,6 +132,13 @@ public class ScrollBarControl extends OrthoControlPointRotateTranslateScale{
 		}
 	}
 
+	/**
+	 * Gets the current element2 d coords for cursor.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @return the current element2 d coords for cursor
+	 */
 	private Vector2f getCurrentElement2DCoordsForCursor(float x, float y) {
 		Vector3f pos = new Vector3f(x, y,0);
 		Vector3f selectionLocal = new Vector3f();
@@ -110,6 +146,9 @@ public class ScrollBarControl extends OrthoControlPointRotateTranslateScale{
 		return new Vector2f(selectionLocal.x, selectionLocal.y);		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale#updateCursor1()
+	 */
 	@Override
 	protected void updateCursor1() {
 
@@ -126,6 +165,9 @@ public class ScrollBarControl extends OrthoControlPointRotateTranslateScale{
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale#updateCursor2()
+	 */
 	@Override
 	protected void updateCursor2() {
 
@@ -140,6 +182,13 @@ public class ScrollBarControl extends OrthoControlPointRotateTranslateScale{
 		cursor2OldPos.y = rotatedPosition.y;
 	}
 	
+	/**
+	 * Screen to table.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @return the vector2f
+	 */
 	private Vector2f screenToTable(float x, float y) {
 
 		if (targetSpatial.getParent()==null)
@@ -159,16 +208,44 @@ public class ScrollBarControl extends OrthoControlPointRotateTranslateScale{
 	}
 
 
+	/**
+	 * Adds the scroll bar listener.
+	 *
+	 * @param l the l
+	 */
 	public void addScrollBarListener(ScrollBarListener l){
 		scrollBarListeners.add(l);
 	}
 
+	/**
+	 * Removes the scroll bar listener.
+	 *
+	 * @param l the l
+	 */
 	public void removeScrollBarListener(ScrollBarListener l){
 		if (scrollBarListeners.contains(l))
 			scrollBarListeners.remove(l);
 	}
 
+	/**
+	 * The listener interface for receiving scrollBar events.
+	 * The class that is interested in processing a scrollBar
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addScrollBarListener<code> method. When
+	 * the scrollBar event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see ScrollBarEvent
+	 */
 	public interface ScrollBarListener {
+		
+		/**
+		 * Moved.
+		 *
+		 * @param scrollBarMovedDistance the scroll bar moved distance
+		 * @param contentMovedDistance the content moved distance
+		 */
 		public void moved(float scrollBarMovedDistance, float contentMovedDistance);
 	}
 

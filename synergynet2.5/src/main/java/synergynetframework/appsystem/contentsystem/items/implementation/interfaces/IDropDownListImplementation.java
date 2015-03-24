@@ -35,12 +35,56 @@ import synergynetframework.appsystem.contentsystem.items.DropDownList;
 import synergynetframework.appsystem.contentsystem.items.DropDownList.DropDownListItem;
 import synergynetframework.appsystem.contentsystem.items.DropDownList.DropDownListListener;
 
+
+/**
+ * The Interface IDropDownListImplementation.
+ */
 public interface IDropDownListImplementation  extends IWindowImplementation{
+	
+	/**
+	 * Adds the list item.
+	 *
+	 * @param item the item
+	 */
 	public void addListItem(DropDownList.DropDownListItem item);
+	
+	/**
+	 * Removes the item.
+	 *
+	 * @param item the item
+	 */
 	public void removeItem(DropDownList.DropDownListItem item);
+	
+	/**
+	 * Sets the line space.
+	 *
+	 * @param lineSpace the new line space
+	 */
 	public void setLineSpace(int lineSpace);
+	
+	/**
+	 * Sets the selected item.
+	 *
+	 * @param selectedItem the new selected item
+	 */
 	public void setSelectedItem(DropDownListItem selectedItem);
+	
+	/**
+	 * Adds the drop down list listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void addDropDownListListener(DropDownListListener listener);
+	
+	/**
+	 * Removes the drop down list listeners.
+	 */
 	public void removeDropDownListListeners();
+	
+	/**
+	 * Removes the drop down list listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void removeDropDownListListener(DropDownListListener listener);
 }

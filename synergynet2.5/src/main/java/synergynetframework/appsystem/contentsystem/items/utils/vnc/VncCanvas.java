@@ -30,6 +30,7 @@ import java.io.*;
 //import java.util.UUID;
 import java.util.zip.*;
 
+
 //import javax.imageio.ImageIO;
 
 
@@ -37,78 +38,159 @@ import java.util.zip.*;
 // VncCanvas is a subclass of Canvas which draws a VNC desktop on it.
 //
 
+/**
+ * The Class VncCanvas.
+ */
 public class VncCanvas extends Canvas  
   implements KeyListener, MouseListener, MouseMotionListener {
 
-  /**
-	 * 
-	 */
+  /** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -110376650354540311L;
+
+/** The listeners. */
 protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<VncImageListener>();
+  
+  /** The viewer. */
   VncViewer viewer;
+  
+  /** The rfb. */
   RfbProto rfb;
+  
+  /** The cm24. */
   ColorModel cm8, cm24;
+  
+  /** The colors. */
   Color[] colors;
+  
+  /** The bytes pixel. */
   public int bytesPixel;
 
+  /** The max height. */
   int maxWidth = 0, maxHeight = 0;
+  
+  /** The scaling factor. */
   int scalingFactor;
+  
+  /** The scaled height. */
   int scaledWidth, scaledHeight;
 
+  /** The mem image. */
   public Image memImage;
+  
+  /** The mem graphics. */
   Graphics memGraphics;
 
+  /** The raw pixels image. */
   Image rawPixelsImage;
+  
+  /** The pixels source. */
   public MemoryImageSource pixelsSource;
+  
+  /** The pixels8. */
   public byte[] pixels8;
+  
+  /** The pixels24. */
   public int[] pixels24;
   
+  /** The jpeg data. */
   public byte[] jpegData;
   
   // Update statistics.
+  /** The stat start time. */
   long statStartTime;           // time on first framebufferUpdateRequest
+  
+  /** The stat num updates. */
   int statNumUpdates;           // counter for FramebufferUpdate messages
+  
+  /** The stat num total rects. */
   int statNumTotalRects;        // rectangles in FramebufferUpdate messages
+  
+  /** The stat num pixel rects. */
   int statNumPixelRects;        // the same, but excluding pseudo-rectangles
+  
+  /** The stat num rects tight. */
   int statNumRectsTight;        // Tight-encoded rectangles (including JPEG)
+  
+  /** The stat num rects tight jpeg. */
   int statNumRectsTightJPEG;    // JPEG-compressed Tight-encoded rectangles
+  
+  /** The stat num rects zrle. */
   int statNumRectsZRLE;         // ZRLE-encoded rectangles
+  
+  /** The stat num rects hextile. */
   int statNumRectsHextile;      // Hextile-encoded rectangles
+  
+  /** The stat num rects raw. */
   int statNumRectsRaw;          // Raw-encoded rectangles
+  
+  /** The stat num rects copy. */
   int statNumRectsCopy;         // CopyRect rectangles
+  
+  /** The stat num bytes encoded. */
   int statNumBytesEncoded;      // number of bytes in updates, as received
+  
+  /** The stat num bytes decoded. */
   int statNumBytesDecoded;      // number of bytes, as if Raw encoding was used
 
   // ZRLE encoder's data.
+  /** The zrle buf. */
   byte[] zrleBuf;
+  
+  /** The zrle buf len. */
   int zrleBufLen = 0;
+  
+  /** The zrle tile pixels8. */
   byte[] zrleTilePixels8;
+  
+  /** The zrle tile pixels24. */
   int[] zrleTilePixels24;
+  
+  /** The zrle in stream. */
   ZlibInStream zrleInStream;
+  
+  /** The zrle rec warning shown. */
   boolean zrleRecWarningShown = false;
 
   // Zlib encoder's data.
+  /** The zlib buf. */
   byte[] zlibBuf;
+  
+  /** The zlib buf len. */
   int zlibBufLen = 0;
+  
+  /** The zlib inflater. */
   Inflater zlibInflater;
 
   // Tight encoder's data.
+  /** The Constant tightZlibBufferSize. */
   final static int tightZlibBufferSize = 512;
+  
+  /** The tight inflaters. */
   Inflater[] tightInflaters;
 
   // Since JPEG images are loaded asynchronously, we have to remember
   // their position in the framebuffer. Also, this jpegRect object is
   // used for synchronization between the rfbThread and a JVM's thread
   // which decodes and loads JPEG images.
+  /** The jpeg rect. */
   Rectangle jpegRect;
 
   // True if we process keyboard and mouse events.
+  /** The input enabled. */
   boolean inputEnabled;
 
   //
   // The constructors.
   //
 
+  /**
+   * Instantiates a new vnc canvas.
+   *
+   * @param v the v
+   * @param maxWidth_ the max width_
+   * @param maxHeight_ the max height_
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   public VncCanvas(VncViewer v, int maxWidth_, int maxHeight_)
     throws IOException {
 
@@ -139,6 +221,12 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
     addKeyListener(this);
   }
 
+  /**
+   * Instantiates a new vnc canvas.
+   *
+   * @param v the v
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   public VncCanvas(VncViewer v) throws IOException {
     this(v, 0, 0);
   }
@@ -147,14 +235,23 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
   // Callback methods to determine geometry of our Component.
   //
 
+  /* (non-Javadoc)
+   * @see java.awt.Component#getPreferredSize()
+   */
   public Dimension getPreferredSize() {
     return new Dimension(scaledWidth, scaledHeight);
   }
 
+  /* (non-Javadoc)
+   * @see java.awt.Component#getMinimumSize()
+   */
   public Dimension getMinimumSize() {
     return new Dimension(scaledWidth, scaledHeight);
   }
 
+  /* (non-Javadoc)
+   * @see java.awt.Component#getMaximumSize()
+   */
   public Dimension getMaximumSize() {
     return new Dimension(scaledWidth, scaledHeight);
   }
@@ -163,10 +260,16 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
   // All painting is performed here.
   //
 
+  /* (non-Javadoc)
+   * @see java.awt.Canvas#update(java.awt.Graphics)
+   */
   public void update(Graphics g) {
     paint(g);
   }
 
+  /* (non-Javadoc)
+   * @see java.awt.Canvas#paint(java.awt.Graphics)
+   */
   public void paint(Graphics g) {
     synchronized(memImage) {
     	
@@ -189,6 +292,11 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
     }
   }
 
+  /**
+   * Paint scaled frame buffer.
+   *
+   * @param g the g
+   */
   public void paintScaledFrameBuffer(Graphics g) {
     //g.drawImage(memImage, 0, 0, scaledWidth, scaledHeight, null);
   }
@@ -198,6 +306,9 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
   // JPEG-encoded data.
   //
 
+  /* (non-Javadoc)
+   * @see java.awt.Component#imageUpdate(java.awt.Image, int, int, int, int, int)
+   */
   public boolean imageUpdate(Image img, int infoflags,
                              int x, int y, int width, int height) {
     if ((infoflags & (ALLBITS | ABORT)) == 0) {
@@ -224,6 +335,11 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
   // screen refreshing function.
   //
 
+  /**
+   * Enable input.
+   *
+   * @param enable the enable
+   */
   public synchronized void enableInput(boolean enable) {
     if (enable && !inputEnabled) {
       inputEnabled = true;
@@ -244,6 +360,11 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
     }
   }
 
+  /**
+   * Sets the pixel format.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   public void setPixelFormat() throws IOException {
     if (viewer.options.eightBitColors) {
       rfb.writeSetPixelFormat(8, 8, false, true, 7, 7, 3, 0, 3, 6);
@@ -255,6 +376,9 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
     updateFramebufferSize();
   }
 
+  /**
+   * Update framebuffer size.
+   */
   void updateFramebufferSize() {
 
     // Useful shortcuts.
@@ -326,6 +450,9 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
     viewer.moveFocusToDesktop();
   }
 
+  /**
+   * Resize desktop frame.
+   */
   void resizeDesktopFrame() {
     setSize(scaledWidth, scaledHeight);
 
@@ -376,6 +503,11 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
   // RFB socket.
   //
 
+  /**
+   * Process normal protocol.
+   *
+   * @throws Exception the exception
+   */
   public void processNormalProtocol() throws Exception {
 
     // Start/stop session recording if necessary.
@@ -551,10 +683,29 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
   // by the Hextile decoder for raw-encoded tiles.
   //
 
+  /**
+   * Handle raw rect.
+   *
+   * @param x the x
+   * @param y the y
+   * @param w the w
+   * @param h the h
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   void handleRawRect(int x, int y, int w, int h) throws IOException {
     handleRawRect(x, y, w, h, true);
   }
 
+  /**
+   * Handle raw rect.
+   *
+   * @param x the x
+   * @param y the y
+   * @param w the w
+   * @param h the h
+   * @param paint the paint
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   void handleRawRect(int x, int y, int w, int h, boolean paint)
     throws IOException {
 
@@ -592,6 +743,15 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
   // Handle a CopyRect rectangle.
   //
 
+  /**
+   * Handle copy rect.
+   *
+   * @param x the x
+   * @param y the y
+   * @param w the w
+   * @param h the h
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   void handleCopyRect(int x, int y, int w, int h) throws IOException {
 
     rfb.readCopyRect();
@@ -605,6 +765,15 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
   // Handle an RRE-encoded rectangle.
   //
 
+  /**
+   * Handle rre rect.
+   *
+   * @param x the x
+   * @param y the y
+   * @param w the w
+   * @param h the h
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   void handleRRERect(int x, int y, int w, int h) throws IOException {
 
     int nSubrects = rfb.readU32();
@@ -657,6 +826,15 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
   // Handle a CoRRE-encoded rectangle.
   //
 
+  /**
+   * Handle co rre rect.
+   *
+   * @param x the x
+   * @param y the y
+   * @param w the w
+   * @param h the h
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   void handleCoRRERect(int x, int y, int w, int h) throws IOException {
     int nSubrects = rfb.readU32();
 
@@ -707,8 +885,18 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
   //
 
   // These colors should be kept between handleHextileSubrect() calls.
+  /** The hextile_fg. */
   private Color hextile_bg, hextile_fg;
 
+  /**
+   * Handle hextile rect.
+   *
+   * @param x the x
+   * @param y the y
+   * @param w the w
+   * @param h the h
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   void handleHextileRect(int x, int y, int w, int h) throws IOException {
 
     hextile_bg = new Color(0);
@@ -736,6 +924,15 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
   // Handle one tile in the Hextile-encoded data.
   //
 
+  /**
+   * Handle hextile subrect.
+   *
+   * @param tx the tx
+   * @param ty the ty
+   * @param tw the tw
+   * @param th the th
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   void handleHextileSubrect(int tx, int ty, int tw, int th)
     throws IOException {
 
@@ -853,6 +1050,15 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
   // FIXME: Currently, session recording is not fully supported for ZRLE.
   //
 
+  /**
+   * Handle zrle rect.
+   *
+   * @param x the x
+   * @param y the y
+   * @param w the w
+   * @param h the h
+   * @throws Exception the exception
+   */
   void handleZRLERect(int x, int y, int w, int h) throws Exception {
 
     if (zrleInStream == null)
@@ -930,6 +1136,13 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
     scheduleRepaint(x, y, w, h);
   }
 
+  /**
+   * Read pixel.
+   *
+   * @param is the is
+   * @return the int
+   * @throws Exception the exception
+   */
   int readPixel(InStream is) throws Exception {
     int pix;
     if (bytesPixel == 1) {
@@ -943,6 +1156,14 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
     return pix;
   }
 
+  /**
+   * Read pixels.
+   *
+   * @param is the is
+   * @param dst the dst
+   * @param count the count
+   * @throws Exception the exception
+   */
   void readPixels(InStream is, int[] dst, int count) throws Exception {
     if (bytesPixel == 1) {
       byte[] buf = new byte[count];
@@ -961,10 +1182,24 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
     }
   }
 
+  /**
+   * Read zrle palette.
+   *
+   * @param palette the palette
+   * @param palSize the pal size
+   * @throws Exception the exception
+   */
   void readZrlePalette(int[] palette, int palSize) throws Exception {
     readPixels(zrleInStream, palette, palSize);
   }
 
+  /**
+   * Read zrle raw pixels.
+   *
+   * @param tw the tw
+   * @param th the th
+   * @throws Exception the exception
+   */
   void readZrleRawPixels(int tw, int th) throws Exception {
     if (bytesPixel == 1) {
       zrleInStream.readBytes(zrleTilePixels8, 0, tw * th);
@@ -973,6 +1208,15 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
     }
   }
 
+  /**
+   * Read zrle packed pixels.
+   *
+   * @param tw the tw
+   * @param th the th
+   * @param palette the palette
+   * @param palSize the pal size
+   * @throws Exception the exception
+   */
   void readZrlePackedPixels(int tw, int th, int[] palette, int palSize)
     throws Exception {
 
@@ -1001,6 +1245,13 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
     }
   }
 
+  /**
+   * Read zrle plain rle pixels.
+   *
+   * @param tw the tw
+   * @param th the th
+   * @throws Exception the exception
+   */
   void readZrlePlainRLEPixels(int tw, int th) throws Exception {
     int ptr = 0;
     int end = ptr + tw * th;
@@ -1025,6 +1276,14 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
     }
   }
 
+  /**
+   * Read zrle packed rle pixels.
+   *
+   * @param tw the tw
+   * @param th the th
+   * @param palette the palette
+   * @throws Exception the exception
+   */
   void readZrlePackedRLEPixels(int tw, int th, int[] palette)
     throws Exception {
 
@@ -1060,6 +1319,14 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
   // Copy pixels from zrleTilePixels8 or zrleTilePixels24, then update.
   //
 
+  /**
+   * Handle updated zrle tile.
+   *
+   * @param x the x
+   * @param y the y
+   * @param w the w
+   * @param h the h
+   */
   void handleUpdatedZrleTile(int x, int y, int w, int h) {
     Object src, dst;
     if (bytesPixel == 1) {
@@ -1081,6 +1348,15 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
   // Handle a Zlib-encoded rectangle.
   //
 
+  /**
+   * Handle zlib rect.
+   *
+   * @param x the x
+   * @param y the y
+   * @param w the w
+   * @param h the h
+   * @throws Exception the exception
+   */
   void handleZlibRect(int x, int y, int w, int h) throws Exception {
 
     int nBytes = rfb.readU32();
@@ -1133,6 +1409,15 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
   // Handle a Tight-encoded rectangle.
   //
 
+  /**
+   * Handle tight rect.
+   *
+   * @param x the x
+   * @param y the y
+   * @param w the w
+   * @param h the h
+   * @throws Exception the exception
+   */
   void handleTightRect(int x, int y, int w, int h) throws Exception {
 
     int comp_ctl = rfb.readU8();
@@ -1410,6 +1695,16 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
   // Decode 1bpp-encoded bi-color rectangle (8-bit and 24-bit versions).
   //
 
+  /**
+   * Decode mono data.
+   *
+   * @param x the x
+   * @param y the y
+   * @param w the w
+   * @param h the h
+   * @param src the src
+   * @param palette the palette
+   */
   void decodeMonoData(int x, int y, int w, int h, byte[] src, byte[] palette) {
 
     int dx, dy, n;
@@ -1430,6 +1725,16 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
     }
   }
 
+  /**
+   * Decode mono data.
+   *
+   * @param x the x
+   * @param y the y
+   * @param w the w
+   * @param h the h
+   * @param src the src
+   * @param palette the palette
+   */
   void decodeMonoData(int x, int y, int w, int h, byte[] src, int[] palette) {
 
     int dx, dy, n;
@@ -1454,6 +1759,15 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
   // Decode data processed with the "Gradient" filter.
   //
 
+  /**
+   * Decode gradient data.
+   *
+   * @param x the x
+   * @param y the y
+   * @param w the w
+   * @param h the h
+   * @param buf the buf
+   */
   void decodeGradientData (int x, int y, int w, int h, byte[] buf) {
 
     int dx, dy, c;
@@ -1500,6 +1814,14 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
   // Display newly updated area of pixels.
   //
 
+  /**
+   * Handle updated pixels.
+   *
+   * @param x the x
+   * @param y the y
+   * @param w the w
+   * @param h the h
+   */
   void handleUpdatedPixels(int x, int y, int w, int h) {
 
     // Draw updated pixels of the off-screen image.
@@ -1513,6 +1835,14 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
   // Tell JVM to repaint specified desktop area.
   //
 
+  /**
+   * Schedule repaint.
+   *
+   * @param x the x
+   * @param y the y
+   * @param w the w
+   * @param h the h
+   */
   void scheduleRepaint(int x, int y, int w, int h) {
     // Request repaint, deferred if necessary.
     if (rfb.framebufferWidth == scaledWidth) {
@@ -1530,29 +1860,60 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
   // Handle events.
   //
 
+  /* (non-Javadoc)
+   * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
+   */
   public void keyPressed(KeyEvent evt) {
     processLocalKeyEvent(evt);
   }
+  
+  /* (non-Javadoc)
+   * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
+   */
   public void keyReleased(KeyEvent evt) {
     processLocalKeyEvent(evt);
   }
+  
+  /* (non-Javadoc)
+   * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
+   */
   public void keyTyped(KeyEvent evt) {
     evt.consume();
   }
 
+  /* (non-Javadoc)
+   * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
+   */
   public void mousePressed(MouseEvent evt) {
     processLocalMouseEvent(evt, false);
   }
+  
+  /* (non-Javadoc)
+   * @see java.awt.event.MouseListener#mouseReleased(java.awt.event.MouseEvent)
+   */
   public void mouseReleased(MouseEvent evt) {
     processLocalMouseEvent(evt, false);
   }
+  
+  /* (non-Javadoc)
+   * @see java.awt.event.MouseMotionListener#mouseMoved(java.awt.event.MouseEvent)
+   */
   public void mouseMoved(MouseEvent evt) {
     processLocalMouseEvent(evt, true);
   }
+  
+  /* (non-Javadoc)
+   * @see java.awt.event.MouseMotionListener#mouseDragged(java.awt.event.MouseEvent)
+   */
   public void mouseDragged(MouseEvent evt) {
     processLocalMouseEvent(evt, true);
   }
 
+  /**
+   * Process local key event.
+   *
+   * @param evt the evt
+   */
   public void processLocalKeyEvent(KeyEvent evt) {
     if (viewer.rfb != null && rfb.inNormalProtocol) {
       if (!inputEnabled) {
@@ -1583,6 +1944,12 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
     evt.consume();
   }
 
+  /**
+   * Process local mouse event.
+   *
+   * @param evt the evt
+   * @param moved the moved
+   */
   public void processLocalMouseEvent(MouseEvent evt, boolean moved) {
     if (viewer.rfb != null && rfb.inNormalProtocol) {
       if (moved) {
@@ -1608,14 +1975,28 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
   // Ignored events.
   //
 
+  /* (non-Javadoc)
+   * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
+   */
   public void mouseClicked(MouseEvent evt) {}
+  
+  /* (non-Javadoc)
+   * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
+   */
   public void mouseEntered(MouseEvent evt) {}
+  
+  /* (non-Javadoc)
+   * @see java.awt.event.MouseListener#mouseExited(java.awt.event.MouseEvent)
+   */
   public void mouseExited(MouseEvent evt) {}
 
   //
   // Reset update statistics.
   //
 
+  /**
+   * Reset stats.
+   */
   void resetStats() {
     statStartTime = System.currentTimeMillis();
     statNumUpdates = 0;
@@ -1636,21 +2017,44 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
   // Handle cursor shape updates (XCursor and RichCursor encodings).
   //
 
+  /** The show soft cursor. */
   boolean showSoftCursor = false;
 
+  /** The soft cursor source. */
   MemoryImageSource softCursorSource;
+  
+  /** The soft cursor. */
   Image softCursor;
 
+  /** The cursor y. */
   int cursorX = 0, cursorY = 0;
+  
+  /** The cursor height. */
   int cursorWidth, cursorHeight;
+  
+  /** The orig cursor height. */
   int origCursorWidth, origCursorHeight;
+  
+  /** The hot y. */
   int hotX, hotY;
+  
+  /** The orig hot y. */
   int origHotX, origHotY;
 
   //
   // Handle cursor shape update (XCursor and RichCursor encodings).
   //
 
+  /**
+   * Handle cursor shape update.
+   *
+   * @param encodingType the encoding type
+   * @param xhot the xhot
+   * @param yhot the yhot
+   * @param width the width
+   * @param height the height
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   synchronized void
     handleCursorShapeUpdate(int encodingType,
 			    int xhot, int yhot, int width, int height)
@@ -1698,6 +2102,15 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
   // corresponding MemoryImageSource instance.
   //
 
+  /**
+   * Decode cursor shape.
+   *
+   * @param encodingType the encoding type
+   * @param width the width
+   * @param height the height
+   * @return the memory image source
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   synchronized MemoryImageSource
     decodeCursorShape(int encodingType, int width, int height)
     throws IOException {
@@ -1809,6 +2222,9 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
   // Uses softCursorSource as a source for new cursor image.
   //
 
+  /**
+   * Creates the soft cursor.
+   */
   synchronized void
     createSoftCursor() {
 
@@ -1851,6 +2267,12 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
   // softCursorMove(). Moves soft cursor into a particular location.
   //
 
+  /**
+   * Soft cursor move.
+   *
+   * @param x the x
+   * @param y the y
+   */
   synchronized void softCursorMove(int x, int y) {
     int oldX = cursorX;
     int oldY = cursorY;
@@ -1868,6 +2290,9 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
   // softCursorFree(). Remove soft cursor, dispose resources.
   //
 
+  /**
+   * Soft cursor free.
+   */
   synchronized void softCursorFree() {
     if (showSoftCursor) {
       showSoftCursor = false;
@@ -1879,10 +2304,32 @@ protected java.util.List<VncImageListener> listeners = new java.util.ArrayList<V
     }
   }
 
+  /**
+   * The listener interface for receiving vncImage events.
+   * The class that is interested in processing a vncImage
+   * event implements this interface, and the object created
+   * with that class is registered with a component using the
+   * component's <code>addVncImageListener<code> method. When
+   * the vncImage event occurs, that object's appropriate
+   * method is invoked.
+   *
+   * @see VncImageEvent
+   */
   public interface VncImageListener{
-	  public void imageCreated(Image image);
+	  
+  	/**
+  	 * Invoked when image is created.
+  	 *
+  	 * @param image the image
+  	 */
+  	public void imageCreated(Image image);
   }
   
+  /**
+   * Adds the vnc image listener.
+   *
+   * @param listener the listener
+   */
   public void addVncImageListener(VncImageListener listener){
 	  if(!listeners.contains(listener)) 
 		  listeners.add(listener);

@@ -1,5 +1,6 @@
 package synergynetframework.appsystem.contentsystem.items.utils.vnc;
 
+
 /* Copyright (C) 2002-2005 RealVNC Ltd.  All Rights Reserved.
  * 
  * This is free software; you can redistribute it and/or modify
@@ -22,10 +23,19 @@ package synergynetframework.appsystem.contentsystem.items.utils.vnc;
 // A ZlibInStream reads from a zlib.io.InputStream
 //
 
+/**
+ * The Class ZlibInStream.
+ */
 public class ZlibInStream extends InStream {
 
+  /** The Constant defaultBufSize. */
   static final int defaultBufSize = 16384;
 
+  /**
+   * Instantiates a new zlib in stream.
+   *
+   * @param bufSize_ the buf size_
+   */
   public ZlibInStream(int bufSize_) {
     bufSize = bufSize_;
     b = new byte[bufSize];
@@ -33,14 +43,28 @@ public class ZlibInStream extends InStream {
     inflater = new java.util.zip.Inflater();
   }
 
+  /**
+   * Instantiates a new zlib in stream.
+   */
   public ZlibInStream() { this(defaultBufSize); }
 
+  /**
+   * Sets the underlying.
+   *
+   * @param is the is
+   * @param bytesIn_ the bytes in_
+   */
   public void setUnderlying(InStream is, int bytesIn_) {
     underlying = is;
     bytesIn = bytesIn_;
     ptr = end = 0;
   }
 
+  /**
+   * Reset.
+   *
+   * @throws Exception the exception
+   */
   public void reset() throws Exception {
     ptr = end = 0;
     if (underlying == null) return;
@@ -52,8 +76,14 @@ public class ZlibInStream extends InStream {
     underlying = null;
   }
 
+  /* (non-Javadoc)
+   * @see synergynetframework.appsystem.contentsystem.items.utils.vnc.InStream#pos()
+   */
   public int pos() { return ptrOffset + ptr; }
 
+  /* (non-Javadoc)
+   * @see synergynetframework.appsystem.contentsystem.items.utils.vnc.InStream#overrun(int, int)
+   */
   protected int overrun(int itemSize, int nItems) throws Exception {
     if (itemSize > bufSize)
       throw new Exception("ZlibInStream overrun: max itemSize exceeded");
@@ -82,6 +112,11 @@ public class ZlibInStream extends InStream {
   // data.  Returns false if wait is false and we would block on the underlying
   // stream.
 
+  /**
+   * Decompress.
+   *
+   * @throws Exception the exception
+   */
   private void decompress() throws Exception {
     try {
       underlying.check(1);
@@ -105,9 +140,18 @@ public class ZlibInStream extends InStream {
     }
   }
 
+  /** The underlying. */
   private InStream underlying;
+  
+  /** The buf size. */
   private int bufSize;
+  
+  /** The ptr offset. */
   private int ptrOffset;
+  
+  /** The inflater. */
   private java.util.zip.Inflater inflater;
+  
+  /** The bytes in. */
   private int bytesIn;
 }

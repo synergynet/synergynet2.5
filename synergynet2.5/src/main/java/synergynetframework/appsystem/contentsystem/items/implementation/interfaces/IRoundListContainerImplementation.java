@@ -33,9 +33,36 @@ package synergynetframework.appsystem.contentsystem.items.implementation.interfa
 
 import synergynetframework.appsystem.contentsystem.items.RoundContentItem;
 
+
+/**
+ * The Interface IRoundListContainerImplementation.
+ */
 public interface IRoundListContainerImplementation extends IRoundWindowImplementation{
+	
+	/**
+	 * Adds the sub item.
+	 *
+	 * @param index the index
+	 * @param item the item
+	 */
 	public void addSubItem(int index, RoundContentItem item);	
+	
+	/**
+	 * Adds the sub item.
+	 *
+	 * @param item the item
+	 */
 	public void addSubItem(RoundContentItem item);
+	
+	/**
+	 * Removes the sub item.
+	 *
+	 * @param item the item
+	 */
 	public void removeSubItem(RoundContentItem item);
+	
+	/**
+	 * Run.
+	 */
 	public void run();
 }

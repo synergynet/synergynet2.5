@@ -37,18 +37,39 @@ import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightConfirmVisualExit;
 import synergynetframework.config.position.PositionConfigPrefsItem;
 
+
+/**
+ * The Class NetworkPresenterApp.
+ */
 public class NetworkPresenterApp extends DefaultSynergyNetApp{
 
+	/** The comms. */
 	private TableCommsClientService comms;
+	
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The message handler. */
 	protected DefaultMessageHandler messageHandler;
+	
+	/** The networked content manager. */
 	protected NetworkedContentManager networkedContentManager;
+	
+	/** The transfer controller. */
 	protected TransferController transferController;
 
+	/**
+	 * Instantiates a new network presenter app.
+	 *
+	 * @param info the info
+	 */
 	public NetworkPresenterApp(ApplicationInfo info) {
 		super(info);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		contentSystem = ContentSystem.getContentSystemForSynergyNetApp(this);		
@@ -64,6 +85,15 @@ public class NetworkPresenterApp extends DefaultSynergyNetApp{
 	
 	}
 
+	/**
+	 * Adds the images button.
+	 *
+	 * @param name the name
+	 * @param icon the icon
+	 * @param i the i
+	 * @param j the j
+	 * @param images the images
+	 */
 	private void addImagesButton(String name, String icon, int i, int j,
 			final String... images) {
 		
@@ -115,7 +145,18 @@ public class NetworkPresenterApp extends DefaultSynergyNetApp{
 
 	}
 
+	/** The players. */
 	Map<String,VideoPlayer> players = new HashMap<String,VideoPlayer>();
+	
+	/**
+	 * Adds the video button.
+	 *
+	 * @param name the name
+	 * @param icon the icon
+	 * @param video the video
+	 * @param i the i
+	 * @param j the j
+	 */
 	private void addVideoButton(final String name, final String icon, final String video, final int i, final int j) {
 		final ImageTextLabel button = (ImageTextLabel) contentSystem.createContentItem(ImageTextLabel.class);
 		button.setAutoFit(false);
@@ -138,6 +179,16 @@ public class NetworkPresenterApp extends DefaultSynergyNetApp{
 		});
 	}
 
+	/**
+	 * Sets the video visibility.
+	 *
+	 * @param name the name
+	 * @param icon the icon
+	 * @param video the video
+	 * @param i the i
+	 * @param j the j
+	 * @param visible the visible
+	 */
 	protected void setVideoVisibility(String name, String icon, String video, int i, int j, boolean visible) {
 		VideoPlayer player = players.get(name);
 		if(player == null) {
@@ -162,6 +213,9 @@ public class NetworkPresenterApp extends DefaultSynergyNetApp{
 		}
 	}
 
+	/**
+	 * Start all visible video players.
+	 */
 	private void startAllVisibleVideoPlayers() {
 		for(VideoPlayer p : players.values()) {
 			if(p.isVisible()) {
@@ -170,6 +224,9 @@ public class NetworkPresenterApp extends DefaultSynergyNetApp{
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onActivate()
+	 */
 	@Override
 	public void onActivate(){
 		super.onActivate();
@@ -236,6 +293,9 @@ public class NetworkPresenterApp extends DefaultSynergyNetApp{
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	@Override
 	public void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);

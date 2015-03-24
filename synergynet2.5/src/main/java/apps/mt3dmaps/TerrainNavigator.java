@@ -39,43 +39,76 @@ import synergynetframework.jme.cursorsystem.ThreeDMultiTouchElement;
 import synergynetframework.jme.cursorsystem.cursordata.ScreenCursor;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 
+
+/**
+ * The Class TerrainNavigator.
+ */
 public class TerrainNavigator extends ThreeDMultiTouchElement {
 
+	/** The camera. */
 	private Camera camera;
 
+	/**
+	 * Instantiates a new terrain navigator.
+	 *
+	 * @param pickingAndTargetSpatial the picking and target spatial
+	 * @param cam the cam
+	 */
 	public TerrainNavigator(Spatial pickingAndTargetSpatial, Camera cam) {
 		super(pickingAndTargetSpatial);		
 		this.setCamera(cam);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorChanged(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorChanged(ScreenCursor c, MultiTouchCursorEvent event) {
 		System.out.println("cursor changed");
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorClicked(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorClicked(ScreenCursor c, MultiTouchCursorEvent event) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorPressed(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorPressed(ScreenCursor c, MultiTouchCursorEvent event) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorReleased(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorReleased(ScreenCursor c, MultiTouchCursorEvent event) {
 		 
 		
 	}
 
+	/**
+	 * Sets the camera.
+	 *
+	 * @param camera the new camera
+	 */
 	public void setCamera(Camera camera) {
 		this.camera = camera;
 	}
 
+	/**
+	 * Gets the camera.
+	 *
+	 * @return the camera
+	 */
 	public Camera getCamera() {
 		return camera;
 	}

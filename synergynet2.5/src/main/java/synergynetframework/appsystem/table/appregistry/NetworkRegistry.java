@@ -40,15 +40,32 @@ import apps.remotecontrol.networkmanager.messages.RequestSyncItemsPortalMessage;
 import apps.remotecontrol.networkmanager.messages.UnicastAlivePortalMessage;
 import apps.remotecontrol.networkmanager.messages.UnicastSyncDataPortalMessage;
 
+
+/**
+ * The Class NetworkRegistry.
+ */
 public class NetworkRegistry {
 	
 	// Application messages to be registered
+	/** The Constant c1. */
 	public static final  Class<?> c1 = UnicastSyncDataPortalMessage.class;
+	
+	/** The Constant c2. */
 	public static final  Class<?> c2 = PostItemsPortalMessage.class;
+	
+	/** The Constant c3. */
 	public static final  Class<?> c3 = PostWorkspacePortalMessage.class;
+	
+	/** The Constant c4. */
 	public static final  Class<?> c4 = RequestItemsPortalMessage.class;
+	
+	/** The Constant c5. */
 	public static final  Class<?> c5 = RequestSyncItemsPortalMessage.class;
+	
+	/** The Constant c7. */
 	public static final  Class<?> c7 = UnicastAlivePortalMessage.class;
+	
+	/** The Constant c8. */
 	public static final  Class<?> c8 = ConnectTablePortalMessage.class;
 	
 

@@ -36,6 +36,7 @@ package data;
 import java.io.InputStream;
 import java.net.URL;
 
+
 /**
  * Gives access to resources. Use paths from the root of the project/classpath
  * as this uses the ClassLoader (of the Resources class) to load the resource.
@@ -47,8 +48,9 @@ public class DataResources {
 	/**
 	 * Get a resource (data, images, xml, ...) relative to the classloader/root
 	 * of the project. Equivalent to Resources.class.getClassLoader().getResource() 
-	 * @param resource
-	 * @return
+	 *
+	 * @param resource the resource
+	 * @return the resource
 	 */
 	public static URL getResource(String resource) {
 		return DataResources.class.getClassLoader().getResource(resource);
@@ -57,8 +59,9 @@ public class DataResources {
 	/**
 	 * Get a resource (data, images, xml, ...) relative to the classloader/root
 	 * of the project. Equivalent to Resources.class.getClassLoader().getResourceAsStream() 
-	 * @param resource
-	 * @return
+	 *
+	 * @param resource the resource
+	 * @return the resource as stream
 	 */
 	public static InputStream getResourceAsStream(String resource) {
 		return DataResources.class.getClassLoader().getResourceAsStream(resource);

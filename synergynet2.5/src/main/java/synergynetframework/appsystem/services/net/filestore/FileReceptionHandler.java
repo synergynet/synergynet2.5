@@ -13,18 +13,40 @@ import synergynetframework.appsystem.services.net.filestore.messages.FilePart;
 import synergynetframework.appsystem.services.net.filestore.messages.FileTransferComplete;
 import synergynetframework.appsystem.services.net.filestore.messages.StartFileTransfer;
 
+
+/**
+ * The Class FileReceptionHandler.
+ */
 public class FileReceptionHandler implements Runnable {
+	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(FileReceptionHandler.class.getName());
+	
+	/** The oos. */
 	private ObjectOutputStream oos;
+	
+	/** The ois. */
 	private ObjectInputStream ois;
+	
+	/** The target dir. */
 	private File targetDir;
 
+	/**
+	 * Instantiates a new file reception handler.
+	 *
+	 * @param targetDirectory the target directory
+	 * @param s the s
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public FileReceptionHandler(File targetDirectory, Socket s) throws IOException {
 		this.targetDir = targetDirectory;
 		this.oos = new ObjectOutputStream(s.getOutputStream());
 		this.ois = new ObjectInputStream(s.getInputStream());		
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
 	@Override
 	public void run() {
 		boolean running = true;
@@ -57,6 +79,13 @@ public class FileReceptionHandler implements Runnable {
 
 	}
 
+	/**
+	 * Write file part.
+	 *
+	 * @param fp the fp
+	 * @param fos the fos
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	private void writeFilePart(FilePart fp, FileOutputStream fos) throws IOException {
 		fos.write(fp.getByteBuffer(), 0, fp.getLen());
 		fos.flush();

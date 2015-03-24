@@ -63,18 +63,36 @@ import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightC
 import synergynetframework.jme.gfx.twod.keyboard.Key;
 import synergynetframework.jme.gfx.twod.keyboard.MTKeyListener;
 
+
+/**
+ * The Class SandboxApp.
+ */
 public class SandboxApp extends DefaultSynergyNetApp {
 	
+	/** The colours. */
 	private Color[] colours = {Color.magenta, Color.red, Color.blue, Color.green, Color.yellow, Color.pink, Color.orange, Color.CYAN, new Color(255, 69, 0, 255), new Color(255, 0, 255, 255)};
+	
+	/** The current count. */
 	private int currentCount = 0;
 	
+	/** The button on. */
 	private boolean buttonOn = false;
+	
+	/** The content system. */
 	private ContentSystem contentSystem;
 	
+	/**
+	 * Instantiates a new sandbox app.
+	 *
+	 * @param info the info
+	 */
 	public SandboxApp(ApplicationInfo info) {
 		super(info);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		SynergyNetAppUtils.addTableOverlay(this);
@@ -82,6 +100,9 @@ public class SandboxApp extends DefaultSynergyNetApp {
 		this.setMenuController(new HoldTopRightConfirmVisualExit(this));		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onActivate()
+	 */
 	@Override
 	public void onActivate() {
 		contentSystem.removeAllContentItems();		
@@ -91,6 +112,9 @@ public class SandboxApp extends DefaultSynergyNetApp {
 		for (int i = 0; i < FastMath.nextRandomInt(5, 15); i++)addCircle();	
 	};
 	
+	/**
+	 * Adds the octagon.
+	 */
 	private void addOctagon(){
 		ObjShape shape = (ObjShape)this.contentSystem.createContentItem(ObjShape.class);
 		shape.setShapeGeometry(SandboxApp.class.getResource("octagonshape.obj"));	
@@ -99,6 +123,9 @@ public class SandboxApp extends DefaultSynergyNetApp {
 		positionRandomly(shape);		
 	}
 	
+	/**
+	 * Adds the square.
+	 */
 	private void addSquare() {
 		ImageTextLabel shape = (ImageTextLabel)this.contentSystem.createContentItem(ImageTextLabel.class);
 		shape.setBackgroundColour(getNextColour());
@@ -109,6 +136,9 @@ public class SandboxApp extends DefaultSynergyNetApp {
 		positionRandomly(shape);
 	}
 		
+	/**
+	 * Adds the circle.
+	 */
 	private void addCircle() {
 		RoundImageLabel shape = (RoundImageLabel)this.contentSystem.createContentItem(RoundImageLabel.class);
 		shape.setBackgroundColour(getNextColour());
@@ -117,6 +147,11 @@ public class SandboxApp extends DefaultSynergyNetApp {
 		positionRandomly(shape);
 	}	
 	
+	/**
+	 * Position randomly.
+	 *
+	 * @param shape the shape
+	 */
 	private void positionRandomly(OrthoContentItem shape){
 		shape.makeFlickable(3f);
 		shape.setAngle((FastMath.nextRandomInt(1, 200)/100f) * FastMath.PI);
@@ -125,12 +160,20 @@ public class SandboxApp extends DefaultSynergyNetApp {
 		shape.placeRandom();
 	}
 	
+	/**
+	 * Gets the next colour.
+	 *
+	 * @return the next colour
+	 */
 	private Color getNextColour(){
 		currentCount++;
 		if (currentCount == colours.length)currentCount = 0;
 		return colours[currentCount];
 	}	
 	
+	/**
+	 * Adds the keyboard.
+	 */
 	private void addKeyboard(){
 		
 		final ImageTextLabel button = (ImageTextLabel) contentSystem.createContentItem(ImageTextLabel.class);
@@ -227,6 +270,11 @@ public class SandboxApp extends DefaultSynergyNetApp {
 		button.setLocation(answerText.getWidth() + button.getWidth()/2, button.getHeight()/2);
 	}
 
+	/**
+	 * Gets the key defs.
+	 *
+	 * @return the key defs
+	 */
 	@SuppressWarnings("unchecked")
 	private List<Key> getKeyDefs() {
 		try {
@@ -242,6 +290,9 @@ public class SandboxApp extends DefaultSynergyNetApp {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	@Override
 	protected void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);

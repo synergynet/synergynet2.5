@@ -4,19 +4,44 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+
+/**
+ * The Class ColorChanger.
+ */
 public class ColorChanger {
     
+    /** The Constant ALPHA. */
     public static final int ALPHA = 0;
+    
+    /** The Constant RED. */
     public static final int RED = 1;
+    
+    /** The Constant GREEN. */
     public static final int GREEN = 2;
+    
+    /** The Constant BLUE. */
     public static final int BLUE = 3;
 
+    /** The Constant HUE. */
     public static final int HUE = 0;
+    
+    /** The Constant SATURATION. */
     public static final int SATURATION = 1;
+    
+    /** The Constant BRIGHTNESS. */
     public static final int BRIGHTNESS = 2;
 
+    /** The Constant TRANSPARENT. */
     public static final int TRANSPARENT = 0;
 
+    /**
+     * Change color.
+     *
+     * @param image the image
+     * @param mask the mask
+     * @param replacement the replacement
+     * @return the buffered image
+     */
     public static BufferedImage changeColor(BufferedImage image, Color mask,
             Color replacement) {
         BufferedImage destImage = new BufferedImage(image.getWidth(),
@@ -40,6 +65,13 @@ public class ColorChanger {
         return destImage;
     }
 
+    /**
+     * Gets the new pixel rgb.
+     *
+     * @param replacement the replacement
+     * @param destRGB the dest rgb
+     * @return the new pixel rgb
+     */
     private static int getNewPixelRGB(int replacement, int destRGB) {
         float[] destHSB = getHSBArray(destRGB);
         float[] replHSB = getHSBArray(replacement);
@@ -49,6 +81,13 @@ public class ColorChanger {
         return rgbnew;
     }
 
+    /**
+     * Matches.
+     *
+     * @param maskRGB the mask rgb
+     * @param destRGB the dest rgb
+     * @return true, if successful
+     */
     private static boolean matches(int maskRGB, int destRGB) {
         float[] hsbMask = getHSBArray(maskRGB);
         float[] hsbDest = getHSBArray(destRGB);
@@ -62,11 +101,23 @@ public class ColorChanger {
         return false;
     }
 
+    /**
+     * Gets the RGB array.
+     *
+     * @param rgb the rgb
+     * @return the RGB array
+     */
     private static int[] getRGBArray(int rgb) {
         return new int[] { (rgb >> 24) & 0xff, (rgb >> 16) & 0xff,
                 (rgb >> 8) & 0xff, rgb & 0xff };
     }
 
+    /**
+     * Gets the HSB array.
+     *
+     * @param rgb the rgb
+     * @return the HSB array
+     */
     private static float[] getHSBArray(int rgb) {
         int[] rgbArr = getRGBArray(rgb);
         return Color.RGBtoHSB(rgbArr[RED], rgbArr[GREEN], rgbArr[BLUE], null);

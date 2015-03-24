@@ -36,35 +36,79 @@ import java.util.HashMap;
 
 import com.jme.scene.Spatial;
 
+
+/**
+ * The Class ClipRegistry.
+ */
 public class ClipRegistry {
 	
+	/** The instance. */
 	private static ClipRegistry instance;
+	
+	/** The spatial clip map. */
 	private HashMap<Spatial, ClipRegion> spatialClipMap;
+	
+	/**
+	 * Gets the single instance of ClipRegistry.
+	 *
+	 * @return single instance of ClipRegistry
+	 */
 	public static ClipRegistry getInstance(){
 		if(instance == null) instance = new ClipRegistry();
 		return instance;
 	}
 	
+	/**
+	 * Instantiates a new clip registry.
+	 */
 	private ClipRegistry(){
 		spatialClipMap = new HashMap<Spatial, ClipRegion>();
 	}
 	
+	/**
+	 * Checks if is registered.
+	 *
+	 * @param spatial the spatial
+	 * @return true, if is registered
+	 */
 	public boolean isRegistered(Spatial spatial){
 		return spatialClipMap.containsKey(spatial);
 	}
 	
+	/**
+	 * Register clip region.
+	 *
+	 * @param spatial the spatial
+	 * @param clipRegion the clip region
+	 */
 	public void registerClipRegion(Spatial spatial, ClipRegion clipRegion){
 		spatialClipMap.put(spatial, clipRegion);
 	}
 	
+	/**
+	 * Gets the clip region for spatial.
+	 *
+	 * @param spatial the spatial
+	 * @return the clip region for spatial
+	 */
 	public ClipRegion getClipRegionForSpatial(Spatial spatial){
 		return spatialClipMap.get(spatial);
 	}
 	
+	/**
+	 * Unregister.
+	 *
+	 * @param spatial the spatial
+	 */
 	public void unregister(Spatial spatial){
 		spatialClipMap.remove(spatial);
 	}
 	
+	/**
+	 * Gets the clip regions.
+	 *
+	 * @return the clip regions
+	 */
 	public HashMap<Spatial, ClipRegion> getClipRegions(){
 		return spatialClipMap;
 	}

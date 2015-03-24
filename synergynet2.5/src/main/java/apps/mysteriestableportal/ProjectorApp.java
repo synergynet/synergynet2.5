@@ -22,15 +22,28 @@ import synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp;
 import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightExit;
 
+
+/**
+ * The Class ProjectorApp.
+ */
 public class ProjectorApp extends DefaultSynergyNetApp{
 
+	/** The content system. */
 	protected ContentSystem contentSystem;
 	
+	/**
+	 * Instantiates a new projector app.
+	 *
+	 * @param info the info
+	 */
 	public ProjectorApp(ApplicationInfo info) {
 		super(info);
 		// TODO Auto-generated constructor stub
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		setMenuController(new HoldTopRightExit());
@@ -38,6 +51,9 @@ public class ProjectorApp extends DefaultSynergyNetApp{
 		contentSystem.removeAllContentItems();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onActivate()
+	 */
 	@Override
 	public void onActivate() {
 		RapidNetworkManager.addNetworkedContentListener(new NetworkedContentListener(){
@@ -111,6 +127,9 @@ public class ProjectorApp extends DefaultSynergyNetApp{
 		RapidNetworkManager.connect(this);
 	}
 	
+	/**
+	 * Announce.
+	 */
 	public void announce(){
 		try {
 			RapidNetworkManager.getTableCommsClientService().sendMessage(new AnnounceProjectorMessage(ControllerApp.class));

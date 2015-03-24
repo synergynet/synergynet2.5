@@ -29,8 +29,15 @@ import java.applet.*;
 import java.net.*;
 import java.io.*;
 
+
+/**
+ * A factory for creating HTTPConnectSocket objects.
+ */
 class HTTPConnectSocketFactory implements SocketFactory {
 
+  /* (non-Javadoc)
+   * @see synergynetframework.appsystem.contentsystem.items.utils.vnc.SocketFactory#createSocket(java.lang.String, int, java.applet.Applet)
+   */
   public Socket createSocket(String host, int port, Applet applet)
     throws IOException {
 
@@ -39,6 +46,9 @@ class HTTPConnectSocketFactory implements SocketFactory {
 			applet.getParameter("PROXYPORT1"));
   }
 
+  /* (non-Javadoc)
+   * @see synergynetframework.appsystem.contentsystem.items.utils.vnc.SocketFactory#createSocket(java.lang.String, int, java.lang.String[])
+   */
   public Socket createSocket(String host, int port, String[] args)
     throws IOException {
 
@@ -47,6 +57,16 @@ class HTTPConnectSocketFactory implements SocketFactory {
 			readArg(args, "PROXYPORT1"));
   }
 
+  /**
+   * Creates a new HTTPConnectSocket object.
+   *
+   * @param host the host
+   * @param port the port
+   * @param proxyHost the proxy host
+   * @param proxyPortStr the proxy port str
+   * @return the socket
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   public Socket createSocket(String host, int port,
 			     String proxyHost, String proxyPortStr)
     throws IOException {
@@ -71,6 +91,13 @@ class HTTPConnectSocketFactory implements SocketFactory {
     return (Socket)s;
   }
 
+  /**
+   * Read arg.
+   *
+   * @param args the args
+   * @param name the name
+   * @return the string
+   */
   private String readArg(String[] args, String name) {
 
     for (int i = 0; i < args.length; i += 2) {

@@ -8,13 +8,30 @@ import com.jme.scene.Spatial.CullHint;
 import com.jme.scene.state.MaterialState;
 import com.jme.system.DisplaySystem;
 
+
+/**
+ * The Class Label.
+ */
 public class Label {
 
+	/** The text. */
 	protected Text text;
+	
+	/** The world node. */
 	protected Node worldNode;
+	
+	/** The size. */
 	protected int size = 2;
+	
+	/** The position. */
 	protected Vector3f position=new Vector3f(5,700,0);
 	
+	/**
+	 * Instantiates a new label.
+	 *
+	 * @param worldNode the world node
+	 * @param textString the text string
+	 */
 	public Label(Node worldNode, String textString){
 		
 		this.worldNode = worldNode;
@@ -22,6 +39,11 @@ public class Label {
 		setText(textString);
 	}
 	
+	/**
+	 * Sets the text.
+	 *
+	 * @param textString the new text
+	 */
 	public void setText(String textString){
 		if (text!=null)
 			text.getParent().detachChild(text);
@@ -42,16 +64,31 @@ public class Label {
 		
 	}
 	
+	/**
+	 * Sets the size.
+	 *
+	 * @param size the new size
+	 */
 	public void setSize(int size){
 		this.size = size;
 		worldNode.updateGeometricState(0.0f, true);
 	}
 	
+	/**
+	 * Sets the position.
+	 *
+	 * @param position the new position
+	 */
 	public void setPosition(Vector3f position){
 		this.position = position;
 		worldNode.updateGeometricState(0.0f, true);
 	}
 	
+	/**
+	 * Sets the visibility.
+	 *
+	 * @param visiable the new visibility
+	 */
 	public void setVisibility(boolean visiable){
 		if (visiable){
 			text.setCullHint(CullHint.Never);

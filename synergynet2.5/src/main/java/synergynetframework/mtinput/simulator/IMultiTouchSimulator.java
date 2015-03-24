@@ -32,11 +32,65 @@
 
 package synergynetframework.mtinput.simulator;
 
+
+/**
+ * The Interface IMultiTouchSimulator.
+ */
 public interface IMultiTouchSimulator {
+	
+	/**
+	 * New cursor.
+	 *
+	 * @param id the id
+	 * @param x the x
+	 * @param y the y
+	 */
 	public void newCursor(int id, float x, float y);
+	
+	/**
+	 * Update cursor.
+	 *
+	 * @param id the id
+	 * @param x the x
+	 * @param y the y
+	 */
 	public void updateCursor(int id, float x, float y);
+	
+	/**
+	 * Delete cursor.
+	 *
+	 * @param id the id
+	 * @param x the x
+	 * @param y the y
+	 */
 	public void deleteCursor(int id, float x, float y);
+	
+	/**
+	 * Clear cursor.
+	 */
 	public void clearCursor();
+	
+	/**
+	 * Update two cursors.
+	 *
+	 * @param id1 the id1
+	 * @param x the x
+	 * @param y the y
+	 * @param id2 the id2
+	 * @param x2 the x2
+	 * @param y2 the y2
+	 */
 	public void updateTwoCursors(int id1, float x, float y, int id2, float x2, float y2);
+	
+	/**
+	 * Delete two cursors.
+	 *
+	 * @param id1 the id1
+	 * @param x the x
+	 * @param y the y
+	 * @param id2 the id2
+	 * @param x2 the x2
+	 * @param y2 the y2
+	 */
 	public void deleteTwoCursors(int id1, float x, float y, int id2, float x2, float y2);
 }

@@ -67,35 +67,81 @@ import synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp;
 import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightConfirmVisualExit;
 
+
+/**
+ * The Class TwentyFourPointApp.
+ */
 public class TwentyFourPointApp extends DefaultSynergyNetApp {
 	
+	/** The comms. */
 	private TableCommsClientService comms;
+	
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The message handler. */
 	protected MessageHandler messageHandler;
 	
+	/** The items. */
 	protected List<ContentItem> items = new ArrayList<ContentItem>();
+	
+	/** The items in answer area. */
 	protected List<ContentItem> itemsInAnswerArea = new ArrayList<ContentItem>();
 	
+	/** The answer box location. */
 	protected Location answerBoxLocation = new Location(512, 200, 0);
+	
+	/** The answer box width. */
 	protected int answerBoxWidth = 700;
+	
+	/** The answer box height. */
 	protected int answerBoxHeight = 200;
+	
+	/** The cards. */
 	protected int[] cards = new int[4];
+	
+	/** The current result scale. */
 	protected float currentResultScale = 0.3f;
+	
+	/** The answer. */
 	protected String answer="";
+	
+	/** The has solution. */
 	protected boolean hasSolution = true;
+	
+	/** The finish movie on. */
 	protected boolean finishMovieOn = false;
+	
+	/** The win number. */
 	protected int winNumber=0;
+	
+	/** The lose number. */
 	protected int loseNumber =0;
 	
+	/** The result label. */
 	protected MultiLineTextLabel resultLabel;
+	
+	/** The win score label. */
 	protected MultiLineTextLabel winScoreLabel;
+	
+	/** The lose score label. */
 	protected MultiLineTextLabel loseScoreLabel;
+	
+	/** The confirm dialogue. */
 	protected NOAnswerConfirmDialogue confirmDialogue=null;
 
+	/**
+	 * Instantiates a new twenty four point app.
+	 *
+	 * @param info the info
+	 */
 	public TwentyFourPointApp(ApplicationInfo info) {
 		super(info);		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {		
 		contentSystem = ContentSystem.getContentSystemForSynergyNetApp(this);		
@@ -111,6 +157,9 @@ public class TwentyFourPointApp extends DefaultSynergyNetApp {
 				
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onActivate()
+	 */
 	@Override
 	public void onActivate() {
 		if(comms == null) {
@@ -134,6 +183,9 @@ public class TwentyFourPointApp extends DefaultSynergyNetApp {
 		}	
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	@Override
 	public void stateUpdate(float tpf) {
 		if(comms != null) comms.update();
@@ -155,6 +207,9 @@ public class TwentyFourPointApp extends DefaultSynergyNetApp {
 	
 	}
 	
+	/**
+	 * Check has solution.
+	 */
 	private void checkHasSolution(){
 		Solution solution = new Solution(cards[0],cards[1], cards[2],cards[3]);
 		if (solution.hasSolution()){
@@ -166,6 +221,11 @@ public class TwentyFourPointApp extends DefaultSynergyNetApp {
 			
 	}
 	
+	/**
+	 * Send message.
+	 *
+	 * @param obj the obj
+	 */
 	private void sendMessage(Object obj) {
 		if(comms != null) {
 			try {
@@ -176,11 +236,17 @@ public class TwentyFourPointApp extends DefaultSynergyNetApp {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onDeactivate()
+	 */
 	@Override
 	public void onDeactivate() {
 		
 	}
 	
+	/**
+	 * Load start up content.
+	 */
 	private void loadStartUpContent(){
 		SimpleButton startUpButton = (SimpleButton)this.contentSystem.createContentItem(SimpleButton.class);
 		startUpButton.setText("START GAME");
@@ -205,6 +271,9 @@ public class TwentyFourPointApp extends DefaultSynergyNetApp {
 		items.add(startUpButton);
 	}
 	
+	/**
+	 * Load score panel.
+	 */
 	private void loadScorePanel(){
 		RoundTextLabel winLabel = (RoundTextLabel)this.contentSystem.createContentItem(RoundTextLabel.class);		
 		winLabel.setAutoFitSize(false);
@@ -253,6 +322,9 @@ public class TwentyFourPointApp extends DefaultSynergyNetApp {
 		//items.add(loseScoreLabel);
 	}
 	
+	/**
+	 * Load content.
+	 */
 	private void loadContent(){
 		
 		items.clear();
@@ -299,6 +371,11 @@ public class TwentyFourPointApp extends DefaultSynergyNetApp {
 	
 	}
 	
+	/**
+	 * Load content.
+	 *
+	 * @param items the items
+	 */
 	public void loadContent(List<ContentItem> items){
 		for (ContentItem item:items){
 			contentSystem.addContentItem(item);
@@ -311,6 +388,9 @@ public class TwentyFourPointApp extends DefaultSynergyNetApp {
 		loadCardImage();
 	}
 	
+	/**
+	 * Load operator card.
+	 */
 	private void loadOperatorCard(){
 
 			//plus
@@ -363,6 +443,14 @@ public class TwentyFourPointApp extends DefaultSynergyNetApp {
 				
 	}
 	
+	/**
+	 * Render operator card.
+	 *
+	 * @param operatorCard the operator card
+	 * @param operator the operator
+	 * @param x the x
+	 * @param y the y
+	 */
 	private void renderOperatorCard(MultiLineTextLabel operatorCard, String operator, int x, int y){
 		operatorCard.setLocalLocation(x, y);
 		operatorCard.setFont(new Font("Arial", Font.PLAIN, 60));
@@ -374,6 +462,9 @@ public class TwentyFourPointApp extends DefaultSynergyNetApp {
 		items.add(operatorCard);
 	}
 	
+	/**
+	 * Load card.
+	 */
 	private void loadCard(){
 		MultiLineTextLabel card1 = (MultiLineTextLabel)this.contentSystem.createContentItem(MultiLineTextLabel.class);
 		renderCard(card1, 0);
@@ -386,6 +477,12 @@ public class TwentyFourPointApp extends DefaultSynergyNetApp {
 		
 	}
 	
+	/**
+	 * Render card.
+	 *
+	 * @param card the card
+	 * @param i the i
+	 */
 	private void renderCard(MultiLineTextLabel card, int i){
 		Random r = new Random();
 		int number =r.nextInt(13)+1;
@@ -402,6 +499,9 @@ public class TwentyFourPointApp extends DefaultSynergyNetApp {
 		items.add(card);
 	}
 	
+	/**
+	 * Calculate result.
+	 */
 	private void calculateResult(){
 		this.getItemsInAnswerArea();
 			
@@ -421,6 +521,11 @@ public class TwentyFourPointApp extends DefaultSynergyNetApp {
 		
 	}
 	
+	/**
+	 * Gets the items in answer area.
+	 *
+	 * @return the items in answer area
+	 */
 	private void getItemsInAnswerArea(){
 			
 		this.itemsInAnswerArea.clear();
@@ -447,6 +552,11 @@ public class TwentyFourPointApp extends DefaultSynergyNetApp {
 		
 	}
 	
+	/**
+	 * Gets the answer string.
+	 *
+	 * @return the answer string
+	 */
 	private String getAnswerString(){
 		String answerString = "";
 		for (int i=0; i<this.itemsInAnswerArea.size(); i++){
@@ -463,6 +573,11 @@ public class TwentyFourPointApp extends DefaultSynergyNetApp {
 		return answerString;
 	}
 	
+	/**
+	 * Finish game.
+	 *
+	 * @param win the win
+	 */
 	private void finishGame(boolean win){
 		removeAllItems();
 		
@@ -493,6 +608,9 @@ public class TwentyFourPointApp extends DefaultSynergyNetApp {
 		
 	}
 	
+	/**
+	 * Show finish menu.
+	 */
 	private void showFinishMenu(){
 		if (this.resultLabel!=null){
 			if (!this.answer.equals("No Answer"))
@@ -552,6 +670,9 @@ public class TwentyFourPointApp extends DefaultSynergyNetApp {
 		
 	}
 	
+	/**
+	 * Removes the all items.
+	 */
 	public void removeAllItems(){
 			
 		for (ContentItem item:items){
@@ -563,11 +684,17 @@ public class TwentyFourPointApp extends DefaultSynergyNetApp {
 		items.clear();
 	}
 	
+	/**
+	 * Restart.
+	 */
 	private void restart(){	
 		this.removeAllItems();
 		this.loadContent();
 	}	
 	
+	/**
+	 * Check no answer.
+	 */
 	public void checkNoAnswer(){
 		if (!this.hasSolution){
 			this.answer = "No Answer";
@@ -581,6 +708,9 @@ public class TwentyFourPointApp extends DefaultSynergyNetApp {
 		this.removeConfirmDialogue();	
 	}
 	
+	/**
+	 * Removes the confirm dialogue.
+	 */
 	public void removeConfirmDialogue(){
 		if (this.confirmDialogue!=null){
 			this.confirmDialogue.clearContent();
@@ -588,11 +718,20 @@ public class TwentyFourPointApp extends DefaultSynergyNetApp {
 		}
 	}
 	
+	/**
+	 * Receive result.
+	 *
+	 * @param win the win
+	 * @param resultString the result string
+	 */
 	public void receiveResult(boolean win, String resultString){
 		this.answer = resultString;
 		this.finishGame(!win);	
 	}
 	
+	/**
+	 * Load card image.
+	 */
 	private void loadCardImage(){
 		for (ContentItem item:items){
 			String imagePath = item.getNote();
@@ -602,6 +741,11 @@ public class TwentyFourPointApp extends DefaultSynergyNetApp {
 		}
 	}
 	
+	/**
+	 * All point card in answer area.
+	 *
+	 * @return true, if successful
+	 */
 	private boolean allPointCardInAnswerArea(){
 		int numberOfPointCard =0;
 		for (ContentItem item:this.itemsInAnswerArea){

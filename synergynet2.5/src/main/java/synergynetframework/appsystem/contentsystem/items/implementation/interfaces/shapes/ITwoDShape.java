@@ -36,7 +36,23 @@ import java.awt.Color;
 
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation;
 
+
+/**
+ * The Interface ITwoDShape.
+ */
 public interface ITwoDShape extends IOrthoContentItemImplementation {
+	
+	/**
+	 * Sets the shape geometry.
+	 *
+	 * @param geom the new shape geometry
+	 */
 	public void setShapeGeometry(TwoDShapeGeometry geom);
+	
+	/**
+	 * Sets the colours.
+	 *
+	 * @param colours the new colours
+	 */
 	public void setColours(Color[] colours);
 }

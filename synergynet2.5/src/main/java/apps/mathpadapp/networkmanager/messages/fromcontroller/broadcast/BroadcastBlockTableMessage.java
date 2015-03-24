@@ -34,21 +34,43 @@ package apps.mathpadapp.networkmanager.messages.fromcontroller.broadcast;
 
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class BroadcastBlockTableMessage.
+ */
 public class BroadcastBlockTableMessage extends BroadcastApplicationMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 6448601837962845275L;
 	
+	/** The is table blocked. */
 	protected boolean isTableBlocked = true;
 	
+	/**
+	 * Instantiates a new broadcast block table message.
+	 *
+	 * @param targetClass the target class
+	 * @param isTableBlocked the is table blocked
+	 */
 	public BroadcastBlockTableMessage(Class<?> targetClass, boolean isTableBlocked) {
 		super(targetClass);
 		this.isTableBlocked = isTableBlocked;
 	}
 	
+	/**
+	 * Enable table block.
+	 *
+	 * @param isTableBlocked the is table blocked
+	 */
 	public void enableTableBlock(boolean isTableBlocked){
 		this.isTableBlocked = isTableBlocked;
 	}
 	
+	/**
+	 * Checks if is table block enabled.
+	 *
+	 * @return true, if is table block enabled
+	 */
 	public boolean isTableBlockEnabled(){
 		return isTableBlocked;
 	}

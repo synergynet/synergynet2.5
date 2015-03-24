@@ -34,10 +34,23 @@ package synergynetframework.appsystem.launcher.client;
 
 import javax.swing.JTextArea;
 
+
+/**
+ * The Class LogWindow.
+ */
 public class LogWindow extends JTextArea {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -7641283988246572389L;
+	
+	/** The instance. */
 	private static LogWindow instance;	
 
+	/**
+	 * Gets the single instance of LogWindow.
+	 *
+	 * @return single instance of LogWindow
+	 */
 	public static LogWindow getInstance() {
 		synchronized(LogWindow.class) {
 			if(instance == null) instance = new LogWindow();	
@@ -45,10 +58,18 @@ public class LogWindow extends JTextArea {
 		}
 	}
 	
+	/**
+	 * Instantiates a new log window.
+	 */
 	public LogWindow() {
 		super();
 	}
 
+	/**
+	 * Log.
+	 *
+	 * @param str the str
+	 */
 	public synchronized void log(String str) {
 		this.append(str + "\n");
 		this.setCaretPosition(getDocument().getLength());

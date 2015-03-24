@@ -39,52 +39,119 @@ import apps.mathpadapp.controllerapp.assignmentbuilder.Assignment;
 import apps.mathpadapp.controllerapp.usercontroller.UserInfo;
 
 
+
+/**
+ * The Class AssignmentSession.
+ */
 public class AssignmentSession {
 
+	/** The assignment. */
 	protected Assignment assignment;
+	
+	/** The recipients. */
 	protected List<UserInfo> recipients;
+	
+	/** The received data. */
 	protected HashMap<UserInfo, AssignmentInfo> receivedData = new HashMap<UserInfo, AssignmentInfo>();
+	
+	/** The solution. */
 	protected AssignmentInfo solution;
 	
+	/**
+	 * Instantiates a new assignment session.
+	 *
+	 * @param sessionId the session id
+	 * @param assignment the assignment
+	 * @param recipients the recipients
+	 */
 	public AssignmentSession(String sessionId, Assignment assignment, List<UserInfo> recipients) {
 		super();
 		this.assignment = assignment;
 		this.recipients = recipients;
 	}
 
+	/**
+	 * Instantiates a new assignment session.
+	 */
 	public AssignmentSession(){
 		
 	}
 	
+	/**
+	 * Gets the assignment.
+	 *
+	 * @return the assignment
+	 */
 	public Assignment getAssignment() {
 		return assignment;
 	}
+	
+	/**
+	 * Sets the assignment.
+	 *
+	 * @param assignment the new assignment
+	 */
 	public void setAssignment(Assignment assignment) {
 		this.assignment = assignment;
 	}
+	
+	/**
+	 * Gets the recipients.
+	 *
+	 * @return the recipients
+	 */
 	public List<UserInfo> getRecipients() {
 		return recipients;
 	}
+	
+	/**
+	 * Sets the recipients.
+	 *
+	 * @param receipents the new recipients
+	 */
 	public void setRecipients(List<UserInfo> receipents) {
 		this.recipients = receipents;
 	}
 
+	/**
+	 * Gets the received data.
+	 *
+	 * @return the received data
+	 */
 	public HashMap<UserInfo, AssignmentInfo> getReceivedData() {
 		return receivedData;
 	}
 
+	/**
+	 * Sets the received data.
+	 *
+	 * @param receivedData the received data
+	 */
 	public void setReceivedData(HashMap<UserInfo, AssignmentInfo> receivedData) {
 		this.receivedData = receivedData;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString(){
 		return assignment.getAssignmentId();
 	}
 
+	/**
+	 * Sets the solution.
+	 *
+	 * @param solution the new solution
+	 */
 	public void setSolution(AssignmentInfo solution) {
 		this.solution = solution;
 	}
 	
+	/**
+	 * Gets the solution.
+	 *
+	 * @return the solution
+	 */
 	public AssignmentInfo getSolution(){
 		return solution;
 	}

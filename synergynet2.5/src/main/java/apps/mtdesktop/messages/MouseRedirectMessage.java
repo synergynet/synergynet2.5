@@ -36,25 +36,52 @@ package apps.mtdesktop.messages;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.UnicastApplicationMessage;
 
+
+/**
+ * The Class MouseRedirectMessage.
+ */
 public class MouseRedirectMessage extends UnicastApplicationMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3611717853521792797L;
+	
+	/** The mouse redirection enabled. */
 	public boolean mouseRedirectionEnabled = false;
 
+	/**
+	 * Instantiates a new mouse redirect message.
+	 */
 	public MouseRedirectMessage(){
 		super();
 	}
 	
+	/**
+	 * Instantiates a new mouse redirect message.
+	 *
+	 * @param targetClass the target class
+	 * @param targetTableId the target table id
+	 * @param mouseRedirectionEnabled the mouse redirection enabled
+	 */
 	public MouseRedirectMessage(Class<?> targetClass, TableIdentity targetTableId, boolean mouseRedirectionEnabled){
 		super(targetClass);
 		this.setRecipient(targetTableId);
 		this.mouseRedirectionEnabled = mouseRedirectionEnabled;
 	}
 	
+	/**
+	 * Checks if is mouse redirection enabled.
+	 *
+	 * @return true, if is mouse redirection enabled
+	 */
 	public boolean isMouseRedirectionEnabled(){
 		return mouseRedirectionEnabled;
 	}
 	
+	/**
+	 * Enable mouse redirection.
+	 *
+	 * @param mouseRedirectionEnabled the mouse redirection enabled
+	 */
 	public void enableMouseRedirection(boolean mouseRedirectionEnabled){
 		this.mouseRedirectionEnabled = mouseRedirectionEnabled;
 	}

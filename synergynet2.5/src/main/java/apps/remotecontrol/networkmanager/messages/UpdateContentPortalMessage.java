@@ -37,14 +37,31 @@ import java.util.HashMap;
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class UpdateContentPortalMessage.
+ */
 public class UpdateContentPortalMessage extends BroadcastApplicationMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -546746344864227474L;
+	
+	/** The items. */
 	private HashMap<ContentItem, Short> items =new HashMap<ContentItem, Short>();
 
+	/**
+	 * Instantiates a new update content portal message.
+	 */
 	public UpdateContentPortalMessage(){
 		super();
 	}
+	
+	/**
+	 * Instantiates a new update content portal message.
+	 *
+	 * @param targetClass the target class
+	 * @param collection the collection
+	 */
 	public UpdateContentPortalMessage(Class<?> targetClass, HashMap<ContentItem, Short> collection) {
 		super(targetClass);
 		this.items.clear();
@@ -57,6 +74,11 @@ public class UpdateContentPortalMessage extends BroadcastApplicationMessage{
 		}
 	}
 
+	/**
+	 * Gets the items.
+	 *
+	 * @return the items
+	 */
 	public HashMap<ContentItem, Short> getItems() {
 		return items;
 	}

@@ -47,17 +47,35 @@ import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
 import com.jmex.awt.swingui.ImageGraphics;
 
+
+/**
+ * The Class FullScreenCanvas.
+ */
 public class FullScreenCanvas extends Quad {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -3197516808277245917L;
 
+	/** The graphics. */
 	protected static ImageGraphics graphics;
 
+	/** The pixel width. */
 	protected int pixelWidth;
+	
+	/** The pixel height. */
 	protected int pixelHeight;
+	
+	/** The ts. */
 	private TextureState ts;
+	
+	/** The texture. */
 	private Texture texture;
 	
+	/**
+	 * Instantiates a new full screen canvas.
+	 *
+	 * @param name the name
+	 */
 	public FullScreenCanvas(String name) {
 		super(name);
 		pixelWidth = DisplaySystem.getDisplaySystem().getRenderer().getWidth();
@@ -69,6 +87,9 @@ public class FullScreenCanvas extends Quad {
 		applyCanvasAsTexture();
 	}
 
+	/**
+	 * Apply canvas as texture.
+	 */
 	private void applyCanvasAsTexture() {
 		ts = DisplaySystem.getDisplaySystem().getRenderer().createTextureState();
 		ts.setCorrectionType(TextureState.CorrectionType.Perspective);
@@ -94,14 +115,25 @@ public class FullScreenCanvas extends Quad {
 		this.updateRenderState();
 	}
 
+	/**
+	 * Creates the shared canvas.
+	 */
 	private void createSharedCanvas() {		
 		graphics = ImageGraphics.createInstance(pixelWidth, pixelHeight, 0);		
 	}
 	
+	/**
+	 * Gets the graphics.
+	 *
+	 * @return the graphics
+	 */
 	public ImageGraphics getGraphics() {
 		return graphics;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.jme.scene.TriMesh#draw(com.jme.renderer.Renderer)
+	 */
 	public void draw( Renderer r ) {
 		if ( graphics.isDirty()) {
 			if ( graphics != null ) {
@@ -111,22 +143,43 @@ public class FullScreenCanvas extends Quad {
 		super.draw( r );
 	}
 	
+	/**
+	 * Gets the image height.
+	 *
+	 * @return the image height
+	 */
 	public int getImageHeight() {
 		return pixelHeight;
 	}
 
+	/**
+	 * Gets the image width.
+	 *
+	 * @return the image width
+	 */
 	public int getImageWidth() {
 		return pixelWidth;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.jme.scene.shape.Quad#getHeight()
+	 */
 	public float getHeight() {
 		return pixelHeight;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.jme.scene.shape.Quad#getWidth()
+	 */
 	public float getWidth() {
 		return pixelWidth;
 	}
 	
+	/**
+	 * Clear.
+	 *
+	 * @param c the c
+	 */
 	public void clear(Color c) {
 		graphics.setColor(c);
 		graphics.fillRect(0, 0, pixelWidth, pixelHeight);

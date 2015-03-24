@@ -13,13 +13,31 @@ import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
 import com.jme.util.TextureManager;
 
+
+/**
+ * The Class ControllerBodyNode.
+ */
 public class ControllerBodyNode extends Node {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2429175967783608868L;
 	
+	/** The slope. */
 	protected float width = 1, length = 1, height =1, slope = 0.5f;
+	
+	/** The texture url. */
 	protected URL textureURL;
 	
+	/**
+	 * Instantiates a new controller body node.
+	 *
+	 * @param name the name
+	 * @param width the width
+	 * @param length the length
+	 * @param height the height
+	 * @param slope the slope
+	 * @param texture the texture
+	 */
 	public ControllerBodyNode(String name, float width, float length, float height, float slope, URL texture){
 		super(name);
 		this.width = width;
@@ -32,6 +50,9 @@ public class ControllerBodyNode extends Node {
 		
 	}
 
+	/**
+	 * Inits the.
+	 */
 	protected void init(){
 		
 		Vector3f min = new Vector3f(this.width, this.length, this.height);

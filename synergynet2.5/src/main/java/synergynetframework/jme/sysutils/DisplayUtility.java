@@ -43,7 +43,18 @@ import com.jme.renderer.ColorRGBA;
 import com.jme.system.DisplaySystem;
 import com.jme.system.PropertiesIO;
 
+
+/**
+ * The Class DisplayUtility.
+ */
 public class DisplayUtility {
+	
+	/**
+	 * Gets the display.
+	 *
+	 * @param properties the properties
+	 * @return the display
+	 */
 	public static DisplaySystem getDisplay(PropertiesIO properties) {
         DisplaySystem display = DisplaySystem.getDisplaySystem(properties.getRenderer());          
         display.setMinDepthBits(AppConfig.depthBits);
@@ -56,6 +67,11 @@ public class DisplayUtility {
 		return display;
 	}
 
+	/**
+	 * Display driver info.
+	 *
+	 * @param logger the logger
+	 */
 	public static void displayDriverInfo(Logger logger) {
 		DisplaySystem display = DisplaySystem.getDisplaySystem();
 		
@@ -66,6 +82,13 @@ public class DisplayUtility {
 				+ display.getDisplayAPIVersion());			
 	}
 	
+	/**
+	 * Table to screen.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @param store the store
+	 */
 	public static void tableToScreen(float x, float y, Vector3f store) {
 		int dh = DisplaySystem.getDisplaySystem().getRenderer().getHeight();
 		int dw = DisplaySystem.getDisplaySystem().getRenderer().getWidth();
@@ -73,6 +96,13 @@ public class DisplayUtility {
 		store.y = dh - (dh * y);
 	}
 	
+	/**
+	 * Table to screen.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @param store the store
+	 */
 	public static void tableToScreen(float x, float y, Vector2f store) {		
 		int dh = DisplaySystem.getDisplaySystem().getRenderer().getHeight();
 		int dw = DisplaySystem.getDisplaySystem().getRenderer().getWidth();
@@ -80,6 +110,12 @@ public class DisplayUtility {
 		store.y = dh - (dh * y);
 	}
 
+	/**
+	 * Table to screen.
+	 *
+	 * @param in the in
+	 * @param out the out
+	 */
 	public static void tableToScreen(Vector2f in, Vector2f out) {
 		int dh = DisplaySystem.getDisplaySystem().getRenderer().getHeight();
 		int dw = DisplaySystem.getDisplaySystem().getRenderer().getWidth();
@@ -87,6 +123,12 @@ public class DisplayUtility {
 		out.y = dh - (dh * in.y);		
 	}
 
+	/**
+	 * Table to screen.
+	 *
+	 * @param position the position
+	 * @param out the out
+	 */
 	public static void tableToScreen(Vector2f position, Vector3f out) {
 		int dh = DisplaySystem.getDisplaySystem().getRenderer().getHeight();
 		int dw = DisplaySystem.getDisplaySystem().getRenderer().getWidth();
@@ -94,6 +136,11 @@ public class DisplayUtility {
 		out.y = dh - (dh * position.y);
 	}
 
+	/**
+	 * Table to screen.
+	 *
+	 * @param position the position
+	 */
 	public static void tableToScreen(Float position) {
 		int dh = DisplaySystem.getDisplaySystem().getRenderer().getHeight();
 		int dw = DisplaySystem.getDisplaySystem().getRenderer().getWidth();

@@ -41,20 +41,33 @@ import com.jme.scene.Spatial;
 import synergynetframework.jme.cursorsystem.cursordata.ScreenCursor;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 
+
 /**
+ * The Class IndependentChildOrthoCPRTS.
  *
  * @author dcs2ima
- *
  */
 public class IndependentChildOrthoCPRTS extends OrthoControlPointRotateTranslateScale{
 
 
+	/** The parent spatial. */
 	public Spatial parentSpatial;
 
+	/**
+	 * Instantiates a new independent child ortho cprts.
+	 *
+	 * @param pickingAndTargetSpatial the picking and target spatial
+	 */
 	public IndependentChildOrthoCPRTS(Spatial pickingAndTargetSpatial) {
 		this(pickingAndTargetSpatial, pickingAndTargetSpatial);
 	}
 
+	/**
+	 * Instantiates a new independent child ortho cprts.
+	 *
+	 * @param pickingSpatial the picking spatial
+	 * @param targetSpatial the target spatial
+	 */
 	public IndependentChildOrthoCPRTS(Spatial pickingSpatial, Spatial targetSpatial) {
 		super(pickingSpatial, pickingSpatial);
 		parentSpatial = targetSpatial;
@@ -62,12 +75,25 @@ public class IndependentChildOrthoCPRTS extends OrthoControlPointRotateTranslate
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale#cursorReleased(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorReleased(ScreenCursor c, MultiTouchCursorEvent event) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale#cursorClicked(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorClicked(ScreenCursor c, MultiTouchCursorEvent event) {}
 
+	/**
+	 * Gets the current element2 d coords for cursor.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @return the current element2 d coords for cursor
+	 */
 	private Vector2f getCurrentElement2DCoordsForCursor(float x, float y) {
 		Vector3f pos = new Vector3f(x, y,0);
 		Vector3f selectionLocal = new Vector3f();
@@ -75,6 +101,9 @@ public class IndependentChildOrthoCPRTS extends OrthoControlPointRotateTranslate
 		return new Vector2f(selectionLocal.x, selectionLocal.y);		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale#updateCursor1()
+	 */
 	@Override
 	protected void updateCursor1() {
 
@@ -90,6 +119,9 @@ public class IndependentChildOrthoCPRTS extends OrthoControlPointRotateTranslate
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale#updateCursor2()
+	 */
 	@Override
 	protected void updateCursor2() {
 
@@ -104,6 +136,13 @@ public class IndependentChildOrthoCPRTS extends OrthoControlPointRotateTranslate
 		cursor2OldPos.y = rotatedPosition.y;
 	}
 	
+	/**
+	 * Screen to table.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @return the vector2f
+	 */
 	private Vector2f screenToTable(float x, float y) {
 
 		if (targetSpatial.getParent()==null)

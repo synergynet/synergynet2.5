@@ -50,16 +50,33 @@ import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.jme.cursorsystem.elements.twod.OrthoBringToTop;
 
+
+/**
+ * The Class TableControllerWindow.
+ */
 public class TableControllerWindow extends MTFrame implements ControllerNetworkListener{
 	
+	/** The Constant windowWidth. */
 	public static final int windowWidth = 600;
+	
+	/** The Constant windowHeight. */
 	public static final int windowHeight = 380;
 	
+	/** The control panel. */
 	private TableListControlPanel controlPanel;
+	
+	/** The controller manager. */
 	private ControllerManager controllerManager;
 
+	/** The table list panel. */
 	public MTList tableListPanel;
 	
+	/**
+	 * Instantiates a new table controller window.
+	 *
+	 * @param contentSystem the content system
+	 * @param controllerManager the controller manager
+	 */
 	public TableControllerWindow(final ContentSystem contentSystem, final ControllerManager controllerManager){
 		super(contentSystem);
 		this.controllerManager = controllerManager;
@@ -85,43 +102,78 @@ public class TableControllerWindow extends MTFrame implements ControllerNetworkL
 		}
 	}
 
+	/**
+	 * Gets the table list.
+	 *
+	 * @return the table list
+	 */
 	public MTList getTableList() {
 		return tableListPanel;
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.util.MTFrame#close()
+	 */
 	@Override
 	public void close(){
 		if(controllerManager != null) controllerManager.removeNetworkListener(this);
 		super.close();
 	}
 	
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#projectorFound(synergynetframework.appsystem.services.net.localpresence.TableIdentity, boolean)
+	 */
 	@Override
 	public void projectorFound(TableIdentity tableId, boolean isLeaseSuccessful) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#remoteDesktopContentReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity, java.util.HashMap)
+	 */
 	@Override
 	public void remoteDesktopContentReceived(TableIdentity tableId,	HashMap<UserIdentity, MathToolInitSettings> items) {}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#resultsReceivedFromUser(synergynetframework.appsystem.services.net.localpresence.TableIdentity, apps.mathpadapp.networkmanager.utils.UserIdentity, apps.mathpadapp.controllerapp.assignmentcontroller.AssignmentInfo)
+	 */
 	@Override
 	public void resultsReceivedFromUser(TableIdentity tableId,	UserIdentity userId, AssignmentInfo assignInfo) {}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#syncDataReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity, java.util.HashMap)
+	 */
 	@Override
 	public void syncDataReceived(TableIdentity sender,	HashMap<UserIdentity, HashMap<Short, Object>> mathPadSyncData) {}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#userIdsReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity, java.util.List)
+	 */
 	@Override
 	public void userIdsReceived(TableIdentity tableId,	List<UserIdentity> userIds) {}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#userMathPadReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity, apps.mathpadapp.networkmanager.utils.UserIdentity, apps.mathpadapp.mathtool.MathToolInitSettings)
+	 */
 	@Override
 	public void userMathPadReceived(TableIdentity tableId, UserIdentity userId,	MathToolInitSettings mathToolSettings) {}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#userRegistrationReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity, apps.mathpadapp.networkmanager.utils.UserIdentity)
+	 */
 	@Override
 	public void userRegistrationReceived(TableIdentity tableId,	UserIdentity userId) {	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#userUnregistrationReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity, apps.mathpadapp.networkmanager.utils.UserIdentity)
+	 */
 	@Override
 	public void userUnregistrationReceived(TableIdentity tableId,	UserIdentity userId) {	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#tableIdReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity)
+	 */
 	@Override
 	public void tableIdReceived(TableIdentity tableId) {
 		if(!tableListPanel.getManager().getAllItems().contains(tableId)){

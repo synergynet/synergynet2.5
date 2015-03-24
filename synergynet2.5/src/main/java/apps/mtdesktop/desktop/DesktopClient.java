@@ -25,20 +25,57 @@ import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.config.logging.LoggingConfigPrefsItem;
 import synergynetframework.config.logging.LoggingConfigPrefsItem.LoggingLevel;
 
+
+/**
+ * The Class DesktopClient.
+ */
 public class DesktopClient extends DefaultSynergyNetApp{
 
-	public enum Position{NORTH, SOUTH, EAST, WEST};
+	/**
+	 * The Enum Position.
+	 */
+	public enum Position{/** The north. */
+NORTH, /** The south. */
+ SOUTH, /** The east. */
+ EAST, /** The west. */
+ WEST};
+	
+	/** The current position. */
 	public static Position currentPosition = Position.WEST;
 	
+	/** The File_ serve r_ url. */
 	public static String File_SERVER_URL;
-	public static enum ConnectionStatus{CONNECTED_TO_SERVER, SEARCHING_FOR_TABLE, CONNECTED_TO_TABLE, DISCONNECTED};
 	
+	/**
+	 * The Enum ConnectionStatus.
+	 */
+	public static enum ConnectionStatus{
+/** The connected to server. */
+CONNECTED_TO_SERVER, 
+ /** The searching for table. */
+ SEARCHING_FOR_TABLE, 
+ /** The connected to table. */
+ CONNECTED_TO_TABLE, 
+ /** The disconnected. */
+ DISCONNECTED};
+	
+	/** The table id. */
 	public static TableIdentity tableId;
 	
+	/** The desktop frame. */
 	protected DesktopFrame desktopFrame;
+	
+	/** The status. */
 	protected ConnectionStatus status = DesktopClient.ConnectionStatus.DISCONNECTED;
+	
+	/** The listeners. */
 	protected List<mtdesktopNetworkListener> listeners = new ArrayList<mtdesktopNetworkListener>();
 	
+	/**
+	 * Instantiates a new desktop client.
+	 *
+	 * @param info the info
+	 */
 	public DesktopClient(ApplicationInfo info) {
 		super(info);
 		Preferences root = Preferences.userRoot();
@@ -142,11 +179,21 @@ public class DesktopClient extends DefaultSynergyNetApp{
 		}).start();
 	}
 
+	/**
+	 * Adds the network listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void addNetworkListener(mtdesktopNetworkListener listener){
 		if(!listeners.contains(listener))
 			listeners.add(listener);
 	}
 	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String args[]){
 		ApplicationInfo info = null;
 		try {
@@ -158,23 +205,58 @@ public class DesktopClient extends DefaultSynergyNetApp{
 		new DesktopClient(info);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onActivate()
+	 */
 	@Override
 	public void onActivate() {
 
 	}
 	
+	/**
+	 * The listener interface for receiving mtdesktopNetwork events.
+	 * The class that is interested in processing a mtdesktopNetwork
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addmtdesktopNetworkListener<code> method. When
+	 * the mtdesktopNetwork event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see mtdesktopNetworkEvent
+	 */
 	public interface mtdesktopNetworkListener{
+		
+		/**
+		 * Connection update.
+		 *
+		 * @param status the status
+		 */
 		public void connectionUpdate(ConnectionStatus status);
+		
+		/**
+		 * Table connected.
+		 *
+		 * @param TableId the table id
+		 */
 		public void tableConnected(TableIdentity TableId);
 	}
 	
+	/**
+	 * The Class SearchForTableThread.
+	 */
 	class SearchForTableThread implements Runnable{
 		
+		/* (non-Javadoc)
+		 * @see java.lang.Runnable#run()
+		 */
 		@Override
 		public void run() {
 			synchronized(DesktopClient.this){

@@ -46,21 +46,51 @@ import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
 import com.jmex.awt.swingui.ImageGraphics;
 
+
+/**
+ * The Class GraphicsImageDisc.
+ */
 public class GraphicsImageDisc extends Disk {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 64623554610677568L;
 	
+	/** The graphics. */
 	protected ImageGraphics graphics;
+	
+	/** The ts. */
 	protected TextureState ts;
+	
+	/** The texture. */
 	protected Texture texture;
+	
+	/** The radius. */
 	protected float radius;
+	
+	/** The concentric circles. */
 	protected int concentricCircles;
+	
+	/** The radial divisions. */
 	protected int radialDivisions;
 
+	/**
+	 * Instantiates a new graphics image disc.
+	 *
+	 * @param name the name
+	 * @param radius the radius
+	 */
 	public GraphicsImageDisc(String name, float radius) {
 		this(name, 16,32, radius);
 	}
 	
+	/**
+	 * Instantiates a new graphics image disc.
+	 *
+	 * @param name the name
+	 * @param concentricCircles the concentric circles
+	 * @param radialDivisions the radial divisions
+	 * @param radius the radius
+	 */
 	public GraphicsImageDisc(String name, int concentricCircles, int radialDivisions, float radius) {
 		super(name, concentricCircles, radialDivisions, radius);
 		updateGeometry(concentricCircles, radialDivisions, radius);
@@ -70,6 +100,9 @@ public class GraphicsImageDisc extends Disk {
 		init();
 	}
 
+	/**
+	 * Inits the.
+	 */
 	private void init() {
 		recreateImageForSize(this.radius);
 			
@@ -86,6 +119,11 @@ public class GraphicsImageDisc extends Disk {
 	
 	}
 	
+	/**
+	 * Recreate image for size.
+	 *
+	 * @param radius the radius
+	 */
 	public void recreateImageForSize(float radius) {
 		ts = DisplaySystem.getDisplaySystem().getRenderer().createTextureState();
 		ts.setCorrectionType(TextureState.CorrectionType.Perspective);		
@@ -110,21 +148,37 @@ public class GraphicsImageDisc extends Disk {
 		updateRenderState();
 	}
 	
+	/**
+	 * Gets the image graphics.
+	 *
+	 * @return the image graphics
+	 */
 	public ImageGraphics getImageGraphics() {
 		return graphics;
 	}
 
 	
+	/**
+	 * Update graphics.
+	 */
 	public void updateGraphics() {
 		if(graphics != null) {
 			graphics.update(texture, false);
 		}
 	}
 	
+	/**
+	 * Update geometry.
+	 *
+	 * @param r the r
+	 */
 	public void updateGeometry(float r){
 		this.updateGeometry(this.concentricCircles, this.radialDivisions, r);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.jme.scene.TriMesh#draw(com.jme.renderer.Renderer)
+	 */
 	public void draw( Renderer r ) {
 		if ( graphics.isDirty()) {
 			if ( graphics != null ) {
@@ -134,6 +188,11 @@ public class GraphicsImageDisc extends Disk {
 		super.draw( r );
 	}	
 	
+	/**
+	 * Enable anti alias.
+	 *
+	 * @param graphics the graphics
+	 */
 	private void enableAntiAlias( Graphics2D graphics ) {
 		RenderingHints hints = graphics.getRenderingHints();
 		if ( hints == null ) {
@@ -145,6 +204,9 @@ public class GraphicsImageDisc extends Disk {
 		graphics.setRenderingHints( hints );
 	}
 
+	/* (non-Javadoc)
+	 * @see com.jme.scene.shape.Disk#getRadius()
+	 */
 	public float getRadius() {
 		return radius;
 	}

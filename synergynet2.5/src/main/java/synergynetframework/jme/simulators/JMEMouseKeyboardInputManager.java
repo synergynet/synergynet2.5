@@ -40,18 +40,37 @@ import com.jme.input.KeyInput;
 import com.jme.input.KeyInputListener;
 import com.jme.input.MouseInputListener;
 
+
+/**
+ * The Class JMEMouseKeyboardInputManager.
+ */
 public class JMEMouseKeyboardInputManager implements MouseInputListener, KeyInputListener {
 
+	/** The simulator. */
 	protected AbstractMultiTouchSimulator simulator;
+	
+	/** The buttons. */
 	protected boolean[] buttons = new boolean[5];
+	
+	/** The height. */
 	private int height;
 
+	/**
+	 * Instantiates a new JME mouse keyboard input manager.
+	 *
+	 * @param simulator the simulator
+	 * @param width the width
+	 * @param height the height
+	 */
 	public JMEMouseKeyboardInputManager(AbstractMultiTouchSimulator simulator, int width, int height) {		
 		this.height = height;
 		this.simulator = simulator;
 		for(int i = 0; i < buttons.length; i++) buttons[i] = false; 	
 	}
 
+	/* (non-Javadoc)
+	 * @see com.jme.input.MouseInputListener#onButton(int, boolean, int, int)
+	 */
 	public void onButton(int button, boolean pressed, int x, int y) {
 		int btn = getSimButtonForJMEButton(button);
 		buttons[btn] = pressed;
@@ -62,10 +81,19 @@ public class JMEMouseKeyboardInputManager implements MouseInputListener, KeyInpu
 		}		
 	}
 
+	/**
+	 * Invert.
+	 *
+	 * @param y the y
+	 * @return the int
+	 */
 	private int invert(int y) {
 		return height - y;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.jme.input.MouseInputListener#onMove(int, int, int, int)
+	 */
 	public void onMove(int delta, int delta2, int newX, int newY) {
 		if(noButtonsPressed()) {
 			simulator.mouseMoved(newX, invert(newY));	
@@ -81,6 +109,11 @@ public class JMEMouseKeyboardInputManager implements MouseInputListener, KeyInpu
 	}
 
 
+	/**
+	 * No buttons pressed.
+	 *
+	 * @return true, if successful
+	 */
 	private boolean noButtonsPressed() {
 		boolean result = false;
 		for(int i = 0; i < buttons.length; i++) {
@@ -90,6 +123,9 @@ public class JMEMouseKeyboardInputManager implements MouseInputListener, KeyInpu
 		return !result;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.jme.input.KeyInputListener#onKey(char, int, boolean)
+	 */
 	public void onKey(char character, int keyCode, boolean pressed) {
 		if(pressed) {
 			if(shiftKeysPressed(keyCode)) {
@@ -111,8 +147,17 @@ public class JMEMouseKeyboardInputManager implements MouseInputListener, KeyInpu
 	}
 
 	//unneeded
+	/* (non-Javadoc)
+	 * @see com.jme.input.MouseInputListener#onWheel(int, int, int)
+	 */
 	public void onWheel(int wheelDelta, int x, int y) {}
 
+	/**
+	 * Gets the sim button for jme button.
+	 *
+	 * @param button the button
+	 * @return the sim button for jme button
+	 */
 	private int getSimButtonForJMEButton(int button) {
 		switch(button) {
 		case 0: {
@@ -133,14 +178,32 @@ public class JMEMouseKeyboardInputManager implements MouseInputListener, KeyInpu
 		}
 	}
 	
+	/**
+	 * Space key pressed.
+	 *
+	 * @param keyCode the key code
+	 * @return true, if successful
+	 */
 	private boolean spaceKeyPressed(int keyCode) {
 		return keyCode == KeyInput.KEY_SPACE;
 	}
 
+	/**
+	 * Control keys pressed.
+	 *
+	 * @param keyCode the key code
+	 * @return true, if successful
+	 */
 	private boolean controlKeysPressed(int keyCode) {
 		return keyCode == KeyInput.KEY_LCONTROL || keyCode == KeyInput.KEY_RCONTROL;
 	}
 
+	/**
+	 * Shift keys pressed.
+	 *
+	 * @param keyCode the key code
+	 * @return true, if successful
+	 */
 	private boolean shiftKeysPressed(int keyCode) {
 		return keyCode == KeyInput.KEY_LSHIFT || keyCode == KeyInput.KEY_RSHIFT;
 	}

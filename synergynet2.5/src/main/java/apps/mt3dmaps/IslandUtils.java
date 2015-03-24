@@ -55,10 +55,20 @@ import com.jme.util.TextureManager;
 import com.jmex.terrain.TerrainPage;
 import com.jmex.terrain.util.ImageBasedHeightMap;
 
+
+/**
+ * The Class IslandUtils.
+ */
 public class IslandUtils {
 	
+	/** The Constant resourcePath. */
 	private static final String resourcePath = "";
 	
+	/**
+	 * Creates the sky box.
+	 *
+	 * @return the skybox
+	 */
 	public static Skybox createSkyBox() {
 		Skybox skybox = new Skybox("skybox", 10, 10, 10);
 
@@ -119,6 +129,11 @@ public class IslandUtils {
 		return skybox;
 	}
 	
+	/**
+	 * Creates the splat terrain.
+	 *
+	 * @return the spatial
+	 */
 	public static Spatial createSplatTerrain() {
 //		RawHeightMap heightMap = new RawHeightMap(TestIsland.class
 //				.getResource(resourcePath + "test.raw"), 512, RawHeightMap.FORMAT_16BITLE, false);
@@ -204,6 +219,11 @@ public class IslandUtils {
 
 	}
 	
+	/**
+	 * Creates the reflection terrain.
+	 *
+	 * @return the spatial
+	 */
 	public static Spatial createReflectionTerrain() {
 //		RawHeightMap heightMap = new RawHeightMap(TestIsland.class
 //				.getResource(
@@ -251,6 +271,11 @@ public class IslandUtils {
 		return splattingPassNode;
 	}
 	
+	/**
+	 * Inits the spatial.
+	 *
+	 * @param spatial the spatial
+	 */
 	private static void initSpatial(Spatial spatial) {
 		ZBufferState buf = DisplaySystem.getDisplaySystem().getRenderer().createZBufferState();
 		buf.setEnabled(true);
@@ -267,8 +292,16 @@ public class IslandUtils {
 		spatial.updateRenderState();
 	}
 	
+	/** The global splat scale. */
 	private static float globalSplatScale = 90.0f;
 
+	/**
+	 * Creates the splat texture state.
+	 *
+	 * @param texture the texture
+	 * @param alpha the alpha
+	 * @return the texture state
+	 */
 	private static TextureState createSplatTextureState(String texture, String alpha) {
 		TextureState ts = DisplaySystem.getDisplaySystem().getRenderer().createTextureState();
 
@@ -288,6 +321,12 @@ public class IslandUtils {
 		return ts;
 	}
 	
+	/**
+	 * Adds the alpha splat.
+	 *
+	 * @param ts the ts
+	 * @param alpha the alpha
+	 */
 	private static void addAlphaSplat(TextureState ts, String alpha) {
 		Texture t1 = TextureManager.loadTexture(IslandUtils.class
 				.getResource(alpha),
@@ -302,6 +341,12 @@ public class IslandUtils {
 		ts.setTexture(t1, ts.getNumberOfSetTextures());
 	}
 
+	/**
+	 * Creates the lightmap texture state.
+	 *
+	 * @param texture the texture
+	 * @return the texture state
+	 */
 	private static TextureState createLightmapTextureState(String texture) {
 		TextureState ts = DisplaySystem.getDisplaySystem().getRenderer().createTextureState();
 

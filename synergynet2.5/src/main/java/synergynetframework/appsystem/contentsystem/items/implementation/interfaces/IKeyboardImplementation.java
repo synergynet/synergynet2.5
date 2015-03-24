@@ -37,11 +37,53 @@ import java.util.List;
 
 import synergynetframework.jme.gfx.twod.keyboard.Key;
 
+
+/**
+ * The Interface IKeyboardImplementation.
+ */
 public interface IKeyboardImplementation extends IQuadContentItemImplementation {
+	
+	/**
+	 * Sets the keyboard image resource.
+	 *
+	 * @param keyboardImageResource the new keyboard image resource
+	 */
 	public void setKeyboardImageResource(URL keyboardImageResource);
+	
+	/**
+	 * Sets the key definitions.
+	 *
+	 * @param keyDefinitions the new key definitions
+	 */
 	public void setKeyDefinitions(List<Key> keyDefinitions);
+	
+	/**
+	 * Checks if is key pressed.
+	 *
+	 * @param vk the vk
+	 * @return true, if is key pressed
+	 */
 	public boolean isKeyPressed(int vk);
+	
+	/**
+	 * Gets the current keys pressed.
+	 *
+	 * @return the current keys pressed
+	 */
 	public ArrayList<Key> getCurrentKeysPressed();
+	
+	/**
+	 * Sets the pixels per unit.
+	 *
+	 * @param pixelsPerUnit the new pixels per unit
+	 */
 	public void setPixelsPerUnit(float pixelsPerUnit);
+	
+	/**
+	 * Sets the rotate translate scalable.
+	 *
+	 * @param isEnabled the is enabled
+	 * @param overRide the over ride
+	 */
 	public void setRotateTranslateScalable(boolean isEnabled, boolean overRide);
 }

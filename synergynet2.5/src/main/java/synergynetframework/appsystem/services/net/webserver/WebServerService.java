@@ -20,28 +20,53 @@ import synergynetframework.appsystem.services.net.landiscovery.ServiceDescriptor
 import synergynetframework.appsystem.services.net.netservicediscovery.NetworkServiceDiscoveryService;
 import synergynetframework.config.server.ServerConfigPrefsItem;
 
+
+/**
+ * The Class WebServerService.
+ */
 public class WebServerService extends SynergyNetService {
 
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(WebServerService.class.getName());
 	
+	/** The Constant SERVICE_TYPE. */
 	public static final String SERVICE_TYPE = "SynergyNet";
+	
+	/** The Constant SERVICE_NAME. */
 	public static final String SERVICE_NAME = "webserver";
+	
+	/** The server. */
 	private Server server;
+	
+	/** The directory. */
 	private String directory;
+	
+	/** The resource_handler. */
 	private ResourceHandler resource_handler = new ResourceHandler();
+	
+	/** The port. */
 	private int port;
 
+	/**
+	 * Instantiates a new web server service.
+	 */
 	public WebServerService() {
 		ServerConfigPrefsItem serverConfig = new ServerConfigPrefsItem();
 		this.directory = serverConfig.getWebDirectory();
 		this.port = serverConfig.getPort();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#hasStarted()
+	 */
 	@Override
 	public boolean hasStarted() {
 		return server.isRunning();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#shutdown()
+	 */
 	@Override
 	public void shutdown() {
 		try {
@@ -51,6 +76,9 @@ public class WebServerService extends SynergyNetService {
 		}		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#start()
+	 */
 	@Override
 	public void start() throws CouldNotStartServiceException {
         server = new Server();
@@ -76,6 +104,11 @@ public class WebServerService extends SynergyNetService {
 		}		
 	}
 	
+	/**
+	 * Advertise service.
+	 *
+	 * @throws CouldNotStartServiceException the could not start service exception
+	 */
 	private void advertiseService() throws CouldNotStartServiceException {
 		NetworkServiceDiscoveryService nsds = (NetworkServiceDiscoveryService) ServiceManager.getInstance().get(NetworkServiceDiscoveryService.class);				
 		ServiceAnnounceSystem sa = nsds.getServiceAnnouncer();
@@ -93,6 +126,9 @@ public class WebServerService extends SynergyNetService {
 		log.info("WebServerService advertised.");
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#stop()
+	 */
 	@Override
 	public void stop() throws ServiceNotRunningException {
 		try {
@@ -103,6 +139,9 @@ public class WebServerService extends SynergyNetService {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#update()
+	 */
 	@Override
 	public void update() {}
 

@@ -1,13 +1,31 @@
 package apps.lightrays.raytracer.scene.geometry;
 
+
+/**
+ * The Class Roots.
+ */
 public class Roots {
+	
+	/** The num. */
 	public int num;
     
+    /** The r0. */
     public double r0;
+    
+    /** The r1. */
     public double r1;
+    
+    /** The r2. */
     public double r2;
+    
+    /** The r3. */
     public double r3;
     
+    /**
+     * Gets the max root.
+     *
+     * @return the max root
+     */
     public double getMaxRoot() {
         if( num == 0 ) return Double.NaN;
         
@@ -18,6 +36,12 @@ public class Roots {
         return r;    	
     }
     
+    /**
+     * Gets the min positive root.
+     *
+     * @param r the r
+     * @return the min positive root
+     */
     public double getMinPositiveRoot(double r) {
         boolean okay = false;
         

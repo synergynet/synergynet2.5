@@ -20,8 +20,21 @@ import com.jme.math.Vector3f;
 import com.jme.scene.Node;
 import com.jme.scene.Spatial;
 
+
+/**
+ * The Class ManipulatableObjectBuilder.
+ */
 public class ManipulatableObjectBuilder {
 	
+	/**
+	 * Builds the manipulated object.
+	 *
+	 * @param context the context
+	 * @param object the object
+	 * @param clonedObject the cloned object
+	 * @param isOneFingerMove the is one finger move
+	 * @param isManipulatedOjbectNode the is manipulated ojbect node
+	 */
 	public static void buildManipulatedObject(final Context context, final Spatial object, final Spatial clonedObject, boolean isOneFingerMove, boolean isManipulatedOjbectNode){
 						
 		final Map<String, TouchPad> touchPads = context.getTouchPads();;

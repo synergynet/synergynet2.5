@@ -13,15 +13,39 @@ import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
 import com.jme.util.TextureManager;
 
+
+/**
+ * The Class Background.
+ */
 public class Background extends Node{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -7253106690333705792L;
 	
+	/** The name. */
 	protected String name;
+	
+	/** The height. */
 	protected float length, width,height;
+	
+	/** The wall texture. */
 	protected URL floorTexture, wallTexture;
+	
+	/** The wall texture scale. */
 	protected Vector3f floorTextureScale, wallTextureScale;
 	
+	/**
+	 * Instantiates a new background.
+	 *
+	 * @param name the name
+	 * @param length the length
+	 * @param width the width
+	 * @param height the height
+	 * @param floorTexture the floor texture
+	 * @param floorTextureScale the floor texture scale
+	 * @param wallTexture the wall texture
+	 * @param wallTextureScale the wall texture scale
+	 */
 	public Background(String name, float length, float width, float height,
 			URL floorTexture, Vector3f floorTextureScale, URL wallTexture, Vector3f wallTextureScale) {
 		super();
@@ -39,6 +63,9 @@ public class Background extends Node{
 		
 	}
 	
+	/**
+	 * Builds the floor.
+	 */
 	private void buildFloor(){
 		Vector3f min = new Vector3f(-width/2, -1, -length/2);
 		Vector3f max = new Vector3f(width/2, 1, length/2);
@@ -66,6 +93,14 @@ public class Background extends Node{
 				
 	}
 	
+	/**
+	 * Builds the wall.
+	 *
+	 * @param floorCenter the floor center
+	 * @param floorWidth the floor width
+	 * @param floorLength the floor length
+	 * @param wallHeight the wall height
+	 */
 	@SuppressWarnings("unused")
 	private void buildWall(float floorCenter, float floorWidth, float floorLength, float wallHeight){	
 		Vector3f min = new Vector3f(-floorWidth/2, -wallHeight/2, -1);

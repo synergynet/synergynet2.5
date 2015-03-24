@@ -35,16 +35,34 @@ package apps.mathpadapp.networkmanager.messages.fromcontroller.broadcast;
 import apps.mathpadapp.controllerapp.assignmentbuilder.Assignment;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class BroadcastMathAssignmentMessage.
+ */
 public class BroadcastMathAssignmentMessage extends BroadcastApplicationMessage {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -546555344864227474L;
+	
+	/** The assignment. */
 	private Assignment assignment;
 
+	/**
+	 * Instantiates a new broadcast math assignment message.
+	 *
+	 * @param targetClass the target class
+	 * @param assignment the assignment
+	 */
 	public BroadcastMathAssignmentMessage(Class<?> targetClass, Assignment assignment) {
 		super(targetClass);
 		this.assignment = assignment;
 	}
 
+	/**
+	 * Gets the assignment.
+	 *
+	 * @return the assignment
+	 */
 	public Assignment getAssignment() {
 		return assignment;
 	}

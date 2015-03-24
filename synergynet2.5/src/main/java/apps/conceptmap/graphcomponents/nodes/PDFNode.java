@@ -39,11 +39,24 @@ import synergynetframework.appsystem.contentsystem.items.PDFViewer;
 import synergynetframework.appsystem.contentsystem.items.SimpleButton;
 import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAdapter;
 
+
+/**
+ * The Class PDFNode.
+ */
 public class PDFNode extends DocNode{
 
+	/** The pdf. */
 	protected PDFViewer pdf;
+	
+	/** The previous page. */
 	protected SimpleButton nextPage, previousPage;
 	
+	/**
+	 * Instantiates a new PDF node.
+	 *
+	 * @param contentSystem the content system
+	 * @param gManager the g manager
+	 */
 	public PDFNode(ContentSystem contentSystem, GraphManager gManager) {
 		super(contentSystem, gManager);
 		pdf = (PDFViewer)this.contentSystem.createContentItem(PDFViewer.class);
@@ -74,24 +87,49 @@ public class PDFNode extends DocNode{
 		});
 	}
 	
+	/**
+	 * Sets the next page button location.
+	 *
+	 * @param location the new next page button location
+	 */
 	public void setNextPageButtonLocation(String location){
 		if(location != null)
 			this.positionButton(nextPage, pdf, location);
 	}
 	
+	/**
+	 * Sets the previous page button location.
+	 *
+	 * @param location the new previous page button location
+	 */
 	public void setPreviousPageButtonLocation(String location){
 		if(location != null)
 			this.positionButton(previousPage, pdf, location);
 	}
 	
+	/**
+	 * Gets the next page button.
+	 *
+	 * @return the next page button
+	 */
 	public SimpleButton getNextPageButton(){
 		return nextPage;
 	}
 	
+	/**
+	 * Gets the previous page button.
+	 *
+	 * @return the previous page button
+	 */
 	public SimpleButton getPreviousPageButton(){
 		return previousPage;
 	}
 	
+	/**
+	 * Gets the pdf viewer.
+	 *
+	 * @return the pdf viewer
+	 */
 	public PDFViewer getPdfViewer(){
 		return pdf;
 	}

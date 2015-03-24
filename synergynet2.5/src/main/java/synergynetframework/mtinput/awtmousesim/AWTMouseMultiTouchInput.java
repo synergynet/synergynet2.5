@@ -44,16 +44,28 @@ import synergynetframework.mtinput.IMultiTouchInputSource;
 import synergynetframework.mtinput.simulator.AbstractDirectMultiTouchSimulator;
 import synergynetframework.mtinput.simulator.AbstractSimCursor;
 
+
 /**
- * 
- * @author dcs0ah1
+ * The Class AWTMouseMultiTouchInput.
  *
+ * @author dcs0ah1
  */
 public class AWTMouseMultiTouchInput extends AbstractDirectMultiTouchSimulator implements IMultiTouchInputSource, MouseListener, MouseMotionListener, KeyListener {
+	
+	/** The frame. */
 	protected JFrame frame;
+	
+	/** The width. */
 	protected int width;
+	
+	/** The height. */
 	protected int height;
 
+	/**
+	 * Instantiates a new AWT mouse multi touch input.
+	 *
+	 * @param frame the frame
+	 */
 	public AWTMouseMultiTouchInput(JFrame frame) {
 		super(frame.getWidth(), frame.getHeight());
 		this.frame = frame;
@@ -61,41 +73,72 @@ public class AWTMouseMultiTouchInput extends AbstractDirectMultiTouchSimulator i
 		this.height = frame.getHeight();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.simulator.AbstractMultiTouchSimulator#start()
+	 */
 	public void start() {
 		frame.addMouseListener(this);
 		frame.addMouseMotionListener(this);
 		frame.addKeyListener(this);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.simulator.AbstractMultiTouchSimulator#stop()
+	 */
 	public void stop() {
 		frame.removeMouseListener(this);
 		frame.removeMouseListener(this);
 		frame.removeKeyListener(this);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
+	 */
 	public void mousePressed(MouseEvent e) {
 		super.mousePressed(e.getX(), e.getY(), getAbstractSimCursorMouseButton(e));
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseListener#mouseReleased(java.awt.event.MouseEvent)
+	 */
 	public void mouseReleased(MouseEvent e) {
 		super.mouseReleased(e.getX(), e.getY(), getAbstractSimCursorMouseButton(e));
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseMotionListener#mouseDragged(java.awt.event.MouseEvent)
+	 */
 	public void mouseDragged(MouseEvent e) {
 		super.mouseDragged(e.getX(), e.getY(), getAbstractSimCursorMouseButton(e));	
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseMotionListener#mouseMoved(java.awt.event.MouseEvent)
+	 */
 	public void mouseMoved(MouseEvent e) {
 		super.mouseMoved(e.getX(), e.getY());
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
+	 */
 	public void mouseClicked(MouseEvent e) {
 		// do something here?
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
+	 */
 	public void mouseEntered(MouseEvent e) {}
+	
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseListener#mouseExited(java.awt.event.MouseEvent)
+	 */
 	public void mouseExited(MouseEvent e) {}
 	
+	/* (non-Javadoc)
+	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
+	 */
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_SHIFT)
 			super.keyPressed(AbstractSimCursor.KEY_SHIFT);
@@ -105,6 +148,9 @@ public class AWTMouseMultiTouchInput extends AbstractDirectMultiTouchSimulator i
 			super.keyPressed(AbstractSimCursor.KEY_SPACE);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
+	 */
 	public void keyReleased(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_SHIFT)
 			super.keyReleased(AbstractSimCursor.KEY_SHIFT);
@@ -114,8 +160,17 @@ public class AWTMouseMultiTouchInput extends AbstractDirectMultiTouchSimulator i
 			super.keyReleased(AbstractSimCursor.KEY_SPACE);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
+	 */
 	public void keyTyped(KeyEvent e) {}
 	
+	/**
+	 * Gets the abstract sim cursor mouse button.
+	 *
+	 * @param evt the evt
+	 * @return the abstract sim cursor mouse button
+	 */
 	public int getAbstractSimCursorMouseButton(MouseEvent evt) {
 		int button = AbstractSimCursor.MOUSE_BUTTON_LEFT;
 		if(evt.getButton() == MouseEvent.BUTTON1) {
@@ -131,6 +186,9 @@ public class AWTMouseMultiTouchInput extends AbstractDirectMultiTouchSimulator i
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchInputSource#update(float)
+	 */
 	public void update(float tpf) {}
 
 

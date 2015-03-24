@@ -43,6 +43,7 @@ import com.jme.scene.TexCoords;
 import com.jme.scene.TriMesh;
 import com.jme.util.geom.BufferUtils;
 
+
 /**
  * <code>Grid</code> defines a four sided, two dimensional  rectangular shape. 
  * The local height of the <code>Quad</code> defines it's size about the y-axis, while
@@ -55,9 +56,13 @@ import com.jme.util.geom.BufferUtils;
  */
 public class Grid extends TriMesh {
 
+	/** The x quads. */
 	protected int xQuads;
+	
+	/** The y quads. */
 	int yQuads;
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -177,15 +182,12 @@ public class Grid extends TriMesh {
 	}
 
 	/**
-	 * Move a point within the grid
-	 * @param xIndex
-	 * 		The x index of the point, from 0 to xQuads
-	 * @param yIndex
-	 * 		The y index of the point, from 0 to yQuads
-	 * @param x
-	 * 		The new x coordinate of the point
-	 * @param y
-	 * 		The new y coordinate of the point
+	 * Move a point within the grid.
+	 *
+	 * @param xIndex 		The x index of the point, from 0 to xQuads
+	 * @param yIndex 		The y index of the point, from 0 to yQuads
+	 * @param x 		The new x coordinate of the point
+	 * @param y 		The new y coordinate of the point
 	 */
 	public void movePoint(int xIndex, int yIndex, float x, float y) {
 		getVertexBuffer().position((xIndex + yIndex * (xQuads + 1)) * 3);
@@ -193,15 +195,12 @@ public class Grid extends TriMesh {
 	}
 	
 	/**
-	 * Move the texture coord of a point within the grid
-	 * @param xIndex
-	 * 		The x index of the point, from 0 to xQuads
-	 * @param yIndex
-	 * 		The y index of the point, from 0 to yQuads
-	 * @param x
-	 * 		The new texture x coordinate of the point
-	 * @param y
-	 * 		The new texture y coordinate of the point
+	 * Move the texture coord of a point within the grid.
+	 *
+	 * @param xIndex 		The x index of the point, from 0 to xQuads
+	 * @param yIndex 		The y index of the point, from 0 to yQuads
+	 * @param x 		The new texture x coordinate of the point
+	 * @param y 		The new texture y coordinate of the point
 	 */
 	public void moveUV(int xIndex, int yIndex, float x, float y) {
 		//todo: fix moveUV

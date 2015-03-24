@@ -64,21 +64,41 @@ import synergynetframework.jme.cursorsystem.elements.threed.MultiTouchRotateXYCo
 import synergynetframework.jme.cursorsystem.flicksystem.FlickSystem;
 import synergynetframework.jme.sysutils.CameraUtility;
 
+
+/**
+ * The Class TeapotsApp.
+ */
 public class TeapotsApp extends DefaultSynergyNetApp {
 
-	  private Node monitorNode;
-	  private CameraNode camNode;
+	  /** The monitor node. */
+  	private Node monitorNode;
+	  
+  	/** The cam node. */
+  	private CameraNode camNode;
 
-	  private TextureRenderer tRenderer;
-	  private Texture2D fakeTex;
-	  private float lastRend = 1;
-	  private float throttle = 1/30f;
+	  /** The t renderer. */
+  	private TextureRenderer tRenderer;
+	  
+  	/** The fake tex. */
+  	private Texture2D fakeTex;
+	  
+  	/** The last rend. */
+  	private float lastRend = 1;
+	  
+  	/** The throttle. */
+  	private float throttle = 1/30f;
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#cleanup()
+	 */
 	public void cleanup() {
 		super.cleanup();
 		tRenderer.cleanup();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#stateRender(float)
+	 */
 	@Override
 	protected void stateRender(float tpf) {
 		super.stateRender(tpf);
@@ -89,10 +109,18 @@ public class TeapotsApp extends DefaultSynergyNetApp {
 		    }
 		  }
 	
+	/**
+	 * Instantiates a new teapots app.
+	 *
+	 * @param info the info
+	 */
 	public TeapotsApp(ApplicationInfo info) {
 		super(info);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		setMenuController(new HoldTopRightExit());
@@ -198,11 +226,17 @@ public class TeapotsApp extends DefaultSynergyNetApp {
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	public void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);
 		FlickSystem.getInstance().update(tpf);
 	}
 
+	/**
+	 * Setup lighting.
+	 */
 	protected void setupLighting() {
 		LightState lightState = DisplaySystem.getDisplaySystem().getRenderer().createLightState();
 		worldNode.setRenderState(lightState);
@@ -225,6 +259,9 @@ public class TeapotsApp extends DefaultSynergyNetApp {
 		worldNode.updateRenderState();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#getCamera()
+	 */
 	protected Camera getCamera() {
 		if(cam == null) {
 			cam = CameraUtility.getCamera();

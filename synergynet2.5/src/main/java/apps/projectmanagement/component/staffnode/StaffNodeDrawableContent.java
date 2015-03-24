@@ -8,16 +8,40 @@ import com.jmex.awt.swingui.ImageGraphics;
 
 import synergynetframework.appsystem.contentsystem.items.utils.IDrawableContent;
 
+
+/**
+ * The Class StaffNodeDrawableContent.
+ */
 public class StaffNodeDrawableContent implements IDrawableContent{
 
+	/** The name. */
 	String name;
+	
+	/** The position. */
 	String position;
+	
+	/** The work experience. */
 	String workExperience;
+	
+	/** The salary. */
 	String salary;
+	
+	/** The notes. */
 	List<String> notes;
+	
+	/** The width. */
 	int width = 150;
+	
+	/** The heigth. */
 	int heigth = 150;
 	
+	/**
+	 * Instantiates a new staff node drawable content.
+	 *
+	 * @param staffModel the staff model
+	 * @param width the width
+	 * @param height the height
+	 */
 	public StaffNodeDrawableContent(StaffModel staffModel, int width, int height) {
 		super();
 		this.name = staffModel.getName();
@@ -29,6 +53,9 @@ public class StaffNodeDrawableContent implements IDrawableContent{
 		this.heigth = height;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.utils.IDrawableContent#drawContent(java.lang.Object)
+	 */
 	@Override
 	public void drawContent(Object drawingHandle) {
 		

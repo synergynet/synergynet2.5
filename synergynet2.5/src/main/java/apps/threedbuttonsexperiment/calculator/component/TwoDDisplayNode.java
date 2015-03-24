@@ -15,16 +15,40 @@ import com.jme.scene.shape.Quad;
 import com.jme.scene.shape.RoundedBox;
 import com.jmex.awt.swingui.ImageGraphics;
 
+
+/**
+ * The Class TwoDDisplayNode.
+ */
 public class TwoDDisplayNode {
 
+	/** The length. */
 	protected float width = 1, length = 1;
+	
+	/** The texture url. */
 	protected URL textureURL;
+	
+	/** The text texture url. */
 	protected URL textTextureURL;
+	
+	/** The rb. */
 	protected RoundedBox rb;
+	
+	/** The quad. */
 	protected GraphicsImageQuad quad;
+	
+	/** The gfx. */
 	protected ImageGraphics gfx;
+	
+	/** The name. */
 	protected String name;
 	
+	/**
+	 * Instantiates a new two d display node.
+	 *
+	 * @param name the name
+	 * @param width the width
+	 * @param length the length
+	 */
 	public TwoDDisplayNode(String name, float width, float length){
 		this.name = name;
 		this.width = width;
@@ -32,6 +56,9 @@ public class TwoDDisplayNode {
 		init();		
 	}
 
+	/**
+	 * Inits the.
+	 */
 	protected void init(){
 					
 		render("");	
@@ -39,6 +66,11 @@ public class TwoDDisplayNode {
 	}
 	
 	
+	/**
+	 * Render.
+	 *
+	 * @param text the text
+	 */
 	protected void render(String text){
 		
 		if (quad!=null && quad.getParent()!=null){
@@ -72,16 +104,32 @@ public class TwoDDisplayNode {
 		quad.updateGraphics();
 	}
 	
+	/**
+	 * Sets the text.
+	 *
+	 * @param text the new text
+	 */
 	public void setText(String text){
 		Vector3f location = quad.getLocalTranslation();
 		render(text);
 		quad.setLocalTranslation(location);
 	}
 	
+	/**
+	 * Gets the display quad.
+	 *
+	 * @return the display quad
+	 */
 	public Quad getDisplayQuad(){
 		return quad;
 	}
 	
+	/**
+	 * Sets the local location.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 */
 	public void setLocalLocation(float x, float y){
 		quad.setLocalTranslation(x, y, quad.getLocalTranslation().z);
 	}

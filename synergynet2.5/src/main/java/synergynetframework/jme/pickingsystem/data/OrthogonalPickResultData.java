@@ -36,20 +36,45 @@ import com.jme.math.Vector2f;
 import com.jme.math.Vector3f;
 import com.jme.scene.Spatial;
 
+
+/**
+ * The Class OrthogonalPickResultData.
+ */
 public class OrthogonalPickResultData extends PickResultData {
+	
+	/** The cursor screen position at pick. */
 	protected Vector2f cursorScreenPositionAtPick;
+	
+	/** The spatial position at pick. */
 	private Vector3f spatialPositionAtPick;
 
+	/**
+	 * Instantiates a new orthogonal pick result data.
+	 *
+	 * @param originatingCursorID the originating cursor id
+	 * @param cursorScreenPositionAtPick the cursor screen position at pick
+	 * @param pickedSpatial the picked spatial
+	 */
 	public OrthogonalPickResultData(long originatingCursorID, Vector2f cursorScreenPositionAtPick, Spatial pickedSpatial) {
 		super(originatingCursorID, pickedSpatial);
 		this.cursorScreenPositionAtPick = cursorScreenPositionAtPick;
 		this.spatialPositionAtPick = pickedSpatial.getWorldTranslation().clone();
 	}
 
+	/**
+	 * Gets the cursor screen position at pick.
+	 *
+	 * @return the cursor screen position at pick
+	 */
 	public Vector2f getCursorScreenPositionAtPick() {
 		return cursorScreenPositionAtPick;
 	}
 
+	/**
+	 * Gets the spatial world position at pick.
+	 *
+	 * @return the spatial world position at pick
+	 */
 	public Vector3f getSpatialWorldPositionAtPick() {
 		return spatialPositionAtPick;
 	}

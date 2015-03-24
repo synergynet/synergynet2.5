@@ -34,10 +34,21 @@ package apps.mathpadapp.networkmanager.messages.fromcontroller.unicast.totable;
 
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class HideMathPadsOnTableMessage.
+ */
 public class HideMathPadsOnTableMessage extends ControllerToTableMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 6448601837962845275L;
 
+	/**
+	 * Instantiates a new hide math pads on table message.
+	 *
+	 * @param targetClass the target class
+	 * @param tableId the table id
+	 */
 	public HideMathPadsOnTableMessage(Class<?> targetClass, TableIdentity tableId) {
 		super(targetClass);
 		this.setRecipient(tableId);

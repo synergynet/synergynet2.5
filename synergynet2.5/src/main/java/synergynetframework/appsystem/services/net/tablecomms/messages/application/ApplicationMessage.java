@@ -34,26 +34,57 @@ package synergynetframework.appsystem.services.net.tablecomms.messages.applicati
 
 import synergynetframework.appsystem.services.net.tablecomms.messages.TableMessage;
 
+
+/**
+ * The Class ApplicationMessage.
+ */
 public class ApplicationMessage extends TableMessage {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -1009724084391714215L;
+	
+	/** The target class name. */
 	private String targetClassName;
 
+	/**
+	 * Instantiates a new application message.
+	 */
 	public ApplicationMessage(){
 		super();
 	}
 	
+	/**
+	 * Instantiates a new application message.
+	 *
+	 * @param targetClass the target class
+	 */
 	public ApplicationMessage(Class<?> targetClass) {
 		this(targetClass.getName());
 	}
 	
+	/**
+	 * Instantiates a new application message.
+	 *
+	 * @param targetClassName the target class name
+	 */
 	public ApplicationMessage(String targetClassName) {
 		this.setTargetClassName(targetClassName);		
 	}
 
+	/**
+	 * Sets the target class name.
+	 *
+	 * @param targetClassName the new target class name
+	 */
 	public void setTargetClassName(String targetClassName) {
 		this.targetClassName = targetClassName;
 	}
 
+	/**
+	 * Gets the target class name.
+	 *
+	 * @return the target class name
+	 */
 	public String getTargetClassName() {
 		return targetClassName;
 	}

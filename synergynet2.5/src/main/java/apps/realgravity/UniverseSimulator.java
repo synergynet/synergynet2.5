@@ -46,20 +46,47 @@ import com.jmex.awt.swingui.ImageGraphics;
 import synergynetframework.appsystem.table.gfx.FullScreenCanvas;
 import synergynetframework.jme.gfx.twod.DrawableSpatialImage;
 
+
+/**
+ * The Class UniverseSimulator.
+ */
 public class UniverseSimulator extends FullScreenCanvas implements DrawableSpatialImage {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -1398525147529274059L;
+	
+	/** The Constant timeCompressionSeconds. */
 	public static final double timeCompressionSeconds = 13600; // seconds per second
+	
+	/** The Constant metersPerPixel. */
 	public static final double metersPerPixel = 5e5;
 	
+	/** The height. */
 	protected int width,height;
 	
+	/** The elapsed time. */
 	protected double elapsedTime;
+	
+	/** The prev time. */
 	private double prevTime;
+	
+	/** The u. */
 	private Universe u;
 
+	/** The forming entities. */
 	protected Map<Long,FormingEntity> formingEntities = new HashMap<Long,FormingEntity>();
+	
+	/** The gfx. */
 	private ImageGraphics gfx;    
 
+	/**
+	 * Instantiates a new universe simulator.
+	 *
+	 * @param u the u
+	 * @param name the name
+	 * @param width the width
+	 * @param height the height
+	 */
 	public UniverseSimulator(Universe u, String name, int width, int height) {
 		super(name);
 		this.u = u;
@@ -69,12 +96,20 @@ public class UniverseSimulator extends FullScreenCanvas implements DrawableSpati
 	}
 
 
+	/**
+	 * Render forming entities.
+	 *
+	 * @param g2d the g2d
+	 */
 	private void renderFormingEntities(Graphics2D g2d) {
 		for(FormingEntity fe : formingEntities.values()) {
 			fe.render(g2d);
 		}
 	}
 
+	/**
+	 * Update time delta.
+	 */
 	private void updateTimeDelta() {
 		double currentTime = System.currentTimeMillis();
 		if (prevTime == 0) prevTime = currentTime - 1;
@@ -82,6 +117,12 @@ public class UniverseSimulator extends FullScreenCanvas implements DrawableSpati
 		prevTime = currentTime;		
 	}
 
+	/**
+	 * Adds the new entity.
+	 *
+	 * @param pos the pos
+	 * @param vel the vel
+	 */
 	private void addNewEntity(Float pos, Point.Double vel) {
 		MassEntity me = new MassEntity("" + System.nanoTime(), MassEntity.EARTH.getMass(), MassEntity.EARTH.getRadius());
 		me.getPos().x = pos.x * metersPerPixel;
@@ -91,6 +132,9 @@ public class UniverseSimulator extends FullScreenCanvas implements DrawableSpati
 		u.add(me);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#cursorDragged(long, int, int)
+	 */
 	public void cursorDragged(long id, int x, int y) {
 		FormingEntity fe;
 		synchronized(formingEntities) {
@@ -104,6 +148,9 @@ public class UniverseSimulator extends FullScreenCanvas implements DrawableSpati
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#cursorPressed(long, int, int)
+	 */
 	public void cursorPressed(long cursorID, int x, int y) {
 		FormingEntity fe = new FormingEntity();
 		fe.id = cursorID;
@@ -117,6 +164,9 @@ public class UniverseSimulator extends FullScreenCanvas implements DrawableSpati
 		}		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#cursorReleased(long, int, int)
+	 */
 	public void cursorReleased(long cursorID, int x, int y) {		
 		FormingEntity fe;
 		synchronized(formingEntities) {
@@ -134,6 +184,9 @@ public class UniverseSimulator extends FullScreenCanvas implements DrawableSpati
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#draw()
+	 */
 	public void draw() {
 		gfx.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		gfx.setColor(Color.DARK_GRAY);
@@ -149,11 +202,17 @@ public class UniverseSimulator extends FullScreenCanvas implements DrawableSpati
 		renderFormingEntities(gfx);	
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#getSpatial()
+	 */
 	public Spatial getSpatial() {
 		return this;
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#cursorClicked(long, int, int)
+	 */
 	@Override
 	public void cursorClicked(long cursorID, int x, int y) {}
 

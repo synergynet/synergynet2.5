@@ -35,39 +35,88 @@ import synergynetframework.appsystem.services.net.networkedcontentmanager.contro
 import synergynetframework.jme.gfx.twod.keyboard.Key;
 import synergynetframework.jme.gfx.twod.keyboard.MTKeyListener;
 
+
+/**
+ * The Class InnerNoteEditor.
+ */
 public class InnerNoteEditor implements Updateable {
 	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(InnerNoteEditor.class.getName());	
 	
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The note controller. */
 	protected InnerNoteController noteController;
 	
+	/** The note node. */
 	protected OrthoContainer noteNode;
+	
+	/** The note label. */
 	protected MultiLineTextLabel noteLabel;
+	
+	/** The editted item. */
 	protected QuadContentItem edittedItem;
+	
+	/** The edit button. */
 	protected SimpleButton editButton;
+	
+	/** The keyboard. */
 	protected Keyboard keyboard;
+	
+	/** The line. */
 	protected LineItem line;
 	
+	/** The inner note event listeners. */
 	protected transient List<InnerNoteEventListener> innerNoteEventListeners = new ArrayList<InnerNoteEventListener>();
 	
+	/** The is keyborad on. */
 	protected boolean isKeyboradOn = false;	
+	
+	/** The background color. */
 	protected Color backgroundColor = Color.yellow;
 	
+	/** The is show note animation enabled. */
 	private boolean isShowNoteAnimationEnabled = false;
+	
+	/** The is hide note animation enabled. */
 	private boolean isHideNoteAnimationEnabled = false;
+	
+	/** The original editted item scale. */
 	private float originalEdittedItemScale = 1;
+	
+	/** The original note scale. */
 	private float originalNoteScale = 1;
+	
+	/** The current editted item scale. */
 	private float currentEdittedItemScale = 0;
+	
+	/** The current note scale. */
 	private float currentNoteScale = 0;	
+	
+	/** The editted parent item. */
 	private ContentItem edittedParentItem = null;
 	
+	/**
+	 * Instantiates a new inner note editor.
+	 *
+	 * @param noteController the note controller
+	 * @param edittedItem the editted item
+	 * @param edittedParentItem the editted parent item
+	 */
 	protected InnerNoteEditor(InnerNoteController noteController, QuadContentItem edittedItem, ContentItem edittedParentItem){
 		this(noteController, edittedItem);
 		this.edittedParentItem = edittedParentItem;
 		initNoteNode();
 	}
 	
+	/**
+	 * Instantiates a new inner note editor.
+	 *
+	 * @param noteController the note controller
+	 * @param edittedItem the editted item
+	 */
 	protected InnerNoteEditor(InnerNoteController noteController, QuadContentItem edittedItem){
 		
 		contentSystem = edittedItem.getContentSystem();
@@ -105,6 +154,9 @@ public class InnerNoteEditor implements Updateable {
 		
 	}
 	
+	/**
+	 * Inits the note node.
+	 */
 	public void initNoteNode(){
 		
 		ContentItem item=null;
@@ -130,22 +182,46 @@ public class InnerNoteEditor implements Updateable {
 		this.setAsTopObject();
 	}
 	
+	/**
+	 * Sets the location.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 */
 	public void setLocation(float x, float y){
 		noteNode.setLocalLocation(x, y);
 	}
 	
+	/**
+	 * Gets the location.
+	 *
+	 * @return the location
+	 */
 	public Location getLocation(){
 		return noteNode.getLocalLocation();
 	}
 
+	/**
+	 * Gets the background color.
+	 *
+	 * @return the background color
+	 */
 	public Color getBackgroundColor() {
 		return backgroundColor;
 	}
 
+	/**
+	 * Sets the background color.
+	 *
+	 * @param backgroundColor the new background color
+	 */
 	public void setBackgroundColor(Color backgroundColor) {
 		this.backgroundColor = backgroundColor;
 	}
 	
+	/**
+	 * Adds the edit button.
+	 */
 	private void addEditButton(){
 		
 		editButton = (SimpleButton)contentSystem.createContentItem(SimpleButton.class);		
@@ -177,6 +253,9 @@ public class InnerNoteEditor implements Updateable {
 		editButton.setOrder(noteLabel.getOrder()+1);
 	}
 	
+	/**
+	 * Show keyborad.
+	 */
 	private void showKeyborad(){
 		if (keyboard!= null) return;
 		keyboard = (Keyboard)contentSystem.createContentItem(Keyboard.class);
@@ -236,6 +315,9 @@ public class InnerNoteEditor implements Updateable {
 		});
 	}
 	
+	/**
+	 * Hide keyborad.
+	 */
 	private void hideKeyborad(){
 		if (this.keyboard!=null){
 			this.contentSystem.removeContentItem(keyboard);
@@ -248,6 +330,11 @@ public class InnerNoteEditor implements Updateable {
 		}
 	}
 	
+	/**
+	 * Gets the key defs.
+	 *
+	 * @return the key defs
+	 */
 	@SuppressWarnings("unchecked")
 	private List<Key> getKeyDefs() {
 		try {
@@ -263,6 +350,9 @@ public class InnerNoteEditor implements Updateable {
 		return null;
 	}
 	
+	/**
+	 * Update line.
+	 */
 	private void updateLine(){
 		if (line!=null && keyboard!=null){
 			line.setSourceLocation(noteNode.getLocalLocation());
@@ -270,6 +360,9 @@ public class InnerNoteEditor implements Updateable {
 		}
 	}
 	
+	/**
+	 * Listen to changes.
+	 */
 	private void listenToChanges(){
 		
 		noteNode.addBringToTopListener(new BringToTopListener(){
@@ -365,6 +458,9 @@ public class InnerNoteEditor implements Updateable {
 		});
 	}
 	
+	/**
+	 * Clear note editor.
+	 */
 	public void clearNoteEditor(){
 		if (noteLabel!=null){
 			contentSystem.removeContentItem(noteLabel);
@@ -377,28 +473,56 @@ public class InnerNoteEditor implements Updateable {
 		hideKeyborad();		
 	}
 	
+	/**
+	 * Sets the note.
+	 *
+	 * @param s the new note
+	 */
 	public void setNote(String s){
 		this.noteLabel.setCRLFSeparatedString(s);
 		this.edittedItem.setNote(s);
 	}
 
+	/**
+	 * Gets the note controller.
+	 *
+	 * @return the note controller
+	 */
 	public InnerNoteController getNoteController() {
 		return noteController;
 	}
 
+	/**
+	 * Gets the note node.
+	 *
+	 * @return the note node
+	 */
 	public OrthoContainer getNoteNode() {
 		return noteNode;
 	}
 
+	/**
+	 * Sets the note node.
+	 *
+	 * @param noteNode the new note node
+	 */
 	public void setNoteNode(OrthoContainer noteNode) {
 		this.noteNode = noteNode;
 	}
 	
+	/**
+	 * Sets the as top object.
+	 */
 	public void setAsTopObject(){
 		getNoteNode().setAsTopObject();
 		this.editButton.setOrder(getNoteNode().getOrder()-1);
 	}
 	
+	/**
+	 * Adds the inner note event listener.
+	 *
+	 * @param l the l
+	 */
 	public void addInnerNoteEventListener(InnerNoteEventListener l){
 		if (this.innerNoteEventListeners==null)
 			this.innerNoteEventListeners = new ArrayList<InnerNoteEventListener>();
@@ -407,14 +531,27 @@ public class InnerNoteEditor implements Updateable {
 			this.innerNoteEventListeners.add(l);
 	}
 	
+	/**
+	 * Removes the inner note event listeners.
+	 */
 	public void removeInnerNoteEventListeners(){
 		innerNoteEventListeners.clear();
 	}
 	
+	/**
+	 * Removes the inner note event listener.
+	 *
+	 * @param l the l
+	 */
 	public void removeInnerNoteEventListener(InnerNoteEditListener l){
 		innerNoteEventListeners.remove(l);
 	}
 	
+	/**
+	 * Show node animation.
+	 *
+	 * @param tpf the tpf
+	 */
 	private void showNodeAnimation(float tpf){
 	
 		ContentItem item=null;
@@ -442,6 +579,11 @@ public class InnerNoteEditor implements Updateable {
 		}
 	}
 	
+	/**
+	 * Hide node animation.
+	 *
+	 * @param tpf the tpf
+	 */
 	private void hideNodeAnimation(float tpf){
 
 		ContentItem item=null;
@@ -476,6 +618,9 @@ public class InnerNoteEditor implements Updateable {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.Updateable#update(float)
+	 */
 	@Override
 	public void update(float tpf) {
 		if (this.isShowNoteAnimationEnabled){
@@ -485,14 +630,25 @@ public class InnerNoteEditor implements Updateable {
 		}
 	}
 
+	/**
+	 * Make flickable.
+	 */
 	public void makeFlickable() {
 		noteLabel.makeFlickable(NetworkedFlickController.DefaultDeceleration);		
 	}
 	
+	/**
+	 * Make unflickable.
+	 */
 	public void makeUnflickable() {
 		noteLabel.makeUnflickable();		
 	}
 	
+	/**
+	 * Checks if is flickable.
+	 *
+	 * @return true, if is flickable
+	 */
 	public boolean isFlickable() {
 		return noteLabel.isFlickable();		
 	}

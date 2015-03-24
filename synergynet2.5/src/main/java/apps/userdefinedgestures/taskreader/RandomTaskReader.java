@@ -4,8 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+
+/**
+ * The Class RandomTaskReader.
+ */
 public class RandomTaskReader implements TaskReader {
 
+	/* (non-Javadoc)
+	 * @see apps.userdefinedgestures.taskreader.TaskReader#getTaskList()
+	 */
 	@Override
 	public List<String> getTaskList() {
 		
@@ -23,6 +30,11 @@ public class RandomTaskReader implements TaskReader {
 		return taskList;
 	}
 	
+	/**
+	 * Gets the sequence task list.
+	 *
+	 * @return the sequence task list
+	 */
 	private List<String> getSequenceTaskList(){
 		String[] objects={"cube", "tube", "ball", "sheet"};
 		String[] viewports={"front", "top"};
@@ -43,6 +55,11 @@ public class RandomTaskReader implements TaskReader {
 		
 	}
 	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		RandomTaskReader randomTaskReader = new RandomTaskReader();
 		List<String> list = randomTaskReader.getTaskList();

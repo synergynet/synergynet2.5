@@ -32,6 +32,16 @@
 
 package synergynetframework.appsystem.contentsystem.items.implementation.interfaces;
 
+
+/**
+ * The Interface IBackgroundControllerImplementation.
+ */
 public interface IBackgroundControllerImplementation extends IFrameImplementation{
+	
+	/**
+	 * Sets the background rotate translate scalable.
+	 *
+	 * @param isEnabled the new background rotate translate scalable
+	 */
 	public void setBackgroundRotateTranslateScalable(boolean isEnabled);
 }

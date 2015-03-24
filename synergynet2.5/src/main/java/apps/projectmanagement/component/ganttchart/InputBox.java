@@ -26,16 +26,34 @@ import synergynetframework.appsystem.contentsystem.items.utils.Location;
 import synergynetframework.jme.gfx.twod.keyboard.Key;
 import synergynetframework.jme.gfx.twod.keyboard.MTKeyListener;
 
+
+/**
+ * The Class InputBox.
+ */
 public class InputBox {
 	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(InputBox.class.getName());	
 	
+	/** The content system. */
 	protected ContentSystem contentSystem;
 	
+	/** The note label. */
 	protected MultiLineTextLabel noteLabel;
+	
+	/** The keyboard. */
 	protected Keyboard keyboard;
+	
+	/** The line. */
 	protected LineItem line;
 
+	/**
+	 * Instantiates a new input box.
+	 *
+	 * @param contentSystem the content system
+	 * @param length the length
+	 * @param heigth the heigth
+	 */
 	public InputBox(ContentSystem contentSystem, int length, int heigth){
 		this.contentSystem =contentSystem;
 		
@@ -52,6 +70,9 @@ public class InputBox {
 		noteLabel.setWidth(length);			
 	}
 	
+	/**
+	 * Clear.
+	 */
 	public void clear(){
 		if (this.isKeyboradOn())
 			this.hideKeyborad();
@@ -62,16 +83,30 @@ public class InputBox {
 		}
 	}
 	
+	/**
+	 * Gets the input box.
+	 *
+	 * @return the input box
+	 */
 	public MultiLineTextLabel getInputBox(){
 		return noteLabel;
 	}
 	
+	/**
+	 * Sets the input box location.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 */
 	public void setInputBoxLocation(float x, float y){
 		noteLabel.setLocalLocation(x, y);
 		this.updateKeyboardLocation();
 		updateLine();
 	}
 	
+	/**
+	 * Update keyboard location.
+	 */
 	protected void updateKeyboardLocation(){
 		if (keyboard==null) return;
 		Spatial inputBoxSpatial = ((Spatial)noteLabel.getImplementationObject());
@@ -80,6 +115,11 @@ public class InputBox {
 		keyboard.setLocalLocation(worldLocation.x, worldLocation.y-100);
 	}
 	
+	/**
+	 * Enable keyborad.
+	 *
+	 * @param enabled the enabled
+	 */
 	public void enableKeyborad(boolean enabled){
 		if (enabled)
 			showKeyborad();
@@ -87,6 +127,9 @@ public class InputBox {
 			hideKeyborad();
 	}
 	
+	/**
+	 * Show keyborad.
+	 */
 	public void showKeyborad(){
 		if (keyboard!= null) return;
 		keyboard = (Keyboard)contentSystem.createContentItem(Keyboard.class);
@@ -154,6 +197,9 @@ public class InputBox {
 		});
 	}
 	
+	/**
+	 * Hide keyborad.
+	 */
 	public void hideKeyborad(){
 		if (this.keyboard!=null){
 			keyboard.removeOrthoControlPointRotateTranslateScaleListeners();
@@ -167,6 +213,11 @@ public class InputBox {
 		}
 	}
 	
+	/**
+	 * Checks if is keyborad on.
+	 *
+	 * @return true, if is keyborad on
+	 */
 	public boolean isKeyboradOn(){
 		if (keyboard==null)
 			return false;
@@ -174,6 +225,11 @@ public class InputBox {
 			return true;
 	}
 	
+	/**
+	 * Gets the key defs.
+	 *
+	 * @return the key defs
+	 */
 	@SuppressWarnings("unchecked")
 	private List<Key> getKeyDefs() {
 		try {
@@ -189,6 +245,9 @@ public class InputBox {
 		return null;
 	}
 	
+	/**
+	 * Update line.
+	 */
 	private void updateLine(){
 		if (line!=null && keyboard!=null){
 			

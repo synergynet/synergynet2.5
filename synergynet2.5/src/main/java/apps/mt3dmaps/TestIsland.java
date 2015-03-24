@@ -58,6 +58,7 @@ import com.jme.scene.state.FogState;
 import com.jme.system.DisplaySystem;
 import com.jmex.effects.water.WaterRenderPass;
 
+
 /**
  * TestIsland shows multipass texturesplatting(6 passes) through usage
  * of the PassNode together with jME's water effect and a skybox. A simpler
@@ -71,20 +72,40 @@ import com.jmex.effects.water.WaterRenderPass;
 
 public class TestIsland extends DefaultSynergyNetApp {
 
+	/** The water effect render pass. */
 	private WaterRenderPass waterEffectRenderPass;
+	
+	/** The water quad. */
 	private Quad waterQuad;
+	
+	/** The splat terrain. */
 	private Spatial splatTerrain;
+	
+	/** The reflection terrain. */
 	private Spatial reflectionTerrain;
+	
+	/** The skybox. */
 	private Skybox skybox;
 
+	/** The far plane. */
 	private float farPlane = 10000.0f;
+	
+	/** The texture scale. */
 	private float textureScale = 0.07f;
 	
 
+	/**
+	 * Instantiates a new test island.
+	 *
+	 * @param info the info
+	 */
 	public TestIsland(ApplicationInfo info) {
 		super(info);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	protected void stateUpdate(float tpf) {
 		skybox.getLocalTranslation().set(cam.getLocation());
 		skybox.updateGeometricState(0.0f, true);
@@ -93,6 +114,9 @@ public class TestIsland extends DefaultSynergyNetApp {
 		setVertexCoords(transVec.x, transVec.y, transVec.z);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		ContentSystem csys = ContentSystem.getContentSystemForSynergyNetApp(this);
@@ -190,6 +214,9 @@ public class TestIsland extends DefaultSynergyNetApp {
 		pManager.add(super.getOrthoRenderPass());
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#getCamera()
+	 */
 	@Override
 	protected Camera getCamera() {
 		if(cam == null) {
@@ -203,6 +230,9 @@ public class TestIsland extends DefaultSynergyNetApp {
 		return cam;
 	}
 	
+	/**
+	 * Setup environment.
+	 */
 	private void setupEnvironment() {
 		CullState cs = DisplaySystem.getDisplaySystem().getRenderer().createCullState();
 		cs.setCullFace(CullState.Face.Back);
@@ -223,6 +253,13 @@ public class TestIsland extends DefaultSynergyNetApp {
 	}
 
 
+	/**
+	 * Sets the vertex coords.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @param z the z
+	 */
 	private void setVertexCoords(float x, float y, float z) {
 		FloatBuffer vertBuf = waterQuad.getVertexBuffer();
 		vertBuf.clear();
@@ -233,6 +270,14 @@ public class TestIsland extends DefaultSynergyNetApp {
 		vertBuf.put(x + farPlane).put(y).put(z - farPlane);
 	}
 
+	/**
+	 * Sets the texture coords.
+	 *
+	 * @param buffer the buffer
+	 * @param x the x
+	 * @param y the y
+	 * @param textureScale the texture scale
+	 */
 	private void setTextureCoords(int buffer, float x, float y,
 			float textureScale) {
 		x *= textureScale * 0.5f;

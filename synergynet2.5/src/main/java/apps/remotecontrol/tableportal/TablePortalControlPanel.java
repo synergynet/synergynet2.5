@@ -44,19 +44,40 @@ import synergynetframework.appsystem.contentsystem.items.OrthoContainer;
 import synergynetframework.appsystem.contentsystem.items.SimpleButton;
 import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAdapter;
 
+
+/**
+ * The Class TablePortalControlPanel.
+ */
 public class TablePortalControlPanel{
 	
+	/** The content system. */
 	protected ContentSystem contentSystem;
 	
+	/** The back image. */
 	private LightImageLabel backImage;
+	
+	/** The buttons. */
 	private ArrayList<SimpleButton> buttons = new ArrayList<SimpleButton>();
+	
+	/** The no buttons per row. */
 	private final int NO_BUTTONS_PER_ROW = 2;
+	
+	/** The panel. */
 	private OrthoContainer panel;
+	
+	/** The navigator. */
 	protected PortalNavigator navigator;
 	
 	
+	/** The listeners. */
 	protected transient ArrayList<ControlPanelListener> listeners = new ArrayList<ControlPanelListener>();
 	
+	/**
+	 * Instantiates a new table portal control panel.
+	 *
+	 * @param contentSystem the content system
+	 * @param portal the portal
+	 */
 	public TablePortalControlPanel(final ContentSystem contentSystem, final TablePortal portal){
 		this.contentSystem = contentSystem;
 		panel = (OrthoContainer) contentSystem.createContentItem(OrthoContainer.class);
@@ -269,6 +290,9 @@ public class TablePortalControlPanel{
 		setLayout();
 	}
 	
+	/**
+	 * Sets the layout.
+	 */
 	public void setLayout(){
 		int shiftX=0, shiftY=0;
 		int i=0;
@@ -293,26 +317,60 @@ public class TablePortalControlPanel{
 		
 	}
 	
+	/**
+	 * Gets the content panel.
+	 *
+	 * @return the content panel
+	 */
 	public OrthoContainer getContentPanel(){
 		return panel;
 	}
 	
+	/**
+	 * Gets the width.
+	 *
+	 * @return the width
+	 */
 	public int getWidth(){
 		return backImage.getWidth();
 	}
 	
+	/**
+	 * Gets the height.
+	 *
+	 * @return the height
+	 */
 	public int getHeight(){
 		return backImage.getHeight();
 	}
 	
+	/**
+	 * Adds the control panel listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void addControlPanelListener(ControlPanelListener listener){
 		if(!listeners.contains(listener)) listeners.add(listener); 
 	}
 	
+	/**
+	 * Removes the control panel listeners.
+	 */
 	public void removeControlPanelListeners(){
 		listeners.clear();
 	}
 	
+	/**
+	 * The listener interface for receiving controlPanel events.
+	 * The class that is interested in processing a controlPanel
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addControlPanelListener<code> method. When
+	 * the controlPanel event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see ControlPanelEvent
+	 */
 	public interface ControlPanelListener{
 	}
 

@@ -51,12 +51,24 @@ import com.jme.scene.TriMesh;
 
 import core.SynergyNetDesktop;
 
+
+/**
+ * The Class DissectionApp.
+ */
 public class DissectionApp extends DefaultSynergyNetApp {
 
+	/**
+	 * Instantiates a new dissection app.
+	 *
+	 * @param info the info
+	 */
 	public DissectionApp(ApplicationInfo info) {
 		super(info);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		ContentSystem csys = ContentSystem.getContentSystemForSynergyNetApp(this);
@@ -122,6 +134,9 @@ public class DissectionApp extends DefaultSynergyNetApp {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	public void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);
 	}

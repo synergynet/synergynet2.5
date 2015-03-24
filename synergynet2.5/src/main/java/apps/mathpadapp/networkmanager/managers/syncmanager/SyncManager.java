@@ -57,23 +57,45 @@ import synergynetframework.appsystem.contentsystem.jme.items.utils.DrawData;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.jme.cursorsystem.elements.twod.OrthoBringToTop;
 
+
+/**
+ * The Class SyncManager.
+ */
 public class SyncManager {
 
+	/** The sync data. */
 	private HashMap<UserIdentity, HashMap<Short,Object>> syncData = new HashMap<UserIdentity, HashMap<Short,Object>>();
 	
+	/** The sync tables. */
 	protected List<TableIdentity> syncTables = new ArrayList<TableIdentity>();
+	
+	/** The sync users. */
 	protected HashMap<UserIdentity, TableIdentity> syncUsers = new HashMap<UserIdentity, TableIdentity>();
 
+	/** The is broadcast synchronisation on. */
 	protected boolean isBroadcastSynchronisationOn = false;
 
+	/** The network manager. */
 	protected NetworkedContentManager networkManager;
+	
+	/** The sync renderer. */
 	protected MathToolSyncRenderer syncRenderer;
 	
+	/**
+	 * Instantiates a new sync manager.
+	 *
+	 * @param networkManager the network manager
+	 */
 	public SyncManager(NetworkedContentManager networkManager){
 		this.networkManager = networkManager;
 		syncRenderer = new MathToolSyncRenderer(this);
 	}
 	
+	/**
+	 * Adds the sync listeners.
+	 *
+	 * @param userId the user id
+	 */
 	public void addSyncListeners(final UserIdentity userId) {
 		if(!networkManager.getRegisteredMathPads().containsKey(userId)) return;
 		MathTool tool = networkManager.getRegisteredMathPads().get(userId);
@@ -240,6 +262,12 @@ public class SyncManager {
 		});
 	}
 	
+	/**
+	 * Register pad.
+	 *
+	 * @param userId the user id
+	 * @param pad the pad
+	 */
 	public void registerPad(final UserIdentity userId, MathPad pad){
 		pad.addDrawListener(new DrawListener(){
 			@Override
@@ -261,15 +289,31 @@ public class SyncManager {
 		});
 	}
 	
+	/**
+	 * Enable broadcast sync.
+	 *
+	 * @param isBroadcastSynchronisationOn the is broadcast synchronisation on
+	 */
 	public void enableBroadcastSync(boolean isBroadcastSynchronisationOn) {
 		this.isBroadcastSynchronisationOn = isBroadcastSynchronisationOn;
 	}
 
 	
+	/**
+	 * Checks if is broadcast synchronisation on.
+	 *
+	 * @return true, if is broadcast synchronisation on
+	 */
 	public boolean isBroadcastSynchronisationOn(){
 		return isBroadcastSynchronisationOn;
 	}
 	
+	/**
+	 * Enable unicast table sync.
+	 *
+	 * @param syncWithTable the sync with table
+	 * @param isUnicastSynchronisationOn the is unicast synchronisation on
+	 */
 	public void enableUnicastTableSync(TableIdentity syncWithTable, boolean isUnicastSynchronisationOn) {
 		if(isUnicastSynchronisationOn){
 			if(!syncTables.contains(syncWithTable)) syncTables.add(syncWithTable);
@@ -278,6 +322,13 @@ public class SyncManager {
 			syncTables.remove(syncWithTable);
 	}
 	
+	/**
+	 * Enable unicast user sync.
+	 *
+	 * @param syncWithTable the sync with table
+	 * @param syncWithUser the sync with user
+	 * @param isUnicastSynchronisationOn the is unicast synchronisation on
+	 */
 	public void enableUnicastUserSync(TableIdentity syncWithTable, UserIdentity syncWithUser, boolean isUnicastSynchronisationOn) {
 		if(isUnicastSynchronisationOn){
 			if(!syncUsers.containsKey(syncWithUser)) syncUsers.put(syncWithUser, syncWithTable);
@@ -286,14 +337,32 @@ public class SyncManager {
 			syncUsers.remove(syncWithUser);
 	}
 	
+	/**
+	 * Checks if is unicast table synchronisation on.
+	 *
+	 * @param syncWithTable the sync with table
+	 * @return true, if is unicast table synchronisation on
+	 */
 	public boolean isUnicastTableSynchronisationOn(TableIdentity syncWithTable){
 		return syncTables.contains(syncWithTable);
 	}
 	
+	/**
+	 * Checks if is unicast user synchronisation on.
+	 *
+	 * @param syncWithUser the sync with user
+	 * @return true, if is unicast user synchronisation on
+	 */
 	public boolean isUnicastUserSynchronisationOn(UserIdentity syncWithUser){
 		return syncUsers.containsKey(syncWithUser);
 	}
 	
+	/**
+	 * Sync content.
+	 *
+	 * @param sender the sender
+	 * @param syncData the sync data
+	 */
 	public void syncContent(TableIdentity sender, HashMap<UserIdentity, HashMap<Short, Object>> syncData) {
 		for(UserIdentity userId: syncData.keySet()){
 				MathTool tool = networkManager.getRegisteredMathPads().get(userId);
@@ -301,6 +370,11 @@ public class SyncManager {
 			}
 	}
 	
+	/**
+	 * Update.
+	 *
+	 * @param tpf the tpf
+	 */
 	public void update(float tpf) {
 		if(this.isBroadcastSynchronisationOn && !syncData.isEmpty()){
 			for(Class<?> receiverClass: networkManager.getReceiverClasses()){

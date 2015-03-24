@@ -40,161 +40,316 @@ import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILineImplementation;
 import synergynetframework.appsystem.contentsystem.items.utils.Location;
 
+
+/**
+ * The Class LineItem.
+ */
 public class LineItem extends OrthoContainer implements Serializable, ILineImplementation{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 
 
+	/** The Constant SEGMENT_LINE. */
 	public static final int SEGMENT_LINE = 0;	
+	
+	/** The Constant CONNECTED_LINE. */
 	public static final int CONNECTED_LINE = 1;
+	
+	/** The Constant DOTTED_LINE. */
 	public static final int DOTTED_LINE = 2;
+	
+	/** The Constant ANIMATION. */
 	public static final int ANIMATION = 3;
 	
+	/** The Constant BIDIRECTIONAL_ARROWS. */
 	public static final int BIDIRECTIONAL_ARROWS = 0;
+	
+	/** The Constant ARROW_TO_TARGET. */
 	public static final int ARROW_TO_TARGET = 1;
+	
+	/** The Constant ARROW_TO_SOURCE. */
 	public static final int ARROW_TO_SOURCE = 2;
+	
+	/** The Constant NO_ARROWS. */
 	public static final int NO_ARROWS = 3;
 	
+	/** The arrows enabled. */
 	protected boolean arrowsEnabled = true;
+	
+	/** The line mode. */
 	protected int lineMode = CONNECTED_LINE;
+	
+	/** The arrow mode. */
 	protected int arrowMode = BIDIRECTIONAL_ARROWS;
 	
+	/** The target location. */
 	protected Location sourceLocation, targetLocation;
+	
+	/** The target item. */
 	protected ContentItem sourceItem, targetItem;
 	
+	/** The line colour. */
 	protected Color lineColour = Color.white;
+	
+	/** The line width. */
 	protected float lineWidth = 1f;
 	
+	/** The text enabled. */
 	protected boolean textEnabled = true;
+	
+	/** The text. */
 	protected StringBuffer text = new StringBuffer();
+	
+	/** The text colour. */
 	protected Color textColour = Color.white;
+	
+	/** The text font. */
 	protected Font textFont = new Font("Arial", Font.PLAIN, 16);
 	
+	/**
+	 * Instantiates a new line item.
+	 *
+	 * @param contentSystem the content system
+	 * @param name the name
+	 */
 	public LineItem(ContentSystem contentSystem, String name) {
 		super(contentSystem, name);
 	}
 	
+	/**
+	 * Instantiates a new line item.
+	 *
+	 * @param contentSystem the content system
+	 * @param name the name
+	 * @param sourceLocation the source location
+	 * @param targetLocation the target location
+	 */
 	public LineItem(ContentSystem contentSystem, String name, Location sourceLocation, Location targetLocation) {
 		super(contentSystem, name);
 		this.sourceLocation = sourceLocation;
 		this.targetLocation = targetLocation;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILineImplementation#setSourceLocation(synergynetframework.appsystem.contentsystem.items.utils.Location)
+	 */
 	public void setSourceLocation(Location sourceLocation){
 		this.sourceLocation = sourceLocation;
 		((ILineImplementation)this.contentItemImplementation).setSourceLocation(sourceLocation);
 	}
 	
+	/**
+	 * Gets the source location.
+	 *
+	 * @return the source location
+	 */
 	public Location getSourceLocation(){
 		return sourceLocation;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILineImplementation#setTargetLocation(synergynetframework.appsystem.contentsystem.items.utils.Location)
+	 */
 	public void setTargetLocation(Location targetLocation){
 		this.targetLocation = targetLocation;
 		((ILineImplementation)this.contentItemImplementation).setTargetLocation(targetLocation);
 	}
 	
+	/**
+	 * Gets the target location.
+	 *
+	 * @return the target location
+	 */
 	public Location getTargetLocation(){
 		return targetLocation;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILineImplementation#setSourceItem(synergynetframework.appsystem.contentsystem.items.ContentItem)
+	 */
 	public void setSourceItem(ContentItem sourceItem){
 		this.sourceItem = sourceItem;
 		((ILineImplementation)this.contentItemImplementation).setSourceItem(sourceItem);
 	}
 	
+	/**
+	 * Gets the source item.
+	 *
+	 * @return the source item
+	 */
 	public ContentItem getSourceItem(){
 		return sourceItem;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILineImplementation#setTargetItem(synergynetframework.appsystem.contentsystem.items.ContentItem)
+	 */
 	public void setTargetItem(ContentItem targetItem){
 		this.targetItem = targetItem;
 		((ILineImplementation)this.contentItemImplementation).setTargetItem(targetItem);
 	}
 
+	/**
+	 * Gets the target item.
+	 *
+	 * @return the target item
+	 */
 	public ContentItem getTargetItem(){
 		return targetItem;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILineImplementation#setLineColour(java.awt.Color)
+	 */
 	public void setLineColour(Color lineColour){
 		this.lineColour = lineColour;
 		((ILineImplementation)this.contentItemImplementation).setLineColour(lineColour);
 	}
 	
+	/**
+	 * Gets the line colour.
+	 *
+	 * @return the line colour
+	 */
 	public Color getLineColour(){
 		return lineColour;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILineImplementation#setWidth(float)
+	 */
 	public void setWidth(float lineWidth){
 		this.lineWidth = lineWidth;
 		((ILineImplementation)this.contentItemImplementation).setWidth(lineWidth);
 	}
 	
+	/**
+	 * Gets the width.
+	 *
+	 * @return the width
+	 */
 	public float getWidth(){
 		return lineWidth;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILineImplementation#setArrowsEnabled(boolean)
+	 */
 	public void setArrowsEnabled(boolean isEnabled){
 		this.arrowsEnabled = isEnabled;
 		((ILineImplementation)this.contentItemImplementation).setArrowsEnabled(isEnabled);
 	}
 	
+	/**
+	 * Checks if is arrow enabled.
+	 *
+	 * @return true, if is arrow enabled
+	 */
 	public boolean isArrowEnabled(){
 		return arrowsEnabled;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILineImplementation#setArrowMode(int)
+	 */
 	public void setArrowMode(int arrowMode){
 		this.arrowMode = arrowMode;
 		((ILineImplementation)this.contentItemImplementation).setArrowMode(arrowMode);
 	}
 	
+	/**
+	 * Gets the arrow mode.
+	 *
+	 * @return the arrow mode
+	 */
 	public int getArrowMode(){
 		return arrowMode;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILineImplementation#setLineMode(int)
+	 */
 	public void setLineMode(int lineMode){
 		this.lineMode = lineMode;
 		((ILineImplementation)this.contentItemImplementation).setLineMode(lineMode);
 	}
 	
+	/**
+	 * Gets the line mode.
+	 *
+	 * @return the line mode
+	 */
 	public int getLineMode(){
 		return lineMode;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILineImplementation#setAnnotationEnabled(boolean)
+	 */
 	public void setAnnotationEnabled(boolean isEnabled){
 		this.textEnabled = isEnabled;
 		((ILineImplementation)this.contentItemImplementation).setAnnotationEnabled(isEnabled);
 	}
 	
+	/**
+	 * Checks if is annotation enabled.
+	 *
+	 * @return true, if is annotation enabled
+	 */
 	public boolean isAnnotationEnabled(){
 		return textEnabled;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILineImplementation#setText(java.lang.String)
+	 */
 	public void setText(String text){
 		this.text.setLength(0);
 		this.text.append(text);
 		((ILineImplementation)this.contentItemImplementation).setText(text);
 	}
 	
+	/**
+	 * Gets the text.
+	 *
+	 * @return the text
+	 */
 	public String getText(){
 		return text.toString();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILineImplementation#setTextColour(java.awt.Color)
+	 */
 	public void setTextColour(Color textColour){
 		this.textColour = textColour;
 		((ILineImplementation)this.contentItemImplementation).setTextColour(textColour);
 	}
 	
+	/**
+	 * Gets the text colour.
+	 *
+	 * @return the text colour
+	 */
 	public Color getTextColour(){
 		return textColour;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILineImplementation#setTextFont(java.awt.Font)
+	 */
 	public void setTextFont(Font textFont){
 		this.textFont = textFont;
 		((ILineImplementation)this.contentItemImplementation).setTextFont(textFont);
 	}
 	
+	/**
+	 * Gets the text font.
+	 *
+	 * @return the text font
+	 */
 	public Font getTextFont(){
 		return textFont;
 	}

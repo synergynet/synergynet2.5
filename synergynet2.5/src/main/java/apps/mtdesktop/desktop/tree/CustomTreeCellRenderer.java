@@ -11,13 +11,18 @@ import apps.mtdesktop.desktop.tree.nodes.TopNode;
 
 
 
+
+/**
+ * The Class CustomTreeCellRenderer.
+ */
 public class CustomTreeCellRenderer extends DefaultTreeCellRenderer{
 	
- /**
-	 * 
-	 */
+ /** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 9074590081824475875L;
 
+/* (non-Javadoc)
+ * @see javax.swing.tree.DefaultTreeCellRenderer#getTreeCellRendererComponent(javax.swing.JTree, java.lang.Object, boolean, boolean, boolean, int, boolean)
+ */
 public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
 
 	

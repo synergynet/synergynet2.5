@@ -48,26 +48,42 @@ import org.mt4j.input.inputSources.Windows7TouchEvent;
 import org.mt4j.input.inputSources.Win7NativeTouchSource;
 
 
+
 /**
  * Input source for native Windows 7 WM_TOUCH messages for single/multi-touch.
  */
 public class Win7TouchInput implements IMultiTouchInputSource {
 	
+	/** The finger cursors. */
 	protected Map<Long,Win7Cursor> fingerCursors = new HashMap<Long,Win7Cursor>();
 
+	/** The listeners. */
 	protected List<IMultiTouchEventListener> listeners = new ArrayList<IMultiTouchEventListener>();
+	
+	/** The click detector. */
 	protected ClickDetector clickDetector = new ClickDetector(500, 2f);
 	
+	/** The calling list. */
 	protected List<Callable<Object>> callingList = new ArrayList<Callable<Object>>();
 		
+	/** The width. */
 	private float width = 1024f;	
+	
+	/** The height. */
 	private float height = 768f;
+	
+	/** The sixty four bit. */
 	private boolean sixtyFourBit = false;
 	
+	/** The win7 native touch source. */
 	private Win7NativeTouchSource win7NativeTouchSource;
 	
 	/**
 	 * Instantiates a new win7 native touch source.
+	 *
+	 * @param width the width
+	 * @param height the height
+	 * @param sixtyFourBit the sixty four bit
 	 */
 	public Win7TouchInput(float width, float height, boolean sixtyFourBit) {
 		this.width = width;
@@ -76,6 +92,9 @@ public class Win7TouchInput implements IMultiTouchInputSource {
 		start();
 	}
 		
+	/**
+	 * Start.
+	 */
 	public void start() {
 		synchronized(this) {			
 			win7NativeTouchSource = new Win7NativeTouchSource(this);			
@@ -83,6 +102,11 @@ public class Win7TouchInput implements IMultiTouchInputSource {
 	}
 	
 
+	/**
+	 * Adds the touch cursor.
+	 *
+	 * @param wmTouchEvent the wm touch event
+	 */
 	public void addTouchCursor(final Windows7TouchEvent wmTouchEvent){
 
 		final long touchID = wmTouchEvent.id;
@@ -121,6 +145,11 @@ public class Win7TouchInput implements IMultiTouchInputSource {
 		}
 	}
 					
+	/**
+	 * Update touch cursor.
+	 *
+	 * @param wmTouchEvent the wm touch event
+	 */
 	public void updateTouchCursor(final Windows7TouchEvent wmTouchEvent){
 			
 		Callable<Object> c = new Callable<Object>() {
@@ -153,6 +182,11 @@ public class Win7TouchInput implements IMultiTouchInputSource {
 		}
 	}
 	
+	/**
+	 * Removes the touch cursor.
+	 *
+	 * @param wmTouchEvent the wm touch event
+	 */
 	public void removeTouchCursor(final Windows7TouchEvent wmTouchEvent){
 		Callable<Object> c = new Callable<Object>() {
 			
@@ -187,26 +221,41 @@ public class Win7TouchInput implements IMultiTouchInputSource {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchInputSource#registerMultiTouchEventListener(synergynetframework.mtinput.IMultiTouchEventListener)
+	 */
 	@Override
 	public void registerMultiTouchEventListener(IMultiTouchEventListener listener) {
 		if(!listeners.contains(listener)) listeners.add(listener);			
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchInputSource#registerMultiTouchEventListener(synergynetframework.mtinput.IMultiTouchEventListener, int)
+	 */
 	@Override
 	public void registerMultiTouchEventListener(IMultiTouchEventListener listener, int index) {
 		if(!listeners.contains(listener)) listeners.add(index, listener);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchInputSource#unregisterMultiTouchEventListener(synergynetframework.mtinput.IMultiTouchEventListener)
+	 */
 	@Override
 	public void unregisterMultiTouchEventListener(IMultiTouchEventListener listener) {
 		listeners.remove(listener);		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchInputSource#setClickSensitivity(long, float)
+	 */
 	@Override
 	public void setClickSensitivity(long time, float distance) {
 		this.clickDetector = new ClickDetector(time, distance);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchInputSource#update(float)
+	 */
 	@Override
 	public void update(float tpf) throws MultiTouchInputException {
 		win7NativeTouchSource.pollEvents();
@@ -222,10 +271,20 @@ public class Win7TouchInput implements IMultiTouchInputSource {
 		}
 	}
 
+	/**
+	 * Checks if is sixty four bit.
+	 *
+	 * @return true, if is sixty four bit
+	 */
 	public boolean isSixtyFourBit() {
 		return sixtyFourBit;
 	}
 
+	/**
+	 * Sets the sixty four bit.
+	 *
+	 * @param sixtyFourBit the new sixty four bit
+	 */
 	public void setSixtyFourBit(boolean sixtyFourBit) {
 		this.sixtyFourBit = sixtyFourBit;
 	}

@@ -44,12 +44,26 @@ import synergynetframework.appsystem.table.animationsystem.AnimationSystem;
 import synergynetframework.appsystem.table.animationsystem.animelements.Fader;
 import synergynetframework.appsystem.table.animationsystem.animelements.MoveInCircleInContainer;
 
+
+/**
+ * The Class JMERoundListContainer.
+ */
 public class JMERoundListContainer extends JMERoundWindow implements IRoundListContainerImplementation{
 	
+	/** The list. */
 	protected RoundListContainer list;
+	
+	/** The list items. */
 	protected List<RoundContentItem> listItems;	
+	
+	/** The list geometries. */
 	protected List<Geometry> listGeometries = new ArrayList<Geometry>();
 	
+	/**
+	 * Instantiates a new JME round list container.
+	 *
+	 * @param contentItem the content item
+	 */
 	public JMERoundListContainer(ContentItem contentItem) {
 		super(contentItem);
 		list = (RoundListContainer)contentItem;
@@ -57,30 +71,45 @@ public class JMERoundListContainer extends JMERoundWindow implements IRoundListC
 		refreshListGeometries();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMERoundWindow#init()
+	 */
 	@Override
 	public void init(){
 		super.init();
 		render();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundListContainerImplementation#addSubItem(int, synergynetframework.appsystem.contentsystem.items.RoundContentItem)
+	 */
 	@Override
 	public void addSubItem(int index, RoundContentItem item) {
 		refreshListGeometries();
 		render();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundListContainerImplementation#addSubItem(synergynetframework.appsystem.contentsystem.items.RoundContentItem)
+	 */
 	@Override
 	public void addSubItem(RoundContentItem item) {
 		refreshListGeometries();
 		render();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundListContainerImplementation#removeSubItem(synergynetframework.appsystem.contentsystem.items.RoundContentItem)
+	 */
 	@Override
 	public void removeSubItem(RoundContentItem item) {
 		refreshListGeometries();
 		render();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundListContainerImplementation#run()
+	 */
 	public void run(){
 		MoveInCircleInContainer moveCircle = new MoveInCircleInContainer(listGeometries, this.getMaxRadiusOfAllItems()*2 - 30, 0, 0 );
 		moveCircle.setRPM(0.5f);
@@ -91,10 +120,16 @@ public class JMERoundListContainer extends JMERoundWindow implements IRoundListC
 		AnimationSystem.getInstance().add(fadeIn);
 	}
 	
+	/**
+	 * Render.
+	 */
 	public void render(){
 			
 	}
 	
+	/**
+	 * Refresh list geometries.
+	 */
 	private void refreshListGeometries(){
 		this.listGeometries.clear();
 		for (RoundContentItem roundContentItem: listItems){
@@ -102,6 +137,11 @@ public class JMERoundListContainer extends JMERoundWindow implements IRoundListC
 		}
 	}
 	
+	/**
+	 * Gets the max radius of all items.
+	 *
+	 * @return the max radius of all items
+	 */
 	public float getMaxRadiusOfAllItems(){
 		float maxRadius =0f;
 		for (RoundContentItem roundContentItem: listItems){

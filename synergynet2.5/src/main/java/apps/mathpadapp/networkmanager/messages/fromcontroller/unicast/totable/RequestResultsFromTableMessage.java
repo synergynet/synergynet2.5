@@ -33,10 +33,21 @@ package apps.mathpadapp.networkmanager.messages.fromcontroller.unicast.totable;
 
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class RequestResultsFromTableMessage.
+ */
 public class RequestResultsFromTableMessage extends ControllerToTableMessage {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1558455400434548461L;
 
+	/**
+	 * Instantiates a new request results from table message.
+	 *
+	 * @param targetClass the target class
+	 * @param tableId the table id
+	 */
 	public RequestResultsFromTableMessage(Class<?> targetClass, TableIdentity tableId) {
 		super(targetClass);
 		this.setRecipient(tableId);

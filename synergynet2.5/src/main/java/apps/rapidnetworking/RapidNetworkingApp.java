@@ -58,17 +58,30 @@ import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightConfirmVisualExit;
 import synergynetframework.config.position.PositionConfigPrefsItem;
 
+
+/**
+ * The Class RapidNetworkingApp.
+ */
 public class RapidNetworkingApp extends DefaultSynergyNetApp{
 
 
+	/**
+	 * Instantiates a new rapid networking app.
+	 *
+	 * @param info the info
+	 */
 	public RapidNetworkingApp(ApplicationInfo info) {
 		super(info);
 		// TODO Auto-generated constructor stub
 	}
 
+	/** The content system. */
 	private ContentSystem contentSystem;
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		contentSystem = ContentSystem.getContentSystemForSynergyNetApp(this);	
@@ -172,6 +185,9 @@ public class RapidNetworkingApp extends DefaultSynergyNetApp{
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onActivate()
+	 */
 	@Override
 	public void onActivate() {
 		RapidNetworkManager.getReceiverClasses().add(RapidNetworkingApp.class);
@@ -219,6 +235,9 @@ public class RapidNetworkingApp extends DefaultSynergyNetApp{
 	}
 	
 		
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	@Override
 	protected void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);

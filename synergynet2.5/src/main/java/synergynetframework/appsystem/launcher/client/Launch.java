@@ -38,14 +38,33 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+
+/**
+ * The Class Launch.
+ */
 public class Launch {
 	
+	/**
+	 * The Enum OSName.
+	 */
 	public static enum OSName {
+		
+		/** The windows. */
 		WINDOWS,
+		
+		/** The linux. */
 		LINUX,
+		
+		/** The mac. */
 		MAC
 	}
 	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static void main(String[] args) throws IOException {
 		
 		String java6 = "java";
@@ -87,6 +106,11 @@ public class Launch {
 	
 
 	
+	/**
+	 * Gets the os name.
+	 *
+	 * @return the os name
+	 */
 	public static OSName getOsName() {
 		  OSName os = null;
 		  if (System.getProperty("os.name").toLowerCase().indexOf("windows") > -1) {

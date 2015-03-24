@@ -38,56 +38,108 @@ import mit.ai.nl.core.Expression;
 import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMathPadImplementation;
 
+
+/**
+ * The Class MathPad.
+ */
 public class MathPad extends SketchPad implements IMathPadImplementation{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3971797394081038623L;
 	
+	/**
+	 * Instantiates a new math pad.
+	 *
+	 * @param contentSystem the content system
+	 * @param name the name
+	 */
 	public MathPad(ContentSystem contentSystem, String name) {
 		super(contentSystem, name);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMathPadImplementation#addMathHandwritingListener(synergynetframework.appsystem.contentsystem.items.MathPad.MathHandwritingListener)
+	 */
 	@Override
 	public void addMathHandwritingListener(MathHandwritingListener listener) {
 		((IMathPadImplementation)this.contentItemImplementation).addMathHandwritingListener(listener);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMathPadImplementation#clearMathExpressions()
+	 */
 	@Override
 	public void clearMathExpressions() {
 		((IMathPadImplementation)this.contentItemImplementation).clearMathExpressions();
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMathPadImplementation#startNewExpression()
+	 */
 	@Override
 	public void startNewExpression() {
 		((IMathPadImplementation)this.contentItemImplementation).startNewExpression();
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMathPadImplementation#removeHandwritingListener(synergynetframework.appsystem.contentsystem.items.MathPad.MathHandwritingListener)
+	 */
 	@Override
 	public void removeHandwritingListener(MathHandwritingListener listener) {
 		((IMathPadImplementation)this.contentItemImplementation).removeHandwritingListener(listener);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMathPadImplementation#removeHandwritingListeners()
+	 */
 	@Override
 	public void removeHandwritingListeners() {
 		((IMathPadImplementation)this.contentItemImplementation).removeHandwritingListeners();
 	}
 
+	/**
+	 * The listener interface for receiving mathHandwriting events.
+	 * The class that is interested in processing a mathHandwriting
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addMathHandwritingListener<code> method. When
+	 * the mathHandwriting event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see MathHandwritingEvent
+	 */
 	public interface MathHandwritingListener{
+		
+		/**
+		 * Expressions written.
+		 *
+		 * @param expressions the expressions
+		 */
 		public void expressionsWritten(List<Expression> expressions);
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMathPadImplementation#getCurrentExpression()
+	 */
 	@Override
 	public Expression getCurrentExpression() {
 		return ((IMathPadImplementation)this.contentItemImplementation).getCurrentExpression();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMathPadImplementation#getMathExpressions()
+	 */
 	@Override
 	public List<Expression> getMathExpressions() {
 		return ((IMathPadImplementation)this.contentItemImplementation).getMathExpressions();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMathPadImplementation#setMathEngineEnabled(boolean)
+	 */
 	@Override
 	public void setMathEngineEnabled(boolean isEnabled) {
 		((IMathPadImplementation)this.contentItemImplementation).setMathEngineEnabled(isEnabled);

@@ -45,13 +45,27 @@ import synergynetframework.appsystem.contentsystem.items.SimpleButton;
 import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAdapter;
 import synergynetframework.appsystem.contentsystem.items.utils.Location;
 
+
+/**
+ * The Class EditableQuadNode.
+ */
 public abstract class EditableQuadNode extends QuadNode{
 
+	/** The edit point. */
 	protected SimpleButton editPoint;
+	
+	/** The keyboard node. */
 	protected KeyboardNode keyboardNode;
 	
+	/** The edit point location. */
 	protected String editPointLocation;
 	
+	/**
+	 * Instantiates a new editable quad node.
+	 *
+	 * @param contentSystem the content system
+	 * @param gManager the g manager
+	 */
 	public EditableQuadNode(ContentSystem contentSystem, GraphManager gManager) {
 		super(contentSystem, gManager);
 		editPoint = this.createButtonWithImage(GraphConfig.nodeEditImageResource);
@@ -65,6 +79,11 @@ public abstract class EditableQuadNode extends QuadNode{
 		});
 	}
 	
+	/**
+	 * Sets the edits the point location.
+	 *
+	 * @param location the new edits the point location
+	 */
 	public void setEditPointLocation(String location){
 		if(contentItem != null){
 			editPointLocation = location;
@@ -98,13 +117,34 @@ public abstract class EditableQuadNode extends QuadNode{
 		}
 	}
 	
+	/**
+	 * Gets the edits the button.
+	 *
+	 * @return the edits the button
+	 */
 	public SimpleButton getEditButton(){
 		return this.editPoint;
 	}
 
+	/**
+	 * Gets the text.
+	 *
+	 * @return the text
+	 */
 	public abstract String getText();
+	
+	/**
+	 * Sets the text.
+	 *
+	 * @param text the new text
+	 */
 	public abstract void setText(String text);
 	
+	/**
+	 * Show and link keyboard.
+	 *
+	 * @param edittedNode the editted node
+	 */
 	public void showAndLinkKeyboard(final EditableQuadNode edittedNode){
 		if(keyboardNode == null){
 			keyboardNode = new KeyboardNode(contentSystem, graphManager);
@@ -155,6 +195,9 @@ public abstract class EditableQuadNode extends QuadNode{
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see apps.conceptmap.graphcomponents.nodes.GraphNode#updateNode()
+	 */
 	public void updateNode(){
 		super.updateNode();
 		if(editPointLocation != null)

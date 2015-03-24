@@ -40,23 +40,46 @@ import java.util.Collection;
 import synergynetframework.appsystem.services.net.objectmessaging.Network;
 import synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler;
 
+
+/**
+ * The Class CollectionSerializer.
+ */
 public class CollectionSerializer extends Serializer {
+	
+	/** The Constant instance. */
 	static private final CollectionSerializer instance = new CollectionSerializer();
 
+	/** The elements are not null. */
 	private boolean elementsAreNotNull;
+	
+	/** The serializer. */
 	private Serializer serializer;
+	
+	/** The element class. */
 	private Class<?> elementClass;
 
+	/**
+	 * Instantiates a new collection serializer.
+	 */
 	public CollectionSerializer () {
 	}
 
 
+	/**
+	 * Instantiates a new collection serializer.
+	 *
+	 * @param elementClass the element class
+	 * @param elementsAreNotNull the elements are not null
+	 */
 	public CollectionSerializer (Class<?> elementClass, boolean elementsAreNotNull) {
 		this.elementClass = elementClass;
 		this.elementsAreNotNull = elementsAreNotNull;
 		serializer = elementClass == null ? null : Network.getRegisteredClass(elementClass).serializer;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.utility.serializers.Serializer#writeObjectData(synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler, java.nio.ByteBuffer, java.lang.Object, boolean)
+	 */
 	public void writeObjectData (ConnectionHandler connectionHandler, ByteBuffer buffer, Object object, boolean lengthKnown)
 		throws SerializationException {
 		Collection<?> collection = (Collection<?>)object;
@@ -77,6 +100,9 @@ public class CollectionSerializer extends Serializer {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.utility.serializers.Serializer#readObjectData(synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler, java.nio.ByteBuffer, java.lang.Class, boolean)
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public <T> T readObjectData (ConnectionHandler connectionHandler, ByteBuffer buffer, Class<T> type, boolean lengthKnown)
 		throws SerializationException {
@@ -98,6 +124,16 @@ public class CollectionSerializer extends Serializer {
 		return (T)collection;
 	}
 
+	/**
+	 * Put.
+	 *
+	 * @param connectionHandler the connection handler
+	 * @param buffer the buffer
+	 * @param value the value
+	 * @param elementClass the element class
+	 * @param elementsAreNotNull the elements are not null
+	 * @throws SerializationException the serialization exception
+	 */
 	static public void put (ConnectionHandler connectionHandler, ByteBuffer buffer, Collection<?> value, Class<?> elementClass,
 		boolean elementsAreNotNull) throws SerializationException {
 		instance.elementClass = elementClass;
@@ -105,6 +141,16 @@ public class CollectionSerializer extends Serializer {
 		instance.writeObjectData(connectionHandler, value, buffer);
 	}
 
+	/**
+	 * Gets the.
+	 *
+	 * @param connectionHandler the connection handler
+	 * @param buffer the buffer
+	 * @param elementClass the element class
+	 * @param elementsAreNotNull the elements are not null
+	 * @return the collection
+	 * @throws SerializationException the serialization exception
+	 */
 	static public Collection<?> get (ConnectionHandler connectionHandler, ByteBuffer buffer, Class<?> elementClass, boolean elementsAreNotNull)
 		throws SerializationException {
 		instance.elementClass = elementClass;

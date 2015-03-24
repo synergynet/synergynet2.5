@@ -42,7 +42,19 @@ import com.jme.scene.Spatial;
 import com.jme.scene.TriMesh;
 import com.jme.system.DisplaySystem;
 
+
+/**
+ * The Class JMEGfxUtils.
+ */
 public class JMEGfxUtils {
+	
+	/**
+	 * Gets the cursor world coordinates on spatial plane.
+	 *
+	 * @param cursorScreen the cursor screen
+	 * @param s the s
+	 * @return the cursor world coordinates on spatial plane
+	 */
 	public static Vector3f getCursorWorldCoordinatesOnSpatialPlane(Vector2f cursorScreen, Spatial s) {
 		Vector3f cameraLocation = DisplaySystem.getDisplaySystem().getRenderer().getCamera().getLocation();
 		Vector3f camToTargetSpatial = cameraLocation.subtract(s.getWorldTranslation());
@@ -54,6 +66,14 @@ public class JMEGfxUtils {
 		return getCursorWoldCoorinatesOnPlane(cursorScreen, s, p);
 	}
 	
+	/**
+	 * Gets the cursor wold coorinates on plane.
+	 *
+	 * @param cursorScreen the cursor screen
+	 * @param s the s
+	 * @param p the p
+	 * @return the cursor wold coorinates on plane
+	 */
 	public static Vector3f getCursorWoldCoorinatesOnPlane(Vector2f cursorScreen, Spatial s, Plane p) {
 		Vector3f cameraLocation = DisplaySystem.getDisplaySystem().getRenderer().getCamera().getLocation();
 		Vector3f camToTargetSpatial = cameraLocation.subtract(s.getWorldTranslation());
@@ -77,6 +97,12 @@ public class JMEGfxUtils {
 	}
 
 
+	/**
+	 * Table to screen3f.
+	 *
+	 * @param position the position
+	 * @return the vector2f
+	 */
 	public static Vector2f tableToScreen3f(Point2D.Float position) {
 		Vector2f v2f = new Vector2f();
 		v2f.x = position.x*DisplaySystem.getDisplaySystem().getWidth();
@@ -84,6 +110,15 @@ public class JMEGfxUtils {
 		return v2f;
 	}
 
+	/**
+	 * Distance.
+	 *
+	 * @param x1 the x1
+	 * @param x2 the x2
+	 * @param y1 the y1
+	 * @param y2 the y2
+	 * @return the float
+	 */
 	public static float distance(float x1, float x2, float y1, float y2)
 	{
 		float dx = x1- x2;
@@ -94,9 +129,10 @@ public class JMEGfxUtils {
 	/**
 	 * Gets an array of the three vertices representing the triangle of the
 	 * supplied mesh with the given triangle index, in WORLD coordinates.
-	 * @param m
-	 * @param triangleIndex
-	 * @return
+	 *
+	 * @param m the m
+	 * @param triangleIndex the triangle index
+	 * @return the world vertices
 	 */
 	public static Vector3f[] getWorldVertices(TriMesh m, int triangleIndex) {
 		Vector3f[] vertices = new Vector3f[3];

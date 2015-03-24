@@ -34,10 +34,20 @@ package apps.mathpadapp.networkmanager.messages.fromcontroller.broadcast;
 
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class RequestAllMathPadItemsMessage.
+ */
 public class RequestAllMathPadItemsMessage extends BroadcastApplicationMessage {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -4653557011764348932L;
 
+	/**
+	 * Instantiates a new request all math pad items message.
+	 *
+	 * @param targetClass the target class
+	 */
 	public RequestAllMathPadItemsMessage(Class<?> targetClass) {
 		super(targetClass);
 	}

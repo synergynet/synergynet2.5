@@ -35,11 +35,22 @@ package apps.lightrays.gfxlib;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+
+/**
+ * The Class AnimatedBackground.
+ */
 public class AnimatedBackground extends DrawableElement {
 	
+	/** The ws. */
 	private int[] ws = { 100, 30, 40,  20,  200, 50,  100, 150 };
+	
+	/** The xs. */
 	private int[] xs = { 0,   50, 100, 150, 300, 500, 30,  70};
+	
+	/** The vs. */
 	private int[] vs = { 1,   5,  2,   -4,   -3,   6,   2,   -1};
+	
+	/** The cs. */
 	private Color[] cs = {
 			new Color(0.9f, 0.9f, 0.9f),
 			new Color(0.7f, 0.7f, 0.7f),
@@ -51,15 +62,27 @@ public class AnimatedBackground extends DrawableElement {
 			new Color(0.5f, 0.5f, 0.5f)
 	};
 	
+	/** The width. */
 	protected int width;
+	
+	/** The height. */
 	protected int height;
 	
+	/**
+	 * Instantiates a new animated background.
+	 *
+	 * @param w the w
+	 * @param h the h
+	 */
 	public AnimatedBackground(int w, int h) {
 		super();
 		this.width = w;
 		this.height = h;
 	}
 	
+	/* (non-Javadoc)
+	 * @see apps.lightrays.gfxlib.DrawableElement#draw(java.awt.Graphics2D, long)
+	 */
 	public void draw(Graphics2D gfx, long tick_count) {		
 		gfx.setComposite(getAlphaComposite());
 		gfx.setColor(colour);

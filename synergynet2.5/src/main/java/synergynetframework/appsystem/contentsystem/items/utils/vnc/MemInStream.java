@@ -1,5 +1,6 @@
 package synergynetframework.appsystem.contentsystem.items.utils.vnc;
 
+
 /* Copyright (C) 2002-2005 RealVNC Ltd.  All Rights Reserved.
  * 
  * This is free software; you can redistribute it and/or modify
@@ -18,16 +19,32 @@ package synergynetframework.appsystem.contentsystem.items.utils.vnc;
  * USA.
  */
 
+/**
+ * The Class MemInStream.
+ */
 public class MemInStream extends InStream {
 
+  /**
+   * Instantiates a new mem in stream.
+   *
+   * @param data the data
+   * @param offset the offset
+   * @param len the len
+   */
   public MemInStream(byte[] data, int offset, int len) {
     b = data;
     ptr = offset;
     end = offset + len;
   }
 
+  /* (non-Javadoc)
+   * @see synergynetframework.appsystem.contentsystem.items.utils.vnc.InStream#pos()
+   */
   public int pos() { return ptr; }
 
+  /* (non-Javadoc)
+   * @see synergynetframework.appsystem.contentsystem.items.utils.vnc.InStream#overrun(int, int)
+   */
   protected int overrun(int itemSize, int nItems) throws Exception {
     throw new Exception("MemInStream overrun: end of stream");
   }

@@ -48,26 +48,67 @@ import com.jme.scene.Spatial;
 import com.jmex.awt.swingui.ImageGraphics;
 
 
+
+/**
+ * The Class WaterTank.
+ */
 public class WaterTank extends FullScreenCanvas implements DrawableSpatialImage {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -7014741028303257761L;
+	
+	/** The gfx. */
 	private ImageGraphics gfx;
 
+	/** The hheight. */
 	protected int width,height,hwidth,hheight;
+	
+	/** The source. */
 	protected MemoryImageSource source;
+	
+	/** The off image. */
 	protected Image image, offImage;
+	
+	/** The off graphics. */
 	protected Graphics offGraphics;
+	
+	/** The b. */
 	protected int i,a,b;
+	
+	/** The Mouse y. */
 	protected int MouseX,MouseY;
+	
+	/** The size. */
 	protected int delay,size;
+	
+	/** The tolerance. */
 	protected float tolerance = 10;
+	
+	/** The ripplemap. */
 	protected short ripplemap[];
+	
+	/** The texture. */
 	protected int texture[];
+	
+	/** The ripple. */
 	protected int ripple[];
+	
+	/** The mapind. */
 	protected int oldind,newind,mapind;
+	
+	/** The riprad. */
 	protected int riprad;
+	
+	/** The im. */
 	protected Image im;
 
+	/**
+	 * Instantiates a new water tank.
+	 *
+	 * @param name the name
+	 * @param width the width
+	 * @param height the height
+	 */
 	public WaterTank(String name, int width, int height) {
 		super(name);
 		gfx = getGraphics();
@@ -81,6 +122,11 @@ public class WaterTank extends FullScreenCanvas implements DrawableSpatialImage 
 		draw();
 	}
 	
+	/**
+	 * Start draw thread.
+	 *
+	 * @param parentApp the parent app
+	 */
 	public void startDrawThread(final WaterTankApp parentApp){
 		Runnable messageDispatch = new Runnable() {	  
 			public void run() {							    	
@@ -94,24 +140,39 @@ public class WaterTank extends FullScreenCanvas implements DrawableSpatialImage 
       	captureThread.start();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#cursorDragged(long, int, int)
+	 */
 	@Override
 	public void cursorDragged(long id, int x, int y) {
 		disturb(x,y);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#cursorPressed(long, int, int)
+	 */
 	@Override
 	public void cursorPressed(long cursorID, int x, int y) {
 		disturb(x,y);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#cursorReleased(long, int, int)
+	 */
 	@Override
 	public void cursorReleased(long cursorID, int x, int y) {
 		disturb(x,y);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#cursorClicked(long, int, int)
+	 */
 	@Override
 	public void cursorClicked(long cursorID, int x, int y) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#draw()
+	 */
 	public void draw() {
 		newframe();
 		source.newPixels();
@@ -119,10 +180,16 @@ public class WaterTank extends FullScreenCanvas implements DrawableSpatialImage 
 		gfx.drawImage(offImage,0,0,null);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#getSpatial()
+	 */
 	public Spatial getSpatial() {
 		return this;
 	}
 
+	/**
+	 * Inits the.
+	 */
 	public void init() {
 		//Retrieve the base image
 		ImageIcon ii = new ImageIcon(WaterTank.class.getResource("pebbles.jpg"));
@@ -158,6 +225,12 @@ public class WaterTank extends FullScreenCanvas implements DrawableSpatialImage 
 	}
 
 
+	/**
+	 * Disturb.
+	 *
+	 * @param dx the dx
+	 * @param dy the dy
+	 */
 	public void disturb(int dx, int dy) {
 		for (int j=dy-riprad;j<dy+riprad;j++) {
 			for (int k=dx-riprad;k<dx+riprad;k++) {
@@ -169,6 +242,9 @@ public class WaterTank extends FullScreenCanvas implements DrawableSpatialImage 
 	}
 
 
+	/**
+	 * Newframe.
+	 */
 	public void newframe() {
 
 		//Toggle maps each frame

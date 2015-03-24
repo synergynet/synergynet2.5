@@ -38,7 +38,18 @@ import org.w3c.dom.Node;
 
 import synergynetframework.appsystem.contentsystem.contentloader.config.AttributeConstants;
 
+
+/**
+ * The Class AttributeLoaderUtil.
+ */
 public class AttributeLoaderUtil {
+	
+	/**
+	 * Load item attributes.
+	 *
+	 * @param itemAttrs the item attrs
+	 * @param attrs the attrs
+	 */
 	public static void loadItemAttributes(Map<String, String> itemAttrs, NamedNodeMap attrs){
 		
 		Node attrNode = attrs.getNamedItem(AttributeConstants.ITEM_SCALE);

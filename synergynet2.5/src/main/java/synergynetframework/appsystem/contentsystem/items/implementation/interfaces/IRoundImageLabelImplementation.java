@@ -33,7 +33,23 @@ package synergynetframework.appsystem.contentsystem.items.implementation.interfa
 
 import java.net.URL;
 
+
+/**
+ * The Interface IRoundImageLabelImplementation.
+ */
 public interface IRoundImageLabelImplementation extends IRoundContentItemImplementation {
+	
+	/**
+	 * Sets the image info.
+	 *
+	 * @param imageResource the new image info
+	 */
 	public void setImageInfo(URL imageResource);
+	
+	/**
+	 * Sets the auto fit.
+	 *
+	 * @param autoFit the new auto fit
+	 */
 	public void setAutoFit(boolean autoFit);
 }

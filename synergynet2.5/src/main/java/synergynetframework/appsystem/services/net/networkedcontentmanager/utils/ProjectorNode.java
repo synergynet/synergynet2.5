@@ -51,15 +51,36 @@ import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.networkedcontentmanager.NetworkedContentManager;
 import synergynetframework.appsystem.services.net.networkedcontentmanager.controllers.ProjectorController;
 
+
+/**
+ * The Class ProjectorNode.
+ */
 public class ProjectorNode extends QuadNode{
 
+	/** The table id. */
 	protected TableIdentity tableId;
+	
+	/** The image. */
 	protected LightImageLabel image;
+	
+	/** The desktop. */
 	protected RemoteDesktop desktop;
+	
+	/** The projector controller. */
 	protected ProjectorController projectorController;
+	
+	/** The is used. */
 	private boolean isUsed = false;
+	
+	/** The is show on. */
 	private boolean isShowOn = false;
 	
+	/**
+	 * Instantiates a new projector node.
+	 *
+	 * @param tableId the table id
+	 * @param networkManager the network manager
+	 */
 	public ProjectorNode(final TableIdentity tableId, final NetworkedContentManager networkManager) {
 		super(networkManager.getContentSystem(), networkManager.getGraphManager());
 		this.tableId = tableId;
@@ -218,23 +239,48 @@ public class ProjectorNode extends QuadNode{
 	}
 	
 	
+	/**
+	 * Gets the table id.
+	 *
+	 * @return the table id
+	 */
 	public TableIdentity getTableId(){
 		return tableId;
 	}
 	
+	/**
+	 * Checks if is being used.
+	 *
+	 * @return true, if is being used
+	 */
 	public boolean isBeingUsed(){
 		return isUsed;
 	}
 	
+	/**
+	 * Sets the being used.
+	 *
+	 * @param isUsed the new being used
+	 */
 	public void setBeingUsed(boolean isUsed){
 		this.isUsed = isUsed; 
 	}
 	
+	/**
+	 * Synchronise.
+	 *
+	 * @param synchronisedItems the synchronised items
+	 */
 	public void synchronise(Map<String, Map<String, String>> synchronisedItems){
 		if(isShowOn && desktop != null)
 			projectorController.sendProjectorSyncMessage(desktop.getTableId(), tableId, synchronisedItems);
 	}
 	
+	/**
+	 * Checks if is show on.
+	 *
+	 * @return true, if is show on
+	 */
 	public boolean isShowOn(){
 		return isShowOn;
 	}

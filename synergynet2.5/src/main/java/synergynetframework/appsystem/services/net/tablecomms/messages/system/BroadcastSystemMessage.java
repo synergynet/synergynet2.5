@@ -32,10 +32,18 @@
 
 package synergynetframework.appsystem.services.net.tablecomms.messages.system;
 
+
+/**
+ * The Class BroadcastSystemMessage.
+ */
 public class BroadcastSystemMessage extends SystemMessage {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -5646238856332154085L;
 
+	/**
+	 * Instantiates a new broadcast system message.
+	 */
 	public BroadcastSystemMessage(){
 		super();
 	}

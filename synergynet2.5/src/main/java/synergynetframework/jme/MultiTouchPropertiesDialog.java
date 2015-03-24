@@ -74,6 +74,7 @@ import com.jme.system.JmeException;
 import com.jme.system.PropertiesIO;
 
 
+
 /**
  * <code>PropertiesDialog</code> provides an interface to make use of the
  * <code>PropertiesIO</code> class. It provides a simple clean method of
@@ -81,56 +82,70 @@ import com.jme.system.PropertiesIO;
  * by the client application, and passed during construction.
  * 
  * Modified to add extra controls for SynergyNet applications.
- * 
- * @see com.jme.system.PropertiesIO
+ *
  * @author Mark Powell
  * @author Eric Woroshow
  * @author ashatch
+ * @see com.jme.system.PropertiesIO
  */
 public class MultiTouchPropertiesDialog extends JDialog {
 
+    /** The Constant logger. */
     private static final Logger logger = Logger.getLogger(MultiTouchPropertiesDialog.class.getName());
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
     // connection to properties file.
+    /** The source. */
     private final PropertiesIO source;
 
     // Title Image
+    /** The image file. */
     private URL imageFile = null;
 
     // Array of supported display modes
+    /** The modes. */
     private DisplayMode[] modes = null;
 
     // Array of windowed resolutions
+    /** The windowed resolutions. */
     private String[] windowedResolutions = { "640 x 480", "800 x 600",
             "1024 x 768", "1152 x 864" };
 
     // UI components
+    /** The fullscreen box. */
     private JCheckBox fullscreenBox = null;
 
+    /** The display res combo. */
     private JComboBox displayResCombo = null;
+    
+    /** The color depth combo. */
     private JComboBox colorDepthCombo = null;
+    
+    /** The display freq combo. */
     private JComboBox displayFreqCombo = null;
+    
+    /** The renderer combo. */
     private JComboBox rendererCombo = null;
+    
+    /** The table type. */
     private JComboBox tableType = null;
     
+    /** The icon. */
     private JLabel icon = null;
     
+    /** The cancelled. */
     private boolean cancelled = false;
 
     /**
      * Constructor for the <code>PropertiesDialog</code>. Creates a
      * properties dialog initialized for the primary display.
-     * 
-     * @param source
-     *            the <code>PropertiesIO</code> object to use for working with
+     *
+     * @param source            the <code>PropertiesIO</code> object to use for working with
      *            the properties file.
-     * @param imageFile
-     *            the image file to use as the title of the dialog;
+     * @param imageFile            the image file to use as the title of the dialog;
      *            <code>null</code> will result in to image being displayed
-     * @throws JmeException
-     *             if the source is <code>null</code>
      */
     public MultiTouchPropertiesDialog(PropertiesIO source, String imageFile) {
         this(source, getURL(imageFile));
@@ -139,15 +154,11 @@ public class MultiTouchPropertiesDialog extends JDialog {
     /**
      * Constructor for the <code>PropertiesDialog</code>. Creates a
      * properties dialog initialized for the primary display.
-     * 
-     * @param source
-     *            the <code>PropertiesIO</code> object to use for working with
+     *
+     * @param source            the <code>PropertiesIO</code> object to use for working with
      *            the properties file.
-     * @param imageFile
-     *            the image file to use as the title of the dialog;
+     * @param imageFile            the image file to use as the title of the dialog;
      *            <code>null</code> will result in to image being displayed
-     * @throws JmeException
-     *             if the source is <code>null</code>
      */
     public MultiTouchPropertiesDialog(PropertiesIO source, URL imageFile) {
         if (null == source)
@@ -422,6 +433,11 @@ public class MultiTouchPropertiesDialog extends JDialog {
         return nameBox;
     }
     
+	/**
+	 * Sets the up table type chooser.
+	 *
+	 * @return the j combo box
+	 */
 	private JComboBox setUpTableTypeChooser() {
     	String[] types = AppConfig.TABLE_TYPE_LABELS;
     	JComboBox box = new JComboBox(types);
@@ -487,7 +503,8 @@ public class MultiTouchPropertiesDialog extends JDialog {
 
     /**
      * Utility method for converting a String denoting a file into a URL.
-     * 
+     *
+     * @param file the file
      * @return a URL pointing to the file or null
      */
     private static URL getURL(String file) {
@@ -499,6 +516,12 @@ public class MultiTouchPropertiesDialog extends JDialog {
         return url;
     }
 
+    /**
+     * Show error.
+     *
+     * @param parent the parent
+     * @param message the message
+     */
     private static void showError(java.awt.Component parent, String message) {
         JOptionPane.showMessageDialog(parent, message, "Error",
                 JOptionPane.ERROR_MESSAGE);
@@ -506,6 +529,9 @@ public class MultiTouchPropertiesDialog extends JDialog {
 
     /**
      * Reutrns every unique resolution from an array of <code>DisplayMode</code>s.
+     *
+     * @param modes the modes
+     * @return the resolutions
      */
     private static String[] getResolutions(DisplayMode[] modes) {
         ArrayList<String> resolutions = new ArrayList<String>(modes.length);
@@ -522,6 +548,10 @@ public class MultiTouchPropertiesDialog extends JDialog {
 
     /**
      * Returns every possible bit depth for the given resolution.
+     *
+     * @param resolution the resolution
+     * @param modes the modes
+     * @return the depths
      */
     private static String[] getDepths(String resolution, DisplayMode[] modes) {
         ArrayList<String> depths = new ArrayList<String>(4);
@@ -545,6 +575,10 @@ public class MultiTouchPropertiesDialog extends JDialog {
 
     /**
      * Returns every possible refresh rate for the given resolution.
+     *
+     * @param resolution the resolution
+     * @param modes the modes
+     * @return the frequencies
      */
     private static String[] getFrequencies(String resolution,
             DisplayMode[] modes) {
@@ -566,7 +600,13 @@ public class MultiTouchPropertiesDialog extends JDialog {
      * resolution, then bit depth, and then finally refresh rate.
      */
     private class DisplayModeSorter implements Comparator<DisplayMode> {
+        
         /**
+         * Compare.
+         *
+         * @param a the a
+         * @param b the b
+         * @return the int
          * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
          */
         public int compare(DisplayMode a, DisplayMode b) {
@@ -588,6 +628,8 @@ public class MultiTouchPropertiesDialog extends JDialog {
     }
 
     /**
+     * Checks if is cancelled.
+     *
      * @return Returns the cancelled.
      */
     public boolean isCancelled() {

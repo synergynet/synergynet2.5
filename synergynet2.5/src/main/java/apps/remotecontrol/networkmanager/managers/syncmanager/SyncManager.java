@@ -50,33 +50,77 @@ import synergynetframework.appsystem.contentsystem.items.utils.Location;
 import synergynetframework.appsystem.contentsystem.jme.items.utils.DrawData;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class SyncManager.
+ */
 public class SyncManager{
 
+	/** The Constant SYNC_ITEM_ANGLE. */
 	public static final short SYNC_ITEM_ANGLE = 1;
+	
+	/** The Constant SYNC_ITEM_SCALE. */
 	public static final short SYNC_ITEM_SCALE = 2;
+	
+	/** The Constant SYNC_ITEM_LOCATION_X. */
 	public static final short SYNC_ITEM_LOCATION_X = 3;
+	
+	/** The Constant SYNC_ITEM_LOCATION_Y. */
 	public static final short SYNC_ITEM_LOCATION_Y = 4;
+	
+	/** The Constant SYNC_ITEM_LOCATION_Z. */
 	public static final short SYNC_ITEM_LOCATION_Z = 5;
+	
+	/** The Constant SYNC_ITEM_SORTORDER. */
 	public static final short SYNC_ITEM_SORTORDER = 6;
+	
+	/** The Constant SYNC_ITEM_DRAW_DATA. */
 	public static final short SYNC_ITEM_DRAW_DATA = 7;
+	
+	/** The Constant SYNC_ITEM_CLEAR_PAD. */
 	public static final short SYNC_ITEM_CLEAR_PAD = 8;
 	
+	/** The network manager. */
 	protected NetworkedContentManager networkManager;
+	
+	/** The sync data. */
 	protected Map<String, Map<Short, Object>> syncData = new HashMap<String, Map<Short, Object>>();
+	
+	/** The sync tables. */
 	protected List<TableIdentity> syncTables = new ArrayList<TableIdentity>();
 
+	/**
+	 * Instantiates a new sync manager.
+	 *
+	 * @param networkManager the network manager
+	 */
 	public SyncManager(NetworkedContentManager networkManager){
 		this.networkManager = networkManager;
 	}
 	
+	/**
+	 * Register sync table.
+	 *
+	 * @param tableId the table id
+	 */
 	public void registerSyncTable(TableIdentity tableId){
 		if(!syncTables.contains(tableId)) syncTables.add(tableId);
 	}
 	
+	/**
+	 * Unregister sync table.
+	 *
+	 * @param tableId the table id
+	 */
 	public void unregisterSyncTable(TableIdentity tableId){
 		syncTables.remove(tableId);
 	}
 	
+	/**
+	 * Adds the sync listeners.
+	 *
+	 * @param item the item
+	 */
 	public void addSyncListeners(ContentItem item){
 
 		OrthoContentItem orthoItem = (OrthoContentItem)item;
@@ -147,17 +191,30 @@ public class SyncManager{
 		}
 	}
 	
+	/**
+	 * Register item.
+	 *
+	 * @param item the item
+	 */
 	private void registerItem(ContentItem item){
 		if (syncData.get(item.getName())==null){
 			syncData.put(item.getName(), new HashMap<Short, Object>());
 		}
 	}
 	
+	/**
+	 * Unregister content item.
+	 *
+	 * @param item the item
+	 */
 	public void unregisterContentItem(ContentItem item) {
 		((OrthoContentItem)item).removeBringToTopListeners();
 		((OrthoContentItem)item).removeOrthoControlPointRotateTranslateScaleListeners();
 	}
 	
+	/**
+	 * Update.
+	 */
 	public void update() {
 		if(!syncTables.isEmpty() && !syncData.isEmpty()){
 			for(TableIdentity tableId: syncTables){
@@ -170,6 +227,9 @@ public class SyncManager{
 		}
 	}
 
+	/**
+	 * Update sync data.
+	 */
 	public void updateSyncData() {
 		for(ContentItem item: networkManager.onlineItemsList.values()){
 			this.registerItem(item);
@@ -185,17 +245,32 @@ public class SyncManager{
 
 	// Testing methods
 	
+	/**
+	 * Fire item scaled.
+	 *
+	 * @param item the item
+	 */
 	public void fireItemScaled(ContentItem item){
 		SyncManager.this.registerItem(item);
 		syncData.get(item.getName()).put(SyncManager.SYNC_ITEM_SCALE, String.valueOf(item.getScale()));		
 		
 	}
 
+	/**
+	 * Fire item rotated.
+	 *
+	 * @param item the item
+	 */
 	public void fireItemRotated(ContentItem item) {
 		SyncManager.this.registerItem(item);
 		syncData.get(item.getName()).put(SyncManager.SYNC_ITEM_ANGLE, String.valueOf(item.getAngle()));	
 	}
 
+	/**
+	 * Fire item moved.
+	 *
+	 * @param item the item
+	 */
 	public void fireItemMoved(ContentItem item) {
 		SyncManager.this.registerItem(item);
 		Location loc = new Location(item.getLocalLocation().x, item.getLocalLocation().y,0);

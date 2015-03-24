@@ -43,32 +43,73 @@ import synergynetframework.jme.Updateable;
 import synergynetframework.jme.cursorsystem.MultiTouchElement;
 import synergynetframework.jme.cursorsystem.MultiTouchElementRegistry;
 
+
+/**
+ * The Class FlickSystem.
+ */
 public class FlickSystem implements Updateable {
+	
+	/** The instance. */
 	private static FlickSystem instance = new FlickSystem();
+	
+	/** The movable elements. */
 	protected static Queue<FlickMover> movableElements = new ConcurrentLinkedQueue<FlickMover>();
+	
+	/** The network flick mode. */
 	private static boolean networkFlickMode = false;
 
+	/**
+	 * Gets the single instance of FlickSystem.
+	 *
+	 * @return single instance of FlickSystem
+	 */
 	public static FlickSystem getInstance() {
 		return instance;
 	}
 
+	/**
+	 * Instantiates a new flick system.
+	 */
 	private FlickSystem() {}
 
+	/**
+	 * Make flickable.
+	 *
+	 * @param s the s
+	 * @param movingElement the moving element
+	 * @param deceleration the deceleration
+	 */
 	public void makeFlickable(Spatial s, MultiTouchElement movingElement, float deceleration) {
 		this.makeFlickable(s, s, movingElement, deceleration);
 	}
 
+	/**
+	 * Make flickable.
+	 *
+	 * @param pickingSpatial the picking spatial
+	 * @param targetSpatial the target spatial
+	 * @param movingElement the moving element
+	 * @param deceleration the deceleration
+	 */
 	public void makeFlickable(Spatial pickingSpatial, Spatial targetSpatial, MultiTouchElement movingElement, float deceleration) {
 		FlickMover fm = new FlickMover(pickingSpatial, targetSpatial, movingElement, deceleration, networkFlickMode);
 		movableElements.add(fm);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.Updateable#update(float)
+	 */
 	public void update(float timePerFrame) {
 		for(FlickMover fm : movableElements) {
 			fm.update(timePerFrame);
 		}
 	}
 
+	/**
+	 * Make unflickable.
+	 *
+	 * @param s the s
+	 */
 	public void makeUnflickable(Spatial s){
 		for(Iterator<FlickMover> iter = movableElements.iterator(); iter.hasNext();){
 			FlickMover flickMover = iter.next();
@@ -82,6 +123,12 @@ public class FlickSystem implements Updateable {
 		}
 	}
 
+	/**
+	 * Checks if is flickable.
+	 *
+	 * @param s the s
+	 * @return true, if is flickable
+	 */
 	public boolean isFlickable(Spatial s){
 		for(FlickMover fm: movableElements){
 			if(fm.getTargetSpatial().getName().equals(s.getName()))
@@ -91,6 +138,13 @@ public class FlickSystem implements Updateable {
 	}
 
 
+	/**
+	 * Flick.
+	 *
+	 * @param s the s
+	 * @param linearVelocity the linear velocity
+	 * @param deceleration the deceleration
+	 */
 	public void flick(Spatial s, Vector3f linearVelocity, float deceleration){
 		for(FlickMover fm : movableElements){
 			if(fm.getTargetSpatial().getName().equals(s.getName()))	{
@@ -102,6 +156,12 @@ public class FlickSystem implements Updateable {
 
 	}
 
+	/**
+	 * Gets the moving element.
+	 *
+	 * @param s the s
+	 * @return the moving element
+	 */
 	public FlickMover getMovingElement(Spatial s){
 		for(FlickMover fm : movableElements){
 			if(fm.getTargetSpatial().getName().equals(s.getName()))	{
@@ -111,10 +171,21 @@ public class FlickSystem implements Updateable {
 		return null;
 	}
 
+	/**
+	 * Gets the moving elements.
+	 *
+	 * @return the moving elements
+	 */
 	public Queue<FlickMover> getMovingElements(){
 		return movableElements;
 	}
 
+	/**
+	 * Gets the flick mover.
+	 *
+	 * @param s the s
+	 * @return the flick mover
+	 */
 	public static FlickMover getFlickMover(Spatial s){
 		for(Iterator<FlickMover> iter = movableElements.iterator(); iter.hasNext();){
 			FlickMover flickMover = iter.next();
@@ -126,6 +197,8 @@ public class FlickSystem implements Updateable {
 	}
 
 	/**
+	 * Checks if is network flick mode.
+	 *
 	 * @return the networkFlickMode
 	 */
 	public static boolean isNetworkFlickMode() {
@@ -133,6 +206,8 @@ public class FlickSystem implements Updateable {
 	}
 
 	/**
+	 * Sets the network flick mode.
+	 *
 	 * @param networkFlickMode the networkFlickMode to set
 	 */
 	public static void setNetworkFlickMode(boolean networkFlickMode) {

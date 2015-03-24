@@ -38,27 +38,52 @@ import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.UnicastApplicationMessage;
 
+
+/**
+ * The Class PostItemConstructionMessage.
+ */
 public class PostItemConstructionMessage extends UnicastApplicationMessage {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1532263009372001719L;
+	
+	/** The construct info. */
 	HashMap<ContentItem, HashMap<String, Object>> constructInfo;
 	
+	/**
+	 * Instantiates a new post item construction message.
+	 */
 	public PostItemConstructionMessage(){
 		super();
 	}
+	
+	/**
+	 * Instantiates a new post item construction message.
+	 *
+	 * @param targetClass the target class
+	 * @param targetTableId the target table id
+	 * @param constructInfo the construct info
+	 */
 	public PostItemConstructionMessage(Class<?> targetClass,TableIdentity targetTableId, HashMap<ContentItem, HashMap<String, Object>> constructInfo) {
 		super(targetClass);
 		this.constructInfo = constructInfo;
 		this.setRecipient(targetTableId);
 	}
 
+	/**
+	 * Gets the construction info.
+	 *
+	 * @return the construction info
+	 */
 	public HashMap<ContentItem, HashMap<String, Object>> getConstructionInfo() {
 		return constructInfo;
 	}
 	
+	/**
+	 * Sets the construction info.
+	 *
+	 * @param constructInfo the construct info
+	 */
 	public void setConstructionInfo(HashMap<ContentItem, HashMap<String, Object>> constructInfo){
 		this.constructInfo = constructInfo;
 	}

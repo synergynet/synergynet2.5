@@ -37,14 +37,27 @@ import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightConfirmVisualExit;
 import synergynetframework.appsystem.table.gfx.GFXUtils;
 
+
+/**
+ * The Class ControlClientApp.
+ */
 public class ControlClientApp  extends DefaultSynergyNetApp {
 
+	/**
+	 * Instantiates a new control client app.
+	 *
+	 * @param info the info
+	 */
 	public ControlClientApp(ApplicationInfo info) {
 		super(info);
 	}
 
+	/** The ccv. */
 	protected ControlClientView ccv;
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {		
 		setMenuController(new HoldTopRightConfirmVisualExit(this));		
@@ -54,9 +67,15 @@ public class ControlClientApp  extends DefaultSynergyNetApp {
 		orthoNode.updateGeometricState(0f, true);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onActivate()
+	 */
 	@Override
 	public void onActivate() {}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	@Override
 	protected void stateUpdate(float tpf) {
 		ccv.draw();		

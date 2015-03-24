@@ -39,18 +39,38 @@ import synergynetframework.appsystem.contentsystem.items.OrthoContentItem;
 import synergynetframework.appsystem.services.net.networkedcontentmanager.NetworkedContentManager;
 import synergynetframework.appsystem.services.net.networkedcontentmanager.messages.networkedflick.EnableFlickMessage;
 
+
+/**
+ * The Class NetworkedFlickController.
+ */
 public class NetworkedFlickController {
 	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(NetworkedContentManager.class.getName());
 	
+	/** The networked content manager. */
 	protected NetworkedContentManager networkedContentManager;
+	
+	/** The Default deceleration. */
 	public static float DefaultDeceleration = 1;
+	
+	/** The is flick enabled. */
 	protected boolean isFlickEnabled = false;
 	
+	/**
+	 * Instantiates a new networked flick controller.
+	 *
+	 * @param networkedContentManager the networked content manager
+	 */
 	public NetworkedFlickController(NetworkedContentManager networkedContentManager){
 		this.networkedContentManager = networkedContentManager;
 	}
 	
+	/**
+	 * Sets the network flick enabled.
+	 *
+	 * @param isFlickEnabled the new network flick enabled
+	 */
 	public void setNetworkFlickEnabled(boolean isFlickEnabled){
 		enableFlick(isFlickEnabled);
 		for (Class<?> targetClass:networkedContentManager.getReceiverClasses())	
@@ -58,6 +78,11 @@ public class NetworkedFlickController {
 		log.info("Broadcast command to enable flicking");
 	}
 	
+	/**
+	 * Enable flick.
+	 *
+	 * @param isFlickEnabled the is flick enabled
+	 */
 	public void enableFlick(boolean isFlickEnabled){
 		for(ContentItem item: networkedContentManager.getOnlineItems().values()){
 			if(item instanceof OrthoContentItem){
@@ -73,6 +98,11 @@ public class NetworkedFlickController {
 			log.info("Network flick disabled");
 	}
 	
+	/**
+	 * Checks if is flick enabled.
+	 *
+	 * @return true, if is flick enabled
+	 */
 	public boolean isFlickEnabled(){
 		return isFlickEnabled;
 	}

@@ -39,11 +39,25 @@ import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.objectmessaging.messages.UDPMessage;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.UnicastApplicationMessage;
 
+
+/**
+ * The Class SynchroniseRemoteDesktopData.
+ */
 public class SynchroniseRemoteDesktopData extends UnicastApplicationMessage implements UDPMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -546746341111227474L;
+	
+	/** The items. */
 	protected Map<String, Map<String, String>> items = new HashMap<String, Map<String, String>>();
 
+	/**
+	 * Instantiates a new synchronise remote desktop data.
+	 *
+	 * @param targetClass the target class
+	 * @param items the items
+	 * @param id the id
+	 */
 	public SynchroniseRemoteDesktopData(Class<?> targetClass, Map<String, Map<String, String>> items, TableIdentity id) {
 		super(targetClass);
 		this.items.clear();
@@ -58,6 +72,11 @@ public class SynchroniseRemoteDesktopData extends UnicastApplicationMessage impl
 		this.setRecipient(id);
 	}
 
+	/**
+	 * Gets the items.
+	 *
+	 * @return the items
+	 */
 	public Map<String, Map<String, String>> getItems() {
 		return items;
 	}

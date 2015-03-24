@@ -40,26 +40,60 @@ import synergynetframework.appsystem.services.net.landiscovery.multicast.Service
 import synergynetframework.appsystem.services.net.landiscovery.multicast.discoverer.ServiceBrowser;
 import synergynetframework.appsystem.services.net.landiscovery.multicast.responder.ServiceResponder;
 
+
+/**
+ * A factory for creating ServiceSystem objects.
+ */
 public class ServiceSystemFactory {
 	
+	/**
+	 * The Enum ServiceProvider.
+	 */
 	public enum ServiceProvider {
+		
+		/** The multicast. */
 		MULTICAST,
+		
+		/** The mdns. */
 		MDNS
 	}
 	
+	/** The Constant defaultProvider. */
 	private static final ServiceProvider defaultProvider = ServiceProvider.MULTICAST;
+	
+	/** The sdp. */
 	private static ServiceDiscoveryParams sdp;
+	
+	/** The sb. */
 	private static ServiceBrowser sb;
+	
+	/** The sr. */
 	private static ServiceResponder sr;
 	
+	/**
+	 * Gets the service discovery system.
+	 *
+	 * @return the service discovery system
+	 */
 	public static ServiceDiscoverySystem getServiceDiscoverySystem() {
 		return getServiceDiscoverySystem(defaultProvider);
 	}
 	
+	/**
+	 * Gets the service announcer system.
+	 *
+	 * @return the service announcer system
+	 */
 	public static ServiceAnnounceSystem getServiceAnnouncerSystem() {
 		return getServiceAnnouncerSystem(defaultProvider);
 	}
 	
+	/**
+	 * Gets the service discovery system.
+	 *
+	 * @param sp the sp
+	 * @return the service discovery system
+	 */
 	public static ServiceDiscoverySystem getServiceDiscoverySystem(ServiceProvider sp) {
 		ServiceDiscoverySystem sys = null;
 		switch(sp) {
@@ -86,11 +120,23 @@ public class ServiceSystemFactory {
 		return sys;
 	}
 	
+	/**
+	 * Gets the shared multicast params.
+	 *
+	 * @return the shared multicast params
+	 * @throws UnknownHostException the unknown host exception
+	 */
 	private static ServiceDiscoveryParams getSharedMulticastParams() throws UnknownHostException {
 		if(sdp == null) sdp = new ServiceDiscoveryParams();
 		return sdp;
 	}
 
+	/**
+	 * Gets the service announcer system.
+	 *
+	 * @param sp the sp
+	 * @return the service announcer system
+	 */
 	public static ServiceAnnounceSystem getServiceAnnouncerSystem(ServiceProvider sp) {
 		ServiceAnnounceSystem sys = null;
 		switch(sp) {
@@ -118,6 +164,9 @@ public class ServiceSystemFactory {
 		return sys;
 	}
 	
+	/**
+	 * Stop.
+	 */
 	public static void stop(){
 		if(sb != null) sb.stop();
 		if(sr != null) sr.stop();

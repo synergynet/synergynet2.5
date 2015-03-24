@@ -44,13 +44,29 @@ import com.jme.scene.Spatial;
 import synergynetframework.jme.cursorsystem.cursordata.WorldCursorRecord;
 import synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale;
 
+
+/**
+ * The Class PeriodBarControl.
+ */
 public class PeriodBarControl extends OrthoControlPointRotateTranslateScale{
 
+	/** The schedule bar listeners. */
 	protected List<ScheduleBarListener> scheduleBarListeners = new ArrayList<ScheduleBarListener>();
 	
+	/** The length. */
 	protected int length;
+	
+	/** The unit length. */
 	protected int unitLength;
 	
+	/**
+	 * Instantiates a new period bar control.
+	 *
+	 * @param pickingSpatial the picking spatial
+	 * @param targetSpatial the target spatial
+	 * @param length the length
+	 * @param unitLength the unit length
+	 */
 	public PeriodBarControl(Spatial pickingSpatial, Spatial targetSpatial, int length, int unitLength) {
 		super(pickingSpatial, targetSpatial);
 		this.length = length;
@@ -61,6 +77,9 @@ public class PeriodBarControl extends OrthoControlPointRotateTranslateScale{
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale#applySingleCursorTransform()
+	 */
 	protected void applySingleCursorTransform() {
 
 		Vector2f posChange = cursor1Pos.subtract(cursor1OldPos);
@@ -80,6 +99,9 @@ public class PeriodBarControl extends OrthoControlPointRotateTranslateScale{
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale#applyMultiCursorTransform()
+	 */
 	protected void applyMultiCursorTransform() {
 
 		Vector2f oldCenter = new Vector2f();
@@ -176,6 +198,13 @@ public class PeriodBarControl extends OrthoControlPointRotateTranslateScale{
 		}
 	}
 
+	/**
+	 * Gets the current element2 d coords for cursor.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @return the current element2 d coords for cursor
+	 */
 	private Vector2f getCurrentElement2DCoordsForCursor(float x, float y) {
 		Vector3f pos = new Vector3f(x, y,0);
 		Vector3f selectionLocal = new Vector3f();
@@ -184,6 +213,9 @@ public class PeriodBarControl extends OrthoControlPointRotateTranslateScale{
 		return new Vector2f(selectionLocal.x, selectionLocal.y);		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale#updateCursor1()
+	 */
 	@Override
 	protected void updateCursor1() {
 
@@ -199,6 +231,9 @@ public class PeriodBarControl extends OrthoControlPointRotateTranslateScale{
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale#updateCursor2()
+	 */
 	@Override
 	protected void updateCursor2() {
 
@@ -213,6 +248,13 @@ public class PeriodBarControl extends OrthoControlPointRotateTranslateScale{
 		cursor2OldPos.y = rotatedPosition.y;
 	}
 	
+	/**
+	 * Screen to table.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @return the vector2f
+	 */
 	private Vector2f screenToTable(float x, float y) {
 
 		if (targetSpatial.getParent()==null)
@@ -232,16 +274,44 @@ public class PeriodBarControl extends OrthoControlPointRotateTranslateScale{
 	}
 
 
+	/**
+	 * Adds the schedule bar listener.
+	 *
+	 * @param l the l
+	 */
 	public void addScheduleBarListener(ScheduleBarListener l){
 		scheduleBarListeners.add(l);
 	}
 
+	/**
+	 * Removes the schedule bar listener.
+	 *
+	 * @param l the l
+	 */
 	public void removeScheduleBarListener(ScheduleBarListener l){
 		if (scheduleBarListeners.contains(l))
 			scheduleBarListeners.remove(l);
 	}
 
+	/**
+	 * The listener interface for receiving scheduleBar events.
+	 * The class that is interested in processing a scheduleBar
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addScheduleBarListener<code> method. When
+	 * the scheduleBar event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see ScheduleBarEvent
+	 */
 	public interface ScheduleBarListener {
+		
+		/**
+		 * Moved.
+		 *
+		 * @param startPointX the start point x
+		 * @param length the length
+		 */
 		public void moved(float startPointX, float length);
 	}
 

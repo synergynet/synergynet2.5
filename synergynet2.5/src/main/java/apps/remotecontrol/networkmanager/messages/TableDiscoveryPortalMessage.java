@@ -34,10 +34,20 @@ package apps.remotecontrol.networkmanager.messages;
 
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class TableDiscoveryPortalMessage.
+ */
 public class TableDiscoveryPortalMessage extends BroadcastApplicationMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 6448601837962845275L;
 
+	/**
+	 * Instantiates a new table discovery portal message.
+	 *
+	 * @param targetClass the target class
+	 */
 	public TableDiscoveryPortalMessage(Class<?> targetClass) {
 		super(targetClass);
 	}

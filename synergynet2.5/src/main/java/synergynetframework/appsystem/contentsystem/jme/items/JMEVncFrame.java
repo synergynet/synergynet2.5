@@ -53,25 +53,65 @@ import synergynetframework.appsystem.contentsystem.items.utils.vnc.VncCanvas.Vnc
 import synergynetframework.jme.gfx.twod.keyboard.MTKeyListener;
 
 
+
+/**
+ * The Class JMEVncFrame.
+ */
 public class JMEVncFrame extends JMEWindow implements IVncFrameImplementation, VncImageListener, MTKeyListener {
+	
+	/** The item. */
 	protected VncFrame item;
+	
+	/** The inner frame. */
 	protected Frame innerFrame;
+	
+	/** The vncviewer. */
 	protected VncViewer vncviewer;
+	
+	/** The framerate. */
 	private float framerate;
+	
+	/** The delay. */
 	private float delay = 0.5f;
 	
+	/** The screen width. */
 	private int screenWidth = 1024 ;
+	
+	/** The screen height. */
 	private int screenHeight = 768 ;
+	
+	/** The initial scale. */
 	private float initialScale = 0.3f;
+	
+	/** The vnc border width. */
 	private int vncBorderWidth = 70;
+	
+	/** The listener added. */
 	private boolean listenerAdded = false;
+	
+	/** The image. */
 	private Image image = null;
+	
+	/** The host. */
 	private String host = null;
+	
+	/** The port. */
 	private int port;
+	
+	/** The password. */
 	private String password = null;
+	
+	/** The keyboard. */
 	private MTKeyboard keyboard;
+	
+	/** The keyboard btn. */
 	private SimpleButton keyboardBtn;
 	
+	/**
+	 * Instantiates a new JME vnc frame.
+	 *
+	 * @param contentItem the content item
+	 */
 	public JMEVncFrame(ContentItem contentItem){
 		super(contentItem);
 		item = (VncFrame) contentItem;
@@ -176,6 +216,9 @@ public class JMEVncFrame extends JMEWindow implements IVncFrameImplementation, V
 		keyboardBtn.setOrder(999999);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEWindow#init()
+	 */
 	@Override
 	public void init(){
 		super.init();
@@ -188,6 +231,9 @@ public class JMEVncFrame extends JMEWindow implements IVncFrameImplementation, V
 		innerFrame.setRotateTranslateScalable(false);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEOrthoContentItem#update(float)
+	 */
 	public void update(float interpolation) {
 		
 		if((framerate - interpolation) > 0){
@@ -208,6 +254,9 @@ public class JMEVncFrame extends JMEWindow implements IVncFrameImplementation, V
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.utils.vnc.VncCanvas.VncImageListener#imageCreated(java.awt.Image)
+	 */
 	@Override
 	public void imageCreated(Image image) {
 		if(image != null){
@@ -217,17 +266,26 @@ public class JMEVncFrame extends JMEWindow implements IVncFrameImplementation, V
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.keyboard.MTKeyListener#keyPressedEvent(java.awt.event.KeyEvent)
+	 */
 	@Override
 	public void keyPressedEvent(KeyEvent evt) {
 		System.out.println(evt.getKeyChar());
 		vncviewer.vc.keyPressed(evt);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.keyboard.MTKeyListener#keyReleasedEvent(java.awt.event.KeyEvent)
+	 */
 	@Override
 	public void keyReleasedEvent(KeyEvent evt) {
 		vncviewer.vc.keyReleased(evt);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IVncFrameImplementation#setConnectionSettings(java.lang.String, int, java.lang.String)
+	 */
 	@Override
 	public void setConnectionSettings(String host, int port, String password) {
 		this.host = host;
@@ -235,6 +293,9 @@ public class JMEVncFrame extends JMEWindow implements IVncFrameImplementation, V
 		this.password = password;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IVncFrameImplementation#connect()
+	 */
 	@Override
 	public void connect() {
 			if(vncviewer == null){
@@ -242,6 +303,9 @@ public class JMEVncFrame extends JMEWindow implements IVncFrameImplementation, V
 			}
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IVncFrameImplementation#disconnect()
+	 */
 	@Override
 	public void disconnect() {
 		if(vncviewer != null){ 

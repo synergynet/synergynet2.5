@@ -9,35 +9,65 @@ import java.net.MalformedURLException;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
+
+/**
+ * The Class ImageNode.
+ */
 public class ImageNode extends AssetNode{
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 7063668231614709939L;
+	
+	/** The icon width. */
 	private static int ICON_WIDTH = 40;
+	
+	/** The icon height. */
 	private static int ICON_HEIGHT = 30;
 	
+	/** The img. */
 	protected Image img;
 	
+	/**
+	 * Instantiates a new image node.
+	 *
+	 * @param assetFile the asset file
+	 */
 	public ImageNode(File assetFile) {
 		super(assetFile);
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * Instantiates a new image node.
+	 *
+	 * @param img the img
+	 */
 	public ImageNode(Image img){
 		super(null);
 		this.img = img;
 	}
 	
+	/**
+	 * Sets the image.
+	 *
+	 * @param img the new image
+	 */
 	public void setImage(Image img){
 		this.img = img;
 	}
 	
+	/**
+	 * Gets the image.
+	 *
+	 * @return the image
+	 */
 	public Image getImage(){
 		return img;
 	}
 	
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.desktop.tree.nodes.AssetNode#getIcon()
+	 */
 	public Icon getIcon(){
 		try{
 			 ImageIcon imgIcon = null;

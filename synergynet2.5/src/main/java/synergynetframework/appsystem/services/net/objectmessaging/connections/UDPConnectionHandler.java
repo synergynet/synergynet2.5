@@ -46,23 +46,53 @@ import java.util.logging.Logger;
 import synergynetframework.appsystem.services.net.objectmessaging.Network;
 import synergynetframework.appsystem.services.net.objectmessaging.utility.serializers.SerializationException;
 
+
+/**
+ * The Class UDPConnectionHandler.
+ */
 public class UDPConnectionHandler {
 	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(UDPConnectionHandler.class.getName());
 
+	/** The connected address. */
 	public InetSocketAddress connectedAddress;
+	
+	/** The datagram channel. */
 	public DatagramChannel datagramChannel;
+	
+	/** The alive time. */
 	public int aliveTime = 20000;
+	
+	/** The write buffer. */
 	public final ByteBuffer readBuffer, writeBuffer;
+	
+	/** The selection key. */
 	private SelectionKey selectionKey;
+	
+	/** The write lock. */
 	private final Object writeLock = new Object();
+	
+	/** The last communication time. */
 	private long lastCommunicationTime;
 
+	/**
+	 * Instantiates a new UDP connection handler.
+	 *
+	 * @param bufferSize the buffer size
+	 */
 	public UDPConnectionHandler (int bufferSize) {
 		readBuffer = ByteBuffer.allocateDirect(bufferSize);
 		writeBuffer = ByteBuffer.allocateDirect(bufferSize);
 	}
 
+	/**
+	 * Bind.
+	 *
+	 * @param selector the selector
+	 * @param localPort the local port
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void bind (Selector selector, int localPort) throws IOException {
 		close();
 		try {
@@ -78,6 +108,13 @@ public class UDPConnectionHandler {
 		}
 	}
 
+	/**
+	 * Connect.
+	 *
+	 * @param selector the selector
+	 * @param remoteAddress the remote address
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void connect (Selector selector, InetSocketAddress remoteAddress) throws IOException {
 		close();
 		try {
@@ -99,6 +136,12 @@ public class UDPConnectionHandler {
 		}
 	}
 
+	/**
+	 * Read from address.
+	 *
+	 * @return the inet socket address
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public InetSocketAddress readFromAddress () throws IOException {
 		DatagramChannel datagramChannel = this.datagramChannel;
 		if (datagramChannel == null) throw new SocketException("Connection is closed.");
@@ -106,6 +149,13 @@ public class UDPConnectionHandler {
 		return (InetSocketAddress)datagramChannel.receive(readBuffer);
 	}
 
+	/**
+	 * Read object.
+	 *
+	 * @param connectionHandler the connection handler
+	 * @return the object
+	 * @throws SerializationException the serialization exception
+	 */
 	public Object readObject (ConnectionHandler connectionHandler) throws SerializationException {
 		readBuffer.flip();
 		try {
@@ -119,6 +169,16 @@ public class UDPConnectionHandler {
 		}
 	}
 
+	/**
+	 * Send.
+	 *
+	 * @param connectionHandler the connection handler
+	 * @param object the object
+	 * @param address the address
+	 * @return the int
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws SerializationException the serialization exception
+	 */
 	public int send (ConnectionHandler connectionHandler, Object object, SocketAddress address) throws IOException, SerializationException {
 		DatagramChannel datagramChannel = this.datagramChannel;
 		if (datagramChannel == null) throw new SocketException("Connection is closed.");
@@ -139,6 +199,9 @@ public class UDPConnectionHandler {
 		}
 	}
 
+	/**
+	 * Close.
+	 */
 	public void close () {
 		connectedAddress = null;
 		try {
@@ -152,6 +215,11 @@ public class UDPConnectionHandler {
 		}
 	}
 
+	/**
+	 * Needs keep alive.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean needsKeepAlive () {
 		return connectedAddress != null && aliveTime > 0 && System.currentTimeMillis() - lastCommunicationTime > aliveTime;
 	}

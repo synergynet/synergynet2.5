@@ -33,6 +33,7 @@ import com.jme.math.FastMath;
 import com.jme.math.Vector3f;
 import com.jme.renderer.Camera;
 
+
 /**
  * Orbits the camera around a specified target position and also handles
  * translation of the target position.
@@ -41,30 +42,65 @@ import com.jme.renderer.Camera;
  */
 public class OrbitAction extends InputAction {
 
+	/** The camera. */
 	private Camera camera = null;
+	
+	/** The target position. */
 	private Vector3f targetPosition = null;
 
+	/** The enabled. */
 	private boolean enabled = true;
+	
+	/** The updated. */
 	private boolean updated = false;
 
+	/** The max zenith. */
 	private float maxZenith = 89.5f * FastMath.DEG_TO_RAD;
+	
+	/** The move left multiplier. */
 	private float moveLeftMultiplier = 0.5f;
+	
+	/** The move down multiplier. */
 	private float moveDownMultiplier = 0.5f;
+	
+	/** The mouse x multiplier. */
 	private float mouseXMultiplier = 2.0f;
+	
+	/** The mouse y multiplier. */
 	private float mouseYMultiplier = 2.0f;
+	
+	/** The mouse roll multiplier. */
 	private float mouseRollMultiplier = 0.1f;
+	
+	/** The translate horizontal speed. */
 	private float translateHorizontalSpeed = 1.0f;
+	
+	/** The translate vertical speed. */
 	private float translateVerticalSpeed = 1.0f;
+	
+	/** The mouse x speed. */
 	private float mouseXSpeed = 1.0f;
+	
+	/** The mouse y speed. */
 	private float mouseYSpeed = 1.0f;
+	
+	/** The radial speed. */
 	private float radialSpeed = 1.0f;
 
 	// Temp variables
+	/** The dif temp. */
 	private final Vector3f difTemp = new Vector3f();
+	
+	/** The sphere temp. */
 	private final Vector3f sphereTemp = new Vector3f();
+	
+	/** The right temp. */
 	private final Vector3f rightTemp = new Vector3f();
 
+	/** The mouse button pressed. */
 	private boolean mouseButtonPressed = false;
+	
+	/** The key modifier pressed. */
 	private boolean keyModifierPressed = false;
 
 	/**
@@ -100,8 +136,8 @@ public class OrbitAction extends InputAction {
 	/**
 	 * Reverse the direction of the mouse wheel input. The mouse wheel trigger
 	 * delta is opposite when used with a canvas.
-	 * 
-	 * @param reversed
+	 *
+	 * @param reversed the new wheel direction
 	 */
 	public void setWheelDirection(boolean reversed) {
 
@@ -113,6 +149,8 @@ public class OrbitAction extends InputAction {
 
 	/**
 	 * Handles camera updates based on input events.
+	 *
+	 * @param evt the evt
 	 */
 	public void performAction(InputActionEvent evt) {
 
@@ -166,8 +204,8 @@ public class OrbitAction extends InputAction {
 	/**
 	 * <code>rotateAzimuth</code> updates the azimuth value of the camera's
 	 * spherical coordinates.
-	 * 
-	 * @param amount
+	 *
+	 * @param amount the amount
 	 */
 	private void rotateAzimuth(float amount) {
 
@@ -189,8 +227,8 @@ public class OrbitAction extends InputAction {
 	/**
 	 * <code>rotateZenith</code> updates the zenith/polar value of the camera's
 	 * spherical coordinates.
-	 * 
-	 * @param amount
+	 *
+	 * @param amount the amount
 	 */
 	private void rotateZenith(float amount) {
 
@@ -212,8 +250,8 @@ public class OrbitAction extends InputAction {
 	/**
 	 * <code>translateRadius</code> updates the radius value of the camera's
 	 * spherical coordinates.
-	 * 
-	 * @param amount
+	 *
+	 * @param amount the amount
 	 */
 	private void translateRadial(float amount) {
 
@@ -224,8 +262,8 @@ public class OrbitAction extends InputAction {
 	/**
 	 * <code>translateVertically</code> updates the camera and target position
 	 * along a vertical plane.
-	 * 
-	 * @param amount
+	 *
+	 * @param amount the amount
 	 */
 	private void translateVertically(float amount) {
 
@@ -237,8 +275,8 @@ public class OrbitAction extends InputAction {
 	/**
 	 * <code>translateHorizontal</code> updates the camera and target position
 	 * along a horizontal plane.
-	 * 
-	 * @param amount
+	 *
+	 * @param amount the amount
 	 */
 	private void translateHorizontal(float amount) {
 

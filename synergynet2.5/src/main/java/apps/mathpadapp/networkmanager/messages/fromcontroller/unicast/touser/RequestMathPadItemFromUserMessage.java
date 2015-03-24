@@ -34,10 +34,22 @@ package apps.mathpadapp.networkmanager.messages.fromcontroller.unicast.touser;
 import apps.mathpadapp.networkmanager.utils.UserIdentity;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class RequestMathPadItemFromUserMessage.
+ */
 public class RequestMathPadItemFromUserMessage extends ControllerToUserMessage {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -4653557011764348932L;
 
+	/**
+	 * Instantiates a new request math pad item from user message.
+	 *
+	 * @param targetClass the target class
+	 * @param tableId the table id
+	 * @param userId the user id
+	 */
 	public RequestMathPadItemFromUserMessage(Class<?> targetClass, TableIdentity tableId, UserIdentity userId) {
 		super(targetClass);
 		this.setRecipient(tableId);

@@ -41,38 +41,73 @@ import synergynetframework.appsystem.server.ServerMonitor;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.server.TableCommsServerService;
 
+
+/**
+ * The Class AppListModel.
+ */
 public class AppListModel extends DefaultListModel implements ServerMonitor {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -1417575418502890958L;
+	
+	/** The server. */
 	private TableCommsServerService server;
+	
+	/** The apps. */
 	private List<String> apps = new ArrayList<String>();
 
+	/**
+	 * Instantiates a new app list model.
+	 *
+	 * @param server the server
+	 */
 	public AppListModel(TableCommsServerService server) {
 		this.server = server;
 		server.registerServerMonitor(this);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.server.ServerMonitor#tableConnected(synergynetframework.appsystem.services.net.localpresence.TableIdentity)
+	 */
 	public void tableConnected(TableIdentity identity) {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.server.ServerMonitor#tableDisconnected(synergynetframework.appsystem.services.net.localpresence.TableIdentity)
+	 */
 	public void tableDisconnected(TableIdentity identity) {
 		
 	}	
 	
+	/* (non-Javadoc)
+	 * @see javax.swing.DefaultListModel#getElementAt(int)
+	 */
 	public Object getElementAt(int index) {
 		return apps.get(index);
 	}
 	
+	/* (non-Javadoc)
+	 * @see javax.swing.DefaultListModel#getSize()
+	 */
 	public int getSize() {
 		return apps.size();
 	}
 
+	/**
+	 * Sets the selected table identity.
+	 *
+	 * @param id the new selected table identity
+	 */
 	public void setSelectedTableIdentity(TableIdentity id) {
 		this.removeAllElements();
 		this.apps = server.getApplicationsRegisteredForTable(id);
 		this.fireContentsChanged(this, 0, getSize());
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.server.ServerMonitor#serverReceivedMessage(java.lang.Object)
+	 */
 	public void serverReceivedMessage(Object obj) {}
 
 }

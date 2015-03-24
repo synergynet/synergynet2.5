@@ -37,15 +37,33 @@ import java.net.URL;
 
 import javax.swing.ImageIcon;
 
+
+/**
+ * The Class ImageInfo.
+ */
 public class ImageInfo implements Serializable{
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 210773506843993131L;
+	
+	/** The image resource. */
 	private URL imageResource;
+	
+	/** The height. */
 	private int x =0, y =0, width = 150, height = 100;
+	
+	/** The is auto ratio by image height. */
 	private boolean isAutoRatioByImageHeight = false;
 	
+	/**
+	 * Instantiates a new image info.
+	 *
+	 * @param imageResource the image resource
+	 * @param x the x
+	 * @param y the y
+	 * @param width the width
+	 * @param height the height
+	 */
 	public ImageInfo(URL imageResource, int x, int y, int width, int height){
 		this.imageResource = imageResource;
 		this.x = x;
@@ -54,30 +72,65 @@ public class ImageInfo implements Serializable{
 		this.height = height;
 	}
 	
+	/**
+	 * Gets the image resource.
+	 *
+	 * @return the image resource
+	 */
 	public URL getImageResource(){
 		return imageResource;
 	}
 	
+	/**
+	 * Sets the image resource.
+	 *
+	 * @param imageResource the new image resource
+	 */
 	public void setImageResource(URL imageResource) {
 		this.imageResource = imageResource;
 	}
 	
+	/**
+	 * Gets the x.
+	 *
+	 * @return the x
+	 */
 	public int getX() {
 		return x;
 	}
 
+	/**
+	 * Sets the x.
+	 *
+	 * @param x the new x
+	 */
 	public void setX(int x) {
 		this.x = x;
 	}
 
+	/**
+	 * Gets the y.
+	 *
+	 * @return the y
+	 */
 	public int getY() {
 		return y;
 	}
 
+	/**
+	 * Sets the y.
+	 *
+	 * @param y the new y
+	 */
 	public void setY(int y) {
 		this.y = y;
 	}
 
+	/**
+	 * Gets the width.
+	 *
+	 * @return the width
+	 */
 	public int getWidth() {
 		if (imageResource != null && this.isAutoRatioByImageHeight){
 			Image image = new ImageIcon(imageResource).getImage();
@@ -86,22 +139,47 @@ public class ImageInfo implements Serializable{
 		return width;
 	}
 
+	/**
+	 * Sets the width.
+	 *
+	 * @param width the new width
+	 */
 	public void setWidth(int width) {
 		this.width = width;
 	}
 
+	/**
+	 * Gets the height.
+	 *
+	 * @return the height
+	 */
 	public int getHeight() {
 		return height;
 	}
 
+	/**
+	 * Sets the height.
+	 *
+	 * @param height the new height
+	 */
 	public void setHeight(int height) {
 		this.height = height;
 	}
 
+	/**
+	 * Checks if is auto ratio by image height.
+	 *
+	 * @return true, if is auto ratio by image height
+	 */
 	public boolean isAutoRatioByImageHeight() {
 		return isAutoRatioByImageHeight;
 	}
 
+	/**
+	 * Sets the auto ratio by image height.
+	 *
+	 * @param isAutoRatioByImageHeight the new auto ratio by image height
+	 */
 	public void setAutoRatioByImageHeight(boolean isAutoRatioByImageHeight) {
 		this.isAutoRatioByImageHeight = isAutoRatioByImageHeight;
 	}

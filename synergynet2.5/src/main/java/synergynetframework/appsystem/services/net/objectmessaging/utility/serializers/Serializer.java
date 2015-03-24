@@ -39,13 +39,32 @@ import java.nio.ByteBuffer;
 
 import synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler;
 
+
+/**
+ * The Class Serializer.
+ */
 abstract public class Serializer {
+	
+	/** The can be null. */
 	private boolean canBeNull = true;
 
+	/**
+	 * Sets the can be null.
+	 *
+	 * @param canBeNull the new can be null
+	 */
 	public void setCanBeNull (boolean canBeNull) {
 		this.canBeNull = canBeNull;
 	}
 
+	/**
+	 * Write object.
+	 *
+	 * @param connectionHandler the connection handler
+	 * @param object the object
+	 * @param buffer the buffer
+	 * @throws SerializationException the serialization exception
+	 */
 	public final void writeObject (ConnectionHandler connectionHandler, Object object, ByteBuffer buffer) throws SerializationException {
 		if (canBeNull) {
 			if (object == null) {
@@ -57,13 +76,40 @@ abstract public class Serializer {
 		writeObjectData(connectionHandler, buffer, object, false);
 	}
 
+	/**
+	 * Write object data.
+	 *
+	 * @param connectionHandler the connection handler
+	 * @param buffer the buffer
+	 * @param object the object
+	 * @param lengthKnown the length known
+	 * @throws SerializationException the serialization exception
+	 */
 	public abstract void writeObjectData (ConnectionHandler connectionHandler, ByteBuffer buffer, Object object, boolean lengthKnown)
 		throws SerializationException;
 
+	/**
+	 * Write object data.
+	 *
+	 * @param connectionHandler the connection handler
+	 * @param object the object
+	 * @param buffer the buffer
+	 * @throws SerializationException the serialization exception
+	 */
 	public void writeObjectData (ConnectionHandler connectionHandler, Object object, ByteBuffer buffer) throws SerializationException {
 		writeObjectData(connectionHandler, buffer, object, false);
 	}
 
+	/**
+	 * Read object.
+	 *
+	 * @param <T> the generic type
+	 * @param connectionHandler the connection handler
+	 * @param buffer the buffer
+	 * @param type the type
+	 * @return the t
+	 * @throws SerializationException the serialization exception
+	 */
 	public final <T> T readObject (ConnectionHandler connectionHandler, ByteBuffer buffer, Class<T> type) throws SerializationException {
 		if (canBeNull && buffer.get() == 0) {
 			return null;
@@ -71,13 +117,42 @@ abstract public class Serializer {
 		return readObjectData(connectionHandler, buffer, type, false);
 	}
 
+	/**
+	 * Read object data.
+	 *
+	 * @param <T> the generic type
+	 * @param connectionHandler the connection handler
+	 * @param buffer the buffer
+	 * @param type the type
+	 * @param lengthKnown the length known
+	 * @return the t
+	 * @throws SerializationException the serialization exception
+	 */
 	abstract public <T> T readObjectData (ConnectionHandler connectionHandler, ByteBuffer buffer, Class<T> type, boolean lengthKnown)
 		throws SerializationException;
 
+	/**
+	 * Read object data.
+	 *
+	 * @param <T> the generic type
+	 * @param connectionHandler the connection handler
+	 * @param buffer the buffer
+	 * @param type the type
+	 * @return the t
+	 * @throws SerializationException the serialization exception
+	 */
 	public <T> T readObjectData (ConnectionHandler connectionHandler, ByteBuffer buffer, Class<T> type) throws SerializationException {
 		return readObjectData(connectionHandler, buffer, type, false);
 	}
 
+	/**
+	 * New instance.
+	 *
+	 * @param <T> the generic type
+	 * @param type the type
+	 * @return the t
+	 * @throws SerializationException the serialization exception
+	 */
 	public <T> T newInstance (Class<T> type) throws SerializationException {
 		try {
 			return type.newInstance();
@@ -99,6 +174,13 @@ abstract public class Serializer {
 		}
 	}
 
+	/**
+	 * Write null.
+	 *
+	 * @param buffer the buffer
+	 * @param object the object
+	 * @return true, if successful
+	 */
 	static public boolean writeNull (ByteBuffer buffer, Object object) {
 		if (object == null) {
 			buffer.put((byte)0);
@@ -108,6 +190,12 @@ abstract public class Serializer {
 		return true;
 	}
 
+	/**
+	 * Read null.
+	 *
+	 * @param buffer the buffer
+	 * @return true, if successful
+	 */
 	static public boolean readNull (ByteBuffer buffer) {
 		if (buffer.get() == 0) {
 			return false;

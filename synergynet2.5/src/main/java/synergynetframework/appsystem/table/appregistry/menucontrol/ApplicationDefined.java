@@ -34,18 +34,31 @@ package synergynetframework.appsystem.table.appregistry.menucontrol;
 
 import synergynetframework.appsystem.table.appdefinitions.SynergyNetApp;
 
+
+/**
+ * The Class ApplicationDefined.
+ */
 public class ApplicationDefined extends MenuController {
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appregistry.menucontrol.MenuController#enableForApplication(synergynetframework.appsystem.table.appdefinitions.SynergyNetApp)
+	 */
 	@Override
 	public void enableForApplication(SynergyNetApp app) {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.Updateable#update(float)
+	 */
 	@Override
 	public void update(float tpf) {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appregistry.menucontrol.MenuController#applicationFinishing()
+	 */
 	@Override
 	public void applicationFinishing() {
 		

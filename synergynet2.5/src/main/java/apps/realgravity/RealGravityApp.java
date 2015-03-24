@@ -45,16 +45,30 @@ import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightConfirmVisualExit;
 import synergynetframework.jme.cursorsystem.elements.twod.CursorEventDispatcher;
 
+
+/**
+ * The Class RealGravityApp.
+ */
 public class RealGravityApp extends DefaultSynergyNetApp {
 	
+	/** The gravity app running. */
 	public static boolean gravityAppRunning = false;
 	
+	/** The us. */
 	protected UniverseSimulator us;
 
+	/**
+	 * Instantiates a new real gravity app.
+	 *
+	 * @param info the info
+	 */
 	public RealGravityApp(ApplicationInfo info) {
 		super(info);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		
@@ -81,6 +95,9 @@ public class RealGravityApp extends DefaultSynergyNetApp {
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	@Override
 	protected void stateUpdate(float tpf) {
 		us.draw();

@@ -37,6 +37,7 @@ import synergynetframework.mtinput.IMultiTouchInputFilter;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 import synergynetframework.mtinput.events.MultiTouchObjectEvent;
 
+
 /**
  * Ensures only one cursor is active at any one time.
  * 
@@ -45,27 +46,43 @@ import synergynetframework.mtinput.events.MultiTouchObjectEvent;
  */
 public class SingleInputFilter implements IMultiTouchInputFilter {
 	
+	/** The Constant INVALID_CURSOR. */
 	private static final int INVALID_CURSOR = Integer.MIN_VALUE;
 	
+	/** The next. */
 	private IMultiTouchEventListener next;
+	
+	/** The active cursor. */
 	private long activeCursor = INVALID_CURSOR;
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchInputFilter#setNext(synergynetframework.mtinput.IMultiTouchEventListener)
+	 */
 	public void setNext(IMultiTouchEventListener el) {
 		this.next = el;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorChanged(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorChanged(MultiTouchCursorEvent event) {
 		if(event.getCursorID() == activeCursor) {
 			next.cursorChanged(event);
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorClicked(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorClicked(MultiTouchCursorEvent event) {
 		if(event.getCursorID() == activeCursor) {
 			next.cursorClicked(event);
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorPressed(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorPressed(MultiTouchCursorEvent event) {
 		if(activeCursor == INVALID_CURSOR) {
 			activeCursor = event.getCursorID();			
@@ -73,6 +90,9 @@ public class SingleInputFilter implements IMultiTouchInputFilter {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorReleased(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorReleased(MultiTouchCursorEvent event) {
 		if(event.getCursorID() == activeCursor) {
 			activeCursor = INVALID_CURSOR;
@@ -80,18 +100,30 @@ public class SingleInputFilter implements IMultiTouchInputFilter {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectAdded(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectAdded(MultiTouchObjectEvent event) {
 		next.objectAdded(event);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectChanged(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectChanged(MultiTouchObjectEvent event) {
 		next.objectChanged(event);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectRemoved(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectRemoved(MultiTouchObjectEvent event) {
 		next.objectRemoved(event);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchInputFilter#update(float)
+	 */
 	public void update(float tpf) {}
 
 }

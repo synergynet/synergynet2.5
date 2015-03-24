@@ -35,11 +35,26 @@ import apps.mathpadapp.controllerapp.assignmentbuilder.Assignment;
 import apps.mathpadapp.networkmanager.utils.UserIdentity;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class PostMathAssignmentToUserMessage.
+ */
 public class PostMathAssignmentToUserMessage extends ControllerToUserMessage {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -546555344864227474L;
+	
+	/** The assignment. */
 	private Assignment assignment;
 
+	/**
+	 * Instantiates a new post math assignment to user message.
+	 *
+	 * @param targetClass the target class
+	 * @param assignment the assignment
+	 * @param tableId the table id
+	 * @param userId the user id
+	 */
 	public PostMathAssignmentToUserMessage(Class<?> targetClass, Assignment assignment, TableIdentity tableId, UserIdentity userId) {
 		super(targetClass);
 		this.assignment = assignment;
@@ -47,6 +62,11 @@ public class PostMathAssignmentToUserMessage extends ControllerToUserMessage {
 		this.setRecipientUser(userId);
 	}
 
+	/**
+	 * Gets the assignment.
+	 *
+	 * @return the assignment
+	 */
 	public Assignment getAssignment() {
 		return assignment;
 	}

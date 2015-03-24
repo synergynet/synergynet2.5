@@ -38,32 +38,51 @@ import synergynetframework.jme.cursorsystem.cursordata.ScreenCursor;
 import synergynetframework.jme.cursorsystem.fixutils.FixGesture;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 
+
 /**
- * 
- * @author dcs0ah1, dcs2ima
+ * The Class OrthoControlPointRotateTranslateScaleFix.
  *
+ * @author dcs0ah1, dcs2ima
  */
 public class OrthoControlPointRotateTranslateScaleFix extends OrthoControlPointRotateTranslateScale {
 
+	/** The fixed. */
 	protected boolean fixed = false;
+	
+	/** The fix gesture. */
 	protected FixGesture fixGesture;
 	
+	/**
+	 * Instantiates a new ortho control point rotate translate scale fix.
+	 *
+	 * @param pickingAndTargetSpatial the picking and target spatial
+	 * @param fixGesture the fix gesture
+	 */
 	public OrthoControlPointRotateTranslateScaleFix(Spatial pickingAndTargetSpatial, FixGesture fixGesture) {
 		super(pickingAndTargetSpatial);
 		this.fixGesture = fixGesture;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale#cursorChanged(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorChanged(ScreenCursor c, MultiTouchCursorEvent event) {
 		if(isFixed()) return;
 		super.cursorChanged(c, event);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale#cursorClicked(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorClicked(ScreenCursor c, MultiTouchCursorEvent event) {
 		super.cursorClicked(c, event);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale#cursorPressed(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorPressed(ScreenCursor c, MultiTouchCursorEvent event) {
 		super.cursorPressed(c, event);
@@ -75,15 +94,28 @@ public class OrthoControlPointRotateTranslateScaleFix extends OrthoControlPointR
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale#cursorReleased(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorReleased(ScreenCursor c, MultiTouchCursorEvent event) {
 		super.cursorReleased(c, event);
 	}
 	
+	/**
+	 * Checks if is fixed.
+	 *
+	 * @return true, if is fixed
+	 */
 	public boolean isFixed() {
 		return fixed;
 	}
 	
+	/**
+	 * Sets the fixed.
+	 *
+	 * @param fixed the new fixed
+	 */
 	public void setFixed(boolean fixed) {
 		this.fixed = fixed;
 	}

@@ -32,7 +32,27 @@
 
 package synergynetframework.appsystem.contentsystem.items.listener;
 
+
+/**
+ * The listener interface for receiving listEvent events.
+ * The class that is interested in processing a listEvent
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addListEventListener<code> method. When
+ * the listEvent event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see ListEventEvent
+ */
 public interface ListEventListener {
+	
+	/**
+	 * List shown.
+	 */
 	public void listShown();
+	
+	/**
+	 * List hiden.
+	 */
 	public void listHiden();
 }

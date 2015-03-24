@@ -36,17 +36,36 @@ import java.util.List;
 import synergynetframework.appsystem.contentsystem.jme.items.utils.DrawData;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class PostMathHandwritingToTableMessage.
+ */
 public class PostMathHandwritingToTableMessage extends ControllerToTableMessage {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -546555344864227474L;
+	
+	/** The draw data. */
 	private List<DrawData> drawData;
 
+	/**
+	 * Instantiates a new post math handwriting to table message.
+	 *
+	 * @param targetClass the target class
+	 * @param drawData the draw data
+	 * @param id the id
+	 */
 	public PostMathHandwritingToTableMessage(Class<?> targetClass, List<DrawData> drawData, TableIdentity id) {
 		super(targetClass);
 		this.drawData = drawData;
 		this.setRecipient(id);
 	}
 
+	/**
+	 * Gets the math assignment.
+	 *
+	 * @return the math assignment
+	 */
 	public List<DrawData> getMathAssignment() {
 		return drawData;
 	}

@@ -38,89 +38,159 @@ import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMediaPlayerImplementation;
 import synergynetframework.appsystem.contentsystem.jme.items.JMEMediaPlayer.PlayListener;
 
+
+/**
+ * The Class MediaPlayer.
+ */
 public class MediaPlayer extends OrthoContainer implements IMediaPlayerImplementation {
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -8279443253333792979L;	
 
+	/** The media url. */
 	protected URL mediaURL;
+	
+	/** The is playing. */
 	protected boolean isPlaying;
+	
+	/** The pixels per unit. */
 	protected float pixelsPerUnit = 1;
 		
+	/**
+	 * Instantiates a new media player.
+	 *
+	 * @param contentSystem the content system
+	 * @param name the name
+	 */
 	public MediaPlayer(ContentSystem contentSystem, String name) {
 		super(contentSystem, name);
 	}
 	
 	// convenience methods
+	/**
+	 * Play.
+	 */
 	public void play() {
 		setPlaying(true);
 	}	
 
+	/**
+	 * Stop.
+	 */
 	public void stop() {
 		setPlaying(false);		
 	}
 	
 	// setters - each must call stateChanged
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMediaPlayerImplementation#setMediaURL(java.net.URL)
+	 */
 	public void setMediaURL(URL url) {
 		this.mediaURL = url;
 		((IMediaPlayerImplementation)this.contentItemImplementation).setMediaURL(url);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMediaPlayerImplementation#setPlaying(boolean)
+	 */
 	public void setPlaying(boolean b) {
 		isPlaying = b;	
 		((IMediaPlayerImplementation)this.contentItemImplementation).setPlaying(b);
 	}	
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMediaPlayerImplementation#setPixelsPerUnit(float)
+	 */
 	public void setPixelsPerUnit(float ppu) {
 		pixelsPerUnit = ppu;
 		((IMediaPlayerImplementation)this.contentItemImplementation).setPixelsPerUnit(ppu);
 	}
 	
 	// getters	
+	/**
+	 * Checks if is playing.
+	 *
+	 * @return true, if is playing
+	 */
 	public boolean isPlaying() {
 		return isPlaying;
 	}
 	
+	/**
+	 * Gets the media url.
+	 *
+	 * @return the media url
+	 */
 	public URL getMediaURL() {
 		return mediaURL;
 	}
 
+	/**
+	 * Gets the pixels per unit.
+	 *
+	 * @return the pixels per unit
+	 */
 	public float getPixelsPerUnit() {
 		return pixelsPerUnit;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IQuadContentItemImplementation#setAutoFitSize(boolean)
+	 */
 	@Override
 	public void setAutoFitSize(boolean isEnabled) {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IQuadContentItemImplementation#setHeight(int)
+	 */
 	@Override
 	public void setHeight(int height) {		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IQuadContentItemImplementation#setWidth(int)
+	 */
 	@Override
 	public void setWidth(int width) {	
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMediaPlayerImplementation#getPlayerFrame()
+	 */
 	@Override
 	public OrthoContentItem getPlayerFrame() {
 		return ((IMediaPlayerImplementation)this.contentItemImplementation).getPlayerFrame();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMediaPlayerImplementation#getVideoPlayer()
+	 */
 	@Override
 	public VideoPlayer getVideoPlayer() {
 		return ((IMediaPlayerImplementation)this.contentItemImplementation).getVideoPlayer();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMediaPlayerImplementation#addPlayerListener(synergynetframework.appsystem.contentsystem.jme.items.JMEMediaPlayer.PlayListener)
+	 */
 	@Override
 	public void addPlayerListener(PlayListener l) {
 		((IMediaPlayerImplementation)this.contentItemImplementation).addPlayerListener(l);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMediaPlayerImplementation#removePlayListener(synergynetframework.appsystem.contentsystem.jme.items.JMEMediaPlayer.PlayListener)
+	 */
 	@Override
 	public void removePlayListener(PlayListener l) {
 		((IMediaPlayerImplementation)this.contentItemImplementation).removePlayListener(l);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IMediaPlayerImplementation#removePlayListeners()
+	 */
 	@Override
 	public void removePlayListeners() {
 		((IMediaPlayerImplementation)this.contentItemImplementation).removePlayListeners();

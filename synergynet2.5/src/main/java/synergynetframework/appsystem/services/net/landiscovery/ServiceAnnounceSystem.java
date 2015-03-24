@@ -32,8 +32,28 @@
 
 package synergynetframework.appsystem.services.net.landiscovery;
 
+
+/**
+ * The Interface ServiceAnnounceSystem.
+ */
 public interface ServiceAnnounceSystem {
+	
+	/**
+	 * Register service.
+	 *
+	 * @param sd the sd
+	 */
 	public void registerService(final ServiceDescriptor sd);
+	
+	/**
+	 * Unregister service.
+	 *
+	 * @param sd the sd
+	 */
 	public void unregisterService(final ServiceDescriptor sd);
+	
+	/**
+	 * Stop.
+	 */
 	public void stop();
 }

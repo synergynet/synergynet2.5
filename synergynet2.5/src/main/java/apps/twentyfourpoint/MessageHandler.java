@@ -38,14 +38,27 @@ import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.client.TableCommsApplicationListener;
 import synergynetframework.appsystem.services.net.tablecomms.messages.TableMessage;
 
+
+/**
+ * The Class MessageHandler.
+ */
 public class MessageHandler implements TableCommsApplicationListener {
 	
+	/** The twenty four point. */
 	private TwentyFourPointApp twentyFourPoint;
 
+	/**
+	 * Instantiates a new message handler.
+	 *
+	 * @param twentyFourPoint the twenty four point
+	 */
 	public MessageHandler( TwentyFourPointApp twentyFourPoint) {
 		this.twentyFourPoint=twentyFourPoint;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.tablecomms.client.TableCommsApplicationListener#messageReceived(java.lang.Object)
+	 */
 	public void messageReceived(Object obj) {
 				
 		if (TableIdentity.getTableIdentity().hashCode()==((TableMessage)obj).getSender().hashCode())
@@ -63,6 +76,9 @@ public class MessageHandler implements TableCommsApplicationListener {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.tablecomms.client.TableCommsApplicationListener#tableDisconnected()
+	 */
 	@Override
 	public void tableDisconnected() {
 		 

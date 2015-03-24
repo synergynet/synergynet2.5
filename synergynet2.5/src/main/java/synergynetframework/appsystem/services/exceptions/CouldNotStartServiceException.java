@@ -34,14 +34,30 @@ package synergynetframework.appsystem.services.exceptions;
 
 import synergynetframework.appsystem.services.SynergyNetService;
 
+
+/**
+ * The Class CouldNotStartServiceException.
+ */
 public class CouldNotStartServiceException extends Exception {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 7638867268971936481L;
+	
+	/** The service. */
 	private SynergyNetService service;
 	
+	/**
+	 * Instantiates a new could not start service exception.
+	 *
+	 * @param service the service
+	 */
 	public CouldNotStartServiceException(SynergyNetService service) {
 		this.service = service;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Throwable#toString()
+	 */
 	public String toString() {
 		return CouldNotStartServiceException.class.getName() + " caused by " + service.getClass().getName();
 	}

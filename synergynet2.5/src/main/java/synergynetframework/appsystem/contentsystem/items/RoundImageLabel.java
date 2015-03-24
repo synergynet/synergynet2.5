@@ -38,31 +38,62 @@ import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundImageLabelImplementation;
 import synergynetframework.appsystem.contentsystem.items.utils.ImageInfo;
 
+
+/**
+ * The Class RoundImageLabel.
+ */
 public class RoundImageLabel extends RoundFrame implements IRoundImageLabelImplementation{
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3227704681807528749L;
+	
+	/** The image info. */
 	protected ImageInfo imageInfo;
+	
+	/** The auto fit. */
 	protected boolean autoFit = true; 
 	
+	/**
+	 * Instantiates a new round image label.
+	 *
+	 * @param contentSystem the content system
+	 * @param name the name
+	 */
 	public RoundImageLabel(ContentSystem contentSystem, String name) {
 		super(contentSystem, name);
 		this.imageInfo = new ImageInfo(null, 0, 0, 100, 100);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundImageLabelImplementation#setImageInfo(java.net.URL)
+	 */
 	public void setImageInfo(URL imageResource) {
 		this.imageInfo.setImageResource(imageResource);
 		
 		((IRoundImageLabelImplementation)this.contentItemImplementation).setImageInfo(imageResource);
 	}
 	
+	/**
+	 * Gets the image info.
+	 *
+	 * @return the image info
+	 */
 	public ImageInfo getImageInfo() {
 		return imageInfo;
 	}
 
+	/**
+	 * Checks if is auto fit.
+	 *
+	 * @return true, if is auto fit
+	 */
 	public boolean isAutoFit() {
 		return autoFit;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundImageLabelImplementation#setAutoFit(boolean)
+	 */
 	public void setAutoFit(boolean autoFit) {
 		this.autoFit = autoFit;
 		((IRoundImageLabelImplementation)this.contentItemImplementation).setAutoFit(autoFit);

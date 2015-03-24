@@ -41,35 +41,75 @@ import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IControlBarImplementation;
 import synergynetframework.appsystem.contentsystem.jme.items.utils.controlbar.ControlBarMover.ControlBarMoverListener;
 
+
+/**
+ * The Class ControlBar.
+ */
 public class ControlBar extends OrthoContainer implements Serializable, IControlBarImplementation{
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -777819286170256309L;
 
+	/** The control bar length. */
 	protected float controlBarLength = 150;
+	
+	/** The control bar width. */
 	protected float controlBarWidth =5;
+	
+	/** The current position. */
 	protected float currentPosition =0;
+	
+	/** The control bar mover enabled. */
 	protected boolean controlBarMoverEnabled = true;
+	
+	/** The bar resource. */
 	protected URL barResource = ControlbarResources.class.getResource("bar.png");
+	
+	/** The finished bar resource. */
 	protected URL finishedBarResource = ControlbarResources.class.getResource("finishedbar.png");
+	
+	/** The cursor resource. */
 	protected URL cursorResource = ControlbarResources.class.getResource("cursor.png");
 	
+	/**
+	 * Instantiates a new control bar.
+	 *
+	 * @param contentSystem the content system
+	 * @param name the name
+	 */
 	public ControlBar(ContentSystem contentSystem, String name) {
 		super(contentSystem, name);
 	}
 
+	/**
+	 * Gets the control bar length.
+	 *
+	 * @return the control bar length
+	 */
 	public float getControlBarLength() {
 		return controlBarLength;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IControlBarImplementation#setControlBarLength(float)
+	 */
 	public void setControlBarLength(float controlBarLength) {
 		this.controlBarLength = controlBarLength;
 		((IControlBarImplementation)this.contentItemImplementation).setControlBarLength(controlBarLength);
 	}
 
+	/**
+	 * Gets the current position.
+	 *
+	 * @return the current position
+	 */
 	public float getCurrentPosition() {
 		return currentPosition;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IControlBarImplementation#setCurrentPosition(float)
+	 */
 	public void setCurrentPosition(float currentPosition) {
 		if (currentPosition==this.currentPosition) return;
 		this.currentPosition = currentPosition;
@@ -77,62 +117,108 @@ public class ControlBar extends OrthoContainer implements Serializable, IControl
 	}
 	
 
+	/**
+	 * Gets the control bar width.
+	 *
+	 * @return the control bar width
+	 */
 	public float getControlBarWidth() {
 		return controlBarWidth;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IControlBarImplementation#addControlBarMoverListener(synergynetframework.appsystem.contentsystem.jme.items.utils.controlbar.ControlBarMover.ControlBarMoverListener)
+	 */
 	@Override
 	public void addControlBarMoverListener(ControlBarMoverListener l) {		
 		((IControlBarImplementation)this.contentItemImplementation).addControlBarMoverListener(l);
 	}
 
+	/**
+	 * Checks if is control bar mover enabled.
+	 *
+	 * @return true, if is control bar mover enabled
+	 */
 	public boolean isControlBarMoverEnabled() {
 		return controlBarMoverEnabled;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IControlBarImplementation#setControlBarMoverEnabled(boolean)
+	 */
 	public void setControlBarMoverEnabled(boolean controlBarMoverEnabled) {
 		this.controlBarMoverEnabled = controlBarMoverEnabled;
 		((IControlBarImplementation)this.contentItemImplementation).setControlBarMoverEnabled(controlBarMoverEnabled);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IControlBarImplementation#updateControlBar()
+	 */
 	@Override
 	public void updateControlBar() {
 		((IControlBarImplementation)this.contentItemImplementation).updateControlBar();
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IControlBarImplementation#setControlBarWidth(float)
+	 */
 	@Override
 	public void setControlBarWidth(float controlBarWidth) {
 		this.controlBarWidth = controlBarWidth;
 		((IControlBarImplementation)this.contentItemImplementation).setControlBarLength(controlBarLength);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IControlBarImplementation#setFinishedBarImageResource(java.net.URL)
+	 */
 	@Override
 	public void setFinishedBarImageResource(URL imageResource) {
 		this.finishedBarResource = imageResource;
 		((IControlBarImplementation)this.contentItemImplementation).setFinishedBarImageResource(finishedBarResource);
 	}
 	
+	/**
+	 * Gets the finished bar image resource.
+	 *
+	 * @return the finished bar image resource
+	 */
 	public URL getFinishedBarImageResource(){
 		return finishedBarResource;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IControlBarImplementation#setBarImageResource(java.net.URL)
+	 */
 	@Override
 	public void setBarImageResource(URL imageResource) {
 		this.barResource = imageResource;
 		((IControlBarImplementation)this.contentItemImplementation).setBarImageResource(barResource);
 	}
 	
+	/**
+	 * Gets the bar image resource.
+	 *
+	 * @return the bar image resource
+	 */
 	public URL getBarImageResource(){
 		return barResource;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IControlBarImplementation#setCursorImageResource(java.net.URL)
+	 */
 	@Override
 	public void setCursorImageResource(URL imageResource) {
 		this.cursorResource = imageResource;
 		((IControlBarImplementation)this.contentItemImplementation).setCursorImageResource(cursorResource);
 	}
 	
+	/**
+	 * Gets the cursor image resource.
+	 *
+	 * @return the cursor image resource
+	 */
 	public URL getCursorImageResource(){
 		return cursorResource;
 	}

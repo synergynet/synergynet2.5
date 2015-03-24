@@ -37,24 +37,50 @@ package apps.mtdesktop.messages;
 import apps.mtdesktop.desktop.DesktopClient;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class SearchTableMessage.
+ */
 public class SearchTableMessage extends BroadcastApplicationMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3611717853521792797L;
+	
+	/** The position. */
 	private DesktopClient.Position position;
 	
+	/**
+	 * Instantiates a new search table message.
+	 */
 	public SearchTableMessage(){
 		super();
 	}
 	
+	/**
+	 * Instantiates a new search table message.
+	 *
+	 * @param targetClass the target class
+	 * @param position the position
+	 */
 	public SearchTableMessage(Class<?> targetClass, DesktopClient.Position position){
 		super(targetClass);
 		this.setClientPosition(position);
 	}
 	
+	/**
+	 * Sets the client position.
+	 *
+	 * @param position the new client position
+	 */
 	public void setClientPosition(DesktopClient.Position position){
 		this.position = position;
 	}
 	
+	/**
+	 * Gets the client position.
+	 *
+	 * @return the client position
+	 */
 	public DesktopClient.Position getClientPosition(){
 		return position;
 	}

@@ -36,10 +36,24 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 
+
+/**
+ * The Class EncoderDecoder.
+ */
 public class EncoderDecoder {
+	
+	/** The Constant REPLY_HEADER. */
 	public static final String REPLY_HEADER = "SERVICE REPLY ";
+	
+	/** The Constant QUERY_HEADER. */
 	public static final String QUERY_HEADER = "SERVICE QUERY ";
 	
+	/**
+	 * Encode for packet.
+	 *
+	 * @param in the in
+	 * @return the string
+	 */
 	public static String encodeForPacket(String in) {
 		try {
 			return URLEncoder.encode(in, "UTF-8");
@@ -48,6 +62,12 @@ public class EncoderDecoder {
 		}
 	}
 
+	/**
+	 * Decode from packet.
+	 *
+	 * @param s the s
+	 * @return the string
+	 */
 	public static String decodeFromPacket(String s) {
 		try {
 			return URLDecoder.decode(s, "UTF-8");

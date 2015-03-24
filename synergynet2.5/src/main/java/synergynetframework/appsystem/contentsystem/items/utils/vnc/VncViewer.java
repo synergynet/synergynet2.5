@@ -34,52 +34,114 @@ import java.net.*;
 
 import javax.swing.JFrame;
 
+
+/**
+ * The Class VncViewer.
+ */
 public class VncViewer extends JFrame
   implements java.lang.Runnable, WindowListener {
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 5802365296549275285L;
 //192.168.137.1
-  boolean inAnApplet = false;
+  /** The in an applet. */
+boolean inAnApplet = false;
+  
+  /** The in separate frame. */
   boolean inSeparateFrame = true;
+  
+  /** The main args. */
   public String[] mainArgs = {"HOST", "", "PORT", "", "PASSWORD", ""};
   
   
+  /** The rfb. */
   RfbProto rfb;
+  
+  /** The rfb thread. */
   Thread rfbThread;
 
   //Frame vncFrame;
+  /** The vnc container. */
   Container vncContainer;
+  
+  /** The desktop scroll pane. */
   ScrollPane desktopScrollPane;
+  
+  /** The gridbag. */
   GridBagLayout gridbag;
+  
+  /** The button panel. */
   ButtonPanel buttonPanel;
+  
+  /** The conn status label. */
   Label connStatusLabel;
+  
+  /** The vc. */
   public VncCanvas vc;
+  
+  /** The options. */
   OptionsFrame options;
+  
+  /** The clipboard. */
   ClipboardFrame clipboard;
+  
+  /** The rec. */
   RecordingFrame rec;
 
   // Control session recording.
+  /** The recording sync. */
   Object recordingSync;
+  
+  /** The session file name. */
   String sessionFileName;
+  
+  /** The recording active. */
   boolean recordingActive;
+  
+  /** The recording status changed. */
   boolean recordingStatusChanged;
+  
+  /** The cursor updates def. */
   String cursorUpdatesDef;
+  
+  /** The eight bit colors def. */
   String eightBitColorsDef;
 
   // Variables read from parameter values.
+  /** The socket factory. */
   String socketFactory;
+  
+  /** The host. */
   String host;// = mainArgs[1];
+  
+  /** The port. */
   int port;// = Integer.parseInt(mainArgs[3]);
+  
+  /** The password param. */
   String passwordParam;// = mainArgs[5];
+  
+  /** The show controls. */
   boolean showControls = true;
+  
+  /** The offer relogin. */
   boolean offerRelogin = true;
+  
+  /** The show offline desktop. */
   boolean showOfflineDesktop = false;
+  
+  /** The defer screen updates. */
   int deferScreenUpdates = 20;
+  
+  /** The defer cursor updates. */
   int deferCursorUpdates = 10;
+  
+  /** The defer update requests. */
   int deferUpdateRequests = 0;
+  
+  /** The debug stats exclude updates. */
   int debugStatsExcludeUpdates = 0;
+  
+  /** The debug stats measure updates. */
   int debugStatsMeasureUpdates = 0;
 
   // Reference to this applet for inter-applet communication.
@@ -89,6 +151,13 @@ public class VncViewer extends JFrame
   // init()
   //
 
+  /**
+   * Instantiates a new vnc viewer.
+   *
+   * @param host the host
+   * @param port the port
+   * @param password the password
+   */
   public VncViewer(String host, int port, String password) {
 	  System.out.println("Hello");
 	 mainArgs[1] = host;
@@ -132,6 +201,9 @@ public class VncViewer extends JFrame
     
   }
 
+  /* (non-Javadoc)
+   * @see javax.swing.JFrame#update(java.awt.Graphics)
+   */
   public void update(Graphics g) {
   }
 
@@ -139,6 +211,9 @@ public class VncViewer extends JFrame
   // run() - executed by the rfbThread to deal with the RFB socket.
   //
 
+  /* (non-Javadoc)
+   * @see java.lang.Runnable#run()
+   */
   public void run() {
 
     gridbag = new GridBagLayout();
@@ -260,6 +335,13 @@ public class VncViewer extends JFrame
   // Create a VncCanvas instance.
   //
 
+  /**
+   * Creates the canvas.
+   *
+   * @param maxWidth the max width
+   * @param maxHeight the max height
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   @SuppressWarnings("rawtypes")
 void createCanvas(int maxWidth, int maxHeight) throws IOException {
     // Determine if Java 2D API is available and use a special
@@ -291,6 +373,11 @@ void createCanvas(int maxWidth, int maxHeight) throws IOException {
   // otherwise rethrow the exception so it can be handled.
   //
  
+  /**
+   * Process normal protocol.
+   *
+   * @throws Exception the exception
+   */
   void processNormalProtocol() throws Exception {
     try {
       vc.processNormalProtocol();
@@ -305,6 +392,11 @@ void createCanvas(int maxWidth, int maxHeight) throws IOException {
   }
 
 
+  /**
+   * Connect and authenticate.
+   *
+   * @throws Exception the exception
+   */
   @SuppressWarnings("deprecation")
 //
   // Connect to the RFB server and authenticate the user.
@@ -373,6 +465,11 @@ void createCanvas(int maxWidth, int maxHeight) throws IOException {
   // To hide the connection status label, use (msg == null).
   //
 
+  /**
+   * Show connection status.
+   *
+   * @param msg the msg
+   */
   void showConnectionStatus(String msg)
   {
     if (msg == null) {
@@ -415,6 +512,12 @@ void createCanvas(int maxWidth, int maxHeight) throws IOException {
   // Show an authentication panel.
   //
 
+  /**
+   * Ask password.
+   *
+   * @return the string
+   * @throws Exception the exception
+   */
   String askPassword() throws Exception
   {
     showConnectionStatus(null);
@@ -449,6 +552,11 @@ void createCanvas(int maxWidth, int maxHeight) throws IOException {
   // Do the rest of the protocol initialisation.
   //
 
+  /**
+   * Do protocol initialisation.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   void doProtocolInitialisation() throws IOException
   {
     rfb.writeClientInit();
@@ -468,12 +576,27 @@ void createCanvas(int maxWidth, int maxHeight) throws IOException {
   // Send current encoding list to the RFB server.
   //
 
+  /** The encodings saved. */
   int[] encodingsSaved;
+  
+  /** The n encodings saved. */
   int nEncodingsSaved;
 
+  /**
+   * Sets the encodings.
+   */
   void setEncodings()        { setEncodings(false); }
+  
+  /**
+   * Auto select encodings.
+   */
   void autoSelectEncodings() { setEncodings(true); }
 
+  /**
+   * Sets the encodings.
+   *
+   * @param autoSelectOnly the new encodings
+   */
   void setEncodings(boolean autoSelectOnly) {
     if (options == null || rfb == null || !rfb.inNormalProtocol)
       return;
@@ -586,6 +709,11 @@ void createCanvas(int maxWidth, int maxHeight) throws IOException {
   // setCutText() - send the given cut text to the RFB server.
   //
 
+  /**
+   * Sets the cut text.
+   *
+   * @param text the new cut text
+   */
   void setCutText(String text) {
     try {
       if (rfb != null && rfb.inNormalProtocol) {
@@ -602,6 +730,11 @@ void createCanvas(int maxWidth, int maxHeight) throws IOException {
   // null in place of the fname argument.
   //
 
+  /**
+   * Sets the recording status.
+   *
+   * @param fname the new recording status
+   */
   void setRecordingStatus(String fname) {
     synchronized(recordingSync) {
       sessionFileName = fname;
@@ -614,6 +747,12 @@ void createCanvas(int maxWidth, int maxHeight) throws IOException {
   // causes recording of a new session.
   //
 
+  /**
+   * Check recording status.
+   *
+   * @return true, if successful
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   boolean checkRecordingStatus() throws IOException {
     synchronized(recordingSync) {
       if (recordingStatusChanged) {
@@ -633,6 +772,11 @@ void createCanvas(int maxWidth, int maxHeight) throws IOException {
   // Start session recording.
   //
 
+  /**
+   * Start recording.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   protected void startRecording() throws IOException {
     synchronized(recordingSync) {
       if (!recordingActive) {
@@ -662,6 +806,11 @@ void createCanvas(int maxWidth, int maxHeight) throws IOException {
   // Stop session recording.
   //
 
+  /**
+   * Stop recording.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   protected void stopRecording() throws IOException {
     synchronized(recordingSync) {
       if (recordingActive) {
@@ -691,6 +840,9 @@ void createCanvas(int maxWidth, int maxHeight) throws IOException {
 
 
 
+  /**
+   * Move focus to desktop.
+   */
   void moveFocusToDesktop() {
     if (vncContainer != null) {
       if (vc != null && vncContainer.isAncestorOf(vc))
@@ -702,6 +854,9 @@ void createCanvas(int maxWidth, int maxHeight) throws IOException {
   // disconnect() - close connection to server.
   //
 
+  /**
+   * Disconnect.
+   */
   synchronized public void disconnect() {
     System.out.println("Disconnecting");
 
@@ -754,6 +909,11 @@ void createCanvas(int maxWidth, int maxHeight) throws IOException {
   // FIXME: Do we really need two versions of the fatalError() method?
   //
 
+  /**
+   * Fatal error.
+   *
+   * @param str the str
+   */
   @SuppressWarnings("deprecation")
 synchronized public void fatalError(String str) {
     System.out.println(str);
@@ -767,6 +927,12 @@ synchronized public void fatalError(String str) {
     }
   }
 
+  /**
+   * Fatal error.
+   *
+   * @param str the str
+   * @param e the e
+   */
   synchronized public void fatalError(String str, Exception e) {
  
     if (rfb != null && rfb.closed()) {
@@ -793,6 +959,11 @@ synchronized public void fatalError(String str) {
   // Show message text and optionally "Relogin" and "Close" buttons.
   //
 
+  /**
+   * Show message.
+   *
+   * @param msg the msg
+   */
   void showMessage(String msg) {
     vncContainer.removeAll();
 
@@ -831,6 +1002,9 @@ synchronized public void fatalError(String str) {
   // after seeing that rfbThread has been set to null.
   //
 
+  /**
+   * Stop.
+   */
   public void stop() {
     System.out.println("Stopping applet");
     rfbThread = null;
@@ -840,6 +1014,9 @@ synchronized public void fatalError(String str) {
   // This method is called before the applet is destroyed.
   //
 
+  /**
+   * Destroy.
+   */
   public void destroy() {
     System.out.println("Destroying applet");
 
@@ -858,6 +1035,11 @@ synchronized public void fatalError(String str) {
   // Start/stop receiving mouse events.
   //
 
+  /**
+   * Enable input.
+   *
+   * @param enable the enable
+   */
   public void enableInput(boolean enable) {
     vc.enableInput(enable);
   }
@@ -866,6 +1048,9 @@ synchronized public void fatalError(String str) {
   // Close application properly on window close event.
   //
 
+  /* (non-Javadoc)
+   * @see java.awt.event.WindowListener#windowClosing(java.awt.event.WindowEvent)
+   */
   @SuppressWarnings("deprecation")
 public void windowClosing(WindowEvent evt) {
     System.out.println("Closing window");
@@ -883,10 +1068,33 @@ public void windowClosing(WindowEvent evt) {
   // Ignore window events we're not interested in.
   //
 
+  /* (non-Javadoc)
+   * @see java.awt.event.WindowListener#windowActivated(java.awt.event.WindowEvent)
+   */
   public void windowActivated(WindowEvent evt) {}
+  
+  /* (non-Javadoc)
+   * @see java.awt.event.WindowListener#windowDeactivated(java.awt.event.WindowEvent)
+   */
   public void windowDeactivated (WindowEvent evt) {}
+  
+  /* (non-Javadoc)
+   * @see java.awt.event.WindowListener#windowOpened(java.awt.event.WindowEvent)
+   */
   public void windowOpened(WindowEvent evt) {}
+  
+  /* (non-Javadoc)
+   * @see java.awt.event.WindowListener#windowClosed(java.awt.event.WindowEvent)
+   */
   public void windowClosed(WindowEvent evt) {}
+  
+  /* (non-Javadoc)
+   * @see java.awt.event.WindowListener#windowIconified(java.awt.event.WindowEvent)
+   */
   public void windowIconified(WindowEvent evt) {}
+  
+  /* (non-Javadoc)
+   * @see java.awt.event.WindowListener#windowDeiconified(java.awt.event.WindowEvent)
+   */
   public void windowDeiconified(WindowEvent evt) {}
 }

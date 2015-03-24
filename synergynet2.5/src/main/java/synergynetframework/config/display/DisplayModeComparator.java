@@ -36,7 +36,15 @@ import java.util.Comparator;
 
 import org.lwjgl.opengl.DisplayMode;
 
+
+/**
+ * The Class DisplayModeComparator.
+ */
 public class DisplayModeComparator implements Comparator<DisplayMode> {	
+	
+	/* (non-Javadoc)
+	 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+	 */
 	public int compare(DisplayMode a, DisplayMode b) {
 		if (a.getWidth() != b.getWidth())
 			return (a.getWidth() > b.getWidth()) ?  1 : -1;

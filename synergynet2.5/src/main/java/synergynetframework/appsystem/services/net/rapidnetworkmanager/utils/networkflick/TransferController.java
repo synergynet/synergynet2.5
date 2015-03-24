@@ -72,18 +72,41 @@ import com.jme.util.GameTaskQueueManager;
 import core.SynergyNetDesktop;
 
 
+
+/**
+ * The Class TransferController.
+ */
 public class TransferController{
 	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(TransferController.class.getName());
 	
+	/** The virtual tables. */
 	protected ArrayList<VirtualTable> virtualTables  = new ArrayList<VirtualTable>();
+	
+	/** The local table info. */
 	protected TableInfo localTableInfo = null;
+	
+	/** The comms. */
 	protected TableCommsClientService comms;
+	
+	/** The app. */
 	protected DefaultSynergyNetApp app;
+	
+	/** The content. */
 	protected ContentSystem content;
+	
+	/** The flick enabled. */
 	protected boolean flickEnabled = true;
+	
+	/** The ortho node. */
 	private Node orthoNode;
 	
+	/**
+	 * Instantiates a new transfer controller.
+	 *
+	 * @param app the app
+	 */
 	public TransferController(DefaultSynergyNetApp app){
 		
 		this.app = app;
@@ -95,17 +118,37 @@ public class TransferController{
 		
 	}
 
+	/**
+	 * Sets the local table info.
+	 *
+	 * @param localTableInfo the new local table info
+	 */
 	public void setLocalTableInfo(TableInfo localTableInfo){
 		this.localTableInfo = localTableInfo;
 	}
 
+	/**
+	 * Gets the local table info.
+	 *
+	 * @return the local table info
+	 */
 	public TableInfo getLocalTableInfo(){
 		return localTableInfo;
 	}
 	
+	/** The arrival location stats. */
 	private Vector2f arrivalLocationStats;
+	
+	/** The target table. */
 	private VirtualTable targetTable;
 
+	/**
+	 * Checks if is destination table available.
+	 *
+	 * @param s the s
+	 * @param fm the fm
+	 * @return true, if is destination table available
+	 */
 	public boolean isDestinationTableAvailable(Spatial s, FlickMover fm){
 		 Ray ray = new Ray(s.getLocalTranslation(), fm.getLinearVelocity().normalize());
          for(VirtualTable virtualTable : virtualTables){
@@ -129,6 +172,13 @@ public class TransferController{
 
 	}
 
+	/**
+	 * Within stopping distance.
+	 *
+	 * @param s the s
+	 * @param fm the fm
+	 * @return true, if successful
+	 */
 	private boolean withinStoppingDistance(Spatial s, FlickMover fm) {
 		
 		float maxDimension = SpatialUtility.getMaxDimension(s);
@@ -142,6 +192,12 @@ public class TransferController{
 		}
 	}
 
+	/**
+	 * Apply transferable content item.
+	 *
+	 * @param message the message
+	 * @return the content item
+	 */
 	public ContentItem applyTransferableContentItem(TransferableContentItem message){
 		
 		ContentItem item = null;
@@ -185,6 +241,11 @@ public class TransferController{
 		return item;
 	}
 	
+	/**
+	 * Register remote table.
+	 *
+	 * @param remoteTableInfo the remote table info
+	 */
 	public void registerRemoteTable(final TableInfo remoteTableInfo)	{
 		
 		VirtualTable temp = findTableById(remoteTableInfo.getTableId());
@@ -225,6 +286,11 @@ public class TransferController{
 
 	}
 
+	/**
+	 * Clean up unregistered table.
+	 *
+	 * @param msg the msg
+	 */
 	public void cleanUpUnregisteredTable(UnregisterTableMessage msg){
 
 		if(msg.getSender().equals(localTableInfo.getTableId())){
@@ -245,6 +311,11 @@ public class TransferController{
 
 	}
 
+	/**
+	 * Detach virtual table.
+	 *
+	 * @param table the table
+	 */
 	private void detachVirtualTable(final VirtualTable table){
         GameTaskQueueManager.getManager().update(new Callable<Object>() {
   		    public Object call() throws Exception {
@@ -255,6 +326,12 @@ public class TransferController{
         });
 	}
 
+	/**
+	 * Find table by id.
+	 *
+	 * @param tableId the table id
+	 * @return the virtual table
+	 */
 	private VirtualTable findTableById(TableIdentity tableId){
 		for(VirtualTable table : virtualTables)
 			if(table.getTableId().equals(tableId))
@@ -262,6 +339,9 @@ public class TransferController{
 		return null;
 	}
 	
+	/**
+	 * Update.
+	 */
 	public void update(){
 		Iterator<FlickMover> iter = FlickSystem.getInstance().getMovingElements().iterator();
 		while(iter.hasNext()){
@@ -290,6 +370,13 @@ public class TransferController{
 		}
 	}
 
+	/**
+	 * Leaving table.
+	 *
+	 * @param targetSpatial the target spatial
+	 * @param fm the fm
+	 * @return true, if successful
+	 */
 	private boolean leavingTable(Spatial targetSpatial, FlickMover fm ) {
 		if (targetSpatial.getWorldTranslation().x > SynergyNetDesktop.getInstance().getDisplayWidth()){
 			if (fm.getLinearVelocity().x > 0)return true;				
@@ -305,6 +392,11 @@ public class TransferController{
 		return false;
 	}
 
+	/**
+	 * Send registration message.
+	 *
+	 * @param targeTableId the targe table id
+	 */
 	public void sendRegistrationMessage(TableIdentity targeTableId) {
 		try {
 			for(Class<?> receiverClass: RapidNetworkManager.getReceiverClasses()){
@@ -316,6 +408,12 @@ public class TransferController{
 		}
 	}
 	
+	/**
+	 * Check location conflict.
+	 *
+	 * @param virtualRemoteTable the virtual remote table
+	 * @return true, if successful
+	 */
 	private boolean checkLocationConflict(VirtualTable virtualRemoteTable) {
 		VirtualTable virtualLocalTable = new VirtualTable(localTableInfo);
 		virtualLocalTable.setModelBound(new OrthogonalBoundingBox());
@@ -327,6 +425,14 @@ public class TransferController{
 		return false;
 	}
 	
+	/**
+	 * Transfer.
+	 *
+	 * @param fm the fm
+	 * @param s the s
+	 * @param thisArrivalLocationStats the this arrival location stats
+	 * @param table the table
+	 */
 	public void transfer(FlickMover fm, Spatial s, float[] thisArrivalLocationStats, VirtualTable table) {		
 		if (fm.toBeTransferred && leavingTable(s, fm)){
 		
@@ -363,20 +469,45 @@ public class TransferController{
 		}		
 	}
 	
+	/**
+	 * The Class CustomThread.
+	 */
 	public class CustomThread implements Runnable {
 
-		   private FlickMover fm;
-		   private float[] thisArrivalLocation;
-		   private Vector3f initialPos;
-		   private VirtualTable vt;
-		   private float maxDistance;
+		   /** The fm. */
+   		private FlickMover fm;
+		   
+   		/** The this arrival location. */
+   		private float[] thisArrivalLocation;
+		   
+   		/** The initial pos. */
+   		private Vector3f initialPos;
+		   
+   		/** The vt. */
+   		private VirtualTable vt;
+		   
+   		/** The max distance. */
+   		private float maxDistance;
 		   	   
-		   public CustomThread(FlickMover fm, float[] thisArrivalLocation, VirtualTable vt) {
+		   /**
+   		 * Instantiates a new custom thread.
+   		 *
+   		 * @param fm the fm
+   		 * @param thisArrivalLocation the this arrival location
+   		 * @param vt the vt
+   		 */
+   		public CustomThread(FlickMover fm, float[] thisArrivalLocation, VirtualTable vt) {
 			   this.vt = vt;
 			   setup(fm, thisArrivalLocation);
 		   }
 		
-		   private void setup(FlickMover fm, float[] thisArrivalLocation) {
+		   /**
+   		 * Setup.
+   		 *
+   		 * @param fm the fm
+   		 * @param thisArrivalLocation the this arrival location
+   		 */
+   		private void setup(FlickMover fm, float[] thisArrivalLocation) {
 		       this.fm = fm;
 		       this.thisArrivalLocation = thisArrivalLocation;
 		       this.maxDistance = SpatialUtility.getMaxDimension(fm.getTargetSpatial());
@@ -385,6 +516,9 @@ public class TransferController{
 		   }
 		   
 
+			/* (non-Javadoc)
+			 * @see java.lang.Runnable#run()
+			 */
 			public void run() {
 				   
 				   while (fm.getTargetSpatial().getWorldTranslation().distance(initialPos) < maxDistance){	 
@@ -399,6 +533,11 @@ public class TransferController{
 			   }
 		}
 
+		/**
+		 * Enable network flick.
+		 *
+		 * @param flickEnabled the flick enabled
+		 */
 		public void enableNetworkFlick(boolean flickEnabled){
 			this.flickEnabled = flickEnabled;
 			if (flickEnabled)
@@ -407,6 +546,11 @@ public class TransferController{
 				log.info("Flick disabled");
 		}
 		
+		/**
+		 * Checks if is network flick enabled.
+		 *
+		 * @return true, if is network flick enabled
+		 */
 		public boolean isNetworkFlickEnabled(){
 			return flickEnabled;
 		}

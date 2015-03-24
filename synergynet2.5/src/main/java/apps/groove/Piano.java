@@ -69,21 +69,41 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * The Class Piano.
+ */
 public class Piano {
+	
+	/** The g2. */
 	private Graphics2D g2;
 
+	/**
+	 * Instantiates a new piano.
+	 *
+	 * @param gfx the gfx
+	 */
 	public Piano(Graphics2D gfx) {
 		this.g2 = gfx;
 		build();
 		render();
 	}
 	
+	/** The keys. */
 	private List<Key> keys = new ArrayList<Key>();
+	
+	/** The white keys. */
 	private List<Key> whiteKeys = new ArrayList<Key>();
+	
+	/** The black keys. */
 	private List<Key> blackKeys = new ArrayList<Key>();
 
+	/** The kh. */
 	int kw = 16, kh = 80;
 	
+	/**
+	 * Builds the.
+	 */
 	private void build() {
 		int transpose = 24;  
         int whiteIDs[] = { 0, 2, 4, 5, 7, 9, 11 }; 
@@ -110,6 +130,9 @@ public class Piano {
 		
 	}
 
+	/**
+	 * Render.
+	 */
 	public void render() {
 		g2.setColor(Color.white);
         g2.fillRect(0, 0, 42*kw, kh);
@@ -137,6 +160,12 @@ public class Piano {
         }
 	}
 	
+	/**
+	 * Gets the key.
+	 *
+	 * @param point the point
+	 * @return the key
+	 */
 	public Key getKey(Point point) {
         for (int i = 0; i < keys.size(); i++) {
             if (((Key) keys.get(i)).contains(point)) {

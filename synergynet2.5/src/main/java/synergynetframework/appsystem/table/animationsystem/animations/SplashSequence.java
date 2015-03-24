@@ -40,11 +40,25 @@ import synergynetframework.appsystem.table.animationsystem.AnimationElement;
 import synergynetframework.appsystem.table.animationsystem.animelements.AnimationSequence;
 import synergynetframework.appsystem.table.animationsystem.animelements.Fader;
 
+
+/**
+ * The Class SplashSequence.
+ */
 public class SplashSequence extends AnimationElement {
 
+	/** The geoms. */
 	protected List<Geometry> geoms;
+	
+	/** The seq. */
 	protected AnimationSequence seq;
 
+	/**
+	 * Instantiates a new splash sequence.
+	 *
+	 * @param geoms the geoms
+	 * @param durationPerImage the duration per image
+	 * @param thenWaitSeconds the then wait seconds
+	 */
 	public SplashSequence(List<Geometry> geoms, float durationPerImage, float thenWaitSeconds) {
 		this.geoms = geoms;
 		seq = new AnimationSequence();
@@ -57,20 +71,32 @@ public class SplashSequence extends AnimationElement {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.animationsystem.AnimationElement#elementStart(float)
+	 */
 	@Override
 	public void elementStart(float tpf) {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.animationsystem.AnimationElement#isFinished()
+	 */
 	@Override
 	public boolean isFinished() {
 		return seq.isFinished();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.animationsystem.AnimationElement#reset()
+	 */
 	@Override
 	public void reset() {
 		seq.reset();		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.animationsystem.AnimationElement#updateAnimationState(float)
+	 */
 	@Override
 	public void updateAnimationState(float tpf) {
 		seq.updateAnimationState(tpf);

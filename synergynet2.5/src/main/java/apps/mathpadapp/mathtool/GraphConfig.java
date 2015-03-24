@@ -34,24 +34,56 @@ package apps.mathpadapp.mathtool;
 
 import java.awt.Color;
 
+
+/**
+ * The Class GraphConfig.
+ */
 public class GraphConfig {
 	//Main window parameters
+	/** The Constant MAIN_WINDOW_WIDTH. */
 	public static final int MAIN_WINDOW_WIDTH = 500;
+	
+	/** The Constant MAIN_WINDOW_HEIGHT. */
 	public static final int MAIN_WINDOW_HEIGHT = 370;
+	
+	/** The Constant MAIN_WINDOW_BORDER_SIZE. */
 	public static final int MAIN_WINDOW_BORDER_SIZE = 10;
+	
+	/** The Constant MAIN_WINDOW_BACKGROUND_COLOR. */
 	public static final Color MAIN_WINDOW_BACKGROUND_COLOR = Color.red;
 	
 	
 	// Control panel parameters
+	/** The Constant CONTROL_PANEL_BUTTON_WIDTH. */
 	public static final int CONTROL_PANEL_BUTTON_WIDTH = 35;
+	
+	/** The Constant CONTROL_PANEL_BUTTON_HEIGHT. */
 	public static final int CONTROL_PANEL_BUTTON_HEIGHT = 35;
+	
+	/** The Constant CONTROL_PANEL_BORDER_SIZE. */
 	public static final int CONTROL_PANEL_BORDER_SIZE = 2;
+	
+	/** The Constant CONTROL_PANEL_HEIGHT. */
 	public static final int CONTROL_PANEL_HEIGHT = 350;
+	
+	/** The Constant CONTROL_PANEL_BACKGROUND_COLOR. */
 	public static final Color CONTROL_PANEL_BACKGROUND_COLOR = Color.LIGHT_GRAY;
+	
+	/** The Constant CONTROL_PANEL_BORDER_COLOR. */
 	public static final Color CONTROL_PANEL_BORDER_COLOR = Color.DARK_GRAY;
+	
+	/** The Constant COLOR_LIST_ITEM_HEIGHT. */
 	public static final int COLOR_LIST_ITEM_HEIGHT = 30;
+	
+	/** The Constant NO_OF_LINE_WIDTH_LEVELS. */
 	public static final int NO_OF_LINE_WIDTH_LEVELS = 3;
+	
+	/** The Constant LINE_WIDTH_SHIFT. */
 	public static final int LINE_WIDTH_SHIFT = 6;
+	
+	/** The Constant TOP_BAR_WIDTH. */
 	public static final int TOP_BAR_WIDTH = 40;
+	
+	/** The Constant CONTROL_PANEL_WIDTH. */
 	public static final int CONTROL_PANEL_WIDTH = 77;	
 }

@@ -35,12 +35,58 @@ package synergynetframework.appsystem.contentsystem.items.implementation.interfa
 import java.awt.Image;
 import java.net.URL;
 
+
+/**
+ * The Interface ILightImageLabelImplementation.
+ */
 public interface ILightImageLabelImplementation extends IQuadContentItemImplementation{
+	
+	/**
+	 * Draw image.
+	 *
+	 * @param imageResource the image resource
+	 */
 	public void drawImage(URL imageResource);
+	
+	/**
+	 * Draw image.
+	 *
+	 * @param image the image
+	 */
 	public void drawImage(Image image);
+	
+	/**
+	 * Gets the image resource.
+	 *
+	 * @return the image resource
+	 */
 	public URL getImageResource();
+	
+	/**
+	 * Use alpha.
+	 *
+	 * @param useAlpha the use alpha
+	 */
 	public void useAlpha(boolean useAlpha);
+	
+	/**
+	 * Checks if is apla enabled.
+	 *
+	 * @return true, if is apla enabled
+	 */
 	public boolean isAplaEnabled();
+	
+	/**
+	 * Enable aspect ratio.
+	 *
+	 * @param isAspectRationEnabled the is aspect ration enabled
+	 */
 	public void enableAspectRatio(boolean isAspectRationEnabled);
+	
+	/**
+	 * Checks if is aspect ratio enabled.
+	 *
+	 * @return true, if is aspect ratio enabled
+	 */
 	public boolean isAspectRatioEnabled();
 }

@@ -39,14 +39,27 @@ import com.jmex.game.state.GameStateManager;
 
 import synergynetframework.appsystem.table.appdefinitions.SynergyNetApp;
 
+
+/**
+ * The Class ApplicationTaskManager.
+ */
 public class ApplicationTaskManager {
 
+	/** The instance. */
 	private static ApplicationTaskManager instance;
+	
+	/** The registry. */
 	protected ApplicationRegistry registry = ApplicationRegistry.getInstance();
 
+	/** The current app. */
 	protected SynergyNetApp currentApp;
 
 
+	/**
+	 * Gets the single instance of ApplicationTaskManager.
+	 *
+	 * @return single instance of ApplicationTaskManager
+	 */
 	public static ApplicationTaskManager getInstance() {
 		synchronized(ApplicationTaskManager.class) {
 			if(instance == null) instance = new ApplicationTaskManager();
@@ -54,8 +67,17 @@ public class ApplicationTaskManager {
 		}
 	}
 
+	/**
+	 * Instantiates a new application task manager.
+	 */
 	private ApplicationTaskManager() {}
 
+	/**
+	 * Sets the active application.
+	 *
+	 * @param info the new active application
+	 * @throws ApplicationControlError the application control error
+	 */
 	public void setActiveApplication(ApplicationInfo info) throws ApplicationControlError {
 		if(info == null) throw new ApplicationControlError("Must not supply null application info");
 
@@ -91,6 +113,11 @@ public class ApplicationTaskManager {
 		}
 	}
 
+	/**
+	 * Activate.
+	 *
+	 * @param app the app
+	 */
 	private void activate(SynergyNetApp app) {
 		if(GameStateManager.getInstance().getChild(app.getName()) == null) {
 			GameStateManager.getInstance().attachChild(app);
@@ -100,6 +127,11 @@ public class ApplicationTaskManager {
 		currentApp = app;
 	}
 
+	/**
+	 * Deactivate.
+	 *
+	 * @param app the app
+	 */
 	private void deactivate(SynergyNetApp app) {
 		if(currentApp == null) return;
 

@@ -52,27 +52,60 @@ import synergynetframework.appsystem.contentsystem.items.listener.ScreenCursorLi
 import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAdapter;
 import synergynetframework.appsystem.contentsystem.items.utils.Location;
 
+
+/**
+ * The Class GraphNode.
+ */
 public abstract class GraphNode extends GraphComponent{
 
+	/** The Constant TOP_LEFT_CORNER. */
 	public static final String TOP_LEFT_CORNER = "TOP_LEFT";
+	
+	/** The Constant TOP_RIGHT_CORNER. */
 	public static final String TOP_RIGHT_CORNER = "TOP_RIGHT";
+	
+	/** The Constant BOTTOM_LEFT_CORNER. */
 	public static final String BOTTOM_LEFT_CORNER = "BOTTOM_LEFT";
+	
+	/** The Constant BOTTOM_RIGHT_CORNER. */
 	public static final String BOTTOM_RIGHT_CORNER = "BOTTOM_RIGHT";
+	
+	/** The Constant MIDDLE. */
 	public static final String MIDDLE = "MIDDLE";
 	
+	/** The container. */
 	protected OrthoContainer container;
+	
+	/** The incoming links. */
 	protected ArrayList<GraphLink> incomingLinks = new ArrayList<GraphLink>();
+	
+	/** The outgoing links. */
 	protected ArrayList<GraphLink> outgoingLinks = new ArrayList<GraphLink>();
 
+	/** The close point. */
 	protected SimpleButton linkPoint, closePoint;
+	
+	/** The link point location. */
 	protected String linkPointLocation;
+	
+	/** The close point location. */
 	protected String closePointLocation;
+	
+	/** The is linkable. */
 	protected boolean isLinkable = true;
 	
+	/** The listeners. */
 	protected transient ArrayList<ConceptMapListener> listeners = new ArrayList<ConceptMapListener>();
 	
+	/** The is msg visible. */
 	private boolean isMsgVisible = false;
 	
+	/**
+	 * Instantiates a new graph node.
+	 *
+	 * @param contentSystem the content system
+	 * @param gManager the g manager
+	 */
 	public GraphNode(final ContentSystem contentSystem, final GraphManager gManager) {
 		super(contentSystem, gManager);
 		container = (OrthoContainer) contentSystem.createContentItem(OrthoContainer.class);
@@ -149,30 +182,64 @@ public abstract class GraphNode extends GraphComponent{
 		});
 	}
 
+	/**
+	 * Adds the concept map listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void addConceptMapListener(ConceptMapListener listener){
 		if(!listeners.contains(listener)) listeners.add(listener);
 	}
 	
+	/**
+	 * Fire node connected.
+	 *
+	 * @param link the link
+	 */
 	public void fireNodeConnected(GraphLink link){
 		for(ConceptMapListener listener: listeners){
 			listener.nodeConnected(link);
 		}
 	}
 	
+	/**
+	 * Fire node disconnected.
+	 *
+	 * @param link the link
+	 */
 	public void fireNodeDisconnected(GraphLink link){
 		for(ConceptMapListener listener: listeners){
 			listener.nodeDisconnected(link);
 		}
 	}
 	
+	/**
+	 * Removes the concept map listeners.
+	 */
 	public void removeConceptMapListeners(){
 		listeners.clear();
 	}
 	
+	/**
+	 * Sets the node content.
+	 *
+	 * @param nodeItem the new node content
+	 */
 	protected abstract void setNodeContent(ContentItem nodeItem);
 	
+	/**
+	 * Sets the link button location.
+	 *
+	 * @param location the new link button location
+	 */
 	public abstract void setLinkButtonLocation(String location);
 	
+	/**
+	 * Creates the button with image.
+	 *
+	 * @param imageResource the image resource
+	 * @return the simple button
+	 */
 	protected SimpleButton createButtonWithImage(URL imageResource){
 		SimpleButton btn = (SimpleButton) contentSystem.createContentItem(SimpleButton.class);
 		btn.setBackgroundColour(GraphConfig.nodePointBgColor);
@@ -186,8 +253,16 @@ public abstract class GraphNode extends GraphComponent{
 		return btn;
 	}
 	
+	/**
+	 * Sets the close button location.
+	 *
+	 * @param location the new close button location
+	 */
 	public abstract void setCloseButtonLocation(String location);
 	
+	/**
+	 * Update connection points.
+	 */
 	public void updateConnectionPoints(){
 		for(GraphLink link: incomingLinks){
 			link.setTargetLocation(this.getLocation()/*this.getLinkPointLocation()*/);
@@ -197,41 +272,84 @@ public abstract class GraphNode extends GraphComponent{
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see apps.conceptmap.graphcomponents.GraphComponent#getName()
+	 */
 	@Override
 	public String getName() {
 		return container.getName();
 	}
 
+	/**
+	 * Sets the location.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 */
 	public void setLocation(float x, float y){
 		container.setLocalLocation(x, y);
 		updateConnectionPoints();
 	}
 	
+	/**
+	 * Gets the location.
+	 *
+	 * @return the location
+	 */
 	public Location getLocation(){
 		return container.getLocalLocation();
 	}
 	
+	/**
+	 * Register outgoing link.
+	 *
+	 * @param link the link
+	 */
 	public void registerOutgoingLink(GraphLink link){
 		outgoingLinks.add(link);
 	}
 	
+	/**
+	 * Register incoming link.
+	 *
+	 * @param link the link
+	 */
 	public void registerIncomingLink(GraphLink link){
 		incomingLinks.add(link);
 	}
 	
+	/**
+	 * Gets the outgoing links.
+	 *
+	 * @return the outgoing links
+	 */
 	public ArrayList<GraphLink> getOutgoingLinks(){
 		return outgoingLinks;
 	}
 	
+	/**
+	 * Gets the incoming links.
+	 *
+	 * @return the incoming links
+	 */
 	public ArrayList<GraphLink> getIncomingLinks(){
 		return incomingLinks;
 	}
 	
+	/**
+	 * Unregister all links.
+	 */
 	public void unregisterAllLinks(){
 		outgoingLinks.clear();
 		incomingLinks.clear();
 	}
 	
+	/**
+	 * Unregister link.
+	 *
+	 * @param link the link
+	 * @return true, if successful
+	 */
 	public boolean unregisterLink(GraphLink link){
 		boolean removed = false;
 		removed = outgoingLinks.remove(link);
@@ -239,54 +357,116 @@ public abstract class GraphNode extends GraphComponent{
 		return removed;
 	}
 	
+	/**
+	 * Gets the node container.
+	 *
+	 * @return the node container
+	 */
 	public ContentItem getNodeContainer(){
 		return container;
 	}
 	
+	/**
+	 * Contains.
+	 *
+	 * @param point the point
+	 * @return true, if successful
+	 */
 	public boolean contains(Point2D.Float point){
 		return container.contains(point);
 	}
 	
+	/**
+	 * Sets the order.
+	 *
+	 * @param zOrder the new order
+	 */
 	public void setOrder(int zOrder){
 		container.setOrder(zOrder);
 	}
 	
+	/**
+	 * Gets the order.
+	 *
+	 * @return the order
+	 */
 	public int getOrder(){
 		return container.getOrder();
 	}
 	
+	/**
+	 * Sets the scale.
+	 *
+	 * @param scaleFactor the new scale
+	 */
 	public void setScale(float scaleFactor){
 		container.setScale(scaleFactor);
 	}
 	
+	/**
+	 * Sets the visible.
+	 *
+	 * @param isVisible the new visible
+	 */
 	public void setVisible(boolean isVisible){
 		container.setVisible(isVisible);
 	}
 	
+	/**
+	 * Checks if is visible.
+	 *
+	 * @return true, if is visible
+	 */
 	public boolean isVisible(){
 		return container.isVisible();
 	}
 	
+	/**
+	 * Removes the.
+	 */
 	public void remove(){
 		contentSystem.removeContentItem(container);
 	}
 	
+	/**
+	 * Sets the linkable.
+	 *
+	 * @param isLinkable the new linkable
+	 */
 	public void setLinkable(boolean isLinkable){
 		this.isLinkable = isLinkable;
 	}
 	
+	/**
+	 * Checks if is linkable.
+	 *
+	 * @return true, if is linkable
+	 */
 	public boolean isLinkable(){
 		return isLinkable;
 	}
 	
+	/**
+	 * Gets the close button.
+	 *
+	 * @return the close button
+	 */
 	public SimpleButton getCloseButton(){
 		return this.closePoint;
 	}
 	
+	/**
+	 * Gets the link button.
+	 *
+	 * @return the link button
+	 */
 	public SimpleButton getLinkButton(){
 		return this.linkPoint;
 	}
 	
+	/**
+	 * Update node.
+	 */
 	public void updateNode(){
 		if(linkPointLocation != null)
 			this.setLinkButtonLocation(this.linkPointLocation);

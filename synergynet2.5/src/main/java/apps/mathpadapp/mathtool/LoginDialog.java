@@ -63,13 +63,30 @@ import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonLi
 import synergynetframework.jme.gfx.twod.keyboard.Key;
 import synergynetframework.jme.gfx.twod.keyboard.MTKeyListener;
 
+
+/**
+ * The Class LoginDialog.
+ */
 public class LoginDialog extends MTDialog{
 	
+	/** The keyboard. */
 	protected Keyboard keyboard;
+	
+	/** The line. */
 	protected LineItem line;
+	
+	/** The is keyborad on. */
 	protected boolean isKeyboradOn = false;	
+	
+	/** The math tool. */
 	protected MathPad mathTool;
 
+	/**
+	 * Instantiates a new login dialog.
+	 *
+	 * @param contentSystem the content system
+	 * @param parentTool the parent tool
+	 */
 	public LoginDialog(final ContentSystem contentSystem, final MathTool parentTool){
 		super(parentTool, contentSystem);
 		this.setTitle("Login");
@@ -240,6 +257,11 @@ public class LoginDialog extends MTDialog{
 	}
 	
 
+	/**
+	 * Show keyborad.
+	 *
+	 * @param edittedTextLabel the editted text label
+	 */
 	private void showKeyborad(final TextLabel edittedTextLabel){
 		if (keyboard!= null) return;
 		keyboard = (Keyboard)contentSystem.createContentItem(Keyboard.class);
@@ -306,6 +328,9 @@ public class LoginDialog extends MTDialog{
 		});
 	}
 	
+	/**
+	 * Hide keyborad.
+	 */
 	private void hideKeyborad(){
 		if (this.keyboard!=null){
 			this.contentSystem.removeContentItem(keyboard);
@@ -318,6 +343,11 @@ public class LoginDialog extends MTDialog{
 		}
 	}
 	
+	/**
+	 * Gets the key defs.
+	 *
+	 * @return the key defs
+	 */
 	@SuppressWarnings("unchecked")
 	private List<Key> getKeyDefs() {
 		try {
@@ -333,6 +363,9 @@ public class LoginDialog extends MTDialog{
 		return null;
 	}
 	
+	/**
+	 * Update line.
+	 */
 	private void updateLine(){
 		if (line!=null && keyboard!=null){
 			line.setSourceLocation(LoginDialog.this.getWindow().getLocalLocation());
@@ -340,6 +373,9 @@ public class LoginDialog extends MTDialog{
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.util.MTDialog#setVisible(boolean)
+	 */
 	@Override
 	public void setVisible(boolean isVisible){
 		super.setVisible(isVisible);
@@ -347,18 +383,30 @@ public class LoginDialog extends MTDialog{
 		if(!isVisible)	hideKeyborad();
 	}
 	
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.util.MTFrame#getWindow()
+	 */
 	public Window getWindow(){
 		return window;
 	}
 	
+	/**
+	 * The Class WriteAction.
+	 */
 	class WriteAction implements SimpleButtonListener{
 
+		/* (non-Javadoc)
+		 * @see synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonListener#buttonClicked(synergynetframework.appsystem.contentsystem.items.SimpleButton, long, float, float, float)
+		 */
 		@Override
 		public void buttonClicked(SimpleButton b, long id, float x, float y,
 				float pressure) {
 
 		}
 
+		/* (non-Javadoc)
+		 * @see synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonListener#buttonDragged(synergynetframework.appsystem.contentsystem.items.SimpleButton, long, float, float, float)
+		 */
 		@Override
 		public void buttonDragged(SimpleButton b, long id, float x, float y,
 				float pressure) {
@@ -366,6 +414,9 @@ public class LoginDialog extends MTDialog{
 			
 		}
 
+		/* (non-Javadoc)
+		 * @see synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonListener#buttonPressed(synergynetframework.appsystem.contentsystem.items.SimpleButton, long, float, float, float)
+		 */
 		@Override
 		public void buttonPressed(SimpleButton b, long id, float x, float y,
 				float pressure) {
@@ -373,6 +424,9 @@ public class LoginDialog extends MTDialog{
 			
 		}
 
+		/* (non-Javadoc)
+		 * @see synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonListener#buttonReleased(synergynetframework.appsystem.contentsystem.items.SimpleButton, long, float, float, float)
+		 */
 		@Override
 		public void buttonReleased(SimpleButton b, long id, float x, float y,
 				float pressure) {

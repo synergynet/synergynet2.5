@@ -41,16 +41,31 @@ import synergynetframework.appsystem.contentsystem.items.implementation.interfac
 import synergynetframework.jme.cursorsystem.elements.twod.OrthoBringToTop;
 
 
+
+/**
+ * The Class OrthoContainer.
+ */
 public class OrthoContainer extends OrthoContentItem implements IOrthoContainerImplementation{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2782161111250663419L;
 	
+	/** The sub content items. */
 	private List<ContentItem> subContentItems = new ArrayList<ContentItem>();
 	
+	/**
+	 * Instantiates a new ortho container.
+	 *
+	 * @param contentSystem the content system
+	 * @param name the name
+	 */
 	public OrthoContainer(ContentSystem contentSystem, String name) {
 		super(contentSystem, name);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContainerImplementation#addSubItem(synergynetframework.appsystem.contentsystem.items.ContentItem)
+	 */
 	public void addSubItem(ContentItem contentItem){
 		
 		if (!subContentItems.contains(contentItem)){
@@ -64,14 +79,29 @@ public class OrthoContainer extends OrthoContentItem implements IOrthoContainerI
 		}
 	}
 	
+	/**
+	 * Contains.
+	 *
+	 * @param contentItem the content item
+	 * @return true, if successful
+	 */
 	public boolean contains(ContentItem contentItem){
 	    return subContentItems.contains(contentItem);
 	}
 	    
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContainerImplementation#removeSubItem(synergynetframework.appsystem.contentsystem.items.ContentItem)
+	 */
 	public void removeSubItem(ContentItem contentItem){
 		this.removeSubItem(contentItem, true);
 	}
 	
+	/**
+	 * Removes the sub item.
+	 *
+	 * @param contentItem the content item
+	 * @param releaseTextures the release textures
+	 */
 	public void removeSubItem(ContentItem contentItem, boolean releaseTextures){
 		if (subContentItems.contains(contentItem)){
 			this.subContentItems.remove(contentItem);
@@ -81,6 +111,9 @@ public class OrthoContainer extends OrthoContentItem implements IOrthoContainerI
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContainerImplementation#detachSubItem(synergynetframework.appsystem.contentsystem.items.ContentItem)
+	 */
 	@Override
 	public void detachSubItem(ContentItem contentItem) {
 		if (subContentItems.contains(contentItem)){
@@ -90,14 +123,25 @@ public class OrthoContainer extends OrthoContentItem implements IOrthoContainerI
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContainerImplementation#updateOrder(int)
+	 */
 	public void updateOrder(int order){
 		((IOrthoContainerImplementation)this.contentItemImplementation).updateOrder(order);
 	}
 	
+	/**
+	 * Gets the all items include system items.
+	 *
+	 * @return the all items include system items
+	 */
 	public List<ContentItem> getAllItemsIncludeSystemItems(){
 	    return this.subContentItems;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.OrthoContentItem#setRotateTranslateScalable(boolean)
+	 */
 	public void setRotateTranslateScalable(boolean isEnabled){
 		super.setRotateTranslateScalable(isEnabled);
 		
@@ -106,6 +150,9 @@ public class OrthoContainer extends OrthoContentItem implements IOrthoContainerI
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.OrthoContentItem#setBringToTopable(boolean)
+	 */
 	public void setBringToTopable(boolean isEnabled){
 		super.setBringToTopable(isEnabled);
 		
@@ -114,6 +161,11 @@ public class OrthoContainer extends OrthoContentItem implements IOrthoContainerI
 		}
 	}
 	
+	/**
+	 * Sets the top item.
+	 *
+	 * @param item the new top item
+	 */
 	public void setTopItem(ContentItem item) {
 		if(!subContentItems.contains(item)) return; 
 		
@@ -127,12 +179,18 @@ public class OrthoContainer extends OrthoContentItem implements IOrthoContainerI
 		((IOrthoContainerImplementation)this.contentItemImplementation).updateOrder(OrthoBringToTop.topMost);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.OrthoContentItem#setScaleLimit(float, float)
+	 */
 	public void setScaleLimit(float min, float max){
 		for (ContentItem item: subContentItems){
 			((OrthoContentItem)item).setScaleLimit(min, max);
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContainerImplementation#getNode()
+	 */
 	@Override
 	public Node getNode(){
 		return ((IOrthoContainerImplementation)this.contentItemImplementation).getNode();

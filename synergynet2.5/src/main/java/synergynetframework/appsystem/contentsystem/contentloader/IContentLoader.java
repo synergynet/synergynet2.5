@@ -37,8 +37,19 @@ import java.util.Set;
 import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 
+
+/**
+ * The Interface IContentLoader.
+ */
 public interface IContentLoader {
 	
+	/**
+	 * Load content.
+	 *
+	 * @param filePath the file path
+	 * @param contentsys the contentsys
+	 * @return the sets the
+	 */
 	public Set<ContentItem> loadContent(String filePath, ContentSystem contentsys);
 	
 }

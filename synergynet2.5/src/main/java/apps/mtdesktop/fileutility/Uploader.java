@@ -6,33 +6,60 @@ import javax.servlet.http.HttpServletResponse;
 
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class Uploader.
+ */
 public class Uploader
 {
 	
+	/** The Constant BUFFER_SIZE. */
 	public static final int BUFFER_SIZE = 1024*5;
 
+	/** The Constant MAX_CHUNK_SIZE. */
 	public static final int MAX_CHUNK_SIZE = 1024 * BUFFER_SIZE; //~4.1MB
 
+	/** The Constant FILE_NAME_HEADER. */
 	public static final String FILE_NAME_HEADER = "Transfer-File-Name";
 	
+	/** The Constant DESTINATION_PATH_HEADER. */
 	public static final String DESTINATION_PATH_HEADER = "Destination-Path";
 
+	/** The Constant CLIENT_ID_HEADER. */
 	public static final String CLIENT_ID_HEADER = "Transfer-Client-ID";
 
+	/** The Constant FILE_CHUNK_HEADER. */
 	public static final String FILE_CHUNK_HEADER = "Transfer-File-Chunk";
 
+	/** The Constant FILE_CHUNK_COUNT_HEADER. */
 	public static final String FILE_CHUNK_COUNT_HEADER = "Transfer-File-Chunk-Count";
 	
+	/** The Constant FILE_SIZE. */
 	public static final String FILE_SIZE = "Transfer-File-Size";
 	
+	/** The Constant ASSET_ID. */
 	public static final String ASSET_ID = "Asset-Id";
 	
+	/** The asset registry. */
 	private AssetRegistry assetRegistry;
 	
+	/**
+	 * Instantiates a new uploader.
+	 *
+	 * @param assetRegistry the asset registry
+	 */
 	public Uploader(AssetRegistry assetRegistry) {
 		this.assetRegistry = assetRegistry;
 	}
 
+	/**
+	 * Upload file.
+	 *
+	 * @param ftpServletUrl the ftp servlet url
+	 * @param assetId the asset id
+	 * @param file the file
+	 * @param destinationPath the destination path
+	 */
 	public void uploadFile(String ftpServletUrl, String assetId, File file, String destinationPath){
 		try{
 			URL url = new URL(ftpServletUrl);
@@ -106,6 +133,13 @@ public class Uploader
 		}
 	}
 
+	/**
+	 * Delete file.
+	 *
+	 * @param fileUrl the file url
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws URISyntaxException the URI syntax exception
+	 */
 	public void deleteFile(String fileUrl) throws IOException, URISyntaxException{
 		
 		URL url = new URL(fileUrl);

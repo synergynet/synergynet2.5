@@ -23,23 +23,34 @@ package synergynetframework.appsystem.contentsystem.items.utils.vnc;
 import java.awt.*;
 import java.awt.event.*;
 
+
 //
 // The panel which implements the user authentication scheme
 //
 
+/**
+ * The Class AuthPanel.
+ */
 class AuthPanel extends Panel implements ActionListener {
 
-  /**
-	 * 
-	 */
+  /** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -5051497403645579923L;
+
+/** The password field. */
 TextField passwordField;
+  
+  /** The ok button. */
   Button okButton;
 
   //
   // Constructor.
   //
 
+  /**
+   * Instantiates a new auth panel.
+   *
+   * @param viewer the viewer
+   */
   public AuthPanel(VncViewer viewer)
   {
     Label titleLabel = new Label("VNC Authentication", Label.CENTER);
@@ -89,6 +100,9 @@ TextField passwordField;
   // text field.
   //
 
+  /**
+   * Move focus to default field.
+   */
   public void moveFocusToDefaultField()
   {
     passwordField.requestFocus();
@@ -99,6 +113,9 @@ TextField passwordField;
   // pressed in the password text field.
   //
 
+  /* (non-Javadoc)
+   * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+   */
   public synchronized void actionPerformed(ActionEvent evt)
   {
     if (evt.getSource() == passwordField || evt.getSource() == okButton) {
@@ -111,6 +128,12 @@ TextField passwordField;
   // Wait for user entering a password, and return it as String.
   //
 
+  /**
+   * Gets the password.
+   *
+   * @return the password
+   * @throws Exception the exception
+   */
   public synchronized String getPassword() throws Exception
   {
     try {

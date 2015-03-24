@@ -26,14 +26,33 @@ import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.rapidnetworkmanager.RapidNetworkManager;
 import synergynetframework.appsystem.services.net.rapidnetworkmanager.handlers.MessageProcessor;
 
+
+/**
+ * The Class SnapshotContainer.
+ */
 public class SnapshotContainer implements MessageProcessor{
 	
+	/** The window. */
 	private Window window;
+	
+	/** The img label. */
 	private LightImageLabel imgLabel;
+	
+	/** The default scale. */
 	private float defaultScale = 0.3f;
+	
+	/** The table id. */
 	private TableIdentity tableId;
+	
+	/** The temp frame. */
 	private JFrame tempFrame = new JFrame();
 	
+	/**
+	 * Instantiates a new snapshot container.
+	 *
+	 * @param contentSystem the content system
+	 * @param tableId the table id
+	 */
 	public SnapshotContainer(final ContentSystem contentSystem, final TableIdentity tableId){
 		this.tableId = tableId;
 		window = (Window) contentSystem.createContentItem(Window.class);
@@ -80,6 +99,11 @@ public class SnapshotContainer implements MessageProcessor{
 		RapidNetworkManager.registerMessageProcessor(this);
 	}
 	
+	/**
+	 * Sets the color.
+	 *
+	 * @param tableId the new color
+	 */
 	private void setColor(TableIdentity tableId) {
 		Color color = null;
 		try {
@@ -91,6 +115,9 @@ public class SnapshotContainer implements MessageProcessor{
 		window.setBackgroundColour(color);	
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.rapidnetworkmanager.handlers.MessageProcessor#process(java.lang.Object)
+	 */
 	@Override
 	public void process(Object obj) {
 		if(obj instanceof SnapshotMessage){
@@ -109,6 +136,9 @@ public class SnapshotContainer implements MessageProcessor{
 		}
 	}
 
+	/**
+	 * Refresh.
+	 */
 	public void refresh() {
 		if(RapidNetworkManager.getTableCommsClientService() != null)
 			try {
@@ -119,6 +149,11 @@ public class SnapshotContainer implements MessageProcessor{
 			}
 	}
 	
+	/**
+	 * Gets the window.
+	 *
+	 * @return the window
+	 */
 	public Window getWindow(){
 		return window;
 	}

@@ -12,17 +12,32 @@ import com.jme.scene.Node;
 
 import data.DataResources;
 
+
+/**
+ * The Class CoolCalculatorNode.
+ */
 public class CoolCalculatorNode extends Node {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2429175967783608868L;
+	
+	/** The text string. */
 	protected String textString="";
 	
+	/**
+	 * Instantiates a new cool calculator node.
+	 *
+	 * @param name the name
+	 */
 	public CoolCalculatorNode(String name){
 		super(name);	
 		init();
 		
 	}
 
+	/**
+	 * Inits the.
+	 */
 	protected void init(){
 		
 		float width = 20f;

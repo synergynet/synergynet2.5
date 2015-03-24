@@ -44,20 +44,44 @@ import synergynetframework.appsystem.table.appdefinitions.SynergyNetApp;
 
 
 
+
+/**
+ * The Class ApplicationRegistry.
+ */
 public class ApplicationRegistry {
+	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(ApplicationRegistry.class.getName());
 
+	/** The instance. */
 	private static ApplicationRegistry instance;
 
+	/** The client applications. */
 	protected Map<String,ApplicationInfo> clientApplications = new HashMap<String,ApplicationInfo>();	
+	
+	/** The controller applications. */
 	protected Map<String,ApplicationInfo> controllerApplications = new HashMap<String,ApplicationInfo>();
+	
+	/** The projector applications. */
 	protected Map<String,ApplicationInfo> projectorApplications = new HashMap<String,ApplicationInfo>();
+	
+	/** The client instances. */
 	protected Map<String,SynergyNetApp> clientInstances = new HashMap<String,SynergyNetApp>();
+	
+	/** The controller instances. */
 	protected Map<String,SynergyNetApp> controllerInstances = new HashMap<String,SynergyNetApp>();
+	
+	/** The projector instances. */
 	protected Map<String,SynergyNetApp> projectorInstances = new HashMap<String,SynergyNetApp>();
 	
+	/** The default app. */
 	private ApplicationInfo defaultApp;
 
+	/**
+	 * Gets the single instance of ApplicationRegistry.
+	 *
+	 * @return single instance of ApplicationRegistry
+	 */
 	public static ApplicationRegistry getInstance() {
 		if(instance == null) instance = new ApplicationRegistry();
 		return instance;
@@ -65,8 +89,19 @@ public class ApplicationRegistry {
 
 
 
+	/**
+	 * Instantiates a new application registry.
+	 */
 	private ApplicationRegistry() {}
 
+	/**
+	 * Register.
+	 *
+	 * @param info the info
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws ClassNotFoundException the class not found exception
+	 */
 	public void register(ApplicationInfo info) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		log.info("Attempting to register " + info.getApplicationName());
 		if(info.getApplicationType().equals(ApplicationInfo.APPLICATION_TYPE_CLIENT)) {
@@ -82,6 +117,12 @@ public class ApplicationRegistry {
 		
 	}
 
+	/**
+	 * Gets the info for class name.
+	 *
+	 * @param classname the classname
+	 * @return the info for class name
+	 */
 	public ApplicationInfo getInfoForClassName(String classname) {
 		for(ApplicationInfo ai : clientApplications.values()) {
 			if(ai.getTheClassName().equals(classname)) return ai;
@@ -95,19 +136,41 @@ public class ApplicationRegistry {
 		return null;
 	}
 
+	/**
+	 * Sets the default.
+	 *
+	 * @param classname the new default
+	 */
 	public void setDefault(String classname) {
 		ApplicationInfo ai = getInfoForClassName(classname);
 		this.setDefaultApp(ai);		
 	}
 
+	/**
+	 * Sets the default app.
+	 *
+	 * @param defaultApp the new default app
+	 */
 	public void setDefaultApp(ApplicationInfo defaultApp) {
 		this.defaultApp = defaultApp;
 	}
 
+	/**
+	 * Gets the default app.
+	 *
+	 * @return the default app
+	 */
 	public ApplicationInfo getDefaultApp() {
 		return defaultApp;
 	}
 
+	/**
+	 * Gets the info for name.
+	 *
+	 * @param appName the app name
+	 * @param type the type
+	 * @return the info for name
+	 */
 	public ApplicationInfo getInfoForName(String appName, String type) {
 		if(type.equals(ApplicationInfo.APPLICATION_TYPE_CLIENT)) {
 			return clientApplications.get(appName);
@@ -119,6 +182,11 @@ public class ApplicationRegistry {
 		}
 	}
 
+	/**
+	 * Gets the all info.
+	 *
+	 * @return the all info
+	 */
 	public Collection<ApplicationInfo> getAllInfo() {
 		Set<ApplicationInfo> s = new HashSet<ApplicationInfo>();
 		s.addAll(clientApplications.values());
@@ -127,6 +195,19 @@ public class ApplicationRegistry {
 		return s;
 	}
 
+	/**
+	 * Gets the app instance.
+	 *
+	 * @param ai the ai
+	 * @return the app instance
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws ClassNotFoundException the class not found exception
+	 * @throws SecurityException the security exception
+	 * @throws IllegalArgumentException the illegal argument exception
+	 * @throws NoSuchMethodException the no such method exception
+	 * @throws InvocationTargetException the invocation target exception
+	 */
 	public SynergyNetApp getAppInstance(ApplicationInfo ai) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SecurityException, IllegalArgumentException, NoSuchMethodException, InvocationTargetException {
 		if(ai.getApplicationType().equals(ApplicationInfo.APPLICATION_TYPE_CLIENT)) {
 			return getClientAppInstance(ai);
@@ -137,18 +218,71 @@ public class ApplicationRegistry {
 			return getProjectorAppInstance(ai);
 	}
 	
+	/**
+	 * Gets the client app instance.
+	 *
+	 * @param info the info
+	 * @return the client app instance
+	 * @throws SecurityException the security exception
+	 * @throws IllegalArgumentException the illegal argument exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws ClassNotFoundException the class not found exception
+	 * @throws NoSuchMethodException the no such method exception
+	 * @throws InvocationTargetException the invocation target exception
+	 */
 	public SynergyNetApp getClientAppInstance(ApplicationInfo info) throws SecurityException, IllegalArgumentException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException {
 		return getAppInstance(clientInstances, info);
 	}
 	
+	/**
+	 * Gets the controller app instance.
+	 *
+	 * @param info the info
+	 * @return the controller app instance
+	 * @throws SecurityException the security exception
+	 * @throws IllegalArgumentException the illegal argument exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws ClassNotFoundException the class not found exception
+	 * @throws NoSuchMethodException the no such method exception
+	 * @throws InvocationTargetException the invocation target exception
+	 */
 	public SynergyNetApp getControllerAppInstance(ApplicationInfo info) throws SecurityException, IllegalArgumentException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException {
 		return getAppInstance(controllerInstances, info);
 	}
 	
+	/**
+	 * Gets the projector app instance.
+	 *
+	 * @param info the info
+	 * @return the projector app instance
+	 * @throws SecurityException the security exception
+	 * @throws IllegalArgumentException the illegal argument exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws ClassNotFoundException the class not found exception
+	 * @throws NoSuchMethodException the no such method exception
+	 * @throws InvocationTargetException the invocation target exception
+	 */
 	public SynergyNetApp getProjectorAppInstance(ApplicationInfo info) throws SecurityException, IllegalArgumentException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException {
 		return getAppInstance(projectorInstances, info);
 	}
 	
+	/**
+	 * Gets the app instance.
+	 *
+	 * @param map the map
+	 * @param info the info
+	 * @return the app instance
+	 * @throws SecurityException the security exception
+	 * @throws IllegalArgumentException the illegal argument exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws ClassNotFoundException the class not found exception
+	 * @throws NoSuchMethodException the no such method exception
+	 * @throws InvocationTargetException the invocation target exception
+	 */
 	public SynergyNetApp getAppInstance(Map<String,SynergyNetApp> map, ApplicationInfo info) throws SecurityException, IllegalArgumentException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException {
 		if(map == null) return null;
 		SynergyNetApp app = map.get(info.getApplicationName());
@@ -160,6 +294,19 @@ public class ApplicationRegistry {
 		return app;
 	}
 
+	/**
+	 * Gets the fresh app instance.
+	 *
+	 * @param ai the ai
+	 * @return the fresh app instance
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws ClassNotFoundException the class not found exception
+	 * @throws SecurityException the security exception
+	 * @throws IllegalArgumentException the illegal argument exception
+	 * @throws NoSuchMethodException the no such method exception
+	 * @throws InvocationTargetException the invocation target exception
+	 */
 	public SynergyNetApp getFreshAppInstance(ApplicationInfo ai) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SecurityException, IllegalArgumentException, NoSuchMethodException, InvocationTargetException {
 		removeInstance(ai);
 		SynergyNetApp app = ai.getNewInstance();
@@ -173,6 +320,11 @@ public class ApplicationRegistry {
 		return app;
 	}
 
+	/**
+	 * Removes the instance.
+	 *
+	 * @param info the info
+	 */
 	public void removeInstance(ApplicationInfo info) {
 		if(info.getApplicationType().equals(ApplicationInfo.APPLICATION_TYPE_CLIENT))
 			clientInstances.remove(info);
@@ -183,6 +335,9 @@ public class ApplicationRegistry {
 		System.gc();
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return clientApplications.toString() + " AND " + controllerApplications.toString();
 	}

@@ -40,14 +40,32 @@ import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.UnicastApplicationMessage;
 
+
+/**
+ * The Class PostWorkspacePortalMessage.
+ */
 public class PostWorkspacePortalMessage extends UnicastApplicationMessage {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -546746344864227474L;
+	
+	/** The items. */
 	private List<ContentItem> items =new ArrayList<ContentItem>();
 
+	/**
+	 * Instantiates a new post workspace portal message.
+	 */
 	public PostWorkspacePortalMessage(){
 		super();
 	}
+	
+	/**
+	 * Instantiates a new post workspace portal message.
+	 *
+	 * @param targetClass the target class
+	 * @param tableId the table id
+	 * @param collection the collection
+	 */
 	public PostWorkspacePortalMessage(Class<?> targetClass, TableIdentity tableId, Collection<ContentItem> collection) {
 		super(targetClass);
 		this.items.clear();
@@ -61,6 +79,11 @@ public class PostWorkspacePortalMessage extends UnicastApplicationMessage {
 		this.setRecipient(tableId);
 	}
 
+	/**
+	 * Gets the items.
+	 *
+	 * @return the items
+	 */
 	public List<ContentItem> getItems() {
 		return items;
 	}

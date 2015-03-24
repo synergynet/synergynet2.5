@@ -50,16 +50,31 @@ import synergynetframework.appsystem.table.appregistry.ApplicationRegistry;
 import synergynetframework.appsystem.table.appregistry.ApplicationTaskManager;
 import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightConfirmVisualExit;
 
+
+/**
+ * The Class ControlApp.
+ */
 public class ControlApp extends DefaultSynergyNetApp implements synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonListener, TableCommsApplicationListener {
 
+	/** The content. */
 	private ContentSystem content;
+	
+	/** The comms. */
 	private TableCommsClientService comms;
 //	private Map<String,SimpleButton> buttons = new HashMap<String,SimpleButton>();
 
-	public ControlApp(ApplicationInfo info) {
+	/**
+ * Instantiates a new control app.
+ *
+ * @param info the info
+ */
+public ControlApp(ApplicationInfo info) {
 		super(info);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 
@@ -80,6 +95,9 @@ public class ControlApp extends DefaultSynergyNetApp implements synergynetframew
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onActivate()
+	 */
 	@Override
 	public void onActivate() {
 		if(comms == null) {
@@ -96,6 +114,9 @@ public class ControlApp extends DefaultSynergyNetApp implements synergynetframew
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonListener#buttonClicked(synergynetframework.appsystem.contentsystem.items.SimpleButton, long, float, float, float)
+	 */
 	public void buttonClicked(SimpleButton button, long id, float x, float y, float pressure) {
 		String appName = button.getText();
 		
@@ -116,11 +137,17 @@ public class ControlApp extends DefaultSynergyNetApp implements synergynetframew
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.tablecomms.client.TableCommsApplicationListener#messageReceived(java.lang.Object)
+	 */
 	public void messageReceived(Object obj) {
 		
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonListener#buttonDragged(synergynetframework.appsystem.contentsystem.items.SimpleButton, long, float, float, float)
+	 */
 	@Override
 	public void buttonDragged(SimpleButton b, long id, float x, float y,
 			float pressure) {
@@ -128,6 +155,9 @@ public class ControlApp extends DefaultSynergyNetApp implements synergynetframew
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonListener#buttonPressed(synergynetframework.appsystem.contentsystem.items.SimpleButton, long, float, float, float)
+	 */
 	@Override
 	public void buttonPressed(SimpleButton b, long id, float x, float y,
 			float pressure) {
@@ -135,6 +165,9 @@ public class ControlApp extends DefaultSynergyNetApp implements synergynetframew
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonListener#buttonReleased(synergynetframework.appsystem.contentsystem.items.SimpleButton, long, float, float, float)
+	 */
 	@Override
 	public void buttonReleased(SimpleButton b, long id, float x, float y,
 			float pressure) {
@@ -142,6 +175,9 @@ public class ControlApp extends DefaultSynergyNetApp implements synergynetframew
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.tablecomms.client.TableCommsApplicationListener#tableDisconnected()
+	 */
 	@Override
 	public void tableDisconnected() {
 		

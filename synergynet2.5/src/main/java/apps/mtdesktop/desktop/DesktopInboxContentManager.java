@@ -16,14 +16,27 @@ import apps.mtdesktop.tabletop.basket.BasketManager;
 
 import synergynetframework.appsystem.services.net.rapidnetworkmanager.handlers.MessageProcessor;
 
+
+/**
+ * The Class DesktopInboxContentManager.
+ */
 public class DesktopInboxContentManager implements MessageProcessor{
 
+	/** The tree. */
 	protected TabletopTree tree;
 	
+	/**
+	 * Instantiates a new desktop inbox content manager.
+	 *
+	 * @param tree the tree
+	 */
 	public DesktopInboxContentManager(TabletopTree tree){
 		this.tree = tree;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.rapidnetworkmanager.handlers.MessageProcessor#process(java.lang.Object)
+	 */
 	@Override
 	public void process(Object obj) {
 		if(obj instanceof BasketItemMessage){

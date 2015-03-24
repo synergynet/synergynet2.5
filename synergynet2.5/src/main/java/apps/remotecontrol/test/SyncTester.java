@@ -8,34 +8,76 @@ import apps.remotecontrol.networkmanager.managers.NetworkedContentManager;
 
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 
+
+/**
+ * The Class SyncTester.
+ */
 public class SyncTester {
 	
+	/** The items. */
 	protected List<ContentItem> items = new ArrayList<ContentItem>();
+	
+	/** The default animation delay. */
 	protected float defaultAnimationDelay = 300f;
+	
+	/** The animation delay. */
 	protected float animationDelay = defaultAnimationDelay;
+	
+	/** The network manager. */
 	protected NetworkedContentManager networkManager;
+	
+	/** The enable move. */
 	boolean enableZoom = false, enableRotate = true, enableMove = true;
 	
+	/** The move shift. */
 	protected float moveShift = 300;
 	
+	/** The map. */
 	protected HashMap<ContentItem, Float> map = new HashMap<ContentItem, Float>();
+	
+	/** The zoommap. */
 	protected HashMap<ContentItem, Boolean> zoommap = new HashMap<ContentItem, Boolean>();
+	
+	/** The movemap. */
 	protected HashMap<ContentItem, Boolean> movemap = new HashMap<ContentItem, Boolean>();
 
+	/**
+	 * Instantiates a new sync tester.
+	 */
 	public SyncTester(){}
 	
+	/**
+	 * Instantiates a new sync tester.
+	 *
+	 * @param networkManager the network manager
+	 */
 	public SyncTester(NetworkedContentManager networkManager) {
 		this.networkManager = networkManager;
 	}
 	
+	/**
+	 * Sets the networked content manager.
+	 *
+	 * @param networkManager the new networked content manager
+	 */
 	public void setNetworkedContentManager(NetworkedContentManager networkManager){
 		this.networkManager = networkManager;
 	}
 
+	/**
+	 * Sets the items.
+	 *
+	 * @param items the new items
+	 */
 	public void setItems(List<ContentItem> items){
 		this.items = items;
 	}
 	
+	/**
+	 * Update.
+	 *
+	 * @param interpolation the interpolation
+	 */
 	public void update(float interpolation){
 		if(animationDelay <= 0){
 			for(ContentItem item: items){

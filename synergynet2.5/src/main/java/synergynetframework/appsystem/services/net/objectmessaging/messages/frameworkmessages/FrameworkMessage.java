@@ -33,6 +33,9 @@
 
 package synergynetframework.appsystem.services.net.objectmessaging.messages.frameworkmessages;
 
+/**
+ * The Interface FrameworkMessage.
+ */
 public interface FrameworkMessage {
 
 }

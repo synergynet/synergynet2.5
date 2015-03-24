@@ -40,33 +40,70 @@ import org.apache.log4j.Logger;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 import synergynetframework.mtinput.events.MultiTouchObjectEvent;
 
+
+/**
+ * The Class MultiTouchInputComponent.
+ */
 public class MultiTouchInputComponent implements IMultiTouchEventListener {
 
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(MultiTouchInputComponent.class.getName());
 
+	/** The listeners. */
 	private List<IMultiTouchEventListener> listeners = new ArrayList<IMultiTouchEventListener>();
+	
+	/** The filters. */
 	private List<IMultiTouchInputFilter> filters = new ArrayList<IMultiTouchInputFilter>();
+	
+	/** The source. */
 	private IMultiTouchInputSource source;
+	
+	/** The is multi touch input enabled. */
 	private boolean isMultiTouchInputEnabled = true;
 
+	/**
+	 * Instantiates a new multi touch input component.
+	 *
+	 * @param source the source
+	 */
 	public MultiTouchInputComponent(IMultiTouchInputSource source) {
 		this.source = source;
 		source.registerMultiTouchEventListener(this);
 	}
 
+	/**
+	 * Checks if is multi touch input enabled.
+	 *
+	 * @return true, if is multi touch input enabled
+	 */
 	public boolean isMultiTouchInputEnabled() {
 		return isMultiTouchInputEnabled;
 	}
 
+	/**
+	 * Sets the multi touch input enabled.
+	 *
+	 * @param isMultiTouchInputEnabled the new multi touch input enabled
+	 */
 	public void setMultiTouchInputEnabled(boolean isMultiTouchInputEnabled) {
 		this.isMultiTouchInputEnabled = isMultiTouchInputEnabled;
 	}
 
+	/**
+	 * Sets the source.
+	 *
+	 * @param source the new source
+	 */
 	public void setSource(IMultiTouchInputSource source) {
 		this.source = source;
 		source.registerMultiTouchEventListener(filters.get(0));		
 	}
 
+	/**
+	 * Adds the multi touch input filter.
+	 *
+	 * @param filter the filter
+	 */
 	public void addMultiTouchInputFilter(IMultiTouchInputFilter filter) {
 		if(filters.size() > 0) {
 			IMultiTouchInputFilter t = getLastFilter();			
@@ -81,10 +118,21 @@ public class MultiTouchInputComponent implements IMultiTouchEventListener {
 		}
 	}
 
+	/**
+	 * Gets the last filter.
+	 *
+	 * @return the last filter
+	 */
 	private IMultiTouchInputFilter getLastFilter() {
 		return filters.get(filters.size()-1);
 	}
 
+	/**
+	 * Checks if is filter active.
+	 *
+	 * @param filter the filter
+	 * @return true, if is filter active
+	 */
 	public boolean isFilterActive(Class<? extends IMultiTouchInputFilter> filter) {
 		for(IMultiTouchInputFilter f : filters) {
 			if(f.getClass().equals(filter)) {
@@ -94,6 +142,11 @@ public class MultiTouchInputComponent implements IMultiTouchEventListener {
 		return false;
 	}
 
+	/**
+	 * Gets the active filter classes.
+	 *
+	 * @return the active filter classes
+	 */
 	public List<Class<? extends IMultiTouchInputFilter>> getActiveFilterClasses() {
 		List<Class<? extends IMultiTouchInputFilter>> classes = new ArrayList<Class<? extends IMultiTouchInputFilter>>();
 		for(IMultiTouchInputFilter f : filters) {
@@ -102,20 +155,39 @@ public class MultiTouchInputComponent implements IMultiTouchEventListener {
 		return classes;
 	}
 
+	/**
+	 * Register multi touch event listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void registerMultiTouchEventListener(IMultiTouchEventListener listener) {
 		if(!listeners.contains(listener)) listeners.add(listener);
 	}
 
+	/**
+	 * Register multi touch event listener.
+	 *
+	 * @param listener the listener
+	 * @param index the index
+	 */
 	public void registerMultiTouchEventListener(IMultiTouchEventListener listener, int index) {
 		if(!listeners.contains(listener)) listeners.add(index, listener);
 	}
 
+	/**
+	 * Unregister multi touch event listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void unregisterMultiTouchEventListener(IMultiTouchEventListener listener) {
 		listeners.remove(listener);
 	}
 
 	// **********************************
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorChanged(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorChanged(MultiTouchCursorEvent event) {
 		if (!this.isMultiTouchInputEnabled) return;
 		for(IMultiTouchEventListener l : listeners) {
@@ -129,6 +201,9 @@ public class MultiTouchInputComponent implements IMultiTouchEventListener {
 
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorClicked(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorClicked(MultiTouchCursorEvent event) {
 		if (!this.isMultiTouchInputEnabled) return;
 		for(IMultiTouchEventListener l : listeners) {
@@ -140,6 +215,9 @@ public class MultiTouchInputComponent implements IMultiTouchEventListener {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorPressed(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorPressed(MultiTouchCursorEvent event) {
 		if (!this.isMultiTouchInputEnabled) return;
 		for(IMultiTouchEventListener l : listeners) {
@@ -151,6 +229,9 @@ public class MultiTouchInputComponent implements IMultiTouchEventListener {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorReleased(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorReleased(MultiTouchCursorEvent event) {
 		//if (!this.isMultiTouchInputEnabled) return;
 		for(IMultiTouchEventListener l : listeners) {
@@ -162,6 +243,9 @@ public class MultiTouchInputComponent implements IMultiTouchEventListener {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectAdded(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectAdded(MultiTouchObjectEvent event) {
 		if (!this.isMultiTouchInputEnabled) return;
 		for(IMultiTouchEventListener l : listeners) {
@@ -173,6 +257,9 @@ public class MultiTouchInputComponent implements IMultiTouchEventListener {
 		}		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectChanged(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectChanged(MultiTouchObjectEvent event) {
 		if (!this.isMultiTouchInputEnabled) return;
 		for(IMultiTouchEventListener l : listeners) {
@@ -184,6 +271,9 @@ public class MultiTouchInputComponent implements IMultiTouchEventListener {
 		}	
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectRemoved(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectRemoved(MultiTouchObjectEvent event) {
 		if (!this.isMultiTouchInputEnabled) return;
 		for(IMultiTouchEventListener l : listeners) {
@@ -195,6 +285,11 @@ public class MultiTouchInputComponent implements IMultiTouchEventListener {
 		}
 	}
 
+	/**
+	 * Update.
+	 *
+	 * @param tpf the tpf
+	 */
 	public void update(float tpf) {
 		for(IMultiTouchInputFilter f : filters) {
 			try {
@@ -212,6 +307,11 @@ public class MultiTouchInputComponent implements IMultiTouchEventListener {
 	}
 
 
+	/**
+	 * Report dispatched event exception.
+	 *
+	 * @param ex the ex
+	 */
 	private void reportDispatchedEventException(Exception ex) {
 		log.error("Error in dispatching multi-touch event. Causes follow.");
 		StringBuffer sb = new StringBuffer();

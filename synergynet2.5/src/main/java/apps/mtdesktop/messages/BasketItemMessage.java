@@ -39,25 +39,51 @@ import java.util.Map;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.UnicastApplicationMessage;
 
+
+/**
+ * The Class BasketItemMessage.
+ */
 public class BasketItemMessage extends UnicastApplicationMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3611717853521792797L;
+	
+	/** The item info. */
 	protected Map<String, Object> itemInfo = new HashMap<String, Object>();
 	
+	/**
+	 * Instantiates a new basket item message.
+	 */
 	public BasketItemMessage(){
 		super();
 	}
 	
+	/**
+	 * Instantiates a new basket item message.
+	 *
+	 * @param targetClass the target class
+	 * @param targetTableId the target table id
+	 */
 	public BasketItemMessage(Class<?> targetClass, TableIdentity targetTableId){
 		super(targetClass);
 		this.setRecipient(targetTableId);
 	}
 	
+	/**
+	 * Sets the item info.
+	 *
+	 * @param itemInfo the item info
+	 */
 	public void setItemInfo(Map<String, Object> itemInfo){
 		this.itemInfo.clear();
 		this.itemInfo.putAll(itemInfo);
 	}
 	
+	/**
+	 * Gets the item info.
+	 *
+	 * @return the item info
+	 */
 	public Map<String, Object> getItemInfo(){
 		return itemInfo;
 	}

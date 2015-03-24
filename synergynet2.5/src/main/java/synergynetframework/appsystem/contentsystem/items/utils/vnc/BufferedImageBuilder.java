@@ -3,19 +3,36 @@ package synergynetframework.appsystem.contentsystem.items.utils.vnc;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+
 //import java.awt.image.ImageObserver;
 
 /**
+ * The Class BufferedImageBuilder.
+ *
  * @author Anthony Eden
  */
 public class BufferedImageBuilder {
 
+    /** The Constant DEFAULT_IMAGE_TYPE. */
     private static final int DEFAULT_IMAGE_TYPE = BufferedImage.TYPE_INT_RGB;
 
+    /**
+     * Buffer image.
+     *
+     * @param image the image
+     * @return the buffered image
+     */
     public BufferedImage bufferImage(Image image) {
         return bufferImage(image, DEFAULT_IMAGE_TYPE);
     }
 
+    /**
+     * Buffer image.
+     *
+     * @param image the image
+     * @param type the type
+     * @return the buffered image
+     */
     public BufferedImage bufferImage(Image image, int type) {
         BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), type);
         Graphics2D g = bufferedImage.createGraphics();
@@ -53,9 +70,15 @@ public class BufferedImageBuilder {
 //        }
 //    }
 
-    class ImageLoadStatus {
+    /**
+ * The Class ImageLoadStatus.
+ */
+class ImageLoadStatus {
 
+        /** The width done. */
         public boolean widthDone = false;
+        
+        /** The height done. */
         public boolean heightDone = false;
     }
 

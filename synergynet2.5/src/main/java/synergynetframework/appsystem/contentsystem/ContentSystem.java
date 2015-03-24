@@ -49,6 +49,7 @@ import synergynetframework.appsystem.contentsystem.items.implementation.IImpleme
 import synergynetframework.appsystem.contentsystem.jme.JMEContentSystem;
 import synergynetframework.appsystem.table.appdefinitions.SynergyNetApp;
 
+
 /**
  * Main layer in producing multi-touch capable content for
  * an application. This avoids application developers having to
@@ -58,15 +59,28 @@ import synergynetframework.appsystem.table.appdefinitions.SynergyNetApp;
  */
 public abstract class ContentSystem {
 	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(ContentSystem.class.getName());	
 	
+	/** The content items. */
 	protected Map<String, ContentItem> contentItems = new ConcurrentHashMap<String, ContentItem>();
+	
+	/** The implementation item factory. */
 	protected IImplementationItemFactory implementationItemFactory;
+	
+	/** The updateable items. */
 	protected List<Updateable> updateableItems = new ArrayList<Updateable>();
 	
+	/** The sys. */
 	private static Map<String,ContentSystem> sys = new HashMap<String,ContentSystem>();
 	
 	//TODO refactor to remove JME implementation
+	/**
+	 * Gets the content system for synergy net app.
+	 *
+	 * @param app the app
+	 * @return the content system for synergy net app
+	 */
 	public static ContentSystem getContentSystemForSynergyNetApp(SynergyNetApp app) {
 		String name = app.getInfo().getApplicationName();
 		if(sys.containsKey(name)) return sys.get(name);
@@ -76,6 +90,11 @@ public abstract class ContentSystem {
 		return qc;
 	}
 	
+	/**
+	 * Generate unique name.
+	 *
+	 * @return the string
+	 */
 	public String generateUniqueName() {
 		return UUID.randomUUID().toString();
 	}
@@ -85,50 +104,148 @@ public abstract class ContentSystem {
 	 * Create a content item with a specific name. The content item will be a class that
 	 * extends ContentItem. You may use the default set of ContentItem classes
 	 * found in synergynet.contentsystem.items or use your own.
-	 * 
-	 * @param contentItemType
-	 * @param itemName
-	 * @return
+	 *
+	 * @param contentItemType the content item type
+	 * @param itemName the item name
+	 * @return the content item
 	 */
 	public abstract ContentItem createContentItem(Class <? extends ContentItem> contentItemType, String itemName);
+	
+	/**
+	 * Creates the content item.
+	 *
+	 * @param contentItemType the content item type
+	 * @return the content item
+	 */
 	public abstract ContentItem createContentItem(Class <? extends ContentItem> contentItemType);
 
+	/**
+	 * Load content items.
+	 *
+	 * @param xmlFilePath the xml file path
+	 * @return the sets the
+	 */
 	public Set<ContentItem> loadContentItems(String xmlFilePath){
 		IContentLoader contentLoader = new XMLContentLoader();
 		return contentLoader.loadContent(xmlFilePath, this);
 	}
 	
 	
+	/**
+	 * Removes the content item.
+	 *
+	 * @param contentItem the content item
+	 */
 	public abstract void removeContentItem(ContentItem contentItem);
+	
+	/**
+	 * Removes the content item.
+	 *
+	 * @param contentItem the content item
+	 * @param releaseTextures the release textures
+	 */
 	public abstract void removeContentItem(ContentItem contentItem, boolean releaseTextures);
+	
+	/**
+	 * Removes the all content items.
+	 */
 	public abstract void removeAllContentItems();
+	
+	/**
+	 * Update.
+	 *
+	 * @param tpf the tpf
+	 */
 	public abstract void update(float tpf);
 	
+	/**
+	 * Gets the all content items.
+	 *
+	 * @return the all content items
+	 */
 	public Map<String, ContentItem> getAllContentItems(){
 		return contentItems;
 	}
 	
+	/**
+	 * Gets the content item.
+	 *
+	 * @param name the name
+	 * @return the content item
+	 */
 	public ContentItem getContentItem(String name){
 		return contentItems.get(name);
 	}
 	
+	/**
+	 * Gets the content items count.
+	 *
+	 * @return the content items count
+	 */
 	public int getContentItemsCount(){
 		return contentItems.size();
 	}
 
+	/**
+	 * Gets the implementation item factory.
+	 *
+	 * @return the implementation item factory
+	 */
 	public IImplementationItemFactory getImplementationItemFactory() {
 		return implementationItemFactory;
 	}
 
+	/**
+	 * Adds the content item.
+	 *
+	 * @param contentItem the content item
+	 */
 	public abstract void addContentItem(ContentItem contentItem);
+	
+	/**
+	 * Sets the item name.
+	 *
+	 * @param item the item
+	 * @param nameName the name name
+	 */
 	public abstract void setItemName(ContentItem item, String nameName);
+	
+	/**
+	 * Checks if is top level container.
+	 *
+	 * @param implementationObject the implementation object
+	 * @return true, if is top level container
+	 */
 	public abstract boolean isTopLevelContainer(Object implementationObject);
+	
+	/**
+	 * Gets the screen width.
+	 *
+	 * @return the screen width
+	 */
 	public abstract int getScreenWidth();
+	
+	/**
+	 * Gets the screen height.
+	 *
+	 * @return the screen height
+	 */
 	public abstract int getScreenHeight();
 
+	/**
+	 * Adds the updateable listener.
+	 *
+	 * @param l the l
+	 */
 	public void addUpdateableListener(Updateable l){
 		this.updateableItems.add(l);
 	}
+	
+	/**
+	 * Removes the updateable listener.
+	 *
+	 * @param l the l
+	 */
 	public void removeUpdateableListener(Updateable l){
 		this.updateableItems.remove(l);
 	}

@@ -40,11 +40,25 @@ import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.UnicastApplicationMessage;
 
+
+/**
+ * The Class SwapTableMessage.
+ */
 public class SwapTableMessage extends UnicastApplicationMessage {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -546555344864227474L;
+	
+	/** The items. */
 	private List<ContentItem> items =new ArrayList<ContentItem>();
 
+	/**
+	 * Instantiates a new swap table message.
+	 *
+	 * @param targetClass the target class
+	 * @param collection the collection
+	 * @param id the id
+	 */
 	public SwapTableMessage(Class<?> targetClass, Collection<ContentItem> collection, TableIdentity id) {
 		super(targetClass);
 		this.items.clear();
@@ -59,6 +73,11 @@ public class SwapTableMessage extends UnicastApplicationMessage {
 		this.setRecipient(id);
 	}
 
+	/**
+	 * Gets the items.
+	 *
+	 * @return the items
+	 */
 	public List<ContentItem> getItems() {
 		return items;
 	}

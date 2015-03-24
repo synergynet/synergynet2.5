@@ -35,25 +35,53 @@ package synergynetframework.appsystem.services.net.rapidnetworkmanager.messages.
 import synergynetframework.appsystem.services.net.rapidnetworkmanager.utils.networkflick.TableInfo;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class AnnounceTableMessage.
+ */
 public class AnnounceTableMessage extends BroadcastApplicationMessage{
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 6445490437873640139L;
+	
+	/** The table info. */
 	TableInfo tableInfo;
 	
+	/**
+	 * Instantiates a new announce table message.
+	 *
+	 * @param targetClass the target class
+	 */
 	public AnnounceTableMessage(Class<?> targetClass){
 		super(targetClass);
 		tableInfo = new TableInfo();
 	}
 	
+	/**
+	 * Instantiates a new announce table message.
+	 *
+	 * @param targetClass the target class
+	 * @param tableInfo the table info
+	 */
 	public AnnounceTableMessage(Class<?> targetClass, TableInfo tableInfo){
 		super(targetClass);		
 		this.tableInfo = tableInfo;
 	}
 
+	/**
+	 * Sets the table info.
+	 *
+	 * @param tableInfo the new table info
+	 */
 	public void setTableInfo(TableInfo tableInfo){
 		this.tableInfo = tableInfo;
 	}
 	
+	/**
+	 * Gets the table info.
+	 *
+	 * @return the table info
+	 */
 	public TableInfo getTableInfo(){
 		return tableInfo;
 	}

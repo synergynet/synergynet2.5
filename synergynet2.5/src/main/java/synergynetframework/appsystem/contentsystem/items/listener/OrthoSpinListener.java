@@ -33,6 +33,25 @@ package synergynetframework.appsystem.contentsystem.items.listener;
 
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 
+
+/**
+ * The listener interface for receiving orthoSpin events.
+ * The class that is interested in processing a orthoSpin
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addOrthoSpinListener<code> method. When
+ * the orthoSpin event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see OrthoSpinEvent
+ */
 public interface OrthoSpinListener {
+	
+	/**
+	 * Item spun.
+	 *
+	 * @param item the item
+	 * @param rot the rot
+	 */
 	public void itemSpun(ContentItem item, float rot);
 }

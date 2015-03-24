@@ -4,12 +4,29 @@ import com.jme.math.Vector3f;
 import com.jme.renderer.Camera;
 import com.jme.scene.Spatial;
 
+
+/**
+ * The Class Utility.
+ */
 public class Utility {
 
+	/**
+	 * The Enum ViewPort.
+	 */
 	public enum ViewPort{
-		TOPDOWN, FRONT
+		
+		/** The topdown. */
+		TOPDOWN, 
+ /** The front. */
+ FRONT
 	}
 	
+	/**
+	 * Sets the view port.
+	 *
+	 * @param cam the cam
+	 * @param viewPort the view port
+	 */
 	public static final void setViewPort(Camera cam, ViewPort viewPort){
 		
 		if (viewPort==ViewPort.FRONT)
@@ -20,6 +37,11 @@ public class Utility {
 		cam.update();	
 	}
 	
+	/**
+	 * Render target object.
+	 *
+	 * @param targetObject the target object
+	 */
 	public static final void renderTargetObject(Spatial targetObject){
 		
 	}

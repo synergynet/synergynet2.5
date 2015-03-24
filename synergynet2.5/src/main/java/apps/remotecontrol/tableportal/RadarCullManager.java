@@ -36,10 +36,21 @@ import synergynetframework.appsystem.contentsystem.items.Frame;
 
 import com.jme.scene.Spatial;
 
+
+/**
+ * The Class RadarCullManager.
+ */
 public class RadarCullManager{
 	
+	/** The crh. */
 	private ClipRectangleHud crh;
 	
+	/**
+	 * Instantiates a new radar cull manager.
+	 *
+	 * @param portal the portal
+	 * @param radar the radar
+	 */
 	public RadarCullManager(TablePortal portal,Radar radar){
 		Frame frame = (Frame) radar.getRadarWindow().getContentSystem().createContentItem(Frame.class);
 		frame.setWidth((int)(radar.getRadarWindow().getWidth()* radar.getRadarWindow().getScale()));
@@ -51,11 +62,19 @@ public class RadarCullManager{
 		crh = new ClipRectangleHud(spat,frame.getWidth(),frame.getHeight());
 	}
 
+	/**
+	 * Register item for clipping.
+	 *
+	 * @param item the item
+	 */
 	public void registerItemForClipping(ContentItem item) {
 			crh.setSpatialClip((Spatial)item.getImplementationObject(), true);
 	}
 	
 	
+	/**
+	 * Update.
+	 */
 	public void update(){
 			crh.updateEquations();
 	}

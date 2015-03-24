@@ -58,14 +58,21 @@ package com.illposed.osc;
 import java.net.*;
 import java.io.IOException;
 
+
+/**
+ * The Class OSCPortOut.
+ */
 public class OSCPortOut extends OSCPort {
 
+	/** The address. */
 	protected InetAddress address;
 
 	/**
-	 * Create an OSCPort that sends to newAddress, newPort
+	 * Create an OSCPort that sends to newAddress, newPort.
+	 *
 	 * @param newAddress InetAddress
 	 * @param newPort int
+	 * @throws SocketException the socket exception
 	 */
 	public OSCPortOut(InetAddress newAddress, int newPort) throws SocketException {
 		socket = new DatagramSocket();
@@ -74,10 +81,12 @@ public class OSCPortOut extends OSCPort {
 	}
 
 	/**
-	 * Create an OSCPort that sends to newAddress, on the standard SuperCollider port
-	 * @param newAddress InetAddress
+	 * Create an OSCPort that sends to newAddress, on the standard SuperCollider port.
 	 *
+	 * @param newAddress InetAddress
+	 * 
 	 * Default the port to the standard one for SuperCollider
+	 * @throws SocketException the socket exception
 	 */
 	public OSCPortOut(InetAddress newAddress) throws SocketException {
 		this(newAddress, defaultSCOSCPort);
@@ -86,14 +95,20 @@ public class OSCPortOut extends OSCPort {
 	/**
 	 * Create an OSCPort that sends to localhost, on the standard SuperCollider port
 	 * Default the address to localhost
-	 * Default the port to the standard one for SuperCollider
+	 * Default the port to the standard one for SuperCollider.
+	 *
+	 * @throws UnknownHostException the unknown host exception
+	 * @throws SocketException the socket exception
 	 */
 	public OSCPortOut() throws UnknownHostException, SocketException {
 		this(InetAddress.getLocalHost(), defaultSCOSCPort);
 	}
 	
 	/**
+	 * Send.
+	 *
 	 * @param aPacket OSCPacket
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public void send(OSCPacket aPacket) throws IOException {
 		byte[] byteArray = aPacket.getByteArray();

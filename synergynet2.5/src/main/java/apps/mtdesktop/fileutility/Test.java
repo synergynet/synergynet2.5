@@ -5,8 +5,15 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.util.UUID;
 
+
+/**
+ * The Class Test.
+ */
 public class Test implements FileTransferListener{
 	
+	/**
+	 * Instantiates a new test.
+	 */
 	public Test(){
 		try {
 			String ftpServlet = "http://"+InetAddress.getLocalHost().getHostAddress()+":8080/ftpServlet";
@@ -22,39 +29,62 @@ public class Test implements FileTransferListener{
 		
 	}
 	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String args[]){
 		new Test();
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.fileutility.FileTransferListener#fileUploadStarted(java.io.File)
+	 */
 	@Override
 	public void fileUploadStarted(File file) {
 		System.out.println("upload started");
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.fileutility.FileTransferListener#fileUploadCompleted(java.io.File)
+	 */
 	@Override
 	public void fileUploadCompleted(File file) {
 		System.out.println("upload complete");
 
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.fileutility.FileTransferListener#fileDownloadStarted(java.io.File)
+	 */
 	@Override
 	public void fileDownloadStarted(File file) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.fileutility.FileTransferListener#fileDownloadCompleted(java.io.File)
+	 */
 	@Override
 	public void fileDownloadCompleted(File file) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.fileutility.FileTransferListener#fileUploadFailed(java.io.File, java.lang.String)
+	 */
 	@Override
 	public void fileUploadFailed(File file, String responseMessage) {
 		System.out.println("upload failed");
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.fileutility.FileTransferListener#fileDownloadFailed(java.io.File, java.lang.String)
+	 */
 	@Override
 	public void fileDownloadFailed(File file, String responseMessage) {
 		 

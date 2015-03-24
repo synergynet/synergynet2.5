@@ -36,21 +36,43 @@ import synergynetframework.jme.cursorsystem.MultiTouchElement;
 import synergynetframework.jme.cursorsystem.cursordata.ScreenCursor;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 
+
+/**
+ * The Class ClickOnCornersGesture.
+ */
 public class ClickOnCornersGesture implements FixGesture {
 	
+	/** The Constant NO_CLICKS_TO_FIX. */
 	public static final int NO_CLICKS_TO_FIX = 4;
+	
+	/** The no clicks. */
 	private int noClicks = NO_CLICKS_TO_FIX;
 	
+	/**
+	 * Instantiates a new click on corners gesture.
+	 */
 	public ClickOnCornersGesture() {}	
 	
+	/**
+	 * Instantiates a new click on corners gesture.
+	 *
+	 * @param noClicks the no clicks
+	 */
 	public ClickOnCornersGesture(int noClicks) {
 		this.noClicks = noClicks;
 	}
+	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.fixutils.FixGesture#checkForFixGesture(synergynetframework.jme.cursorsystem.MultiTouchElement, synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public boolean checkForFixGesture(MultiTouchElement element,
 			ScreenCursor c, MultiTouchCursorEvent event) {
 		return element.getNumRegisteredCursors() >= noClicks;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.fixutils.FixGesture#checkForUnfixGesture(synergynetframework.jme.cursorsystem.MultiTouchElement, synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public boolean checkForUnfixGesture(MultiTouchElement element,
 			ScreenCursor c, MultiTouchCursorEvent event) {
 		return element.getNumRegisteredCursors() >= noClicks;

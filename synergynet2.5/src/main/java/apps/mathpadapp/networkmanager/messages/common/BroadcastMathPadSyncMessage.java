@@ -38,21 +38,41 @@ import apps.mathpadapp.networkmanager.utils.UserIdentity;
 
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class BroadcastMathPadSyncMessage.
+ */
 public class BroadcastMathPadSyncMessage extends BroadcastApplicationMessage /*implements UDPMessage*/{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -546746341111227474L;
 	
+	/** The sync data. */
 	protected HashMap<UserIdentity,HashMap<Short,Object>> syncData = new HashMap<UserIdentity,HashMap<Short,Object>>();
 	
+	/**
+	 * Instantiates a new broadcast math pad sync message.
+	 */
 	public BroadcastMathPadSyncMessage(){
 		super();
 	}
 	
+	/**
+	 * Instantiates a new broadcast math pad sync message.
+	 *
+	 * @param targetClass the target class
+	 * @param syncData the sync data
+	 */
 	public BroadcastMathPadSyncMessage(Class<?> targetClass, HashMap<UserIdentity,HashMap<Short,Object>> syncData) {
 		super(targetClass);
 		this.syncData = syncData;
 	}
 
+	/**
+	 * Gets the math pad sync data.
+	 *
+	 * @return the math pad sync data
+	 */
 	public HashMap<UserIdentity,HashMap<Short,Object>> getMathPadSyncData(){
 		return syncData;
 	}

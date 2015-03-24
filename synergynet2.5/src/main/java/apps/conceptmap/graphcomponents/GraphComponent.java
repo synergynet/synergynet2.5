@@ -38,35 +38,84 @@ import apps.conceptmap.utility.GraphManager;
 
 import synergynetframework.appsystem.contentsystem.ContentSystem;
 
+
+/**
+ * The Class GraphComponent.
+ */
 public abstract class GraphComponent{
 
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The graph manager. */
 	protected GraphManager graphManager;
 
+	/** The listeners. */
 	private transient ArrayList<OptionMessageListener> listeners = new ArrayList<OptionMessageListener>();
 	
+	/**
+	 * Instantiates a new graph component.
+	 *
+	 * @param contentSystem the content system
+	 * @param gManager the g manager
+	 */
 	public GraphComponent(ContentSystem contentSystem, GraphManager gManager) {
 		this.contentSystem = contentSystem;
 		this.graphManager = gManager;
 	}
 
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	public abstract String getName();
 	
+	/**
+	 * Adds the option message listener.
+	 *
+	 * @param l the l
+	 */
 	public void addOptionMessageListener(OptionMessageListener l){
 		if(!listeners.contains(l)) listeners.add(l);		
 	}
 	
+	/**
+	 * Removes the option message listeners.
+	 */
 	public void removeOptionMessageListeners(){
 		listeners.clear();
 	}
 	
+	/**
+	 * Fire message processed.
+	 *
+	 * @param msg the msg
+	 */
 	public void fireMessageProcessed(OptionMessage msg){
 		for(OptionMessageListener l : listeners) {
 			l.messageProcessed(msg);
 		}
 	}
 	
+	/**
+	 * The listener interface for receiving optionMessage events.
+	 * The class that is interested in processing a optionMessage
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addOptionMessageListener<code> method. When
+	 * the optionMessage event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see OptionMessageEvent
+	 */
 	public interface OptionMessageListener{
+		
+		/**
+		 * Message processed.
+		 *
+		 * @param msg the msg
+		 */
 		public void messageProcessed(OptionMessage msg);
 	}
 }

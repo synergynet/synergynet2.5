@@ -37,15 +37,30 @@ import java.io.Serializable;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.objectmessaging.messages.Message;
 
+
+/**
+ * The Class TableMessage.
+ */
 public abstract class TableMessage implements Message, Serializable {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -5178227421436764953L;
 	
+	/** The sender. */
 	protected TableIdentity sender;
 	
+	/**
+	 * Instantiates a new table message.
+	 */
 	public TableMessage() {
 		sender = TableIdentity.getTableIdentity();
 	}
 
+	/**
+	 * Gets the sender.
+	 *
+	 * @return the sender
+	 */
 	public TableIdentity getSender() {
 		return sender;
 	}

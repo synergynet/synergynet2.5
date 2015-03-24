@@ -54,28 +54,59 @@ import synergynetframework.appsystem.contentsystem.items.PPTViewer;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IPPTViewerImplementation;
 import synergynetframework.jme.gfx.twod.utils.GraphicsImageQuad;
 
+
+/**
+ * The Class JMEPPTViewer.
+ */
 public class JMEPPTViewer extends JMEFrame implements IPPTViewerImplementation {
 
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(JMEPPTViewer.class.getName());
+	
+	/** The pgsize. */
 	protected Dimension pgsize;
+	
+	/** The slides. */
 	protected Slide[] slides;
+	
+	/** The current slide. */
 	protected int currentSlide;
+	
+	/** The ppt. */
 	protected SlideShow ppt;
+	
+	/** The width. */
 	protected int width = 200;
+	
+	/** The height. */
 	protected int height = 350;
 
+	/** The off image. */
 	protected Image offImage;
+	
+	/** The off gfx. */
 	protected Graphics2D offGfx;
+	
+	/** The graphics quad. */
 	protected final GraphicsImageQuad graphicsQuad;
 
+	/** The item. */
 	private PPTViewer item;
 
+	/**
+	 * Instantiates a new JMEPPT viewer.
+	 *
+	 * @param item the item
+	 */
 	public JMEPPTViewer(ContentItem item) {
 		super(item);
 		this.item = (PPTViewer)item;
 		graphicsQuad = this.graphicsImageQuad;
 	}
 
+	/**
+	 * Draw slide.
+	 */
 	protected void drawSlide() {
 		Thread t = new Thread(new Runnable() {
 			@Override
@@ -100,6 +131,9 @@ public class JMEPPTViewer extends JMEFrame implements IPPTViewerImplementation {
 		t.start();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEFrame#init()
+	 */
 	@Override
 	public void init(){
 		if(this.item.getPPTFile() != null) {
@@ -107,6 +141,9 @@ public class JMEPPTViewer extends JMEFrame implements IPPTViewerImplementation {
 		}
 	}
 
+	/**
+	 * Resize ppt view.
+	 */
 	private void resizePPTView() {
 		if(pgsize == null) return;
 		this.graphicsImageQuad.updateGeometry(width, height);
@@ -119,11 +156,17 @@ public class JMEPPTViewer extends JMEFrame implements IPPTViewerImplementation {
 		drawSlide();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEFrame#draw()
+	 */
 	@Override
 	protected void draw() {		
 		super.draw();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IPPTViewerImplementation#setPPTFile(java.net.URL)
+	 */
 	@Override
 	public void setPPTFile(URL pptFile) {
 		try {
@@ -144,6 +187,9 @@ public class JMEPPTViewer extends JMEFrame implements IPPTViewerImplementation {
 
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEFrame#setHeight(int)
+	 */
 	@Override
 	public void setHeight(int height) {
 		float aspectRatio = (pgsize.width/(float)pgsize.height);
@@ -153,6 +199,9 @@ public class JMEPPTViewer extends JMEFrame implements IPPTViewerImplementation {
 		resizePPTView();		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEFrame#setWidth(int)
+	 */
 	@Override
 	public void setWidth(int width) {
 		float aspectRatio = (pgsize.width/(float)pgsize.height);
@@ -162,6 +211,9 @@ public class JMEPPTViewer extends JMEFrame implements IPPTViewerImplementation {
 		resizePPTView();		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IDocViewerImplementation#changePage()
+	 */
 	@Override
 	public void changePage() {
 		this.currentSlide = item.getCurrentPageIndex();

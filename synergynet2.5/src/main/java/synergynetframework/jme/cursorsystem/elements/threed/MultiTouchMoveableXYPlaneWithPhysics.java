@@ -47,33 +47,63 @@ import synergynetframework.jme.pickingsystem.data.ThreeDPickResultData;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 
 
+
+/**
+ * The Class MultiTouchMoveableXYPlaneWithPhysics.
+ */
 public class MultiTouchMoveableXYPlaneWithPhysics extends ThreeDMultiTouchElement {
 	
+	/** The physics node. */
 	private PhysicsNode physicsNode;
 
+	/**
+	 * Instantiates a new multi touch moveable xy plane with physics.
+	 *
+	 * @param s the s
+	 * @param physicsNode the physics node
+	 */
 	public MultiTouchMoveableXYPlaneWithPhysics(Spatial s, PhysicsNode physicsNode) {
 		super(s);
 		this.physicsNode = physicsNode;
 	}
 	
+	/**
+	 * Instantiates a new multi touch moveable xy plane with physics.
+	 *
+	 * @param pickSpatial the pick spatial
+	 * @param targetSpatial the target spatial
+	 * @param physicsNode the physics node
+	 */
 	public MultiTouchMoveableXYPlaneWithPhysics(Spatial pickSpatial, Spatial targetSpatial, PhysicsNode physicsNode) {
 		super(pickSpatial, targetSpatial);
 		this.physicsNode = physicsNode;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorClicked(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorClicked(ScreenCursor c, MultiTouchCursorEvent event) {}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorPressed(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorPressed(ScreenCursor c, MultiTouchCursorEvent event) {
 		physicsNode.setActive(false);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorReleased(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorReleased(ScreenCursor c, MultiTouchCursorEvent event) {		
 		physicsNode.setActive(true);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorChanged(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorChanged(ScreenCursor c, MultiTouchCursorEvent event) {		
 		Vector2f screenPos;

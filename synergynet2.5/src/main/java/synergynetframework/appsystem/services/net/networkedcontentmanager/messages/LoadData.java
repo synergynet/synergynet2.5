@@ -34,30 +34,66 @@ package synergynetframework.appsystem.services.net.networkedcontentmanager.messa
 
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class LoadData.
+ */
 public class LoadData extends BroadcastApplicationMessage {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 7705640598975938277L;
+	
+	/** The path. */
 	private String path;
+	
+	/** The title. */
 	private String title;
 
+	/**
+	 * Instantiates a new load data.
+	 *
+	 * @param targetClass the target class
+	 * @param path the path
+	 * @param title the title
+	 */
 	public LoadData(Class<?> targetClass, String path, String title) {
 		super(targetClass);
 		this.setPath(path);
 		this.setTitle(title);
 	}
 
+	/**
+	 * Sets the path.
+	 *
+	 * @param path the new path
+	 */
 	public void setPath(String path) {
 		this.path = path;
 	}
 
+	/**
+	 * Gets the path.
+	 *
+	 * @return the path
+	 */
 	public String getPath() {
 		return path;
 	}
 
+	/**
+	 * Gets the title.
+	 *
+	 * @return the title
+	 */
 	public String getTitle() {
 		return title;
 	}
 
+	/**
+	 * Sets the title.
+	 *
+	 * @param title the new title
+	 */
 	public void setTitle(String title) {
 		this.title = title;
 	}

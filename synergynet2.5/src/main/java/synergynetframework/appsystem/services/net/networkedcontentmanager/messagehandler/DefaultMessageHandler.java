@@ -73,22 +73,45 @@ import synergynetframework.appsystem.services.net.networkedcontentmanager.utils.
 import synergynetframework.appsystem.services.net.tablecomms.client.TableCommsApplicationListener;
 import synergynetframework.appsystem.services.net.tablecomms.messages.TableMessage;
 
+
+/**
+ * The Class DefaultMessageHandler.
+ */
 public class DefaultMessageHandler implements TableCommsApplicationListener {
 	
+	/** The contentsys. */
 	@SuppressWarnings("unused")
 	private ContentSystem contentsys;
+	
+	/** The networked content manager. */
 	private NetworkedContentManager networkedContentManager;
+	
+	/** The transfer controller. */
 	private TransferController transferController;
 
+	/**
+	 * Instantiates a new default message handler.
+	 *
+	 * @param cs the cs
+	 * @param networkedContentManager the networked content manager
+	 */
 	public DefaultMessageHandler(ContentSystem cs, NetworkedContentManager networkedContentManager ) {
 		this.contentsys = cs;
 		this.networkedContentManager = networkedContentManager;
 	}
 	
+	/**
+	 * Sets the transfer controller.
+	 *
+	 * @param transferController the new transfer controller
+	 */
 	public void setTransferController(TransferController transferController){
 		this.transferController = transferController;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.tablecomms.client.TableCommsApplicationListener#messageReceived(java.lang.Object)
+	 */
 	public void messageReceived(final Object obj) {
 		
 		if (TableIdentity.getTableIdentity().hashCode()==((TableMessage)obj).getSender().hashCode())
@@ -233,6 +256,9 @@ public class DefaultMessageHandler implements TableCommsApplicationListener {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.tablecomms.client.TableCommsApplicationListener#tableDisconnected()
+	 */
 	@Override
 	public void tableDisconnected() {
 		 

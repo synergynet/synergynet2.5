@@ -44,25 +44,57 @@ import apps.mathpadapp.networkmanager.utils.UserIdentity;
 import synergynetframework.appsystem.contentsystem.items.MathPad;
 import synergynetframework.appsystem.contentsystem.jme.items.utils.DrawData;
 
+
+/**
+ * The Class MathToolSyncRenderer.
+ */
 public class MathToolSyncRenderer extends SyncRenderer{
 	
+	/** The Constant SYNC_DRAW_DATA. */
 	public static final short SYNC_DRAW_DATA = 5;
 	
+	/** The Constant SYNC_WRITING_STATE. */
 	public static final short SYNC_WRITING_STATE = 6;
+	
+	/** The Constant SYNC_SEPARATOR_STATE. */
 	public static final short SYNC_SEPARATOR_STATE = 7;
+	
+	/** The Constant SYNC_TEXT_COLOR. */
 	public static final short SYNC_TEXT_COLOR = 8;
+	
+	/** The Constant SYNC_BACKGROUND_COLOR. */
 	public static final short SYNC_BACKGROUND_COLOR = 9;
+	
+	/** The Constant SYNC_LINE_WIDTH. */
 	public static final short SYNC_LINE_WIDTH = 10;
+	
+	/** The Constant SYNC_PAD_CLEARED. */
 	public static final short SYNC_PAD_CLEARED = 11;
+	
+	/** The Constant SYNC_NEW_PAD. */
 	public static final short SYNC_NEW_PAD = 12;
+	
+	/** The Constant SYNC_PAD_CHANGED. */
 	public static final short SYNC_PAD_CHANGED = 13;
+	
+	/** The Constant SYNC_PAD_DELETED. */
 	public static final short SYNC_PAD_DELETED = 14;
+	
+	/** The Constant SYNC_ANSWER_PAD_DISPLAYED. */
 	public static final short SYNC_ANSWER_PAD_DISPLAYED = 15;
+	
+	/** The Constant SYNC_PAD_REMOVED. */
 	public static final short SYNC_PAD_REMOVED = 16;
 
 	
+	/** The sync manager. */
 	protected SyncManager syncManager;
 	
+	/**
+	 * Instantiates a new math tool sync renderer.
+	 *
+	 * @param syncManager the sync manager
+	 */
 	public MathToolSyncRenderer(SyncManager syncManager){
 		super();
 		this.syncManager = syncManager;
@@ -82,6 +114,13 @@ public class MathToolSyncRenderer extends SyncRenderer{
 		}
 	}
 	
+	/**
+	 * Render sync data.
+	 *
+	 * @param userId the user id
+	 * @param tool the tool
+	 * @param syncData the sync data
+	 */
 	public void renderSyncData(UserIdentity userId, MathTool tool, HashMap<Short, Object> syncData){
 		super.renderSyncData(tool.getWindow(), syncData);
 		for(short paramName: syncData.keySet()){

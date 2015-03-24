@@ -38,21 +38,38 @@ import java.net.URL;
 import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IHqPDFViewerImplementation;
 
+
+/**
+ * The Class HQPDFViewer.
+ */
 public class HQPDFViewer extends PDFViewer implements IHqPDFViewerImplementation {
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -8279443252885792979L;
 
 
+	/**
+	 * Instantiates a new HQPDF viewer.
+	 *
+	 * @param contentSystem the content system
+	 * @param name the name
+	 */
 	public HQPDFViewer(ContentSystem contentSystem, String name) {
 		super(contentSystem, name);
 		this.height = 350;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.PDFViewer#setPdfURL(java.net.URL)
+	 */
 	public void setPdfURL(URL pdfURL) {
 		this.pdfURL = pdfURL;
 		((IHqPDFViewerImplementation)this.contentItemImplementation).setPdfURL(pdfURL);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.PDFViewer#setPdfFile(java.io.File)
+	 */
 	@Override
 	public void setPdfFile(File pdfFile) {
 		this.pdfFile = pdfFile;

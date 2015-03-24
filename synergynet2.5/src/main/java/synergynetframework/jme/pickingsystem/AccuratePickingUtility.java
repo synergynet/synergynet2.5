@@ -43,8 +43,20 @@ import com.jme.scene.Node;
 import com.jme.scene.Spatial;
 import com.jme.system.DisplaySystem;
 
+
+/**
+ * The Class AccuratePickingUtility.
+ */
 public class AccuratePickingUtility {
 
+	/**
+	 * Gets the point of intersection.
+	 *
+	 * @param rootNode the root node
+	 * @param mousePos the mouse pos
+	 * @param spatial the spatial
+	 * @return the point of intersection
+	 */
 	public static Vector3f getPointOfIntersection(Node rootNode, Vector2f mousePos, Spatial spatial) {
 		AccurateTrianglePickResults pickResults = new AccurateTrianglePickResults();
 		Vector3f worldCoords = DisplaySystem.getDisplaySystem().getWorldCoordinates(mousePos, 0);
@@ -66,6 +78,13 @@ public class AccuratePickingUtility {
 		return null;
 	}
 	
+	/**
+	 * Pick all.
+	 *
+	 * @param rootNode the root node
+	 * @param mousePos the mouse pos
+	 * @return the list
+	 */
 	public static List<PickedSpatial> pickAll(Node rootNode, Vector2f mousePos) {
 		AccurateTrianglePickResults pickResults = new AccurateTrianglePickResults();
 		Vector3f worldCoords = DisplaySystem.getDisplaySystem().getWorldCoordinates(mousePos, 0);
@@ -89,6 +108,13 @@ public class AccuratePickingUtility {
 		return spatials;
 	}
 	
+	/**
+	 * Pick all orthogonal.
+	 *
+	 * @param rootNode the root node
+	 * @param mousePos the mouse pos
+	 * @return the list
+	 */
 	public static List<PickedSpatial> pickAllOrthogonal(Node rootNode, Vector2f mousePos) {
 		AccurateOrthogonalTrianglePickResults pickResults = new AccurateOrthogonalTrianglePickResults(mousePos);
 		Vector3f worldCoords = DisplaySystem.getDisplaySystem().getWorldCoordinates(mousePos, 0);
@@ -99,6 +125,11 @@ public class AccuratePickingUtility {
 		return pickResults.getPickedItems();
 	}
 
+	/**
+	 * Prints the pick results.
+	 *
+	 * @param pickResults the pick results
+	 */
 	public static void printPickResults(AccurateOrthogonalTrianglePickResults pickResults) {
 		for(int i = 0; i < pickResults.getNumber(); i++) {
 			System.out.println(pickResults.getPickData(i));

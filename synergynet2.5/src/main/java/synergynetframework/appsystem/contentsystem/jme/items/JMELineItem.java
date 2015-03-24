@@ -70,41 +70,94 @@ import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 
 
 
+
+/**
+ * The Class JMELineItem.
+ */
 public class JMELineItem extends JMEOrthoContainer implements ILineImplementation, CommonCursorEventListener, UpdateableJMEContentItemImplementation{
 
+	/** The item. */
 	private LineItem item;
 	
+	/** The node. */
 	private Node node;
+	
+	/** The line. */
 	protected Line line;
 	
+	/** The source point. */
 	protected Vector3f sourcePoint;
+	
+	/** The target point. */
 	protected Vector3f targetPoint;
+	
+	/** The source spatial. */
 	protected Spatial sourceSpatial;
+	
+	/** The target spatial. */
 	protected Spatial targetSpatial;
+	
+	/** The arrow to target. */
 	protected ArrowGeom arrowToSource, arrowToTarget;
+	
+	/** The line colour. */
 	protected ColorRGBA lineColour = ColorRGBA.white;
+	
+	/** The text colour. */
 	protected ColorRGBA textColour = ColorRGBA.white;
+	
+	/** The text. */
 	protected StringBuffer text = new StringBuffer();
+	
+	/** The text quad. */
 	protected GraphicsImageQuad textQuad;
+	
+	/** The text label. */
 	protected ChangeableTextLabel textLabel;
 	
+	/** The arrows enabled. */
 	protected boolean arrowsEnabled = true;
+	
+	/** The text enabled. */
 	protected boolean textEnabled = true;
 
+	/** The line mode. */
 	protected int lineMode = LineItem.CONNECTED_LINE;
+	
+	/** The arrow mode. */
 	protected int arrowMode = LineItem.BIDIRECTIONAL_ARROWS;
 	
+	/** The arrow width. */
 	private float arrowWidth = 14;
+	
+	/** The arrow height. */
 	private float arrowHeight = 14;
 	
+	/** The default animation pattern. */
 	protected short defaultAnimationPattern =  (short)0xAAAA;
+	
+	/** The default animation delay. */
 	protected float defaultAnimationDelay = 1;
+	
+	/** The animation delay. */
 	protected float animationDelay = defaultAnimationDelay;
 	
+	/**
+	 * Instantiates a new JME line item.
+	 *
+	 * @param contentItem the content item
+	 */
 	public JMELineItem(ContentItem contentItem){
 		this(contentItem, null, null);
 	}
 	
+	/**
+	 * Instantiates a new JME line item.
+	 *
+	 * @param contentItem the content item
+	 * @param sourcePoint the source point
+	 * @param targetPoint the target point
+	 */
 	public JMELineItem(final ContentItem contentItem, Vector3f sourcePoint, Vector3f targetPoint) {
 		super(contentItem);
 		this.item = (LineItem)contentItem;
@@ -175,12 +228,18 @@ public class JMELineItem extends JMEOrthoContainer implements ILineImplementatio
         node.updateRenderState();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEContentItem#initSpatial()
+	 */
 	protected void initSpatial(){
 		this.spatial.setModelBound(new LineBoundingBox());
 		this.spatial.updateGeometricState(0f, true);
 		this.spatial.updateModelBound();
 	}
 	
+	/**
+	 * Reconstruct.
+	 */
 	private void reconstruct()	{
 		if(sourcePoint != null && targetPoint != null && lineColour != null){
 
@@ -201,6 +260,9 @@ public class JMELineItem extends JMEOrthoContainer implements ILineImplementatio
 		}
 	}
 	
+	/**
+	 * Configure arrows.
+	 */
 	private void configureArrows(){
 		if(arrowMode == LineItem.ARROW_TO_SOURCE || arrowMode == LineItem.BIDIRECTIONAL_ARROWS){	
 			if(arrowToSource == null){
@@ -241,6 +303,14 @@ public class JMELineItem extends JMEOrthoContainer implements ILineImplementatio
 		}
 	}
 	
+	/**
+	 * Position and rotate.
+	 *
+	 * @param arrow the arrow
+	 * @param connectedSpatial the connected spatial
+	 * @param point1 the point1
+	 * @param point2 the point2
+	 */
 	private void positionAndRotate(ArrowGeom arrow, Spatial connectedSpatial, Vector3f point1, Vector3f point2){
 		Vector3f direction = point1.subtract(point2).normalize();
 		float angle = direction.angleBetween(new Vector3f(0,1,0).normalize());
@@ -268,6 +338,17 @@ public class JMELineItem extends JMEOrthoContainer implements ILineImplementatio
 		}
 	}
 	
+	/**
+	 * Find2 d line rectangle intersection.
+	 *
+	 * @param point1 the point1
+	 * @param point2 the point2
+	 * @param p1 the p1
+	 * @param p2 the p2
+	 * @param p3 the p3
+	 * @param p4 the p4
+	 * @return the vector3f
+	 */
 	private Vector3f find2DLineRectangleIntersection(Vector3f point1, Vector3f point2, Vector3f p1,Vector3f p2, Vector3f p3,Vector3f p4){
 		float shortest_distance = java.lang.Float.MAX_VALUE;
 		Vector3f intersection_point = null;
@@ -295,6 +376,15 @@ public class JMELineItem extends JMEOrthoContainer implements ILineImplementatio
 		return intersection_point;
 	}
 	
+	/**
+	 * Find intersection.
+	 *
+	 * @param p1 the p1
+	 * @param p2 the p2
+	 * @param p3 the p3
+	 * @param p4 the p4
+	 * @return the vector3f
+	 */
 	private Vector3f findIntersection(Vector3f p1,Vector3f p2, Vector3f p3,Vector3f p4) {  
 		  float deg,len1,len2;  
 		  float segmentLen1,segmentLen2;  
@@ -327,6 +417,9 @@ public class JMELineItem extends JMEOrthoContainer implements ILineImplementatio
 		  return pt;  
 	}
 	
+	/**
+	 * Configure line annotation.
+	 */
 	private void configureLineAnnotation(){
 		if(text != null){
 			if(textQuad == null){	
@@ -352,6 +445,11 @@ public class JMELineItem extends JMEOrthoContainer implements ILineImplementatio
 		}
 	}
 	
+	/**
+	 * Configure line mode.
+	 *
+	 * @param lineMode the line mode
+	 */
 	private void configureLineMode(int lineMode){
 		if(lineMode == LineItem.CONNECTED_LINE){
 			line.setMode(Line.Mode.Connected);
@@ -376,40 +474,63 @@ public class JMELineItem extends JMEOrthoContainer implements ILineImplementatio
 		
 	}
 	
+	/**
+	 * Gets the line.
+	 *
+	 * @return the line
+	 */
 	public Line getLine(){
 		return line;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILineImplementation#setAnnotationEnabled(boolean)
+	 */
 	@Override
 	public void setAnnotationEnabled(boolean isEnabled) {
 		this.textEnabled = item.isAnnotationEnabled();
 		this.reconstruct();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILineImplementation#setArrowMode(int)
+	 */
 	@Override
 	public void setArrowMode(int arrowMode) {
 		this.arrowMode = arrowMode;
 		this.reconstruct();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILineImplementation#setArrowsEnabled(boolean)
+	 */
 	@Override
 	public void setArrowsEnabled(boolean isEnabled) {
 		this.arrowsEnabled = isEnabled;
 		this.reconstruct();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILineImplementation#setLineColour(java.awt.Color)
+	 */
 	@Override
 	public void setLineColour(Color lineColour) {
 		this.lineColour = new ColorRGBA(lineColour.getRed(), lineColour.getGreen(), lineColour.getBlue(), lineColour.getAlpha());
 		this.reconstruct();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILineImplementation#setLineMode(int)
+	 */
 	@Override
 	public void setLineMode(int lineMode) {
 		this.lineMode = lineMode;
 		this.reconstruct();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILineImplementation#setSourceItem(synergynetframework.appsystem.contentsystem.items.ContentItem)
+	 */
 	@Override
 	public void setSourceItem(ContentItem sourceItem) {
 		if(sourceItem != null){
@@ -418,6 +539,9 @@ public class JMELineItem extends JMEOrthoContainer implements ILineImplementatio
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILineImplementation#setSourceLocation(synergynetframework.appsystem.contentsystem.items.utils.Location)
+	 */
 	@Override
 	public void setSourceLocation(Location sourceLocation) {
 		if(sourceLocation != null){	
@@ -426,6 +550,9 @@ public class JMELineItem extends JMEOrthoContainer implements ILineImplementatio
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILineImplementation#setTargetItem(synergynetframework.appsystem.contentsystem.items.ContentItem)
+	 */
 	@Override
 	public void setTargetItem(ContentItem targetItem) {
 		if(targetItem != null){
@@ -434,6 +561,9 @@ public class JMELineItem extends JMEOrthoContainer implements ILineImplementatio
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILineImplementation#setTargetLocation(synergynetframework.appsystem.contentsystem.items.utils.Location)
+	 */
 	@Override
 	public void setTargetLocation(Location targetLocation) {
 		if(targetLocation != null){	
@@ -442,6 +572,9 @@ public class JMELineItem extends JMEOrthoContainer implements ILineImplementatio
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILineImplementation#setText(java.lang.String)
+	 */
 	@Override
 	public void setText(String str) {
 		text.setLength(0);
@@ -449,28 +582,43 @@ public class JMELineItem extends JMEOrthoContainer implements ILineImplementatio
 		this.reconstruct();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILineImplementation#setTextColour(java.awt.Color)
+	 */
 	@Override
 	public void setTextColour(Color textColour) {
 		this.textColour = new ColorRGBA(textColour.getRed(), textColour.getGreen(), textColour.getBlue(), textColour.getAlpha());
 		this.reconstruct();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILineImplementation#setTextFont(java.awt.Font)
+	 */
 	@Override
 	public void setTextFont(Font textFont) {
 		this.reconstruct();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ILineImplementation#setWidth(float)
+	 */
 	@Override
 	public void setWidth(float lineWidth) {
 		this.reconstruct();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.JMEContentItemImplementation#getSpatial()
+	 */
 	@Override
 	public Spatial getSpatial() {
 		 
 		return line;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEOrthoContentItem#update(float)
+	 */
 	public void update(float interpolation) {
 		super.update(interpolation);
 		if(item.getLineMode() == LineItem.ANIMATION && animationDelay <0){	

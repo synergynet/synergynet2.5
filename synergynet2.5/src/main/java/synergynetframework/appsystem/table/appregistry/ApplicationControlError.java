@@ -32,9 +32,20 @@
 
 package synergynetframework.appsystem.table.appregistry;
 
+
+/**
+ * The Class ApplicationControlError.
+ */
 public class ApplicationControlError extends Exception {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -5352163844368480602L;
 	
+	/**
+	 * Instantiates a new application control error.
+	 *
+	 * @param string the string
+	 */
 	public ApplicationControlError(String string) {
 		super(string);
 	}

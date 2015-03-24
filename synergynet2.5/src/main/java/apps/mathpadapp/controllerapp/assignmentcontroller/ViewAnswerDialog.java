@@ -44,12 +44,26 @@ import synergynetframework.appsystem.contentsystem.items.Window;
 import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAdapter;
 import synergynetframework.jme.cursorsystem.elements.twod.OrthoBringToTop;
 
+
+/**
+ * The Class ViewAnswerDialog.
+ */
 public class ViewAnswerDialog {
 	
+	/** The window. */
 	private Window window;
+	
+	/** The top panel. */
 	private Window topPanel;
+	
+	/** The sketch pad. */
 	private SketchPad sketchPad;
 	
+	/**
+	 * Instantiates a new view answer dialog.
+	 *
+	 * @param contentSystem the content system
+	 */
 	public ViewAnswerDialog(final ContentSystem contentSystem){
 		window = (Window) contentSystem.createContentItem(Window.class);
 		window.setWidth(300);
@@ -100,10 +114,20 @@ public class ViewAnswerDialog {
 		
 	}
 	
+	/**
+	 * Gets the window.
+	 *
+	 * @return the window
+	 */
 	public Window getWindow(){
 		return window;
 	}
 
+	/**
+	 * Gets the sketch pad.
+	 *
+	 * @return the sketch pad
+	 */
 	public SketchPad getSketchPad(){
 		return sketchPad;
 	}

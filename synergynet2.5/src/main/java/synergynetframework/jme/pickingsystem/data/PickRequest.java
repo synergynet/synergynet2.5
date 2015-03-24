@@ -34,34 +34,56 @@ package synergynetframework.jme.pickingsystem.data;
 
 import com.jme.math.Vector2f;
 
+
+/**
+ * The Class PickRequest.
+ */
 public class PickRequest {
+	
+	/** The Constant PICKMODE_CLOSEST_ONLY. */
 	public static final int PICKMODE_CLOSEST_ONLY = 0;
+	
+	/** The Constant PICKMODE_ALL. */
 	public static final int PICKMODE_ALL = 1;
 	
+	/** The requesting cursor id. */
 	protected long requestingCursorID;
+	
+	/** The cursor position. */
 	protected Vector2f cursorPosition;
 		
+	/**
+	 * Instantiates a new pick request.
+	 *
+	 * @param requestingCursorID the requesting cursor id
+	 * @param screenPos the screen pos
+	 */
 	public PickRequest(long requestingCursorID, Vector2f screenPos) {
 		this.requestingCursorID = requestingCursorID;
 		this.cursorPosition = screenPos;
 	}
 
 	/**
-	 * Location in screen coordinates
-	 * @return
+	 * Location in screen coordinates.
+	 *
+	 * @return the cursor position
 	 */
 	public Vector2f getCursorPosition() {
 		return cursorPosition;
 	}
 
 	/**
-	 * id of the cursor, from the table
-	 * @return
+	 * id of the cursor, from the table.
+	 *
+	 * @return the requesting cursor id
 	 */
 	public long getRequestingCursorID() {
 		return requestingCursorID;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return requestingCursorID + " at " + cursorPosition;
 	}

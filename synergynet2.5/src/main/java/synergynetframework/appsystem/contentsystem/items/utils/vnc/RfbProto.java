@@ -31,20 +31,27 @@ import java.awt.event.*;
 import java.net.Socket;
 import java.util.zip.*;
 
+
+/**
+ * The Class RfbProto.
+ */
 class RfbProto {
 
+  /** The Constant versionMsg_3_8. */
   final static String
     versionMsg_3_3 = "RFB 003.003\n",
     versionMsg_3_7 = "RFB 003.007\n",
     versionMsg_3_8 = "RFB 003.008\n";
 
   // Vendor signatures: standard VNC/RealVNC, TridiaVNC, and TightVNC
+  /** The Constant TightVncVendor. */
   final static String
     StandardVendor  = "STDV",
     TridiaVncVendor = "TRDV",
     TightVncVendor  = "TGHT";
 
   // Security types
+  /** The Constant SecTypeTight. */
   final static int
     SecTypeInvalid = 0,
     SecTypeNone    = 1,
@@ -52,28 +59,36 @@ class RfbProto {
     SecTypeTight   = 16;
 
   // Supported tunneling types
+  /** The Constant NoTunneling. */
   final static int
     NoTunneling = 0;
+  
+  /** The Constant SigNoTunneling. */
   final static String
     SigNoTunneling = "NOTUNNEL";
 
   // Supported authentication types
+  /** The Constant AuthUnixLogin. */
   final static int
     AuthNone      = 1,
     AuthVNC       = 2,
     AuthUnixLogin = 129;
+  
+  /** The Constant SigAuthUnixLogin. */
   final static String
     SigAuthNone      = "NOAUTH__",
     SigAuthVNC       = "VNCAUTH_",
     SigAuthUnixLogin = "ULGNAUTH";
 
   // VNC authentication results
+  /** The Constant VncAuthTooMany. */
   final static int
     VncAuthOK      = 0,
     VncAuthFailed  = 1,
     VncAuthTooMany = 2;
 
   // Standard server-to-client messages
+  /** The Constant ServerCutText. */
   final static int
     FramebufferUpdate   = 0,
     SetColourMapEntries = 1,
@@ -81,12 +96,16 @@ class RfbProto {
     ServerCutText       = 3;
 
   // Non-standard server-to-client messages
+  /** The Constant EndOfContinuousUpdates. */
   final static int
     EndOfContinuousUpdates = 150;
+  
+  /** The Constant SigEndOfContinuousUpdates. */
   final static String
     SigEndOfContinuousUpdates = "CUS_EOCU";
 
   // Standard client-to-server messages
+  /** The Constant ClientCutText. */
   final static int
     SetPixelFormat           = 0,
     FixColourMapEntries      = 1,
@@ -97,12 +116,16 @@ class RfbProto {
     ClientCutText            = 6;
 
   // Non-standard client-to-server messages
+  /** The Constant EnableContinuousUpdates. */
   final static int
     EnableContinuousUpdates = 150;
+  
+  /** The Constant SigEnableContinuousUpdates. */
   final static String
     SigEnableContinuousUpdates = "CUC_ENCU";
 
   // Supported encodings and pseudo-encodings
+  /** The Constant EncodingNewFBSize. */
   final static int
     EncodingRaw            = 0,
     EncodingCopyRect       = 1,
@@ -119,6 +142,8 @@ class RfbProto {
     EncodingPointerPos     = 0xFFFFFF18,
     EncodingLastRect       = 0xFFFFFF20,
     EncodingNewFBSize      = 0xFFFFFF21;
+  
+  /** The Constant SigEncodingNewFBSize. */
   final static String
     SigEncodingRaw            = "RAW_____",
     SigEncodingCopyRect       = "COPYRECT",
@@ -136,9 +161,11 @@ class RfbProto {
     SigEncodingLastRect       = "LASTRECT",
     SigEncodingNewFBSize      = "NEWFBSIZ";
 
+  /** The Constant MaxNormalEncoding. */
   final static int MaxNormalEncoding = 255;
 
   // Contstants used in the Hextile decoder
+  /** The Constant HextileSubrectsColoured. */
   final static int
     HextileRaw                 = 1,
     HextileBackgroundSpecified = 2,
@@ -147,7 +174,10 @@ class RfbProto {
     HextileSubrectsColoured    = 16;
 
   // Contstants used in the Tight decoder
+  /** The Constant TightMinToCompress. */
   final static int TightMinToCompress = 12;
+  
+  /** The Constant TightFilterGradient. */
   final static int
     TightExplicitFilter = 0x04,
     TightFill           = 0x08,
@@ -158,39 +188,67 @@ class RfbProto {
     TightFilterGradient = 0x02;
 
 
+  /** The host. */
   String host;
+  
+  /** The port. */
   int port;
+  
+  /** The sock. */
   Socket sock;
+  
+  /** The os. */
   OutputStream os;
+  
+  /** The rec. */
   SessionRecorder rec;
+  
+  /** The in normal protocol. */
   boolean inNormalProtocol = false;
+  
+  /** The viewer. */
   VncViewer viewer;
 
   // Input stream is declared private to make sure it can be accessed
   // only via RfbProto methods. We have to do this because we want to
   // count how many bytes were read.
+  /** The is. */
   private DataInputStream is;
+  
+  /** The num bytes read. */
   private long numBytesRead = 0;
+  
+  /**
+   * Gets the num bytes read.
+   *
+   * @return the num bytes read
+   */
   public long getNumBytesRead() { return numBytesRead; }
 
   // Java on UNIX does not call keyPressed() on some keys, for example
   // swedish keys To prevent our workaround to produce duplicate
   // keypresses on JVMs that actually works, keep track of if
   // keyPressed() for a "broken" key was called or not. 
+  /** The broken key pressed. */
   boolean brokenKeyPressed = false;
 
   // This will be set to true on the first framebuffer update
   // containing Zlib-, ZRLE- or Tight-encoded data.
+  /** The were zlib updates. */
   boolean wereZlibUpdates = false;
 
   // This will be set to false if the startSession() was called after
   // we have received at least one Zlib-, ZRLE- or Tight-encoded
   // framebuffer update.
+  /** The record from beginning. */
   boolean recordFromBeginning = true;
 
   // This fields are needed to show warnings about inefficiently saved
   // sessions only once per each saved session file.
+  /** The zlib warning shown. */
   boolean zlibWarningShown;
+  
+  /** The tight warning shown. */
   boolean tightWarningShown;
 
   // Before starting to record each saved session, we set this field
@@ -199,28 +257,54 @@ class RfbProto {
   // This allows us to write initial framebuffer update with zero
   // timestamp, to let the player show initial desktop before
   // playback.
+  /** The num updates in session. */
   int numUpdatesInSession;
 
   // Measuring network throughput.
+  /** The timing. */
   boolean timing;
+  
+  /** The time waited in100us. */
   long timeWaitedIn100us;
+  
+  /** The timed kbits. */
   long timedKbits;
 
   // Protocol version and TightVNC-specific protocol options.
+  /** The server minor. */
   int serverMajor, serverMinor;
+  
+  /** The client minor. */
   int clientMajor, clientMinor;
+  
+  /** The protocol tight vnc. */
   boolean protocolTightVNC;
+  
+  /** The auth caps. */
   CapsContainer tunnelCaps, authCaps;
+  
+  /** The client msg caps. */
   CapsContainer serverMsgCaps, clientMsgCaps;
+  
+  /** The encoding caps. */
   CapsContainer encodingCaps;
 
   // If true, informs that the RFB socket was closed.
+  /** The closed. */
   private boolean closed;
 
   //
   // Constructor. Make TCP connection to RFB server.
   //
 
+  /**
+   * Instantiates a new rfb proto.
+   *
+   * @param h the h
+   * @param p the p
+   * @param v the v
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   RfbProto(String h, int p, VncViewer v) throws IOException {
     viewer = v;
     host = h;
@@ -251,6 +335,9 @@ class RfbProto {
   }
 
 
+  /**
+   * Close.
+   */
   synchronized void close() {
     try {
       sock.close();
@@ -265,6 +352,11 @@ class RfbProto {
     }
   }
 
+  /**
+   * Closed.
+   *
+   * @return true, if successful
+   */
   synchronized boolean closed() {
     return closed;
   }
@@ -273,6 +365,11 @@ class RfbProto {
   // Read server's protocol version message
   //
 
+  /**
+   * Read version msg.
+   *
+   * @throws Exception the exception
+   */
   void readVersionMsg() throws Exception {
 
     byte[] b = new byte[12];
@@ -302,6 +399,11 @@ class RfbProto {
   // Write our protocol version message
   //
 
+  /**
+   * Write version msg.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   void writeVersionMsg() throws IOException {
     clientMajor = 3;
     if (serverMajor > 3 || serverMinor >= 8) {
@@ -323,6 +425,12 @@ class RfbProto {
   // Negotiate the authentication scheme.
   //
 
+  /**
+   * Negotiate security.
+   *
+   * @return the int
+   * @throws Exception the exception
+   */
   int negotiateSecurity() throws Exception {
     return (clientMinor >= 7) ?
       selectSecurityType() : readSecurityType();
@@ -332,6 +440,12 @@ class RfbProto {
   // Read security type from the server (protocol version 3.3).
   //
 
+  /**
+   * Read security type.
+   *
+   * @return the int
+   * @throws Exception the exception
+   */
   int readSecurityType() throws Exception {
     int secType = readU32();
 
@@ -351,6 +465,12 @@ class RfbProto {
   // Select security type from the server's list (protocol versions 3.7/3.8).
   //
 
+  /**
+   * Select security type.
+   *
+   * @return the int
+   * @throws Exception the exception
+   */
   int selectSecurityType() throws Exception {
     int secType = SecTypeInvalid;
 
@@ -393,6 +513,11 @@ class RfbProto {
   // Perform "no authentication".
   //
 
+  /**
+   * Authenticate none.
+   *
+   * @throws Exception the exception
+   */
   void authenticateNone() throws Exception {
     if (clientMinor >= 8)
       readSecurityResult("No authentication");
@@ -402,6 +527,12 @@ class RfbProto {
   // Perform standard VNC Authentication.
   //
 
+  /**
+   * Authenticate vnc.
+   *
+   * @param pw the pw
+   * @throws Exception the exception
+   */
   void authenticateVNC(String pw) throws Exception {
     byte[] challenge = new byte[16];
     readFully(challenge);
@@ -432,6 +563,12 @@ class RfbProto {
   // Throws an exception on authentication failure.
   //
 
+  /**
+   * Read security result.
+   *
+   * @param authType the auth type
+   * @throws Exception the exception
+   */
   void readSecurityResult(String authType) throws Exception {
     int securityResult = readU32();
 
@@ -455,6 +592,11 @@ class RfbProto {
   // and throw an exception.
   //
 
+  /**
+   * Read conn failed reason.
+   *
+   * @throws Exception the exception
+   */
   void readConnFailedReason() throws Exception {
     int reasonLen = readU32();
     byte[] reason = new byte[reasonLen];
@@ -466,6 +608,9 @@ class RfbProto {
   // Initialize capability lists (TightVNC protocol extensions).
   //
 
+  /**
+   * Inits the capabilities.
+   */
   void initCapabilities() {
     tunnelCaps    = new CapsContainer();
     authCaps      = new CapsContainer();
@@ -522,6 +667,11 @@ class RfbProto {
   // Setup tunneling (TightVNC protocol extensions)
   //
 
+  /**
+   * Setup tunneling.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   void setupTunneling() throws IOException {
     int nTunnelTypes = readU32();
     if (nTunnelTypes != 0) {
@@ -536,6 +686,12 @@ class RfbProto {
   // Negotiate authentication scheme (TightVNC protocol extensions)
   //
 
+  /**
+   * Negotiate authentication tight.
+   *
+   * @return the int
+   * @throws Exception the exception
+   */
   int negotiateAuthenticationTight() throws Exception {
     int nAuthTypes = readU32();
     if (nAuthTypes == 0)
@@ -556,6 +712,13 @@ class RfbProto {
   // Read a capability list (TightVNC protocol extensions)
   //
 
+  /**
+   * Read capability list.
+   *
+   * @param caps the caps
+   * @param count the count
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   void readCapabilityList(CapsContainer caps, int count) throws IOException {
     int code;
     byte[] vendor = new byte[4];
@@ -572,6 +735,12 @@ class RfbProto {
   // Write a 32-bit integer into the output stream.
   //
 
+  /**
+   * Write int.
+   *
+   * @param value the value
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   void writeInt(int value) throws IOException {
     byte[] b = new byte[4];
     b[0] = (byte) ((value >> 24) & 0xff);
@@ -585,6 +754,11 @@ class RfbProto {
   // Write the client initialisation message
   //
 
+  /**
+   * Write client init.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   void writeClientInit() throws IOException {
     if (viewer.options.shareDesktop) {
       os.write(1);
@@ -599,12 +773,26 @@ class RfbProto {
   // Read the server initialisation message
   //
 
+  /** The desktop name. */
   String desktopName;
+  
+  /** The framebuffer height. */
   int framebufferWidth, framebufferHeight;
+  
+  /** The depth. */
   int bitsPerPixel, depth;
+  
+  /** The true colour. */
   boolean bigEndian, trueColour;
+  
+  /** The blue shift. */
   int redMax, greenMax, blueMax, redShift, greenShift, blueShift;
 
+  /**
+   * Read server init.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   void readServerInit() throws IOException {
     framebufferWidth = readU16();
     framebufferHeight = readU16();
@@ -644,6 +832,12 @@ class RfbProto {
   // Create session file and write initial protocol messages into it.
   //
 
+  /**
+   * Start session.
+   *
+   * @param fname the fname
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   void startSession(String fname) throws IOException {
     rec = new SessionRecorder(fname);
     rec.writeHeader();
@@ -677,6 +871,11 @@ class RfbProto {
   // Close session file.
   //
 
+  /**
+   * Close session.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   void closeSession() throws IOException {
     if (rec != null) {
       rec.close();
@@ -689,6 +888,12 @@ class RfbProto {
   // Set new framebuffer size
   //
 
+  /**
+   * Sets the framebuffer size.
+   *
+   * @param width the width
+   * @param height the height
+   */
   void setFramebufferSize(int width, int height) {
     framebufferWidth = width;
     framebufferHeight = height;
@@ -699,6 +904,12 @@ class RfbProto {
   // Read the server message type
   //
 
+  /**
+   * Read server message type.
+   *
+   * @return the int
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   int readServerMessageType() throws IOException {
     int msgType = readU8();
 
@@ -719,8 +930,14 @@ class RfbProto {
   // Read a FramebufferUpdate message
   //
 
+  /** The update n rects. */
   int updateNRects;
 
+  /**
+   * Read framebuffer update.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   void readFramebufferUpdate() throws IOException {
     skipBytes(1);
     updateNRects = readU16();
@@ -737,8 +954,14 @@ class RfbProto {
 
   // Read a FramebufferUpdate rectangle header
 
+  /** The update rect encoding. */
   int updateRectX, updateRectY, updateRectW, updateRectH, updateRectEncoding;
 
+  /**
+   * Read framebuffer update rect hdr.
+   *
+   * @throws Exception the exception
+   */
   void readFramebufferUpdateRectHdr() throws Exception {
     updateRectX = readU16();
     updateRectY = readU16();
@@ -792,8 +1015,14 @@ class RfbProto {
 
   // Read CopyRect source X and Y.
 
+  /** The copy rect src y. */
   int copyRectSrcX, copyRectSrcY;
 
+  /**
+   * Read copy rect.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   void readCopyRect() throws IOException {
     copyRectSrcX = readU16();
     copyRectSrcY = readU16();
@@ -810,6 +1039,12 @@ class RfbProto {
   // Read a ServerCutText message
   //
 
+  /**
+   * Read server cut text.
+   *
+   * @return the string
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   String readServerCutText() throws IOException {
     skipBytes(3);
     int len = readU32();
@@ -826,6 +1061,12 @@ class RfbProto {
   // the viewer's recordFromBeginning variable is set to true.
   //
 
+  /**
+   * Read compact len.
+   *
+   * @return the int
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   int readCompactLen() throws IOException {
     int[] portion = new int[3];
     portion[0] = readU8();
@@ -854,6 +1095,16 @@ class RfbProto {
   // Write a FramebufferUpdateRequest message
   //
 
+  /**
+   * Write framebuffer update request.
+   *
+   * @param x the x
+   * @param y the y
+   * @param w the w
+   * @param h the h
+   * @param incremental the incremental
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   void writeFramebufferUpdateRequest(int x, int y, int w, int h,
 				     boolean incremental)
        throws IOException
@@ -879,6 +1130,21 @@ class RfbProto {
   // Write a SetPixelFormat message
   //
 
+  /**
+   * Write set pixel format.
+   *
+   * @param bitsPerPixel the bits per pixel
+   * @param depth the depth
+   * @param bigEndian the big endian
+   * @param trueColour the true colour
+   * @param redMax the red max
+   * @param greenMax the green max
+   * @param blueMax the blue max
+   * @param redShift the red shift
+   * @param greenShift the green shift
+   * @param blueShift the blue shift
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   void writeSetPixelFormat(int bitsPerPixel, int depth, boolean bigEndian,
 			   boolean trueColour,
 			   int redMax, int greenMax, int blueMax,
@@ -911,6 +1177,16 @@ class RfbProto {
   // blue arrays are from 0 to 65535.
   //
 
+  /**
+   * Write fix colour map entries.
+   *
+   * @param firstColour the first colour
+   * @param nColours the n colours
+   * @param red the red
+   * @param green the green
+   * @param blue the blue
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   void writeFixColourMapEntries(int firstColour, int nColours,
 				int[] red, int[] green, int[] blue)
        throws IOException
@@ -940,6 +1216,13 @@ class RfbProto {
   // Write a SetEncodings message
   //
 
+  /**
+   * Write set encodings.
+   *
+   * @param encs the encs
+   * @param len the len
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   void writeSetEncodings(int[] encs, int len) throws IOException {
     byte[] b = new byte[4 + 4 * len];
 
@@ -962,6 +1245,12 @@ class RfbProto {
   // Write a ClientCutText message
   //
 
+  /**
+   * Write client cut text.
+   *
+   * @param text the text
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   void writeClientCutText(String text) throws IOException {
     byte[] b = new byte[8 + text.length()];
 
@@ -985,15 +1274,25 @@ class RfbProto {
   // modifier up events i.e. 9 key events or 72 bytes.
   //
 
+  /** The event buf. */
   byte[] eventBuf = new byte[72];
+  
+  /** The event buf len. */
   int eventBufLen;
 
 
   // Useful shortcuts for modifier masks.
 
+  /** The Constant CTRL_MASK. */
   final static int CTRL_MASK  = InputEvent.CTRL_MASK;
+  
+  /** The Constant SHIFT_MASK. */
   final static int SHIFT_MASK = InputEvent.SHIFT_MASK;
+  
+  /** The Constant META_MASK. */
   final static int META_MASK  = InputEvent.META_MASK;
+  
+  /** The Constant ALT_MASK. */
   final static int ALT_MASK   = InputEvent.ALT_MASK;
 
 
@@ -1002,8 +1301,15 @@ class RfbProto {
   // around it to set the correct modifier state.
   //
 
+  /** The pointer mask. */
   int pointerMask = 0;
 
+  /**
+   * Write pointer event.
+   *
+   * @param evt the evt
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   void writePointerEvent(MouseEvent evt) throws IOException {
     int modifiers = evt.getModifiers();
 
@@ -1071,6 +1377,12 @@ class RfbProto {
   // from the Java key values to the X keysym values used by the RFB protocol.
   //
 
+  /**
+   * Write key event.
+   *
+   * @param evt the evt
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   void writeKeyEvent(KeyEvent evt) throws IOException {
 
     int keyChar = evt.getKeyChar();
@@ -1207,6 +1519,12 @@ class RfbProto {
   // Add a raw key event with the given X keysym to eventBuf.
   //
 
+  /**
+   * Write key event.
+   *
+   * @param keysym the keysym
+   * @param down the down
+   */
   void writeKeyEvent(int keysym, boolean down) {
     eventBuf[eventBufLen++] = (byte) KeyboardEvent;
     eventBuf[eventBufLen++] = (byte) (down ? 1 : 0);
@@ -1223,8 +1541,14 @@ class RfbProto {
   // Write key events to set the correct modifier state.
   //
 
+  /** The old modifiers. */
   int oldModifiers = 0;
 
+  /**
+   * Write modifier key events.
+   *
+   * @param newModifiers the new modifiers
+   */
   void writeModifierKeyEvents(int newModifiers) {
     if ((newModifiers & CTRL_MASK) != (oldModifiers & CTRL_MASK))
       writeKeyEvent(0xffe3, (newModifiers & CTRL_MASK) != 0);
@@ -1246,6 +1570,14 @@ class RfbProto {
   // method assumes the recording is on (rec != null).
   //
 
+  /**
+   * Record compressed data.
+   *
+   * @param data the data
+   * @param off the off
+   * @param len the len
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   void recordCompressedData(byte[] data, int off, int len) throws IOException {
     Deflater deflater = new Deflater();
     deflater.setInput(data, off, len);
@@ -1257,6 +1589,12 @@ class RfbProto {
     rec.write(buf, 0, compressedSize);
   }
 
+  /**
+   * Record compressed data.
+   *
+   * @param data the data
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   void recordCompressedData(byte[] data) throws IOException {
     recordCompressedData(data, 0, data.length);
   }
@@ -1267,6 +1605,12 @@ class RfbProto {
   // (rec != null).
   //
 
+  /**
+   * Record compact len.
+   *
+   * @param len the len
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   void recordCompactLen(int len) throws IOException {
     byte[] buf = new byte[3];
     int bytes = 0;
@@ -1282,6 +1626,9 @@ class RfbProto {
     rec.write(buf, 0, bytes);
   }
 
+  /**
+   * Start timing.
+   */
   public void startTiming() {
     timing = true;
 
@@ -1293,16 +1640,29 @@ class RfbProto {
     }
   }
 
+  /**
+   * Stop timing.
+   */
   public void stopTiming() {
     timing = false; 
     if (timeWaitedIn100us < timedKbits/2)
       timeWaitedIn100us = timedKbits/2; // upper limit 20Mbit/s
   }
 
+  /**
+   * Kbits per second.
+   *
+   * @return the long
+   */
   public long kbitsPerSecond() {
     return timedKbits * 10000 / timeWaitedIn100us;
   }
 
+  /**
+   * Time waited.
+   *
+   * @return the long
+   */
   public long timeWaited() {
     return timeWaitedIn100us;
   }
@@ -1314,10 +1674,24 @@ class RfbProto {
   // used to estimate data throughput.
   //
 
+  /**
+   * Read fully.
+   *
+   * @param b the b
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   public void readFully(byte b[]) throws IOException {
     readFully(b, 0, b.length);
   }
 
+  /**
+   * Read fully.
+   *
+   * @param b the b
+   * @param off the off
+   * @param len the len
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   public void readFully(byte b[], int off, int len) throws IOException {
     long before = 0;
     if (timing)
@@ -1342,30 +1716,61 @@ class RfbProto {
     numBytesRead += len;
   }
 
+  /**
+   * Available.
+   *
+   * @return the int
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   final int available() throws IOException {
     return is.available();
   }
 
   // FIXME: DataInputStream::skipBytes() is not guaranteed to skip
   //        exactly n bytes. Probably we don't want to use this method.
+  /**
+   * Skip bytes.
+   *
+   * @param n the n
+   * @return the int
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   final int skipBytes(int n) throws IOException {
     int r = is.skipBytes(n);
     numBytesRead += r;
     return r;
   }
 
+  /**
+   * Read u8.
+   *
+   * @return the int
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   final int readU8() throws IOException {
     int r = is.readUnsignedByte();
     numBytesRead++;
     return r;
   }
 
+  /**
+   * Read u16.
+   *
+   * @return the int
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   final int readU16() throws IOException {
     int r = is.readUnsignedShort();
     numBytesRead += 2;
     return r;
   }
 
+  /**
+   * Read u32.
+   *
+   * @return the int
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   final int readU32() throws IOException {
     int r = is.readInt();
     numBytesRead += 4;

@@ -34,15 +34,30 @@ package synergynetframework.appsystem.launcher.distbuilder;
 
 import java.io.File;
 
+
+/**
+ * The Class MakeDistributionBuild.
+ */
 public class MakeDistributionBuild {
 	
+	/** The bin. */
 	protected File bin = new File("bin");
+	
+	/** The webdist. */
 	protected File webdist = new File("build/webdist");
 	
+	/**
+	 * Instantiates a new make distribution build.
+	 */
 	public MakeDistributionBuild() {
 		System.out.println(webdist.getAbsolutePath());
 	}
 	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		new MakeDistributionBuild();
 	}

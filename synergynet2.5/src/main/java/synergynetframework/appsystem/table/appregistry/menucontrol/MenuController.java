@@ -35,7 +35,21 @@ package synergynetframework.appsystem.table.appregistry.menucontrol;
 import synergynetframework.appsystem.contentsystem.Updateable;
 import synergynetframework.appsystem.table.appdefinitions.SynergyNetApp;
 
+
+/**
+ * The Class MenuController.
+ */
 public abstract class MenuController implements Updateable {
+	
+	/**
+	 * Enable for application.
+	 *
+	 * @param app the app
+	 */
 	public abstract void enableForApplication(SynergyNetApp app);
+	
+	/**
+	 * Application finishing.
+	 */
 	public abstract void applicationFinishing();
 }

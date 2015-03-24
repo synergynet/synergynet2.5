@@ -48,11 +48,23 @@ import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAd
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.rapidnetworkmanager.RapidNetworkManager;
 
+
+/**
+ * The Class SendDataDialog.
+ */
 public class SendDataDialog extends MTFrame{
 
+	/** The table ids. */
 	protected HashMap<String,TableIdentity> tableIds;
+	
+	/** The table list. */
 	protected DropDownList tableList;
 	
+	/**
+	 * Instantiates a new send data dialog.
+	 *
+	 * @param app the app
+	 */
 	public SendDataDialog(final ControllerApp app) {
 		super(ContentSystem.getContentSystemForSynergyNetApp(app));
 		this.setTitle("Send Dialog");

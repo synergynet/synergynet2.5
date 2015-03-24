@@ -42,16 +42,31 @@ import com.jme.math.Vector2f;
 import com.jme.math.Vector3f;
 import com.jme.scene.TriMesh;
 
+
+/**
+ * The Class AccurateOrthogonalTrianglePickResults.
+ */
 public class AccurateOrthogonalTrianglePickResults extends TrianglePickResults {
 	
+	/** The mouse pos. */
 	private Vector2f mousePos;
+	
+	/** The picked items. */
 	private List<PickedSpatial> pickedItems = new ArrayList<PickedSpatial>();
 
+	/**
+	 * Instantiates a new accurate orthogonal triangle pick results.
+	 *
+	 * @param mousePos the mouse pos
+	 */
 	public AccurateOrthogonalTrianglePickResults(Vector2f mousePos) {
 		this.setCheckDistance(true);
 		this.mousePos = mousePos;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.jme.intersection.TrianglePickResults#processPick()
+	 */
 	@Override
 	public void processPick() {		
 		for (int i = 0; i < getNumber(); i++) {
@@ -70,6 +85,12 @@ public class AccurateOrthogonalTrianglePickResults extends TrianglePickResults {
 		}
 	}
 
+	/**
+	 * Mesh picked.
+	 *
+	 * @param mesh the mesh
+	 * @return the picked spatial
+	 */
 	private PickedSpatial meshPicked(TriMesh mesh) {
 		PickedSpatial picked = null;
 		for(int tc = 0; tc < mesh.getTriangleCount(); tc++) {
@@ -90,6 +111,11 @@ public class AccurateOrthogonalTrianglePickResults extends TrianglePickResults {
 		return picked;
 	}
 
+	/**
+	 * Gets the picked items.
+	 *
+	 * @return the picked items
+	 */
 	public List<PickedSpatial> getPickedItems() {
 		return pickedItems;
 	}	

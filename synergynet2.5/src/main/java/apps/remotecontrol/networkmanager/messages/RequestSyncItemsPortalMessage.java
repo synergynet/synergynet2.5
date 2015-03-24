@@ -35,13 +35,28 @@ package apps.remotecontrol.networkmanager.messages;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.UnicastApplicationMessage;
 
+
+/**
+ * The Class RequestSyncItemsPortalMessage.
+ */
 public class RequestSyncItemsPortalMessage extends UnicastApplicationMessage {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -1128246151914716748L;
 
+	/**
+	 * Instantiates a new request sync items portal message.
+	 */
 	public RequestSyncItemsPortalMessage(){
 		super();
 	}
+	
+	/**
+	 * Instantiates a new request sync items portal message.
+	 *
+	 * @param targetClass the target class
+	 * @param tableId the table id
+	 */
 	public RequestSyncItemsPortalMessage(Class<?> targetClass, TableIdentity tableId) {
 		super(targetClass);
 		this.setRecipient(tableId);

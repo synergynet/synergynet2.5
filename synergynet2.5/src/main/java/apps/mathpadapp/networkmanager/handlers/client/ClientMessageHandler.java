@@ -62,15 +62,28 @@ import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.messages.TableMessage;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class ClientMessageHandler.
+ */
 public class ClientMessageHandler extends DefaultMessageHandler{
 	
+	/** The client manager. */
 	private ClientManager clientManager;
 	
+	/**
+	 * Instantiates a new client message handler.
+	 *
+	 * @param clientManager the client manager
+	 */
 	public ClientMessageHandler(ClientManager clientManager){
 		super(clientManager);
 		this.clientManager = clientManager;
 	}
 	
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.handlers.DefaultMessageHandler#messageReceived(java.lang.Object)
+	 */
 	@Override
 	public void messageReceived(Object obj) {
 		if (TableIdentity.getTableIdentity().hashCode()==((TableMessage)obj).getSender().hashCode()) return;
@@ -129,6 +142,11 @@ public class ClientMessageHandler extends DefaultMessageHandler{
 		}
 	}
 	
+	/**
+	 * Gets the client manager.
+	 *
+	 * @return the client manager
+	 */
 	public ClientManager getClientManager(){
 		return clientManager;
 	}

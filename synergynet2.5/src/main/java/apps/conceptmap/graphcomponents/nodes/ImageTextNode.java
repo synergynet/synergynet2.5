@@ -39,21 +39,38 @@ import apps.conceptmap.utility.GraphManager;
 import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.ImageTextLabel;
 
+
+/**
+ * The Class ImageTextNode.
+ */
 public class ImageTextNode extends EditableQuadNode{
 
+	/** The image text label. */
 	protected ImageTextLabel imageTextLabel;
 	
+	/**
+	 * Instantiates a new image text node.
+	 *
+	 * @param contentSystem the content system
+	 * @param gManager the g manager
+	 */
 	public ImageTextNode(ContentSystem contentSystem, GraphManager gManager) {
 		super(contentSystem, gManager);
 		imageTextLabel = (ImageTextLabel) contentSystem.createContentItem(ImageTextLabel.class);
 		this.setNodeContent(imageTextLabel);
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.conceptmap.graphcomponents.nodes.EditableQuadNode#setText(java.lang.String)
+	 */
 	public void setText(String text){
 		imageTextLabel.setCRLFSeparatedString(text);
 		updateNode();
 	}
 	
+	/* (non-Javadoc)
+	 * @see apps.conceptmap.graphcomponents.nodes.EditableQuadNode#getText()
+	 */
 	public String getText(){
 		String text = "";
 		for(String line: imageTextLabel.getLines())
@@ -63,10 +80,20 @@ public class ImageTextNode extends EditableQuadNode{
 		return text;
 	}
 	
+	/**
+	 * Sets the image resource.
+	 *
+	 * @param imageResource the new image resource
+	 */
 	public void setImageResource(URL imageResource){
 		imageTextLabel.setImageInfo(imageResource);
 	}
 	
+	/**
+	 * Gets the image text label.
+	 *
+	 * @return the image text label
+	 */
 	public ImageTextLabel getImageTextLabel(){
 		return imageTextLabel;
 	}

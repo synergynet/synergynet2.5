@@ -35,12 +35,23 @@ package synergynetframework.appsystem.table.animationsystem;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * The Class AnimationSystem.
+ */
 public class AnimationSystem {
 
+	/** The instance. */
 	private static AnimationSystem instance;
 
+	/** The elements. */
 	private List<AnimationElement> elements = new ArrayList<AnimationElement>();
 
+	/**
+	 * Gets the single instance of AnimationSystem.
+	 *
+	 * @return single instance of AnimationSystem
+	 */
 	public static AnimationSystem getInstance() {
 		synchronized(AnimationSystem.class) {
 			if(instance == null) instance = new AnimationSystem();
@@ -48,8 +59,16 @@ public class AnimationSystem {
 		}		
 	}
 
+	/**
+	 * Instantiates a new animation system.
+	 */
 	private AnimationSystem() {}
 
+	/**
+	 * Update.
+	 *
+	 * @param tpf the tpf
+	 */
 	public void update(float tpf) {
 		List<AnimationElement> scheduledForRemoval = new ArrayList<AnimationElement>();
 		
@@ -69,6 +88,11 @@ public class AnimationSystem {
 		}
 	}
 
+	/**
+	 * Adds the.
+	 *
+	 * @param element the element
+	 */
 	public void add(AnimationElement element) {
 		elements.add(element);	
 	}

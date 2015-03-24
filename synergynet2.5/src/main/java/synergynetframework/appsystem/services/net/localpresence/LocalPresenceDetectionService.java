@@ -49,19 +49,39 @@ import synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoveryL
 import synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoverySystem;
 import synergynetframework.appsystem.services.net.netservicediscovery.NetworkServiceDiscoveryService;
 
+
+/**
+ * The Class LocalPresenceDetectionService.
+ */
 public class LocalPresenceDetectionService extends SynergyNetService implements ServiceDiscoveryListener {
 
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(LocalPresenceDetectionService.class.getName());
 	
+	/** The Constant SERVICE_TYPE. */
 	private static final String SERVICE_TYPE = "_snn._tcp.local.";
+	
+	/** The Constant SERVICE_NAME. */
 	private static final String SERVICE_NAME = "presence";
 
+	/** The service discovery. */
 	protected ServiceDiscoverySystem serviceDiscovery;
+	
+	/** The service announcer. */
 	protected ServiceAnnounceSystem serviceAnnouncer;
+	
+	/** The online. */
 	protected Set<String> online = new HashSet<String>();		
+	
+	/** The isrunning. */
 	protected boolean isrunning;
+	
+	/** The sd. */
 	protected ServiceDescriptor sd;
 
+	/**
+	 * Instantiates a new local presence detection service.
+	 */
 	public LocalPresenceDetectionService() {
 		sd = new ServiceDescriptor();
 		sd.setServiceType(SERVICE_TYPE);
@@ -75,6 +95,9 @@ public class LocalPresenceDetectionService extends SynergyNetService implements 
 		sd.setUserData("path=index.html");
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#start()
+	 */
 	@Override
 	public void start() {
 		log.info("Local presence detection service startup...");
@@ -98,6 +121,9 @@ public class LocalPresenceDetectionService extends SynergyNetService implements 
 		log.info("Local presence detection service startup completed.");
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#stop()
+	 */
 	@Override
 	public void stop() {
 		log.info("Local presence detection service stopping.");
@@ -107,22 +133,39 @@ public class LocalPresenceDetectionService extends SynergyNetService implements 
 		log.info("Local presence detection service stopped.");
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoveryListener#serviceAvailable(synergynetframework.appsystem.services.net.landiscovery.ServiceDescriptor)
+	 */
 	public void serviceAvailable(ServiceDescriptor sd) {
 		synchronized(online) {						
 			online.add(getEntry(sd));
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoveryListener#serviceRemoved(synergynetframework.appsystem.services.net.landiscovery.ServiceDescriptor)
+	 */
 	public void serviceRemoved(ServiceDescriptor sd) {
 		synchronized(online) {
 			online.remove(getEntry(sd));
 		}
 	}
 
+	/**
+	 * Gets the entry.
+	 *
+	 * @param sd the sd
+	 * @return the entry
+	 */
 	private String getEntry(ServiceDescriptor sd) {
 		return sd.getStringRepresentation();
 	}
 
+	/**
+	 * Gets the currently online list.
+	 *
+	 * @return the currently online list
+	 */
 	public List<String> getCurrentlyOnlineList() {
 		synchronized(online) {
 			List<String> tl = new ArrayList<String>();
@@ -131,16 +174,25 @@ public class LocalPresenceDetectionService extends SynergyNetService implements 
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#shutdown()
+	 */
 	@Override
 	public void shutdown() {
 		// rely on ServiceDiscovery to shutdown
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#hasStarted()
+	 */
 	@Override
 	public boolean hasStarted() {
 		return isrunning;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#update()
+	 */
 	@Override
 	public void update() {}
 }

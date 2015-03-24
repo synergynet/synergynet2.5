@@ -45,20 +45,44 @@ import java.util.PriorityQueue;
 import synergynetframework.appsystem.services.net.objectmessaging.Network;
 import synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler;
 
+
+/**
+ * The Class FieldSerializer.
+ */
 public class FieldSerializer extends Serializer {
+	
+	/** The Constant instance. */
 	static private final FieldSerializer instance = new FieldSerializer();
 
+	/** The set fields as accessible. */
 	private boolean fieldsAreNotNull, setFieldsAsAccessible = true;
+	
+	/** The field cache. */
 	private final HashMap<Class<?>, CachedField[]> fieldCache = new HashMap<Class<?>, CachedField[]>();
 
+	/**
+	 * Instantiates a new field serializer.
+	 */
 	public FieldSerializer () {
 	}
 
+	/**
+	 * Instantiates a new field serializer.
+	 *
+	 * @param fieldsAreNotNull the fields are not null
+	 * @param setFieldsAsAccessible the set fields as accessible
+	 */
 	public FieldSerializer (boolean fieldsAreNotNull, boolean setFieldsAsAccessible) {
 		this.fieldsAreNotNull = fieldsAreNotNull;
 		this.setFieldsAsAccessible = setFieldsAsAccessible;
 	}
 
+	/**
+	 * Cache.
+	 *
+	 * @param type the type
+	 * @return the cached field[]
+	 */
 	private CachedField[] cache (Class<?> type) {
 		if (type.isInterface()) return new CachedField[0];
 		ArrayList<Field> allFields = new ArrayList<Field>();
@@ -100,6 +124,9 @@ public class FieldSerializer extends Serializer {
 		return cachedFieldArray;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.utility.serializers.Serializer#writeObjectData(synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler, java.nio.ByteBuffer, java.lang.Object, boolean)
+	 */
 	public void writeObjectData (ConnectionHandler connectionHandler, ByteBuffer buffer, Object object, boolean lengthKnown)
 		throws SerializationException {
 		try {
@@ -122,6 +149,9 @@ public class FieldSerializer extends Serializer {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.utility.serializers.Serializer#readObjectData(synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler, java.nio.ByteBuffer, java.lang.Class, boolean)
+	 */
 	public <T> T readObjectData (ConnectionHandler connectionHandler, ByteBuffer buffer, Class<T> type, boolean lengthKnown)
 		throws SerializationException {
 		T object = newInstance(type);
@@ -148,6 +178,14 @@ public class FieldSerializer extends Serializer {
 		return object;
 	}
 
+	/**
+	 * Sets the field.
+	 *
+	 * @param type the type
+	 * @param fieldName the field name
+	 * @param serializer the serializer
+	 * @param canBeNull the can be null
+	 */
 	public void setField (Class<?> type, String fieldName, Serializer serializer, boolean canBeNull) {
 		CachedField[] fields = fieldCache.get(type);
 		if (fields == null) fields = cache(type);
@@ -160,16 +198,38 @@ public class FieldSerializer extends Serializer {
 		}
 	}
 
+	/**
+	 * The Class CachedField.
+	 */
 	static class CachedField {
+		
+		/** The field. */
 		public Field field;
+		
+		/** The serializer. */
 		public Serializer serializer;
+		
+		/** The can be null. */
 		public boolean canBeNull;
 
+		/* (non-Javadoc)
+		 * @see java.lang.Object#toString()
+		 */
 		public String toString () {
 			return field.getName();
 		}
 	}
 
+	/**
+	 * Put.
+	 *
+	 * @param connectionHandler the connection handler
+	 * @param buffer the buffer
+	 * @param object the object
+	 * @param fieldsAreNotNull the fields are not null
+	 * @param setFieldsAsAccessible the set fields as accessible
+	 * @throws SerializationException the serialization exception
+	 */
 	static public void put (ConnectionHandler connectionHandler, ByteBuffer buffer, Object object, boolean fieldsAreNotNull,
 		boolean setFieldsAsAccessible) throws SerializationException {
 		instance.fieldsAreNotNull = fieldsAreNotNull;
@@ -177,6 +237,18 @@ public class FieldSerializer extends Serializer {
 		instance.writeObjectData(connectionHandler, buffer, object, false);
 	}
 
+	/**
+	 * Gets the.
+	 *
+	 * @param <T> the generic type
+	 * @param connectionHandler the connection handler
+	 * @param buffer the buffer
+	 * @param type the type
+	 * @param fieldsAreNotNull the fields are not null
+	 * @param setFieldsAsAccessible the set fields as accessible
+	 * @return the t
+	 * @throws SerializationException the serialization exception
+	 */
 	static public <T> T get (ConnectionHandler connectionHandler, ByteBuffer buffer, Class<T> type, boolean fieldsAreNotNull,
 		boolean setFieldsAsAccessible) throws SerializationException {
 		instance.fieldsAreNotNull = fieldsAreNotNull;

@@ -36,10 +36,46 @@ import java.util.HashMap;
 
 import synergynetframework.appsystem.contentsystem.items.utils.ImageInfo;
 
+
+/**
+ * The Interface IRoundFrameImplementation.
+ */
 public interface IRoundFrameImplementation extends IRoundContentItemImplementation {
+	
+	/**
+	 * Draw image.
+	 *
+	 * @param imageResource the image resource
+	 */
 	public void drawImage(URL imageResource);
+	
+	/**
+	 * Draw image.
+	 *
+	 * @param imageResource the image resource
+	 * @param x the x
+	 * @param y the y
+	 * @param width the width
+	 * @param height the height
+	 */
 	public void drawImage(URL imageResource, int x, int y, int width, int height);
+	
+	/**
+	 * Removes the image.
+	 *
+	 * @param imageResource the image resource
+	 */
 	public void removeImage(URL imageResource);
+	
+	/**
+	 * Removes the all images.
+	 */
 	public void removeAllImages();
+	
+	/**
+	 * Gets the images.
+	 *
+	 * @return the images
+	 */
 	public HashMap<URL, ImageInfo> getImages();
 }

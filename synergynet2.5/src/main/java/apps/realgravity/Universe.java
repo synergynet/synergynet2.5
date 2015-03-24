@@ -41,13 +41,26 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+/**
+ * The Class Universe.
+ */
 public class Universe {
+	
+	/** The Constant zero. */
 	private static final Double zero = new Point.Double();
 	// universal gravitational constant  (m3 kg-1 s-2)
+	/** The g. */
 	public static double G = 6.67300E-11;
 
+	/** The entities. */
 	protected Map<String,MassEntity> entities = new HashMap<String,MassEntity>();
 
+	/**
+	 * Update motion.
+	 *
+	 * @param elapsedTime the elapsed time
+	 */
 	public void updateMotion(double elapsedTime) {
 		// work with cloned list to avoid ordering issues in which changes are made
 		List<MassEntity> tempEntities = new ArrayList<MassEntity>();
@@ -78,6 +91,13 @@ public class Universe {
 
 	}
 
+	/**
+	 * Gets the forces.
+	 *
+	 * @param e the e
+	 * @param localEntities the local entities
+	 * @return the forces
+	 */
 	private synchronized Double getForces(MassEntity e, Collection<MassEntity> localEntities) {
 		Point.Double force = new Point.Double();
 		for(MassEntity x : localEntities) {
@@ -93,15 +113,35 @@ public class Universe {
 		return force;
 	}
 
+	/**
+	 * Gets the force.
+	 *
+	 * @param e the e
+	 * @param x the x
+	 * @return the force
+	 */
 	public static double getForce(MassEntity e, MassEntity x) {
 		// G . M1 . M2 / d^2
 		return (G * e.getMass() * x.getMass()) / Math.pow(e.getPos().distance(x.getPos()), 2);		
 	}
 
+	/**
+	 * Adds the.
+	 *
+	 * @param p the p
+	 */
 	public synchronized void add(MassEntity p) {
 		entities.put(p.getName(), p);		
 	}
 
+	/**
+	 * Render.
+	 *
+	 * @param g2d the g2d
+	 * @param screenWidth the screen width
+	 * @param screenHeight the screen height
+	 * @param metersPerPixel the meters per pixel
+	 */
 	public void render(Graphics2D g2d, int screenWidth, int screenHeight, double metersPerPixel) {
 		synchronized(this) {
 			for(MassEntity e : entities.values())
@@ -109,6 +149,11 @@ public class Universe {
 		}
 	}
 
+	/**
+	 * Cull far away.
+	 *
+	 * @param viewableUniverseWidth the viewable universe width
+	 */
 	public void cullFarAway(double viewableUniverseWidth) {
 		
 		synchronized(this) {
@@ -124,6 +169,11 @@ public class Universe {
 		}
 	}
 
+	/**
+	 * Gets the entity count.
+	 *
+	 * @return the entity count
+	 */
 	public int getEntityCount() {
 		return entities.size();
 	}

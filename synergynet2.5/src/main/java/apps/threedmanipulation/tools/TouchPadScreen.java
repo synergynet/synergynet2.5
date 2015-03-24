@@ -28,17 +28,45 @@ import com.jme.util.geom.BufferUtils;
 import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.jme.cursorsystem.elements.twod.OrthoBringToTop;
 
+
+/**
+ * The Class TouchPadScreen.
+ */
 public class TouchPadScreen extends Node{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 5768509222221148746L;
+	
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The width. */
 	protected float width;
+	
+	/** The screen quad. */
 	protected Quad screenQuad;
+	
+	/** The screen frame. */
 	protected Quad screenFrame;
+	
+	/** The manipulated ojbect. */
 	protected Spatial manipulatedOjbect;
+	
+	/** The telescope manipulate ojbect. */
 	protected OjbectManipulation telescopeManipulateOjbect;
+	
+	/** The line. */
 	protected Line line;
 		
+	/**
+	 * Instantiates a new touch pad screen.
+	 *
+	 * @param name the name
+	 * @param contentSystem the content system
+	 * @param width the width
+	 * @param manipulatabledOjbect the manipulatabled ojbect
+	 * @param line the line
+	 */
 	public TouchPadScreen(String name, ContentSystem contentSystem, float width, Spatial manipulatabledOjbect, Line line){
 		super(name);
 		this.contentSystem = contentSystem;
@@ -50,6 +78,9 @@ public class TouchPadScreen extends Node{
 		buildScreenFrame();				
 	}
 	
+	/**
+	 * Builds the screen quad.
+	 */
 	public void buildScreenQuad(){
 		screenQuad = new Quad(name+"screenQuad", width+50, width);
 		screenQuad.setModelBound(new OrthogonalBoundingBox());
@@ -85,6 +116,9 @@ public class TouchPadScreen extends Node{
 		
 	}
 	
+	/**
+	 * Builds the screen frame.
+	 */
 	public void buildScreenFrame(){
 		screenFrame = new Quad(name+"screenFrame", width+60, width+30);
 		screenFrame.setModelBound(new OrthogonalBoundingBox());
@@ -161,6 +195,11 @@ public class TouchPadScreen extends Node{
 	}
 	
 	
+	/**
+	 * Gets the screen quad.
+	 *
+	 * @return the screen quad
+	 */
 	public Quad getScreenQuad(){
 		return screenQuad;
 	}

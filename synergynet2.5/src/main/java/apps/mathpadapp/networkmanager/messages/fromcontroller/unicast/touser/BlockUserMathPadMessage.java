@@ -34,12 +34,26 @@ package apps.mathpadapp.networkmanager.messages.fromcontroller.unicast.touser;
 import apps.mathpadapp.networkmanager.utils.UserIdentity;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class BlockUserMathPadMessage.
+ */
 public class BlockUserMathPadMessage extends ControllerToUserMessage {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1558455400434548461L;
 
+	/** The is blocked. */
 	boolean isBlocked = false;
 	
+	/**
+	 * Instantiates a new block user math pad message.
+	 *
+	 * @param targetClass the target class
+	 * @param tableId the table id
+	 * @param userId the user id
+	 * @param isBlocked the is blocked
+	 */
 	public BlockUserMathPadMessage(Class<?> targetClass, TableIdentity tableId, UserIdentity userId, boolean isBlocked) {
 		super(targetClass);
 		this.setRecipient(tableId);
@@ -47,10 +61,20 @@ public class BlockUserMathPadMessage extends ControllerToUserMessage {
 		this.isBlocked = isBlocked;
 	}
 	
+	/**
+	 * Checks if is block pad.
+	 *
+	 * @return true, if is block pad
+	 */
 	public boolean isBlockPad(){
 		return isBlocked;
 	}
 	
+	/**
+	 * Block pad.
+	 *
+	 * @param isBlocked the is blocked
+	 */
 	public void blockPad(boolean isBlocked){
 		this.isBlocked = isBlocked;
 	}

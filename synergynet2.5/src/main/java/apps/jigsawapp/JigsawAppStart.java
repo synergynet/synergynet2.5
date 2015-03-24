@@ -26,37 +26,83 @@ import synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp;
 import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightConfirmVisualExit;
 
+
+/**
+ * The Class JigsawAppStart.
+ */
 public class JigsawAppStart extends DefaultSynergyNetApp{
 
+	/** The content system. */
 	ContentSystem contentSystem;
 
+	/** The L01. */
 	private Level L01;
+	
+	/** The L02. */
 	private Level L02;
+	
+	/** The L03. */
 	private Level L03;
+	
+	/** The L04. */
 	private Level L04;
 	
+	/** The image1. */
 	private Frame image1; 
+	
+	/** The image2. */
 	private Frame image2; 
+	
+	/** The image3. */
 	private Frame image3; 
+	
+	/** The image4. */
 	private Frame image4;
 	
+	/** The L01 text. */
 	private TextLabel L01Text;
+	
+	/** The L02 text. */
 	private TextLabel L02Text;
+	
+	/** The L03 text. */
 	private TextLabel L03Text;
+	
+	/** The L04 text. */
 	private TextLabel L04Text;
 	
+	/** The mini_images. */
 	private ArrayList<Frame> mini_images = new ArrayList<Frame>();
 	
+	/** The Back text. */
 	private TextLabel BackText;
+	
+	/** The See original. */
 	private TextLabel SeeOriginal;
+	
+	/** The Current level. */
 	private int CurrentLevel;
+    
+    /** The See original status. */
     private boolean SeeOriginalStatus= true; 
+	
+	/** The Temp image. */
 	private Frame TempImage;
 	
+	/**
+	 * Instantiates a new jigsaw app start.
+	 *
+	 * @param info the info
+	 */
 	public JigsawAppStart(ApplicationInfo info) {
 		super(info);
 	}
 	
+	/**
+	 * Sets the initial surface visibility.
+	 *
+	 * @param v the v
+	 */
 	public void SetInitialSurfaceVisibility (boolean v)
 	{
 		image1.setVisible(v);
@@ -70,6 +116,9 @@ public class JigsawAppStart extends DefaultSynergyNetApp{
 		L04Text.setVisible(v);
 	}
 	
+	/**
+	 * Removes the image chunks.
+	 */
 	public void RemoveImageChunks ()
 	{
 		for (int i= 0; i < mini_images.size(); ++i)
@@ -80,6 +129,11 @@ public class JigsawAppStart extends DefaultSynergyNetApp{
 		mini_images.clear();
 	}	
 	
+	/**
+	 * Play level.
+	 *
+	 * @param ChosenLevel the chosen level
+	 */
 	public void PlayLevel (Level ChosenLevel)
 	{
 		// read the image file
@@ -336,6 +390,9 @@ public class JigsawAppStart extends DefaultSynergyNetApp{
 		});
 	}
 
+	/**
+	 * Clean temp images.
+	 */
 	public void CleanTempImages ()
 	{
 		String path= System.getProperty ("user.dir") + "/src/main/resources/apps/jigsawapp/Images Chunks";
@@ -346,6 +403,9 @@ public class JigsawAppStart extends DefaultSynergyNetApp{
 	    	f.delete();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	public void addContent()
 	{
 		CleanTempImages ();

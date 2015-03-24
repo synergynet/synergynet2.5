@@ -35,8 +35,17 @@ package synergynetframework.appsystem.contentsystem.jme.items;
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ISimpleButton;
 
+
+/**
+ * The Class JMESimpleButton.
+ */
 public class JMESimpleButton extends JMETextLabel implements ISimpleButton{
 
+	/**
+	 * Instantiates a new JME simple button.
+	 *
+	 * @param contentItem the content item
+	 */
 	public JMESimpleButton(ContentItem contentItem) {
 		super(contentItem);
 	}

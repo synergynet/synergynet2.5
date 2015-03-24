@@ -39,22 +39,43 @@ import apps.mathpadapp.networkmanager.utils.UserIdentity;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.UnicastApplicationMessage;
 
+
+/**
+ * The Class UnicastMathPadSyncMessage.
+ */
 public class UnicastMathPadSyncMessage extends UnicastApplicationMessage /*implements UDPMessage*/{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -546746341111227474L;
 	
+	/** The sync data. */
 	protected HashMap<UserIdentity,HashMap<Short,Object>> syncData = new HashMap<UserIdentity,HashMap<Short,Object>>();
 	
+	/**
+	 * Instantiates a new unicast math pad sync message.
+	 */
 	public UnicastMathPadSyncMessage(){
 		super();
 	}
 	
+	/**
+	 * Instantiates a new unicast math pad sync message.
+	 *
+	 * @param targetClass the target class
+	 * @param syncData the sync data
+	 * @param tableId the table id
+	 */
 	public UnicastMathPadSyncMessage(Class<?> targetClass, HashMap<UserIdentity,HashMap<Short,Object>> syncData, TableIdentity tableId) {
 		super(targetClass);
 		this.syncData = syncData;
 		this.setRecipient(tableId);
 	}
 
+	/**
+	 * Gets the math pad sync data.
+	 *
+	 * @return the math pad sync data
+	 */
 	public HashMap<UserIdentity,HashMap<Short,Object>> getMathPadSyncData(){
 		return syncData;
 	}

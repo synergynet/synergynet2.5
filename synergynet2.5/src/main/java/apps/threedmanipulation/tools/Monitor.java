@@ -22,18 +22,39 @@ import com.jme.scene.Spatial;
 import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
 
+
+/**
+ * The Class Monitor.
+ */
 public class Monitor {
 
+	/** The cam node. */
 	private CameraNode camNode;
 
+	/** The t renderer. */
 	private TextureRenderer tRenderer;
+	
+	/** The fake tex. */
 	private Texture2D fakeTex;
+	
+	/** The monitor screen. */
 	private MonitorScreen monitorScreen;
+	
+	/** The tool listeners. */
 	protected List<ToolListener> toolListeners = new ArrayList<ToolListener>();  
+	
+	/** The world node. */
 	private Node worldNode;
+	
+	/** The ortho node. */
 	private Node orthoNode;
+	
+	/** The camera model. */
 	private CameraModel cameraModel;
 	  
+	/**
+	 * Cleanup.
+	 */
 	public void cleanup() {
 		tRenderer.cleanup();
 		worldNode.detachChild(camNode);
@@ -42,10 +63,30 @@ public class Monitor {
 		orthoNode.updateGeometricState(0f, false);
 	}
 
+	/**
+	 * Render.
+	 *
+	 * @param renderedNode the rendered node
+	 */
 	public void render(Node renderedNode) {
 		tRenderer.render(renderedNode, fakeTex);
 	}
 	
+	/**
+	 * Instantiates a new monitor.
+	 *
+	 * @param name the name
+	 * @param contentSystem the content system
+	 * @param worldNode the world node
+	 * @param orthoNode the ortho node
+	 * @param manipulatableOjbects the manipulatable ojbects
+	 * @param mainCameraPosition the main camera position
+	 * @param initMonitorPosition the init monitor position
+	 * @param initCameraZoom the init camera zoom
+	 * @param monitorWidth the monitor width
+	 * @param skinColor the skin color
+	 * @param mode the mode
+	 */
 	public Monitor(String name, ContentSystem contentSystem, Node worldNode, Node orthoNode, List<Spatial> manipulatableOjbects, Vector3f mainCameraPosition, Vector2f initMonitorPosition, float initCameraZoom, float monitorWidth, String skinColor, String mode){
 		
 		this.worldNode = worldNode;
@@ -107,27 +148,57 @@ public class Monitor {
 		
 	}
 	
+	/**
+	 * Adds the tool listener.
+	 *
+	 * @param l the l
+	 */
 	public void addToolListener(ToolListener l){
 		toolListeners.add(l);
 	}
 
+	/**
+	 * Removes the tool listener.
+	 *
+	 * @param l the l
+	 */
 	public void removeToolListener(ToolListener l){
 		if (toolListeners.contains(l))
 			toolListeners.remove(l);
 	}
 	
+	/**
+	 * Gets the monitor screen.
+	 *
+	 * @return the monitor screen
+	 */
 	public MonitorScreen getMonitorScreen(){
 		return this.monitorScreen;
 	}
 	
+	/**
+	 * Update.
+	 *
+	 * @param tpf the tpf
+	 */
 	public void update(float tpf){
 		monitorScreen.update(tpf);
 	}
 	
+	/**
+	 * Gets the camera model.
+	 *
+	 * @return the camera model
+	 */
 	public CameraModel getCameraModel(){
 		return cameraModel;
 	}
 	
+	/**
+	 * Sets the mode.
+	 *
+	 * @param mode the new mode
+	 */
 	public void setMode(String mode){
 		monitorScreen.setMode(mode);
 	}

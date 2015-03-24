@@ -32,15 +32,32 @@
 
 package synergynetframework.appsystem.table.animationsystem;
 
+
+/**
+ * The Class AnimationElement.
+ */
 public abstract class AnimationElement {
 	
+	/** The enabled. */
 	protected boolean enabled;
+	
+	/** The first call. */
 	protected boolean firstCall = true;
 
+	/**
+	 * Enable.
+	 *
+	 * @param b the b
+	 */
 	public void enable(boolean b) {
 		this.enabled = b;
 	}
 	
+	/**
+	 * Update state.
+	 *
+	 * @param tpf the tpf
+	 */
 	public void updateState(float tpf) {
 		if(firstCall) {
 			elementStart(tpf);
@@ -49,11 +66,35 @@ public abstract class AnimationElement {
 		updateAnimationState(tpf);
 	}
 	
+	/**
+	 * Reset.
+	 */
 	public abstract void reset();
+	
+	/**
+	 * Element start.
+	 *
+	 * @param tpf the tpf
+	 */
 	public abstract void elementStart(float tpf);
+	
+	/**
+	 * Update animation state.
+	 *
+	 * @param tpf the tpf
+	 */
 	public abstract void updateAnimationState(float tpf);
+	
+	/**
+	 * Checks if is finished.
+	 *
+	 * @return true, if is finished
+	 */
 	public abstract boolean isFinished();
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return this.getClass().getName();
 	}

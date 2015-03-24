@@ -37,21 +37,41 @@ import java.net.URL;
 import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IPPTViewerImplementation;
 
+
+/**
+ * The Class PPTViewer.
+ */
 public class PPTViewer extends DocViewer implements IPPTViewerImplementation {
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -8279443252885792979L;
 
+	/** The ppt file. */
 	private URL pptFile;	
 
+	/**
+	 * Instantiates a new PPT viewer.
+	 *
+	 * @param contentSystem the content system
+	 * @param name the name
+	 */
 	public PPTViewer(ContentSystem contentSystem, String name) {
 		super(contentSystem, name);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IPPTViewerImplementation#setPPTFile(java.net.URL)
+	 */
 	public void setPPTFile(URL pptFile) {
 		this.pptFile = pptFile;
 		((IPPTViewerImplementation)this.contentItemImplementation).setPPTFile(pptFile);
 	}
 	
+	/**
+	 * Gets the PPT file.
+	 *
+	 * @return the PPT file
+	 */
 	public URL getPPTFile() {
 		return pptFile;
 		

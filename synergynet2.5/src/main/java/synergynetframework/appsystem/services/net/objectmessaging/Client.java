@@ -52,21 +52,45 @@ import synergynetframework.appsystem.services.net.objectmessaging.messages.frame
 import synergynetframework.appsystem.services.net.objectmessaging.utility.serializers.SerializationException;
 
 
+
+/**
+ * The Class Client.
+ */
 public class Client extends ConnectionHandler implements EndPoint {
 	
+	/** The Constant log. */
 	public static final Logger log = Logger.getLogger(Client.class.getName());
 	
+	/** The selector. */
 	private Selector selector;
+	
+	/** The udp registered. */
 	private boolean udpRegistered;
+	
+	/** The udp registration lock. */
 	private Object udpRegistrationLock = new Object();
+	
+	/** The shutdown. */
 	private volatile boolean shutdown;
+	
+	/** The update lock. */
 	private Object updateLock = new Object();
+	
+	/** The update thread. */
 	private Thread updateThread;
 
+	/**
+	 * Instantiates a new client.
+	 */
 	public Client () {
 		this(1024 * 1024);
 	}
 
+	/**
+	 * Instantiates a new client.
+	 *
+	 * @param bufferSize the buffer size
+	 */
 	public Client (int bufferSize) {
 		super(bufferSize);
 		endPoint = this;
@@ -77,18 +101,52 @@ public class Client extends ConnectionHandler implements EndPoint {
 		}
 	}
 
+	/**
+	 * Connect.
+	 *
+	 * @param timeout the timeout
+	 * @param host the host
+	 * @param tcpPort the tcp port
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void connect (int timeout, String host, int tcpPort) throws IOException {
 		connect(timeout, InetAddress.getByName(host), tcpPort, -1);
 	}
 
+	/**
+	 * Connect.
+	 *
+	 * @param timeout the timeout
+	 * @param host the host
+	 * @param tcpPort the tcp port
+	 * @param udpPort the udp port
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void connect (int timeout, String host, int tcpPort, int udpPort) throws IOException {
 		connect(timeout, InetAddress.getByName(host), tcpPort, udpPort);
 	}
 
+	/**
+	 * Connect.
+	 *
+	 * @param timeout the timeout
+	 * @param host the host
+	 * @param tcpPort the tcp port
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void connect (int timeout, InetAddress host, int tcpPort) throws IOException {
 		connect(timeout, host, tcpPort, -1);
 	}
 
+	/**
+	 * Connect.
+	 *
+	 * @param timeout the timeout
+	 * @param host the host
+	 * @param tcpPort the tcp port
+	 * @param udpPort the udp port
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void connect (int timeout, InetAddress host, int tcpPort, int udpPort) throws IOException {
 		if (host == null) throw new IllegalArgumentException("host cannot be null.");
 		close();
@@ -144,6 +202,9 @@ public class Client extends ConnectionHandler implements EndPoint {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.EndPoint#update(int)
+	 */
 	public void update (int timeout) throws IOException, SerializationException {
 		updateThread = Thread.currentThread();
 		synchronized (updateLock) { 
@@ -193,6 +254,9 @@ public class Client extends ConnectionHandler implements EndPoint {
 		if (udp != null && udpRegistered && udp.needsKeepAlive()) sendUDP(new KeepAlive());
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.EndPoint#run()
+	 */
 	public void run () {
 		log.info("Client thread started.");
 		shutdown = false;
@@ -215,6 +279,9 @@ public class Client extends ConnectionHandler implements EndPoint {
 			} 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.EndPoint#stop()
+	 */
 	public void stop () {
 		close();
 		log.info("Client thread stopping.");
@@ -222,23 +289,40 @@ public class Client extends ConnectionHandler implements EndPoint {
 		selector.wakeup();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler#close()
+	 */
 	public void close () {
 		super.close();
 		udpRegistered = false;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler#addMessageHandler(synergynetframework.appsystem.services.net.objectmessaging.connections.MessageHandler)
+	 */
 	public void addMessageHandler (MessageHandler handler) {
 		super.addMessageHandler(handler);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler#removeMessageHandler(synergynetframework.appsystem.services.net.objectmessaging.connections.MessageHandler)
+	 */
 	public void removeMessageHandler (MessageHandler listener) {
 		super.removeMessageHandler(listener);
 	}
 
+	/**
+	 * Checks if is connected.
+	 *
+	 * @return true, if is connected
+	 */
 	public boolean isConnected () {
 		return id != -1;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.EndPoint#getUpdateThread()
+	 */
 	public Thread getUpdateThread () {
 		return updateThread;
 	}

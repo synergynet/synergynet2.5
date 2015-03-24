@@ -39,40 +39,72 @@ import synergynetframework.appsystem.contentsystem.items.implementation.interfac
 import synergynetframework.appsystem.contentsystem.items.listener.ItemListener;
 import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonListener;
 
+
+/**
+ * The Class SimpleButton.
+ */
 public class SimpleButton extends TextLabel implements ItemListener, ISimpleButton{	
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2022191445971266719L;
 	
+	/** The listeners. */
 	protected transient List<SimpleButtonListener> listeners = new ArrayList<SimpleButtonListener>();
 
+	/**
+	 * Instantiates a new simple button.
+	 *
+	 * @param contentSystem the content system
+	 * @param name the name
+	 */
 	public SimpleButton(ContentSystem contentSystem, String name) {
 		super(contentSystem, name);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.OrthoContentItem#fireCursorChanged(long, float, float, float)
+	 */
 	@Override
 	public void fireCursorChanged(long id, float x, float y, float pressure) {
 		super.fireCursorChanged(id, x, y, pressure);
 		this.fireButtonDragged(id, x, y, pressure);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.OrthoContentItem#fireCursorClicked(long, float, float, float)
+	 */
 	@Override
 	public void fireCursorClicked(long id, float x, float y, float pressure) {
 		super.fireCursorClicked(id, x, y, pressure);
 		this.fireButtonClicked(id, x, y, pressure);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.OrthoContentItem#fireCursorPressed(long, float, float, float)
+	 */
 	@Override
 	public void fireCursorPressed(long id, float x, float y, float pressure) {
 		super.fireCursorPressed(id, x, y, pressure);
 		this.fireButtonPressed(id, x, y, pressure);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.OrthoContentItem#fireCursorReleased(long, float, float, float)
+	 */
 	@Override
 	public void fireCursorReleased(long id, float x, float y, float pressure) {
 		super.fireCursorReleased(id, x, y, pressure);
 		this.fireButtonReleased(id, x, y, pressure);
 	}
 
+	/**
+	 * Fire button pressed.
+	 *
+	 * @param id the id
+	 * @param x the x
+	 * @param y the y
+	 * @param pressure the pressure
+	 */
 	public void fireButtonPressed(long id, float x, float y, float pressure) {
 		if(this.isRotateTranslateScaleEnabled()){	
 			for(SimpleButtonListener l : listeners) {
@@ -81,6 +113,14 @@ public class SimpleButton extends TextLabel implements ItemListener, ISimpleButt
 		}
 	}
 	
+	/**
+	 * Fire button dragged.
+	 *
+	 * @param id the id
+	 * @param x the x
+	 * @param y the y
+	 * @param pressure the pressure
+	 */
 	public void fireButtonDragged(long id, float x, float y, float pressure) {
 		if(this.isRotateTranslateScaleEnabled()){	
 			for(SimpleButtonListener l : listeners) {
@@ -89,6 +129,14 @@ public class SimpleButton extends TextLabel implements ItemListener, ISimpleButt
 		}
 	}
 	
+	/**
+	 * Fire button released.
+	 *
+	 * @param id the id
+	 * @param x the x
+	 * @param y the y
+	 * @param pressure the pressure
+	 */
 	public void fireButtonReleased(long id, float x, float y, float pressure) {
 		if(this.isRotateTranslateScaleEnabled()){	
 			for(SimpleButtonListener l : listeners) {
@@ -97,6 +145,14 @@ public class SimpleButton extends TextLabel implements ItemListener, ISimpleButt
 		}
 	}
 	
+	/**
+	 * Fire button clicked.
+	 *
+	 * @param id the id
+	 * @param x the x
+	 * @param y the y
+	 * @param pressure the pressure
+	 */
 	public void fireButtonClicked(long id, float x, float y, float pressure) {
 		if(this.isRotateTranslateScaleEnabled()){	
 			for(SimpleButtonListener l : listeners) {
@@ -105,12 +161,20 @@ public class SimpleButton extends TextLabel implements ItemListener, ISimpleButt
 		}
 	}
 		
+	/**
+	 * Adds the button listener.
+	 *
+	 * @param l the l
+	 */
 	public void addButtonListener(SimpleButtonListener l) {
 		if(!listeners.contains(l)) listeners.add(l);
 	}
 	
 
 	
+	/**
+	 * Removes the button listeners.
+	 */
 	public void removeButtonListeners(){
 		listeners.clear();
 	}

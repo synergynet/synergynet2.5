@@ -34,24 +34,50 @@ package synergynetframework.appsystem.services.net.networkedcontentmanager.messa
 
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class EnableMenu.
+ */
 public class EnableMenu extends BroadcastApplicationMessage {	
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -1301799851207865934L;
+	
+	/** The is menu enabled. */
 	private boolean isMenuEnabled;
 	
+	/**
+	 * Instantiates a new enable menu.
+	 *
+	 * @param targetClass the target class
+	 * @param isMenuEnabled the is menu enabled
+	 */
 	public EnableMenu(Class<?> targetClass, boolean isMenuEnabled) {
 		super(targetClass);
 		this.isMenuEnabled = isMenuEnabled;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return "Enable/Disable Menu";
 	}
 
+	/**
+	 * Checks if is menu enabled.
+	 *
+	 * @return true, if is menu enabled
+	 */
 	public boolean isMenuEnabled() {
 		return isMenuEnabled;
 	}
 
+	/**
+	 * Sets the menu enabled.
+	 *
+	 * @param isMenuEnabled the new menu enabled
+	 */
 	public void setMenuEnabled(boolean isMenuEnabled) {
 		this.isMenuEnabled = isMenuEnabled;
 	}

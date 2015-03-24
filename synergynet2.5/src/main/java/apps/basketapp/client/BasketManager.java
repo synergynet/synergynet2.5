@@ -28,16 +28,35 @@ import synergynetframework.mtinput.IMultiTouchEventListener;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 import synergynetframework.mtinput.events.MultiTouchObjectEvent;
 
+
+/**
+ * The Class BasketManager.
+ */
 public class BasketManager implements IMultiTouchEventListener{
 	
+	/** The baskets. */
 	private List<Basket> baskets = new ArrayList<Basket>();
+	
+	/** The pick system. */
 	private IJMEMultiTouchPicker pickSystem;
+	
+	/** The ortho node. */
 	protected Node orthoNode;
+	
+	/** The content system. */
 	protected ContentSystem contentSystem;
 
+	/** The check delay. */
 	protected float checkDelay = 2f;
+	
+	/** The frame rate. */
 	protected float frameRate = checkDelay;
 	
+	/**
+	 * Instantiates a new basket manager.
+	 *
+	 * @param app the app
+	 */
 	public BasketManager(DefaultSynergyNetApp app){
 		pickSystem = MultiTouchInputFilterManager.getInstance().getPickingSystem();
 		orthoNode = app.getOrthoNode();
@@ -45,11 +64,17 @@ public class BasketManager implements IMultiTouchEventListener{
 		SynergyNetDesktop.getInstance().getMultiTouchInputComponent().registerMultiTouchEventListener(this);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorPressed(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorPressed(MultiTouchCursorEvent event) {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorReleased(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorReleased(MultiTouchCursorEvent event) {
 		int x = SynergyNetDesktop.getInstance().tableToScreenX(event.getPosition().x);
@@ -80,36 +105,57 @@ public class BasketManager implements IMultiTouchEventListener{
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorClicked(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorClicked(MultiTouchCursorEvent event) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorChanged(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorChanged(MultiTouchCursorEvent event) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectAdded(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	@Override
 	public void objectAdded(MultiTouchObjectEvent event) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectRemoved(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	@Override
 	public void objectRemoved(MultiTouchObjectEvent event) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectChanged(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	@Override
 	public void objectChanged(MultiTouchObjectEvent event) {
 		 
 		
 	}
 	
+	/**
+	 * Gets the picked items.
+	 *
+	 * @param spatials the spatials
+	 * @return the picked items
+	 */
 	private List<ContentItem> getPickedItems(List<Spatial> spatials){
 		List<ContentItem> items = new ArrayList<ContentItem>();
 		for(Spatial spatial: spatials){
@@ -121,6 +167,13 @@ public class BasketManager implements IMultiTouchEventListener{
 		return items;
 	}
 	
+	/**
+	 * Gets the picked spatials.
+	 *
+	 * @param id the id
+	 * @param position the position
+	 * @return the picked spatials
+	 */
 	private List<Spatial> getPickedSpatials(long id, Vector2f position)
 	{
 		PickRequest req = new PickRequest(id, position);
@@ -143,6 +196,12 @@ public class BasketManager implements IMultiTouchEventListener{
 		return pickedSpatials;
 	}
 	
+	/**
+	 * Checks if is basket.
+	 *
+	 * @param objectName the object name
+	 * @return true, if is basket
+	 */
 	private boolean isBasket(String objectName) {
 		for(Basket basket: baskets){
 			if(basket.getWindow().getName().equalsIgnoreCase(objectName) || basket.getWindow().getBackgroundFrame().getName().equalsIgnoreCase(objectName))
@@ -151,6 +210,12 @@ public class BasketManager implements IMultiTouchEventListener{
 		return false;
 	}
 	
+	/**
+	 * Gets the picked basket.
+	 *
+	 * @param spatials the spatials
+	 * @return the picked basket
+	 */
 	private Basket getPickedBasket(List<Spatial> spatials){
 		for(Basket basket: baskets){
 			for(Spatial spatial: spatials){
@@ -161,17 +226,33 @@ public class BasketManager implements IMultiTouchEventListener{
 		return null;
 	}
 	
+	/**
+	 * Gets the container basket for item.
+	 *
+	 * @param item the item
+	 * @return the container basket for item
+	 */
 	private Basket getContainerBasketForItem(ContentItem item){
 		for(Basket basket: baskets)
 			if(basket.getWindow().getAllItemsIncludeSystemItems().contains(item)) return basket;
 		return null;
 	}
 	
+	/**
+	 * Register basket.
+	 *
+	 * @param basket the basket
+	 */
 	public void registerBasket(Basket basket){
 		if(!baskets.contains(basket))
 			baskets.add(basket);
 	}
 	
+	/**
+	 * Unregister basket.
+	 *
+	 * @param basket the basket
+	 */
 	public void unregisterBasket(Basket basket){
 		if(baskets.contains(basket)){
 			contentSystem.removeContentItem(basket.getWindow());
@@ -179,6 +260,12 @@ public class BasketManager implements IMultiTouchEventListener{
 		}
 	}
 
+	/**
+	 * Checks if is registered.
+	 *
+	 * @param tableId the table id
+	 * @return true, if is registered
+	 */
 	public boolean isRegistered(TableIdentity tableId){
 		for(Basket basket: baskets){
 			if(basket.getTableId().equals(tableId))
@@ -187,6 +274,12 @@ public class BasketManager implements IMultiTouchEventListener{
 		return false;
 	}
 	
+	/**
+	 * Gets the basket.
+	 *
+	 * @param tableId the table id
+	 * @return the basket
+	 */
 	public Basket getBasket(TableIdentity tableId){
 		for(Basket basket: baskets){
 			if(basket.getTableId().equals(tableId))
@@ -195,10 +288,20 @@ public class BasketManager implements IMultiTouchEventListener{
 		return null;
 	}
 
+	/**
+	 * Gets the baskets.
+	 *
+	 * @return the baskets
+	 */
 	public List<Basket> getBaskets(){
 		return baskets;
 	}
 	
+	/**
+	 * Update.
+	 *
+	 * @param tpf the tpf
+	 */
 	public void update(float tpf) {
 		
 		if((frameRate - tpf) > 0){
@@ -209,6 +312,9 @@ public class BasketManager implements IMultiTouchEventListener{
 		frameRate = checkDelay;
 	}
 	
+	/**
+	 * Check connectivity.
+	 */
 	private void checkConnectivity() {
 		
 		List<Basket> temp = new ArrayList<Basket>();
@@ -229,6 +335,9 @@ public class BasketManager implements IMultiTouchEventListener{
 		temp.clear();
 	}
 
+	/**
+	 * Swap baskets.
+	 */
 	public void swapBaskets() {
 		if(RapidNetworkManager.getTableCommsClientService() != null){
 			for(Basket basket: baskets){

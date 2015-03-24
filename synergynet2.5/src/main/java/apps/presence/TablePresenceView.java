@@ -46,12 +46,26 @@ import synergynetframework.appsystem.services.net.tablecomms.client.TableCommsCl
 import synergynetframework.appsystem.table.gfx.FullScreenCanvas;
 import synergynetframework.jme.gfx.twod.DrawableSpatialImage;
 
+
+/**
+ * The Class TablePresenceView.
+ */
 public class TablePresenceView extends FullScreenCanvas implements DrawableSpatialImage {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 6495026220114034607L;
+	
+	/** The gfx. */
 	private ImageGraphics gfx;
+	
+	/** The comms. */
 	private TableCommsClientService comms;
 
+	/**
+	 * Instantiates a new table presence view.
+	 *
+	 * @param name the name
+	 */
 	public TablePresenceView(String name) {
 		super(name);
 		gfx = getGraphics();
@@ -62,22 +76,37 @@ public class TablePresenceView extends FullScreenCanvas implements DrawableSpati
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#cursorDragged(long, int, int)
+	 */
 	@Override
 	public void cursorDragged(long id, int x, int y) {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#cursorPressed(long, int, int)
+	 */
 	@Override
 	public void cursorPressed(long cursorID, int x, int y) {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#cursorReleased(long, int, int)
+	 */
 	@Override
 	public void cursorReleased(long cursorID, int x, int y) {
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#cursorClicked(long, int, int)
+	 */
 	@Override
 	public void cursorClicked(long cursorID, int x, int y) {}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#draw()
+	 */
 	public void draw() {
 		gfx.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		gfx.setColor(Color.DARK_GRAY);
@@ -95,6 +124,9 @@ public class TablePresenceView extends FullScreenCanvas implements DrawableSpati
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#getSpatial()
+	 */
 	public Spatial getSpatial() {
 		return this;
 	}

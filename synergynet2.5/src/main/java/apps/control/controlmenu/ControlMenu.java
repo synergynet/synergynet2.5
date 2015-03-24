@@ -51,13 +51,35 @@ import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.networkedcontentmanager.NetworkedContentManager;
 import synergynetframework.appsystem.services.net.networkedcontentmanager.utils.TableSwapDialogue;
 
+
+/**
+ * The Class ControlMenu.
+ */
 public class ControlMenu {
+	
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The sub app menu. */
 	protected SubAppMenu subAppMenu;
+	
+	/** The background controller. */
 	protected BackgroundController backgroundController;
+	
+	/** The networked content manager. */
 	protected NetworkedContentManager networkedContentManager;
+	
+	/** The control menu. */
 	protected ListContainer controlMenu;
 	
+	/**
+	 * Instantiates a new control menu.
+	 *
+	 * @param contentSystem the content system
+	 * @param networkedContentManager the networked content manager
+	 * @param subAppMenu the sub app menu
+	 * @param backgroundController the background controller
+	 */
 	public ControlMenu(ContentSystem contentSystem, NetworkedContentManager networkedContentManager, SubAppMenu subAppMenu, BackgroundController backgroundController){
 		this.contentSystem = contentSystem;
 		this.subAppMenu = subAppMenu;
@@ -67,6 +89,11 @@ public class ControlMenu {
 		LoadControlMenu();
 	}
 
+	/**
+	 * Load control menu.
+	 *
+	 * @return the list container
+	 */
 	private ListContainer LoadControlMenu(){
 		
 		controlMenu = (ListContainer)contentSystem.createContentItem(ListContainer.class);
@@ -355,6 +382,12 @@ public class ControlMenu {
 		return controlMenu;
 	}
 	
+	/**
+	 * Sets the location.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 */
 	public void setLocation(float x, float y){
 		controlMenu.setLocalLocation(x, y);
 	}

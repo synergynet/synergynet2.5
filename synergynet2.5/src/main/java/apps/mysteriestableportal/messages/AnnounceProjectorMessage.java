@@ -34,14 +34,27 @@ package apps.mysteriestableportal.messages;
 
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class AnnounceProjectorMessage.
+ */
 public class AnnounceProjectorMessage extends BroadcastApplicationMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3611717853521792797L;
 
+	/**
+	 * Instantiates a new announce projector message.
+	 */
 	public AnnounceProjectorMessage(){
 		super();
 	}
 	
+	/**
+	 * Instantiates a new announce projector message.
+	 *
+	 * @param targetClass the target class
+	 */
 	public AnnounceProjectorMessage(Class<?> targetClass){
 		super(targetClass);
 	}

@@ -50,14 +50,36 @@ import synergynetframework.appsystem.contentsystem.items.OrthoContentItem;
 import synergynetframework.appsystem.contentsystem.items.Window;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class RemoteDesktop.
+ */
 public abstract class RemoteDesktop extends GraphNode{
+	
+	/** The desktop window. */
 	protected Window desktopWindow;
+	
+	/** The remote desktop manager. */
 	protected RemoteDesktopManager remoteDesktopManager;
+	
+	/** The table id. */
 	protected TableIdentity tableId;
+	
+	/** The network manager. */
 	protected NetworkedContentManager networkManager;
+	
+	/** The online items. */
 	protected List<ContentItem> onlineItems = new ArrayList<ContentItem>();
+	
+	/** The sync renderer. */
 	protected SyncRenderer syncRenderer;
 	
+	/**
+	 * Instantiates a new remote desktop.
+	 *
+	 * @param contentSystem the content system
+	 * @param networkManager the network manager
+	 */
 	public RemoteDesktop(final ContentSystem contentSystem, final NetworkedContentManager networkManager){
 		super(((ControllerManager)networkManager).getGraphManager(), (Window) contentSystem.createContentItem(Window.class));
 		desktopWindow = (Window)this.getNodeItem();
@@ -88,32 +110,68 @@ public abstract class RemoteDesktop extends GraphNode{
 		});
 	}
 	
+	/**
+	 * Gets the table id.
+	 *
+	 * @return the table id
+	 */
 	public TableIdentity getTableId() {
 		return tableId;
 	}
 
+	/**
+	 * Sets the table id.
+	 *
+	 * @param tableId the new table id
+	 */
 	public void setTableId(TableIdentity tableId) {
 		this.tableId = tableId;
 	}
 
+	/**
+	 * Gets the desktop window.
+	 *
+	 * @return the desktop window
+	 */
 	public Window getDesktopWindow() {
 		return desktopWindow;
 	}
 	
+	/**
+	 * Update node.
+	 */
 	public void updateNode(){
 		this.updateConnectionPoints();
 	}
 	
+	/**
+	 * Creates the sync renderer.
+	 */
 	public abstract void createSyncRenderer();
 	
+	/**
+	 * Gets the sync renderer.
+	 *
+	 * @return the sync renderer
+	 */
 	public SyncRenderer getSyncRenderer(){
 		return syncRenderer;
 	}
 	
+	/**
+	 * Sets the sync renderer.
+	 *
+	 * @param syncRenderer the new sync renderer
+	 */
 	public void setSyncRenderer(SyncRenderer syncRenderer){
 		this.syncRenderer = syncRenderer;
 	}
 
+	/**
+	 * Adds the online item.
+	 *
+	 * @param item the item
+	 */
 	public void addOnlineItem(ContentItem item){
 		this.getDesktopWindow().addSubItem(item);
 		if(item instanceof OrthoContentItem){
@@ -123,6 +181,11 @@ public abstract class RemoteDesktop extends GraphNode{
 		
 	}
 	
+	/**
+	 * Adds the online items.
+	 *
+	 * @param items the items
+	 */
 	public void addOnlineItems(List<ContentItem> items){
 		for(ContentItem item: items){
 			this.getDesktopWindow().addSubItem(item);
@@ -130,15 +193,28 @@ public abstract class RemoteDesktop extends GraphNode{
 		}
 	}
 	
+	/**
+	 * Gets the online items.
+	 *
+	 * @return the online items
+	 */
 	public List<ContentItem> getOnlineItems() {
 		return onlineItems;
 	}
 
+	/**
+	 * Removes the online item.
+	 *
+	 * @param item the item
+	 */
 	public void removeOnlineItem(ContentItem item){
 			this.desktopWindow.removeSubItem(item);
 			onlineItems.remove(item);
 	}
 	
+	/**
+	 * Removes the online items.
+	 */
 	public void removeOnlineItems(){
 		for(ContentItem item: onlineItems)
 			this.desktopWindow.removeSubItem(item);

@@ -40,19 +40,38 @@ import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.appsystem.contentsystem.items.RoundImageLabel;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundImageLabelImplementation;
 
+
+/**
+ * The Class JMERoundImageLabel.
+ */
 public class JMERoundImageLabel extends JMERoundFrame implements IRoundImageLabelImplementation{
 	
+	/** The item. */
 	private RoundImageLabel item;
+	
+	/** The inner image height. */
 	private int innerImageHeight;
+	
+	/** The inner image width. */
 	private int innerImageWidth; 	
+	
+	/** The label width. */
 	private int labelWidth;
 	
+	/**
+	 * Instantiates a new JME round image label.
+	 *
+	 * @param contentItem the content item
+	 */
 	public JMERoundImageLabel(ContentItem contentItem) {
 		super(contentItem);
 		this.item = (RoundImageLabel)contentItem;	
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMERoundFrame#draw()
+	 */
 	protected void draw() {
 		if(item.getImageInfo().getImageResource() != null){
 			Image image = new ImageIcon(item.getImageInfo().getImageResource()).getImage();
@@ -61,6 +80,9 @@ public class JMERoundImageLabel extends JMERoundFrame implements IRoundImageLabe
 		
 	}
 
+	/**
+	 * Resize.
+	 */
 	public void resize(){
 			
 		if (item.isAutoFit()){
@@ -75,16 +97,25 @@ public class JMERoundImageLabel extends JMERoundFrame implements IRoundImageLabe
 		this.updateSize();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundImageLabelImplementation#setImageInfo(java.net.URL)
+	 */
 	@Override
 	public void setImageInfo(URL imageResource) {
 		resize();		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundImageLabelImplementation#setAutoFit(boolean)
+	 */
 	@Override
 	public void setAutoFit(boolean autoFit) {
 		resize();	
 	}	
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMERoundFrame#setRadius(float)
+	 */
 	public void setRadius(float radius){
 		resize();
 	}

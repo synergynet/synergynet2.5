@@ -48,45 +48,90 @@ import synergynetframework.jme.cursorsystem.cursordata.ScreenCursorRecord;
 import synergynetframework.jme.cursorsystem.cursordata.WorldCursorRecord;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 
+
 /**
+ * The Class OrthoControlPointRotateTranslateScale.
  *
  * @author dcs0ah1, pwpp25, dcs2ima
- *
  */
 public class OrthoControlPointRotateTranslateScale extends TwoDMultiTouchElement{
 
+	/** The cursor1 pos. */
 	protected Vector2f cursor1Pos = new Vector2f();
+	
+	/** The cursor2 pos. */
 	protected Vector2f cursor2Pos = new Vector2f();
+	
+	/** The cursor1 old pos. */
 	protected Vector2f cursor1OldPos = new Vector2f();
+	
+	/** The cursor2 old pos. */
 	protected Vector2f cursor2OldPos = new Vector2f();
 
+	/** The max scale. */
 	protected float maxScale = 4.0f;
+	
+	/** The min scale. */
 	protected float minScale = 1f;
 
+	/** The more than two gives rts. */
 	private boolean moreThanTwoGivesRTS = false;
+	
+	/** The single touch free move. */
 	private boolean singleTouchFreeMove = false;
 
+	/** The listeners. */
 	protected List<RotateTranslateScaleListener> listeners = new ArrayList<RotateTranslateScaleListener>();
+	
+	/** The min rotate. */
 	private float minRotate;
+	
+	/** The max rotate. */
 	private float maxRotate;
+	
+	/** The rotate limits. */
 	private boolean rotateLimits = false;
 
+	/**
+	 * Instantiates a new ortho control point rotate translate scale.
+	 *
+	 * @param pickingAndTargetSpatial the picking and target spatial
+	 */
 	public OrthoControlPointRotateTranslateScale(Spatial pickingAndTargetSpatial) {
 		this(pickingAndTargetSpatial, pickingAndTargetSpatial);
 	}
 
+	/**
+	 * Instantiates a new ortho control point rotate translate scale.
+	 *
+	 * @param pickingSpatial the picking spatial
+	 * @param targetSpatial the target spatial
+	 */
 	public OrthoControlPointRotateTranslateScale(Spatial pickingSpatial, Spatial targetSpatial) {
 		super(pickingSpatial, targetSpatial);
 	}
 
+	/**
+	 * Allow more than two to rotate and scale.
+	 *
+	 * @param b the b
+	 */
 	public void allowMoreThanTwoToRotateAndScale(boolean b) {
 		moreThanTwoGivesRTS = b;
 	}
 
+	/**
+	 * Allow single touch free move.
+	 *
+	 * @param b the b
+	 */
 	public void allowSingleTouchFreeMove(boolean b) {
 		singleTouchFreeMove = b;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorChanged(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorChanged(ScreenCursor c, MultiTouchCursorEvent event) {
 		if(screenCursors.size() == 1) {
@@ -112,6 +157,9 @@ public class OrthoControlPointRotateTranslateScale extends TwoDMultiTouchElement
 		}*/
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorPressed(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorPressed(ScreenCursor c, MultiTouchCursorEvent event) {
 		if(screenCursors.size() == 1) {
@@ -141,12 +189,21 @@ public class OrthoControlPointRotateTranslateScale extends TwoDMultiTouchElement
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorReleased(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorReleased(ScreenCursor c, MultiTouchCursorEvent event) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorClicked(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorClicked(ScreenCursor c, MultiTouchCursorEvent event) {}
 
+	/**
+	 * Apply single cursor transform.
+	 */
 	protected void applySingleCursorTransform() {
 
 		float minAngleChange = 0.01f;
@@ -223,6 +280,9 @@ public class OrthoControlPointRotateTranslateScale extends TwoDMultiTouchElement
 
 	}
 
+	/**
+	 * Apply multi cursor transform.
+	 */
 	protected void applyMultiCursorTransform() {
 
 		Vector2f oldCenter = new Vector2f();
@@ -309,6 +369,9 @@ public class OrthoControlPointRotateTranslateScale extends TwoDMultiTouchElement
 		}
 	}
 
+	/**
+	 * Update cursor1.
+	 */
 	protected void updateCursor1() {
 
 		//cursor1Pos.x = getScreenCursorByIndex(0).getCurrentCursorScreenPosition().x;
@@ -326,6 +389,9 @@ public class OrthoControlPointRotateTranslateScale extends TwoDMultiTouchElement
 		//cursor1OldPos.y = getScreenCursorByIndex(0).getOldCursorScreenPosition().y;
 	}
 
+	/**
+	 * Update cursor2.
+	 */
 	protected void updateCursor2() {
 		//cursor2Pos.x = getScreenCursorByIndex(1).getCurrentCursorScreenPosition().x;
 		//cursor2Pos.y = getScreenCursorByIndex(1).getCurrentCursorScreenPosition().y;
@@ -342,26 +408,51 @@ public class OrthoControlPointRotateTranslateScale extends TwoDMultiTouchElement
 		//cursor2OldPos.y = getScreenCursorByIndex(1).getOldCursorScreenPosition().y;
 	}
 
+	/**
+	 * Sets the scale limits.
+	 *
+	 * @param min the min
+	 * @param max the max
+	 */
 	public void setScaleLimits(float min, float max) {
 		minScale = min;
 		maxScale = max;
 	}
 	
+	/**
+	 * Gets the scale max.
+	 *
+	 * @return the scale max
+	 */
 	public float getScaleMax(){
 		return maxScale;
 	}
 	
+	/**
+	 * Gets the scale min.
+	 *
+	 * @return the scale min
+	 */
 	public float getScaleMin(){
 		return minScale;
 	}
 
 
+	/**
+	 * Sets the rotate limits.
+	 *
+	 * @param min the min
+	 * @param max the max
+	 */
 	public void setRotateLimits(float min, float max) {
 		minRotate = min;
 		maxRotate = max;
 		rotateLimits = true;
 	}
 
+	/**
+	 * Sets the old cursor.
+	 */
 	protected void setOldCursor(){
 		for (ScreenCursor c:screenCursors){
 			ScreenCursorRecord s = new ScreenCursorRecord(c.getCurrentCursorScreenPosition().x, c.getCurrentCursorScreenPosition().y );
@@ -369,21 +460,77 @@ public class OrthoControlPointRotateTranslateScale extends TwoDMultiTouchElement
 		}
 	}
 
+	/**
+	 * Adds the rotate translate scale listener.
+	 *
+	 * @param l the l
+	 */
 	public void addRotateTranslateScaleListener(RotateTranslateScaleListener l){
 		listeners.add(l);
 	}
 
+	/**
+	 * Removes the rotate translate scale listener.
+	 *
+	 * @param l the l
+	 */
 	public void removeRotateTranslateScaleListener(RotateTranslateScaleListener l){
 		if (listeners.contains(l))
 			listeners.remove(l);
 	}
 
+	/**
+	 * The listener interface for receiving rotateTranslateScale events.
+	 * The class that is interested in processing a rotateTranslateScale
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addRotateTranslateScaleListener<code> method. When
+	 * the rotateTranslateScale event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see RotateTranslateScaleEvent
+	 */
 	public interface RotateTranslateScaleListener {
+		
+		/**
+		 * Item rotated.
+		 *
+		 * @param multiTouchElement the multi touch element
+		 * @param targetSpatial the target spatial
+		 * @param newAngle the new angle
+		 * @param oldAngle the old angle
+		 */
 		public void itemRotated(OrthoControlPointRotateTranslateScale multiTouchElement, Spatial targetSpatial, float newAngle, float oldAngle);
+		
+		/**
+		 * Item moved.
+		 *
+		 * @param multiTouchElement the multi touch element
+		 * @param targetSpatial the target spatial
+		 * @param newLocationX the new location x
+		 * @param newLocationY the new location y
+		 * @param oldLocationX the old location x
+		 * @param oldLocationY the old location y
+		 */
 		public void itemMoved(OrthoControlPointRotateTranslateScale multiTouchElement, Spatial targetSpatial,  float newLocationX, float newLocationY, float oldLocationX, float oldLocationY);
+		
+		/**
+		 * Item scaled.
+		 *
+		 * @param multiTouchElement the multi touch element
+		 * @param targetSpatial the target spatial
+		 * @param scaleChange the scale change
+		 */
 		public void itemScaled(OrthoControlPointRotateTranslateScale multiTouchElement, Spatial targetSpatial,  float scaleChange);
 	}
 
+	/**
+	 * Screen to table.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @return the vector2f
+	 */
 	private Vector2f screenToTable(float x, float y) {
 
 		if (targetSpatial.getParent()==null)

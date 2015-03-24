@@ -32,6 +32,25 @@
 
 package synergynetframework.appsystem.contentsystem.items.listener;
 
+
+/**
+ * The listener interface for receiving subAppMenuEvent events.
+ * The class that is interested in processing a subAppMenuEvent
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addSubAppMenuEventListener<code> method. When
+ * the subAppMenuEvent event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see SubAppMenuEventEvent
+ */
 public interface SubAppMenuEventListener {
+	
+	/**
+	 * Menu selected.
+	 *
+	 * @param filePath the file path
+	 * @param appName the app name
+	 */
 	public void menuSelected(String filePath, String appName);
 }

@@ -34,9 +34,61 @@ package synergynetframework.appsystem.contentsystem.items.listener;
 
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 
+
+/**
+ * The listener interface for receiving screenCursor events.
+ * The class that is interested in processing a screenCursor
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addScreenCursorListener<code> method. When
+ * the screenCursor event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see ScreenCursorEvent
+ */
 public interface ScreenCursorListener {
+	
+	/**
+	 * Screen cursor pressed.
+	 *
+	 * @param item the item
+	 * @param id the id
+	 * @param x the x
+	 * @param y the y
+	 * @param pressure the pressure
+	 */
 	public void screenCursorPressed(ContentItem item, long id, float x, float y, float pressure);
+	
+	/**
+	 * Screen cursor changed.
+	 *
+	 * @param item the item
+	 * @param id the id
+	 * @param x the x
+	 * @param y the y
+	 * @param pressure the pressure
+	 */
 	public void screenCursorChanged(ContentItem item, long id, float x, float y, float pressure);
+	
+	/**
+	 * Screen cursor released.
+	 *
+	 * @param item the item
+	 * @param id the id
+	 * @param x the x
+	 * @param y the y
+	 * @param pressure the pressure
+	 */
 	public void screenCursorReleased(ContentItem item, long id, float x, float y, float pressure);
+	
+	/**
+	 * Screen cursor clicked.
+	 *
+	 * @param item the item
+	 * @param id the id
+	 * @param x the x
+	 * @param y the y
+	 * @param pressure the pressure
+	 */
 	public void screenCursorClicked(ContentItem item, long id, float x, float y, float pressure);
 }

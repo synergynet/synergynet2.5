@@ -13,9 +13,22 @@ import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.appsystem.contentsystem.items.LightImageLabel;
 
+
+/**
+ * The Class TableMystery.
+ */
 public class TableMystery {
+		
+		/** The initial scale. */
 		public static float  MIN_SCALE = 0.25f, MAX_SCALE = 1.5f, INITIAL_SCALE= 0.4f; 
 	
+		/**
+		 * Gets the mystery.
+		 *
+		 * @param contentSystem the content system
+		 * @param appName the app name
+		 * @return the mystery
+		 */
 		public List<ContentItem> getMystery(ContentSystem contentSystem, String appName){
 			List<ContentItem> items = new ArrayList<ContentItem>();
 

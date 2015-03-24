@@ -42,9 +42,18 @@ import java.nio.ByteBuffer;
 
 import synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler;
 
+
+/**
+ * The Class SerializableSerializer.
+ */
 public class SerializableSerializer extends Serializer {
+	
+	/** The Constant instance. */
 	static private final SerializableSerializer instance = new SerializableSerializer();
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.utility.serializers.Serializer#readObjectData(synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler, java.nio.ByteBuffer, java.lang.Class, boolean)
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Object readObjectData (ConnectionHandler connectionHandler, ByteBuffer buffer, Class type, boolean lengthKnown)
 		throws SerializationException {
@@ -59,6 +68,9 @@ public class SerializableSerializer extends Serializer {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.utility.serializers.Serializer#writeObjectData(synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler, java.nio.ByteBuffer, java.lang.Object, boolean)
+	 */
 	public void writeObjectData (ConnectionHandler connectionHandler, ByteBuffer buffer, Object object, boolean lengthKnown)
 		throws SerializationException {
 		try {
@@ -76,10 +88,26 @@ public class SerializableSerializer extends Serializer {
 		}
 	}
 
+	/**
+	 * Put.
+	 *
+	 * @param buffer the buffer
+	 * @param object the object
+	 * @throws SerializationException the serialization exception
+	 */
 	static public void put (ByteBuffer buffer, Object object) throws SerializationException {
 		instance.writeObjectData(null, object, buffer);
 	}
 
+	/**
+	 * Gets the.
+	 *
+	 * @param <T> the generic type
+	 * @param buffer the buffer
+	 * @param type the type
+	 * @return the t
+	 * @throws SerializationException the serialization exception
+	 */
 	static public <T> T get (ByteBuffer buffer, Class<T> type) throws SerializationException {
 		return instance.readObjectData(null, buffer, type);
 	}

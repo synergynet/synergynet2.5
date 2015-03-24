@@ -32,8 +32,18 @@
 
 package synergynetframework.appsystem.contentsystem.items.utils;
 
+
+/**
+ * The Enum Direction.
+ */
 public enum Direction{
+	
+	/** The x. */
 	X,
+	
+	/** The y. */
 	Y,
+	
+	/** The z. */
 	Z
 }

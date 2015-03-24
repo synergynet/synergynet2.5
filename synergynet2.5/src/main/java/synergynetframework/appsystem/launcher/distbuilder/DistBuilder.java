@@ -54,24 +54,50 @@ import org.apache.tools.ant.Task;
 
 import synergynetframework.utils.crypto.CryptoUtils;
 
+
+/**
+ * The Class DistBuilder.
+ */
 public class DistBuilder extends Task {
 
+	/** The out. */
 	static PrintWriter out;
+	
+	/** The atts. */
 	private static AttributesImpl atts;
+	
+	/** The hd. */
 	private static TransformerHandler hd;
+	
+	/** The source dir. */
 	private File sourceDir;
+	
+	/** The outfile. */
 	private File outfile;
 	
 
 	
+	/**
+	 * Sets the sourcedir.
+	 *
+	 * @param sourceDir the new sourcedir
+	 */
 	public void setSourcedir(File sourceDir) {
 		this.sourceDir = sourceDir;
 	}
 	
+	/**
+	 * Sets the outfile.
+	 *
+	 * @param outfile the new outfile
+	 */
 	public void setOutfile(File outfile) {
 		this.outfile = outfile;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.apache.tools.ant.Task#execute()
+	 */
 	public void execute() throws BuildException {
 		System.out.println(sourceDir.getAbsolutePath());
 		System.out.println(outfile.getAbsolutePath());
@@ -117,6 +143,15 @@ public class DistBuilder extends Task {
 
 	}
 
+	/**
+	 * Process directory.
+	 *
+	 * @param root the root
+	 * @param d the d
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws NoSuchAlgorithmException the no such algorithm exception
+	 * @throws SAXException the SAX exception
+	 */
 	public static void processDirectory(File root, File d) throws IOException, NoSuchAlgorithmException, SAXException {
 		int charsToRemove = root.getCanonicalPath().length();
 		String dir = d.getCanonicalPath().substring(charsToRemove);
@@ -145,6 +180,13 @@ public class DistBuilder extends Task {
 		}
 	}
 
+	/**
+	 * Write file entry.
+	 *
+	 * @param path the path
+	 * @param md5 the md5
+	 * @throws SAXException the SAX exception
+	 */
 	private static void writeFileEntry(String path, String md5) throws SAXException {
 		atts.clear();
 		atts.addAttribute("","","path","CDATA",path);
@@ -154,6 +196,12 @@ public class DistBuilder extends Task {
 		hd.endElement("","","file");
 	}
 
+	/**
+	 * Write dir entry.
+	 *
+	 * @param dir the dir
+	 * @throws SAXException the SAX exception
+	 */
 	private static void writeDirEntry(String dir) throws SAXException {
 		atts.clear();
 		atts.addAttribute("","","path","CDATA",dir);

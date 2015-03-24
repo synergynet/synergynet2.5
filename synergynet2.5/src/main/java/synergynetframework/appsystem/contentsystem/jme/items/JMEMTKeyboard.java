@@ -10,14 +10,29 @@ import synergynetframework.appsystem.contentsystem.items.listener.ItemListener;
 import synergynetframework.appsystem.contentsystem.items.utils.Border;
 import synergynetframework.appsystem.contentsystem.items.utils.KeyboardUtility;
 
+
+/**
+ * The Class JMEMTKeyboard.
+ */
 public class JMEMTKeyboard extends JMEWindow implements IMTKeyboardImplementation{
 
+	/** The keyboard. */
 	protected MTKeyboard keyboard;
+	
+	/** The keypad image. */
 	protected LightImageLabel keypadImage;
 
+	/** The initial border size. */
 	private int initialBorderSize = 100;
+	
+	/** The utility. */
 	private KeyboardUtility utility;
 	
+	/**
+	 * Instantiates a new JMEMT keyboard.
+	 *
+	 * @param contentItem the content item
+	 */
 	public JMEMTKeyboard(ContentItem contentItem) {
 		super(contentItem);
 		keyboard = (MTKeyboard) contentItem;
@@ -45,6 +60,9 @@ public class JMEMTKeyboard extends JMEWindow implements IMTKeyboardImplementatio
 		});
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEWindow#init()
+	 */
 	@Override
 	public void init(){
 		super.init();
@@ -54,11 +72,17 @@ public class JMEMTKeyboard extends JMEWindow implements IMTKeyboardImplementatio
 		keypadImage.setRotateTranslateScalable(false);
 	}
 	
+	/**
+	 * Resize.
+	 */
 	protected void resize(){
 		keyboard.setWidth((int)(keypadImage.getWidth())+keyboard.getBorderSize());
 		keyboard.setHeight((int)(keypadImage.getHeight())+keyboard.getBorderSize());
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEWindow#setBorder(synergynetframework.appsystem.contentsystem.items.utils.Border)
+	 */
 	@Override
 	public void setBorder(Border border){
 		super.setBorder(border);

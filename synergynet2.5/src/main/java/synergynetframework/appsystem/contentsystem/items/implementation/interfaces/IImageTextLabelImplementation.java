@@ -33,6 +33,16 @@ package synergynetframework.appsystem.contentsystem.items.implementation.interfa
 
 import java.net.URL;
 
+
+/**
+ * The Interface IImageTextLabelImplementation.
+ */
 public interface IImageTextLabelImplementation extends IMultiLineTextLabelImplementation{
+	
+	/**
+	 * Sets the image info.
+	 *
+	 * @param imageResource the new image info
+	 */
 	public void setImageInfo(URL imageResource);
 }

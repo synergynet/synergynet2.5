@@ -34,31 +34,55 @@ package synergynetframework.appsystem.table.animationsystem.animelements;
 
 import synergynetframework.appsystem.table.animationsystem.AnimationElement;
 
+
+/**
+ * The Class TestAnimationElement.
+ */
 public class TestAnimationElement extends AnimationElement {
 
+	/** The name. */
 	protected String name;
+	
+	/** The calls. */
 	protected int calls = 0;
 	
+	/**
+	 * Instantiates a new test animation element.
+	 *
+	 * @param name the name
+	 */
 	public TestAnimationElement(String name) {
 		this.name = name;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.animationsystem.AnimationElement#elementStart(float)
+	 */
 	@Override
 	public void elementStart(float tpf) {
 		System.out.println(name + " elementStart()");		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.animationsystem.AnimationElement#isFinished()
+	 */
 	@Override
 	public boolean isFinished() {
 		return calls > 3;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.animationsystem.AnimationElement#updateAnimationState(float)
+	 */
 	@Override
 	public void updateAnimationState(float tpf) {
 		System.out.println("update() " + name);
 		calls++;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.animationsystem.AnimationElement#reset()
+	 */
 	@Override
 	public void reset() {
 		calls = 0;		

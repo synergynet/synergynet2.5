@@ -22,21 +22,52 @@ import synergynetframework.appsystem.contentsystem.items.Window;
 import synergynetframework.appsystem.contentsystem.items.listener.ScreenCursorListener;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class Basket.
+ */
 public class Basket {
 	
+	/** The table id. */
 	protected TableIdentity tableId;
+	
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The window. */
 	protected Window window;
+	
+	/** The label. */
 	protected TextLabel label;
+	
+	/** The hight. */
 	protected int width = (int)(DisplaySystem.getDisplaySystem().getWidth() * 0.5f), hight = (int)(DisplaySystem.getDisplaySystem().getHeight() * 0.5f);
+	
+	/** The default scale. */
 	protected float defaultScale = 0.42f;
+	
+	/** The border width. */
 	protected int borderWidth = 20;
+	
+	/** The basket items. */
 	private List<ContentItem> basketItems = new ArrayList<ContentItem>();
 	
+	/** The listeners. */
 	private List<BasketListener> listeners = new ArrayList<BasketListener>();
 	
-	public enum STATUS{CONNECTED, DISCONNECTED};
+	/**
+	 * The Enum STATUS.
+	 */
+	public enum STATUS{/** The connected. */
+CONNECTED, /** The disconnected. */
+ DISCONNECTED};
 	
+	/**
+	 * Instantiates a new basket.
+	 *
+	 * @param contentSystem the content system
+	 * @param tableId the table id
+	 */
 	public Basket(ContentSystem contentSystem, TableIdentity tableId){
 		this.contentSystem = contentSystem;
 		this.tableId = tableId;
@@ -55,16 +86,31 @@ public class Basket {
 		this.setColor(tableId);
 	}
 	
+	/**
+	 * Adds the basket listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void addBasketListener(BasketListener listener){
 		if(!listeners.contains(listener))
 			listeners.add(listener);
 	}
 	
+	/**
+	 * Removes the basket listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void removeBasketListener(BasketListener listener){
 		if(listeners.contains(listener))
 			listeners.remove(listener);
 	}
 	
+	/**
+	 * Sets the status.
+	 *
+	 * @param status the new status
+	 */
 	public void setStatus(STATUS status){
 		if(status.equals(STATUS.CONNECTED)){
 			
@@ -74,6 +120,11 @@ public class Basket {
 	
 	}
 	
+	/**
+	 * Sets the color.
+	 *
+	 * @param tableId the new color
+	 */
 	private void setColor(TableIdentity tableId) {
 		Color color = null;
 		try {
@@ -85,6 +136,12 @@ public class Basket {
 		window.setBackgroundColour(color);	
 	}
 
+	/**
+	 * Adds the item.
+	 *
+	 * @param basketItem the basket item
+	 * @return true, if successful
+	 */
 	public boolean addItem(final ContentItem basketItem){
 		if(basketItem == null || !contentSystem.getAllContentItems().containsKey(basketItem.getName()))
 			return false;
@@ -131,11 +188,22 @@ public class Basket {
 		return true;
 	}
 	
+	/**
+	 * Adds the items.
+	 *
+	 * @param items the items
+	 */
 	public void addItems(List<ContentItem> items){
 		for(ContentItem item: items)
 			addItem(item);
 	}
 	
+	/**
+	 * Detach item.
+	 *
+	 * @param item the item
+	 * @return true, if successful
+	 */
 	public boolean detachItem(ContentItem item){
 		if(!basketItems.contains(item)) 
 			return false;
@@ -155,6 +223,11 @@ public class Basket {
 		return true;
 	}
 	
+	/**
+	 * Detach items.
+	 *
+	 * @param items the items
+	 */
 	public void detachItems(List<ContentItem> items){
 		Iterator<ContentItem> iter = items.iterator();
 		while(iter.hasNext()){
@@ -167,6 +240,9 @@ public class Basket {
 		}
 	}
 	
+	/**
+	 * Clear.
+	 */
 	public void clear(){
 		Iterator<ContentItem> iter = basketItems.iterator();
 		while(iter.hasNext()){
@@ -183,24 +259,68 @@ public class Basket {
 		}
 	}
 	
+	/**
+	 * Gets the items.
+	 *
+	 * @return the items
+	 */
 	public List<ContentItem> getItems(){
 		return basketItems;
 	}
 	
+	/**
+	 * Gets the window.
+	 *
+	 * @return the window
+	 */
 	public Window getWindow(){
 		return window;
 	}
 	
+	/**
+	 * Gets the table id.
+	 *
+	 * @return the table id
+	 */
 	public TableIdentity getTableId(){
 		return tableId;
 	}
 
+	/**
+	 * Contains item.
+	 *
+	 * @param item the item
+	 * @return true, if successful
+	 */
 	public boolean containsItem(ContentItem item) {
 		return basketItems.contains(item);
 	}
 	
+	/**
+	 * The listener interface for receiving basket events.
+	 * The class that is interested in processing a basket
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addBasketListener<code> method. When
+	 * the basket event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see BasketEvent
+	 */
 	public interface BasketListener{
+		
+		/**
+		 * Item added.
+		 *
+		 * @param item the item
+		 */
 		public void itemAdded(ContentItem item);
+		
+		/**
+		 * Item detached.
+		 *
+		 * @param item the item
+		 */
 		public void itemDetached(ContentItem item);
 	}
 }

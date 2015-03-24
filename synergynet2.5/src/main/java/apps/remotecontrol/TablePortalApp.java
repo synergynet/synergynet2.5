@@ -72,36 +72,72 @@ import synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp;
 import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightConfirmVisualExit;
 
+
+/**
+ * The Class TablePortalApp.
+ */
 public class TablePortalApp extends DefaultSynergyNetApp implements TableCommsApplicationListener{
 
+	/** The comicstrip mode. */
 	private static int COMICSTRIP_MODE = 1;
 	//private static int EMPTY_TABLE_MODE = 2;
+	/** The mystery mode. */
 	private static int MYSTERY_MODE = 3;
 
+	/** The current mode. */
 	private int currentMode = COMICSTRIP_MODE;
+	
+	/** The enable simulation. */
 	private boolean enableSimulation = true;
 
 	
+	/** The comms. */
 	protected TableCommsClientService comms;
+	
+	/** The message handler. */
 	protected DefaultMessageHandler messageHandler;
+	
+	/** The network manager. */
 	protected NetworkedContentManager networkManager;
+	
+	/** The graph manager. */
 	protected GraphManager graphManager;
+	
+	/** The content system. */
 	private ContentSystem contentSystem;
+	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(TableCommsClientService.class.getName());
 
 	
+	/** The sub app menu. */
 	protected SubAppMenu subAppMenu;
+	
+	/** The menu. */
 	protected ListContainer menu;
+	
+	/** The current sub app. */
 	protected String currentSubApp = "";
 	
+	/** The items. */
 	private List<ContentItem> items = new ArrayList<ContentItem>();
+	
+	/** The sync tester. */
 	protected SyncTester syncTester;
 	
+	/**
+	 * Instantiates a new table portal app.
+	 *
+	 * @param info the info
+	 */
 	public TablePortalApp(ApplicationInfo info) {
 		super(info);
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		contentSystem = ContentSystem.getContentSystemForSynergyNetApp(this);
@@ -233,6 +269,12 @@ public class TablePortalApp extends DefaultSynergyNetApp implements TableCommsAp
 		}
 	}
 	
+	/**
+	 * Load content.
+	 *
+	 * @param filePath the file path
+	 * @param appName the app name
+	 */
 	protected void loadContent(String filePath, String appName) {
 		removeAllItems();
 		items.addAll(contentSystem.loadContentItems(filePath));
@@ -255,17 +297,26 @@ public class TablePortalApp extends DefaultSynergyNetApp implements TableCommsAp
 		}
 	}
 
+	/**
+	 * Removes the all items.
+	 */
 	public void removeAllItems(){
 		if(comms != null && networkManager!=null) networkManager.unregisterContentItems(new ArrayList<ContentItem>(networkManager.getOnlineItems().values()));
 		items.clear();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onActivate()
+	 */
 	@Override
 	public void onActivate() {
 		connect();
 	}
 	
 		
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	@Override
 	protected void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);
@@ -275,6 +326,9 @@ public class TablePortalApp extends DefaultSynergyNetApp implements TableCommsAp
 		if(syncTester != null && this.enableSimulation) syncTester.update(10);
 	}
 	
+	/**
+	 * Connect.
+	 */
 	public void connect(){
 		new Thread(new Runnable(){
 			@Override
@@ -316,6 +370,9 @@ public class TablePortalApp extends DefaultSynergyNetApp implements TableCommsAp
 		}).start();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.tablecomms.client.TableCommsApplicationListener#tableDisconnected()
+	 */
 	@Override
 	public void tableDisconnected() {
 		try {
@@ -328,6 +385,9 @@ public class TablePortalApp extends DefaultSynergyNetApp implements TableCommsAp
 		connect();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.tablecomms.client.TableCommsApplicationListener#messageReceived(java.lang.Object)
+	 */
 	@Override
 	public void messageReceived(Object obj) {
 		 

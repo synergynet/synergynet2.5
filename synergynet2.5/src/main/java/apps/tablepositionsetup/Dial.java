@@ -17,22 +17,62 @@ import synergynetframework.appsystem.contentsystem.items.TextLabel;
 import synergynetframework.appsystem.contentsystem.items.listener.ItemEventAdapter;
 import synergynetframework.appsystem.contentsystem.items.utils.Location;
 
+
+/**
+ * The Class Dial.
+ */
 public class Dial {
 
+	/** The gap. */
 	private int gap = 20;
+	
+	/** The distance text. */
 	private TextLabel distanceText = null;
+	
+	/** The marker. */
 	private LineItem marker = null;
+	
+	/** The result. */
 	private float result = 0;
+	
+	/** The rot value. */
 	private float radius, rotValue = 0;
+	
+	/** The measurement. */
 	private String measurement;
+	
+	/** The bg. */
 	private RoundImageLabel bg;
+	
+	/** The drag angle. */
 	private float dragAngle = 0;
+	
+	/** The precision. */
 	private boolean precision = false;
+	
+	/** The precise value. */
 	private float preciseValue = 0;
+	
+	/** The content system. */
 	private ContentSystem contentSystem;
+	
+	/** The upper limit. */
 	private boolean lowerLimit, upperLimit = false;
+	
+	/** The upper bound. */
 	private float lowerBound, upperBound = 0;
 
+	/**
+	 * Instantiates a new dial.
+	 *
+	 * @param contentSystem the content system
+	 * @param xLoc the x loc
+	 * @param yLoc the y loc
+	 * @param dialRadius the dial radius
+	 * @param startValue the start value
+	 * @param valuePerFullRotation the value per full rotation
+	 * @param measure the measure
+	 */
 	public Dial(ContentSystem contentSystem, int xLoc, int yLoc, 
 			float dialRadius, float startValue, float valuePerFullRotation, String measure){
 		this.measurement = measure;
@@ -146,6 +186,11 @@ public class Dial {
 	
 	}
 
+	/**
+	 * Sets the value.
+	 *
+	 * @param value the new value
+	 */
 	public void setValue(float value){
 		
 		dragAngle = -value * (rotValue/2*FastMath.PI);
@@ -161,10 +206,18 @@ public class Dial {
 		marker.setAsTopObject();	
 	}
 
+	/**
+	 * Gets the value.
+	 *
+	 * @return the value
+	 */
 	public float getValue(){
 		return result;
 	}
 
+	/**
+	 * Destroy dial.
+	 */
 	public void destroyDial(){
 		marker.setVisible(false, true);
 		bg.setVisible(false, true);
@@ -175,21 +228,41 @@ public class Dial {
 		}
 	}
 	
+	/**
+	 * Sets the lower bound.
+	 *
+	 * @param bound the new lower bound
+	 */
 	public void setLowerBound(float bound){
 		lowerLimit = true;
 		lowerBound = bound;		
 	}
 	
+	/**
+	 * Sets the upper bound.
+	 *
+	 * @param bound the new upper bound
+	 */
 	public void setUpperBound(float bound){
 		upperLimit = true;
 		upperBound = bound;		
 	}
 	
+	/** The marker move. */
 	private LineItem markerMove = null;
+	
+	/** The slider box. */
 	private ImageTextLabel sliderBox = null;
+	
+	/** The range value. */
 	private float rangeValue = 0;
 	
 	
+	/**
+	 * Adds the precision slider.
+	 *
+	 * @param range the range
+	 */
 	public void addPrecisionSlider(float range){
 		this.rangeValue = range;
 		

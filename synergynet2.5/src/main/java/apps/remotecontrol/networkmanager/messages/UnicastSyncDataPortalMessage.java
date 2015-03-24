@@ -39,22 +39,43 @@ import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.objectmessaging.messages.UDPMessage;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.UnicastApplicationMessage;
 
+
+/**
+ * The Class UnicastSyncDataPortalMessage.
+ */
 public class UnicastSyncDataPortalMessage extends UnicastApplicationMessage implements UDPMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -546746341111227474L;
 	
+	/** The items. */
 	protected Map<String, Map<Short, Object>> items = new HashMap<String, Map<Short, Object>>();
 
+	/**
+	 * Instantiates a new unicast sync data portal message.
+	 */
 	public UnicastSyncDataPortalMessage(){
 		super();
 	}
 	
+	/**
+	 * Instantiates a new unicast sync data portal message.
+	 *
+	 * @param targetClass the target class
+	 * @param tableId the table id
+	 * @param items the items
+	 */
 	public UnicastSyncDataPortalMessage(Class<?> targetClass, TableIdentity tableId, Map<String, Map<Short, Object>> items) {
 		super(targetClass);
 		this.items.putAll(items);
 		this.setRecipient(tableId);
 	}
 
+	/**
+	 * Gets the items.
+	 *
+	 * @return the items
+	 */
 	public Map<String, Map<Short, Object>> getItems() {
 		return items;
 	}

@@ -26,24 +26,54 @@ import synergynetframework.appsystem.services.net.rapidnetworkmanager.RapidNetwo
 import synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp;
 
 
+
+/**
+ * The Class BasketManager.
+ */
 public class BasketManager implements TabletopContentManagerListener{
 
+	/** The pdf item. */
 	public static String PDF_ITEM = "pdf";
+	
+	/** The image item. */
 	public static String IMAGE_ITEM = "image";
+	
+	/** The text item. */
 	public static String TEXT_ITEM = "text";
+	
+	/** The video item. */
 	public static String VIDEO_ITEM = "video";
 	
+	/** The baskets. */
 	protected Map<TableIdentity, JmeNetworkedBasket> baskets = new HashMap<TableIdentity, JmeNetworkedBasket>();
+	
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The io controller. */
 	protected InputOutputBasketController ioController;
+	
+	/** The is transfer enabled. */
 	protected boolean isTransferEnabled = true;
 	
+	/**
+	 * Instantiates a new basket manager.
+	 *
+	 * @param app the app
+	 */
 	public BasketManager(final DefaultSynergyNetApp app) {
 		contentSystem = ContentSystem.getContentSystemForSynergyNetApp(app);
 		ioController = new InputOutputBasketController(this, app);
 		SynergyNetDesktop.getInstance().getMultiTouchInputComponent().registerMultiTouchEventListener(ioController);
 	}
 	
+	/**
+	 * Register basket for peer.
+	 *
+	 * @param tableId the table id
+	 * @param position the position
+	 * @return the jme networked basket
+	 */
 	public JmeNetworkedBasket registerBasketForPeer(TableIdentity tableId, DesktopClient.Position position){
 		if(!baskets.containsKey(tableId)){
 			JmeNetworkedBasket basket = new JmeNetworkedBasket(contentSystem);
@@ -56,6 +86,11 @@ public class BasketManager implements TabletopContentManagerListener{
 		return baskets.get(tableId);
 	}
 	
+	/**
+	 * Unregister basket.
+	 *
+	 * @param tableId the table id
+	 */
 	public void unregisterBasket(TableIdentity tableId){
 		if(baskets.containsKey(tableId)){
 			JmeNetworkedBasket basket = baskets.get(tableId);
@@ -64,10 +99,21 @@ public class BasketManager implements TabletopContentManagerListener{
 		}
 	}
 	
+	/**
+	 * Gets the baskets.
+	 *
+	 * @return the baskets
+	 */
 	public Map<TableIdentity, JmeNetworkedBasket> getBaskets(){
 		return baskets;
 	}
 
+	/**
+	 * Send item to remote basket.
+	 *
+	 * @param item the item
+	 * @param tableId the table id
+	 */
 	public void sendItemToRemoteBasket(ContentItem item, TableIdentity tableId) {
 		try{
 			Map<String, Object> itemInfo = new HashMap<String, Object>();
@@ -97,14 +143,27 @@ public class BasketManager implements TabletopContentManagerListener{
 		}
 	}
 	
+	/**
+	 * Update.
+	 *
+	 * @param tpf the tpf
+	 */
 	public void update(float tpf){
 		if(ioController != null) ioController.update(tpf);
 	}
 
+	/**
+	 * Gets the content system.
+	 *
+	 * @return the content system
+	 */
 	public ContentSystem getContentSystem() {
 		return contentSystem;
 	}
 	
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.tabletop.TabletopContentManager.TabletopContentManagerListener#itemReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity, synergynetframework.appsystem.contentsystem.items.ContentItem)
+	 */
 	@Override
 	public void itemReceived(TableIdentity tableId, ContentItem item) {
 		JmeNetworkedBasket localBasket = baskets.get(tableId);
@@ -114,6 +173,9 @@ public class BasketManager implements TabletopContentManagerListener{
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.tabletop.TabletopContentManager.TabletopContentManagerListener#vncClientLaunched(synergynetframework.appsystem.services.net.localpresence.TableIdentity, synergynetframework.appsystem.contentsystem.items.VncFrame)
+	 */
 	@Override
 	public void vncClientLaunched(TableIdentity tableId, VncFrame vncFrame) {
 		JmeNetworkedBasket localBasket = baskets.get(tableId);
@@ -123,6 +185,9 @@ public class BasketManager implements TabletopContentManagerListener{
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.tabletop.TabletopContentManager.TabletopContentManagerListener#vncClientClosed(synergynetframework.appsystem.services.net.localpresence.TableIdentity, synergynetframework.appsystem.contentsystem.items.VncFrame)
+	 */
 	@Override
 	public void vncClientClosed(TableIdentity tableId, VncFrame vncFrame) {
 		JmeNetworkedBasket localBasket = baskets.get(tableId);

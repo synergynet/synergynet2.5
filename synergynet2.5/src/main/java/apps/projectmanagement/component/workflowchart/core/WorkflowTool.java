@@ -13,15 +13,35 @@ import synergynetframework.appsystem.contentsystem.items.TextLabel.Alignment;
 import synergynetframework.appsystem.contentsystem.items.listener.ItemListener;
 import synergynetframework.appsystem.contentsystem.items.utils.Location;
 
+
+/**
+ * The Class WorkflowTool.
+ */
 public class WorkflowTool {
 	
+	/** The content system. */
 	private ContentSystem contentSystem;
+	
+	/** The top left. */
 	private SimpleButton topLeft;
+	
+	/** The top right. */
 	private SimpleButton topRight;
+	
+	/** The bottom left. */
 	private SimpleButton bottomLeft;
+	
+	/** The bottom right. */
 	private SimpleButton bottomRight;
+	
+	/** The gmanager. */
 	private GraphManager gmanager;
 	
+	/**
+	 * Instantiates a new workflow tool.
+	 *
+	 * @param contentSystem the content system
+	 */
 	public WorkflowTool(ContentSystem contentSystem){
 		this.contentSystem = contentSystem;
 		gmanager = new GraphManager(contentSystem);
@@ -29,6 +49,9 @@ public class WorkflowTool {
 		this.setvisibility(false);
 	}
 
+	/**
+	 * Inits the.
+	 */
 	private void init(){
 		topLeft = (SimpleButton) contentSystem.createContentItem(SimpleButton.class);
 		topLeft.setBackgroundColour(Color.white);
@@ -275,6 +298,11 @@ public class WorkflowTool {
 		});
 	}
 	
+	/**
+	 * Adds the task node.
+	 *
+	 * @param location the location
+	 */
 	private void addTaskNode(Location location){
 		TextNode taskNode = new TextNode(contentSystem, gmanager);
 		taskNode.setLinkButtonLocation(GraphNode.BOTTOM_RIGHT_CORNER);
@@ -284,6 +312,11 @@ public class WorkflowTool {
 		
 	}
 	
+	/**
+	 * Sets the visibility.
+	 *
+	 * @param b the new visibility
+	 */
 	public void setvisibility(boolean b){
 		
 		topLeft.setVisible(b);
@@ -298,6 +331,11 @@ public class WorkflowTool {
 		
 	}
 	
+	/**
+	 * Sets the editable.
+	 *
+	 * @param b the new editable
+	 */
 	public void setEditable(boolean b){
 		
 		topLeft.setVisible(b);

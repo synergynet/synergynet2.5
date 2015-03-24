@@ -38,14 +38,27 @@ import synergynetframework.appsystem.contentsystem.items.implementation.interfac
 import synergynetframework.appsystem.contentsystem.items.utils.Background;
 import synergynetframework.appsystem.contentsystem.items.utils.Border;
 
+
+/**
+ * The Class JMEWindow.
+ */
 public class JMEWindow extends JMEOrthoContainer implements IWindowImplementation {
 
+	/** The background frame. */
 	protected Frame backgroundFrame;
 	
+	/**
+	 * Instantiates a new JME window.
+	 *
+	 * @param contentItem the content item
+	 */
 	public JMEWindow(ContentItem contentItem) {
 		super(contentItem);		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEContentItem#init()
+	 */
 	public void init(){
 		super.init();
 		backgroundFrame = (Frame)contentItem.getContentSystem().createContentItem(Frame.class);
@@ -59,30 +72,48 @@ public class JMEWindow extends JMEOrthoContainer implements IWindowImplementatio
 		window.addSubItem(backgroundFrame);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IWindowImplementation#setHeight(int)
+	 */
 	@Override
 	public void setHeight(int height) {
 		backgroundFrame.setHeight(height);		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IWindowImplementation#setWidth(int)
+	 */
 	@Override
 	public void setWidth(int width) {
 		backgroundFrame.setWidth(width);		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEOrthoContainer#setBackGround(synergynetframework.appsystem.contentsystem.items.utils.Background)
+	 */
 	@Override
 	public void setBackGround(Background backGround) {	
 		backgroundFrame.setBackGround(backGround);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEOrthoContainer#setBorder(synergynetframework.appsystem.contentsystem.items.utils.Border)
+	 */
 	@Override
 	public void setBorder(Border border) {
 		backgroundFrame.setBorder(border);
 	}
 	
+	/**
+	 * Lower index.
+	 */
 	public void lowerIndex(){
 		backgroundFrame.setOrder(-999999999);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IWindowImplementation#getBackgroundFrame()
+	 */
 	public Frame getBackgroundFrame(){
 		return backgroundFrame;
 	}

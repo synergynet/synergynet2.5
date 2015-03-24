@@ -41,15 +41,34 @@ import synergynetframework.appsystem.contentsystem.contentloader.config.Attribut
 import synergynetframework.appsystem.contentsystem.contentloader.utils.ColorUtil;
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 
+
+/**
+ * The Class ContentItemRender.
+ */
 public class ContentItemRender{
 
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(ContentItemRender.class.getName());	
 	
+	/**
+	 * Render attributes.
+	 *
+	 * @param items the items
+	 * @param item the item
+	 * @param contentSys the content sys
+	 */
 	public void renderAttributes(Map<String, String> items, ContentItem item,
 			ContentSystem contentSys) {
 		render(items, item, contentSys);
 	}
 	
+	/**
+	 * Render.
+	 *
+	 * @param itemAttrs the item attrs
+	 * @param item the item
+	 * @param contentsys the contentsys
+	 */
 	protected void render(Map<String, String> itemAttrs, ContentItem item, ContentSystem contentsys){
 		
 		// set the item with id

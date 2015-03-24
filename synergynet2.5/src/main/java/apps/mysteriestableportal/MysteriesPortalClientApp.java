@@ -39,23 +39,54 @@ import synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp;
 import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightConfirmVisualExit;
 
+
+/**
+ * The Class MysteriesPortalClientApp.
+ */
 public class MysteriesPortalClientApp extends DefaultSynergyNetApp {
 
+	/** The content system. */
 	private ContentSystem contentSystem;
+	
+	/** The manager. */
 	private NetworkedContentManager manager;
+	
+	/** The items. */
 	private List<ContentItem> items = new ArrayList<ContentItem>();
+	
+	/** The client processor. */
 	private ClientMessageProcessor clientProcessor;
+	
+	/** The state recorder. */
 	private StateRecorder stateRecorder;
+	
+	/** The restore. */
 	private boolean restore = true;
+	
+	/** The mystery path. */
 	private String mysteryPath = null;
+	
+	/** The logging. */
 	private MysteriesLogging logging;
+	
+	/** The lock image. */
 	private Frame lockImage;
+	
+	/** The mcontroller. */
 	private HoldTopRightConfirmVisualExit mcontroller;
 	
+	/**
+	 * Instantiates a new mysteries portal client app.
+	 *
+	 * @param info the info
+	 */
 	public MysteriesPortalClientApp(ApplicationInfo info) {
 		super(info);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		try {
@@ -80,6 +111,9 @@ public class MysteriesPortalClientApp extends DefaultSynergyNetApp {
 		createLockImage();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onActivate()
+	 */
 	@Override
 	public void onActivate() {
 		RapidNetworkManager.addNetworkedContentListener(new NetworkedContentListener(){
@@ -134,6 +168,9 @@ public class MysteriesPortalClientApp extends DefaultSynergyNetApp {
 
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	@Override
 	protected void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);
@@ -141,7 +178,14 @@ public class MysteriesPortalClientApp extends DefaultSynergyNetApp {
 		if(manager != null) manager.update(tpf);
 	}
 
+	/**
+	 * The Class ClientMessageProcessor.
+	 */
 	public class ClientMessageProcessor implements MessageProcessor{
+		
+		/* (non-Javadoc)
+		 * @see synergynetframework.appsystem.services.net.rapidnetworkmanager.handlers.MessageProcessor#process(java.lang.Object)
+		 */
 		@Override
 		public void process(Object obj) {
 			if(obj instanceof TableDiscoveryPortalMessage){
@@ -174,6 +218,9 @@ public class MysteriesPortalClientApp extends DefaultSynergyNetApp {
 			}
 		}
 		
+		/**
+		 * Reset.
+		 */
 		private void reset(){
 			contentSystem.removeAllContentItems();
 			lockImage = null;
@@ -191,6 +238,9 @@ public class MysteriesPortalClientApp extends DefaultSynergyNetApp {
 		
 	}
 	
+	/**
+	 * Creates the lock image.
+	 */
 	public void createLockImage(){
 		if(lockImage == null){
 			lockImage = (Frame) contentSystem.createContentItem(Frame.class);

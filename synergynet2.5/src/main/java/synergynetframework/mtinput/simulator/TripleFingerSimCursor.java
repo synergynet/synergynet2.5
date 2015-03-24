@@ -37,6 +37,7 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Float;
 
 
+
 /**
  * Behaviour: middle-click + hold with a drag then release to define
  * the first finger and second finger.  Hold shift to rotate. Hold
@@ -48,37 +49,92 @@ import java.awt.geom.Point2D.Float;
 
 public class TripleFingerSimCursor extends AbstractSimCursor {
 	
+	/** The Constant MODE_MOVE. */
 	public static final int MODE_MOVE = 0;
+	
+	/** The Constant MODE_ROT. */
 	public static final int MODE_ROT = 1;
+	
+	/** The Constant MODE_SCALE. */
 	public static final int MODE_SCALE = 2;
+	
+	/** The Constant MODE_INITIAL_DISTANCE. */
 	public static final int MODE_INITIAL_DISTANCE = 3;
+	
+	/** The Constant MODE_THIRDCURSOR. */
 	public static final int MODE_THIRDCURSOR = 4;
 
+	/** The mouse screen x. */
 	protected int mouseScreenX;
+	
+	/** The mouse screen y. */
 	protected int mouseScreenY;
+	
+	/** The radius. */
 	protected int radius;
+	
+	/** The angle. */
 	protected double angle = Math.toRadians(20.0);
 
+	/** The scaled cursor1. */
 	Point2D.Float scaledCursor1 = new Point2D.Float();
+	
+	/** The scaled cursor2. */
 	Point2D.Float scaledCursor2 = new Point2D.Float();
+	
+	/** The scaled cursor3. */
 	Point2D.Float scaledCursor3 = new Point2D.Float();
 
+	/** The mode. */
 	protected int mode = MODE_MOVE;
+	
+	/** The id1. */
 	private int id1;
+	
+	/** The id2. */
 	private int id2;
+	
+	/** The id3. */
 	private int id3;
 
+	/** The cursor info. */
 	IndividualCursor[] cursorInfo = new IndividualCursor[2];
+	
+	/** The dy. */
 	private float dy = 1;
+	
+	/** The dx. */
 	private float dx = 1;
+	
+	/** The first cursor position. */
 	private Point firstCursorPosition = new Point();
+	
+	/** The second cursor position. */
 	private Point secondCursorPosition = new Point();
+	
+	/** The central point. */
 	private Point centralPoint = new Point();
+	
+	/** The screen width. */
 	private int screenWidth;
+	
+	/** The screen height. */
 	private int screenHeight;
+	
+	/** The simulator. */
 	private IMultiTouchSimulator simulator;
 	
 
+	/**
+	 * Instantiates a new triple finger sim cursor.
+	 *
+	 * @param simulator the simulator
+	 * @param id1 the id1
+	 * @param id2 the id2
+	 * @param id3 the id3
+	 * @param screenWidth the screen width
+	 * @param screenHeight the screen height
+	 */
 	public TripleFingerSimCursor(IMultiTouchSimulator simulator, int id1, int id2, int id3, int screenWidth, int screenHeight) {
 		this.simulator = simulator;
 		this.screenWidth = screenWidth;
@@ -88,6 +144,9 @@ public class TripleFingerSimCursor extends AbstractSimCursor {
 		this.id3 = id3;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.simulator.AbstractSimCursor#mouseDragged(int, int, int)
+	 */
 	@Override
 	public void mouseDragged(int x, int y, int button) {
 		mouseScreenX = x;
@@ -98,6 +157,9 @@ public class TripleFingerSimCursor extends AbstractSimCursor {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.simulator.AbstractSimCursor#mouseMoved(int, int)
+	 */
 	@Override
 	public void mouseMoved(int x, int y) {
 		mouseScreenX = x;
@@ -115,6 +177,9 @@ public class TripleFingerSimCursor extends AbstractSimCursor {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.simulator.AbstractSimCursor#mousePressed(int, int, int)
+	 */
 	@Override
 	public void mousePressed(int x, int y, int button) {
 		mouseScreenX = x;
@@ -139,6 +204,9 @@ public class TripleFingerSimCursor extends AbstractSimCursor {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.simulator.AbstractSimCursor#mouseReleased(int, int, int)
+	 */
 	@Override
 	public void mouseReleased(int x, int y, int buttonNumber) {
 		mouseScreenX = x;
@@ -162,6 +230,9 @@ public class TripleFingerSimCursor extends AbstractSimCursor {
 
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.simulator.AbstractSimCursor#keyPressed(java.lang.String)
+	 */
 	@Override
 	public void keyPressed(String key) {
 		if(key.equals(AbstractSimCursor.KEY_SHIFT)) {
@@ -171,6 +242,9 @@ public class TripleFingerSimCursor extends AbstractSimCursor {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.simulator.AbstractSimCursor#keyReleased(java.lang.String)
+	 */
 	@Override
 	public void keyReleased(String key) {
 		if(key.equals(AbstractSimCursor.KEY_SHIFT)) {
@@ -186,6 +260,11 @@ public class TripleFingerSimCursor extends AbstractSimCursor {
 		}
 	}
 
+	/**
+	 * Update rotation.
+	 *
+	 * @param updateAngle the update angle
+	 */
 	private void updateRotation(boolean updateAngle) {
 		float deltaX = centralPoint.x - mouseScreenX;
 		float deltaY = centralPoint.y - mouseScreenY;
@@ -212,6 +291,9 @@ public class TripleFingerSimCursor extends AbstractSimCursor {
 		scaledCursor2.y = getScaledY(secondCursorPosition.y, screenHeight);
 	}
 	
+	/**
+	 * Update position info.
+	 */
 	private void updatePositionInfo() {
 		int deltaX = mouseScreenX - secondCursorPosition.x;
 		int deltaY = mouseScreenY - secondCursorPosition.y;
@@ -231,15 +313,31 @@ public class TripleFingerSimCursor extends AbstractSimCursor {
 		scaleCursor(scaledCursor2, secondCursorPosition);
 	}
 	
+	/**
+	 * Scale cursor.
+	 *
+	 * @param cursor the cursor
+	 * @param pos the pos
+	 */
 	private void scaleCursor(Float cursor, Point pos) {
 		scaleCursor(cursor, pos.x, pos.y);		
 	}
 
+	/**
+	 * Scale cursor.
+	 *
+	 * @param c the c
+	 * @param x the x
+	 * @param y the y
+	 */
 	private void scaleCursor(Point2D.Float c, int x, int y) {
 		c.x = getScaledX(x, screenWidth);
 		c.y = getScaledY(y, screenHeight);
 	}
 	
+	/**
+	 * Update scaling.
+	 */
 	private void updateScaling() {
 		radius = (int) new Point(mouseScreenX, mouseScreenY).distance(centralPoint);
 		updateRotation(false);
@@ -247,38 +345,83 @@ public class TripleFingerSimCursor extends AbstractSimCursor {
 
 	
 
+	/**
+	 * Switch mode.
+	 *
+	 * @param newMode the new mode
+	 */
 	private void switchMode(int newMode) {
 		this.mode = newMode;		
 	}
 
+	/**
+	 * Gets the mode.
+	 *
+	 * @return the mode
+	 */
 	public int getMode() {
 		return mode;
 	}
 
+	/**
+	 * Gets the first cursor position.
+	 *
+	 * @return the first cursor position
+	 */
 	public Point getFirstCursorPosition() {
 		return firstCursorPosition;
 	}
 
+	/**
+	 * Gets the mouse x.
+	 *
+	 * @return the mouse x
+	 */
 	public int getMouseX() {
 		return mouseScreenX;
 	}
 
+	/**
+	 * Gets the mouse y.
+	 *
+	 * @return the mouse y
+	 */
 	public int getMouseY() {
 		return mouseScreenY;
 	}
 
+	/**
+	 * Gets the central point.
+	 *
+	 * @return the central point
+	 */
 	public Point getCentralPoint() {
 		return centralPoint;
 	}
 
+	/**
+	 * Gets the second cursor position.
+	 *
+	 * @return the second cursor position
+	 */
 	public Point getSecondCursorPosition() {
 		return secondCursorPosition;
 	}
 
+	/**
+	 * Gets the ID for cursor1.
+	 *
+	 * @return the ID for cursor1
+	 */
 	public int getIDForCursor1() {
 		return id1;
 	}
 
+	/**
+	 * Gets the ID for cursor2.
+	 *
+	 * @return the ID for cursor2
+	 */
 	public int getIDForCursor2() {
 		return id2;
 	}

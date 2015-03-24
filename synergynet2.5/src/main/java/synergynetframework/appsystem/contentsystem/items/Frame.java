@@ -42,15 +42,31 @@ import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IFrameImplementation;
 import synergynetframework.appsystem.contentsystem.items.utils.ImageInfo;
 
+
+/**
+ * The Class Frame.
+ */
 public class Frame extends QuadContentItem implements IFrameImplementation, Serializable, Cloneable{
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -8279443252885792111L;
 	
+	/** The URL to image map. */
 	protected LinkedHashMap<URL,ImageInfo> URLToImageMap = new LinkedHashMap<URL, ImageInfo>();
 	
+	/**
+	 * Instantiates a new frame.
+	 *
+	 * @param contentSystem the content system
+	 * @param name the name
+	 */
 	public Frame(ContentSystem contentSystem, String name) {
 		super(contentSystem, name);
 	}	
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IFrameImplementation#drawImage(java.net.URL)
+	 */
 	public void drawImage(URL imageResource){
 		if (imageResource!=null){
 			URLToImageMap.put(imageResource, new ImageInfo(imageResource, getBorderSize(),getBorderSize(), getWidth()-2*getBorderSize(), getHeight()-2*getBorderSize()));
@@ -58,6 +74,9 @@ public class Frame extends QuadContentItem implements IFrameImplementation, Seri
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IFrameImplementation#drawImage(java.net.URL, int, int, int, int)
+	 */
 	public void drawImage(URL imageResource, int x, int y, int width, int height){
 		if (imageResource!=null){
 			URLToImageMap.put(imageResource, new ImageInfo(imageResource,x,y,width,height));
@@ -65,29 +84,49 @@ public class Frame extends QuadContentItem implements IFrameImplementation, Seri
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IFrameImplementation#removeImage(java.net.URL)
+	 */
 	public void removeImage(URL imageResource){
 		URLToImageMap.remove(imageResource);
 		((IFrameImplementation)this.contentItemImplementation).removeImage(imageResource);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IFrameImplementation#getImages()
+	 */
 	public HashMap<URL, ImageInfo> getImages(){
 		return URLToImageMap;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IFrameImplementation#removeAllImages()
+	 */
 	@Override
 	public void removeAllImages() {
 		URLToImageMap.clear();
 		((IFrameImplementation)this.contentItemImplementation).removeAllImages();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IFrameImplementation#getGraphicsContext()
+	 */
 	public Graphics2D getGraphicsContext() {
 		return ((IFrameImplementation)this.contentItemImplementation).getGraphicsContext();
 	}
 	
+	/**
+	 * Gets the image resources.
+	 *
+	 * @return the image resources
+	 */
 	public LinkedHashMap<URL,ImageInfo> getImageResources(){
 		return URLToImageMap;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IFrameImplementation#flushGraphics()
+	 */
 	public void flushGraphics() {
 		((IFrameImplementation)this.contentItemImplementation).flushGraphics();
 	}

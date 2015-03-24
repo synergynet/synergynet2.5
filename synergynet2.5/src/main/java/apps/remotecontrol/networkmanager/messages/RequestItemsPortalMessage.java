@@ -38,16 +38,40 @@ import synergynetframework.appsystem.contentsystem.items.utils.Location;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.UnicastApplicationMessage;
 
+
+/**
+ * The Class RequestItemsPortalMessage.
+ */
 public class RequestItemsPortalMessage extends UnicastApplicationMessage {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -546746344864227474L;
+	
+	/** The item names. */
 	private HashMap<String, Location> itemNames =new HashMap<String, Location>();
+	
+	/** The delete. */
 	private boolean delete = false;
+	
+	/** The target table id. */
 	private TableIdentity targetTableId;
 	
+	/**
+	 * Instantiates a new request items portal message.
+	 */
 	public RequestItemsPortalMessage(){
 		super();
 	}
+	
+	/**
+	 * Instantiates a new request items portal message.
+	 *
+	 * @param targetClass the target class
+	 * @param tableId the table id
+	 * @param itemNames the item names
+	 * @param targetTableId the target table id
+	 * @param deleteItems the delete items
+	 */
 	public RequestItemsPortalMessage(Class<?> targetClass, TableIdentity tableId, HashMap<String, Location> itemNames, TableIdentity targetTableId, boolean deleteItems) {
 		super(targetClass);
 		this.itemNames = itemNames;
@@ -56,14 +80,29 @@ public class RequestItemsPortalMessage extends UnicastApplicationMessage {
 		this.setRecipient(tableId);
 	}
 
+	/**
+	 * Gets the item names.
+	 *
+	 * @return the item names
+	 */
 	public HashMap<String, Location> getItemNames() {
 		return itemNames;
 	}
 	
+	/**
+	 * Delete items.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean deleteItems(){
 		return delete;
 	}
 	
+	/**
+	 * Gets the target table id.
+	 *
+	 * @return the target table id
+	 */
 	public TableIdentity getTargetTableId(){
 		return this.targetTableId;
 	}

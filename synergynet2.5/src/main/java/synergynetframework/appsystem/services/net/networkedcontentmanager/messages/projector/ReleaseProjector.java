@@ -35,15 +35,29 @@ package synergynetframework.appsystem.services.net.networkedcontentmanager.messa
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.UnicastApplicationMessage;
 
+
+/**
+ * The Class ReleaseProjector.
+ */
 public class ReleaseProjector extends UnicastApplicationMessage {	
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 259614974289184624L;
 
+	/**
+	 * Instantiates a new release projector.
+	 *
+	 * @param targetClass the target class
+	 * @param projectorId the projector id
+	 */
 	public ReleaseProjector(Class<?> targetClass, TableIdentity projectorId) {
 		super(targetClass);
 		this.setRecipient(projectorId);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return "Demand Projector";
 	}

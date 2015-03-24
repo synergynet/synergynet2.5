@@ -39,23 +39,52 @@ import synergynetframework.appsystem.services.net.landiscovery.ServiceDescriptor
 import synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoverySystem;
 import synergynetframework.appsystem.services.net.landiscovery.ServiceSystemFactory;
 
+
+/**
+ * The Class LocalPeer.
+ */
 public abstract class LocalPeer {
 	
+	/** The service discovery system. */
 	private ServiceDiscoverySystem serviceDiscoverySystem;
+	
+	/** The service announce system. */
 	private ServiceAnnounceSystem serviceAnnounceSystem;
+	
+	/** The service type. */
 	protected String serviceType;
+	
+	/** The service name. */
 	protected String serviceName;
+	
+	/** The time out. */
 	protected long timeOut = 5 * 1000;
 	
+	/**
+	 * Instantiates a new local peer.
+	 *
+	 * @param serviceName the service name
+	 * @param serviceType the service type
+	 */
 	public LocalPeer(String serviceName, String serviceType) {
 		this.serviceName = serviceName;
 		this.serviceType = serviceType;
 	}
 	
+	/**
+	 * Sets the time out.
+	 *
+	 * @param timeOut the new time out
+	 */
 	public void setTimeOut(long timeOut) {
 		this.timeOut = timeOut;
 	}
 	
+	/**
+	 * Connect.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void connect() throws IOException {
 		
 			setServiceDiscoverySystem(ServiceSystemFactory.getServiceDiscoverySystem());
@@ -80,23 +109,56 @@ public abstract class LocalPeer {
 		
 	}
 	
+	/**
+	 * Sets the service discovery system.
+	 *
+	 * @param serviceDiscoverySystem the new service discovery system
+	 */
 	public void setServiceDiscoverySystem(ServiceDiscoverySystem serviceDiscoverySystem) {
 		this.serviceDiscoverySystem = serviceDiscoverySystem;
 	}
 
+	/**
+	 * Gets the service discovery system.
+	 *
+	 * @return the service discovery system
+	 */
 	public ServiceDiscoverySystem getServiceDiscoverySystem() {
 		return serviceDiscoverySystem;
 	}
 	
+	/**
+	 * Sets the service announce system.
+	 *
+	 * @param serviceAnnounceSystem the new service announce system
+	 */
 	public void setServiceAnnounceSystem(ServiceAnnounceSystem serviceAnnounceSystem) {
 		this.serviceAnnounceSystem = serviceAnnounceSystem;
 	}
 
+	/**
+	 * Gets the service announce system.
+	 *
+	 * @return the service announce system
+	 */
 	public ServiceAnnounceSystem getServiceAnnounceSystem() {
 		return serviceAnnounceSystem;
 	}
 	
+	/**
+	 * Advertise server.
+	 */
 	public abstract void advertiseServer();
+	
+	/**
+	 * Start server.
+	 */
 	public abstract void startServer();
+	
+	/**
+	 * Found server.
+	 *
+	 * @param serviceDescriptor the service descriptor
+	 */
 	public abstract void foundServer(ServiceDescriptor serviceDescriptor);
 }

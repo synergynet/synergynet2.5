@@ -48,25 +48,46 @@ import synergynetframework.appsystem.contentsystem.items.utils.Border;
 import synergynetframework.appsystem.contentsystem.jme.JMEContentSystem;
 
 
+
+/**
+ * The Class JMEOrthoContainer.
+ */
 public class JMEOrthoContainer extends JMEOrthoContentItem implements IOrthoContainerImplementation {
 
+	/** The node. */
 	protected Node node;
+	
+	/** The container item. */
 	protected ContentItem containerItem;
 	
+	/**
+	 * Instantiates a new JME ortho container.
+	 *
+	 * @param contentItem the content item
+	 */
 	public JMEOrthoContainer(ContentItem contentItem) {
 		super(contentItem, new Node(contentItem.getName()));
 		this.node = (Node)this.spatial;
 		this.containerItem = contentItem;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEOrthoContentItem#setBackGround(synergynetframework.appsystem.contentsystem.items.utils.Background)
+	 */
 	@Override
 	public void setBackGround(Background backGround) {	
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEOrthoContentItem#setBorder(synergynetframework.appsystem.contentsystem.items.utils.Border)
+	 */
 	@Override
 	public void setBorder(Border border) {	
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContainerImplementation#addSubItem(synergynetframework.appsystem.contentsystem.items.ContentItem)
+	 */
 	@Override
 	public void addSubItem(ContentItem contentItem) {
 		
@@ -88,6 +109,9 @@ public class JMEOrthoContainer extends JMEOrthoContentItem implements IOrthoCont
 				
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContainerImplementation#removeSubItem(synergynetframework.appsystem.contentsystem.items.ContentItem)
+	 */
 	@Override
 	public void removeSubItem(ContentItem contentItem) {		
 		Spatial parentSpatial = ((Spatial)(contentItem.getImplementationObject())).getParent();
@@ -100,6 +124,9 @@ public class JMEOrthoContainer extends JMEOrthoContentItem implements IOrthoCont
 		this.updateContainerListeners((OrthoContentItem)contentItem);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContainerImplementation#detachSubItem(synergynetframework.appsystem.contentsystem.items.ContentItem)
+	 */
 	@Override
 	public void detachSubItem(ContentItem contentItem) {
 		Spatial parentSpatial = ((Spatial)(contentItem.getImplementationObject())).getParent();
@@ -129,6 +156,9 @@ public class JMEOrthoContainer extends JMEOrthoContentItem implements IOrthoCont
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContainerImplementation#updateOrder(int)
+	 */
 	@Override
 	public void updateOrder(int order) {
 	
@@ -153,6 +183,9 @@ public class JMEOrthoContainer extends JMEOrthoContentItem implements IOrthoCont
 
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContainerImplementation#getNode()
+	 */
 	@Override
 	public Node getNode(){
 		return node;

@@ -43,15 +43,31 @@ import synergynetframework.appsystem.services.net.tablecomms.messages.control.fr
 import synergynetframework.appsystem.services.net.tablecomms.server.ServerMessageProcessor;
 import synergynetframework.appsystem.services.net.tablecomms.server.TableCommsServerService;
 
+
+/**
+ * The Class TableStatusRequestProcessor.
+ */
 public class TableStatusRequestProcessor implements ServerMessageProcessor {
+	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(TableStatusRequestProcessor.class.getName());
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.tablecomms.server.ServerMessageProcessor#handle(synergynetframework.appsystem.services.net.tablecomms.server.TableCommsServerService, synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler, synergynetframework.appsystem.services.net.tablecomms.messages.TableMessage)
+	 */
 	public void handle(TableCommsServerService server, ConnectionHandler fromHandler, TableMessage obj) throws IOException {
 		sendTableStatusResponse(server, fromHandler);
 		log.info("handle() " + obj);
 	}
 	
 	
+	/**
+	 * Send table status response.
+	 *
+	 * @param server the server
+	 * @param handlers the handlers
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void sendTableStatusResponse(TableCommsServerService server, Collection<ConnectionHandler> handlers) throws IOException {
 		TableStatusResponse response = createTableStatusResponse(server);
 		for(ConnectionHandler h : handlers) {
@@ -59,6 +75,13 @@ public class TableStatusRequestProcessor implements ServerMessageProcessor {
 		}
 	}
 	
+	/**
+	 * Send table status response.
+	 *
+	 * @param server the server
+	 * @param handlers the handlers
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void sendTableStatusResponse(TableCommsServerService server, ConnectionHandler... handlers) throws IOException {
 		TableStatusResponse response = createTableStatusResponse(server);
 		
@@ -67,6 +90,12 @@ public class TableStatusRequestProcessor implements ServerMessageProcessor {
 		}
 	}
 
+	/**
+	 * Creates the table status response.
+	 *
+	 * @param server the server
+	 * @return the table status response
+	 */
 	public TableStatusResponse createTableStatusResponse(TableCommsServerService server) {
 		TableStatusResponse response = new TableStatusResponse();		
 		for(TableIdentity id : server.getReceivers().keySet()) {

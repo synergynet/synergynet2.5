@@ -32,6 +32,7 @@
 
 package synergynetframework.jme;
 
+
 /**
  * Simple utility interface to allow objects to be added to the
  * update loop.  {@link synergynetframework.jme.JMEMultiTouchApplication} allows
@@ -43,5 +44,11 @@ package synergynetframework.jme;
  */
 
 public interface Updateable {
+	
+	/**
+	 * Update.
+	 *
+	 * @param timePerFrame the time per frame
+	 */
 	public void update(float timePerFrame);
 }

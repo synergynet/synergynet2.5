@@ -39,13 +39,54 @@ import synergynetframework.appsystem.services.net.objectmessaging.connections.Me
 import synergynetframework.appsystem.services.net.objectmessaging.utility.serializers.SerializationException;
 
 
+
+/**
+ * The Interface EndPoint.
+ */
 public interface EndPoint extends Runnable {
 	
+	/**
+	 * Adds the message handler.
+	 *
+	 * @param handler the handler
+	 */
 	public void addMessageHandler (MessageHandler handler);
+	
+	/**
+	 * Removes the message handler.
+	 *
+	 * @param handler the handler
+	 */
 	public void removeMessageHandler (MessageHandler handler);
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
 	public void run ();
+	
+	/**
+	 * Stop.
+	 */
 	public void stop ();
+	
+	/**
+	 * Close.
+	 */
 	public void close ();
+	
+	/**
+	 * Update.
+	 *
+	 * @param timeout the timeout
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws SerializationException the serialization exception
+	 */
 	public void update (int timeout) throws IOException, SerializationException;
+	
+	/**
+	 * Gets the update thread.
+	 *
+	 * @return the update thread
+	 */
 	public Thread getUpdateThread ();
 }

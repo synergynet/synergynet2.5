@@ -32,12 +32,22 @@
 
 package synergynetframework.appsystem.contentsystem.items.listener;
 
+
+/**
+ * The Class ListEventAdapter.
+ */
 public class ListEventAdapter implements ListEventListener {
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.listener.ListEventListener#listHiden()
+	 */
 	@Override
 	public void listHiden() {		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.listener.ListEventListener#listShown()
+	 */
 	@Override
 	public void listShown() {	
 	}

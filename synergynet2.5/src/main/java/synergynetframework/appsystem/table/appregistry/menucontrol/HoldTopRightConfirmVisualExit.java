@@ -49,31 +49,64 @@ import synergynetframework.mtinput.IMultiTouchEventListener;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 import synergynetframework.mtinput.events.MultiTouchObjectEvent;
 
+
+/**
+ * The Class HoldTopRightConfirmVisualExit.
+ */
 public class HoldTopRightConfirmVisualExit extends MenuController implements IMultiTouchEventListener{
 	
+	/** The emergency interval. */
 	private final long INTERVAL = 1000, VISIBLE_INTERVAL = 3000, EMERGENCY_INTERVAL = 4000;
 	
+	/** The corner distance. */
 	protected float cornerDistance = 70f;
+	
+	/** The cursor timing. */
 	protected ConcurrentHashMap <Long,Long> cursorTiming = new ConcurrentHashMap<Long,Long>();
+	
+	/** The emergency cursor timing. */
 	protected ConcurrentHashMap <Long,Long> emergencyCursorTiming = new ConcurrentHashMap<Long,Long>();
+	
+	/** The enabled. */
 	private boolean enabled;
+	
+	/** The confirm exit button. */
 	private ImageTextLabel confirmExitButton;
+	
+	/** The corner button. */
 	private ImageTextLabel cornerButton;
+	
+	/** The content system. */
 	private ContentSystem contentSystem;	
+	
+	/** The start visible time. */
 	private long startVisibleTime = -1;
+	
+	/** The cursor registry. */
 	private CursorRegistry cursorRegistry;
 	
+	/**
+	 * Instantiates a new hold top right confirm visual exit.
+	 *
+	 * @param app the app
+	 */
 	public HoldTopRightConfirmVisualExit(SynergyNetApp app) {
 		contentSystem = ContentSystem.getContentSystemForSynergyNetApp(app);
 		createButtons();
 		cursorRegistry = CursorRegistry.getInstance();
 	}	
 	
+	/**
+	 * Creates the buttons.
+	 */
 	public void createButtons(){
 		createCornerButton();
 		createConfirmButton();
 	}
 	
+	/**
+	 * Creates the corner button.
+	 */
 	private void createCornerButton(){
 		cornerButton = (ImageTextLabel)contentSystem.createContentItem(ImageTextLabel.class);
 		cornerButton.setAutoFitSize(false);	
@@ -97,21 +130,35 @@ public class HoldTopRightConfirmVisualExit extends MenuController implements IMu
 		});
 	}
 	
+	/**
+	 * Button on.
+	 */
 	private void buttonOn(){
 		setButtonImage("corner_button_on");
 		cornerButton.setAsTopObject();		
 	}
 	
+	/**
+	 * Button off.
+	 */
 	private void buttonOff(){
 		setButtonImage("corner_button_off");
 		cornerButton.setAsBottomObject();
 	}
 	
+	/**
+	 * Sets the button image.
+	 *
+	 * @param resource the new button image
+	 */
 	private void setButtonImage(String resource){
 		if (cornerButton == null) return;
 		cornerButton.setImageInfo(CommonResources.class.getResource(resource + ".png"));
 	}
 	
+	/**
+	 * Creates the confirm button.
+	 */
 	private void createConfirmButton() {
 		confirmExitButton = (ImageTextLabel) contentSystem.createContentItem(ImageTextLabel.class);
 		confirmExitButton.setAutoFitSize(false);		
@@ -131,6 +178,9 @@ public class HoldTopRightConfirmVisualExit extends MenuController implements IMu
 		});		
 	}
 	
+	/**
+	 * Exit app.
+	 */
 	private void exitApp(){
 		try {
 			confirmExitButton.setVisible(false);
@@ -144,6 +194,9 @@ public class HoldTopRightConfirmVisualExit extends MenuController implements IMu
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appregistry.menucontrol.MenuController#enableForApplication(synergynetframework.appsystem.table.appdefinitions.SynergyNetApp)
+	 */
 	@Override
 	public void enableForApplication(SynergyNetApp app) {
 		SynergyNetDesktop.getInstance().getMultiTouchInputComponent().registerMultiTouchEventListener(this);
@@ -151,6 +204,9 @@ public class HoldTopRightConfirmVisualExit extends MenuController implements IMu
 		buttonOff();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appregistry.menucontrol.MenuController#applicationFinishing()
+	 */
 	@Override
 	public void applicationFinishing() {
 		if(confirmExitButton != null) confirmExitButton.setVisible(false);
@@ -158,20 +214,39 @@ public class HoldTopRightConfirmVisualExit extends MenuController implements IMu
 	}	
 	
 	
+	/**
+	 * Checks if is enabled.
+	 *
+	 * @return true, if is enabled
+	 */
 	public boolean isEnabled() {
 		return enabled;
 	}
 
+	/**
+	 * Sets the enabled.
+	 *
+	 * @param enabled the new enabled
+	 */
 	private void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorChanged(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorChanged(MultiTouchCursorEvent event) {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorClicked(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorClicked(MultiTouchCursorEvent event) {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorPressed(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorPressed(MultiTouchCursorEvent event) {
 		if(!enabled)return;
 		if(isInCorner(event)) {
@@ -180,6 +255,9 @@ public class HoldTopRightConfirmVisualExit extends MenuController implements IMu
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorReleased(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorReleased(MultiTouchCursorEvent event) {
 		if(!enabled)return;
 		if (cursorTiming.containsKey(event.getCursorID())){
@@ -189,25 +267,50 @@ public class HoldTopRightConfirmVisualExit extends MenuController implements IMu
 		if (emergencyCursorTiming.containsKey(event.getCursorID()))emergencyCursorTiming.remove(event.getCursorID());
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectAdded(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectAdded(MultiTouchObjectEvent event) {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectChanged(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectChanged(MultiTouchObjectEvent event) {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectRemoved(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectRemoved(MultiTouchObjectEvent event) {
 	}
 
+	/**
+	 * Checks if is in corner.
+	 *
+	 * @param event the event
+	 * @return true, if is in corner
+	 */
 	protected boolean isInCorner(MultiTouchCursorEvent event) {
 		int x = SynergyNetDesktop.getInstance().tableToScreenX(event.getPosition().x);
 		int y = SynergyNetDesktop.getInstance().tableToScreenY(event.getPosition().y);
 		return isInCorner(x, y);
 	}
 	
+	/**
+	 * Checks if is in corner.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @return true, if is in corner
+	 */
 	protected boolean isInCorner(float x, float y) {
 		return x > SynergyNetDesktop.getInstance().getDisplayWidth() - cornerDistance  && y > SynergyNetDesktop.getInstance().getDisplayHeight() - cornerDistance;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.Updateable#update(float)
+	 */
 	public void update(float interpolation) {
 		if(!enabled)return;
 		if(confirmExitButton.isVisible()){

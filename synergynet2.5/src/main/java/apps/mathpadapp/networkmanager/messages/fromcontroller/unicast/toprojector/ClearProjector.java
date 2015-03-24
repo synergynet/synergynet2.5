@@ -34,15 +34,29 @@ package apps.mathpadapp.networkmanager.messages.fromcontroller.unicast.toproject
 
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class ClearProjector.
+ */
 public class ClearProjector extends ControllerToProjectorMessage {	
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 259614974289184624L;
 
+	/**
+	 * Instantiates a new clear projector.
+	 *
+	 * @param targetClass the target class
+	 * @param projectorId the projector id
+	 */
 	public ClearProjector(Class<?> targetClass, TableIdentity projectorId) {
 		super(targetClass);
 		this.setRecipient(projectorId);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return "Clear Projector";
 	}

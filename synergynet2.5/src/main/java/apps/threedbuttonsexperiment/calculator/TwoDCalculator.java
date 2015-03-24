@@ -23,32 +23,73 @@ import synergynetframework.appsystem.contentsystem.items.TextLabel;
 import synergynetframework.appsystem.contentsystem.items.Window;
 import synergynetframework.appsystem.contentsystem.items.listener.ItemEventAdapter;
 
+
+/**
+ * The Class TwoDCalculator.
+ */
 public class TwoDCalculator {
 
+	/** The text string. */
 	protected String textString="";
+	
+	/** The left number. */
 	protected String leftNumber ="";
+	
+	/** The right number. */
 	protected String rightNumber = "";
+	
+	/** The operator. */
 	protected String operator ="";
 	
+	/** The log listener. */
 	protected LogListener logListener;
+	
+	/** The task listeners. */
 	protected List<TaskListener> taskListeners = new ArrayList<TaskListener>();
 	
+	/** The calculator frame. */
 	protected Window calculatorFrame;
+	
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The width. */
 	protected float width = 212;
+	
+	/** The length. */
 	protected float length = 320;
+	
+	/** The button width. */
 	protected float buttonWidth = 43f;
+	
+	/** The button length. */
 	protected float buttonLength = 43f;
 	
+	/** The trail count. */
 	protected int trailCount=3;
+	
+	/** The current trail number. */
 	protected int currentTrailNumber = 0;
+	
+	/** The displayer. */
 	protected TwoDDisplayNode displayer;
 	
+	/** The target number label. */
 	protected TextLabel targetNumberLabel;
+	
+	/** The log writter. */
 	protected DateTextWritter logWritter;
 	
+	/** The location. */
 	protected Vector2f location = new Vector2f(512, 350);
 	
+	/**
+	 * Instantiates a new two d calculator.
+	 *
+	 * @param contentSystem the content system
+	 * @param targetNumberLabel the target number label
+	 * @param logWritter the log writter
+	 */
 	public TwoDCalculator(ContentSystem contentSystem,  TextLabel targetNumberLabel, DateTextWritter logWritter){
 		this.contentSystem = contentSystem;
 		init();
@@ -58,6 +99,9 @@ public class TwoDCalculator {
 				
 	}
 	
+	/**
+	 * Reset task.
+	 */
 	public void resetTask(){
 		currentTrailNumber =0;
 		startNewTrail();
@@ -65,12 +109,18 @@ public class TwoDCalculator {
 		
 	}
 	
+	/**
+	 * Start new trail.
+	 */
 	public void startNewTrail(){
 		String targetNumber = StringGenerator.generateNumber(6);
 		logListener = new TrialLog(targetNumber, new Date().getTime(), logWritter);
 		targetNumberLabel.setText(targetNumber);
 	}
 	
+	/**
+	 * Inits the.
+	 */
 	protected void init(){
 	
 		float horizontalSpace = (width-buttonWidth*4)/7;
@@ -573,19 +623,37 @@ public class TwoDCalculator {
 		
 	}
 
+	/**
+	 * Gets the location.
+	 *
+	 * @return the location
+	 */
 	public Vector2f getLocation() {
 		return location;
 	}
 
+	/**
+	 * Sets the location.
+	 *
+	 * @param location the new location
+	 */
 	public void setLocation(Vector2f location) {
 		this.location = location;
 		calculatorFrame.setLocalLocation(location.x, location.y);
 	}
 	
+	/**
+	 * Adds the task listener.
+	 *
+	 * @param l the l
+	 */
 	public void addTaskListener(TaskListener l){
 		taskListeners.add(l);
 	}
 	
+	/**
+	 * Update.
+	 */
 	public void update(){
 		displayer.setText("");
 		displayer.getDisplayQuad().updateGeometricState(0f, false);

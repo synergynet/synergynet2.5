@@ -47,14 +47,34 @@ import com.jme.system.DisplaySystem;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
 
+
+/**
+ * The Class RemoteDesktopManager.
+ */
 public class RemoteDesktopManager {
 
+	/** The controller manager. */
 	protected ControllerManager controllerManager;
+	
+	/** The remote desktops. */
 	protected HashMap<TableIdentity, MathPadRemoteDesktop> remoteDesktops = new HashMap<TableIdentity, MathPadRemoteDesktop>();
+	
+	/** The controller classes. */
 	protected ArrayList<Class<?>> controllerClasses;
+	
+	/** The target classes. */
 	protected ArrayList<Class<?>> targetClasses;
+	
+	/** The remote dektops. */
 	protected ArrayList<RemoteDesktop> remoteDektops = new ArrayList<RemoteDesktop>();
 	
+	/**
+	 * Instantiates a new remote desktop manager.
+	 *
+	 * @param networkedContentManager the networked content manager
+	 * @param controllerClasses the controller classes
+	 * @param targetClasses the target classes
+	 */
 	public RemoteDesktopManager(NetworkedContentManager networkedContentManager, ArrayList<Class<?>> controllerClasses, ArrayList<Class<?>> targetClasses){
 		this.controllerManager = (ControllerManager)networkedContentManager;
 		this.controllerClasses = controllerClasses;
@@ -62,6 +82,12 @@ public class RemoteDesktopManager {
 		
 	}
 	
+	/**
+	 * Creates the remote desktop node.
+	 *
+	 * @param tableId the table id
+	 * @return the math pad remote desktop
+	 */
 	public MathPadRemoteDesktop createRemoteDesktopNode(TableIdentity tableId){
 		MathPadRemoteDesktop rd = null;
 		if(remoteDesktops.containsKey(tableId)){
@@ -78,6 +104,11 @@ public class RemoteDesktopManager {
 	}
 
 	
+	/**
+	 * Unregister remote desktop.
+	 *
+	 * @param tableId the table id
+	 */
 	public void unregisterRemoteDesktop(TableIdentity tableId) {
 		if(remoteDesktops.containsKey(tableId)){
 			controllerManager.removeNetworkListener(remoteDesktops.remove(tableId));
@@ -87,6 +118,11 @@ public class RemoteDesktopManager {
 		}
 	}
 	
+	/**
+	 * Gets the math pad remote desktops.
+	 *
+	 * @return the math pad remote desktops
+	 */
 	public HashMap<TableIdentity, MathPadRemoteDesktop> getMathPadRemoteDesktops(){
 		return this.remoteDesktops;
 	}

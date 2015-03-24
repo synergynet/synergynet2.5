@@ -60,16 +60,36 @@ import synergynetframework.appsystem.contentsystem.jme.items.utils.SketchPadWrap
 import synergynetframework.jme.cursorsystem.MultiTouchElementRegistry;
 import synergynetframework.jme.cursorsystem.flicksystem.FlickSystem;
 
+
+/**
+ * The Class JMESketchPad.
+ */
 public class JMESketchPad extends JMEFrame implements ISketchPadImplementation{
 
+	/** The item. */
 	protected SketchPad item;
+	
+	/** The wrapper. */
 	protected SketchPadWrapper wrapper;
+	
+	/** The draw image. */
 	protected BufferedImage drawImage;
+	
+	/** The draw gfx. */
 	protected Graphics2D drawGfx;
+	
+	/** The draw listeners. */
 	protected transient List<DrawListener> drawListeners = new ArrayList<DrawListener>();
+	
+	/** The last point. */
 	protected Map<Long, Point> lastPoint = new HashMap<Long, Point>();
 
 	
+	/**
+	 * Instantiates a new JME sketch pad.
+	 *
+	 * @param contentItem the content item
+	 */
 	public JMESketchPad(ContentItem contentItem){
 		super(contentItem);
 		item = (SketchPad)contentItem;
@@ -77,12 +97,18 @@ public class JMESketchPad extends JMEFrame implements ISketchPadImplementation{
 		this.renderSketch();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEFrame#init()
+	 */
 	@Override
 	public void init(){
 		super.init();
 		this.renderSketch();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEOrthoContentItem#setRotateTranslateScalable(boolean)
+	 */
 	@Override
 	public void setRotateTranslateScalable(boolean isEnabled) {
 		rotateTranslateScalable = isEnabled;
@@ -97,6 +123,9 @@ public class JMESketchPad extends JMEFrame implements ISketchPadImplementation{
 	}
 
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ISketchPadImplementation#setSketchArea(java.awt.Rectangle)
+	 */
 	@Override
 	public void setSketchArea(Rectangle rectangle) {
 		if (this.orthoControlPointRotateTranslateScale != null && MultiTouchElementRegistry.getInstance().isRegistered(orthoControlPointRotateTranslateScale)){
@@ -114,35 +143,53 @@ public class JMESketchPad extends JMEFrame implements ISketchPadImplementation{
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ISketchPadImplementation#getSketchArea()
+	 */
 	@Override
 	public Rectangle getSketchArea(){
 		return item.getSketchArea();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEFrame#setHeight(int)
+	 */
 	@Override
 	public void setHeight(int height) {
 		super.setHeight(height);
 		this.renderSketch();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEFrame#setWidth(int)
+	 */
 	@Override
 	public void setWidth(int width) {
 		super.setWidth(width);
 		this.renderSketch();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEFrame#setBackGround(synergynetframework.appsystem.contentsystem.items.utils.Background)
+	 */
 	@Override
 	public void setBackGround(Background backGround) {
 		super.setBackGround(backGround);
 		drawingFinished();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEFrame#setBorder(synergynetframework.appsystem.contentsystem.items.utils.Border)
+	 */
 	@Override
 	public void setBorder(Border border) {
 		super.setBorder(border);
 		drawingFinished();
 	}
 	
+	/**
+	 * Drawing finished.
+	 */
 	protected void drawingFinished() {
 		if(gfx != null && drawImage != null){
 			gfx.drawImage(drawImage, item.getBorderSize(),item.getBorderSize(), drawImage.getWidth()-2*item.getBorderSize(), drawImage.getHeight()-2*item.getBorderSize(), null);
@@ -150,6 +197,13 @@ public class JMESketchPad extends JMEFrame implements ISketchPadImplementation{
 		this.graphicsImageQuad.updateGraphics();
 	}
 	
+	/**
+	 * Cursor dragged.
+	 *
+	 * @param id the id
+	 * @param x the x
+	 * @param y the y
+	 */
 	public void cursorDragged(long id, int x, int y) {
 		if(!item.isDrawEnabled()) return;
 		Point p = lastPoint.get(id);		
@@ -163,36 +217,80 @@ public class JMESketchPad extends JMEFrame implements ISketchPadImplementation{
 		for(DrawListener drawListener: drawListeners) drawListener.itemDrawn(drawLine);
 	}
 	
+	/**
+	 * Cursor pressed.
+	 *
+	 * @param cursorID the cursor id
+	 * @param x the x
+	 * @param y the y
+	 */
 	public void cursorPressed(long cursorID, int x, int y) {
 		if(!item.isDrawEnabled()) return;
 		lastPoint.put(cursorID, new Point(x,y));
 		drawGfx.drawLine(x, y, x, y);
 	}
 
+	/**
+	 * Cursor released.
+	 *
+	 * @param cursorID the cursor id
+	 * @param x the x
+	 * @param y the y
+	 */
 	public void cursorReleased(long cursorID, int x, int y) {
 		if(!item.isDrawEnabled()) return;
 		lastPoint.remove(cursorID);
 	}
 	
 	
+	/**
+	 * Cursor clicked.
+	 *
+	 * @param cursorID the cursor id
+	 * @param x the x
+	 * @param y the y
+	 */
 	public void cursorClicked(long cursorID, int x, int y) {}
 
+	/**
+	 * Gets the height.
+	 *
+	 * @return the height
+	 */
 	public int getHeight() {
 		return item.getHeight();
 	}
 
+	/**
+	 * Gets the width.
+	 *
+	 * @return the width
+	 */
 	public int getWidth() {
 		return item.getWidth();
 	}
 
+	/**
+	 * Gets the image height.
+	 *
+	 * @return the image height
+	 */
 	public int getImageHeight() {
 		return item.getHeight();
 	}
 
+	/**
+	 * Gets the image width.
+	 *
+	 * @return the image width
+	 */
 	public int getImageWidth() {
 		return item.getWidth();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ISketchPadImplementation#clearAll()
+	 */
 	@Override
 	public void clearAll() {
 		drawGfx.setColor(item.getBackgroundColour());
@@ -205,6 +303,9 @@ public class JMESketchPad extends JMEFrame implements ISketchPadImplementation{
 		drawingFinished();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ISketchPadImplementation#clear(synergynetframework.appsystem.contentsystem.jme.items.utils.DrawData)
+	 */
 	@Override
 	public void clear(DrawData drawData){
 		drawGfx.setColor(item.getBackgroundColour());
@@ -213,6 +314,9 @@ public class JMESketchPad extends JMEFrame implements ISketchPadImplementation{
 		drawGfx.setColor(item.getTextColor());
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ISketchPadImplementation#setTextColor(java.awt.Color)
+	 */
 	@Override
 	public void setTextColor(Color color) {
 		if(item.getTextColor() != null) drawGfx.setColor(item.getTextColor());
@@ -220,18 +324,27 @@ public class JMESketchPad extends JMEFrame implements ISketchPadImplementation{
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ISketchPadImplementation#getTextColor()
+	 */
 	@Override
 	public Color getTextColor() {
 		return item.getTextColor();
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ISketchPadImplementation#getLineWidth()
+	 */
 	@Override
 	public float getLineWidth() {
 		return item.getLineWidth();
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ISketchPadImplementation#setLineWidth(float)
+	 */
 	@Override
 	public void setLineWidth(float width) {
 		drawGfx.setStroke(new BasicStroke(item.getLineWidth()));
@@ -239,12 +352,18 @@ public class JMESketchPad extends JMEFrame implements ISketchPadImplementation{
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ISketchPadImplementation#getBackgroundColour()
+	 */
 	@Override
 	public Color getBackgroundColour() {
 		return item.getBackgroundColour();
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ISketchPadImplementation#setBackgroundColour(java.awt.Color)
+	 */
 	@Override
 	public void setBackgroundColour(Color color) {
 		drawGfx.setColor(item.getBackgroundColour());
@@ -255,6 +374,9 @@ public class JMESketchPad extends JMEFrame implements ISketchPadImplementation{
 		this.drawingFinished();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ISketchPadImplementation#draw(synergynetframework.appsystem.contentsystem.jme.items.utils.DrawData)
+	 */
 	@Override
 	public void draw(DrawData data) {
 		item.getDrawData().add(data);
@@ -262,32 +384,50 @@ public class JMESketchPad extends JMEFrame implements ISketchPadImplementation{
 		this.drawingFinished();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ISketchPadImplementation#draw(java.util.List)
+	 */
 	@Override
 	public void draw(List<DrawData> drawData) {
 		for(DrawData data: drawData) this.draw(data);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ISketchPadImplementation#getDrawData()
+	 */
 	@Override
 	public List<DrawData> getDrawData() {
 		return item.getDrawData();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ISketchPadImplementation#addDrawListener(synergynetframework.appsystem.contentsystem.items.SketchPad.DrawListener)
+	 */
 	@Override
 	public void addDrawListener(DrawListener listener) {
 		if(drawListeners == null) drawListeners = new ArrayList<DrawListener>();
 		if(!drawListeners.contains(listener)) drawListeners.add(listener);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ISketchPadImplementation#removeDrawListener(synergynetframework.appsystem.contentsystem.items.SketchPad.DrawListener)
+	 */
 	@Override
 	public void removeDrawListener(DrawListener listener) {
 		drawListeners.remove(listener);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ISketchPadImplementation#removeDrawListeners()
+	 */
 	@Override
 	public void removeDrawListeners() {
 		drawListeners.clear();
 	}
 	
+	/**
+	 * Render sketch.
+	 */
 	public void renderSketch(){
 		if(item.getWidth() >0 && item.getHeight() >0){
 			drawImage = new BufferedImage(item.getWidth() - item.getBorderSize(), item.getHeight() - item.getBorderSize(), BufferedImage.TYPE_INT_ARGB);
@@ -304,6 +444,9 @@ public class JMESketchPad extends JMEFrame implements ISketchPadImplementation{
 		}
 	}
 	
+	/**
+	 * Redraw content.
+	 */
 	protected void redrawContent(){
 		if(item.getWidth() >0 && item.getHeight() >0){
 			for(DrawData data: item.getDrawData()){
@@ -314,6 +457,9 @@ public class JMESketchPad extends JMEFrame implements ISketchPadImplementation{
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ISketchPadImplementation#fillRectangle(java.awt.Rectangle, java.awt.Color)
+	 */
 	@Override
 	public void fillRectangle(Rectangle rectangle, Color color) {
 		if(rectangle.x<0 || rectangle.y<0 || rectangle.width> item.getWidth() || rectangle.height >item.getHeight()) throw new IllegalArgumentException("Invalid dimension");
@@ -321,12 +467,18 @@ public class JMESketchPad extends JMEFrame implements ISketchPadImplementation{
 		this.draw(drawData);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ISketchPadImplementation#drawLine(long, java.awt.Point, java.awt.Point, java.awt.Color, float)
+	 */
 	@Override
 	public void drawLine(long cursorId, Point startPoint, Point endPoint, Color color, float width){
 		DrawLine drawLine = new DrawLine(cursorId, startPoint, endPoint, color, width);
 		this.draw(drawLine);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ISketchPadImplementation#drawString(java.lang.String, int, int)
+	 */
 	@Override
 	public void drawString(String string, int x, int y) {
 		if(string == null) return;
@@ -335,6 +487,9 @@ public class JMESketchPad extends JMEFrame implements ISketchPadImplementation{
 		this.draw(drawData);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEOrthoContentItem#makeFlickable(float)
+	 */
 	@Override
 	public void makeFlickable(float deceleration){
 
@@ -342,11 +497,17 @@ public class JMESketchPad extends JMEFrame implements ISketchPadImplementation{
 		FlickSystem.getInstance().getMovingElement(this.getTopLevelNode(spatial)).addFlickListener(this);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ISketchPadImplementation#getClearArea()
+	 */
 	@Override
 	public Rectangle getClearArea(){
 		return item.getClearArea();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ISketchPadImplementation#setClearArea(java.awt.Rectangle)
+	 */
 	@Override
 	public void setClearArea(final Rectangle rectangle) {
 		item.addItemListener(new ItemEventAdapter(){
@@ -361,11 +522,17 @@ public class JMESketchPad extends JMEFrame implements ISketchPadImplementation{
 		});			
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ISketchPadImplementation#isDrawEnabled()
+	 */
 	@Override
 	public boolean isDrawEnabled() {
 		return item.isDrawEnabled();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.ISketchPadImplementation#setDrawEnabled(boolean)
+	 */
 	@Override
 	public void setDrawEnabled(boolean isWriteEnabled) {}
 }

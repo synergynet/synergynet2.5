@@ -40,15 +40,31 @@ import synergynetframework.appsystem.server.ServerMonitor;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.server.TableCommsServerService;
 
+
+/**
+ * The Class OnlineListModel.
+ */
 public class OnlineListModel extends DefaultListModel implements ServerMonitor {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -1549976236904153875L;
+	
+	/** The server. */
 	private TableCommsServerService server;
 
+	/**
+	 * Instantiates a new online list model.
+	 *
+	 * @param server the server
+	 */
 	public OnlineListModel(TableCommsServerService server) {
 		this.server = server;
 		server.registerServerMonitor(this);
 	}
 	
+	/* (non-Javadoc)
+	 * @see javax.swing.DefaultListModel#getElementAt(int)
+	 */
 	public Object getElementAt(int index) {
 		if(server.getReceivers().size() == 0) return null;
 		java.util.List<TableIdentity> l = new ArrayList<TableIdentity>();
@@ -56,17 +72,29 @@ public class OnlineListModel extends DefaultListModel implements ServerMonitor {
 		return l.get(index);
 	}
 	
+	/* (non-Javadoc)
+	 * @see javax.swing.DefaultListModel#getSize()
+	 */
 	public int getSize() {
 		return server.getReceivers().size();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.server.ServerMonitor#tableConnected(synergynetframework.appsystem.services.net.localpresence.TableIdentity)
+	 */
 	public void tableConnected(TableIdentity identity) {
 		this.fireContentsChanged(this, 0, getSize());
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.server.ServerMonitor#tableDisconnected(synergynetframework.appsystem.services.net.localpresence.TableIdentity)
+	 */
 	public void tableDisconnected(TableIdentity identity) {
 		this.fireContentsChanged(this, 0, getSize());
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.server.ServerMonitor#serverReceivedMessage(java.lang.Object)
+	 */
 	public void serverReceivedMessage(Object obj) {}
 }

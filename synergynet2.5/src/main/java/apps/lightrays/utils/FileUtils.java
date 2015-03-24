@@ -7,8 +7,18 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+
+/**
+ * The Class FileUtils.
+ */
 public class FileUtils {
 
+	/**
+	 * Read doc as string.
+	 *
+	 * @param file the file
+	 * @return the string
+	 */
 	public static String readDocAsString(String file) {
 		File f = new File(file);
 		StringBuffer buffer = new StringBuffer();

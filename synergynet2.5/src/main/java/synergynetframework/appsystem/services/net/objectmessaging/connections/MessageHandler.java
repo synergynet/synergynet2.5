@@ -33,10 +33,32 @@
 package synergynetframework.appsystem.services.net.objectmessaging.connections;
 
 
+
+/**
+ * The Interface MessageHandler.
+ */
 public interface MessageHandler {
 	
+	/**
+	 * Handler connected.
+	 *
+	 * @param connectionHandler the connection handler
+	 */
 	public void handlerConnected (ConnectionHandler connectionHandler);
+	
+	/**
+	 * Handler disconnected.
+	 *
+	 * @param connectionHandler the connection handler
+	 */
 	public void handlerDisconnected (ConnectionHandler connectionHandler);
+	
+	/**
+	 * Message received.
+	 *
+	 * @param object the object
+	 * @param connectionHandler the connection handler
+	 */
 	public void messageReceived (Object object, ConnectionHandler connectionHandler);
 
 }

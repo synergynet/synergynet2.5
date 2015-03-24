@@ -9,9 +9,21 @@ import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.appsystem.contentsystem.items.LightImageLabel;
 
+
+/**
+ * The Class TextMystery.
+ */
 public class TextMystery {
+		
+		/** The max scale. */
 		public static float  MIN_SCALE = 0.1f, MAX_SCALE = 1.5f; 
 	
+		/**
+		 * Gets the mystery.
+		 *
+		 * @param contentSystem the content system
+		 * @return the mystery
+		 */
 		public List<ContentItem> getMystery(ContentSystem contentSystem){
 			List<ContentItem> items = new ArrayList<ContentItem>();
 

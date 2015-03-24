@@ -45,19 +45,49 @@ import javax.swing.JTabbedPane;
 import synergynetframework.config.PreferencesItem;
 import synergynetframework.utils.io.FileReadingUtils;
 
+
+/**
+ * The Class ConfigurationSystem.
+ */
 public class ConfigurationSystem {
 
+	/** The Constant CORE_PREFS_LIST_FILE. */
 	private static final String CORE_PREFS_LIST_FILE = "corepreferences.list";
 
+	/**
+	 * Gets the preferences.
+	 *
+	 * @param c the c
+	 * @return the preferences
+	 */
 	public static Preferences getPreferences(Class<? extends PreferencesItem> c) {
 		return Preferences.userNodeForPackage(c);
 	}
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 * @throws FileNotFoundException the file not found exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws ClassNotFoundException the class not found exception
+	 */
 	public static void main(String[] args) throws FileNotFoundException, IOException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		startConfigGUI();		
 	}
 
 	
+	/**
+	 * Start config gui.
+	 *
+	 * @throws FileNotFoundException the file not found exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ClassNotFoundException the class not found exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	private static void startConfigGUI() throws FileNotFoundException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException {
 		JFrame jf = new JFrame("SynergyNet Desktop Configuration Tool");
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -72,6 +102,12 @@ public class ConfigurationSystem {
 
 	}
 	
+	/**
+	 * Load core preferences items.
+	 *
+	 * @param jtp the jtp
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	private static void loadCorePreferencesItems(JTabbedPane jtp) throws IOException {
 		List<PreferencesItem> prefsItems = getCorePreferencesItems();
 		for(PreferencesItem item : prefsItems) {
@@ -79,6 +115,12 @@ public class ConfigurationSystem {
 		}		
 	}
 
+	/**
+	 * Gets the core preferences items.
+	 *
+	 * @return the core preferences items
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	private static List<PreferencesItem> getCorePreferencesItems() throws IOException {
 		List<PreferencesItem> items = new ArrayList<PreferencesItem>();
 		List<String> classes = FileReadingUtils.readAsStringList(PreferencesItem.class.getResourceAsStream(CORE_PREFS_LIST_FILE), true);
@@ -97,6 +139,15 @@ public class ConfigurationSystem {
 		return items;
 	}
 
+	/**
+	 * Gets the preferences item for class.
+	 *
+	 * @param classname the classname
+	 * @return the preferences item for class
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws ClassNotFoundException the class not found exception
+	 */
 	@SuppressWarnings("unchecked")
 	private static PreferencesItem getPreferencesItemForClass(String classname) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		Class<? extends PreferencesItem> prefsClass = (Class<? extends PreferencesItem>) Class.forName(classname);

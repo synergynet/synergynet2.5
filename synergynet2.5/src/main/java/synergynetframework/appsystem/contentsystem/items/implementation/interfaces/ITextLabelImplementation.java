@@ -36,10 +36,44 @@ import java.awt.Font;
 
 import synergynetframework.appsystem.contentsystem.items.TextLabel.Alignment;
 
+
+/**
+ * The Interface ITextLabelImplementation.
+ */
 public interface ITextLabelImplementation extends IFrameImplementation{
+	
+	/**
+	 * Sets the text.
+	 *
+	 * @param text the new text
+	 */
 	public void setText(String text);
+	
+	/**
+	 * Sets the font.
+	 *
+	 * @param font the new font
+	 */
 	public void setFont(Font font);
+	
+	/**
+	 * Sets the text colour.
+	 *
+	 * @param textColour the new text colour
+	 */
 	public void setTextColour(Color textColour);
+	
+	/**
+	 * Sets the alignment.
+	 *
+	 * @param textAlignment the new alignment
+	 */
 	public void setAlignment(Alignment textAlignment);
+	
+	/**
+	 * Gets the alignment.
+	 *
+	 * @return the alignment
+	 */
 	public Alignment getAlignment();
 }

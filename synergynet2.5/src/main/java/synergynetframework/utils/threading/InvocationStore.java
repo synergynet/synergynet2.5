@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+
 /**
  * Allows for the passing of responsibility of the queueing and subsequent
  * executing of methods in one thread to the control of another thread.
@@ -50,8 +51,16 @@ import java.util.List;
 
 public class InvocationStore {
 	
+	/** The calls. */
 	private List<InvocationData> calls = new ArrayList<InvocationData>();
 	
+	/**
+	 * Adds the method invocation.
+	 *
+	 * @param m the m
+	 * @param obj the obj
+	 * @param args the args
+	 */
 	public void addMethodInvocation(Method m, Object obj, Object[] args) {
 		InvocationData invocationData = new InvocationData(m, obj, args);
 		synchronized(calls) {
@@ -59,6 +68,13 @@ public class InvocationStore {
 		}
 	}
 	
+	/**
+	 * Execute all.
+	 *
+	 * @throws IllegalArgumentException the illegal argument exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws InvocationTargetException the invocation target exception
+	 */
 	public void executeAll() throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
 		synchronized(calls) {
 			Iterator<InvocationData> i = calls.iterator();
@@ -71,11 +87,27 @@ public class InvocationStore {
 		}
 	}
 	
+	/**
+	 * The Class InvocationData.
+	 */
 	private class InvocationData {
+		
+		/** The method. */
 		public Method method;
+		
+		/** The obj. */
 		public Object obj;
+		
+		/** The args. */
 		public Object[] args;
 		
+		/**
+		 * Instantiates a new invocation data.
+		 *
+		 * @param m the m
+		 * @param obj the obj
+		 * @param args the args
+		 */
 		public InvocationData(Method m, Object obj, Object[] args) {
 			this.method = m;
 			this.obj = obj;
@@ -83,6 +115,9 @@ public class InvocationStore {
 		}
 	}
 
+	/**
+	 * Reset.
+	 */
 	public void reset() {
 		synchronized(calls) {
 			calls.clear();		

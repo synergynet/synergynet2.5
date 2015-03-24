@@ -48,12 +48,27 @@ import synergynetframework.appsystem.contentsystem.items.TextLabel;
 import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAdapter;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class TableConnectDialog.
+ */
 public class TableConnectDialog extends MTDialog implements NetworkListener{
 
+	/** The table ids. */
 	protected HashMap<String,TableIdentity> tableIds;
+	
+	/** The table list. */
 	protected DropDownList tableList;
+	
+	/** The portal. */
 	protected TablePortal portal;
 	
+	/**
+	 * Instantiates a new table connect dialog.
+	 *
+	 * @param portal the portal
+	 * @param contentSystem the content system
+	 */
 	public TableConnectDialog(TablePortal portal, ContentSystem contentSystem) {
 		super(portal, contentSystem);
 		this.setModal(true);
@@ -131,12 +146,18 @@ public class TableConnectDialog extends MTDialog implements NetworkListener{
 		});
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.util.MTDialog#close()
+	 */
 	@Override
 	public void close(){
 		if(portal.getNetworkManager() != null) portal.getNetworkManager().removeNetworkListener(TableConnectDialog.this);
 		super.close();
 	}
 	
+	/* (non-Javadoc)
+	 * @see apps.remotecontrol.networkmanager.managers.NetworkedContentManager.NetworkListener#messageReceived(java.lang.Object)
+	 */
 	@Override
 	public void messageReceived(Object obj) {
 		

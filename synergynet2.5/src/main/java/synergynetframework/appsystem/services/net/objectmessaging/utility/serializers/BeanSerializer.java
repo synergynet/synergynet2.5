@@ -49,12 +49,27 @@ import java.util.HashMap;
 import synergynetframework.appsystem.services.net.objectmessaging.Network;
 import synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler;
 
+
+/**
+ * The Class BeanSerializer.
+ */
 public class BeanSerializer extends Serializer {
+	
+	/** The Constant instance. */
 	static private final BeanSerializer instance = new BeanSerializer();
 
+	/** The setter method cache. */
 	private final HashMap<Class<?>, CachedMethod[]> setterMethodCache = new HashMap<Class<?>, CachedMethod[]>();
+	
+	/** The getter method cache. */
 	private final HashMap<Class<?>, CachedMethod[]> getterMethodCache = new HashMap<Class<?>, CachedMethod[]>();
 
+	/**
+	 * Cache.
+	 *
+	 * @param type the type
+	 * @throws SerializationException the serialization exception
+	 */
 	private void cache (Class<?> type) throws SerializationException {
 		BeanInfo info;
 		try {
@@ -96,6 +111,13 @@ public class BeanSerializer extends Serializer {
 		setterMethodCache.put(type, setterMethods.toArray(new CachedMethod[setterMethods.size()]));
 	}
 
+	/**
+	 * Gets the getter methods.
+	 *
+	 * @param type the type
+	 * @return the getter methods
+	 * @throws SerializationException the serialization exception
+	 */
 	private CachedMethod[] getGetterMethods (Class<?> type) throws SerializationException {
 		CachedMethod[] getterMethods = getterMethodCache.get(type);
 		if (getterMethods != null) return getterMethods;
@@ -103,6 +125,13 @@ public class BeanSerializer extends Serializer {
 		return getterMethodCache.get(type);
 	}
 
+	/**
+	 * Gets the setter methods.
+	 *
+	 * @param type the type
+	 * @return the setter methods
+	 * @throws SerializationException the serialization exception
+	 */
 	private CachedMethod[] getSetterMethods (Class<?> type) throws SerializationException {
 		CachedMethod[] setterMethods = setterMethodCache.get(type);
 		if (setterMethods != null) return setterMethods;
@@ -110,6 +139,9 @@ public class BeanSerializer extends Serializer {
 		return setterMethodCache.get(type);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.utility.serializers.Serializer#writeObjectData(synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler, java.nio.ByteBuffer, java.lang.Object, boolean)
+	 */
 	public void writeObjectData (ConnectionHandler connectionHandler, ByteBuffer buffer, Object object, boolean lengthKnown)
 		throws SerializationException {
 		Class<?> type = object.getClass();
@@ -132,6 +164,9 @@ public class BeanSerializer extends Serializer {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.utility.serializers.Serializer#readObjectData(synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler, java.nio.ByteBuffer, java.lang.Class, boolean)
+	 */
 	public <T> T readObjectData (ConnectionHandler connectionHandler, ByteBuffer buffer, Class<T> type, boolean lengthKnown)
 		throws SerializationException {
 		T object = newInstance(type);
@@ -155,20 +190,50 @@ public class BeanSerializer extends Serializer {
 		return object;
 	}
 
+	/**
+	 * The Class CachedMethod.
+	 */
 	static class CachedMethod {
+		
+		/** The method. */
 		public Method method;
+		
+		/** The serializer. */
 		public Serializer serializer;
+		
+		/** The type. */
 		public Class<?> type; // Only populated for setter methods.
 
+		/* (non-Javadoc)
+		 * @see java.lang.Object#toString()
+		 */
 		public String toString () {
 			return method.getName();
 		}
 	}
 
+	/**
+	 * Put.
+	 *
+	 * @param connectionHandler the connection handler
+	 * @param buffer the buffer
+	 * @param object the object
+	 * @throws SerializationException the serialization exception
+	 */
 	static public void put (ConnectionHandler connectionHandler, ByteBuffer buffer, Object object) throws SerializationException {
 		instance.writeObjectData(connectionHandler, object, buffer);
 	}
 
+	/**
+	 * Gets the.
+	 *
+	 * @param <T> the generic type
+	 * @param connectionHandler the connection handler
+	 * @param buffer the buffer
+	 * @param type the type
+	 * @return the t
+	 * @throws SerializationException the serialization exception
+	 */
 	static public <T> T get (ConnectionHandler connectionHandler, ByteBuffer buffer, Class<T> type) throws SerializationException {
 		return instance.readObjectData(connectionHandler, buffer, type);
 	}

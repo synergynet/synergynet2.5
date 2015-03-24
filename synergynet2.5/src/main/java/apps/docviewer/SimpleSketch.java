@@ -46,20 +46,40 @@ import com.jmex.awt.swingui.ImageGraphics;
 import synergynetframework.jme.gfx.twod.DrawableSpatialImage;
 import synergynetframework.jme.gfx.twod.utils.GraphicsImageQuad;
 
+
+/**
+ * The Class SimpleSketch.
+ */
 public class SimpleSketch extends GraphicsImageQuad implements DrawableSpatialImage {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -1822085394111434612L;
 	
+	/** The gfx. */
 	protected ImageGraphics gfx;
 
+	/** The height pixels. */
 	private int heightPixels;
+	
+	/** The width pixels. */
 	private int widthPixels;
 	
+	/** The draw image. */
 	protected BufferedImage drawImage;
 
+	/** The draw gfx. */
 	private Graphics2D drawGfx;
 	
+	/** The last point. */
 	protected Map<Long, Point> lastPoint = new HashMap<Long, Point>();
 	
+	/**
+	 * Instantiates a new simple sketch.
+	 *
+	 * @param name the name
+	 * @param widthPixels the width pixels
+	 * @param heightPixels the height pixels
+	 */
 	public SimpleSketch(String name, int widthPixels, int heightPixels) {
 		super(name, widthPixels, heightPixels);
 		this.widthPixels = widthPixels;
@@ -80,9 +100,15 @@ public class SimpleSketch extends GraphicsImageQuad implements DrawableSpatialIm
 		drawingFinished();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#draw()
+	 */
 	public void draw() {
 	}
 		
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#cursorDragged(long, int, int)
+	 */
 	public void cursorDragged(long id, int x, int y) {
 		drawGfx.setColor(Color.black);		
 		Point p = lastPoint.get(id);		
@@ -95,42 +121,69 @@ public class SimpleSketch extends GraphicsImageQuad implements DrawableSpatialIm
 		drawingFinished();
 	}
 
+	/**
+	 * Drawing finished.
+	 */
 	private void drawingFinished() {
 		gfx.drawImage(drawImage, 0, 0, null);
 		updateGraphics();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#cursorPressed(long, int, int)
+	 */
 	@Override
 	public void cursorPressed(long cursorID, int x, int y) {
 		lastPoint.put(cursorID, new Point(x,y));
 		drawGfx.drawLine(x, y, x, y);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#cursorReleased(long, int, int)
+	 */
 	@Override
 	public void cursorReleased(long cursorID, int x, int y) {
 		lastPoint.remove(cursorID);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#cursorClicked(long, int, int)
+	 */
 	@Override
 	public void cursorClicked(long cursorID, int x, int y) {}
 
 
+	/* (non-Javadoc)
+	 * @see com.jme.scene.shape.Quad#getWidth()
+	 */
 	public float getWidth() {
 		return widthPixels;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.jme.scene.shape.Quad#getHeight()
+	 */
 	public float getHeight() {
 		return heightPixels;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.utils.GraphicsImageQuad#getImageHeight()
+	 */
 	public int getImageHeight() {
 		return heightPixels;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.utils.GraphicsImageQuad#getImageWidth()
+	 */
 	public int getImageWidth() {
 		return widthPixels;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.gfx.twod.DrawableSpatialImage#getSpatial()
+	 */
 	public Spatial getSpatial() {
 		return this;
 	}

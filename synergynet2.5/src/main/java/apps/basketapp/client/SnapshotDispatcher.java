@@ -14,14 +14,28 @@ import apps.basketapp.messages.SnapshotMessage;
 
 import com.jme.system.DisplaySystem;
 
+
+/**
+ * The Class SnapshotDispatcher.
+ */
 public class SnapshotDispatcher {
 	
+    /** The baos. */
     private ByteArrayOutputStream baos = new ByteArrayOutputStream();
     
+    /** The snapshot path. */
     private String snapshotPath = System.getProperty("user.dir");
 	
+    /**
+     * Instantiates a new snapshot dispatcher.
+     */
     public SnapshotDispatcher(){}
 	
+	/**
+	 * Dispatch snapshot.
+	 *
+	 * @param tableId the table id
+	 */
 	public void dispatchSnapshot(final TableIdentity tableId){
 		if(DisplaySystem.getDisplaySystem().getRenderer() != null){
 			DisplaySystem.getDisplaySystem().getRenderer().takeScreenShot(snapshotPath);

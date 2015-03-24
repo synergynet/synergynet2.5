@@ -41,21 +41,42 @@ import synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp;
 import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightConfirmVisualExit;
 
+
+/**
+ * The Class BasketApp.
+ */
 public class BasketApp extends DefaultSynergyNetApp implements BasketListener{
 
+	/** The content system. */
 	private ContentSystem contentSystem;
+	
+	/** The manager. */
 	private BasketManager manager;
+	
+	/** The online items. */
 	private List<ContentItem> onlineItems = new ArrayList<ContentItem>();
+	
+	/** The lock image. */
 	private Frame lockImage;
+	
+	/** The dispatcher. */
 	private SnapshotDispatcher dispatcher = new SnapshotDispatcher();
 	//private StateRecorder stateRecorder;
 	
 	//private boolean loadState = true;
 	
+	/**
+	 * Instantiates a new basket app.
+	 *
+	 * @param info the info
+	 */
 	public BasketApp(ApplicationInfo info) {
 		super(info);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		SynergyNetAppUtils.addTableOverlay(this);
@@ -84,6 +105,9 @@ public class BasketApp extends DefaultSynergyNetApp implements BasketListener{
 		//stateRecorder.startStateRecording();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onActivate()
+	 */
 	@Override
 	public void onActivate() {
 		RapidNetworkManager.addNetworkedContentListener(new NetworkedContentListener(){
@@ -192,6 +216,9 @@ public class BasketApp extends DefaultSynergyNetApp implements BasketListener{
 
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	@Override
 	protected void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);
@@ -199,6 +226,9 @@ public class BasketApp extends DefaultSynergyNetApp implements BasketListener{
 		if(manager != null) manager.update(tpf);
 	}
 	
+	/**
+	 * Inits the baskets.
+	 */
 	public void initBaskets(){
 		GameTaskQueueManager.getManager().update(new Callable<Object>() {
 			public Object call() throws Exception {
@@ -225,6 +255,9 @@ public class BasketApp extends DefaultSynergyNetApp implements BasketListener{
 		});
 	}
 	
+	/**
+	 * Creates the lock image.
+	 */
 	public void createLockImage(){
 		if(lockImage == null){
 			lockImage = (Frame) contentSystem.createContentItem(Frame.class);
@@ -238,15 +271,26 @@ public class BasketApp extends DefaultSynergyNetApp implements BasketListener{
 		lockImage.setVisible(!SynergyNetDesktop.getInstance().getMultiTouchInputComponent().isMultiTouchInputEnabled());
 	}
 
+	/**
+	 * Gets the online items.
+	 *
+	 * @return the online items
+	 */
 	public List<ContentItem> getOnlineItems() {
 		return onlineItems;
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.basketapp.client.Basket.BasketListener#itemAdded(synergynetframework.appsystem.contentsystem.items.ContentItem)
+	 */
 	@Override
 	public void itemAdded(ContentItem item) {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.basketapp.client.Basket.BasketListener#itemDetached(synergynetframework.appsystem.contentsystem.items.ContentItem)
+	 */
 	@Override
 	public void itemDetached(ContentItem item) {
 		if(item.getNote().equalsIgnoreCase("text")){

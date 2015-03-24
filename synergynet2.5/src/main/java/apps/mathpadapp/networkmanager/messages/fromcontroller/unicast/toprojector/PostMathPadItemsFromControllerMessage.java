@@ -40,17 +40,36 @@ import apps.mathpadapp.networkmanager.utils.UserIdentity;
 
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class PostMathPadItemsFromControllerMessage.
+ */
 public class PostMathPadItemsFromControllerMessage extends ControllerToProjectorMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -7600576282368122789L;
+	
+	/** The items. */
 	private HashMap<UserIdentity, MathToolInitSettings> items =new HashMap<UserIdentity, MathToolInitSettings>();
 	
+	/**
+	 * Instantiates a new post math pad items from controller message.
+	 *
+	 * @param targetClass the target class
+	 * @param items the items
+	 * @param tableId the table id
+	 */
 	public PostMathPadItemsFromControllerMessage(Class<?> targetClass, HashMap<UserIdentity, MathToolInitSettings> items, TableIdentity tableId) {
 		super(targetClass);
 		this.items = items;
 		this.setRecipient(tableId);
 	}
 
+	/**
+	 * Gets the items.
+	 *
+	 * @return the items
+	 */
 	public HashMap<UserIdentity, MathToolInitSettings> getItems(){
 		return items;
 	}

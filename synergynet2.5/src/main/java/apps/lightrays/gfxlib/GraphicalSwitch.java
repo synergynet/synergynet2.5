@@ -36,25 +36,51 @@ import java.awt.Graphics2D;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * The Class GraphicalSwitch.
+ */
 public class GraphicalSwitch extends DrawableElement {
 
+	/** The items. */
 	Map<String, DrawableElement> items;
+	
+	/** The current_item. */
 	DrawableElement current_item;
+	
+	/** The current_item_name. */
 	String current_item_name;
 	
+	/**
+	 * Instantiates a new graphical switch.
+	 */
 	public GraphicalSwitch() {
 		items = new HashMap<String, DrawableElement>();
 	}
 	
+	/**
+	 * Adds the.
+	 *
+	 * @param name the name
+	 * @param el the el
+	 */
 	public void add(String name, DrawableElement el) {
 		this.items.put(name, el);
 	}
 	
+	/**
+	 * Sets the current.
+	 *
+	 * @param name the new current
+	 */
 	public void setCurrent(String name) {
 		current_item_name = name;
 		current_item = items.get(name);
 	}
 	
+	/* (non-Javadoc)
+	 * @see apps.lightrays.gfxlib.DrawableElement#draw(java.awt.Graphics2D, long)
+	 */
 	public void draw(Graphics2D gfx, long tick_count) {
 		current_item.draw(gfx, tick_count);
 	}

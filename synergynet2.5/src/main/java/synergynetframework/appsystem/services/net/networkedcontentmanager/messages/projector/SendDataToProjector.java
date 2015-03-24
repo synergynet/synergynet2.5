@@ -38,20 +38,43 @@ import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.networkedcontentmanager.messages.SendDataTo;
 
+
+/**
+ * The Class SendDataToProjector.
+ */
 public class SendDataToProjector extends SendDataTo {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -546746344864227474L;
 
+	/** The source table id. */
 	private TableIdentity sourceTableId;
 	
+	/**
+	 * Instantiates a new send data to projector.
+	 *
+	 * @param targetClass the target class
+	 * @param collection the collection
+	 * @param id the id
+	 */
 	public SendDataToProjector(Class<?> targetClass, Collection<ContentItem> collection, TableIdentity id) {
 		super(targetClass, collection, id);
 	}
 	
+	/**
+	 * Sets the source table identity.
+	 *
+	 * @param sourceTableId the new source table identity
+	 */
 	public void setSourceTableIdentity(TableIdentity sourceTableId){
 		this.sourceTableId = sourceTableId;
 	}
 	
+	/**
+	 * Gets the source table identity.
+	 *
+	 * @return the source table identity
+	 */
 	public TableIdentity getSourceTableIdentity(){
 		return sourceTableId;
 	}

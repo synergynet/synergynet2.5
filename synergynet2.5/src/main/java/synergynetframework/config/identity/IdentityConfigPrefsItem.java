@@ -42,36 +42,70 @@ import core.ConfigurationSystem;
 
 import synergynetframework.config.PreferencesItem;
 
+
+/**
+ * The Class IdentityConfigPrefsItem.
+ */
 public class IdentityConfigPrefsItem implements PreferencesItem {
 
+	/** The Constant prefs. */
 	private static final Preferences prefs = ConfigurationSystem.getPreferences(IdentityConfigPrefsItem.class);
 	
+	/** The Constant PREFS_TABLE_ID. */
 	private static final String PREFS_TABLE_ID = "TABLE_ID";
+	
+	/** The Constant PREFS_DEFINE_TABLE_ID. */
 	private static final String PREFS_DEFINE_TABLE_ID = "FALSE";
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.config.PreferencesItem#getConfigurationPanel()
+	 */
 	@Override
 	public JPanel getConfigurationPanel() {
 		return new IdentityConfigPrefsPanel(this);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.config.PreferencesItem#getName()
+	 */
 	@Override
 	public String getName() {
 		return "Identity";
 	}
 	
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
 	public String getID() {
 		if(!isTableIdDefined()) setID(UUID.randomUUID().toString());
 		return prefs.get(PREFS_TABLE_ID, "<no identity>");
 	}
 
+	/**
+	 * Sets the id.
+	 *
+	 * @param uid the new id
+	 */
 	public void setID(String uid) {
 		prefs.put(PREFS_TABLE_ID, uid);		
 	}
 	
+	/**
+	 * Checks if is table id defined.
+	 *
+	 * @return true, if is table id defined
+	 */
 	public boolean isTableIdDefined(){
 		return prefs.getBoolean(PREFS_DEFINE_TABLE_ID, false);
 	}
 	
+	/**
+	 * Sets the table id defined.
+	 *
+	 * @param isTableIdDefined the new table id defined
+	 */
 	public void setTableIdDefined(boolean isTableIdDefined){
 		prefs.putBoolean(PREFS_DEFINE_TABLE_ID, isTableIdDefined);
 	}

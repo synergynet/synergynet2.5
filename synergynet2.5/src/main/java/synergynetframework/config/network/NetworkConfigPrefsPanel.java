@@ -43,22 +43,46 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+
+/**
+ * The Class NetworkConfigPrefsPanel.
+ */
 public class NetworkConfigPrefsPanel extends javax.swing.JPanel {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1808994055508198383L;
+	
+	/** The prefs. */
 	private NetworkConfigPrefsItem prefs;
 	
+	/** The j check box1. */
 	private JCheckBox jCheckBox1;
+	
+	/** The j label1. */
 	private JLabel jLabel1;
+	
+	/** The j label2. */
 	private JLabel jLabel2;
+	
+	/** The j text field1. */
 	private JTextField jTextField1;
+	
+	/** The j text field2. */
 	private JTextField jTextField2;
 	
+	/**
+	 * Instantiates a new network config prefs panel.
+	 *
+	 * @param networkConfigPrefsItem the network config prefs item
+	 */
 	public NetworkConfigPrefsPanel(NetworkConfigPrefsItem networkConfigPrefsItem) {
 		this.prefs = networkConfigPrefsItem;
 		initComponents();
 	}
 
+	/**
+	 * Inits the components.
+	 */
 	private void initComponents() {
 
 		jLabel1 = new JLabel();

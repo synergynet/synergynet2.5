@@ -35,6 +35,7 @@ package synergynetframework.mtinput.events;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Float;
 
+
 /**
  * A multi touch object/fiducial event whose coordinate system is based
  * on the input service that created it, and its mode.  Supports
@@ -46,10 +47,26 @@ import java.awt.geom.Point2D.Float;
  */
 public class MultiTouchObjectEvent extends MultiTouchEvent {
 
+	/**
+	 * Instantiates a new multi touch object event.
+	 *
+	 * @param id the id
+	 * @param position the position
+	 * @param velocity the velocity
+	 */
 	public MultiTouchObjectEvent(long id, Float position, Float velocity) {
 		super(id, position, velocity);
 	}
 	
+	/**
+	 * Instantiates a new multi touch object event.
+	 *
+	 * @param id the id
+	 * @param position the position
+	 * @param velocity the velocity
+	 * @param pressure the pressure
+	 * @param angle the angle
+	 */
 	public MultiTouchObjectEvent(long id, Point2D.Float position, Point2D.Float velocity, float pressure, double angle) {
 		super(id, position, velocity, pressure, angle);
 	}

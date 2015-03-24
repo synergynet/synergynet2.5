@@ -19,15 +19,35 @@ import synergynetframework.appsystem.contentsystem.items.listener.ItemListener;
 import synergynetframework.appsystem.contentsystem.items.listener.ScreenCursorListener;
 import synergynetframework.appsystem.contentsystem.items.utils.Location;
 
+
+/**
+ * The Class MapInitializer.
+ */
 public class MapInitializer {
 		
+		/** The map height. */
 		private int mapWidth = 820, mapHeight = 520;
+		
+		/** The map. */
 		private LightImageLabel map;
+		
+		/** The text map. */
 		private Map<Location, String> textMap = new HashMap<Location, String>();
+		
+		/** The light map. */
 		private Map<Location, String> lightMap = new HashMap<Location, String>();
+		
+		/** The camera map. */
 		private Map<Location, String> cameraMap = new HashMap<Location, String>();
+		
+		/** The dog map. */
 		private Map<Location, String> dogMap = new HashMap<Location, String>();
 
+		/**
+		 * Instantiates a new map initializer.
+		 *
+		 * @param map the map
+		 */
 		public MapInitializer(final LightImageLabel map){
 			this.map = map;
 			map.setWidth(mapWidth);
@@ -113,6 +133,12 @@ public class MapInitializer {
 
 		}
 		
+		/**
+		 * Gets the mystery.
+		 *
+		 * @param contentSystem the content system
+		 * @return the mystery
+		 */
 		public List<ContentItem> getMystery(ContentSystem contentSystem){
 			
 			List<ContentItem> items = new ArrayList<ContentItem>();

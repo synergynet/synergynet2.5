@@ -55,27 +55,90 @@ import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAd
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.messages.TableMessage;
 
+
+/**
+ * The Class TablePortal.
+ */
 public class TablePortal extends MTFrame implements NetworkListener{
 
+	/** The id. */
 	protected String id;
+	
+	/** The network manager. */
 	protected NetworkedContentManager networkManager;
+	
+	/** The control panel. */
 	protected TablePortalControlPanel controlPanel;
+	
+	/** The display panel. */
 	protected DisplayPanel displayPanel;
+	
+	/** The remote table id. */
 	protected TableIdentity remoteTableId = null;
+	
+	/** The sync manager. */
 	protected SyncManager syncManager;
+	
+	/** The default scale. */
 	public static float DEFAULT_SCALE = 0.40f;
+	
+	/** The back frame. */
 	protected Frame backFrame;
+	
+	/** The cull manager. */
 	protected CullManager cullManager;
+	
+	/** The rcm. */
 	protected RadarCullManager rcm;
-	public static enum OperationMode{WRITE, DISPLAY};
-	public static enum RemoteTableMode{LOCKED, UNLOCKED};
-	public static enum TraceMode{TRACES_AND_ITEMS, ITEMS_ONLY, TRACES_ONLY};
+	
+	/**
+	 * The Enum OperationMode.
+	 */
+	public static enum OperationMode{
+/** The write. */
+WRITE, 
+ /** The display. */
+ DISPLAY};
+	
+	/**
+	 * The Enum RemoteTableMode.
+	 */
+	public static enum RemoteTableMode{
+/** The locked. */
+LOCKED, 
+ /** The unlocked. */
+ UNLOCKED};
+	
+	/**
+	 * The Enum TraceMode.
+	 */
+	public static enum TraceMode{
+/** The traces and items. */
+TRACES_AND_ITEMS, 
+ /** The items only. */
+ ITEMS_ONLY, 
+ /** The traces only. */
+ TRACES_ONLY};
 
+	/** The current operation mode. */
 	protected OperationMode currentOperationMode = OperationMode.WRITE;
+	
+	/** The current table mode. */
 	protected RemoteTableMode currentTableMode = RemoteTableMode.UNLOCKED;
+	
+	/** The current trace mode. */
 	protected TraceMode currentTraceMode = TraceMode.ITEMS_ONLY;
+	
+	/** The radar. */
 	protected Radar radar;
 	
+	/**
+	 * Instantiates a new table portal.
+	 *
+	 * @param contentSystem the content system
+	 * @param networkManager the network manager
+	 * @param grapgManager the grapg manager
+	 */
 	public TablePortal(final ContentSystem contentSystem, NetworkedContentManager networkManager, GraphManager grapgManager) {
 		super(contentSystem, grapgManager);
 		id = UUID.randomUUID().toString();
@@ -151,10 +214,18 @@ public class TablePortal extends MTFrame implements NetworkListener{
 		radar.getRadarWindow().setVisible(false);
 	}
 	
+	/**
+	 * Gets the network manager.
+	 *
+	 * @return the network manager
+	 */
 	public NetworkedContentManager getNetworkManager(){
 		return networkManager;
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.util.MTFrame#close()
+	 */
 	@Override
 
 	public void close(){
@@ -169,6 +240,9 @@ public class TablePortal extends MTFrame implements NetworkListener{
 		super.close();
 	}
 	
+	/* (non-Javadoc)
+	 * @see apps.remotecontrol.networkmanager.managers.NetworkedContentManager.NetworkListener#messageReceived(java.lang.Object)
+	 */
 	@Override
 	public void messageReceived(Object obj) {
 		if(obj instanceof PostWorkspacePortalMessage){
@@ -193,6 +267,11 @@ public class TablePortal extends MTFrame implements NetworkListener{
 		}
 	}
 
+	/**
+	 * Update.
+	 *
+	 * @param tpf the tpf
+	 */
 	public void update(float tpf) {
 		if(this.networkManager != null) this.syncManager.update();
 		if(controlPanel.navigator != null) controlPanel.navigator.update();
@@ -200,41 +279,86 @@ public class TablePortal extends MTFrame implements NetworkListener{
 		//if(rcm != null) rcm.update();
 	}
 	
+	/**
+	 * Gets the table id.
+	 *
+	 * @return the table id
+	 */
 	public TableIdentity getTableId(){
 		return remoteTableId;
 	}
 	
+	/**
+	 * Gets the portal id.
+	 *
+	 * @return the portal id
+	 */
 	public String getPortalId(){
 		return id;
 	}
 	
+	/**
+	 * Gets the display panel.
+	 *
+	 * @return the display panel
+	 */
 	public DisplayPanel getDisplayPanel(){
 		return displayPanel;
 	}
 
+	/**
+	 * Sets the operation mode.
+	 *
+	 * @param mode the new operation mode
+	 */
 	public void setOperationMode(OperationMode mode) {
 		this.currentOperationMode = mode;
 		displayPanel.setMode(mode);
 	}
 	
+	/**
+	 * Gets the trace mode.
+	 *
+	 * @return the trace mode
+	 */
 	public TraceMode getTraceMode(){
 		return currentTraceMode;
 	}
 	
+	/**
+	 * Sets the trace mode.
+	 *
+	 * @param currentTraceMode the new trace mode
+	 */
 	public void setTraceMode(TraceMode currentTraceMode){
 		this.currentTraceMode = currentTraceMode;
 		this.getDisplayPanel().updateTraceMode(currentTraceMode);
 	}
 	
+	/**
+	 * Sets the table mode.
+	 *
+	 * @param mode the new table mode
+	 */
 	public void setTableMode(RemoteTableMode mode){
 		this.currentTableMode = mode;
 		if(networkManager != null) networkManager.setRemoteTableMode(this.remoteTableId, mode);
 	}
 	
+	/**
+	 * Gets the radar.
+	 *
+	 * @return the radar
+	 */
 	public Radar getRadar(){
 		return radar;
 	}
 
+	/**
+	 * Connect.
+	 *
+	 * @param tableIdentity the table identity
+	 */
 	public void connect(TableIdentity tableIdentity) {
 		displayPanel.unregisterAllItems();
 		this.remoteTableId = tableIdentity;
@@ -243,6 +367,11 @@ public class TablePortal extends MTFrame implements NetworkListener{
 		this.syncManager.registerSyncTable(remoteTableId);
 	}
 
+	/**
+	 * Sets the networked content manager.
+	 *
+	 * @param manager the new networked content manager
+	 */
 	public void setNetworkedContentManager(NetworkedContentManager manager) {
 		this.networkManager = manager;
 		if(networkManager != null) networkManager.addNetworkListener(this);

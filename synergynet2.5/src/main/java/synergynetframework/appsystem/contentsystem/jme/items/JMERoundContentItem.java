@@ -36,12 +36,25 @@ import synergynetframework.appsystem.contentsystem.items.implementation.interfac
 
 import com.jme.scene.Spatial;
 
+
+/**
+ * The Class JMERoundContentItem.
+ */
 public class JMERoundContentItem extends JMEOrthoContentItem implements IRoundContentItemImplementation {
 
+	/**
+	 * Instantiates a new JME round content item.
+	 *
+	 * @param contentItem the content item
+	 * @param spatial the spatial
+	 */
 	public JMERoundContentItem(ContentItem contentItem, Spatial spatial) {
 		super(contentItem, spatial);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundContentItemImplementation#setRadius(float)
+	 */
 	@Override
 	public void setRadius(float radius){}
 	

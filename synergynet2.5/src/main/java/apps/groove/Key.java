@@ -65,40 +65,87 @@ package apps.groove;
 
 import java.awt.Rectangle;
 
+
+/**
+ * The Class Key.
+ */
 class Key extends Rectangle {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 5606503660536884939L;
 
+	/** The Constant STATE_ON. */
 	public static final int STATE_ON = 0;
+	
+	/** The Constant STATE_OFF. */
 	public static final int STATE_OFF = 1;
 	
+    /** The note state. */
     private int noteState = STATE_OFF;
+    
+    /** The key number. */
     private int keyNumber;
     
+    /**
+     * Instantiates a new key.
+     *
+     * @param x the x
+     * @param y the y
+     * @param width the width
+     * @param height the height
+     * @param num the num
+     */
     public Key(int x, int y, int width, int height, int num) {
     	super(x, y, width, height);
         setKeyNumber(num);
     }
     
+    /**
+     * Checks if is note on.
+     *
+     * @return true, if is note on
+     */
     public boolean isNoteOn() {
         return noteState == STATE_ON;
     }
     
+    /**
+     * On.
+     */
     public void on() {
         setNoteState(STATE_ON);
     }
     
+    /**
+     * Off.
+     */
     public void off() {
         setNoteState(STATE_OFF);
     }
     
+    /**
+     * Sets the note state.
+     *
+     * @param state the new note state
+     */
     public void setNoteState(int state) {
         noteState = state;
     }
 
+	/**
+	 * Sets the key number.
+	 *
+	 * @param keyNumber the new key number
+	 */
 	public void setKeyNumber(int keyNumber) {
 		this.keyNumber = keyNumber;
 	}
 
+	/**
+	 * Gets the key number.
+	 *
+	 * @return the key number
+	 */
 	public int getKeyNumber() {
 		return keyNumber;
 	}

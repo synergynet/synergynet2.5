@@ -42,27 +42,65 @@ import synergynetframework.mtinput.IMultiTouchEventListener;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 import synergynetframework.mtinput.events.MultiTouchObjectEvent;
 
+
+/**
+ * The listener interface for receiving desktopAction events.
+ * The class that is interested in processing a desktopAction
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addDesktopActionListener<code> method. When
+ * the desktopAction event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see DesktopActionEvent
+ */
 public class DesktopActionListener implements IMultiTouchEventListener {
 
+	/** The corner distance. */
 	protected float cornerDistance = 0.06f;
+	
+	/** The cursor timing. */
 	protected Map<Long,Long> cursorTiming = new HashMap<Long,Long>();
+	
+	/** The interval. */
 	protected long interval = 1000;
+	
+	/** The enabled. */
 	private boolean enabled;
 
+	/**
+	 * Checks if is enabled.
+	 *
+	 * @return true, if is enabled
+	 */
 	public boolean isEnabled() {
 		return enabled;
 	}
 
+	/**
+	 * Sets the enabled.
+	 *
+	 * @param enabled the new enabled
+	 */
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorChanged(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorChanged(MultiTouchCursorEvent event) {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorClicked(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorClicked(MultiTouchCursorEvent event) {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorPressed(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorPressed(MultiTouchCursorEvent event) {
 		if(isInCorner(event)) {
 			synchronized(cursorTiming) {
@@ -71,27 +109,50 @@ public class DesktopActionListener implements IMultiTouchEventListener {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorReleased(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorReleased(MultiTouchCursorEvent event) {
 		synchronized(cursorTiming) {
 			cursorTiming.remove(event.getCursorID());
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectAdded(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectAdded(MultiTouchObjectEvent event) {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectChanged(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectChanged(MultiTouchObjectEvent event) {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectRemoved(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectRemoved(MultiTouchObjectEvent event) {
 	}
 
+	/**
+	 * Checks if is in corner.
+	 *
+	 * @param event the event
+	 * @return true, if is in corner
+	 */
 	protected boolean isInCorner(MultiTouchCursorEvent event) {
 		return
 		event.getPosition().x < cornerDistance &&
 		event.getPosition().y < cornerDistance;
 	}
 
+	/**
+	 * Update.
+	 *
+	 * @param interpolation the interpolation
+	 */
 	public void update(float interpolation) {
 		long endTime = System.currentTimeMillis();
 		for(long id : cursorTiming.keySet()){

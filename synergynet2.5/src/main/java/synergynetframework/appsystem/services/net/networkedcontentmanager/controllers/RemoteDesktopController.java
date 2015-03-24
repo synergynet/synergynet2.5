@@ -52,21 +52,49 @@ import synergynetframework.appsystem.services.net.networkedcontentmanager.messag
 import synergynetframework.appsystem.services.net.networkedcontentmanager.utils.ProjectorNode;
 import synergynetframework.appsystem.services.net.networkedcontentmanager.utils.RemoteDesktop;
 
+
+/**
+ * The Class RemoteDesktopController.
+ */
 public class RemoteDesktopController {
 
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(RemoteDesktopController.class.getName());
+	
+	/** The networked content manager. */
 	protected NetworkedContentManager networkedContentManager;
+	
+	/** The remote desktops. */
 	protected HashMap<TableIdentity, RemoteDesktop> remoteDesktops = new HashMap<TableIdentity, RemoteDesktop>();
+	
+	/** The sync controllers. */
 	protected Queue<TableIdentity> syncControllers = new ConcurrentLinkedQueue<TableIdentity>();
+	
+	/** The controller classes. */
 	protected ArrayList<Class<?>> controllerClasses;
+	
+	/** The target classes. */
 	protected ArrayList<Class<?>> targetClasses;
 	
+	/**
+	 * Instantiates a new remote desktop controller.
+	 *
+	 * @param networkedContentManager the networked content manager
+	 * @param controllerClasses the controller classes
+	 * @param targetClasses the target classes
+	 */
 	public RemoteDesktopController(NetworkedContentManager networkedContentManager, ArrayList<Class<?>> controllerClasses, ArrayList<Class<?>> targetClasses){
 		this.networkedContentManager = networkedContentManager;
 		this.controllerClasses = controllerClasses;
 		this.targetClasses = targetClasses;
 	}
 	
+	/**
+	 * Load remote desktop content.
+	 *
+	 * @param tableId the table id
+	 * @param collection the collection
+	 */
 	public void loadRemoteDesktopContent(TableIdentity tableId, List<ContentItem> collection){
 		RemoteDesktop rd = null;
 		if(remoteDesktops.containsKey(tableId)){
@@ -92,6 +120,12 @@ public class RemoteDesktopController {
 		log.info("Load content on Table-"+tableId);
 	}
 	
+	/**
+	 * Synchronise remote desktop data.
+	 *
+	 * @param tableId the table id
+	 * @param synchronisedItems the synchronised items
+	 */
 	public void synchroniseRemoteDesktopData(TableIdentity tableId, Map<String, Map<String, String>> synchronisedItems){
 		RemoteDesktop remoteDesktop = remoteDesktops.get(tableId);
 		if(remoteDesktop != null){
@@ -110,6 +144,11 @@ public class RemoteDesktopController {
 		}
 	}
 	
+	/**
+	 * Request remote desktops.
+	 *
+	 * @param isRemoteDesktopEnabled the is remote desktop enabled
+	 */
 	public void requestRemoteDesktops(boolean isRemoteDesktopEnabled) {
 		for(Class<?> targetClass: targetClasses)	
 			networkedContentManager.sendMessage(new BroadcastEnableRemoteDesktop(targetClass, isRemoteDesktopEnabled));
@@ -130,6 +169,12 @@ public class RemoteDesktopController {
 			
 	}
 	
+	/**
+	 * Request remote desktop.
+	 *
+	 * @param remoteTableId the remote table id
+	 * @param isRemoteDesktopEnabled the is remote desktop enabled
+	 */
 	public void requestRemoteDesktop(TableIdentity remoteTableId, boolean isRemoteDesktopEnabled){
 		for(Class<?> targetClass: targetClasses)	
 			networkedContentManager.sendMessage(new UnicastEnableRemoteDesktop(targetClass, isRemoteDesktopEnabled, remoteTableId));
@@ -143,6 +188,11 @@ public class RemoteDesktopController {
 			log.info("Disable remote table-"+remoteTableId.toString());
 	}
 	
+	/**
+	 * Unregister remote desktop.
+	 *
+	 * @param tableId the table id
+	 */
 	private void unregisterRemoteDesktop(TableIdentity tableId) {
 		if(remoteDesktops.containsKey(tableId)){
 			RemoteDesktop remoteDesktop = remoteDesktops.get(tableId);
@@ -154,6 +204,12 @@ public class RemoteDesktopController {
 		}
 	}
 
+	/**
+	 * Enable remote desktop.
+	 *
+	 * @param callingTableId the calling table id
+	 * @param isRemoteDesktopEnabled the is remote desktop enabled
+	 */
 	public void enableRemoteDesktop(TableIdentity callingTableId, boolean isRemoteDesktopEnabled) {
 		if(isRemoteDesktopEnabled){	
 			if(!syncControllers.contains(callingTableId)) syncControllers.add(callingTableId);
@@ -164,6 +220,11 @@ public class RemoteDesktopController {
 		}
 	}
 	
+	/**
+	 * Send remote desktop sync message.
+	 *
+	 * @param sychronisedData the sychronised data
+	 */
 	public void sendRemoteDesktopSyncMessage(Map<String, Map<String, String>> sychronisedData) {
 
 			for (TableIdentity tableId: syncControllers){

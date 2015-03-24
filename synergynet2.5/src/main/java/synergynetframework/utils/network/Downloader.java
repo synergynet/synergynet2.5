@@ -41,7 +41,19 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
+
+/**
+ * The Class Downloader.
+ */
 public class Downloader {
+	
+	/**
+	 * Download.
+	 *
+	 * @param f the f
+	 * @param url the url
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static void download(File f, URL url) throws IOException {
 		OutputStream out = new BufferedOutputStream(new FileOutputStream(f));
 		URLConnection connection = url.openConnection();

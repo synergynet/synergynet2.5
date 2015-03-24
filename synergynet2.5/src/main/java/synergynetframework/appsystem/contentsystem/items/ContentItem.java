@@ -45,81 +45,175 @@ import synergynetframework.appsystem.contentsystem.items.utils.Border;
 import synergynetframework.appsystem.contentsystem.items.utils.Direction;
 import synergynetframework.appsystem.contentsystem.items.utils.Location;
 
+
+/**
+ * The Class ContentItem.
+ */
 public class ContentItem implements Serializable, IContentItemImplementation{
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -6128005678748844738L;
 
+	/** The content system. */
 	protected transient ContentSystem contentSystem;
+	
+	/** The content item implementation. */
 	protected transient IContentItemImplementation contentItemImplementation;
+	
+	/** The implementation item factory. */
 	protected IImplementationItemFactory implementationItemFactory;
 
+	/** The name. */
 	public String name;
+	
+	/** The id. */
 	protected String id;
+	
+	/** The location. */
 	protected Location location = new Location(0, 0, 0);
+	
+	/** The angle. */
 	protected float angle = 0;
+	
+	/** The scale factor. */
 	protected float scaleFactor = 1;
+	
+	/** The back ground. */
 	protected Background backGround = new Background(Color.lightGray);
+	
+	/** The border. */
 	protected Border border = new Border(Color.white, 4);
+	
+	/** The is visible. */
 	protected boolean isVisible = true;
+	
+	/** The manipulate. */
 	protected boolean manipulate = false;
+	
+	/** The is boundary enabled. */
 	protected boolean isBoundaryEnabled = true;
+	
+	/** The note. */
 	protected String note="";
+	
+	/** The resource. */
 	protected String resource="";
 
 	
+	/**
+	 * Gets the resource.
+	 *
+	 * @return the resource
+	 */
 	public String getResource(){
 		return resource;
 	}
 	
+	/**
+	 * Sets the resource.
+	 *
+	 * @param resource the new resource
+	 */
 	public void setResource(String resource){
 		this.resource = resource;
 	}
 	
+	/**
+	 * Instantiates a new content item.
+	 *
+	 * @param contentSystem the content system
+	 * @param name the name
+	 */
 	public ContentItem(ContentSystem contentSystem, String name) {
 		this.contentSystem = contentSystem;
 		this.name = name;		
 		this.implementationItemFactory = this.contentSystem.getImplementationItemFactory();
 	}
 
+	/**
+	 * Bind implementation ojbect.
+	 */
 	public void bindImplementationOjbect(){
 		this.contentItemImplementation = this.implementationItemFactory.create(this);
 		this.contentItemImplementation.addMultitouchListener();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#init()
+	 */
 	public void init(){}
 
+	/**
+	 * Inits the implementation objet.
+	 */
 	public void initImplementationObjet(){
 		this.contentItemImplementation.init();
 	}
 
+	/**
+	 * Gets the content system.
+	 *
+	 * @return the content system
+	 */
 	public ContentSystem getContentSystem() {
 		return contentSystem;
 	}
 
+	/**
+	 * Sets the content system.
+	 *
+	 * @param contentSystem the new content system
+	 */
 	public void setContentSystem(ContentSystem contentSystem) {
 		this.contentSystem = contentSystem;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#setName(java.lang.String)
+	 */
 	public void setName(String newName){
 		contentSystem.setItemName(this, newName);
 		this.name = newName;
 	}
 
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#setId(java.lang.String)
+	 */
 	@Override
 	public void setId(String id) {
 		this.id = id;
 	}
 	
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
 	public String getId(){
 		return id;
 	}
+	
+	/**
+	 * Gets the local location.
+	 *
+	 * @return the local location
+	 */
 	public Location getLocalLocation() {
 		return location;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#setLocalLocation(synergynetframework.appsystem.contentsystem.items.utils.Location)
+	 */
 	public void setLocalLocation(Location location) {
 		this.location = location;
 		this.location.setX(location.x);
@@ -129,6 +223,13 @@ public class ContentItem implements Serializable, IContentItemImplementation{
 		this.contentItemImplementation.setLocalLocation(location);
 	}
 
+	/**
+	 * Sets the local location.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @param z the z
+	 */
 	public void setLocalLocation(float x, float y, float z) {
 		this.location.setX(x);
 		this.location.setY(y);
@@ -136,149 +237,283 @@ public class ContentItem implements Serializable, IContentItemImplementation{
 		this.contentItemImplementation.setLocalLocation(this.location);
 	}
 
+	/**
+	 * Sets the local location.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 */
 	public void setLocalLocation(float x, float y) {
 		setLocalLocation(x, y, this.location.getZ());
 	}
 
+	/**
+	 * Gets the angle.
+	 *
+	 * @return the angle
+	 */
 	public float getAngle() {
 		return angle;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#setAngle(float)
+	 */
 	public void setAngle(float angle) {
 		this.angle = angle;
 		this.contentItemImplementation.setAngle(angle);
 	}
 
+	/**
+	 * Gets the scale.
+	 *
+	 * @return the scale
+	 */
 	public float getScale() {
 		return scaleFactor;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#setScale(float)
+	 */
 	public void setScale(float scale) {
 		scaleFactor = scale;
 		this.contentItemImplementation.setScale(scale);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#setScale(float, synergynetframework.appsystem.contentsystem.items.utils.Direction)
+	 */
 	@Override
 	public void setScale(float scale, Direction direction){
 		scaleFactor = scale;
 		this.contentItemImplementation.setScale(scale, direction);
 	}
 
+	/**
+	 * Gets the back ground.
+	 *
+	 * @return the back ground
+	 */
 	public Background getBackGround() {
 		return backGround;
 	}
 
+	/**
+	 * Gets the background colour.
+	 *
+	 * @return the background colour
+	 */
 	public Color getBackgroundColour(){
 		if(backGround == null) return new Color(0, 0, 0, 0);
 		return this.backGround.getColour();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#setBackGround(synergynetframework.appsystem.contentsystem.items.utils.Background)
+	 */
 	public void setBackGround(Background backGround) {
 		this.backGround = backGround;
 		this.contentItemImplementation.setBackGround(backGround);
 	}
 
+	/**
+	 * Sets the background colour.
+	 *
+	 * @param color the new background colour
+	 */
 	public void setBackgroundColour(Color color){
 		this.backGround.setBgColour(color);
 		this.contentItemImplementation.setBackGround(this.backGround);
 	}
 
+	/**
+	 * Gets the border.
+	 *
+	 * @return the border
+	 */
 	public Border getBorder() {
 		return border;
 	}
 
+	/**
+	 * Gets the border size.
+	 *
+	 * @return the border size
+	 */
 	public int getBorderSize(){
 		return this.border.getBorderSize();
 	}
 
+	/**
+	 * Gets the border colour.
+	 *
+	 * @return the border colour
+	 */
 	public Color getBorderColour(){
 		return this.border.getBorderColour();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#setBorder(synergynetframework.appsystem.contentsystem.items.utils.Border)
+	 */
 	public void setBorder(Border border) {
 		this.border = border;
 		this.contentItemImplementation.setBorder(border);
 	}
 
+	/**
+	 * Sets the border size.
+	 *
+	 * @param size the new border size
+	 */
 	public void setBorderSize(int size){
 		this.border.setBorderSize(size);
 		this.contentItemImplementation.setBorder(this.border);
 	}
 
+	/**
+	 * Sets the border colour.
+	 *
+	 * @param color the new border colour
+	 */
 	public void setBorderColour(Color color){
 		this.border.setBorderColour(color);
 		this.contentItemImplementation.setBorder(this.border);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#setVisible(boolean)
+	 */
 	public void setVisible(boolean isVisible) {
 		this.isVisible = isVisible;
 		this.contentItemImplementation.setVisible(isVisible);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#setVisible(boolean, boolean)
+	 */
 	public void setVisible(boolean isVisible, boolean isUntouchable){
 		this.isVisible = isVisible;
 		this.contentItemImplementation.setVisible(isVisible, isUntouchable);
 	}
 
+	/**
+	 * Checks if is visible.
+	 *
+	 * @return true, if is visible
+	 */
 	public boolean isVisible() {
 		return isVisible;
 	}
 
+	/**
+	 * Can manipulate.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean canManipulate() {
 		return manipulate;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#setManipulate(boolean)
+	 */
 	public void setManipulate(boolean manipulate) {
 		this.manipulate = manipulate;
 		this.contentItemImplementation.setManipulate(manipulate);
 	}
 
+	/**
+	 * Checks if is boundary enabled.
+	 *
+	 * @return true, if is boundary enabled
+	 */
 	public boolean isBoundaryEnabled() {
 		return isBoundaryEnabled;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#setBoundaryEnabled(boolean)
+	 */
 	public void setBoundaryEnabled(boolean isBoundaryEnabled) {
 		this.isBoundaryEnabled = isBoundaryEnabled;
 		this.contentItemImplementation.setBoundaryEnabled(isBoundaryEnabled);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#contains(java.awt.geom.Point2D.Float)
+	 */
 	public boolean contains(Point2D.Float point){
 		return this.contentItemImplementation.contains(point);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#hasCollision(synergynetframework.appsystem.contentsystem.items.ContentItem)
+	 */
 	public boolean hasCollision(ContentItem otherItem){
 		return this.contentItemImplementation.hasCollision(otherItem);
 	}
 
+	/**
+	 * Generate unique name.
+	 *
+	 * @return the string
+	 */
 	public String generateUniqueName() {
 		return UUID.randomUUID().toString();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#getImplementationObject()
+	 */
 	public Object getImplementationObject(){
 		return this.contentItemImplementation.getImplementationObject();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#update()
+	 */
 	public void update(){
 		this.contentItemImplementation.update();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#update(float)
+	 */
 	public void update(float interpolation) {
 		this.contentItemImplementation.update(interpolation);
 	}
 
+	/**
+	 * Gets the note.
+	 *
+	 * @return the note
+	 */
 	public String getNote() {
 		return note;
 	}
 
+	/**
+	 * Sets the note.
+	 *
+	 * @param note the new note
+	 */
 	public void setNote(String note) {
 		this.note = note;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#addMultitouchListener()
+	 */
 	@Override
 	public void addMultitouchListener() {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#clone()
+	 */
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		ContentItem clonedItem = (ContentItem)super.clone();
@@ -301,6 +536,9 @@ public class ContentItem implements Serializable, IContentItemImplementation{
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation#setLocation(synergynetframework.appsystem.contentsystem.items.utils.Location)
+	 */
 	public void setLocation(Location location) {
 		this.setLocalLocation(location);
 	}

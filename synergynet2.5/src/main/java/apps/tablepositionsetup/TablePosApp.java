@@ -60,33 +60,75 @@ import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightConfirmVisualExit;
 import synergynetframework.config.position.PositionConfigPrefsItem;
 
+
+/**
+ * The Class TablePosApp.
+ */
 public class TablePosApp extends DefaultSynergyNetApp {
 
+	/** The table width. */
 	private float referenceDistance, tableX, tableY, tableOrientation, tableWidth = 0f;
+	
+	/** The prefs. */
 	private final Preferences prefs = ConfigurationSystem.getPreferences(PositionConfigPrefsItem.class);;
+	
+	/** The stage. */
 	private int stage = 0;
+	
+	/** The time to quit. */
 	private boolean quit, timeToQuit = false;
+	
+	/** The mode. */
 	private int mode = 0;
 
+	/** The Constant MAX_MARKER_DISTANCE. */
 	public final static int MAX_MARKER_DISTANCE = 10;
+	
+	/** The Constant MAX_TABLE_WIDTH. */
 	public final static int MAX_TABLE_WIDTH = 2;
 
+	/** The circle. */
 	private RoundImageLabel circle = null;
+	
+	/** The quit button. */
 	private TextLabel confirmButton, instructions, manualButton, aimOneButton, aimTwoButton, aimThreeButton, saveButton, saveText, setupButton, quitButton = null;
+	
+	/** The orientation box. */
 	private ImageTextLabel orientationBox =null;
+	
+	/** The line three. */
 	private LineItem lineOne, lineTwo, lineThree = null;
+	
+	/** The angle slider. */
 	private Slider angleSlider = null;
+	
+	/** The reference distance dial. */
 	private Dial widthDial, referenceDistanceDial = null;
+	
+	/** The stepper y. */
 	private Stepper stepperX, stepperY = null;
+	
+	/** The count. */
 	private int count = 0;
+	
+	/** The north mode. */
 	private boolean northMode = false;
 
+	/**
+	 * Instantiates a new table pos app.
+	 *
+	 * @param info the info
+	 */
 	public TablePosApp(ApplicationInfo info) {
 		super(info);
 	}
 
+	/** The content system. */
 	private ContentSystem contentSystem;
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		SynergyNetAppUtils.addTableOverlay(this);
@@ -94,6 +136,9 @@ public class TablePosApp extends DefaultSynergyNetApp {
 		setMenuController(new HoldTopRightConfirmVisualExit(this));
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onActivate()
+	 */
 	@Override
 	public void onActivate() {
 				
@@ -260,6 +305,9 @@ public class TablePosApp extends DefaultSynergyNetApp {
 		
 	}
 	
+	/**
+	 * Setup menu.
+	 */
 	private void setupMenu(){
 		mode = 0;
 		
@@ -357,6 +405,9 @@ public class TablePosApp extends DefaultSynergyNetApp {
 
 	}
 	
+	/**
+	 * Manual menu.
+	 */
 	public void manualMenu(){
 		mode = 1;
 		
@@ -382,6 +433,9 @@ public class TablePosApp extends DefaultSynergyNetApp {
 		hideOpenMenu();
 	}
 	
+	/**
+	 * Aim menu.
+	 */
 	public void aimMenu(){
 		mode = 2;
 		referenceDistance = Float.parseFloat(prefs.get(PositionConfigPrefsItem.REFERENCE_DISTANCE, "0"));
@@ -412,6 +466,9 @@ public class TablePosApp extends DefaultSynergyNetApp {
 		hideOpenMenu();
 	}
 	
+	/**
+	 * Aim three menu.
+	 */
 	public void aimThreeMenu(){
 		mode = 3;
 		stage = 1;
@@ -442,6 +499,9 @@ public class TablePosApp extends DefaultSynergyNetApp {
 		hideOpenMenu();
 	}
 	
+	/**
+	 * Hide open menu.
+	 */
 	private void hideOpenMenu() {
 		aimOneButton.setVisible(false, true);
 		aimTwoButton.setVisible(false, true);
@@ -452,6 +512,9 @@ public class TablePosApp extends DefaultSynergyNetApp {
 	}
 
 
+	/**
+	 * Adds the confirm button.
+	 */
 	private void addConfirmButton() {
 
 		confirmButton = (TextLabel)this.contentSystem.createContentItem(TextLabel.class);
@@ -482,6 +545,9 @@ public class TablePosApp extends DefaultSynergyNetApp {
 		
 	}
 
+	/**
+	 * Confirm clicked.
+	 */
 	private void confirmClicked(){		
 		if (mode == 3){
 			aimConfirmMenu();
@@ -496,6 +562,9 @@ public class TablePosApp extends DefaultSynergyNetApp {
 		}
 	}
 
+	/**
+	 * Aim at corners menu.
+	 */
 	private void aimAtCornersMenu() {
 		Location loc = new Location(DisplaySystem.getDisplaySystem().getRenderer().getWidth()/2, DisplaySystem.getDisplaySystem().getRenderer().getHeight()/2, 0);
 		if (!northMode){
@@ -522,6 +591,9 @@ public class TablePosApp extends DefaultSynergyNetApp {
 		stage++;
 	}
 
+	/**
+	 * Aim confirm menu.
+	 */
 	private void aimConfirmMenu() {
 		if (!lineOne.getSourceLocation().equals(lineOne.getTargetLocation()) && !lineTwo.getSourceLocation().equals(lineTwo.getTargetLocation())){
 			if (mode == 3){
@@ -544,6 +616,9 @@ public class TablePosApp extends DefaultSynergyNetApp {
 		}		
 	}
 	
+	/**
+	 * Manual confirm menu.
+	 */
 	private void manualConfirmMenu() {
 		tableX = stepperX.getValue();
 		tableY = stepperY.getValue();
@@ -558,6 +633,9 @@ public class TablePosApp extends DefaultSynergyNetApp {
 		timeToQuit = true;		
 	}
 	
+	/**
+	 * Adds the save button.
+	 */
 	private void addSaveButton(){
 		
 		saveText = (TextLabel)this.contentSystem.createContentItem(TextLabel.class);
@@ -598,6 +676,9 @@ public class TablePosApp extends DefaultSynergyNetApp {
 				(saveButton.getLocation().y - saveButton.getHeight()/2 - saveText.getHeight()));
 	}
 
+	/**
+	 * Adds the circle.
+	 */
 	private void addCircle() {
 		circle = (RoundImageLabel)this.contentSystem.createContentItem(RoundImageLabel.class);
 		circle.setAutoFit(false);
@@ -642,6 +723,12 @@ public class TablePosApp extends DefaultSynergyNetApp {
 	}
 
 	
+	/**
+	 * Circle modified.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 */
 	private void circleModified(float x, float y){
 		x = x * DisplaySystem.getDisplaySystem().getRenderer().getWidth();
 		y = y * DisplaySystem.getDisplaySystem().getRenderer().getHeight();
@@ -702,6 +789,9 @@ public class TablePosApp extends DefaultSynergyNetApp {
 	}
 
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	@Override
 	protected void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);
@@ -720,6 +810,14 @@ public class TablePosApp extends DefaultSynergyNetApp {
 	}
 
 	
+	/**
+	 * Calculate position.
+	 *
+	 * @param x1 the x1
+	 * @param y1 the y1
+	 * @param x2 the x2
+	 * @param y2 the y2
+	 */
 	private void calculatePosition(float x1, float y1, float x2, float y2) {
 
 		float north = (FastMath.RAD_TO_DEG * tableOrientation) + 360;
@@ -753,6 +851,16 @@ public class TablePosApp extends DefaultSynergyNetApp {
 				
 	}
 	
+	/**
+	 * Calculate position.
+	 *
+	 * @param x1 the x1
+	 * @param y1 the y1
+	 * @param x2 the x2
+	 * @param y2 the y2
+	 * @param x3 the x3
+	 * @param y3 the y3
+	 */
 	private void calculatePosition(float x1, float y1, float x2, float y2, float x3, float y3) {
 		
 		float angleOne = FastMath.abs((angleBetweenLines(x1, y1, x2, y2)));
@@ -840,6 +948,15 @@ public class TablePosApp extends DefaultSynergyNetApp {
 		
 	}
 	
+	/**
+	 * Angle between lines.
+	 *
+	 * @param x1 the x1
+	 * @param y1 the y1
+	 * @param x2 the x2
+	 * @param y2 the y2
+	 * @return the float
+	 */
 	private float angleBetweenLines(float x1, float y1, float x2, float y2){
 		x1 -=  DisplaySystem.getDisplaySystem().getRenderer().getWidth()/2;
 		y1 -= DisplaySystem.getDisplaySystem().getRenderer().getHeight()/2;
@@ -848,11 +965,23 @@ public class TablePosApp extends DefaultSynergyNetApp {
         return FastMath.atan2( (x1 * y2) - (y1 * x2), (x1 * x2) +  (y1 * y2));
     }
 	
+	/**
+	 * Angle from box.
+	 *
+	 * @return the float
+	 */
 	private float angleFromBox() {
 		return orientationBox.getAngle();
 	}
 
 	
+	/**
+	 * Angle from local north.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @return the float
+	 */
 	private float angleFromLocalNorth(float x, float y) {
 		x -=  DisplaySystem.getDisplaySystem().getRenderer().getWidth()/2;
 		y -= DisplaySystem.getDisplaySystem().getRenderer().getHeight()/2;
@@ -870,6 +999,9 @@ public class TablePosApp extends DefaultSynergyNetApp {
 	}
 
 	
+	/**
+	 * Save display prefs.
+	 */
 	private void saveDisplayPrefs() {
 		saveText.setVisible(true);
 		saveText.setText("Values saved");
@@ -883,6 +1015,9 @@ public class TablePosApp extends DefaultSynergyNetApp {
 	}
 	
 	
+	/**
+	 * Save position prefs.
+	 */
 	private void savePositionPrefs(){
 		saveText.setVisible(true);
 		saveText.setText("Display position values saved");
@@ -896,12 +1031,24 @@ public class TablePosApp extends DefaultSynergyNetApp {
 	}
 
 	
+	/**
+	 * To pixel value.
+	 *
+	 * @param a the a
+	 * @return the int
+	 */
 	private int toPixelValue(float a) {
 		a /= tableWidth/DisplaySystem.getDisplaySystem().getRenderer().getWidth();
 		return (int)a;
 	}
 
 	
+	/**
+	 * To meter value.
+	 *
+	 * @param p the p
+	 * @return the float
+	 */
 	private float toMeterValue(float p) {
 		float m = p * (tableWidth/DisplaySystem.getDisplaySystem().getRenderer().getWidth());
 		return m;

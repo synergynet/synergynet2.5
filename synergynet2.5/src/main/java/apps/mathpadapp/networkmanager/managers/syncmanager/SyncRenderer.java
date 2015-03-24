@@ -41,16 +41,33 @@ import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.appsystem.contentsystem.items.OrthoContentItem;
 import synergynetframework.jme.cursorsystem.elements.twod.OrthoBringToTop;
 
+
+/**
+ * The Class SyncRenderer.
+ */
 public class SyncRenderer {
 	
+	/** The Constant SYNC_LOCATION_X. */
 	public static final short SYNC_LOCATION_X = 0;
+	
+	/** The Constant SYNC_LOCATION_Y. */
 	public static final short SYNC_LOCATION_Y = 1;
+	
+	/** The Constant SYNC_ANGLE. */
 	public static final short SYNC_ANGLE = 2;
+	
+	/** The Constant SYNC_SCALE. */
 	public static final short SYNC_SCALE = 3;
+	
+	/** The Constant SYNC_ORDER. */
 	public static final short SYNC_ORDER = 4;
 	
+	/** The allowed sync. */
 	protected List<Short> allowedSync = new ArrayList<Short>(); 
 	
+	/**
+	 * Instantiates a new sync renderer.
+	 */
 	public SyncRenderer(){
 		Field[] fields = SyncRenderer.class.getFields();
 		for(Field field: fields){
@@ -68,10 +85,23 @@ public class SyncRenderer {
 		}
 	}
 	
+	/**
+	 * Render sync data.
+	 *
+	 * @param item the item
+	 * @param syncParameter the sync parameter
+	 * @param syncValue the sync value
+	 */
 	public void renderSyncData(ContentItem item, Short syncParameter, Object syncValue){
 		
 	}
 	
+	/**
+	 * Render sync data.
+	 *
+	 * @param item the item
+	 * @param syncData the sync data
+	 */
 	public void renderSyncData(ContentItem item, HashMap<Short, Object> syncData){
 		for(short paramName: syncData.keySet()){
 			if(!allowedSync.contains(paramName)) continue;
@@ -96,10 +126,20 @@ public class SyncRenderer {
 	}
 	
 	
+	/**
+	 * Disable sync parameter.
+	 *
+	 * @param syncParameterId the sync parameter id
+	 */
 	public void disableSyncParameter(Short syncParameterId){
 		if(allowedSync.contains(syncParameterId)) allowedSync.remove(syncParameterId);
 	}
 	
+	/**
+	 * Enable sync parameter.
+	 *
+	 * @param syncParameterId the sync parameter id
+	 */
 	public void enableSyncParameter(Short syncParameterId){
 		if(!allowedSync.contains(syncParameterId)) allowedSync.add(syncParameterId);
 	}

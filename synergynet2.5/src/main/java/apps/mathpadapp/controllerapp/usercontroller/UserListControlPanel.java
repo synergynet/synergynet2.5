@@ -61,14 +61,34 @@ import synergynetframework.appsystem.contentsystem.items.DropDownList.DropDownLi
 import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonListener;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class UserListControlPanel.
+ */
 public class UserListControlPanel {
 	
+	/** The container. */
 	protected OrthoContainer container;
+	
+	/** The user panel manager. */
 	private MTListManager userPanelManager;
+	
+	/** The Constant controlUserPanelHeight. */
 	public static final int controlUserPanelHeight = 140;
+	
+	/** The controller manager. */
 	private ControllerManager controllerManager;
+	
+	/** The table list. */
 	private DropDownList tableList;
 	
+	/**
+	 * Instantiates a new user list control panel.
+	 *
+	 * @param contentSystem the content system
+	 * @param userPanelList the user panel list
+	 * @param controllerManager the controller manager
+	 */
 	public UserListControlPanel(ContentSystem contentSystem, final MTList userPanelList, ControllerManager controllerManager){
 		container  = (OrthoContainer) contentSystem.createContentItem(OrthoContainer.class);
 		this.userPanelManager = userPanelList.getManager();
@@ -148,8 +168,14 @@ public class UserListControlPanel {
 		}
 	}
 	
+	/**
+	 * The Class ButtonAction.
+	 */
 	class ButtonAction implements SimpleButtonListener{
 
+		/* (non-Javadoc)
+		 * @see synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonListener#buttonClicked(synergynetframework.appsystem.contentsystem.items.SimpleButton, long, float, float, float)
+		 */
 		@Override
 		public void buttonClicked(SimpleButton b, long id, float x, float y,
 				float pressure) {
@@ -238,10 +264,16 @@ public class UserListControlPanel {
 				}
 		}
 
+		/* (non-Javadoc)
+		 * @see synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonListener#buttonDragged(synergynetframework.appsystem.contentsystem.items.SimpleButton, long, float, float, float)
+		 */
 		@Override
 		public void buttonDragged(SimpleButton b, long id, float x, float y, float pressure) {
 		}
 
+		/* (non-Javadoc)
+		 * @see synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonListener#buttonPressed(synergynetframework.appsystem.contentsystem.items.SimpleButton, long, float, float, float)
+		 */
 		@Override
 		public void buttonPressed(SimpleButton b, long id, float x, float y, float pressure) {
 			Color bgColor = b.getBackgroundColour();
@@ -249,6 +281,9 @@ public class UserListControlPanel {
 			b.setTextColour(bgColor);
 		}
 
+		/* (non-Javadoc)
+		 * @see synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonListener#buttonReleased(synergynetframework.appsystem.contentsystem.items.SimpleButton, long, float, float, float)
+		 */
 		@Override
 		public void buttonReleased(SimpleButton b, long id, float x, float y, float pressure) {
 			Color bgColor = b.getBackgroundColour();
@@ -258,6 +293,11 @@ public class UserListControlPanel {
 		
 	}
 	
+	/**
+	 * Gets the container.
+	 *
+	 * @return the container
+	 */
 	public OrthoContainer getContainer(){
 		return container;
 	}

@@ -16,15 +16,35 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.*;
 import javax.xml.transform.stream.*;
 
+
+/**
+ * The Class StateRecorder.
+ */
 public class StateRecorder {
 	
+	/** The record enabled. */
 	private boolean recordEnabled = false;
+	
+	/** The delay. */
 	private long DELAY = 2000;
+	
+	/** The log path. */
 	public static String logPath = System.getProperty("user.dir") + "apps/basketapp/client/log.xml";
+	
+	/** The app. */
 	private BasketApp app;
+	
+	/** The dbfac. */
 	private DocumentBuilderFactory dbfac;
+	
+	/** The doc builder. */
 	private DocumentBuilder docBuilder;
 	
+	/**
+	 * Instantiates a new state recorder.
+	 *
+	 * @param app the app
+	 */
 	public StateRecorder(BasketApp app){
 		this.app = app;
         dbfac = DocumentBuilderFactory.newInstance();
@@ -36,6 +56,9 @@ public class StateRecorder {
 		}
 	}
 	
+	/**
+	 * Start state recording.
+	 */
 	public void startStateRecording(){
 		this.recordEnabled = true;
 		
@@ -169,6 +192,9 @@ public class StateRecorder {
 		}).start();
 	}
 	
+	/**
+	 * Stop state recording.
+	 */
 	public void stopStateRecording(){
 		this.recordEnabled = false;
 	}

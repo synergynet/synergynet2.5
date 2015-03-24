@@ -34,48 +34,80 @@ package synergynetframework.jme.pickingsystem.data;
 
 import com.jme.scene.Spatial;
 
+
+/**
+ * The Class PickResultData.
+ */
 public class PickResultData {
+	
+	/** The picked spatial. */
 	protected Spatial pickedSpatial;
+	
+	/** The originating cursor id. */
 	protected long originatingCursorID;
+	
+	/** The distance. */
 	protected float distance;
 	
+	/**
+	 * Instantiates a new pick result data.
+	 *
+	 * @param originatingCursorID the originating cursor id
+	 * @param pickedSpatial the picked spatial
+	 */
 	public PickResultData(long originatingCursorID, Spatial pickedSpatial) {
 		this.originatingCursorID = originatingCursorID;
 		this.pickedSpatial = pickedSpatial;
 	}
 	
 	/**
-	 * Retrieve the ID of the cursor that caused the pick
-	 * @return
+	 * Retrieve the ID of the cursor that caused the pick.
+	 *
+	 * @return the originating cursor id
 	 */
 	public long getOriginatingCursorID() {
 		return originatingCursorID;
 	}
 	
 	/**
-	 * The jME spatial that was picked
-	 * @return
+	 * The jME spatial that was picked.
+	 *
+	 * @return the picked spatial
 	 */
 	public Spatial getPickedSpatial() {
 		return pickedSpatial;
 	}
 	
 	/**
-	 * Utility method to get the name of the spatial
-	 * @return
+	 * Utility method to get the name of the spatial.
+	 *
+	 * @return the picked spatial name
 	 */
 	public String getPickedSpatialName() {
 		return pickedSpatial.getName();
 	}
 	
+	/**
+	 * Sets the distance when picked.
+	 *
+	 * @param distance the new distance when picked
+	 */
 	public void setDistanceWhenPicked(float distance) {
 		this.distance = distance;		
 	}
 	
+	/**
+	 * Gets the distance when picked.
+	 *
+	 * @return the distance when picked
+	 */
 	public float getDistanceWhenPicked() {
 		return distance;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return this.getClass().getName() + ": " + pickedSpatial.getName();
 	}

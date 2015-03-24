@@ -38,16 +38,35 @@ import java.util.Map;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.objectmessaging.messages.UDPMessage;
 
+
+/**
+ * The Class SynchroniseProjectorData.
+ */
 public class SynchroniseProjectorData extends ControllerToProjectorMessage implements UDPMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -546746341111227474L;
+	
+	/** The items. */
 	protected Map<String, Map<String, String>> items = new HashMap<String, Map<String, String>>();
+	
+	/** The source table id. */
 	private TableIdentity sourceTableId;
 
+	/**
+	 * Instantiates a new synchronise projector data.
+	 */
 	public SynchroniseProjectorData(){
 		super();
 	}
 	
+	/**
+	 * Instantiates a new synchronise projector data.
+	 *
+	 * @param targetClass the target class
+	 * @param items the items
+	 * @param id the id
+	 */
 	public SynchroniseProjectorData(Class<?> targetClass, Map<String, Map<String, String>> items, TableIdentity id) {
 		super(targetClass);
 		this.items.clear();
@@ -63,14 +82,29 @@ public class SynchroniseProjectorData extends ControllerToProjectorMessage imple
 		this.setRecipient(id);
 	}
 	
+	/**
+	 * Sets the source table identity.
+	 *
+	 * @param sourceTableId the new source table identity
+	 */
 	public void setSourceTableIdentity(TableIdentity sourceTableId){
 		this.sourceTableId = sourceTableId;
 	}
 	
+	/**
+	 * Gets the source table identity.
+	 *
+	 * @return the source table identity
+	 */
 	public TableIdentity getSourceTableIdentity(){
 		return sourceTableId;
 	}
 
+	/**
+	 * Gets the items.
+	 *
+	 * @return the items
+	 */
 	public Map<String, Map<String, String>> getItems() {
 		return items;
 	}

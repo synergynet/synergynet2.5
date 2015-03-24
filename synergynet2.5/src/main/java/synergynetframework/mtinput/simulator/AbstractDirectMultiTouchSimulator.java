@@ -37,12 +37,25 @@ import java.awt.geom.Point2D;
 import synergynetframework.mtinput.IMultiTouchEventListener;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 
+
+/**
+ * The Class AbstractDirectMultiTouchSimulator.
+ */
 public abstract class AbstractDirectMultiTouchSimulator extends AbstractMultiTouchSimulator {
 
+	/**
+	 * Instantiates a new abstract direct multi touch simulator.
+	 *
+	 * @param tableWidth the table width
+	 * @param tableHeight the table height
+	 */
 	public AbstractDirectMultiTouchSimulator(int tableWidth, int tableHeight) {
 		super(tableWidth, tableHeight);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.simulator.AbstractMultiTouchSimulator#newCursor(int, float, float)
+	 */
 	@Override
 	public void newCursor(int id, float x, float y) {
 		Point2D.Float pos = new Point2D.Float(x,1-y);
@@ -53,6 +66,9 @@ public abstract class AbstractDirectMultiTouchSimulator extends AbstractMultiTou
 		}		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.simulator.AbstractMultiTouchSimulator#deleteCursor(int, float, float)
+	 */
 	@Override
 	public void deleteCursor(int id, float x, float y) {
 		Point2D.Float pos = new Point2D.Float(x, 1-y);
@@ -67,12 +83,18 @@ public abstract class AbstractDirectMultiTouchSimulator extends AbstractMultiTou
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.simulator.AbstractMultiTouchSimulator#deleteTwoCursors(int, float, float, int, float, float)
+	 */
 	@Override
 	public void deleteTwoCursors(int id1, float x1, float y1, int id2, float x2, float y2) {
 		deleteCursor(id1, x1, y1);
 		deleteCursor(id2, x2, y2);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.simulator.AbstractMultiTouchSimulator#updateCursor(int, float, float)
+	 */
 	@Override
 	public void updateCursor(int id, float x, float y) {
 		for(IMultiTouchEventListener l : listeners) {
@@ -82,6 +104,9 @@ public abstract class AbstractDirectMultiTouchSimulator extends AbstractMultiTou
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.simulator.AbstractMultiTouchSimulator#updateTwoCursors(int, float, float, int, float, float)
+	 */
 	@Override
 	public void updateTwoCursors(int id1, float x, float y, int id2, float x2, float y2) {
 		updateCursor(id1, x, y);

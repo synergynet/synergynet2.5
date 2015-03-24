@@ -29,20 +29,41 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 
+
+/**
+ * The Class ButtonPanel.
+ */
 class ButtonPanel extends Panel implements ActionListener {
 
-  /**
-	 * 
-	 */
+  /** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -8475680062003846322L;
+
+/** The viewer. */
 VncViewer viewer;
+  
+  /** The disconnect button. */
   Button disconnectButton;
+  
+  /** The options button. */
   Button optionsButton;
+  
+  /** The record button. */
   Button recordButton;
+  
+  /** The clipboard button. */
   Button clipboardButton;
+  
+  /** The ctrl alt del button. */
   Button ctrlAltDelButton;
+  
+  /** The refresh button. */
   Button refreshButton;
 
+  /**
+   * Instantiates a new button panel.
+   *
+   * @param v the v
+   */
   ButtonPanel(VncViewer v) {
     viewer = v;
 
@@ -77,6 +98,9 @@ VncViewer viewer;
   // Enable buttons on successful connection.
   //
 
+  /**
+   * Enable buttons.
+   */
   public void enableButtons() {
     disconnectButton.setEnabled(true);
     clipboardButton.setEnabled(true);
@@ -87,6 +111,9 @@ VncViewer viewer;
   // Disable all buttons on disconnect.
   //
 
+  /**
+   * Disable buttons on disconnect.
+   */
   public void disableButtonsOnDisconnect() {
     remove(disconnectButton);
     disconnectButton = new Button("Hide desktop");
@@ -107,6 +134,11 @@ VncViewer viewer;
   // mode.
   //
 
+  /**
+   * Enable remote access controls.
+   *
+   * @param enable the enable
+   */
   public void enableRemoteAccessControls(boolean enable) {
     ctrlAltDelButton.setEnabled(enable);
   }
@@ -115,6 +147,9 @@ VncViewer viewer;
   // Event processing.
   //
 
+  /* (non-Javadoc)
+   * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+   */
   @SuppressWarnings("deprecation")
 public void actionPerformed(ActionEvent evt) {
 

@@ -33,14 +33,65 @@ package synergynetframework.appsystem.contentsystem.items.implementation.interfa
 
 import java.net.URL;
 
+
+/**
+ * The Interface IVideoPlayerImplementation.
+ */
 public interface IVideoPlayerImplementation extends IQuadContentItemImplementation {
 
+	/**
+	 * Sets the video url.
+	 *
+	 * @param url the new video url
+	 */
 	public void setVideoURL(URL url);	
+	
+	/**
+	 * Sets the playing.
+	 *
+	 * @param b the new playing
+	 */
 	public void setPlaying(boolean b);	
+	
+	/**
+	 * Sets the pixels per unit.
+	 *
+	 * @param ppu the new pixels per unit
+	 */
 	public void setPixelsPerUnit(float ppu);
+	
+	/**
+	 * Gets the media implementation object.
+	 *
+	 * @return the media implementation object
+	 */
 	public Object getMediaImplementationObject();
+	
+	/**
+	 * Gets the video width.
+	 *
+	 * @return the video width
+	 */
 	public float getVideoWidth();
+	
+	/**
+	 * Gets the video height.
+	 *
+	 * @return the video height
+	 */
 	public float getVideoHeight();
+	
+	/**
+	 * Sets the video time.
+	 *
+	 * @param seconds the new video time
+	 */
 	public void setVideoTime(double seconds);
+	
+	/**
+	 * Gets the video time.
+	 *
+	 * @return the video time
+	 */
 	public double getVideoTime();
 }

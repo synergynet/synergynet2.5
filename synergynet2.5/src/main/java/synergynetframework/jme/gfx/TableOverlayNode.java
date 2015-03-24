@@ -45,18 +45,38 @@ import com.jme.scene.Node;
 import com.jme.scene.shape.Disk;
 import com.jme.system.DisplaySystem;
 
+
+/**
+ * The Class TableOverlayNode.
+ */
 public class TableOverlayNode extends Node implements IMultiTouchEventListener {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 6173073460723651499L;
+	
+	/** The Constant MAX_FINGERS. */
 	private static final int MAX_FINGERS = 40;
+	
+	/** The disk radius. */
 	private static float diskRadius = 10f; 
 
+	/** The display width. */
 	private int displayWidth;
+	
+	/** The display height. */
 	private int displayHeight;
 
+	/** The disks. */
 	private Map<Integer, Disk> disks = new HashMap<Integer,Disk>();
+	
+	/** The disk index in use. */
 	private Map<Long,Integer> diskIndexInUse = new HashMap<Long,Integer>();
 
+	/**
+	 * Instantiates a new table overlay node.
+	 *
+	 * @param zdepth the zdepth
+	 */
 	public TableOverlayNode(float zdepth) {
 		super();
 
@@ -73,6 +93,9 @@ public class TableOverlayNode extends Node implements IMultiTouchEventListener {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorPressed(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorPressed(MultiTouchCursorEvent event) {
 		for(int i = 0; i < MAX_FINGERS; i++) {
 			if(!diskIndexInUse.values().contains(i)) {
@@ -87,6 +110,9 @@ public class TableOverlayNode extends Node implements IMultiTouchEventListener {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorChanged(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorChanged(MultiTouchCursorEvent event) {
 		long id = event.getCursorID();
 		if(diskIndexInUse.keySet().contains(id)) {
@@ -99,11 +125,17 @@ public class TableOverlayNode extends Node implements IMultiTouchEventListener {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorClicked(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorClicked(MultiTouchCursorEvent event) {
 	}
 
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#cursorReleased(synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	public void cursorReleased(MultiTouchCursorEvent event) {
 		long id = event.getCursorID();
 		
@@ -117,8 +149,19 @@ public class TableOverlayNode extends Node implements IMultiTouchEventListener {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectAdded(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectAdded(MultiTouchObjectEvent event) {}
+	
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectChanged(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectChanged(MultiTouchObjectEvent event) {}
+	
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.IMultiTouchEventListener#objectRemoved(synergynetframework.mtinput.events.MultiTouchObjectEvent)
+	 */
 	public void objectRemoved(MultiTouchObjectEvent event) {}
 
 }

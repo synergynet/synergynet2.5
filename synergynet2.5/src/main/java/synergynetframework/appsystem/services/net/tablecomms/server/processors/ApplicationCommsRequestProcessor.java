@@ -40,8 +40,15 @@ import synergynetframework.appsystem.services.net.tablecomms.messages.control.fr
 import synergynetframework.appsystem.services.net.tablecomms.server.ServerMessageProcessor;
 import synergynetframework.appsystem.services.net.tablecomms.server.TableCommsServerService;
 
+
+/**
+ * The Class ApplicationCommsRequestProcessor.
+ */
 public class ApplicationCommsRequestProcessor implements ServerMessageProcessor {
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.tablecomms.server.ServerMessageProcessor#handle(synergynetframework.appsystem.services.net.tablecomms.server.TableCommsServerService, synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler, synergynetframework.appsystem.services.net.tablecomms.messages.TableMessage)
+	 */
 	public void handle(TableCommsServerService server,
 			ConnectionHandler fromHandler, TableMessage obj)
 			throws IOException {

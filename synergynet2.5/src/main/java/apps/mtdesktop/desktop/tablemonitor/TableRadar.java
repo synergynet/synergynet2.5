@@ -42,26 +42,48 @@ import apps.mtdesktop.tabletop.MTTableClient;
 
 import synergynetframework.appsystem.services.net.rapidnetworkmanager.RapidNetworkManager;
 
+
+/**
+ * The Class TableRadar.
+ */
 public class TableRadar extends JDialog implements MouseListener, MouseMotionListener, FileTransferListener{
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
+	/** The menu bar. */
 	protected JMenuBar menuBar;
+	
+	/** The menu. */
 	protected JMenu menu;
+	
+	/** The menu item. */
 	protected JMenuItem menuItem;
 	
+	/** The b image from convert. */
 	private BufferedImage bImageFromConvert;
+	
+	/** The dispatch mouse state. */
 	private boolean dispatchMouseState = false;
+	
+	/** The enable snap shot download. */
 	private boolean enableSnapShotDownload = true;
+	
+	/** The Constant DISPATCH_MOUSE_DELAY. */
 	public static final int DISPATCH_MOUSE_DELAY = 100;
 	
+	/** The top height. */
 	public static int TOP_HEIGHT = 55;
+	
+	/** The border width. */
 	public static int BORDER_WIDTH = 10;
 
+	/** The mouse events. */
 	private Queue<MouseEventInfo> mouseEvents = new ConcurrentLinkedQueue<MouseEventInfo>();
+	
+	/**
+	 * Instantiates a new table radar.
+	 */
 	public TableRadar(){
 		this.setTitle("Tabletop");
 		this.setModal(false);
@@ -135,12 +157,17 @@ public class TableRadar extends JDialog implements MouseListener, MouseMotionLis
 		
 	}
 	
-	  public class DrawComponent extends JComponent{
-	    /**
-		 * 
-		 */
+	  /**
+  	 * The Class DrawComponent.
+  	 */
+  	public class DrawComponent extends JComponent{
+	    
+    	/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 1L;
 
+		/* (non-Javadoc)
+		 * @see javax.swing.JComponent#paint(java.awt.Graphics)
+		 */
 		public void paint(Graphics g){
 	    	if(bImageFromConvert != null){
 	    		BufferedImage rotatedBI = null;
@@ -167,45 +194,73 @@ public class TableRadar extends JDialog implements MouseListener, MouseMotionLis
 	}
 
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseMotionListener#mouseDragged(java.awt.event.MouseEvent)
+	 */
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		Point.Float p = desktopToTable(e.getX(), e.getY());
 		mouseEvents.add(new MouseEventInfo(e.getID(), p.x, p.y));
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseMotionListener#mouseMoved(java.awt.event.MouseEvent)
+	 */
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		Point.Float p = desktopToTable(e.getX(), e.getY());
 		mouseEvents.add(new MouseEventInfo(e.getID(), p.x, p.y));
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
+	 */
 	@Override
 	public void mouseEntered(MouseEvent e) {
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseListener#mouseExited(java.awt.event.MouseEvent)
+	 */
 	@Override
 	public void mouseExited(MouseEvent e) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
+	 */
 	@Override
 	public void mousePressed(MouseEvent e) {
 		Point.Float p = desktopToTable(e.getX(), e.getY());
 		mouseEvents.add(new MouseEventInfo(e.getID(), p.x, p.y));
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseListener#mouseReleased(java.awt.event.MouseEvent)
+	 */
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		Point.Float p = desktopToTable(e.getX(), e.getY());
 		mouseEvents.add(new MouseEventInfo(e.getID(), p.x, p.y));
 	}
 	
+	/**
+	 * Desktop to table.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @return the point. float
+	 */
 	private Point.Float desktopToTable(int x, int y) {
 		float tx = x / MTDesktopConfigurations.defaultRadarImageScale;
 		float ty = y / MTDesktopConfigurations.defaultRadarImageScale;
@@ -227,8 +282,14 @@ public class TableRadar extends JDialog implements MouseListener, MouseMotionLis
 		return new Point.Float(tx, ty);
 	}
 	
+	/**
+	 * The Class MouseEventDispatcher.
+	 */
 	class MouseEventDispatcher implements Runnable{
 
+		/* (non-Javadoc)
+		 * @see java.lang.Runnable#run()
+		 */
 		@Override
 		public void run() {
 			while(true){
@@ -255,8 +316,14 @@ public class TableRadar extends JDialog implements MouseListener, MouseMotionLis
 		
 	}
 
+	/**
+	 * The Class SnapshotDownloader.
+	 */
 	class SnapshotDownloader implements Runnable{
 
+		/* (non-Javadoc)
+		 * @see java.lang.Runnable#run()
+		 */
 		@Override
 		public void run() {
 				try {
@@ -276,6 +343,13 @@ public class TableRadar extends JDialog implements MouseListener, MouseMotionLis
 		
 	}
 	
+	/**
+	 * Rotate.
+	 *
+	 * @param bi the bi
+	 * @param angle the angle
+	 * @return the buffered image
+	 */
 	private BufferedImage rotate(BufferedImage bi, double angle){
 	    AffineTransform transform = new AffineTransform();
 	    transform.rotate(angle, bi.getWidth()/2, bi.getHeight()/2);
@@ -287,6 +361,13 @@ public class TableRadar extends JDialog implements MouseListener, MouseMotionLis
 	    return op.filter(bi, null);
 	}
 	
+	/**
+	 * Find translation.
+	 *
+	 * @param at the at
+	 * @param bi the bi
+	 * @return the affine transform
+	 */
 	private AffineTransform findTranslation(AffineTransform at, BufferedImage bi) {
 	    Point2D p2din, p2dout;
 
@@ -303,24 +384,36 @@ public class TableRadar extends JDialog implements MouseListener, MouseMotionLis
 	    return tat;
 	  }
 
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.fileutility.FileTransferListener#fileUploadStarted(java.io.File)
+	 */
 	@Override
 	public void fileUploadStarted(File file) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.fileutility.FileTransferListener#fileUploadCompleted(java.io.File)
+	 */
 	@Override
 	public void fileUploadCompleted(File file) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.fileutility.FileTransferListener#fileDownloadStarted(java.io.File)
+	 */
 	@Override
 	public void fileDownloadStarted(File file) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.fileutility.FileTransferListener#fileDownloadCompleted(java.io.File)
+	 */
 	@Override
 	public void fileDownloadCompleted(File file) {
 		try {
@@ -334,12 +427,18 @@ public class TableRadar extends JDialog implements MouseListener, MouseMotionLis
 			new Thread(new SnapshotDownloader()).start();
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.fileutility.FileTransferListener#fileUploadFailed(java.io.File, java.lang.String)
+	 */
 	@Override
 	public void fileUploadFailed(File file, String responseMessage) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mtdesktop.fileutility.FileTransferListener#fileDownloadFailed(java.io.File, java.lang.String)
+	 */
 	@Override
 	public void fileDownloadFailed(File file, String responseMessage) {
 		if(enableSnapShotDownload)	

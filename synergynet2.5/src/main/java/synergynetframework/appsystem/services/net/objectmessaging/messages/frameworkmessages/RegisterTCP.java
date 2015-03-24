@@ -34,12 +34,23 @@
 
 package synergynetframework.appsystem.services.net.objectmessaging.messages.frameworkmessages;
 
+
+/**
+ * The Class RegisterTCP.
+ */
 public class RegisterTCP implements FrameworkMessage {
 	
+	/** The connection id. */
 	public short connectionID;
 
+	/**
+	 * Instantiates a new register tcp.
+	 */
 	public RegisterTCP(){}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString () {
 		return "RegisterTCP";
 	}

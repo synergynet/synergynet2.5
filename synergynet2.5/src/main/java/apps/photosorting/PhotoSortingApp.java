@@ -39,14 +39,27 @@ import synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp;
 import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightConfirmVisualExit;
 
+
+/**
+ * The Class PhotoSortingApp.
+ */
 public class PhotoSortingApp extends DefaultSynergyNetApp {
 	
+	/** The content system. */
 	private ContentSystem contentSystem;
 
+	/**
+	 * Instantiates a new photo sorting app.
+	 *
+	 * @param info the info
+	 */
 	public PhotoSortingApp(ApplicationInfo info) {
 		super(info);		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		

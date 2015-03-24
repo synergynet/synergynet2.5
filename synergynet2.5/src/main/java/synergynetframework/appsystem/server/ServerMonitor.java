@@ -34,8 +34,30 @@ package synergynetframework.appsystem.server;
 
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Interface ServerMonitor.
+ */
 public interface ServerMonitor {
+	
+	/**
+	 * Table connected.
+	 *
+	 * @param identity the identity
+	 */
 	public void tableConnected(TableIdentity identity);
+	
+	/**
+	 * Table disconnected.
+	 *
+	 * @param identity the identity
+	 */
 	public void tableDisconnected(TableIdentity identity);
+	
+	/**
+	 * Server received message.
+	 *
+	 * @param obj the obj
+	 */
 	public void serverReceivedMessage(Object obj);
 }

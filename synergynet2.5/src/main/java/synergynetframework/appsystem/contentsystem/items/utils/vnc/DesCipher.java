@@ -1,4 +1,5 @@
 package synergynetframework.appsystem.contentsystem.items.utils.vnc;
+
 //
 // This DES class has been extracted from package Acme.Crypto for use in VNC.
 // The bytebit[] array has been reversed so that the most significant bit
@@ -89,10 +90,18 @@ package synergynetframework.appsystem.contentsystem.items.utils.vnc;
 // @see EncryptedOutputStream
 // @see EncryptedInputStream
 
+/**
+ * The Class DesCipher.
+ */
 public class DesCipher
     {
 
     // Constructor, byte-array key.
+    /**
+     * Instantiates a new des cipher.
+     *
+     * @param key the key
+     */
     public DesCipher( byte[] key )
 	{
 	setKey( key );
@@ -100,10 +109,18 @@ public class DesCipher
 
     // Key routines.
 
+    /** The encrypt keys. */
     private int[] encryptKeys = new int[32];
+    
+    /** The decrypt keys. */
     private int[] decryptKeys = new int[32];
 
     /// Set the key.
+    /**
+     * Sets the key.
+     *
+     * @param key the new key
+     */
     public void setKey( byte[] key )
 	{
 	deskey( key, true, encryptKeys );
@@ -111,6 +128,13 @@ public class DesCipher
 	}
 
     // Turn an 8-byte key into internal keys.
+    /**
+     * Deskey.
+     *
+     * @param keyBlock the key block
+     * @param encrypting the encrypting
+     * @param KnL the kn l
+     */
     private void deskey( byte[] keyBlock, boolean encrypting, int[] KnL )
 	{
 	int i, j, l, m, n;
@@ -160,6 +184,12 @@ public class DesCipher
 	cookey( kn, KnL );
 	}
 
+    /**
+     * Cookey.
+     *
+     * @param raw the raw
+     * @param KnL the kn l
+     */
     private void cookey( int[] raw, int KnL[] )
 	{
 	int raw0, raw1;
@@ -186,9 +216,18 @@ public class DesCipher
 
     // Block encryption routines.
 
+    /** The temp ints. */
     private int[] tempInts = new int[2];
 
     /// Encrypt a block of eight bytes.
+    /**
+     * Encrypt.
+     *
+     * @param clearText the clear text
+     * @param clearOff the clear off
+     * @param cipherText the cipher text
+     * @param cipherOff the cipher off
+     */
     public void encrypt( byte[] clearText, int clearOff, byte[] cipherText, int cipherOff )
 	{
 	squashBytesToInts( clearText, clearOff, tempInts, 0, 2 );
@@ -197,6 +236,14 @@ public class DesCipher
 	}
 
     /// Decrypt a block of eight bytes.
+    /**
+     * Decrypt.
+     *
+     * @param cipherText the cipher text
+     * @param cipherOff the cipher off
+     * @param clearText the clear text
+     * @param clearOff the clear off
+     */
     public void decrypt( byte[] cipherText, int cipherOff, byte[] clearText, int clearOff )
 	{
 	squashBytesToInts( cipherText, cipherOff, tempInts, 0, 2 );
@@ -205,6 +252,13 @@ public class DesCipher
 	}
 
     // The DES function.
+    /**
+     * Des.
+     *
+     * @param inInts the in ints
+     * @param outInts the out ints
+     * @param keys the keys
+     */
     private void des( int[] inInts, int[] outInts, int[] keys )
 	{
 	int fval, work, right, leftt;
@@ -288,10 +342,13 @@ public class DesCipher
 
     // Tables, permutations, S-boxes, etc.
 
+    /** The bytebit. */
     private static byte[] bytebit = {
 	(byte)0x01, (byte)0x02, (byte)0x04, (byte)0x08,
 	(byte)0x10, (byte)0x20, (byte)0x40, (byte)0x80
 	};
+    
+    /** The bigbyte. */
     private static int[] bigbyte = {
 	0x800000, 0x400000, 0x200000, 0x100000,
 	0x080000, 0x040000, 0x020000, 0x010000,
@@ -300,6 +357,8 @@ public class DesCipher
 	0x000080, 0x000040, 0x000020, 0x000010,
 	0x000008, 0x000004, 0x000002, 0x000001
 	};
+    
+    /** The pc1. */
     private static byte[] pc1 = {
          (byte)56, (byte)48, (byte)40, (byte)32, (byte)24, (byte)16, (byte) 8,
       (byte) 0, (byte)57, (byte)49, (byte)41, (byte)33, (byte)25, (byte)17,
@@ -310,10 +369,13 @@ public class DesCipher
 	 (byte)13, (byte) 5, (byte)60, (byte)52, (byte)44, (byte)36, (byte)28,
       (byte)20, (byte)12, (byte) 4, (byte)27, (byte)19, (byte)11, (byte)3
 	};
+    
+    /** The totrot. */
     private static int[] totrot = {
         1, 2, 4, 6, 8, 10, 12, 14, 15, 17, 19, 21, 23, 25, 27, 28
 	};
 
+    /** The pc2. */
     private static byte[] pc2 = {
 	(byte)13, (byte)16, (byte)10, (byte)23, (byte) 0, (byte) 4,
 	          (byte) 2, (byte)27, (byte)14, (byte) 5, (byte)20, (byte) 9,
@@ -325,6 +387,7 @@ public class DesCipher
 	          (byte)45, (byte)41, (byte)49, (byte)35, (byte)28, (byte)31,
 	};
 
+    /** The S p1. */
     private static int[] SP1 = {
         0x01010400, 0x00000000, 0x00010000, 0x01010404,
 	0x01010004, 0x00010404, 0x00000004, 0x00010000,
@@ -343,6 +406,8 @@ public class DesCipher
 	0x00000404, 0x01000400, 0x01000400, 0x00000000,
 	0x00010004, 0x00010400, 0x00000000, 0x01010004
 	};
+    
+    /** The S p2. */
     private static int[] SP2 = {
 	0x80108020, 0x80008000, 0x00008000, 0x00108020,
 	0x00100000, 0x00000020, 0x80100020, 0x80008020,
@@ -361,6 +426,8 @@ public class DesCipher
 	0x00108000, 0x00000000, 0x80008000, 0x00008020,
 	0x80000000, 0x80100020, 0x80108020, 0x00108000
 	};
+    
+    /** The S p3. */
     private static int[] SP3 = {
 	0x00000208, 0x08020200, 0x00000000, 0x08020008,
 	0x08000200, 0x00000000, 0x00020208, 0x08000200,
@@ -379,6 +446,8 @@ public class DesCipher
 	0x08020000, 0x08000208, 0x00000208, 0x08020000,
 	0x00020208, 0x00000008, 0x08020008, 0x00020200
 	};
+    
+    /** The S p4. */
     private static int[] SP4 = {
 	0x00802001, 0x00002081, 0x00002081, 0x00000080,
 	0x00802080, 0x00800081, 0x00800001, 0x00002001,
@@ -397,6 +466,8 @@ public class DesCipher
 	0x00002001, 0x00002080, 0x00800000, 0x00802001,
 	0x00000080, 0x00800000, 0x00002000, 0x00802080
 	};
+    
+    /** The S p5. */
     private static int[] SP5 = {
 	0x00000100, 0x02080100, 0x02080000, 0x42000100,
 	0x00080000, 0x00000100, 0x40000000, 0x02080000,
@@ -415,6 +486,8 @@ public class DesCipher
 	0x00080100, 0x02000100, 0x40000100, 0x00080000,
 	0x00000000, 0x40080000, 0x02080100, 0x40000100
 	};
+    
+    /** The S p6. */
     private static int[] SP6 = {
 	0x20000010, 0x20400000, 0x00004000, 0x20404010,
 	0x20400000, 0x00000010, 0x20404010, 0x00400000,
@@ -433,6 +506,8 @@ public class DesCipher
 	0x00004000, 0x00400010, 0x20004010, 0x00000000,
 	0x20404000, 0x20000000, 0x00400010, 0x20004010
 	};
+    
+    /** The S p7. */
     private static int[] SP7 = {
 	0x00200000, 0x04200002, 0x04000802, 0x00000000,
 	0x00000800, 0x04000802, 0x00200802, 0x04200800,
@@ -451,6 +526,8 @@ public class DesCipher
 	0x00000000, 0x00200802, 0x04200000, 0x00000800,
 	0x04000002, 0x04000800, 0x00000800, 0x00200002
 	};
+    
+    /** The S p8. */
     private static int[] SP8 = {
 	0x10001040, 0x00001000, 0x00040000, 0x10041040,
 	0x10000000, 0x10001040, 0x00000040, 0x10000000,
@@ -473,6 +550,15 @@ public class DesCipher
     // Routines taken from other parts of the Acme utilities.
 
     /// Squash bytes down to ints.
+    /**
+     * Squash bytes to ints.
+     *
+     * @param inBytes the in bytes
+     * @param inOff the in off
+     * @param outInts the out ints
+     * @param outOff the out off
+     * @param intLen the int len
+     */
     public static void squashBytesToInts( byte[] inBytes, int inOff, int[] outInts, int outOff, int intLen )
         {
 	for ( int i = 0; i < intLen; ++i )
@@ -484,6 +570,15 @@ public class DesCipher
         }
 
     /// Spread ints into bytes.
+    /**
+     * Spread ints to bytes.
+     *
+     * @param inInts the in ints
+     * @param inOff the in off
+     * @param outBytes the out bytes
+     * @param outOff the out off
+     * @param intLen the int len
+     */
     public static void spreadIntsToBytes( int[] inInts, int inOff, byte[] outBytes, int outOff, int intLen )
         {
 	for ( int i = 0; i < intLen; ++i )

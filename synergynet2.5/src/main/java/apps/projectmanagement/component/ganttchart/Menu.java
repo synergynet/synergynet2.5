@@ -18,15 +18,32 @@ import synergynetframework.appsystem.contentsystem.items.Window;
 import synergynetframework.appsystem.contentsystem.items.listener.ItemEventAdapter;
 import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAdapter;
 
+
+/**
+ * The Class Menu.
+ */
 public class Menu {
 	
+	/** The content system. */
 	protected ContentSystem contentSystem;
 	
+	/** The menu node. */
 	protected Window menuNode;
+	
+	/** The menu container. */
 	protected ListContainer menuContainer;
+	
+	/** The toggle button. */
 	protected LightImageLabel toggleButton;
+	
+	/** The menu command listeners. */
 	protected List<MenuCommandListener> menuCommandListeners = new ArrayList<MenuCommandListener>();
 
+	/**
+	 * Instantiates a new menu.
+	 *
+	 * @param contentSystem the content system
+	 */
 	public Menu(ContentSystem contentSystem){
 		this.contentSystem =contentSystem;
 		
@@ -159,6 +176,9 @@ public class Menu {
 		
 	}
 	
+	/**
+	 * Clear.
+	 */
 	public void clear(){
 		if (menuNode.getParent()!=null){
 			menuNode.getParent().removeSubItem(menuNode, false);
@@ -176,6 +196,12 @@ public class Menu {
 
 	}
 	
+	/**
+	 * Sets the menu location.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 */
 	public void setMenuLocation(float x, float y){
 
 		menuNode.setLocalLocation(x, y);
@@ -183,35 +209,105 @@ public class Menu {
 		
 	}
 	
+	/**
+	 * Update menu position.
+	 */
 	protected void updateMenuPosition(){
 		Vector3f worldLocation = new Vector3f();
 		((Spatial)(menuNode.getImplementationObject())).getParent().localToWorld(new Vector3f(menuNode.getLocalLocation().x+10, menuNode.getLocalLocation().y, 0), worldLocation);
 		menuContainer.setLocalLocation(worldLocation.x, worldLocation.y-80);
 	}
 	
+	/**
+	 * Gets the menu node.
+	 *
+	 * @return the menu node
+	 */
 	public Window getMenuNode(){
 		return menuNode;
 	}
 	
+	/**
+	 * Adds the menu command listener.
+	 *
+	 * @param l the l
+	 */
 	public void addMenuCommandListener(MenuCommandListener l){
 		menuCommandListeners.add(l);
 	}
 
+	/**
+	 * Removes the menu command listener.
+	 *
+	 * @param l the l
+	 */
 	public void removeMenuCommandListener(MenuCommandListener l){
 		if (menuCommandListeners.contains(l))
 			menuCommandListeners.remove(l);
 	}
 
+	/**
+	 * The listener interface for receiving menuCommand events.
+	 * The class that is interested in processing a menuCommand
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addMenuCommandListener<code> method. When
+	 * the menuCommand event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see MenuCommandEvent
+	 */
 	public interface MenuCommandListener {
+		
+		/**
+		 * Select task.
+		 *
+		 * @param SenderButton the sender button
+		 */
 		public void selectTask(SimpleButton SenderButton);
+		
+		/**
+		 * Edits the task.
+		 *
+		 * @param SenderButton the sender button
+		 */
 		public void editTask(SimpleButton SenderButton);
+		
+		/**
+		 * Toggle control panel.
+		 *
+		 * @param SenderButton the sender button
+		 */
 		public void toggleControlPanel(SimpleButton SenderButton);
+		
+		/**
+		 * Adds the sequence line.
+		 *
+		 * @param SenderButton the sender button
+		 */
 		public void addSequenceLine(SimpleButton SenderButton);
+		
+		/**
+		 * Adds the milestone.
+		 *
+		 * @param SenderButton the sender button
+		 */
 		public void addMilestone(SimpleButton SenderButton);
+		
+		/**
+		 * Delete.
+		 *
+		 * @param SenderButton the sender button
+		 */
 		public void delete(SimpleButton SenderButton);
 		
 	}
 	
+	/**
+	 * Sets the visiable.
+	 *
+	 * @param visiable the new visiable
+	 */
 	public void setVisiable(boolean visiable){
 		menuContainer.setVisible(visiable);
 	}

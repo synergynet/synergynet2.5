@@ -34,12 +34,26 @@ package apps.mathpadapp.networkmanager.messages.fromcontroller.unicast.touser;
 import apps.mathpadapp.networkmanager.utils.UserIdentity;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class HideUserMathPadMessage.
+ */
 public class HideUserMathPadMessage extends ControllerToUserMessage {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1558455400434548461L;
 
+	/** The is hide. */
 	protected boolean isHide = false;
 	
+	/**
+	 * Instantiates a new hide user math pad message.
+	 *
+	 * @param targetClass the target class
+	 * @param tableId the table id
+	 * @param userId the user id
+	 * @param isHide the is hide
+	 */
 	public HideUserMathPadMessage(Class<?> targetClass, TableIdentity tableId, UserIdentity userId, boolean isHide) {
 		super(targetClass);
 		this.setRecipient(tableId);
@@ -47,10 +61,20 @@ public class HideUserMathPadMessage extends ControllerToUserMessage {
 		this.isHide = isHide;
 	}
 	
+	/**
+	 * Checks if is hide pad.
+	 *
+	 * @return true, if is hide pad
+	 */
 	public boolean isHidePad(){
 		return isHide;
 	}
 	
+	/**
+	 * Hide pad.
+	 *
+	 * @param isShown the is shown
+	 */
 	public void hidePad(boolean isShown){
 		this.isHide = isShown;
 	}

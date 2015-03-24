@@ -59,12 +59,26 @@ import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.server.TableCommsServerService;
 
 
+
+/**
+ * The Class ServerUI.
+ */
 public class ServerUI extends JFrame {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -8970026431538865245L;
+	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(ServerUI.class.getName());
 
+	/** The instance. */
 	private static ServerUI instance;
 
+	/**
+	 * Start.
+	 *
+	 * @param server the server
+	 */
 	public static void start(TableCommsServerService server) {
 		if(instance == null) instance = new ServerUI(server);
 		instance.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -74,13 +88,22 @@ public class ServerUI extends JFrame {
 		log.info("ServerUI started");
 	}
 
+	/** The server. */
 	private TableCommsServerService server;
 
+	/**
+	 * Instantiates a new server ui.
+	 *
+	 * @param server the server
+	 */
 	public ServerUI(TableCommsServerService server) {
 		this.server = server;
 		init2();		
 	}
 
+	/**
+	 * Init2.
+	 */
 	private void init2() {
 		JDesktopPane desktop = new JDesktopPane();
 		setContentPane(desktop);
@@ -88,6 +111,11 @@ public class ServerUI extends JFrame {
 		addMessageLoggerView(desktop);
 	}
 
+	/**
+	 * Adds the application mapping view.
+	 *
+	 * @param desktop the desktop
+	 */
 	@SuppressWarnings({ })
 	private void addApplicationMappingView(JDesktopPane desktop) {
 		JSplitPane splitter = new JSplitPane();
@@ -129,6 +157,11 @@ public class ServerUI extends JFrame {
 		addInternalWindow(desktop, "Application Mapping", splitter);
 	}
 
+	/**
+	 * Adds the message logger view.
+	 *
+	 * @param desktop the desktop
+	 */
 	@SuppressWarnings({ })
 	private void addMessageLoggerView(JDesktopPane desktop) {
 		JPanel pnl = new JPanel();
@@ -142,6 +175,13 @@ public class ServerUI extends JFrame {
 		addInternalWindow(desktop, "Message Log", pnl);
 	}
 	
+	/**
+	 * Adds the internal window.
+	 *
+	 * @param desktop the desktop
+	 * @param title the title
+	 * @param container the container
+	 */
 	private void addInternalWindow(JDesktopPane desktop, String title, Container container) {
 		JInternalFrame jif = new JInternalFrame(title);
 		jif.setMaximizable(true);

@@ -33,6 +33,25 @@ package synergynetframework.appsystem.contentsystem.items.listener;
 
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 
+
+/**
+ * The listener interface for receiving orthoScaleMotion events.
+ * The class that is interested in processing a orthoScaleMotion
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addOrthoScaleMotionListener<code> method. When
+ * the orthoScaleMotion event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see OrthoScaleMotionEvent
+ */
 public interface OrthoScaleMotionListener {
+	
+	/**
+	 * Item scale motioned.
+	 *
+	 * @param item the item
+	 * @param scale the scale
+	 */
 	public void itemScaleMotioned(ContentItem item, float scale);
 }

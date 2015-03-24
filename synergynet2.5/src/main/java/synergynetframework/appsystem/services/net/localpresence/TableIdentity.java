@@ -36,13 +36,26 @@ import java.io.Serializable;
 
 import synergynetframework.config.identity.IdentityConfigPrefsItem;
 
+
+/**
+ * The Class TableIdentity.
+ */
 public class TableIdentity implements Serializable {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 7074157729446323520L;
 
+	/** The instance. */
 	private static TableIdentity instance;
 	
+	/** The uid. */
 	protected String uid;
 
+	/**
+	 * Gets the table identity.
+	 *
+	 * @return the table identity
+	 */
 	public static TableIdentity getTableIdentity() {
 		synchronized(TableIdentity.class) {
 			if(instance == null) instance = new TableIdentity();
@@ -50,14 +63,25 @@ public class TableIdentity implements Serializable {
 		}
 	}
 
+	/**
+	 * Instantiates a new table identity.
+	 */
 	private TableIdentity() {
 		uid = new IdentityConfigPrefsItem().getID();
 	}
 	
+	/**
+	 * Instantiates a new table identity.
+	 *
+	 * @param uid the uid
+	 */
 	public TableIdentity(String uid) {
 		this.uid = uid;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	public boolean equals(Object obj) {
 		if(obj instanceof TableIdentity) {
 			TableIdentity t = (TableIdentity) obj;
@@ -66,10 +90,16 @@ public class TableIdentity implements Serializable {
 		return false;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	public int hashCode() {
 		return uid.hashCode();
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return uid;
 	}

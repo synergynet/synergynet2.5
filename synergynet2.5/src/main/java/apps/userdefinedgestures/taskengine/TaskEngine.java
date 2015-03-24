@@ -18,26 +18,64 @@ import com.jme.scene.Spatial;
 import com.jme.scene.Spatial.CullHint;
 
 
+
+/**
+ * The Class TaskEngine.
+ */
 public class TaskEngine {
 
+	/** The rotate transformer. */
 	private RotateTransformer rotateTransformer = new RotateTransformer();
+	
+	/** The translation transformer. */
 	private TranslationTransformer translationTransformer = new TranslationTransformer();
+	
+	/** The scale transformer. */
 	private ScaleTransformer scaleTransformer = new ScaleTransformer();
 	
+	/** The target object collection. */
 	private TargetObjectCollection targetObjectCollection;
+	
+	/** The cam. */
 	private Camera cam;
+	
+	/** The ortho node. */
 	private Node orthoNode;
+	
+	/** The task list. */
 	private List<String> taskList;
 	
+	/** The current index. */
 	private int currentIndex = -1;	
+	
+	/** The current object. */
 	private Spatial currentObject;
+	
+	/** The current transformer. */
 	private Transformer currentTransformer;
+	
+	/** The task label. */
 	private Label taskLabel;
+	
+	/** The complete label. */
 	private Label completeLabel;
+	
+	/** The start label. */
 	private Label startLabel;
+	
+	/** The current action. */
 	private String currentAction;
 	
 	
+	/**
+	 * Instantiates a new task engine.
+	 *
+	 * @param worldNode the world node
+	 * @param orthoNode the ortho node
+	 * @param sPass the s pass
+	 * @param cam the cam
+	 * @param taskList the task list
+	 */
 	public TaskEngine(Node worldNode, Node orthoNode, DirectionalShadowMapPass sPass, Camera cam, List<String> taskList){
 		
 		targetObjectCollection = new TargetObjectCollection(worldNode, sPass);
@@ -62,10 +100,20 @@ public class TaskEngine {
 	
 	}
 	
+	/**
+	 * Gets the current transformer.
+	 *
+	 * @return the current transformer
+	 */
 	public Transformer getCurrentTransformer(){
 		return this.currentTransformer;
 	}	
 	
+	/**
+	 * Move to next task.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean moveToNextTask(){
 		
 		completeLabel.setVisibility(false);
@@ -84,6 +132,11 @@ public class TaskEngine {
 		}
 	}
 	
+	/**
+	 * Move to previous task.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean moveToPreviousTask(){
 		if (currentIndex-1<0)
 			return false;
@@ -95,12 +148,18 @@ public class TaskEngine {
 		}
 	}
 	
+	/**
+	 * Reset position.
+	 */
 	public void resetPosition(){
 		if (this.currentObject!=null)
 			this.currentObject.setLocalTranslation(0, 7, 0);
 		
 	}
 	
+	/**
+	 * Sets the task.
+	 */
 	private void setTask(){
 		String task = taskList.get(currentIndex);
 		String[] taskAttributes = task.trim().split(",");

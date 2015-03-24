@@ -53,22 +53,44 @@ import synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp;
 import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.jme.sysutils.CameraUtility;
 
+
+/**
+ * The Class MathPadProjector.
+ */
 public class MathPadProjector extends DefaultSynergyNetApp {
 
+	/** The comms. */
 	private TableCommsClientService comms;
+	
+	/** The message handler. */
 	protected ProjectorMessageHandler messageHandler;
+	
+	/** The projector manager. */
 	protected ProjectorManager projectorManager;
+	
+	/** The content system. */
 	private ContentSystem contentSystem;
 
+	/**
+	 * Instantiates a new math pad projector.
+	 *
+	 * @param info the info
+	 */
 	public MathPadProjector(ApplicationInfo info) {
 		super(info);		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		contentSystem = ContentSystem.getContentSystemForSynergyNetApp(this);		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onActivate()
+	 */
 	@Override
 	public void onActivate() {
 		if(comms == null) {
@@ -97,10 +119,16 @@ public class MathPadProjector extends DefaultSynergyNetApp {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onDeactivate()
+	 */
 	@Override
 	protected void onDeactivate() {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#getCamera()
+	 */
 	protected Camera getCamera() {
 		if(cam == null) {
 			cam = CameraUtility.getCamera();
@@ -111,6 +139,9 @@ public class MathPadProjector extends DefaultSynergyNetApp {
 		return cam;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	@Override
 	protected void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);

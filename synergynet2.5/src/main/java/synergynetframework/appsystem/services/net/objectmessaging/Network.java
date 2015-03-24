@@ -64,19 +64,46 @@ import synergynetframework.appsystem.services.net.objectmessaging.utility.serial
 import synergynetframework.appsystem.services.net.objectmessaging.utility.serializers.ShortSerializer;
 import synergynetframework.appsystem.services.net.objectmessaging.utility.serializers.StringSerializer;
 
+
+/**
+ * The Class Network.
+ */
 public class Network {
+	
+	/** The Constant idToRegisteredClass. */
 	static private final HashMap<Short,RegisteredClass> idToRegisteredClass = new HashMap<Short, RegisteredClass>();
+	
+	/** The Constant classToRegisteredClass. */
 	static private final HashMap<Class<?>, RegisteredClass> classToRegisteredClass = new HashMap<Class<?>,RegisteredClass>();
+	
+	/** The Constant CLASS_NAME. */
 	static private final short CLASS_NAME = -1;
+	
+	/** The Constant ID_NULL_OBJECT. */
 	static private final byte ID_NULL_OBJECT = 0;
+	
+	/** The next class id. */
 	static private short nextClassID = 1;
 
+	/** The Constant fieldSerializer. */
 	static private final FieldSerializer fieldSerializer = new FieldSerializer();
+	
+	/** The Constant customSerializer. */
 	static private final CustomSerializer customSerializer = new CustomSerializer();
+	
+	/** The Constant arraySerializer. */
 	static private final ArraySerializer arraySerializer = new ArraySerializer();
+	
+	/** The Constant enumSerializer. */
 	static private final EnumSerializer enumSerializer = new EnumSerializer();
+	
+	/** The Constant collectionSerializer. */
 	static private final CollectionSerializer collectionSerializer = new CollectionSerializer();
+	
+	/** The Constant mapSerializer. */
 	static private final MapSerializer mapSerializer = new MapSerializer();
+	
+	/** The Constant serializableSerializer. */
 	static private final SerializableSerializer serializableSerializer = new SerializableSerializer();
 
 	static {
@@ -106,10 +133,23 @@ public class Network {
 		register(KeepAlive.class, nextClassID++, fieldSerializer);
 	}
 
+	/**
+	 * Gets the registered classes.
+	 *
+	 * @return the registered classes
+	 */
 	public static HashMap<Short, RegisteredClass> getRegisteredClasses(){
 		return idToRegisteredClass;
 	}
 	
+	/**
+	 * Register.
+	 *
+	 * @param type the type
+	 * @param id the id
+	 * @param serializer the serializer
+	 * @return the serializer
+	 */
 	private static Serializer register (Class<?> type, short id, Serializer serializer) {
 		RegisteredClass registeredClass = new RegisteredClass();
 		registeredClass.type = type;
@@ -120,6 +160,12 @@ public class Network {
 		return serializer;
 	}
 
+	/**
+	 * Register.
+	 *
+	 * @param type the type
+	 * @param serializer the serializer
+	 */
 	public static void register (Class<?> type, Serializer serializer) {
 		if (type == null) throw new IllegalArgumentException("type cannot be null.");
 		if (serializer == null) throw new IllegalArgumentException("serializer cannot be null.");
@@ -133,6 +179,11 @@ public class Network {
 	}
 
 
+	/**
+	 * Register.
+	 *
+	 * @param type the type
+	 */
 	public static void register (Class<?> type) {
 		if (type == null) throw new IllegalArgumentException("type cannot be null.");
 		Serializer serializer;
@@ -152,6 +203,12 @@ public class Network {
 		register(type, serializer);
 	}
 
+	/**
+	 * Gets the registered class.
+	 *
+	 * @param type the type
+	 * @return the registered class
+	 */
 	public static  RegisteredClass getRegisteredClass (Class<?> type) {
 		if (type == null) throw new IllegalArgumentException("type cannot be null.");
 		RegisteredClass registeredClass = classToRegisteredClass.get(type);
@@ -167,18 +224,41 @@ public class Network {
 		return registeredClass;
 	}
 
+	/**
+	 * Gets the registered class.
+	 *
+	 * @param classID the class id
+	 * @return the registered class
+	 */
 	public static RegisteredClass getRegisteredClass (short classID) {
 		RegisteredClass registeredClass = idToRegisteredClass.get(classID);
 		if (registeredClass == null) throw new IllegalArgumentException("Class ID is not registered: " + classID);
 		return registeredClass;
 	}
 
+	/**
+	 * The Class RegisteredClass.
+	 */
 	public static  class RegisteredClass {
+		
+		/** The type. */
 		public Class<?> type;
+		
+		/** The id. */
 		public short id;
+		
+		/** The serializer. */
 		public Serializer serializer;
 	}
 
+	/**
+	 * Write class.
+	 *
+	 * @param type the type
+	 * @param buffer the buffer
+	 * @return the registered class
+	 * @throws SerializationException the serialization exception
+	 */
 	public static  RegisteredClass writeClass (Class<?> type, ByteBuffer buffer) throws SerializationException {
 		RegisteredClass registeredClass = getRegisteredClass(type);
 		if(registeredClass == null){ 
@@ -194,6 +274,13 @@ public class Network {
 		return registeredClass;
 	}
 
+	/**
+	 * Read class.
+	 *
+	 * @param buffer the buffer
+	 * @return the registered class
+	 * @throws SerializationException the serialization exception
+	 */
 	public static  RegisteredClass readClass (ByteBuffer buffer) throws SerializationException {
 		short classID = ShortSerializer.get(buffer, true);
 		RegisteredClass registeredClass = null;
@@ -215,11 +302,28 @@ public class Network {
 		return registeredClass;
 	}
 
+	/**
+	 * Write class and object.
+	 *
+	 * @param connectionHandler the connection handler
+	 * @param object the object
+	 * @param writeBuffer the write buffer
+	 * @throws SerializationException the serialization exception
+	 */
 	public static  void writeClassAndObject (ConnectionHandler connectionHandler, Object object, ByteBuffer writeBuffer)
 		throws SerializationException {
 		writeClassAndObject(connectionHandler, object, writeBuffer, false);
 	}
 
+	/**
+	 * Write class and object.
+	 *
+	 * @param connectionHandler the connection handler
+	 * @param object the object
+	 * @param writeBuffer the write buffer
+	 * @param lengthKnown the length known
+	 * @throws SerializationException the serialization exception
+	 */
 	public static  void writeClassAndObject (ConnectionHandler connectionHandler, Object object, ByteBuffer writeBuffer, boolean lengthKnown)
 		throws SerializationException {
 		if (object == null) {
@@ -234,10 +338,27 @@ public class Network {
 		}
 	}
 
+	/**
+	 * Read class and object.
+	 *
+	 * @param connectionHandler the connection handler
+	 * @param readBuffer the read buffer
+	 * @return the object
+	 * @throws SerializationException the serialization exception
+	 */
 	public static  Object readClassAndObject (ConnectionHandler connectionHandler, ByteBuffer readBuffer) throws SerializationException {
 		return readClassAndObject(connectionHandler, readBuffer, false);
 	}
 
+	/**
+	 * Read class and object.
+	 *
+	 * @param connectionHandler the connection handler
+	 * @param readBuffer the read buffer
+	 * @param lengthKnown the length known
+	 * @return the object
+	 * @throws SerializationException the serialization exception
+	 */
 	static public Object readClassAndObject (ConnectionHandler connectionHandler, ByteBuffer readBuffer, boolean lengthKnown)
 		throws SerializationException {
 		RegisteredClass registeredClass = null;

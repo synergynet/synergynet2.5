@@ -21,26 +21,67 @@ import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
 import com.jme.util.TextureManager;
 
+
+/**
+ * The Class ButtonNode.
+ */
 public class ButtonNode extends Node {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2429175967783608868L;
 	
+	/** The Constant FEEDBACK_MODE_NONE. */
 	public static final String FEEDBACK_MODE_NONE = "none";
+	
+	/** The Constant FEEDBACK_MODE_COLORHIGHLIGHTED. */
 	public static final String FEEDBACK_MODE_COLORHIGHLIGHTED = "colorhighlighted";
+	
+	/** The Constant FEEDBACK_MODE_3D. */
 	public static final String FEEDBACK_MODE_3D = "3d";
 	
+	/** The slope. */
 	protected float width = 1, length = 1, height =1, slope = 0.5f;
+	
+	/** The texture url. */
 	protected URL textureURL;
+	
+	/** The text texture url. */
 	protected URL textTextureURL;
+	
+	/** The rb. */
 	protected RoundedBox rb;
+	
+	/** The listeners. */
 	protected List<KeyListener> listeners = new ArrayList<KeyListener>();
+	
+	/** The key name. */
 	protected String keyName="";
+	
+	/** The zvalue of button label. */
 	protected float zvalueOfButtonLabel=0;
+	
+	/** The self. */
 	protected ButtonNode self;
+	
+	/** The feedback mode. */
 	protected String feedbackMode = FEEDBACK_MODE_NONE;
+	
+	/** The highlighted texture url. */
 	protected URL highlightedTextureURL;
 	
 	
+	/**
+	 * Instantiates a new button node.
+	 *
+	 * @param name the name
+	 * @param width the width
+	 * @param length the length
+	 * @param height the height
+	 * @param slope the slope
+	 * @param bgTexture the bg texture
+	 * @param textTexture the text texture
+	 * @param highlightedTextureURL the highlighted texture url
+	 */
 	public ButtonNode(String name, float width, float length, float height, float slope, URL bgTexture, URL textTexture, URL highlightedTextureURL){
 		super(name);
 		this.keyName = name;
@@ -55,20 +96,38 @@ public class ButtonNode extends Node {
 		init();		
 	}
 	
+	/**
+	 * Sets the feedback mode.
+	 *
+	 * @param feedbackMode the new feedback mode
+	 */
 	public void setFeedbackMode(String feedbackMode){
 		this.feedbackMode = feedbackMode;
 	}
 	
 	
+	/**
+	 * Gets the zvalue of button label.
+	 *
+	 * @return the zvalue of button label
+	 */
 	public float getZvalueOfButtonLabel() {
 		return zvalueOfButtonLabel;
 	}
 
 
+	/**
+	 * Sets the zvalue of button label.
+	 *
+	 * @param zvalueOfButtonLabel the new zvalue of button label
+	 */
 	public void setZvalueOfButtonLabel(float zvalueOfButtonLabel) {
 		this.zvalueOfButtonLabel = zvalueOfButtonLabel;
 	}
 
+	/**
+	 * Inits the.
+	 */
 	protected void init(){
 		
 		Vector3f min = new Vector3f(this.width, this.length, this.height);
@@ -99,6 +158,11 @@ public class ButtonNode extends Node {
 			
 	}
 	
+	/**
+	 * Creates the text quad.
+	 *
+	 * @return the quad
+	 */
 	@SuppressWarnings("static-access")
 	private Quad createTextQuad(){
 		
@@ -240,10 +304,20 @@ public class ButtonNode extends Node {
 		return quad;	
 	}
 	
+	/**
+	 * Adds the key listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void addKeyListener(KeyListener listener){
 		this.listeners.add(listener);
 	}
 	
+	/**
+	 * Sets the button body visability.
+	 *
+	 * @param b the new button body visability
+	 */
 	public void setButtonBodyVisability(boolean b){
 		if (!b){
 			rb.setCullHint(CullHint.Always);

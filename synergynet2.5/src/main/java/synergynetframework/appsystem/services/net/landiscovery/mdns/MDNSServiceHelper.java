@@ -41,28 +41,63 @@ import synergynetframework.appsystem.services.net.landiscovery.ServiceAnnounceSy
 import synergynetframework.appsystem.services.net.landiscovery.ServiceDescriptor;
 import synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoverySystem;
 
+
+/**
+ * The Class MDNSServiceHelper.
+ */
 public class MDNSServiceHelper {
 	
+	/** The jmdns. */
 	private static JmDNS jmdns;
 	
+	/**
+	 * Gets the shared jm dns.
+	 *
+	 * @return the shared jm dns
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	private static JmDNS getSharedJmDNS() throws IOException {
 		if(jmdns == null) jmdns  = JmDNS.create();
 		return jmdns;
 	}	
 	
+	/**
+	 * Gets the service discovery system.
+	 *
+	 * @return the service discovery system
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static ServiceDiscoverySystem getServiceDiscoverySystem() throws IOException {
 		ServiceDiscoverySystem sd = new MDNSServiceDiscovery(getSharedJmDNS());
 		return sd;
 	}
 	
+	/**
+	 * Gets the service announce system.
+	 *
+	 * @return the service announce system
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static ServiceAnnounceSystem getServiceAnnounceSystem() throws IOException {
 		return new MDNSServiceAnnouncer(getSharedJmDNS());
 	}
 	
+	/**
+	 * Gets the info for descriptor.
+	 *
+	 * @param sd the sd
+	 * @return the info for descriptor
+	 */
 	public static ServiceInfo getInfoForDescriptor(ServiceDescriptor sd) {
 		return ServiceInfo.create(sd.getServiceType(), sd.getServiceName(), sd.getServicePort(), 0, 0, sd.getUserData());
 	}
 	
+	/**
+	 * Gets the descriptor for info.
+	 *
+	 * @param info the info
+	 * @return the descriptor for info
+	 */
 	public static ServiceDescriptor getDescriptorForInfo(ServiceInfo info) {
 		ServiceDescriptor sd = new ServiceDescriptor();
 		sd.setServiceAddress(info.getAddress());

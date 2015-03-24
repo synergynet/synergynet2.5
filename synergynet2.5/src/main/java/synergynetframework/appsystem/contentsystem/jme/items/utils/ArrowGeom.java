@@ -39,18 +39,41 @@ import com.jme.scene.TexCoords;
 import com.jme.scene.TriMesh;
 import com.jme.util.geom.BufferUtils;
 
+
+/**
+ * The Class ArrowGeom.
+ */
 public class ArrowGeom extends TriMesh{
 	
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 7019914709961269067L;
 
+	/** The width. */
 	protected float width;
+	
+	/** The height. */
 	protected float height;
 	
+	/**
+	 * Instantiates a new arrow geom.
+	 *
+	 * @param name the name
+	 * @param width the width
+	 * @param height the height
+	 */
 	public ArrowGeom(String name, float width, float height){
 		this(name, width, height, ColorRGBA.red);
 	}
 	
+	/**
+	 * Instantiates a new arrow geom.
+	 *
+	 * @param name the name
+	 * @param width the width
+	 * @param height the height
+	 * @param arrowColour the arrow colour
+	 */
 	public ArrowGeom(String name, float width, float height, ColorRGBA arrowColour){
 		super(name);
 		this.width = width;
@@ -58,6 +81,11 @@ public class ArrowGeom extends TriMesh{
 		build(arrowColour);
 	}
 	
+	/**
+	 * Builds the.
+	 *
+	 * @param arrowColor the arrow color
+	 */
 	private void build(ColorRGBA arrowColor){
 		
         Vector3f[] vertexes={
@@ -82,10 +110,20 @@ public class ArrowGeom extends TriMesh{
         this.updateRenderState();
 	}
 	
+	/**
+	 * Gets the width.
+	 *
+	 * @return the width
+	 */
 	public float getWidth(){
 		return width;
 	}
 	
+	/**
+	 * Gets the height.
+	 *
+	 * @return the height
+	 */
 	public float getHeight(){
 		return height;
 	}

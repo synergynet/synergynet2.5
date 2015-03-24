@@ -33,86 +33,199 @@
 
 package apps.mysteries.client.restore;
 
+
+/**
+ * The Class ContentItemState.
+ */
 public class ContentItemState 
 {
+	
+	/** The name. */
 	private String name;
+	
+	/** The location_x. */
 	private float location_x;
+	
+	/** The location_y. */
 	private float location_y;
+	
+	/** The location_z. */
 	private float location_z;
+	
+	/** The scale_x. */
 	private float scale_x = 1;
+	
+	/** The scale_y. */
 	private float scale_y = 1;
+	
+	/** The scale_z. */
 	private float scale_z = 1;
+	
+	/** The rotation_x. */
 	private float rotation_x;
+	
+	/** The rotation_y. */
 	private float rotation_y;
+	
+	/** The rotation_z. */
 	private float rotation_z;
+	
+	/** The rotation_w. */
 	private float rotation_w;
+	
+	/** The z order. */
 	private int zOrder;
 	
+	/**
+	 * Instantiates a new content item state.
+	 */
 	public ContentItemState()
 	{}
 
+	/**
+	 * Sets the name.
+	 *
+	 * @param name the new name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 	
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
 	
+	/**
+	 * Sets the x.
+	 *
+	 * @param location_x the new x
+	 */
 	public void setX(float location_x){
 		this.location_x = location_x;
 	}
 	
+	/**
+	 * Sets the y.
+	 *
+	 * @param location_x the new y
+	 */
 	public void setY(float location_x){
 		this.location_x = location_x;
 	}
 	
+	/**
+	 * Sets the z.
+	 *
+	 * @param location_x the new z
+	 */
 	public void setZ(float location_x){
 		this.location_x = location_x;
 	}
 	
+	/**
+	 * Sets the location.
+	 *
+	 * @param location_x the location_x
+	 * @param location_y the location_y
+	 * @param location_z the location_z
+	 */
 	public void setLocation(float location_x, float location_y, float location_z) {
 		this.location_x = location_x;
 		this.location_y = location_y;
 		this.location_z = location_z;
 	}
 	
+	/**
+	 * Gets the x.
+	 *
+	 * @return the x
+	 */
 	public float getX(){
 		return location_x;
 	}
 	
+	/**
+	 * Gets the y.
+	 *
+	 * @return the y
+	 */
 	public float getY(){
 		return location_y;
 	}
 	
+	/**
+	 * Gets the z.
+	 *
+	 * @return the z
+	 */
 	public float getZ(){
 		return location_z;
 	}
 	
+	/**
+	 * Sets the scale.
+	 *
+	 * @param scaleFactor the new scale
+	 */
 	public void setScale(float scaleFactor){
 		this.scale_x= scaleFactor;
 		this.scale_y= scaleFactor;
 		this.scale_z= scaleFactor;
 	}
 	
+	/**
+	 * Sets the scale.
+	 *
+	 * @param scale_x the scale_x
+	 * @param scale_y the scale_y
+	 * @param scale_z the scale_z
+	 */
 	public void setScale(float scale_x, float scale_y, float scale_z){
 		this.scale_x= scale_x;
 		this.scale_y= scale_y;
 		this.scale_z= scale_z;
 	}
 	
+	/**
+	 * Gets the scale x.
+	 *
+	 * @return the scale x
+	 */
 	public float getScaleX(){
 		return scale_x;
 	}
 	
+	/**
+	 * Gets the scale y.
+	 *
+	 * @return the scale y
+	 */
 	public float getScaleY() {
 		return scale_y;
 	}
 	
+	/**
+	 * Gets the scale z.
+	 *
+	 * @return the scale z
+	 */
 	public float getScaleZ() {
 		return scale_z;
 	}
 	
+	/**
+	 * Sets the rotation.
+	 *
+	 * @param rotation_x the rotation_x
+	 * @param rotation_y the rotation_y
+	 * @param rotation_z the rotation_z
+	 * @param rotation_w the rotation_w
+	 */
 	public void setRotation(float rotation_x, float rotation_y, float rotation_z, float rotation_w){
 		this.rotation_x = rotation_x;
 		this.rotation_y = rotation_y;
@@ -120,42 +233,92 @@ public class ContentItemState
 		this.rotation_w = rotation_w;
 	}
 	
+	/**
+	 * Sets the rotation x.
+	 *
+	 * @param rotation_x the new rotation x
+	 */
 	public void setRotationX(float rotation_x)	{
 		this.rotation_x = rotation_x;
 	}
 	
+	/**
+	 * Gets the rotation x.
+	 *
+	 * @return the rotation x
+	 */
 	public float getRotationX() {
 		return rotation_x;
 	}
 
+	/**
+	 * Sets the rotation y.
+	 *
+	 * @param rotation_y the new rotation y
+	 */
 	public void setRotationY(float rotation_y)	{
 		this.rotation_y = rotation_y;
 	}
 	
+	/**
+	 * Gets the rotation y.
+	 *
+	 * @return the rotation y
+	 */
 	public float getRotationY() {
 		return rotation_y;
 	}
 	
+	/**
+	 * Sets the rotation z.
+	 *
+	 * @param rotation_z the new rotation z
+	 */
 	public void setRotationZ(float rotation_z)	{
 		this.rotation_z = rotation_z;
 	}
 	
+	/**
+	 * Gets the rotation z.
+	 *
+	 * @return the rotation z
+	 */
 	public float getRotationZ() {
 		return rotation_z;
 	}
 	
+	/**
+	 * Sets the rotation w.
+	 *
+	 * @param rotation_w the new rotation w
+	 */
 	public void setRotationW(float rotation_w)	{
 		this.rotation_w = rotation_w;
 	}
 	
+	/**
+	 * Gets the rotation w.
+	 *
+	 * @return the rotation w
+	 */
 	public float getRotationW() {
 		return rotation_w;
 	}
 	
+	/**
+	 * Sets the z order.
+	 *
+	 * @param zOrder the new z order
+	 */
 	public void setZOrder(int zOrder) {
 		this.zOrder = zOrder;
 	}
 	
+	/**
+	 * Gets the z order.
+	 *
+	 * @return the z order
+	 */
 	public int getZOrder() {
 		return zOrder;
 	}

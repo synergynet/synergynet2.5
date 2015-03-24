@@ -19,23 +19,49 @@ import synergynetframework.appsystem.services.net.landiscovery.ServiceDescriptor
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.netservicediscovery.NetworkServiceDiscoveryService;
 
+
+/**
+ * The Class FileStoreServer.
+ */
 public class FileStoreServer extends SynergyNetService implements Runnable {
 	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(FileStoreServer.class.getName());
+	
+	/** The Constant TCP_PORT. */
 	public static final int TCP_PORT = 4343;
+	
+	/** The Constant SERVICE_TYPE. */
 	public static final String SERVICE_TYPE = "SynergyNet";
+	
+	/** The Constant SERVICE_NAME. */
 	public static final String SERVICE_NAME = "filestoreserver";
 	
+	/** The ss. */
 	private ServerSocket ss;
+	
+	/** The thread pool. */
 	protected ExecutorService threadPool;
+	
+	/** The thread pool size. */
 	private int threadPoolSize = 10;
+	
+	/** The base directory. */
 	private File baseDirectory;
+	
+	/** The running. */
 	private boolean running;
 
+	/**
+	 * Instantiates a new file store server.
+	 */
 	public FileStoreServer() {
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#start()
+	 */
 	@Override
 	public void start() throws CouldNotStartServiceException {
 		try {
@@ -52,6 +78,9 @@ public class FileStoreServer extends SynergyNetService implements Runnable {
 
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
 	@Override
 	public void run() {
 		running = true;
@@ -67,15 +96,26 @@ public class FileStoreServer extends SynergyNetService implements Runnable {
 		
 	}
 	
+	/**
+	 * Sets the directory.
+	 *
+	 * @param file the new directory
+	 */
 	public void setDirectory(File file) {
 		this.baseDirectory = file;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#hasStarted()
+	 */
 	@Override
 	public boolean hasStarted() {
 		return running;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#shutdown()
+	 */
 	@Override
 	public void shutdown() {
 		try {
@@ -87,17 +127,28 @@ public class FileStoreServer extends SynergyNetService implements Runnable {
 		}		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#stop()
+	 */
 	@Override
 	public void stop() throws ServiceNotRunningException {
 		shutdown();		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#update()
+	 */
 	@Override
 	public void update() {
 		
 	}
 
 
+	/**
+	 * Advertise service.
+	 *
+	 * @throws CouldNotStartServiceException the could not start service exception
+	 */
 	private void advertiseService() throws CouldNotStartServiceException {
 		NetworkServiceDiscoveryService nsds = (NetworkServiceDiscoveryService) ServiceManager.getInstance().get(NetworkServiceDiscoveryService.class);				
 		ServiceAnnounceSystem sa = nsds.getServiceAnnouncer();

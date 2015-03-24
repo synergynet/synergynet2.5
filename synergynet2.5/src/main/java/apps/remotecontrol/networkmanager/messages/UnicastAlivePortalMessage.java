@@ -35,14 +35,28 @@ package apps.remotecontrol.networkmanager.messages;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.UnicastApplicationMessage;
 
+
+/**
+ * The Class UnicastAlivePortalMessage.
+ */
 public class UnicastAlivePortalMessage extends UnicastApplicationMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3611717853521792797L;
 
+	/**
+	 * Instantiates a new unicast alive portal message.
+	 */
 	public UnicastAlivePortalMessage(){
 		super();
 	}
 	
+	/**
+	 * Instantiates a new unicast alive portal message.
+	 *
+	 * @param targetClass the target class
+	 * @param targetTableId the target table id
+	 */
 	public UnicastAlivePortalMessage(Class<?> targetClass, TableIdentity targetTableId){
 		super(targetClass);
 		this.setRecipient(targetTableId);

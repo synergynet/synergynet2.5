@@ -42,137 +42,310 @@ import apps.mathpadapp.mathtool.MathTool.WritingState;
 
 import synergynetframework.appsystem.contentsystem.jme.items.utils.DrawData;
 
+
+/**
+ * The Class MathToolInitSettings.
+ */
 public class MathToolInitSettings implements Serializable{
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 531818103121346516L;
 
+	/** The no of pads. */
 	private int noOfPads = 1;
+	
+	/** The current pad index. */
 	private int currentPadIndex;
+	
+	/** The writing state. */
 	private WritingState writingState = null;
+	
+	/** The separator state. */
 	private SeparatorState separatorState = null;
+	
+	/** The text color. */
 	private Color textColor = null;
+	
+	/** The background color. */
 	private Color backgroundColor = null;
+	
+	/** The title. */
 	private String title = null;
 
+	/** The line width. */
 	private float lineWidth = Float.NaN;
 	
+	/** The location x. */
 	private float locationX = Float.NaN;
+	
+	/** The location y. */
 	private float locationY = Float.NaN;
+	
+	/** The scale. */
 	private float scale = Float.NaN;
+	
+	/** The angle. */
 	private float angle = Float.NaN;
+	
+	/** The order. */
 	private float order = Float.NaN;
 	
+	/** The draw data. */
 	private HashMap<Integer,List<DrawData>> drawData = new HashMap<Integer,List<DrawData>>();
 	
+	/**
+	 * Instantiates a new math tool init settings.
+	 */
 	public MathToolInitSettings(){}
 
+	/**
+	 * Sets the no of pads.
+	 *
+	 * @param noOfPads the new no of pads
+	 */
 	public void setNoOfPads(int noOfPads){
 		this.noOfPads = noOfPads;
 	}
 	
+	/**
+	 * Gets the no of pads.
+	 *
+	 * @return the no of pads
+	 */
 	public int getNoOfPads(){
 		return noOfPads;
 	}
 	
+	/**
+	 * Sets the current pad index.
+	 *
+	 * @param currentPadIndex the new current pad index
+	 */
 	public void setCurrentPadIndex(int currentPadIndex){
 		this.currentPadIndex = currentPadIndex;
 	}
 	
+	/**
+	 * Gets the current pad index.
+	 *
+	 * @return the current pad index
+	 */
 	public int getCurrentPadIndex(){
 		return currentPadIndex;
 	}
 	
+	/**
+	 * Gets the writing state.
+	 *
+	 * @return the writing state
+	 */
 	public WritingState getWritingState() {
 		return writingState;
 	}
 
+	/**
+	 * Sets the writing state.
+	 *
+	 * @param initWritingState the new writing state
+	 */
 	public void setWritingState(WritingState initWritingState) {
 		this.writingState = initWritingState;
 	}
 	
+	/**
+	 * Gets the separator state.
+	 *
+	 * @return the separator state
+	 */
 	public SeparatorState getSeparatorState() {
 		return separatorState;
 	}
 
+	/**
+	 * Sets the separator state.
+	 *
+	 * @param separatorState the new separator state
+	 */
 	public void setSeparatorState(SeparatorState separatorState) {
 		this.separatorState = separatorState;
 	}
 
+	/**
+	 * Gets the current text color.
+	 *
+	 * @return the current text color
+	 */
 	public Color getCurrentTextColor() {
 		return textColor;
 	}
 
+	/**
+	 * Sets the text color.
+	 *
+	 * @param currentTextColor the new text color
+	 */
 	public void setTextColor(Color currentTextColor) {
 		this.textColor = currentTextColor;
 	}
 
+	/**
+	 * Gets the line width.
+	 *
+	 * @return the line width
+	 */
 	public float getLineWidth() {
 		return lineWidth;
 	}
 
+	/**
+	 * Sets the line width.
+	 *
+	 * @param currentLineWidth the new line width
+	 */
 	public void setLineWidth(float currentLineWidth) {
 		this.lineWidth = currentLineWidth;
 	}
 	
+	/**
+	 * Sets the background color.
+	 *
+	 * @param backgroundColor the new background color
+	 */
 	public void setBackgroundColor(Color backgroundColor){
 		this.backgroundColor = backgroundColor;
 	}
 	
+	/**
+	 * Gets the background color.
+	 *
+	 * @return the background color
+	 */
 	public Color getBackgroundColor(){
 		return backgroundColor;
 	}
 
+	/**
+	 * Gets the angle.
+	 *
+	 * @return the angle
+	 */
 	public float getAngle() {
 		return angle;
 	}
 
+	/**
+	 * Sets the angle.
+	 *
+	 * @param rotationAngle the new angle
+	 */
 	public void setAngle(float rotationAngle) {
 		this.angle = rotationAngle;
 	}
 
+	/**
+	 * Gets the scale.
+	 *
+	 * @return the scale
+	 */
 	public float getScale() {
 		return scale;
 	}
 
+	/**
+	 * Sets the scale.
+	 *
+	 * @param scale the new scale
+	 */
 	public void setScale(float scale) {
 		this.scale = scale;
 	}
 	
+	/**
+	 * Sets the order.
+	 *
+	 * @param order the new order
+	 */
 	public void setOrder(float order){
 		this.order = order;
 	}
 	
+	/**
+	 * Gets the order.
+	 *
+	 * @return the order
+	 */
 	public float getOrder(){
 		return order;
 	}
 	
+	/**
+	 * Sets the draw data.
+	 *
+	 * @param drawData the draw data
+	 */
 	public void setDrawData(HashMap<Integer,List<DrawData>> drawData){
 		this.drawData = drawData;
 	}
 	
+	/**
+	 * Gets the draw data.
+	 *
+	 * @return the draw data
+	 */
 	public HashMap<Integer,List<DrawData>> getDrawData(){
 		return drawData;
 	}
 
+	/**
+	 * Gets the location x.
+	 *
+	 * @return the location x
+	 */
 	public float getLocationX() {
 		return locationX;
 	}
 
+	/**
+	 * Sets the location x.
+	 *
+	 * @param locationX the new location x
+	 */
 	public void setLocationX(float locationX) {
 		this.locationX = locationX;
 	}
 
+	/**
+	 * Gets the location y.
+	 *
+	 * @return the location y
+	 */
 	public float getLocationY() {
 		return locationY;
 	}
 
+	/**
+	 * Sets the location y.
+	 *
+	 * @param locationY the new location y
+	 */
 	public void setLocationY(float locationY) {
 		this.locationY = locationY;
 	}
 	
+	/**
+	 * Sets the title.
+	 *
+	 * @param title the new title
+	 */
 	public void setTitle(String title){
 		this.title = title;
 	}
 	
+	/**
+	 * Gets the title.
+	 *
+	 * @return the title
+	 */
 	public String getTitle(){
 		return title;
 	}

@@ -47,18 +47,38 @@ import com.sun.pdfview.PDFPage;
 
 import synergynetframework.jme.gfx.twod.utils.GraphicsImageQuad;
 
+
+/**
+ * The Class PDFDocumentQuad.
+ */
 public class PDFDocumentQuad extends GraphicsImageQuad {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -1917876712882613515L;
 
+	/** The gfx. */
 	protected ImageGraphics gfx;
+	
+	/** The pdffile. */
 	protected PDFFile pdffile; 
+	
+	/** The page. */
 	protected PDFPage page;
 
+	/** The img width. */
 	private int imgWidth;
 
+	/** The img height. */
 	private int imgHeight;
 	
+	/**
+	 * Instantiates a new PDF document quad.
+	 *
+	 * @param name the name
+	 * @param pdffile the pdffile
+	 * @param height the height
+	 * @param imgHeight the img height
+	 */
 	public PDFDocumentQuad(String name, PDFFile pdffile, float height, int imgHeight) {
 		super(
 				name,
@@ -77,6 +97,17 @@ public class PDFDocumentQuad extends GraphicsImageQuad {
 		draw();
 	}
 
+	/**
+	 * Instantiates a new PDF document quad.
+	 *
+	 * @param f the f
+	 * @param name the name
+	 * @param width the width
+	 * @param height the height
+	 * @param imgWidth the img width
+	 * @param imgHeight the img height
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public PDFDocumentQuad(File f, String name, float width, float height, int imgWidth, int imgHeight) throws IOException {
 		super(name, width, height, imgWidth, imgHeight);
 		this.imgWidth = imgWidth;
@@ -88,6 +119,13 @@ public class PDFDocumentQuad extends GraphicsImageQuad {
 		draw();
 	}
 	
+	/**
+	 * Gets the PDF file.
+	 *
+	 * @param f the f
+	 * @return the PDF file
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static PDFFile getPDFFile(File f) throws IOException {
 		RandomAccessFile raf = new RandomAccessFile(f, "r");
 		FileChannel channel = raf.getChannel();
@@ -96,10 +134,18 @@ public class PDFDocumentQuad extends GraphicsImageQuad {
 		return new PDFFile(buf);
 	}
 
+	/**
+	 * Gets the aspect ratio.
+	 *
+	 * @return the aspect ratio
+	 */
 	protected float getAspectRatio() {
 		return page.getAspectRatio();
 	}
 
+	/**
+	 * Draw.
+	 */
 	protected void draw() {
 		Rectangle rect = new Rectangle(0,0,
 				(int)page.getBBox().getWidth(),
@@ -118,6 +164,11 @@ public class PDFDocumentQuad extends GraphicsImageQuad {
 		updateGraphics();
 	}
 	
+	/**
+	 * Goto page.
+	 *
+	 * @param pagenum the pagenum
+	 */
 	public void gotoPage(int pagenum) {
 		page = pdffile.getPage(pagenum);
 		draw();

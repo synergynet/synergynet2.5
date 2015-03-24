@@ -62,17 +62,32 @@ import synergynetframework.jme.config.AppConfig;
 import synergynetframework.jme.cursorsystem.elements.threed.MultiTouchMoveableXYPlaneWithPhysics;
 import synergynetframework.jme.sysutils.CameraUtility;
 
+
+/**
+ * The Class DominosApp.
+ */
 public class DominosApp extends DefaultSynergyNetApp {
 
 
+	/** The physics space. */
 	protected PhysicsSpace physicsSpace;
+	
+	/** The physics speed. */
 	protected float physicsSpeed = 2f;
 	
+	/**
+	 * Instantiates a new dominos app.
+	 *
+	 * @param info the info
+	 */
 	public DominosApp(ApplicationInfo info) {
 		super(info);
 	}
 
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		
@@ -154,6 +169,9 @@ public class DominosApp extends DefaultSynergyNetApp {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onDeactivate()
+	 */
 	protected void onDeactivate() {	
 		
 		super.onDeactivate();
@@ -161,6 +179,9 @@ public class DominosApp extends DefaultSynergyNetApp {
 		physicsSpace.delete();
 	}
 		
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#getCamera()
+	 */
 	protected Camera getCamera() {
 		if(cam == null) {
 			cam = CameraUtility.getCamera();			
@@ -171,11 +192,17 @@ public class DominosApp extends DefaultSynergyNetApp {
 		return cam;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	public void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);
 		physicsSpace.update( tpf * physicsSpeed );
 	}
 
+	/**
+	 * Setup lighting.
+	 */
 	private void setupLighting() {
 		LightState lightState = DisplaySystem.getDisplaySystem().getRenderer().createLightState();
 		worldNode.setRenderState(lightState);

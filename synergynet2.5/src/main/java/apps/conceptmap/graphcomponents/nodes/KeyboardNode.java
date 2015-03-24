@@ -52,12 +52,24 @@ import synergynetframework.jme.gfx.twod.keyboard.Key;
 import synergynetframework.jme.gfx.twod.keyboard.MTKeyListener;
 
 
+
+/**
+ * The Class KeyboardNode.
+ */
 public class KeyboardNode extends QuadNode{
 
+	/** The listeners. */
 	protected transient List<KeyboardListener> listeners = new ArrayList<KeyboardListener>();
 
+	/** The keyboard. */
 	protected Keyboard keyboard;
 	
+	/**
+	 * Instantiates a new keyboard node.
+	 *
+	 * @param contentSystem the content system
+	 * @param gManager the g manager
+	 */
 	public KeyboardNode(ContentSystem contentSystem, GraphManager gManager) {
 		super(contentSystem, gManager);
 		keyboard = (Keyboard)contentSystem.createContentItem(Keyboard.class);
@@ -85,22 +97,42 @@ public class KeyboardNode extends QuadNode{
 	}
 
 	
+	/**
+	 * Fire key pressed.
+	 *
+	 * @param evt the evt
+	 */
 	public void fireKeyPressed(KeyEvent evt) {
 		for(KeyboardListener l : listeners) {
 			l.keyPressed(evt);
 		}		
 	}
 	
+	/**
+	 * Fire key released.
+	 *
+	 * @param evt the evt
+	 */
 	public void fireKeyReleased(KeyEvent evt) {
 		for(KeyboardListener l : listeners) {
 			l.keyReleased(evt);
 		}		
 	}
 	
+	/**
+	 * Adds the key listener.
+	 *
+	 * @param l the l
+	 */
 	public void addKeyListener(KeyboardListener l) {
 		if(!listeners.contains(l)) listeners.add(l);
 	}
 	
+	/**
+	 * Gets the key defs.
+	 *
+	 * @return the key defs
+	 */
 	@SuppressWarnings("unchecked")
 	private List<Key> getKeyDefs() {
 		try {
@@ -117,8 +149,31 @@ public class KeyboardNode extends QuadNode{
 		return null;
 	}
 	
+	/**
+	 * The listener interface for receiving keyboard events.
+	 * The class that is interested in processing a keyboard
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addKeyboardListener<code> method. When
+	 * the keyboard event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see KeyboardEvent
+	 */
 	public interface KeyboardListener {
+		
+		/**
+		 * Key pressed.
+		 *
+		 * @param evt the evt
+		 */
 		public void keyPressed(KeyEvent evt);
+		
+		/**
+		 * Key released.
+		 *
+		 * @param evt the evt
+		 */
 		public void keyReleased(KeyEvent evt);
 	}
 }

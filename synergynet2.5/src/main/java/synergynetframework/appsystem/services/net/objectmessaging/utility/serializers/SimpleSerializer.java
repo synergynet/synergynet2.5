@@ -37,18 +37,47 @@ import java.nio.ByteBuffer;
 
 import synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler;
 
+
+/**
+ * The Class SimpleSerializer.
+ *
+ * @param <T> the generic type
+ */
 public abstract class SimpleSerializer<T> extends Serializer {
+	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.utility.serializers.Serializer#readObjectData(synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler, java.nio.ByteBuffer, java.lang.Class, boolean)
+	 */
 	@SuppressWarnings("unchecked")
 	public <E> E readObjectData (ConnectionHandler connectionHandler, ByteBuffer buffer, Class<E> type, boolean lengthKnown)
 		throws SerializationException {
 		return (E)read(buffer);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.utility.serializers.Serializer#writeObjectData(synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler, java.nio.ByteBuffer, java.lang.Object, boolean)
+	 */
 	@SuppressWarnings("unchecked")
 	public void writeObjectData (ConnectionHandler connectionHandler, ByteBuffer buffer, Object object, boolean lengthKnown)
 		throws SerializationException {
 		write(buffer, (T)object);
 	}
+	
+	/**
+	 * Read.
+	 *
+	 * @param buffer the buffer
+	 * @return the t
+	 * @throws SerializationException the serialization exception
+	 */
 	abstract public T read (ByteBuffer buffer) throws SerializationException;
+	
+	/**
+	 * Write.
+	 *
+	 * @param buffer the buffer
+	 * @param object the object
+	 * @throws SerializationException the serialization exception
+	 */
 	abstract public void write (ByteBuffer buffer, T object) throws SerializationException;
 }

@@ -36,8 +36,17 @@ import core.ConfigurationSystem;
 import core.Server;
 import core.SynergyNetDesktop;
 
+
+/**
+ * The Class RunSynergyNet.
+ */
 public class RunSynergyNet {
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 
 		try{

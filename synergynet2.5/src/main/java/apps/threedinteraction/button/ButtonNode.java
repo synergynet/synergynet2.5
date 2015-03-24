@@ -20,18 +20,47 @@ import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
 import com.jme.util.TextureManager;
 
+
+/**
+ * The Class ButtonNode.
+ */
 public class ButtonNode extends Node {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2429175967783608868L;
 	
+	/** The slope. */
 	protected float width = 1, length = 1, height =1, slope = 0.5f;
+	
+	/** The texture url. */
 	protected URL textureURL;
+	
+	/** The text texture url. */
 	protected URL textTextureURL;
+	
+	/** The rb. */
 	protected RoundedBox rb;
+	
+	/** The listeners. */
 	protected List<KeyListener> listeners = new ArrayList<KeyListener>();
+	
+	/** The key name. */
 	protected String keyName="";
+	
+	/** The zvalue of button label. */
 	protected float zvalueOfButtonLabel=0;
 	
+	/**
+	 * Instantiates a new button node.
+	 *
+	 * @param name the name
+	 * @param width the width
+	 * @param length the length
+	 * @param height the height
+	 * @param slope the slope
+	 * @param bgTexture the bg texture
+	 * @param textTexture the text texture
+	 */
 	public ButtonNode(String name, float width, float length, float height, float slope, URL bgTexture, URL textTexture){
 		super(name);
 		this.keyName = name;
@@ -45,15 +74,28 @@ public class ButtonNode extends Node {
 		init();		
 	}
 	
+	/**
+	 * Gets the zvalue of button label.
+	 *
+	 * @return the zvalue of button label
+	 */
 	public float getZvalueOfButtonLabel() {
 		return zvalueOfButtonLabel;
 	}
 
 
+	/**
+	 * Sets the zvalue of button label.
+	 *
+	 * @param zvalueOfButtonLabel the new zvalue of button label
+	 */
 	public void setZvalueOfButtonLabel(float zvalueOfButtonLabel) {
 		this.zvalueOfButtonLabel = zvalueOfButtonLabel;
 	}
 
+	/**
+	 * Inits the.
+	 */
 	protected void init(){
 		
 		Vector3f min = new Vector3f(this.width, this.length, this.height);
@@ -83,6 +125,11 @@ public class ButtonNode extends Node {
 			
 	}
 	
+	/**
+	 * Creates the text quad.
+	 *
+	 * @return the quad
+	 */
 	private Quad createTextQuad(){
 		Quad quad = new Quad("button "+this.name, this.width*(1.5f), this.length*(1.5f));
 		
@@ -144,10 +191,20 @@ public class ButtonNode extends Node {
 		
 	}
 	
+	/**
+	 * Adds the key listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void addKeyListener(KeyListener listener){
 		this.listeners.add(listener);
 	}
 	
+	/**
+	 * Sets the button body visability.
+	 *
+	 * @param b the new button body visability
+	 */
 	public void setButtonBodyVisability(boolean b){
 		if (!b){
 			rb.setCullHint(CullHint.Always);

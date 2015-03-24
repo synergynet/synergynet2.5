@@ -34,22 +34,45 @@ package apps.mathpadapp.networkmanager.messages.fromcontroller.unicast.totable;
 
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class BlockTableMessage.
+ */
 public class BlockTableMessage extends ControllerToTableMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 6448601837962845275L;
 
+	/** The is blocked. */
 	boolean isBlocked = false;
 
+	/**
+	 * Instantiates a new block table message.
+	 *
+	 * @param targetClass the target class
+	 * @param tableId the table id
+	 * @param isBlocked the is blocked
+	 */
 	public BlockTableMessage(Class<?> targetClass, TableIdentity tableId, boolean isBlocked) {
 		super(targetClass);
 		this.setRecipient(tableId);
 		this.isBlocked = isBlocked;
 	}
 
+	/**
+	 * Checks if is block enabled.
+	 *
+	 * @return true, if is block enabled
+	 */
 	public boolean isBlockEnabled(){
 		return isBlocked;
 	}
 	
+	/**
+	 * Enable block.
+	 *
+	 * @param isBlocked the is blocked
+	 */
 	public void enableBlock(boolean isBlocked){
 		this.isBlocked = isBlocked;
 	}

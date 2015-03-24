@@ -54,12 +54,27 @@ import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAd
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.rapidnetworkmanager.RapidNetworkManager;
 
+
+/**
+ * The Class SendDataDialog.
+ */
 public class SendDataDialog extends MTFrame  implements NetworkListener{
 
+	/** The table ids. */
 	protected HashMap<String,TableIdentity> tableIds;
+	
+	/** The table list. */
 	protected DropDownList tableList;
+	
+	/** The manager. */
 	protected NetworkedContentManager manager;
 	
+	/**
+	 * Instantiates a new send data dialog.
+	 *
+	 * @param app the app
+	 * @param mysteryPath the mystery path
+	 */
 	public SendDataDialog(final ControllerApp app, final String mysteryPath) {
 		super(ContentSystem.getContentSystemForSynergyNetApp(app));
 		this.manager = app.getNetworkedContentManager();
@@ -166,12 +181,18 @@ public class SendDataDialog extends MTFrame  implements NetworkListener{
 		});
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.util.MTFrame#close()
+	 */
 	@Override
 	public void close(){
 		if(manager != null) manager.removeNetworkListener(SendDataDialog.this);
 		super.close();
 	}
 	
+	/* (non-Javadoc)
+	 * @see apps.remotecontrol.networkmanager.managers.NetworkedContentManager.NetworkListener#messageReceived(java.lang.Object)
+	 */
 	@Override
 	public void messageReceived(Object obj) {
 		

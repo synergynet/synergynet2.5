@@ -35,10 +35,47 @@ import javax.swing.JTextPane;
 import javax.swing.text.AttributeSet;
 
 
+
+/**
+ * The Interface IHtmlFrameImplementation.
+ */
 public interface IHtmlFrameImplementation extends IFrameImplementation {
+	
+	/**
+	 * Sets the html content.
+	 *
+	 * @param html the new html content
+	 */
 	public void setHtmlContent(String html);
+	
+	/**
+	 * Sets the max width.
+	 *
+	 * @param maxWidth the new max width
+	 */
 	public void setMaxWidth(int maxWidth);
+	
+	/**
+	 * Gets the pane.
+	 *
+	 * @return the pane
+	 */
 	public JTextPane getPane();
+	
+	/**
+	 * Insert string.
+	 *
+	 * @param offset the offset
+	 * @param str the str
+	 * @param attr the attr
+	 */
 	public void insertString(int offset, String str, AttributeSet attr);
+	
+	/**
+	 * Removes the.
+	 *
+	 * @param offset the offset
+	 * @param length the length
+	 */
 	public void remove(int offset, int length);
 }

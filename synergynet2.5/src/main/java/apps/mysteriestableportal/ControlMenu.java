@@ -45,20 +45,44 @@ import synergynetframework.appsystem.contentsystem.items.ListContainer;
 import synergynetframework.appsystem.contentsystem.items.SimpleButton;
 import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAdapter;
 
+
+/**
+ * The Class ControlMenu.
+ */
 public class ControlMenu {
+	
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The sub app menu. */
 	protected SubAppMenu subAppMenu;
+	
+	/** The control menu. */
 	protected ListContainer controlMenu;
+	
+	/** The listeners. */
 	protected List<ControlMenuListener> listeners = new ArrayList<ControlMenuListener>();
 	
+	/** The are tables locked. */
 	private boolean areTablesLocked = false;
 	
+	/**
+	 * Instantiates a new control menu.
+	 *
+	 * @param contentSystem the content system
+	 * @param subAppMenu the sub app menu
+	 */
 	public ControlMenu(ContentSystem contentSystem, SubAppMenu subAppMenu){
 		this.contentSystem = contentSystem;
 		this.subAppMenu = subAppMenu;
 		LoadControlMenu();
 	}
 
+	/**
+	 * Load control menu.
+	 *
+	 * @return the list container
+	 */
 	private ListContainer LoadControlMenu(){
 		
 		controlMenu = (ListContainer)contentSystem.createContentItem(ListContainer.class);
@@ -167,23 +191,76 @@ public class ControlMenu {
 		return controlMenu;
 	}
 	
+	/**
+	 * Sets the location.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 */
 	public void setLocation(float x, float y){
 		controlMenu.setLocalLocation(x, y);
 	}
 	
+	/**
+	 * The listener interface for receiving controlMenu events.
+	 * The class that is interested in processing a controlMenu
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addControlMenuListener<code> method. When
+	 * the controlMenu event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see ControlMenuEvent
+	 */
 	public interface ControlMenuListener{
+		
+		/**
+		 * Send desktop data.
+		 */
 		public void sendDesktopData();
+		
+		/**
+		 * Clear local table.
+		 */
 		public void clearLocalTable();
+		
+		/**
+		 * Clear student tables.
+		 */
 		public void clearStudentTables();
+		
+		/**
+		 * Creates the table portals.
+		 */
 		public void createTablePortals();
+		
+		/**
+		 * Hide table portals.
+		 */
 		public void hideTablePortals();
+		
+		/**
+		 * Lock student tables.
+		 *
+		 * @param lock the lock
+		 */
 		public void lockStudentTables(boolean lock);
 	}
 	
+	/**
+	 * Adds the control menu listener.
+	 *
+	 * @param l the l
+	 */
 	public void addControlMenuListener(ControlMenuListener l){
 		listeners.add(l);
 	}
 	
+	/**
+	 * Sets the visible.
+	 *
+	 * @param isVisible the new visible
+	 */
 	public void setVisible(boolean isVisible){
 		controlMenu.setVisible(isVisible); 
 	}

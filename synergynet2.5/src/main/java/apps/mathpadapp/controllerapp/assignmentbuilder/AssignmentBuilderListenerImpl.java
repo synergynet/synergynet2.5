@@ -54,13 +54,27 @@ import apps.mathpadapp.networkmanager.utils.UserIdentity;
 
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class AssignmentBuilderListenerImpl.
+ */
 public class AssignmentBuilderListenerImpl implements AssignmentBuilderListener{
 
+	/** The controller manager. */
 	protected ControllerManager controllerManager;
 	
+	/**
+	 * Instantiates a new assignment builder listener impl.
+	 *
+	 * @param controllerManager the controller manager
+	 */
 	public AssignmentBuilderListenerImpl(ControllerManager controllerManager){
 		this.controllerManager = controllerManager;
 	}
+	
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.controllerapp.assignmentbuilder.AssignmentBuilder.AssignmentBuilderListener#assignmentSendRequest(apps.mathpadapp.controllerapp.assignmentbuilder.Assignment, java.util.List, apps.mathpadapp.controllerapp.assignmentcontroller.AssignmentInfo)
+	 */
 	@Override
 	public void assignmentSendRequest(Assignment assignment, List<Object> receipents, AssignmentInfo solution) {
 		if(AssignmentManager.getManager().getAssignmentSessions().containsKey(assignment.getAssignmentId())){
@@ -110,6 +124,9 @@ public class AssignmentBuilderListenerImpl implements AssignmentBuilderListener{
 		AssignmentManager.getManager().getAssignmentSessions().put(assignment.getAssignmentId(), session);
 	}
 	
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.controllerapp.assignmentbuilder.AssignmentBuilder.AssignmentBuilderListener#sendToDialogDisplayed(apps.mathpadapp.controllerapp.assignmentbuilder.SendToDialog)
+	 */
 	@Override
 	public void sendToDialogDisplayed(SendToDialog sendToDialog) {
 		//List<TableIdentity> tableIds = controllerManager.getOnlineTables();
@@ -131,23 +148,35 @@ public class AssignmentBuilderListenerImpl implements AssignmentBuilderListener{
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.mathtool.MathTool.MathToolListener#mathPadClosed(apps.mathpadapp.mathtool.MathTool)
+	 */
 	@Override
 	public void mathPadClosed(MathTool tool) {
 		if(ControlBar.currentNoOfPads>0) ControlBar.currentNoOfPads--;
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.mathtool.MathTool.MathToolListener#separatorChanged(apps.mathpadapp.mathtool.MathTool.SeparatorState)
+	 */
 	@Override
 	public void separatorChanged(SeparatorState newState) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.mathtool.MathTool.MathToolListener#assignmentAnswerReady(apps.mathpadapp.controllerapp.assignmentcontroller.AssignmentInfo)
+	 */
 	@Override
 	public void assignmentAnswerReady(AssignmentInfo info) {
 		if(AssignmentManager.getManager().getAssignmentSessions().containsKey(info.getAssignmentId()))
 			AssignmentManager.getManager().getAssignmentSessions().get(info.getAssignmentId()).setSolution(info);
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.mathtool.MathTool.MathToolListener#userLogin(java.lang.String, java.lang.String)
+	 */
 	@Override
 	public void userLogin(String userName, String password) {
 		 

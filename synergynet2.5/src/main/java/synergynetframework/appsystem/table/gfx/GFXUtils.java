@@ -35,7 +35,17 @@ package synergynetframework.appsystem.table.gfx;
 import com.jme.scene.Spatial;
 import com.jme.system.DisplaySystem;
 
+
+/**
+ * The Class GFXUtils.
+ */
 public class GFXUtils {
+	
+	/**
+	 * Center orthogonal spatial.
+	 *
+	 * @param s the s
+	 */
 	public static void centerOrthogonalSpatial(Spatial s) {
 		s.setLocalTranslation(
 				DisplaySystem.getDisplaySystem().getRenderer().getWidth()/2,

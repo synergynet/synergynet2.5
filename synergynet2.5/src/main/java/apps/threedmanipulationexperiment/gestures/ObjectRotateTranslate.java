@@ -49,52 +49,106 @@ import synergynetframework.jme.gfx.JMEGfxUtils;
 import synergynetframework.jme.pickingsystem.data.ThreeDPickResultData;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 
+
+/**
+ * The Class ObjectRotateTranslate.
+ */
 public class ObjectRotateTranslate extends ThreeDMultiTouchElement {
 
+	/** The cursor1 pos. */
 	protected Vector2f cursor1Pos = new Vector2f();
+	
+	/** The cursor2 pos. */
 	protected Vector2f cursor2Pos = new Vector2f();
+	
+	/** The cursor1 old pos. */
 	protected Vector2f cursor1OldPos = new Vector2f();
+	
+	/** The cursor2 old pos. */
 	protected Vector2f cursor2OldPos = new Vector2f();
 	
+	/** The scale min. */
 	protected float scaleMin = Float.NaN;
+	
+	/** The scale max. */
 	protected float scaleMax = Float.NaN;
+	
+	/** The pick results. */
 	protected PickResults pickResults = null;
+	
+	/** The remote object. */
 	protected Spatial remoteObject = null;
 	
+	/** The threshold. */
 	protected float threshold = 0.25f;
 	
+	/** The rotation speed. */
 	protected int rotationSpeed = 100;
 	
+	/** The listeners. */
 	protected List<ObjectRotateTranslateScaleListener> listeners = new ArrayList<ObjectRotateTranslateScaleListener>();
+	
+	/** The experiment eventlisteners. */
 	protected List<ExperimentEventListener> experimentEventlisteners = new ArrayList<ExperimentEventListener>();
 	
+	/** The touch number. */
 	protected int touchNumber=0;
 	
+	/** The has task completion message sent. */
 	protected boolean hasTaskCompletionMessageSent=false;
 	
+	/**
+	 * Instantiates a new object rotate translate.
+	 *
+	 * @param pickingAndTargetSpatial the picking and target spatial
+	 */
 	public ObjectRotateTranslate(Spatial pickingAndTargetSpatial) {
 		super(pickingAndTargetSpatial);
 	}
 
+	/**
+	 * Instantiates a new object rotate translate.
+	 *
+	 * @param pickSpatial the pick spatial
+	 * @param targetSpatial the target spatial
+	 */
 	public ObjectRotateTranslate(Spatial pickSpatial, Spatial targetSpatial) {
 		super(pickSpatial, targetSpatial);
 	}
 	
+	/**
+	 * Instantiates a new object rotate translate.
+	 *
+	 * @param pickSpatial the pick spatial
+	 * @param targetSpatial the target spatial
+	 * @param remoteObject the remote object
+	 */
 	public ObjectRotateTranslate(Spatial pickSpatial, Spatial targetSpatial, Spatial remoteObject) {
 		super(pickSpatial, targetSpatial);
 		this.remoteObject = remoteObject;
 
 	}
 	
+	/**
+	 * Reset touch number.
+	 */
 	public void resetTouchNumber(){
 		touchNumber =0;
 		hasTaskCompletionMessageSent=false;
 	}
 	
+	/**
+	 * Sets the rotation speed.
+	 *
+	 * @param rotationSpeed the new rotation speed
+	 */
 	public void setRotationSpeed(int rotationSpeed){
 		this.rotationSpeed = rotationSpeed;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorChanged(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorChanged(ScreenCursor c, MultiTouchCursorEvent event) {
 		
@@ -113,9 +167,15 @@ public class ObjectRotateTranslate extends ThreeDMultiTouchElement {
 			
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorClicked(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorClicked(ScreenCursor c, MultiTouchCursorEvent event) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorPressed(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorPressed(ScreenCursor c, MultiTouchCursorEvent event) {
 		if(screenCursors.size() == 1) {
@@ -131,9 +191,15 @@ public class ObjectRotateTranslate extends ThreeDMultiTouchElement {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorReleased(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorReleased(ScreenCursor c, MultiTouchCursorEvent event) {}
 
+	/**
+	 * Apply single cursor transform.
+	 */
 	protected void applySingleCursorTransform() {
 		int previousPostionIndex=0;
 		if (getScreenCursorByIndex(0).getCurrentPositionIndex()>0){
@@ -174,6 +240,9 @@ public class ObjectRotateTranslate extends ThreeDMultiTouchElement {
 		}
 	}
 
+	/**
+	 * Apply multi cursor transform.
+	 */
 	protected void applyMultiCursorTransform() {
 		Vector2f originalScreenPosCursor1 = getScreenCursorByIndex(0).getCursorOrigin().getPosition();
 		Vector2f originalScreenPosCursor2 = getScreenCursorByIndex(1).getCursorOrigin().getPosition();
@@ -246,6 +315,9 @@ public class ObjectRotateTranslate extends ThreeDMultiTouchElement {
 	
 	}
 	
+	/**
+	 * Update cursor1.
+	 */
 	protected void updateCursor1() {
 
 		cursor1Pos.x = getScreenCursorByIndex(0).getCurrentCursorScreenPosition().x;
@@ -256,6 +328,9 @@ public class ObjectRotateTranslate extends ThreeDMultiTouchElement {
 		cursor1OldPos.y = getScreenCursorByIndex(0).getOldCursorScreenPosition().y;
 	}
 
+	/**
+	 * Update cursor2.
+	 */
 	protected void updateCursor2() {
 		cursor2Pos.x = getScreenCursorByIndex(1).getCurrentCursorScreenPosition().x;
 		cursor2Pos.y = getScreenCursorByIndex(1).getCurrentCursorScreenPosition().y;
@@ -266,6 +341,9 @@ public class ObjectRotateTranslate extends ThreeDMultiTouchElement {
 		cursor2OldPos.y = getScreenCursorByIndex(1).getOldCursorScreenPosition().y;
 	}
 	
+	/**
+	 * Sets the old cursor.
+	 */
 	protected void setOldCursor(){
 		for (ScreenCursor c:screenCursors){
 			ScreenCursorRecord s = new ScreenCursorRecord(c.getCurrentCursorScreenPosition().x, c.getCurrentCursorScreenPosition().y );
@@ -273,50 +351,134 @@ public class ObjectRotateTranslate extends ThreeDMultiTouchElement {
 		}
 	}
 
+	/**
+	 * Gets the scale min.
+	 *
+	 * @return the scale min
+	 */
 	public float getScaleMin() {
 		return scaleMin;
 	}
 
+	/**
+	 * Sets the scale min.
+	 *
+	 * @param scaleMin the new scale min
+	 */
 	public void setScaleMin(float scaleMin) {
 		this.scaleMin = scaleMin;
 	}
 
+	/**
+	 * Gets the scale max.
+	 *
+	 * @return the scale max
+	 */
 	public float getScaleMax() {
 		return scaleMax;
 	}
 
+	/**
+	 * Sets the scale max.
+	 *
+	 * @param scaleMax the new scale max
+	 */
 	public void setScaleMax(float scaleMax) {
 		this.scaleMax = scaleMax;
 	}
 
+	/**
+	 * Sets the scale limits.
+	 *
+	 * @param min the min
+	 * @param max the max
+	 */
 	public void setScaleLimits(float min, float max) {
 		setScaleMin(min);
 		setScaleMax(max);
 	}
 	
+	/**
+	 * Adds the rotate translate scale listener.
+	 *
+	 * @param l the l
+	 */
 	public void addRotateTranslateScaleListener(ObjectRotateTranslateScaleListener l){
 		listeners.add(l);
 	}
 
+	/**
+	 * Removes the rotate translate scale listener.
+	 *
+	 * @param l the l
+	 */
 	public void removeRotateTranslateScaleListener(ObjectRotateTranslateScaleListener l){
 		if (listeners.contains(l))
 			listeners.remove(l);
 	}
 	
+	/**
+	 * The listener interface for receiving objectRotateTranslateScale events.
+	 * The class that is interested in processing a objectRotateTranslateScale
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addObjectRotateTranslateScaleListener<code> method. When
+	 * the objectRotateTranslateScale event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see ObjectRotateTranslateScaleEvent
+	 */
 	public interface ObjectRotateTranslateScaleListener {
+		
+		/**
+		 * Item moved.
+		 *
+		 * @param targetSpatial the target spatial
+		 * @param newLocationX the new location x
+		 * @param newLocationY the new location y
+		 * @param oldLocationX the old location x
+		 * @param oldLocationY the old location y
+		 */
 		public void itemMoved(Spatial targetSpatial,  float newLocationX, float newLocationY, float oldLocationX, float oldLocationY);
 	}
 	
+	/**
+	 * Adds the experiment event listener.
+	 *
+	 * @param l the l
+	 */
 	public void addExperimentEventListener(ExperimentEventListener l){
 		experimentEventlisteners.add(l);
 	}
 
+	/**
+	 * Removes the experiment event listener.
+	 *
+	 * @param l the l
+	 */
 	public void removeExperimentEventListener(ExperimentEventListener l){
 		if (experimentEventlisteners.contains(l))
 			experimentEventlisteners.remove(l);
 	}
 
+	/**
+	 * The listener interface for receiving experimentEvent events.
+	 * The class that is interested in processing a experimentEvent
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addExperimentEventListener<code> method. When
+	 * the experimentEvent event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see ExperimentEventEvent
+	 */
 	public interface ExperimentEventListener {
+		
+		/**
+		 * Task completed.
+		 *
+		 * @param touchNumber the touch number
+		 */
 		public void taskCompleted(int touchNumber);
 	}
 

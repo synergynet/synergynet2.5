@@ -51,8 +51,13 @@ import java.util.Enumeration;
 import java.util.Vector;
 
 
+
+/**
+ * The Class OSCJavaToByteArrayConverter.
+ */
 public class OSCJavaToByteArrayConverter {
 
+	/** The stream. */
 	protected ByteArrayOutputStream stream = new ByteArrayOutputStream();
 //	private byte[] intBytes = new byte[4];
 
@@ -61,10 +66,8 @@ public class OSCJavaToByteArrayConverter {
 	}*/
 
 	/**
-	 * Creation date: (2/23/2001 2:43:25 AM)
-	 * @param anArray java.lang.Object[]
-	 *
-	 */
+ * Creation date: (2/23/2001 2:43:25 AM).
+ */
 	public void appendNullCharToAlignStream() {
 		int mod = stream.size() % 4;
 		int pad = 4 - mod;
@@ -73,7 +76,8 @@ public class OSCJavaToByteArrayConverter {
 	}
 
 	/**
-	 * Creation date: (2/23/2001 2:21:53 AM)
+	 * Creation date: (2/23/2001 2:21:53 AM).
+	 *
 	 * @return byte[]
 	 */
 	public byte[] toByteArray() {
@@ -81,7 +85,8 @@ public class OSCJavaToByteArrayConverter {
 	}
 
 	/**
-	 * Creation date: (2/23/2001 2:14:23 AM)
+	 * Creation date: (2/23/2001 2:14:23 AM).
+	 *
 	 * @param bytes byte[]
 	 */
 	public void write(byte[] bytes) {
@@ -89,7 +94,8 @@ public class OSCJavaToByteArrayConverter {
 	}
 
 	/**
-	 * Creation date: (2/23/2001 2:21:04 AM)
+	 * Creation date: (2/23/2001 2:21:04 AM).
+	 *
 	 * @param i int
 	 */
 	public void write(int i) {
@@ -97,7 +103,8 @@ public class OSCJavaToByteArrayConverter {
 	}
 
 	/**
-	 * Creation date: (2/23/2001 2:03:57 AM)
+	 * Creation date: (2/23/2001 2:03:57 AM).
+	 *
 	 * @param f java.lang.Float
 	 */
 	public void write(Float f) {
@@ -105,7 +112,8 @@ public class OSCJavaToByteArrayConverter {
 	}
 
 	/**
-	 * Creation date: (2/23/2001 2:08:36 AM)
+	 * Creation date: (2/23/2001 2:08:36 AM).
+	 *
 	 * @param i java.lang.Integer
 	 */
 	public void write(Integer i) {
@@ -113,7 +121,8 @@ public class OSCJavaToByteArrayConverter {
 	}
 
 	/**
-	 * Creation date: (2/23/2001 1:57:35 AM)
+	 * Creation date: (2/23/2001 1:57:35 AM).
+	 *
 	 * @param str java.lang.String
 	 */
 	public void write(String str) {
@@ -121,7 +130,8 @@ public class OSCJavaToByteArrayConverter {
 	}
 
 	/**
-	 * Creation date: (2/23/2001 2:08:36 AM)
+	 * Creation date: (2/23/2001 2:08:36 AM).
+	 *
 	 * @param c char
 	 */
 	public void write(char c) {
@@ -129,7 +139,8 @@ public class OSCJavaToByteArrayConverter {
 	}
 
 	/**
-	 * Creation date: (2/23/2001 2:02:54 AM)
+	 * Creation date: (2/23/2001 2:02:54 AM).
+	 *
 	 * @param anObject java.lang.Object
 	 */
 	public void write(Object anObject) {
@@ -151,8 +162,9 @@ public class OSCJavaToByteArrayConverter {
 	}
 
 	/**
-	 * Creation date: (2/23/2001 2:43:25 AM)
-	 * @param aClass Class
+	 * Creation date: (2/23/2001 2:43:25 AM).
+	 *
+	 * @param c the c
 	 */
 	@SuppressWarnings({"rawtypes" })
 	public void writeType(Class c) {
@@ -189,8 +201,9 @@ public class OSCJavaToByteArrayConverter {
 	}
 
 	/**
-	 * Creation date: (2/23/2001 2:43:25 AM)
-	 * @param anArray java.lang.Object[]
+	 * Creation date: (2/23/2001 2:43:25 AM).
+	 *
+	 * @param array the array
 	 */
 	public void writeTypesArray(Object[] array) {
 		// A big ol' case statement in a for loop -- what's polymorphism mean, again?
@@ -271,7 +284,7 @@ public class OSCJavaToByteArrayConverter {
 	}
 
 	/**
-	 * convert an integer to byte array
+	 * convert an integer to byte array.
 	 *
 	 * @param value int
 	 */
@@ -291,7 +304,7 @@ public class OSCJavaToByteArrayConverter {
 	}
 	
 	/**
-	 * Line up the BigEnd of the bytes to a 4 byte boundry
+	 * Line up the BigEnd of the bytes to a 4 byte boundry.
 	 *
 	 * @param bytes byte[]
 	 */
@@ -313,8 +326,8 @@ public class OSCJavaToByteArrayConverter {
 	}
 
 	/**
-	 * Line up the LittleEnd of the bytes to a 4 byte boundry
-	 * 
+	 * Line up the LittleEnd of the bytes to a 4 byte boundry.
+	 *
 	 * @param bytes byte[]
 	 */
 	private void writeLittleEndToFourByteBoundry(byte[] bytes) {

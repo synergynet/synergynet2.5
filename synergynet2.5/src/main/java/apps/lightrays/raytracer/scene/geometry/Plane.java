@@ -10,18 +10,38 @@ import apps.lightrays.raytracer.scene.Vector;
 import apps.lightrays.raytracer.shaders.PlaneShader;
 import apps.lightrays.raytracer.shaders.Shader;
 
+
+/**
+ * The Class Plane.
+ */
 public class Plane extends SceneObject {
 		// geometry
+		/** The center. */
 		Point center;
+		
+		/** The normal. */
 		Vector normal;
 		
+		/** The cos_inv. */
 		double  cos_inv;
+		
+		/** The hit. */
 		RayHitInfo hit;
 		
+		/**
+		 * Instantiates a new plane.
+		 */
 		public Plane() {
 			super();
 		}
 			
+		/**
+		 * Instantiates a new plane.
+		 *
+		 * @param center the center
+		 * @param perpendicular the perpendicular
+		 * @param prop the prop
+		 */
 		public Plane (Point center, Vector perpendicular, OpticalProperties prop)
 		{
 			super();
@@ -31,16 +51,29 @@ public class Plane extends SceneObject {
 			update();
 		}
 		
+		/**
+		 * Sets the center.
+		 *
+		 * @param center the new center
+		 */
 		public void setCenter(Point center) {
 			this.center = center;
 			update();
 		}
 		
+		/**
+		 * Sets the perpendicular.
+		 *
+		 * @param perp the new perpendicular
+		 */
 		public void setPerpendicular(Vector perp) {
 			this.normal = new Vector(perp);
 			update();
 		}
 		
+		/**
+		 * Update.
+		 */
 		private void update() {
 			if(this.normal != null) {
 				this.normal.normalise();
@@ -49,16 +82,28 @@ public class Plane extends SceneObject {
 		}
 
 		
+		/**
+		 * Gets the pixel.
+		 *
+		 * @param p the p
+		 * @return the pixel
+		 */
 		public Colour getPixel(Point p)
 		{
 			return this.optic_properties.colour;
 		}
 			
+		/* (non-Javadoc)
+		 * @see apps.lightrays.raytracer.scene.SceneObject#getNormal(apps.lightrays.raytracer.scene.Point)
+		 */
 		public Vector getNormal(Point intersect)
 		{
 			return normal;
 		}
 		
+		/* (non-Javadoc)
+		 * @see apps.lightrays.raytracer.scene.SceneObject#intersect(apps.lightrays.raytracer.scene.Ray)
+		 */
 		public RayHitInfo intersect(Ray ray)
 		{
 			// ( org + t * dir - center ) * normal = 0
@@ -91,11 +136,17 @@ public class Plane extends SceneObject {
 	    	return null;
 		}
 
+		/* (non-Javadoc)
+		 * @see apps.lightrays.raytracer.scene.SceneObject#createShader(apps.lightrays.raytracer.scene.Ray)
+		 */
 		public Shader createShader (Ray ray)
 		{
 			return new PlaneShader(scene, ray, hit, this);
 		}
 		
+		/* (non-Javadoc)
+		 * @see apps.lightrays.raytracer.scene.SceneObject#toString()
+		 */
 		public String toString() {
 			return "PLANE";
 		}

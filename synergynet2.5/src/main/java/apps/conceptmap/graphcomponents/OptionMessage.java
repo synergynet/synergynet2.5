@@ -43,11 +43,27 @@ import synergynetframework.appsystem.contentsystem.items.LineItem;
 import synergynetframework.appsystem.contentsystem.items.SimpleButton;
 import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAdapter;
 
+
+/**
+ * The Class OptionMessage.
+ */
 public class OptionMessage extends TextNode{
 
+	/** The parent component. */
 	private GraphComponent parentComponent;
+	
+	/** The return value. */
 	private int returnValue = -1;
 	
+	/**
+	 * Instantiates a new option message.
+	 *
+	 * @param contentSystem the content system
+	 * @param gManager the g manager
+	 * @param parentComponent the parent component
+	 * @param text the text
+	 * @param messageType the message type
+	 */
 	public OptionMessage(ContentSystem contentSystem, GraphManager gManager, GraphComponent parentComponent, String text, int messageType) {
 		super(contentSystem, gManager);
 		this.parentComponent = parentComponent;
@@ -94,6 +110,11 @@ public class OptionMessage extends TextNode{
 		
 	}
 	
+	/**
+	 * Sets the message type.
+	 *
+	 * @param messageType the new message type
+	 */
 	private void setMessageType(int messageType){
 		if(messageType == MessageFactory.OK_CANCEL_MESSAGE){
 			SimpleButton btn_OK = (SimpleButton)contentSystem.createContentItem(SimpleButton.class);
@@ -138,10 +159,20 @@ public class OptionMessage extends TextNode{
 		}
 	}
 	
+	/**
+	 * Gets the selected option.
+	 *
+	 * @return the selected option
+	 */
 	public int getSelectedOption(){
 		return returnValue;
 	}
 	
+	/**
+	 * Gets the parent component.
+	 *
+	 * @return the parent component
+	 */
 	public GraphComponent getParentComponent(){
 		return parentComponent;
 	}

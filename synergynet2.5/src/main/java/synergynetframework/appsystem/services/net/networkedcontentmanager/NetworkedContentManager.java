@@ -63,40 +63,94 @@ import synergynetframework.appsystem.services.net.networkedcontentmanager.messag
 import synergynetframework.appsystem.services.net.networkedcontentmanager.messages.SynchroniseData;
 import synergynetframework.appsystem.services.net.tablecomms.client.TableCommsClientService;
 
+
+/**
+ * The Class NetworkedContentManager.
+ */
 public class NetworkedContentManager {
 
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(NetworkedContentManager.class.getName());
+	
+	/** The Constant ONLINEITEMSLIST. */
 	public final static String ONLINEITEMSLIST = "Online Desktop";
+	
+	/** The Constant BACKITEMSLIST. */
 	public final static String BACKITEMSLIST = "Local Desktop";
 	
+	/** The comms. */
 	protected TableCommsClientService comms;
+	
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The graph manager. */
 	protected GraphManager graphManager;
+	
+	/** The remote desktop controller. */
 	protected RemoteDesktopController remoteDesktopController;
+	
+	/** The projector controller. */
 	protected ProjectorController projectorController;
+	
+	/** The network flick controller. */
 	protected NetworkedFlickController networkFlickController;
+	
+	/** The receiver classes. */
 	protected List<Class<?>> receiverClasses;
 	
+	/** The online items list. */
 	protected Map<String, ContentItem> onlineItemsList = new HashMap<String, ContentItem>();
+	
+	/** The back items list. */
 	protected Map<String, ContentItem> backItemsList = new HashMap<String, ContentItem>();
+	
+	/** The list store local item. */
 	protected String listStoreLocalItem = NetworkedContentManager.ONLINEITEMSLIST;
+	
+	/** The isbackup list enabled. */
 	protected boolean isbackupListEnabled = false;
+	
+	/** The sychronised data. */
 	protected Map<String, Map<String, String>> sychronisedData = new HashMap<String, Map<String, String>>();
 	
+	/** The is menu enabled. */
 	protected boolean isMenuEnabled = true;
+	
+	/** The is menu controller enabled. */
 	protected boolean isMenuControllerEnabled = false;
+	
+	/** The is bi synchronisation enabled. */
 	protected boolean isBiSynchronisationEnabled = false;
 	
+	/** The is synchronisation on. */
 	protected boolean isSynchronisationOn = false;
+	
+	/** The is remote menu on. */
 	protected boolean isRemoteMenuOn = true;
+	
+	/** The is remote locked. */
 	protected boolean isRemoteLocked = false;
+	
+	/** The allow single touch free move. */
 	protected boolean allowSingleTouchFreeMove = false;
 
+	/** The controlled menu. */
 	protected OrthoContainer controlledMenu;
+	
+	/** The allowed to send message. */
 	protected boolean allowedToSendMessage = true;
 	
+	/** The networked content listener. */
 	protected List<NetworkedContentListener> networkedContentListener = new ArrayList<NetworkedContentListener>();
 
+	/**
+	 * Instantiates a new networked content manager.
+	 *
+	 * @param contentSystem the content system
+	 * @param comms the comms
+	 * @param receiverClasses the receiver classes
+	 */
 	public NetworkedContentManager(ContentSystem contentSystem, TableCommsClientService comms, List<Class<?>> receiverClasses){
 		this.contentSystem = contentSystem;
 		this.comms = comms;
@@ -105,48 +159,105 @@ public class NetworkedContentManager {
 		log.info("Networked flick controller created");
 	}
 	
+	/**
+	 * Sets the graph manager.
+	 *
+	 * @param graphManager the new graph manager
+	 */
 	public void setGraphManager(GraphManager graphManager){
 		this.graphManager = graphManager;
 	}
 	
+	/**
+	 * Gets the graph manager.
+	 *
+	 * @return the graph manager
+	 */
 	public GraphManager getGraphManager(){
 		return graphManager;
 	}
 	
+	/**
+	 * Creates the remote desktop controller.
+	 *
+	 * @param controllerClasses the controller classes
+	 * @param targetClasses the target classes
+	 */
 	public void createRemoteDesktopController(ArrayList<Class<?>> controllerClasses, ArrayList<Class<?>> targetClasses){
 		remoteDesktopController = new RemoteDesktopController(this, controllerClasses, targetClasses);
 		log.info("Remote desktop controller created");
 	}
 	
+	/**
+	 * Creates the projector controller.
+	 *
+	 * @param controllerClasses the controller classes
+	 * @param projectorClasses the projector classes
+	 */
 	public void createProjectorController(ArrayList<Class<?>> controllerClasses, ArrayList<Class<?>> projectorClasses){
 		projectorController = new ProjectorController(this, controllerClasses, projectorClasses);
 		log.info("Projector controller created");
 	}
 	
+	/**
+	 * Gets the content system.
+	 *
+	 * @return the content system
+	 */
 	public ContentSystem getContentSystem(){
 		return contentSystem;
 	}
 	
+	/**
+	 * Gets the online items.
+	 *
+	 * @return the online items
+	 */
 	public Map<String, ContentItem> getOnlineItems() {
 		return onlineItemsList;
 	}
 	
+	/**
+	 * Checks if is allowed to send message.
+	 *
+	 * @return true, if is allowed to send message
+	 */
 	public boolean isAllowedToSendMessage(){
 		return this.allowedToSendMessage;
 	}
 	
+	/**
+	 * Allowed to sendmessage.
+	 *
+	 * @param allowedToSendMessage the allowed to send message
+	 */
 	public void allowedToSendmessage(boolean allowedToSendMessage){
 		this.allowedToSendMessage = allowedToSendMessage;
 	}
 	
+	/**
+	 * Checks if is backup list enabled.
+	 *
+	 * @return true, if is backup list enabled
+	 */
 	public boolean isbackupListEnabled() {
 		return isbackupListEnabled;
 	}
 
+	/**
+	 * Sets the backup list enabled.
+	 *
+	 * @param isbackupListEnabled the new backup list enabled
+	 */
 	public void setbackupListEnabled(boolean isbackupListEnabled) {
 		this.isbackupListEnabled = isbackupListEnabled;
 	}
 	
+	/**
+	 * Gets the current screen channel.
+	 *
+	 * @return the current screen channel
+	 */
 	public String getCurrentScreenChannel(){
 		if (this.listStoreLocalItem.equals(NetworkedContentManager.BACKITEMSLIST)){
 			return "Online Desktop";
@@ -157,6 +268,9 @@ public class NetworkedContentManager {
 		
 	}
 
+	/**
+	 * Backup local items.
+	 */
 	public void backupLocalItems(){
 		if(!this.isbackupListEnabled) return;
 		
@@ -180,6 +294,9 @@ public class NetworkedContentManager {
 		
 	}
 	
+	/**
+	 * Switch item list.
+	 */
 	public void switchItemList(){
 		if(!this.isbackupListEnabled) return;
 		
@@ -214,6 +331,9 @@ public class NetworkedContentManager {
 		
 	}
 	
+	/**
+	 * Show local items.
+	 */
 	public void showLocalItems(){
 		if (this.listStoreLocalItem.equals(NetworkedContentManager.BACKITEMSLIST)){
 			this.removeAllItems();
@@ -223,6 +343,12 @@ public class NetworkedContentManager {
 		}
 	}
 
+	/**
+	 * Load local content.
+	 *
+	 * @param filePath the file path
+	 * @param name the name
+	 */
 	public void loadLocalContent(String filePath, String name){
 			
 		this.removeAllItems();
@@ -237,6 +363,11 @@ public class NetworkedContentManager {
 		log.info("Content loaded from "+filePath);
 	}
 	
+	/**
+	 * Load content item.
+	 *
+	 * @param item the item
+	 */
 	public void loadContentItem(ContentItem item){
 		if(item instanceof OrthoContentItem) ((OrthoContentItem)item).allowSingleTouchFreeMove(allowSingleTouchFreeMove);
 		onlineItemsList.put(item.getName(),item);
@@ -246,6 +377,12 @@ public class NetworkedContentManager {
 		log.info(item.getClass().getName()+"-"+item.getName()+" loaded");
 	}
 	
+	/**
+	 * Load content.
+	 *
+	 * @param filePath the file path
+	 * @param name the name
+	 */
 	public void loadContent(String filePath, String name){
 		if(this.isbackupListEnabled){
 			this.removeAllItemsInBackList();
@@ -259,6 +396,11 @@ public class NetworkedContentManager {
 			l.contentLoaded();
 	}
 	
+	/**
+	 * Load content.
+	 *
+	 * @param collection the collection
+	 */
 	public void loadContent(List<ContentItem> collection){
 		if(this.isbackupListEnabled){
 			backupLocalItems();
@@ -280,6 +422,9 @@ public class NetworkedContentManager {
 			l.contentLoaded();
 	}
 	
+	/**
+	 * Removes the all items in back list.
+	 */
 	public void removeAllItemsInBackList(){
 		for (ContentItem item:backItemsList.values()){
 			contentSystem.removeContentItem(item);
@@ -289,6 +434,11 @@ public class NetworkedContentManager {
 		log.info("Items removed from offline list.");
 	}
 
+	/**
+	 * Removes the content item.
+	 *
+	 * @param item the item
+	 */
 	public void removeContentItem(ContentItem item){
 		onlineItemsList.remove(item.getName());
 		contentSystem.removeContentItem(item);
@@ -296,6 +446,9 @@ public class NetworkedContentManager {
 		log.info(item.getClass().getName()+"-"+item.getName()+" removed.");
 	}
 	
+	/**
+	 * Removes the all items.
+	 */
 	public void removeAllItems(){
 		
 		for (ContentItem item:onlineItemsList.values()){
@@ -310,6 +463,12 @@ public class NetworkedContentManager {
 		log.info("All items removed.");
 	}
 	
+	/**
+	 * Enable menu controller.
+	 *
+	 * @param isMenuControllerOn the is menu controller on
+	 * @param menu the menu
+	 */
 	public void enableMenuController(boolean isMenuControllerOn, OrthoContainer menu){
 		if (!isMenuControllerOn){
 			this.controlledMenu = null;
@@ -322,6 +481,11 @@ public class NetworkedContentManager {
 		}
 	}
 	
+	/**
+	 * Enable menu.
+	 *
+	 * @param isMenuEnabled the is menu enabled
+	 */
 	public void enableMenu(boolean isMenuEnabled){
 		if (!this.isMenuControllerEnabled) return;
 		if (this.controlledMenu==null) return;
@@ -334,14 +498,29 @@ public class NetworkedContentManager {
 			controlledMenu.setVisible(true);
 	}
 	
+	/**
+	 * Checks if is menu enabled.
+	 *
+	 * @return true, if is menu enabled
+	 */
 	public boolean isMenuEnabled(){
 		return this.isMenuEnabled;
 	}
 	
+	/**
+	 * Enable synchronisation.
+	 *
+	 * @param isSynchronisationOn the is synchronisation on
+	 */
 	public void enableSynchronisation(boolean isSynchronisationOn){
 		this.isSynchronisationOn = isSynchronisationOn;
 	}
 	
+	/**
+	 * Synchronise data.
+	 *
+	 * @param synchronisedItems the synchronised items
+	 */
 	public void synchroniseData(Map<String, Map<String, String>> synchronisedItems){
 
 		if (synchronisedItems.size()==0) return;
@@ -355,14 +534,29 @@ public class NetworkedContentManager {
 		}
 	}
 	
+	/**
+	 * Gets the sychronised data.
+	 *
+	 * @return the sychronised data
+	 */
 	public Map<String, Map<String, String>> getSychronisedData() {
 		return sychronisedData;
 	}
 
+	/**
+	 * Gets the table comms client service.
+	 *
+	 * @return the table comms client service
+	 */
 	public TableCommsClientService getTableCommsClientService(){
 		return comms;
 	}
 	
+	/**
+	 * State update.
+	 *
+	 * @param tpf the tpf
+	 */
 	public void stateUpdate(float tpf) {
 		if(comms != null) comms.update();
 	
@@ -374,6 +568,11 @@ public class NetworkedContentManager {
 		this.sychronisedData.clear();
 	}
 	
+	/**
+	 * Send message.
+	 *
+	 * @param obj the obj
+	 */
 	public void sendMessage(Object obj) {
 		if (!this.allowedToSendMessage) return;
 		if(comms != null) {
@@ -385,19 +584,39 @@ public class NetworkedContentManager {
 		}
 	}
 	
+	/**
+	 * Checks if is remote menu on.
+	 *
+	 * @return true, if is remote menu on
+	 */
 	public boolean isRemoteMenuOn() {
 		return isRemoteMenuOn;
 	}
 
+	/**
+	 * Sets the remote menu on.
+	 *
+	 * @param isRemoteMenuOn the new remote menu on
+	 */
 	public void setRemoteMenuOn(boolean isRemoteMenuOn) {
 		this.isRemoteMenuOn = isRemoteMenuOn;
 		this.enableRemoteMenu(isRemoteMenuOn);
 	}
 
+	/**
+	 * Checks if is remote locked.
+	 *
+	 * @return true, if is remote locked
+	 */
 	public boolean isRemoteLocked() {
 		return isRemoteLocked;
 	}
 
+	/**
+	 * Sets the remote locked.
+	 *
+	 * @param isRemoteLocked the new remote locked
+	 */
 	public void setRemoteLocked(boolean isRemoteLocked) {
 		this.isRemoteLocked = isRemoteLocked;
 		this.blockRemoteDesktop(isRemoteLocked);
@@ -407,19 +626,39 @@ public class NetworkedContentManager {
 			log.info("Unlock remote desktops");
 	}
 
+	/**
+	 * Checks if is bi synchronisation enabled.
+	 *
+	 * @return true, if is bi synchronisation enabled
+	 */
 	public boolean isBiSynchronisationEnabled() {
 		return isBiSynchronisationEnabled;
 	}
 
+	/**
+	 * Sets the bi synchronisation enabled.
+	 *
+	 * @param isBiSynchronisationEnabled the new bi synchronisation enabled
+	 */
 	public void setBiSynchronisationEnabled(boolean isBiSynchronisationEnabled) {
 		this.isBiSynchronisationEnabled = isBiSynchronisationEnabled;
 		this.enableBiSynchronisation(isBiSynchronisationEnabled);
 	}
 
+	/**
+	 * Checks if is synchronisation on.
+	 *
+	 * @return true, if is synchronisation on
+	 */
 	public boolean isSynchronisationOn() {
 		return isSynchronisationOn;
 	}
 
+	/**
+	 * Sets the synchronisation on.
+	 *
+	 * @param isSynchronisationOn the new synchronisation on
+	 */
 	public void setSynchronisationOn(boolean isSynchronisationOn) {
 		this.isSynchronisationOn = isSynchronisationOn;
 		this.enableSynchronisation(isSynchronisationOn);
@@ -429,6 +668,11 @@ public class NetworkedContentManager {
 			log.info("Turn off remote control");
 	}
 
+	/**
+	 * Adds the networked content listener.
+	 *
+	 * @param l the l
+	 */
 	public void addNetworkedContentListener(NetworkedContentListener l){
 		if (this.networkedContentListener==null)
 			this.networkedContentListener = new ArrayList<NetworkedContentListener>();
@@ -437,14 +681,27 @@ public class NetworkedContentManager {
 			this.networkedContentListener.add(l);
 	}
 	
+	/**
+	 * Removes the networked content listeners.
+	 */
 	public void removeNetworkedContentListeners(){
 		networkedContentListener.clear();
 	}
 	
+	/**
+	 * Removes the networked content listener.
+	 *
+	 * @param l the l
+	 */
 	public void removeNetworkedContentListener(NetworkedContentListener l){
 		networkedContentListener.remove(l);
 	}
 	
+	/**
+	 * Block remote desktop.
+	 *
+	 * @param isRemoteLocked the is remote locked
+	 */
 	public void blockRemoteDesktop(boolean isRemoteLocked){
 		
 		for (Class<?> targetClass:this.receiverClasses)		
@@ -453,6 +710,11 @@ public class NetworkedContentManager {
 		log.info("Block remote tables");
 	}
 	
+	/**
+	 * Enable remote menu.
+	 *
+	 * @param isRemoteMenuOn the is remote menu on
+	 */
 	public void enableRemoteMenu(boolean isRemoteMenuOn){
 		for (Class<?> targetClass:this.receiverClasses)	
 			sendMessage(new EnableMenu(targetClass, isRemoteMenuOn));
@@ -463,6 +725,9 @@ public class NetworkedContentManager {
 			log.info("Turn off remote menu");
 	}
 	
+	/**
+	 * Clear remote desk top.
+	 */
 	public void clearRemoteDeskTop(){
 		for (Class<?> targetClass:this.receiverClasses)	
 			sendMessage(new ClearTable(targetClass));
@@ -470,6 +735,9 @@ public class NetworkedContentManager {
 		log.info("Clear remote desktops");
 	}
 	
+	/**
+	 * Broadcast current desk top.
+	 */
 	public void broadcastCurrentDeskTop(){
 		for (Class<?> targetClass:this.receiverClasses)	
 			sendMessage(new BroadcastData(targetClass, onlineItemsList.values()));
@@ -477,6 +745,11 @@ public class NetworkedContentManager {
 		log.info("Broadcast current desktop");
 	}
 	
+	/**
+	 * Enable bi synchronisation.
+	 *
+	 * @param isBiSynchronisationEnabled the is bi synchronisation enabled
+	 */
 	public void enableBiSynchronisation(boolean isBiSynchronisationEnabled){
 		for (Class<?> targetClass:this.receiverClasses)	
 			this.sendMessage(new EnableBiSynchronisation(targetClass, isBiSynchronisationEnabled));
@@ -487,6 +760,12 @@ public class NetworkedContentManager {
 			log.info("Turn off synchronisation");
 	}
 	
+	/**
+	 * Load content in remote table.
+	 *
+	 * @param filePath the file path
+	 * @param name the name
+	 */
 	public void loadContentInRemoteTable(String filePath, String name){
 		for (Class<?> targetClass:this.receiverClasses)	
 			sendMessage(new LoadData(targetClass, filePath, name));	
@@ -494,18 +773,34 @@ public class NetworkedContentManager {
 		
 	}
 	
+	/**
+	 * Send data to.
+	 *
+	 * @param table the table
+	 */
 	public void sendDataTo(TableIdentity table){
 		for (Class<?> targetClass:this.receiverClasses)	
 			sendMessage(new SendDataTo(targetClass, onlineItemsList.values(), table));		
 		log.info("Send data to table-"+table.toString());
 	}
 	
+	/**
+	 * Request data from.
+	 *
+	 * @param table the table
+	 */
 	public void requestDataFrom(TableIdentity table){
 		for (Class<?> targetClass:this.receiverClasses)	
 			sendMessage(new RequireDataFrom(targetClass, table));		
 		log.info("Request data from table-"+table.toString());
 	}
 
+	/**
+	 * Swap table.
+	 *
+	 * @param table1 the table1
+	 * @param table2 the table2
+	 */
 	public void swapTable(TableIdentity table1, TableIdentity table2){
 		for (Class<?> targetClass:this.receiverClasses)		
 			sendMessage(new SwapTable(targetClass, table1, table2));
@@ -513,28 +808,58 @@ public class NetworkedContentManager {
 			
 	}
 	
+	/**
+	 * Send swap table message.
+	 *
+	 * @param targetTable the target table
+	 */
 	public void sendSwapTableMessage(TableIdentity targetTable){
 		for (Class<?> targetClass:this.receiverClasses)
 			sendMessage(new SwapTableMessage(targetClass, onlineItemsList.values(), targetTable));
 		log.info("Send data for table swap to table-"+targetTable.toString());
 	}
 	
+	/**
+	 * Gets the receiver classes.
+	 *
+	 * @return the receiver classes
+	 */
 	public List<Class<?>> getReceiverClasses(){
 		return receiverClasses;
 	}
 	
+	/**
+	 * Gets the networked content listeners.
+	 *
+	 * @return the networked content listeners
+	 */
 	public List<NetworkedContentListener> getNetworkedContentListeners(){
 		return networkedContentListener;
 	}
 
+	/**
+	 * Gets the remote desktop controller.
+	 *
+	 * @return the remote desktop controller
+	 */
 	public RemoteDesktopController getRemoteDesktopController(){
 		return remoteDesktopController;
 	}
 	
+	/**
+	 * Gets the projector controller.
+	 *
+	 * @return the projector controller
+	 */
 	public ProjectorController getProjectorController(){
 		return projectorController;
 	}
 	
+	/**
+	 * Gets the networked flick controller.
+	 *
+	 * @return the networked flick controller
+	 */
 	public NetworkedFlickController getNetworkedFlickController(){
 		return networkFlickController;
 	}

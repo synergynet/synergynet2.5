@@ -17,15 +17,33 @@ import com.jme.scene.Line;
 import com.jme.system.DisplaySystem;
 import com.jme.util.geom.BufferUtils;
 
+
+/**
+ * The Class TouchPad.
+ */
 public class TouchPad {
 
+	/** The monitor screen. */
 	private TouchPadScreen monitorScreen;
+	
+	/** The tool listeners. */
 	protected List<ToolListener> toolListeners = new ArrayList<ToolListener>();  
+	
+	/** The world node. */
 	private Node worldNode;
+	
+	/** The ortho node. */
 	private Node orthoNode;
+	
+	/** The line. */
 	private Line line;
+	
+	/** The manipulatabled ojbect. */
 	private Spatial manipulatabledOjbect;
 	  
+	/**
+	 * Cleanup.
+	 */
 	public void cleanup() {
 		orthoNode.detachChild(monitorScreen);
 		orthoNode.updateGeometricState(0f, false);
@@ -34,6 +52,17 @@ public class TouchPad {
 		worldNode.updateGeometricState(0f, false);
 	}
 	
+	/**
+	 * Instantiates a new touch pad.
+	 *
+	 * @param name the name
+	 * @param contentSystem the content system
+	 * @param worldNode the world node
+	 * @param orthoNode the ortho node
+	 * @param monitorWidth the monitor width
+	 * @param manipulatabledOjbect the manipulatabled ojbect
+	 * @param initMonitorPosition the init monitor position
+	 */
 	public TouchPad(String name, ContentSystem contentSystem, Node worldNode, Node orthoNode, float monitorWidth, Spatial manipulatabledOjbect, Vector2f initMonitorPosition){
 		
 		this.worldNode = worldNode;
@@ -72,6 +101,9 @@ public class TouchPad {
 		
 	}
 	
+	/**
+	 * Update line.
+	 */
 	public void updateLine(){
 		
 		Vector3f cursorWorldStart = DisplaySystem.getDisplaySystem().getWorldCoordinates(new Vector2f(monitorScreen.getLocalTranslation().x, monitorScreen.getLocalTranslation().y), 0.9f);

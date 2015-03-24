@@ -34,24 +34,50 @@ package synergynetframework.appsystem.services.net.networkedcontentmanager.messa
 
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class BlockInteraction.
+ */
 public class BlockInteraction extends BroadcastApplicationMessage {	
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -1301799851207865934L;
+	
+	/** The is remote locked. */
 	private boolean isRemoteLocked;
 	
+	/**
+	 * Instantiates a new block interaction.
+	 *
+	 * @param targetClass the target class
+	 * @param isRemoteLocked the is remote locked
+	 */
 	public BlockInteraction(Class<?> targetClass, boolean isRemoteLocked) {
 		super(targetClass);
 		this.isRemoteLocked = isRemoteLocked;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return "Block Interaction Message";
 	}
 
+	/**
+	 * Checks if is remote locked.
+	 *
+	 * @return true, if is remote locked
+	 */
 	public boolean isRemoteLocked() {
 		return isRemoteLocked;
 	}
 
+	/**
+	 * Sets the remote locked.
+	 *
+	 * @param isRemoteLocked the new remote locked
+	 */
 	public void setRemoteLocked(boolean isRemoteLocked) {
 		this.isRemoteLocked = isRemoteLocked;
 	}

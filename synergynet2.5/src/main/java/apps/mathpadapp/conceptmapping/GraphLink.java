@@ -37,15 +37,36 @@ import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.LineItem;
 
 
+
+/**
+ * The Class GraphLink.
+ */
 public class GraphLink{
 	
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The graph manager. */
 	protected GraphManager graphManager;
+	
+	/** The line. */
 	protected LineItem line;
+	
+	/** The source node. */
 	protected GraphNode sourceNode;
+	
+	/** The target node. */
 	protected GraphNode targetNode;
+	
+	/** The menu enabled. */
 	private boolean menuEnabled = true;
 	
+	/**
+	 * Instantiates a new graph link.
+	 *
+	 * @param contentSystem the content system
+	 * @param graphManager the graph manager
+	 */
 	public GraphLink(final ContentSystem contentSystem, final GraphManager graphManager){
 		this.contentSystem = contentSystem;
 		this.graphManager = graphManager;
@@ -59,14 +80,29 @@ public class GraphLink{
 		graphManager.addGraphLink(this);
 	}
 	
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	public String getName(){
 		return line.getName();
 	}
 	
+	/**
+	 * Gets the line item.
+	 *
+	 * @return the line item
+	 */
 	public LineItem getLineItem(){
 		return line;
 	}
 	
+	/**
+	 * Sets the source node.
+	 *
+	 * @param sourceNode the new source node
+	 */
 	public void setSourceNode(GraphNode sourceNode){
 		this.sourceNode = sourceNode;
 		if(sourceNode != null){
@@ -76,6 +112,11 @@ public class GraphLink{
 		}
 	}
 	
+	/**
+	 * Sets the target node.
+	 *
+	 * @param targetNode the new target node
+	 */
 	public void setTargetNode(GraphNode targetNode){
 		this.targetNode = targetNode;
 		if(targetNode != null){
@@ -85,60 +126,128 @@ public class GraphLink{
 		}
 	}
 	
+	/**
+	 * Gets the source node.
+	 *
+	 * @return the source node
+	 */
 	public GraphNode getSourceNode(){
 		return sourceNode;
 	}
 	
+	/**
+	 * Gets the target node.
+	 *
+	 * @return the target node
+	 */
 	public GraphNode getTargetNode(){
 		return targetNode;
 	}
 
+	/**
+	 * Removes the.
+	 */
 	public void remove() {
 		contentSystem.removeContentItem(line);
 	}
 	
+	/**
+	 * Gets the link mode.
+	 *
+	 * @return the link mode
+	 */
 	public int getLinkMode(){
 		return line.getLineMode();
 	}
 	
+	/**
+	 * Sets the link mode.
+	 *
+	 * @param lineMode the new link mode
+	 */
 	public void setLinkMode(int lineMode){
 		line.setLineMode(lineMode);
 	}
 	
+	/**
+	 * Sets the arrow mode.
+	 *
+	 * @param arrowMode the new arrow mode
+	 */
 	public void setArrowMode(int arrowMode){
 		line.setArrowMode(arrowMode);
 	}
 	
+	/**
+	 * Gets the arrow mode.
+	 *
+	 * @return the arrow mode
+	 */
 	public int getArrowMode(){
 		return line.getArrowMode();
 	}
 	
+	/**
+	 * Sets the text.
+	 *
+	 * @param text the new text
+	 */
 	public void setText(String text){
 		line.setText(text);
 	}
 	
+	/**
+	 * Gets the text.
+	 *
+	 * @return the text
+	 */
 	public String getText(){
 		return line.getText();
 	}
 	
+	/**
+	 * Sets the width.
+	 *
+	 * @param lineWidth the new width
+	 */
 	public void setWidth(float lineWidth){
 		line.setWidth(lineWidth);
 	}
 	
+	/**
+	 * Gets the width.
+	 *
+	 * @return the width
+	 */
 	public float getWidth(){
 		return line.getWidth();
 	}
 	
 	
 	
+	/**
+	 * Sets the menu enabled.
+	 *
+	 * @param isEnabled the new menu enabled
+	 */
 	public void setMenuEnabled(boolean isEnabled){
 		this.menuEnabled = isEnabled;
 	}
 	
+	/**
+	 * Checks if is menu enabled.
+	 *
+	 * @return true, if is menu enabled
+	 */
 	public boolean isMenuEnabled(){
 		return menuEnabled;
 	}
 	
+	/**
+	 * Gets the order.
+	 *
+	 * @return the order
+	 */
 	public int getOrder(){
 		return line.getOrder();
 	}

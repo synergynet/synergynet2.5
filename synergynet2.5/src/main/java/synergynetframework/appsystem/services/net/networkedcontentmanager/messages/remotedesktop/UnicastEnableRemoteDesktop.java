@@ -35,29 +35,59 @@ package synergynetframework.appsystem.services.net.networkedcontentmanager.messa
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.UnicastApplicationMessage;
 
+
+/**
+ * The Class UnicastEnableRemoteDesktop.
+ */
 public class UnicastEnableRemoteDesktop extends UnicastApplicationMessage {	
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 259614974289184624L;
+	
+	/** The is remote desktop enabled. */
 	private boolean isRemoteDesktopEnabled = false;
 	
+	/**
+	 * Instantiates a new unicast enable remote desktop.
+	 */
 	public UnicastEnableRemoteDesktop() {
 		super();
 	}
 	
+	/**
+	 * Instantiates a new unicast enable remote desktop.
+	 *
+	 * @param targetClass the target class
+	 * @param isRemoteDesktopEnabled the is remote desktop enabled
+	 * @param id the id
+	 */
 	public UnicastEnableRemoteDesktop(Class<?> targetClass, boolean isRemoteDesktopEnabled, TableIdentity id) {
 		super(targetClass);
 		this.isRemoteDesktopEnabled = isRemoteDesktopEnabled;
 		this.setRecipient(id);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return "Unicast Enable Remote Desktop";
 	}
 	
+	/**
+	 * Checks if is remote desktop enabled.
+	 *
+	 * @return true, if is remote desktop enabled
+	 */
 	public boolean isRemoteDesktopEnabled() {
 		return isRemoteDesktopEnabled;
 	}
 
+	/**
+	 * Sets the remote desktop enabled.
+	 *
+	 * @param isRemoteDesktopEnabled the new remote desktop enabled
+	 */
 	public void setRemoteDesktopEnabled(boolean isRemoteDesktopEnabled) {
 		this.isRemoteDesktopEnabled = isRemoteDesktopEnabled;
 	}

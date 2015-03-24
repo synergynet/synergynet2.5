@@ -73,35 +73,79 @@ import synergynetframework.jme.cursorsystem.flicksystem.FlickMover.FlickListener
 import synergynetframework.mtinput.LongHoldDetector;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 
+
+/**
+ * The Class JMEOrthoContentItem.
+ */
 public class JMEOrthoContentItem extends JMEContentItem implements 
 IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScaleListener, OrthoBringToTopListener, SnapListener, FlickListener, ScreenCursorListener  {
 
+	/** The order. */
 	protected int order;
 
+	/** The bring to topable. */
 	protected boolean bringToTopable;
+	
+	/** The rotate translate scalable. */
 	protected boolean rotateTranslateScalable;
+	
+	/** The snapable. */
 	protected boolean snapable;
+	
+	/** The allow more than two to rotate and scale. */
 	protected boolean allowMoreThanTwoToRotateAndScale = false;
+	
+	/** The allow single touch free move. */
 	protected boolean allowSingleTouchFreeMove = false;
+	
+	/** The attach to parent. */
 	protected boolean attachToParent = true;
 
+	/** The ortho cursor event dispatcher. */
 	protected OrthoCursorEventDispatcher orthoCursorEventDispatcher;
+	
+	/** The ortho control point rotate translate scale. */
 	protected OrthoControlPointRotateTranslateScale orthoControlPointRotateTranslateScale;
+	
+	/** The ortho bringto top. */
 	protected OrthoBringToTop orthoBringtoTop;
+	
+	/** The ortho snap. */
 	protected OrthoSnap orthoSnap;
+	
+	/** The single touch. */
 	protected SingleTouchRotateTranslate singleTouch;
 
+	/** The item listeners. */
 	protected List<ItemListener> itemListeners = new ArrayList<ItemListener>();
+	
+	/** The screen cursor listeners. */
 	protected List<ScreenCursorListener> screenCursorListeners = new ArrayList<ScreenCursorListener>();
+	
+	/** The ortho control point rotate translate scale listeners. */
 	protected List<OrthoControlPointRotateTranslateScaleListener> orthoControlPointRotateTranslateScaleListeners = new ArrayList<OrthoControlPointRotateTranslateScaleListener>();
+	
+	/** The bring to top listeners. */
 	protected List<BringToTopListener> bringToTopListeners = new ArrayList<BringToTopListener>();
+	
+	/** The snap listeners. */
 	protected List<OrthoSnapListener> snapListeners = new ArrayList<OrthoSnapListener>();
+	
+	/** The flick listeners. */
 	protected List<OrthoFlickListener> flickListeners = new ArrayList<OrthoFlickListener>();
 
+	/** The long hold detector. */
 	protected LongHoldDetector longHoldDetector = new LongHoldDetector(1000L, 2f, itemListeners, this.contentItem);
 
+	/** The single touch enabled. */
 	private boolean singleTouchEnabled;
 
+	/**
+	 * Instantiates a new JME ortho content item.
+	 *
+	 * @param contentItem the content item
+	 * @param spatial the spatial
+	 */
 	public JMEOrthoContentItem(ContentItem contentItem, Spatial spatial) {
 		super(contentItem, spatial);
 
@@ -116,6 +160,9 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 			orthoSnap = new OrthoSnap(spatial);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEContentItem#addMultitouchListener()
+	 */
 	public void addMultitouchListener(){
 		super.addMultitouchListener();
 		orthoCursorEventDispatcher = new OrthoCursorEventDispatcher(spatial);
@@ -129,6 +176,9 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEContentItem#setName(java.lang.String)
+	 */
 	@Override
 	public void setName(String name){
 		super.setName(name);
@@ -141,6 +191,9 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 		if(orthoCursorEventDispatcher != null) orthoCursorEventDispatcher.setName(name);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#setOrder(int)
+	 */
 	@Override
 	public void setOrder(int order) {
 		if (((OrthoContentItem)contentItem).getParent()!=null){
@@ -153,6 +206,9 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#setRotateTranslateScalable(boolean)
+	 */
 	@Override
 	public void setRotateTranslateScalable(boolean isEnabled) {
 		this.rotateTranslateScalable = isEnabled;
@@ -190,12 +246,18 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#setRotateTranslateScalable(boolean, boolean, synergynetframework.appsystem.contentsystem.items.ContentItem)
+	 */
 	@Override
 	public void setRotateTranslateScalable(boolean isEnabled, boolean attachToParent, ContentItem targetItem){
 		this.attachToParent = attachToParent;
 		setRotateTranslateScalable(isEnabled);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#allowMoreThanTwoToRotateAndScale(boolean)
+	 */
 	@Override
 	public void allowMoreThanTwoToRotateAndScale(boolean b) {
 		this.allowMoreThanTwoToRotateAndScale = b;
@@ -203,6 +265,9 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 			this.orthoControlPointRotateTranslateScale.allowMoreThanTwoToRotateAndScale(b);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#allowSingleTouchFreeMove(boolean)
+	 */
 	@Override
 	public void allowSingleTouchFreeMove(boolean b) {
 		this.allowSingleTouchFreeMove = b;
@@ -210,6 +275,9 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 			this.orthoControlPointRotateTranslateScale.allowSingleTouchFreeMove(b);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#setScaleLimit(float, float)
+	 */
 	@Override
 	public void setScaleLimit(float min, float max) {
 //		if (steadfastLimit >= 1 && BorderUtility.getDefaultSteadfastLimit() >= 1 && !BorderUtility.isDefaultBorder()){
@@ -222,21 +290,33 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 			this.orthoControlPointRotateTranslateScale.setScaleLimits(min, max);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#setZRotateLimit(float, float)
+	 */
 	@Override
 	public void setZRotateLimit(float min, float max) {
 		if (orthoControlPointRotateTranslateScale!=null)
 			this.orthoControlPointRotateTranslateScale.setRotateLimits(min, max);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#turnOffEventDispatcher()
+	 */
 	public void turnOffEventDispatcher(){
 		this.orthoCursorEventDispatcher = null;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#setRightClickDistance(float)
+	 */
 	public void setRightClickDistance(float distance){
 		if (this.orthoCursorEventDispatcher!=null)
 			this.orthoCursorEventDispatcher.setRightClickDistance(distance);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#setBringToTopable(boolean)
+	 */
 	@Override
 	public void setBringToTopable(boolean isEnabled) {
 		this.bringToTopable = isEnabled;
@@ -271,24 +351,36 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#setAsTopObjectAndBroadCastEvent()
+	 */
 	public void setAsTopObjectAndBroadCastEvent(){
 		if (this.orthoBringtoTop!=null){
 			this.orthoBringtoTop.setTopObject(this.orthoBringtoTop, true);
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#setAsTopObject()
+	 */
 	public void setAsTopObject(){
 		if (this.orthoBringtoTop!=null){
 			this.orthoBringtoTop.setTopObject(this.orthoBringtoTop, false);
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#setAsBottomObject()
+	 */
 	public void setAsBottomObject(){
 		if (this.orthoBringtoTop!=null){
 			this.orthoBringtoTop.setBottomObject(this.orthoBringtoTop, false);
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#setSingleTouchRotateTranslate(boolean)
+	 */
 	public void setSingleTouchRotateTranslate(boolean isEnabled) throws Exception {
 		if(!(spatial instanceof TriMesh)) {
 			throw new Exception("Can't allow this for non-trimesh");
@@ -322,6 +414,9 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#setSnapable(boolean)
+	 */
 	@Override
 	public void setSnapable(boolean isEnabled) {
 		this.snapable = isEnabled;
@@ -355,23 +450,35 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#allowSnapToOccupiedLocation(boolean)
+	 */
 	@Override
 	public void allowSnapToOccupiedLocation(boolean allowSnapToOccupiedLocation) {
 		this.orthoSnap.allowSnapToOccupiedLocation(allowSnapToOccupiedLocation);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#setFixLocations(java.util.List)
+	 */
 	@Override
 	public void setFixLocations(List<FixLocationStatus> fixLocations) {
 		if (this.orthoSnap!=null)
 			this.orthoSnap.setFixLocations(fixLocations);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#setTolerance(float)
+	 */
 	@Override
 	public void setTolerance(float tolerance) {
 		if (this.orthoSnap!=null)
 			this.orthoSnap.setTolerance(tolerance);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEContentItem#setLocalLocation(synergynetframework.appsystem.contentsystem.items.utils.Location)
+	 */
 	public void setLocalLocation(Location location) {
 		float x = location.getX();
 		float y = location.getY();
@@ -389,10 +496,16 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#centerItem()
+	 */
 	public void centerItem() {
 		this.contentItem.setLocalLocation(this.screenWidth/2, this.screenHeigth/2);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#placeRandom()
+	 */
 	public void placeRandom() {
 		Random r = new Random();
 		int x = r.nextInt(this.screenWidth);
@@ -400,6 +513,9 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 		this.contentItem.setLocalLocation(x, y);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#rotateRandom()
+	 */
 	public void rotateRandom() {
 		Random r = new Random();
 		this.contentItem.setAngle((float)(Math.PI * 2 * r.nextFloat()));
@@ -409,6 +525,9 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 
 
 	//add listener
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#addBringToTopListener(synergynetframework.appsystem.contentsystem.items.listener.BringToTopListener)
+	 */
 	@Override
 	public void addBringToTopListener(BringToTopListener l) {
 
@@ -418,18 +537,27 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#addItemListener(synergynetframework.appsystem.contentsystem.items.listener.ItemListener)
+	 */
 	@Override
 	public void addItemListener(ItemListener l) {
 		this.itemListeners.add(l);
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#addScreenCursorListener(synergynetframework.appsystem.contentsystem.items.listener.ScreenCursorListener)
+	 */
 	@Override
 	public void addScreenCursorListener(ScreenCursorListener l) {
 		this.screenCursorListeners.add(l);
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#removeScreenCursorListeners()
+	 */
 	@Override
 	public void removeScreenCursorListeners() {
 		this.screenCursorListeners.clear();
@@ -438,6 +566,9 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#addOrthoControlPointRotateTranslateScaleListener(synergynetframework.appsystem.contentsystem.items.listener.OrthoControlPointRotateTranslateScaleListener)
+	 */
 	@Override
 	public void addOrthoControlPointRotateTranslateScaleListener(
 			OrthoControlPointRotateTranslateScaleListener l) {
@@ -447,6 +578,9 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#removeBringToTopListeners(synergynetframework.appsystem.contentsystem.items.listener.BringToTopListener)
+	 */
 	@Override
 	public void removeBringToTopListeners(BringToTopListener l) {
 		if (this.bringToTopListeners.contains(l))
@@ -454,12 +588,18 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#removeFlickListeners(synergynetframework.appsystem.contentsystem.items.listener.OrthoFlickListener)
+	 */
 	@Override
 	public void removeFlickListeners(OrthoFlickListener l) {
 		this.flickListeners.add(l);
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#removeOrthoControlPointRotateTranslateScaleListeners(synergynetframework.appsystem.contentsystem.items.listener.OrthoControlPointRotateTranslateScaleListener)
+	 */
 	@Override
 	public void removeOrthoControlPointRotateTranslateScaleListeners(
 			OrthoControlPointRotateTranslateScaleListener l) {
@@ -468,12 +608,18 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#removeSnapListeners(synergynetframework.appsystem.contentsystem.items.listener.OrthoSnapListener)
+	 */
 	@Override
 	public void removeSnapListeners(OrthoSnapListener l) {
 		this.snapListeners.add(l);
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#addSnapListener(synergynetframework.appsystem.contentsystem.items.listener.OrthoSnapListener)
+	 */
 	@Override
 	public void addSnapListener(OrthoSnapListener l) {
 		this.snapListeners.add(l);
@@ -481,11 +627,17 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#addFlickListener(synergynetframework.appsystem.contentsystem.items.listener.OrthoFlickListener)
+	 */
 	@Override
 	public void addFlickListener(OrthoFlickListener l) {
 		this.flickListeners.add(l);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#removeItemListerner(synergynetframework.appsystem.contentsystem.items.listener.ItemListener)
+	 */
 	@Override
 	public void removeItemListerner(ItemListener l) {
 		if (this.itemListeners.contains(l))
@@ -494,6 +646,9 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 	}
 	
 	//item cursor events
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoCursorEventDispatcher.CommonCursorEventListener#cursorChanged(synergynetframework.jme.cursorsystem.elements.twod.OrthoCursorEventDispatcher, synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorChanged(
 			
@@ -504,6 +659,9 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoCursorEventDispatcher.CommonCursorEventListener#cursorClicked(synergynetframework.jme.cursorsystem.elements.twod.OrthoCursorEventDispatcher, synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorClicked(
 			OrthoCursorEventDispatcher commonCursorEventDispatcher,
@@ -518,6 +676,9 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoCursorEventDispatcher.CommonCursorEventListener#cursorPressed(synergynetframework.jme.cursorsystem.elements.twod.OrthoCursorEventDispatcher, synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorPressed(
 			OrthoCursorEventDispatcher commonCursorEventDispatcher,
@@ -526,6 +687,9 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 			l.cursorPressed(this.contentItem, event.getCursorID(), event.getPosition().x, event.getPosition().y, event.getPressure());
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoCursorEventDispatcher.CommonCursorEventListener#cursorReleased(synergynetframework.jme.cursorsystem.elements.twod.OrthoCursorEventDispatcher, synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorReleased(
 			OrthoCursorEventDispatcher commonCursorEventDispatcher,
@@ -537,6 +701,9 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoCursorEventDispatcher.CommonCursorEventListener#cursorRightClicked(synergynetframework.jme.cursorsystem.elements.twod.OrthoCursorEventDispatcher, synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorRightClicked(
 			OrthoCursorEventDispatcher commonCursorEventDispatcher,
@@ -547,6 +714,9 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.listener.ScreenCursorListener#screenCursorChanged(synergynetframework.appsystem.contentsystem.items.ContentItem, long, float, float, float)
+	 */
 	@Override
 	public void screenCursorChanged(ContentItem item, long id, float x,
 			float y, float pressure) {
@@ -554,12 +724,18 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.listener.ScreenCursorListener#screenCursorClicked(synergynetframework.appsystem.contentsystem.items.ContentItem, long, float, float, float)
+	 */
 	@Override
 	public void screenCursorClicked(ContentItem item, long id, float x,
 			float y, float pressure) {
 		((OrthoContentItem) item).fireScreenCursorClicked(id, x, y, pressure);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.listener.ScreenCursorListener#screenCursorPressed(synergynetframework.appsystem.contentsystem.items.ContentItem, long, float, float, float)
+	 */
 	@Override
 	public void screenCursorPressed(ContentItem item, long id, float x,
 			float y, float pressure) {
@@ -567,6 +743,9 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.listener.ScreenCursorListener#screenCursorReleased(synergynetframework.appsystem.contentsystem.items.ContentItem, long, float, float, float)
+	 */
 	@Override
 	public void screenCursorReleased(ContentItem item, long id, float x,
 			float y, float pressure) {
@@ -575,6 +754,9 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 
 
 	//rotate, move, scale event
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale.RotateTranslateScaleListener#itemMoved(synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale, com.jme.scene.Spatial, float, float, float, float)
+	 */
 	@Override
 	public void itemMoved(
 			OrthoControlPointRotateTranslateScale multiTouchElement, Spatial targetSpatial,
@@ -588,6 +770,9 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 			l.itemTranslated(item, newLocationX, newLocationY, oldLocationX, oldLocationY);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale.RotateTranslateScaleListener#itemRotated(synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale, com.jme.scene.Spatial, float, float)
+	 */
 	@Override
 	public void itemRotated(
 			OrthoControlPointRotateTranslateScale multiTouchElement, Spatial targetSpatial,
@@ -599,6 +784,9 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 			l.itemRotated(item, newAngle, oldAngle);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale.RotateTranslateScaleListener#itemScaled(synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale, com.jme.scene.Spatial, float)
+	 */
 	@Override
 	public void itemScaled(
 			OrthoControlPointRotateTranslateScale multiTouchElement, Spatial targetSpatial,
@@ -611,6 +799,9 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 		item.setScale(oldScale*scaleChange);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoBringToTop.OrthoBringToTopListener#ItemBringToTop()
+	 */
 	@Override
 	public void ItemBringToTop() {
 		List<Spatial> allSpatialsWithOrthoBringToTop = OrthoBringToTop.getAllTopLevelContainersWithOrthoBringToTop();
@@ -629,6 +820,9 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 			l.itemBringToToped(contentItem);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoSnap.SnapListener#itemSnapped(synergynetframework.jme.cursorsystem.elements.twod.OrthoSnap, com.jme.scene.Spatial, synergynetframework.jme.cursorsystem.fixutils.FixLocationStatus)
+	 */
 	@Override
 	public void itemSnapped(OrthoSnap multiTouchElement, Spatial targetSpatial,
 			FixLocationStatus fixLocationStatus) {
@@ -639,6 +833,9 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.flicksystem.FlickMover.FlickListener#itemFlicked(synergynetframework.jme.cursorsystem.flicksystem.FlickMover, com.jme.scene.Spatial, float, float, float, float)
+	 */
 	@Override
 	public void itemFlicked(FlickMover multiTouchElement, Spatial targetSpatial,float newLocationX, float newLocationY, float oldLocationX,	float oldLocationY){
 		ContentItem item = ((JMEContentSystem)(contentItem.getContentSystem())).getContentItem(targetSpatial);
@@ -647,6 +844,12 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 			l.itemTranslated(item, newLocationX, newLocationY, oldLocationX, oldLocationY);
 	}
 
+	/**
+	 * Gets the top level node.
+	 *
+	 * @param spatial the spatial
+	 * @return the top level node
+	 */
 	protected Spatial getTopLevelNode(Spatial spatial){
 
 		if (contentItem.getContentSystem().isTopLevelContainer(spatial))
@@ -655,12 +858,18 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 			return this.getTopLevelNode(spatial.getParent());
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#makeFlickable(float)
+	 */
 	public void makeFlickable(float deceleration){
 
 		FlickSystem.getInstance().makeFlickable(this.spatial, this.getTopLevelNode(spatial), this.orthoControlPointRotateTranslateScale, deceleration);
 		FlickSystem.getInstance().getMovingElement(this.getTopLevelNode(spatial)).addFlickListener(this);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#makeUnflickable()
+	 */
 	public void makeUnflickable(){
 		if(this.isFlickable()){
 			FlickSystem.getInstance().getMovingElement(this.spatial).removeFlickListener(this);
@@ -668,20 +877,35 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#isFlickable()
+	 */
 	public boolean isFlickable(){
 		return FlickSystem.getInstance().isFlickable(this.spatial);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#flick(float, float, float)
+	 */
 	public void flick(float velocityX, float velocityY, float deceleration){
 		FlickSystem.getInstance().flick(this.spatial, new Vector3f(velocityX, velocityY, 0), deceleration);
 	}
 
+	/**
+	 * Update container gesture status.
+	 */
 	protected void updateContainerGestureStatus(){
 		this.setRotateTranslateScalable(((OrthoContentItem)contentItem).isRotateTranslateScaleEnabled());
 		this.setBringToTopable(((OrthoContentItem)contentItem).isBringToTopEnabled());
 		this.setSnapable(((OrthoContentItem)contentItem).isSnapEnabled());
 	}
 
+	/**
+	 * Gets the top level container.
+	 *
+	 * @param item the item
+	 * @return the top level container
+	 */
 	private ContentItem getTopLevelContainer(ContentItem item){
 
 		if (((OrthoContentItem)item).getParent()==null)
@@ -691,6 +915,11 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 
 	}
 
+	/**
+	 * Update container listeners.
+	 *
+	 * @param item the item
+	 */
 	protected void updateContainerListeners(ContentItem item){
 
 		if (((OrthoContentItem)item).getParent()!=null){
@@ -714,31 +943,52 @@ IOrthoContentItemImplementation, CommonCursorEventListener, RotateTranslateScale
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEContentItem#update()
+	 */
 	public void update(){
 		this.setOrder(((OrthoContentItem)contentItem).getOrder());
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEContentItem#setBackGround(synergynetframework.appsystem.contentsystem.items.utils.Background)
+	 */
 	@Override
 	public void setBackGround(Background backGround) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEContentItem#setBorder(synergynetframework.appsystem.contentsystem.items.utils.Border)
+	 */
 	@Override
 	public void setBorder(Border border) {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEContentItem#update(float)
+	 */
 	@Override
 	public void update(float interpolation) {
 		super.update(interpolation);
 		this.longHoldDetector.update(interpolation);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#reset()
+	 */
 	@Override
 	public void reset() {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#getMaxScale()
+	 */
 	@Override
 	public float getMaxScale() {
 		if(orthoControlPointRotateTranslateScale == null) return 0;
 		return orthoControlPointRotateTranslateScale.getScaleMax();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IOrthoContentItemImplementation#getMinScale()
+	 */
 	@Override
 	public float getMinScale() {
 		if(orthoControlPointRotateTranslateScale == null) return 0;

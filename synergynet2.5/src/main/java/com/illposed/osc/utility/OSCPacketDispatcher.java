@@ -41,29 +41,43 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
+
 /**
- * @author cramakrishnan
+ * The Class OSCPacketDispatcher.
  *
+ * @author cramakrishnan
+ * 
  * 
  * Dispatches OSCMessages to registered listeners.
- * 
  */
 
 public class OSCPacketDispatcher {
 	// use Hashtable for JDK1.1 compatability
+	/** The address to class table. */
 	private Hashtable<String, OSCListener> addressToClassTable = new Hashtable<String, OSCListener>();
 	
 	/**
-	 * 
+	 * Instantiates a new OSC packet dispatcher.
 	 */
 	public OSCPacketDispatcher() {
 		super();
 	}
 
+	/**
+	 * Adds the listener.
+	 *
+	 * @param address the address
+	 * @param listener the listener
+	 */
 	public void addListener(String address, OSCListener listener) {
 		addressToClassTable.put(address, listener);
 	}
 	
+	/**
+	 * Dispatch packet.
+	 *
+	 * @param packet the packet
+	 */
 	public void dispatchPacket(OSCPacket packet) {
 		if (packet instanceof OSCBundle)
 			dispatchBundle((OSCBundle) packet);
@@ -71,6 +85,12 @@ public class OSCPacketDispatcher {
 			dispatchMessage((OSCMessage) packet);
 	}
 	
+	/**
+	 * Dispatch packet.
+	 *
+	 * @param packet the packet
+	 * @param timestamp the timestamp
+	 */
 	public void dispatchPacket(OSCPacket packet, Date timestamp) {
 		if (packet instanceof OSCBundle)
 			dispatchBundle((OSCBundle) packet);
@@ -78,6 +98,11 @@ public class OSCPacketDispatcher {
 			dispatchMessage((OSCMessage) packet, timestamp);
 	}
 	
+	/**
+	 * Dispatch bundle.
+	 *
+	 * @param bundle the bundle
+	 */
 	private void dispatchBundle(OSCBundle bundle) {
 		Date timestamp = bundle.getTimestamp();
 		OSCPacket[] packets = bundle.getPackets();
@@ -86,10 +111,21 @@ public class OSCPacketDispatcher {
 		}
 	}
 	
+	/**
+	 * Dispatch message.
+	 *
+	 * @param message the message
+	 */
 	private void dispatchMessage(OSCMessage message) {
 		dispatchMessage(message, null);
 	}
 	
+	/**
+	 * Dispatch message.
+	 *
+	 * @param message the message
+	 * @param time the time
+	 */
 	private void dispatchMessage(OSCMessage message, Date time) {
 		Enumeration<String> keys = addressToClassTable.keys();
 		while (keys.hasMoreElements()) {

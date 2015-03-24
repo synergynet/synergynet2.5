@@ -34,9 +34,20 @@ package synergynetframework.appsystem.services.exceptions;
 
 import synergynetframework.appsystem.services.SynergyNetService;
 
+
+/**
+ * The Class ServiceNotRunningException.
+ */
 public class ServiceNotRunningException extends SynergyNetServiceException {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -7794317811898462545L;
 
+	/**
+	 * Instantiates a new service not running exception.
+	 *
+	 * @param service the service
+	 */
 	public ServiceNotRunningException(SynergyNetService service) {
 		super(service);
 	}

@@ -30,28 +30,71 @@ import synergynetframework.appsystem.contentsystem.items.RoundImageLabel;
 import synergynetframework.appsystem.contentsystem.items.listener.ItemEventAdapter;
 import synergynetframework.jme.cursorsystem.elements.twod.OrthoBringToTop;
 
+
+/**
+ * The Class MonitorScreen.
+ */
 public class MonitorScreen extends Node{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 5768509228111148746L;
+	
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The width. */
 	protected float width;
+	
+	/** The screen quad. */
 	protected Quad screenQuad;
+	
+	/** The screen frame. */
 	protected Quad screenFrame;
+	
+	/** The cam node. */
 	protected CameraNode camNode;
+	
+	/** The telescope manipulate ojbect. */
 	protected OjbectManipulationforCCTV telescopeManipulateOjbect;
+	
+	/** The manipulatable ojbects. */
 	protected List<Spatial> manipulatableOjbects;
+	
+	/** The tool listeners. */
 	protected List<ToolListener> toolListeners = new ArrayList<ToolListener>();
+	
+	/** The skin color. */
 	protected String skinColor = "blue";
 	
+	/** The mode. */
 	protected String mode = OjbectManipulation.MODE_OBJECTMANIPULATION;
 	
+	/** The zoom in. */
 	private boolean zoomIn = false;
+	
+	/** The zoom out. */
 	private boolean zoomOut = false;
+	
+	/** The move in. */
 	private boolean moveIn = false;
+	
+	/** The move out. */
 	private boolean moveOut = false;
 	
+	/** The camera operation mode. */
 	protected String cameraOperationMode = MonitorCameraRotateTranslateZoom.MODE_REMOTECONTROL;
 	
+	/**
+	 * Instantiates a new monitor screen.
+	 *
+	 * @param name the name
+	 * @param contentSystem the content system
+	 * @param width the width
+	 * @param camNode the cam node
+	 * @param manipulatableOjbects the manipulatable ojbects
+	 * @param skinColor the skin color
+	 * @param cameraOperationMode the camera operation mode
+	 */
 	public MonitorScreen(String name, ContentSystem contentSystem, float width, final CameraNode camNode, List<Spatial> manipulatableOjbects, String skinColor, String cameraOperationMode){
 		super(name);
 		this.contentSystem = contentSystem;
@@ -77,6 +120,9 @@ public class MonitorScreen extends Node{
 	
 	}
 	
+	/**
+	 * Builds the screen quad.
+	 */
 	public void buildScreenQuad(){
 		screenQuad = new Quad(name+"screenQuad", width, width);
 		screenQuad.setModelBound(new OrthogonalBoundingBox());
@@ -95,6 +141,9 @@ public class MonitorScreen extends Node{
 		}
 	}
 	
+	/**
+	 * Builds the screen frame.
+	 */
 	public void buildScreenFrame(){
 		screenFrame = new Quad(name+"screenFrame", width+50, width+35);
 		screenFrame.setModelBound(new OrthogonalBoundingBox());
@@ -142,6 +191,9 @@ public class MonitorScreen extends Node{
 		OrthoBringToTop bringToTop = new OrthoBringToTop(screenFrame, this);
 	}
 	
+	/**
+	 * Buildbuttons.
+	 */
 	public void buildbuttons(){
 		final RoundImageLabel zoomInLabel = (RoundImageLabel)contentSystem.createContentItem(RoundImageLabel.class);
 		zoomInLabel.setImageInfo(ThreeDManipulation.class.getResource("zoominbuttonnormal.png"));
@@ -318,23 +370,48 @@ public class MonitorScreen extends Node{
 		}
 	}
 	
+	/**
+	 * Adds the tool listener.
+	 *
+	 * @param l the l
+	 */
 	public void addToolListener(ToolListener l){
 		toolListeners.add(l);
 	}
 
+	/**
+	 * Removes the tool listener.
+	 *
+	 * @param l the l
+	 */
 	public void removeToolListener(ToolListener l){
 		if (toolListeners.contains(l))
 			toolListeners.remove(l);
 	}
 	
+	/**
+	 * Gets the screen quad.
+	 *
+	 * @return the screen quad
+	 */
 	public Quad getScreenQuad(){
 		return screenQuad;
 	}
 	
+	/**
+	 * Gets the focused object.
+	 *
+	 * @return the focused object
+	 */
 	public OjbectManipulation getFocusedObject(){
 		return telescopeManipulateOjbect;
 	}
 	
+	/**
+	 * Sets the mode.
+	 *
+	 * @param mode the new mode
+	 */
 	public void setMode(String mode){
 		if (this.cameraOperationMode.equals(MonitorCameraRotateTranslateZoom.MODE_REMOTECONTROL)){
 			mode = OjbectManipulation.MODE_CAMERAMANIPULATION;
@@ -346,6 +423,11 @@ public class MonitorScreen extends Node{
 		}
 	}
 	
+	/**
+	 * Update.
+	 *
+	 * @param tpf the tpf
+	 */
 	public void update(float tpf){
 		if (zoomIn){
 			if (camNode.getCamera().getFrustumNear()<30)

@@ -10,18 +10,42 @@ import synergynetframework.appsystem.contentsystem.items.listener.OrthoControlPo
 import synergynetframework.appsystem.contentsystem.items.listener.ScreenCursorListener;
 import synergynetframework.appsystem.contentsystem.items.utils.Location;
 
+
+/**
+ * The Class GraphNode.
+ */
 public class GraphNode {
 	
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The graph manager. */
 	protected GraphManager graphManager;
+	
+	/** The node item. */
 	protected OrthoContentItem nodeItem;
+	
+	/** The incoming links. */
 	protected ArrayList<GraphLink> incomingLinks = new ArrayList<GraphLink>();
+	
+	/** The outgoing links. */
 	protected ArrayList<GraphLink> outgoingLinks = new ArrayList<GraphLink>();
+	
+	/** The close point. */
 	protected OrthoContentItem linkPoint, closePoint;
+	
+	/** The is linkable. */
 	protected boolean isLinkable = true;
 
+	/** The listeners. */
 	protected transient ArrayList<ConceptMapListener> listeners = new ArrayList<ConceptMapListener>();
 
+	/**
+	 * Instantiates a new graph node.
+	 *
+	 * @param graphManager the graph manager
+	 * @param nodeItem the node item
+	 */
 	public GraphNode(GraphManager graphManager, OrthoContentItem nodeItem){
 		this.nodeItem = nodeItem;
 		this.graphManager = graphManager;
@@ -50,14 +74,27 @@ public class GraphNode {
 		}
 	}
 	
+	/**
+	 * Gets the node item.
+	 *
+	 * @return the node item
+	 */
 	public OrthoContentItem getNodeItem(){
 		return nodeItem;
 	}
 	
+	/**
+	 * Removes the.
+	 */
 	public void remove(){
 		nodeItem.getContentSystem().removeContentItem(nodeItem);
 	}
 	
+	/**
+	 * Sets the link point.
+	 *
+	 * @param linkPoint the new link point
+	 */
 	public void setLinkPoint(OrthoContentItem linkPoint){
 		this.linkPoint = linkPoint;
 		linkPoint.addScreenCursorListener(new ScreenCursorListener() {
@@ -91,6 +128,11 @@ public class GraphNode {
 		});
 	}
 	
+	/**
+	 * Sets the close point.
+	 *
+	 * @param closePoint the new close point
+	 */
 	public void setClosePoint(OrthoContentItem closePoint){
 		this.closePoint = closePoint;
 		closePoint.addItemListener(new ItemListener() {
@@ -146,35 +188,74 @@ public class GraphNode {
 		});		
 	}
 	
+	/**
+	 * Gets the close point.
+	 *
+	 * @return the close point
+	 */
 	public OrthoContentItem getClosePoint(){
 		return this.closePoint;
 	}
 	
+	/**
+	 * Gets the link point.
+	 *
+	 * @return the link point
+	 */
 	public OrthoContentItem getLinkPoint(){
 		return this.linkPoint;
 	}
 	
+	/**
+	 * Register outgoing link.
+	 *
+	 * @param link the link
+	 */
 	public void registerOutgoingLink(GraphLink link){
 		outgoingLinks.add(link);
 	}
 	
+	/**
+	 * Register incoming link.
+	 *
+	 * @param link the link
+	 */
 	public void registerIncomingLink(GraphLink link){
 		incomingLinks.add(link);
 	}
 	
+	/**
+	 * Gets the outgoing links.
+	 *
+	 * @return the outgoing links
+	 */
 	public ArrayList<GraphLink> getOutgoingLinks(){
 		return outgoingLinks;
 	}
 	
+	/**
+	 * Gets the incoming links.
+	 *
+	 * @return the incoming links
+	 */
 	public ArrayList<GraphLink> getIncomingLinks(){
 		return incomingLinks;
 	}
 	
+	/**
+	 * Unregister all links.
+	 */
 	public void unregisterAllLinks(){
 		outgoingLinks.clear();
 		incomingLinks.clear();
 	}
 	
+	/**
+	 * Unregister link.
+	 *
+	 * @param link the link
+	 * @return true, if successful
+	 */
 	public boolean unregisterLink(GraphLink link){
 		boolean removed = false;
 		removed = outgoingLinks.remove(link);
@@ -182,19 +263,38 @@ public class GraphNode {
 		return removed;
 	}
 	
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	public String getName() {
 		return nodeItem.getName();
 	}
 
+	/**
+	 * Sets the location.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 */
 	public void setLocation(float x, float y){
 		nodeItem.setLocalLocation(x, y);
 		updateConnectionPoints();
 	}
 	
+	/**
+	 * Gets the location.
+	 *
+	 * @return the location
+	 */
 	public Location getLocation(){
 		return nodeItem.getLocalLocation();
 	}
 	
+	/**
+	 * Update connection points.
+	 */
 	public void updateConnectionPoints(){
 		for(GraphLink link: incomingLinks){
 			link.getLineItem().setTargetLocation(this.getLocation()/*this.getLinkPointLocation()*/);
@@ -204,40 +304,96 @@ public class GraphNode {
 		}
 	}
 	
+	/**
+	 * Adds the concept map listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void addConceptMapListener(ConceptMapListener listener){
 		if(!listeners.contains(listener)) listeners.add(listener);
 	}
 	
+	/**
+	 * Fire node connected.
+	 *
+	 * @param link the link
+	 */
 	public void fireNodeConnected(GraphLink link){
 		for(ConceptMapListener listener: listeners){
 			listener.nodeConnected(link);
 		}
 	}
 	
+	/**
+	 * Fire node disconnected.
+	 *
+	 * @param link the link
+	 */
 	public void fireNodeDisconnected(GraphLink link){
 		for(ConceptMapListener listener: listeners){
 			listener.nodeDisconnected(link);
 		}
 	}
 	
+	/**
+	 * Removes the concept map listeners.
+	 */
 	public void removeConceptMapListeners(){
 		listeners.clear();
 	}
 	
+	/**
+	 * Sets the linkable.
+	 *
+	 * @param isLinkable the new linkable
+	 */
 	public void setLinkable(boolean isLinkable){
 		this.isLinkable = isLinkable;
 	}
 	
+	/**
+	 * Checks if is linkable.
+	 *
+	 * @return true, if is linkable
+	 */
 	public boolean isLinkable(){
 		return isLinkable;
 	}
 
 	
+	/**
+	 * The listener interface for receiving conceptMap events.
+	 * The class that is interested in processing a conceptMap
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addConceptMapListener<code> method. When
+	 * the conceptMap event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see ConceptMapEvent
+	 */
 	public interface ConceptMapListener {
+		
+		/**
+		 * Node connected.
+		 *
+		 * @param link the link
+		 */
 		public void nodeConnected(GraphLink link);
+		
+		/**
+		 * Node disconnected.
+		 *
+		 * @param link the link
+		 */
 		public void nodeDisconnected(GraphLink link);
 	}
 	
+	/**
+	 * Gets the graph manager.
+	 *
+	 * @return the graph manager
+	 */
 	public GraphManager getGraphManager(){
 		return this.graphManager;
 	}

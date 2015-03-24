@@ -37,10 +37,21 @@ import java.util.HashMap;
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class ClearWorkspacePortalMessage.
+ */
 public class ClearWorkspacePortalMessage extends BroadcastApplicationMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -546746344864227474L;
 
+	/**
+	 * Instantiates a new clear workspace portal message.
+	 *
+	 * @param targetClass the target class
+	 * @param collection the collection
+	 */
 	public ClearWorkspacePortalMessage(Class<?> targetClass, HashMap<ContentItem, Short> collection) {
 		super(targetClass);
 	}

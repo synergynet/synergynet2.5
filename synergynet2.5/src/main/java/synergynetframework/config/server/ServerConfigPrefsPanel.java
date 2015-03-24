@@ -46,22 +46,46 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+
+/**
+ * The Class ServerConfigPrefsPanel.
+ */
 public class ServerConfigPrefsPanel extends JPanel {
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -8701347662757286944L;
+	
+	/** The prefs. */
 	private ServerConfigPrefsItem prefs;
 	
+    /** The btn select dir. */
     private JButton btnSelectDir;
+    
+    /** The j label1. */
     private JLabel jLabel1;
+    
+    /** The j label2. */
     private JLabel jLabel2;
+    
+    /** The txt web server dir. */
     private JTextField txtWebServerDir;
+    
+    /** The txt web server port. */
     private JTextField txtWebServerPort;
 
+    /**
+     * Instantiates a new server config prefs panel.
+     *
+     * @param serverConfigPrefsItem the server config prefs item
+     */
     public ServerConfigPrefsPanel(ServerConfigPrefsItem serverConfigPrefsItem) {
     	this.prefs = serverConfigPrefsItem;
     	initComponents();
 	}
 
+	/**
+	 * Inits the components.
+	 */
 	private void initComponents() {
 		final JPanel instance = this;
         jLabel1 = new javax.swing.JLabel();

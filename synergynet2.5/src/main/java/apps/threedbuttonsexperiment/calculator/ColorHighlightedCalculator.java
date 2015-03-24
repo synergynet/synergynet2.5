@@ -4,14 +4,29 @@ import apps.threedbuttonsexperiment.calculator.button.ButtonNode;
 import apps.threedbuttonsexperiment.logger.DateTextWritter;
 import synergynetframework.appsystem.contentsystem.items.TextLabel;
 
+
+/**
+ * The Class ColorHighlightedCalculator.
+ */
 public class ColorHighlightedCalculator extends Calculator {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2429175967783608868L;
 	
+	/**
+	 * Instantiates a new color highlighted calculator.
+	 *
+	 * @param name the name
+	 * @param targetNumberLabel the target number label
+	 * @param logWritter the log writter
+	 */
 	public ColorHighlightedCalculator(String name, TextLabel targetNumberLabel, DateTextWritter logWritter) {
 		super(name, targetNumberLabel, logWritter);
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.threedbuttonsexperiment.calculator.Calculator#setButtonProperty()
+	 */
 	@Override
 	protected void setButtonProperty() {
 		this.buttonNode0.setFeedbackMode(ButtonNode.FEEDBACK_MODE_COLORHIGHLIGHTED);

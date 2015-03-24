@@ -37,25 +37,63 @@ import java.util.*;
 import apps.twentyfourpoint.utils.IllegalExpressionException;
 
 
+
+/**
+ * The Class Expression.
+ */
 public class Expression {
 
+	/** The input expression. */
 	protected String inputExpression;
+	
+	/** The operator stack. */
 	private Stack<Integer> operatorStack;
+	
+	/** The post fix stack. */
 	private Stack<Double>  postFixStack;
+	
+	/** The eol. */
 	private final int EOL = 0;
+	
+	/** The value. */
 	private final int VALUE = 1;
+	
+	/** The oparen. */
 	private final int OPAREN = 2;
+	
+	/** The cparen. */
 	private final int CPAREN = 3;
+	
+	/** The mult. */
 	private final int MULT = 4;
+	
+	/** The div. */
 	private final int DIV = 5;
+	
+	/** The plus. */
 	private final int PLUS = 6;
+	
+	/** The minus. */
 	private final int MINUS = 7;
+	
+	/** The input precedence. */
 	private final int INPUT_PRECEDENCE[] = { 0, 0, 100, 0, 3, 3, 1, 1 };
+	
+	/** The stack precedence. */
 	private final int STACK_PRECEDENCE[] = { -1, 0, 0, 99, 4, 4, 2, 2 };
+	
+	/** The current value. */
 	private double currentValue;
+	
+	/** The result. */
 	private double theResult;
+	
+	/** The last token. */
 	private int lastToken;
 
+	/**
+	 * Instantiates a new expression.
+	 */
 	public Expression() {
 		inputExpression = null;
 		operatorStack = new Stack<Integer>();
@@ -63,6 +101,11 @@ public class Expression {
 		operatorStack.push(new Integer(0));
 	}
 
+	/**
+	 * Instantiates a new expression.
+	 *
+	 * @param inString the in string
+	 */
 	public Expression(String inString) {
 		inputExpression = inString.trim();
 		operatorStack = new Stack<Integer>();
@@ -70,6 +113,11 @@ public class Expression {
 		operatorStack.push(new Integer(0));
 	}
 
+	/**
+	 * Instantiates a new expression.
+	 *
+	 * @param inVector the in vector
+	 */
 	@SuppressWarnings("rawtypes")
 	public Expression(Vector inVector) {
 		StringBuffer tmpString = new StringBuffer();
@@ -82,14 +130,30 @@ public class Expression {
 		operatorStack.push(new Integer(0));
 	}
 
+	/**
+	 * Sets the expression.
+	 *
+	 * @param inString the new expression
+	 */
 	public void setExpression(String inString) {
 		inputExpression = inString.trim();
 	}
 
+	/**
+	 * Gets the expression.
+	 *
+	 * @return the expression
+	 */
 	public String getExpression() {
 		return removeSpace(inputExpression);
 	}
 
+	/**
+	 * Gets the value.
+	 *
+	 * @return the value
+	 * @throws IllegalExpressionException the illegal expression exception
+	 */
 	public double getValue() throws IllegalExpressionException {
 		StringTokenizer parser = new StringTokenizer(inputExpression,
 				"+-*/() ", true);
@@ -157,6 +221,12 @@ public class Expression {
 			return theResult;
 	}
 
+	/**
+	 * Removes the space.
+	 *
+	 * @param inputString the input string
+	 * @return the string
+	 */
 	private String removeSpace(String inputString) {
 		StringBuffer s = new StringBuffer();
 		for (int i = 0; i < inputString.length(); i++) {
@@ -169,6 +239,11 @@ public class Expression {
 		return s.toString();
 	}
 
+	/**
+	 * Process token.
+	 *
+	 * @throws IllegalExpressionException the illegal expression exception
+	 */
 	private void processToken() throws IllegalExpressionException {
 		switch (lastToken) {
 		case VALUE:
@@ -196,6 +271,12 @@ public class Expression {
 		}
 	}
 
+	/**
+	 * Apply operation.
+	 *
+	 * @param topOperator the top operator
+	 * @throws IllegalExpressionException the illegal expression exception
+	 */
 	private void applyOperation(int topOperator)
 			throws IllegalExpressionException {
 		if (topOperator == OPAREN)
@@ -216,6 +297,12 @@ public class Expression {
 		operatorStack.pop();
 	}
 
+	/**
+	 * Gets the post stack top.
+	 *
+	 * @return the post stack top
+	 * @throws IllegalExpressionException the illegal expression exception
+	 */
 	private double getPostStackTop() throws IllegalExpressionException {
 		if (postFixStack.empty())
 			throw new IllegalExpressionException("Missing operand");
@@ -223,11 +310,22 @@ public class Expression {
 			return ((Double) postFixStack.pop()).doubleValue();
 	}
 
+	/**
+	 * Checks if is operator.
+	 *
+	 * @param c the c
+	 * @return true, if is operator
+	 */
 	private boolean isOperator(char c) {
 		return c == '+' || c == '-' || c == '*' || c == '/' || c == '('
 				|| c == ')';
 	}
 	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		Expression exp = new Expression("(((45+66))*7)+5");
 		try {

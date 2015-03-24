@@ -35,19 +35,43 @@ package synergynetframework.jme.pickingsystem;
 import com.jme.math.Vector3f;
 import com.jme.scene.Spatial;
 
+
+/**
+ * The Class PickedSpatial.
+ */
 public class PickedSpatial {
+	
+	/** The spatial. */
 	private Spatial spatial;
+	
+	/** The point of selection. */
 	private Vector3f pointOfSelection;
 
+	/**
+	 * Instantiates a new picked spatial.
+	 *
+	 * @param s the s
+	 * @param pointOfSelection the point of selection
+	 */
 	public PickedSpatial(Spatial s, Vector3f pointOfSelection) {
 		this.spatial = s;
 		this.pointOfSelection = pointOfSelection;
 	}
 
+	/**
+	 * Gets the spatial.
+	 *
+	 * @return the spatial
+	 */
 	public Spatial getSpatial() {
 		return spatial;
 	}
 
+	/**
+	 * Gets the point of selection.
+	 *
+	 * @return the point of selection
+	 */
 	public Vector3f getPointOfSelection() {
 		return pointOfSelection;
 	}

@@ -40,25 +40,49 @@ import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.appsystem.contentsystem.items.RoundTextLabel;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundTextLabelImplementation;
 
+
+/**
+ * The Class JMERoundTextLabel.
+ */
 public class JMERoundTextLabel extends JMERoundFrame implements IRoundTextLabelImplementation {
 
+	/** The text height. */
 	private int textHeight;
+	
+	/** The text block height. */
 	private int textBlockHeight;
+	
+	/** The text width. */
 	private int textWidth;
+	
+	/** The item. */
 	private RoundTextLabel item;
+	
+	/** The text descent. */
 	private int textDescent;
 	
+	/**
+	 * Instantiates a new JME round text label.
+	 *
+	 * @param contentItem the content item
+	 */
 	public JMERoundTextLabel(ContentItem contentItem) {
 		super(contentItem);
 		this.item = (RoundTextLabel)contentItem;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMERoundFrame#init()
+	 */
 	@Override
 	public void init(){
 		super.init();
 		resize();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMERoundFrame#draw()
+	 */
 	@Override
 	protected void draw() {		
 		super.draw();
@@ -71,6 +95,9 @@ public class JMERoundTextLabel extends JMERoundFrame implements IRoundTextLabelI
 		}
 	}
 
+	/**
+	 * Resize.
+	 */
 	protected void resize(){
 		
 		int maxWidth = 1;
@@ -102,41 +129,65 @@ public class JMERoundTextLabel extends JMERoundFrame implements IRoundTextLabelI
 	
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundTextLabelImplementation#setCRLFSeparatedString(java.lang.String)
+	 */
 	@Override
 	public void setCRLFSeparatedString(String s) {
 		this.resize();		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundTextLabelImplementation#setLines(java.util.List)
+	 */
 	@Override
 	public void setLines(List<String> lines) {
 		this.resize();		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundTextLabelImplementation#setLines(java.lang.String, int)
+	 */
 	@Override
 	public void setLines(String s, int charsPerLine) {
 		this.resize();		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundTextLabelImplementation#setAutoFitSize(boolean)
+	 */
 	@Override
 	public void setAutoFitSize(boolean isEnabled) {
 		this.resize();		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundTextLabelImplementation#setFont(java.awt.Font)
+	 */
 	@Override
 	public void setFont(Font font) {
 		this.resize();		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundTextLabelImplementation#setText(java.lang.String)
+	 */
 	@Override
 	public void setText(String text) {
 		this.setCRLFSeparatedString(text);	
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IRoundTextLabelImplementation#setTextColour(java.awt.Color)
+	 */
 	@Override
 	public void setTextColour(Color textColour) {
 		this.resize();		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMERoundFrame#setRadius(float)
+	 */
 	@Override
 	public void setRadius(float radius) {
 		this.resize();		

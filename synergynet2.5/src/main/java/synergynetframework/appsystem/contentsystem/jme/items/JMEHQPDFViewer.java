@@ -46,16 +46,31 @@ import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.appsystem.contentsystem.items.HQPDFViewer;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IHqPDFViewerImplementation;
 
+
+/**
+ * The Class JMEHQPDFViewer.
+ */
 public class JMEHQPDFViewer extends JMEPDFViewer implements IHqPDFViewerImplementation {
 
+	/** The item. */
 	protected HQPDFViewer item;
+	
+	/** The ts. */
 	protected TextureState ts = DisplaySystem.getDisplaySystem().getRenderer().createTextureState();
 
+	/**
+	 * Instantiates a new JMEHQPDF viewer.
+	 *
+	 * @param item the item
+	 */
 	public JMEHQPDFViewer(ContentItem item) {
 		super(item);
 		this.item = (HQPDFViewer)item;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEPDFViewer#draw()
+	 */
 	@Override
 	protected void draw() {
 		if (page!=null){
@@ -88,6 +103,10 @@ public class JMEHQPDFViewer extends JMEPDFViewer implements IHqPDFViewerImplemen
 		}
 		
 	}	
+	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEPDFViewer#resizePDFView()
+	 */
 	@Override
 	protected void resizePDFView() {
 		((Quad)spatial).updateGeometry(width, height);

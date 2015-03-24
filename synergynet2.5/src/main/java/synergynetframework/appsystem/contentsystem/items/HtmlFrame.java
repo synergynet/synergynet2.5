@@ -42,36 +42,70 @@ import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IHtmlFrameImplementation;
 
 
+
+/**
+ * The Class HtmlFrame.
+ */
 public class HtmlFrame extends Frame implements IHtmlFrameImplementation, Serializable, Cloneable{
 	
+	/** The html. */
 	private String html;
+	
+	/** The max width. */
 	private int maxWidth = 750;
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -8279443252885792111L;
 
+	/**
+	 * Instantiates a new html frame.
+	 *
+	 * @param contentSystem the content system
+	 * @param name the name
+	 */
 	public HtmlFrame(ContentSystem contentSystem, String name) {
 		super(contentSystem, name);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IHtmlFrameImplementation#setHtmlContent(java.lang.String)
+	 */
 	@Override
 	public void setHtmlContent(String html) {
 		this.html = html;
 		((IHtmlFrameImplementation)this.contentItemImplementation).setHtmlContent(html);
 	}
 	
+	/**
+	 * Gets the html content.
+	 *
+	 * @return the html content
+	 */
 	public String getHtmlContent(){
 		return html;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IHtmlFrameImplementation#setMaxWidth(int)
+	 */
 	@Override
 	public void setMaxWidth(int maxWidth) {
 		this.maxWidth = maxWidth;
 		((IHtmlFrameImplementation)this.contentItemImplementation).setMaxWidth(maxWidth);
 	}
 	
+	/**
+	 * Gets the max width.
+	 *
+	 * @return the max width
+	 */
 	public int getMaxWidth(){
 		return maxWidth;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.QuadContentItem#clone()
+	 */
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		HtmlFrame clonedItem = (HtmlFrame)super.clone();
@@ -80,16 +114,25 @@ public class HtmlFrame extends Frame implements IHtmlFrameImplementation, Serial
 		return clonedItem;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IHtmlFrameImplementation#getPane()
+	 */
 	@Override
 	public JTextPane getPane() {
 		return ((IHtmlFrameImplementation)this.contentItemImplementation).getPane();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IHtmlFrameImplementation#insertString(int, java.lang.String, javax.swing.text.AttributeSet)
+	 */
 	@Override
 	public void insertString(int offset, String str, AttributeSet attr) {
 		((IHtmlFrameImplementation)this.contentItemImplementation).insertString(offset, str, attr);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IHtmlFrameImplementation#remove(int, int)
+	 */
 	@Override
 	public void remove(int offset, int length) {
 		((IHtmlFrameImplementation)this.contentItemImplementation).remove(offset, length);

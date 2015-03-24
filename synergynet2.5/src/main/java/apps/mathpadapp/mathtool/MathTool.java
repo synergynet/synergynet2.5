@@ -59,33 +59,85 @@ import synergynetframework.appsystem.contentsystem.items.MathPad.MathHandwriting
 import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAdapter;
 import synergynetframework.appsystem.contentsystem.jme.items.utils.DrawData;
 
+
+/**
+ * The Class MathTool.
+ */
 public class MathTool extends MTFrame{
 	
+	/** The control panel. */
 	protected MathToolControlPanel controlPanel;
+	
+	/** The pad index. */
 	protected int padIndex = 0;
+	
+	/** The math pad list. */
 	protected List<MathPad> mathPadList = new ArrayList<MathPad>();
+	
+	/** The current math pad. */
 	protected MathPad currentMathPad;
+	
+	/** The separator btn. */
 	protected SimpleButton separatorBtn;
+	
+	/** The page no label. */
 	protected TextLabel pageNoLabel;
 	
+	/** The assignment handler. */
 	protected AssignmentHandler assignmentHandler;
 	
-	public enum WritingState{FREE_DRAW, ERASER};
-	public enum SeparatorState{EXPANDED, COLLAPSED};
+	/**
+	 * The Enum WritingState.
+	 */
+	public enum WritingState{/** The free draw. */
+FREE_DRAW, /** The eraser. */
+ ERASER};
+	
+	/**
+	 * The Enum SeparatorState.
+	 */
+	public enum SeparatorState{
+/** The expanded. */
+EXPANDED, 
+ /** The collapsed. */
+ COLLAPSED};
 
+	/** The current writing state. */
 	protected WritingState currentWritingState = WritingState.FREE_DRAW;
+	
+	/** The back text color. */
 	protected Color backTextColor;
+	
+	/** The separator state. */
 	protected SeparatorState separatorState = SeparatorState.COLLAPSED;
+	
+	/** The answer pad. */
 	protected AnswerDialog answerPad;
+	
+	/** The login dialog. */
 	protected LoginDialog loginDialog;
+	
+	/** The math tool initialiser. */
 	protected MathToolInitialiser mathToolInitialiser;
 	
+	/** The math tool listeners. */
 	protected transient Queue<MathToolListener> mathToolListeners = new ConcurrentLinkedQueue<MathToolListener>();
 
+	/**
+	 * Instantiates a new math tool.
+	 *
+	 * @param contentSystem the content system
+	 */
 	public MathTool(final ContentSystem contentSystem){
 		this(contentSystem, null);
 	}
 	
+	/**
+	 * Instantiates a new math tool.
+	 *
+	 * @param contentSystem the content system
+	 * @param graphManager the graph manager
+	 */
 	public MathTool(final ContentSystem contentSystem, GraphManager graphManager){
 		super(contentSystem, graphManager);
 		this.setTitle("Math Pad");
@@ -200,12 +252,20 @@ public class MathTool extends MTFrame{
 		this.getWindow().setScaleLimit(0.6f, 1.5f);
 	}
 	
+	/**
+	 * Terminate.
+	 */
 	public void terminate() {
 		answerPad.close();
 		loginDialog.close();
 		MathTool.this.close();
 	}
 
+	/**
+	 * Adds the new pad.
+	 *
+	 * @return the math pad
+	 */
 	public MathPad addNewPad(){
 		MathPad newPad = (MathPad) contentSystem.createContentItem(MathPad.class);
 		newPad.setWidth(this.getWindow().getWidth()-controlPanel.getWidth() - 4* this.getWindow().getBorderSize());
@@ -239,6 +299,11 @@ public class MathTool extends MTFrame{
 		return newPad;
 	}
 	
+	/**
+	 * Next pad.
+	 *
+	 * @return the int
+	 */
 	protected int nextPad(){
 		if(padIndex+1> 0 && padIndex+1 < mathPadList.size()){
 			padIndex++;
@@ -255,6 +320,11 @@ public class MathTool extends MTFrame{
 		return padIndex;
 	}
 	
+	/**
+	 * Previous pad.
+	 *
+	 * @return the int
+	 */
 	protected int previousPad(){
 		if(padIndex-1>= 0 && padIndex-1 < mathPadList.size()){
 			padIndex--;
@@ -271,6 +341,11 @@ public class MathTool extends MTFrame{
 		return padIndex;
 	}
 	
+	/**
+	 * Show pad.
+	 *
+	 * @param padIndex the pad index
+	 */
 	public void showPad(int padIndex) {
 		if(padIndex>=0 && padIndex < mathPadList.size()){
 			for(int i=0; i<mathPadList.size(); i++)	mathPadList.get(i).setVisible(false); 
@@ -284,6 +359,11 @@ public class MathTool extends MTFrame{
 		}
 	}
 	
+	/**
+	 * Removes the pad.
+	 *
+	 * @param padIndex the pad index
+	 */
 	public void removePad(int padIndex){
 		if(mathPadList.size() == 1) return;
 		if(padIndex>=0 && padIndex < mathPadList.size()){
@@ -296,8 +376,18 @@ public class MathTool extends MTFrame{
 		}
 	}
 	
+	/**
+	 * Gets the current pad index.
+	 *
+	 * @return the current pad index
+	 */
 	protected int getCurrentPadIndex(){	return this.padIndex;}
 	
+	/**
+	 * Sets the separator state.
+	 *
+	 * @param separatorState the new separator state
+	 */
 	public void setSeparatorState(SeparatorState separatorState){
 		if(separatorState == SeparatorState.COLLAPSED){
 			controlPanel.getContentPanel().setVisible(true);
@@ -323,10 +413,20 @@ public class MathTool extends MTFrame{
 		}
 	}
 	
+	/**
+	 * Gets the current writing state.
+	 *
+	 * @return the current writing state
+	 */
 	public WritingState getCurrentWritingState(){
 		return this.currentWritingState;
 	}
 	
+	/**
+	 * Sets the writing state.
+	 *
+	 * @param initWritingState the new writing state
+	 */
 	public void setWritingState(WritingState initWritingState){
 		this.currentWritingState = initWritingState;
 		if(initWritingState == WritingState.FREE_DRAW){
@@ -342,12 +442,22 @@ public class MathTool extends MTFrame{
 		this.getControlPanel().setWritingState(initWritingState);
 	}
 
+	/**
+	 * Sets the text color.
+	 *
+	 * @param color the new text color
+	 */
 	public void setTextColor(Color color) {
 		for(MathPad pad: mathPadList)
 				pad.setTextColor(color);
 			this.getControlPanel().setTextColor(color);
 	}
 	
+	/**
+	 * Sets the line width.
+	 *
+	 * @param lineWidth the new line width
+	 */
 	public void setLineWidth(float lineWidth){
 		if(!(new Float(lineWidth).isNaN())){
 			for(MathPad pad: mathPadList)
@@ -356,52 +466,110 @@ public class MathTool extends MTFrame{
 		}
 	}
 	
+	/**
+	 * Inits the.
+	 *
+	 * @param settings the settings
+	 */
 	public void init(MathToolInitSettings settings){
 		mathToolInitialiser.init(settings);
 	}
 
+	/**
+	 * Gets the inits the settings.
+	 *
+	 * @return the inits the settings
+	 */
 	public MathToolInitSettings getInitSettings(){
 		return mathToolInitialiser.getInitSettings();
 	}
 	
+	/**
+	 * Gets the draw data.
+	 *
+	 * @return the draw data
+	 */
 	public HashMap<Integer,List<DrawData>> getDrawData(){
 		HashMap<Integer,List<DrawData>> drawData = new HashMap<Integer,List<DrawData>>();
 		for(int i=0; i<this.mathPadList.size(); i++)	drawData.put(i, mathPadList.get(i).getDrawData());
 		return drawData;
 	}
 	
+	/**
+	 * Adds the math tool listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void addMathToolListener(MathToolListener listener){
 		if(!mathToolListeners.contains(listener)) mathToolListeners.add(listener);
 	}
 	
+	/**
+	 * Removes the math tool listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void removeMathToolListener(MathToolListener listener){
 		mathToolListeners.remove(listener);
 	}
 	
+	/**
+	 * Removes the math tool listeners.
+	 */
 	public void removeMathToolListeners(){
 		mathToolListeners.clear();
 	}
 	
+	/**
+	 * Gets the current pad.
+	 *
+	 * @return the current pad
+	 */
 	public MathPad getCurrentPad(){
 		return currentMathPad;
 	}
 	
+	/**
+	 * Gets the all pads.
+	 *
+	 * @return the all pads
+	 */
 	public List<MathPad> getAllPads(){
 		return this.mathPadList;
 	}
 	
+	/**
+	 * Gets the control panel.
+	 *
+	 * @return the control panel
+	 */
 	public MathToolControlPanel getControlPanel(){
 		return controlPanel;
 	}
 	
+	/**
+	 * Gets the answer dialog.
+	 *
+	 * @return the answer dialog
+	 */
 	public AnswerDialog getAnswerDialog(){
 		return answerPad;
 	}
 
+	/**
+	 * Gets the assignment handler.
+	 *
+	 * @return the assignment handler
+	 */
 	public AssignmentHandler getAssignmentHandler(){
 		return this.assignmentHandler;
 	}
 
+	/**
+	 * Gets the current assignment info.
+	 *
+	 * @return the current assignment info
+	 */
 	public AssignmentInfo getCurrentAssignmentInfo() {
 		Assignment assignment = this.assignmentHandler.getAssignment();
 		if(assignment == null) return null;
@@ -414,13 +582,52 @@ public class MathTool extends MTFrame{
 		return info;
 	}
 	
+	/**
+	 * The listener interface for receiving mathTool events.
+	 * The class that is interested in processing a mathTool
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addMathToolListener<code> method. When
+	 * the mathTool event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see MathToolEvent
+	 */
 	public interface MathToolListener{
+		
+		/**
+		 * Separator changed.
+		 *
+		 * @param newState the new state
+		 */
 		public void separatorChanged(SeparatorState newState);
+		
+		/**
+		 * Math pad closed.
+		 *
+		 * @param mathTool the math tool
+		 */
 		public void mathPadClosed(MathTool mathTool);
+		
+		/**
+		 * Assignment answer ready.
+		 *
+		 * @param info the info
+		 */
 		public void assignmentAnswerReady(AssignmentInfo info);
+		
+		/**
+		 * User login.
+		 *
+		 * @param userName the user name
+		 * @param password the password
+		 */
 		public void userLogin(String userName, String password);
 	}
 
+	/**
+	 * Show login dialog.
+	 */
 	protected void showLoginDialog() {
 		loginDialog.setVisible(true);
 	}

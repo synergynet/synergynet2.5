@@ -32,7 +32,23 @@
 
 package synergynetframework.mtinput;
 
+
+/**
+ * The Interface IMultiTouchInputFilter.
+ */
 public interface IMultiTouchInputFilter extends IMultiTouchEventListener {
+	
+	/**
+	 * Sets the next.
+	 *
+	 * @param el the new next
+	 */
 	public void setNext(IMultiTouchEventListener el);
+	
+	/**
+	 * Update.
+	 *
+	 * @param tpf the tpf
+	 */
 	public void update(float tpf);
 }

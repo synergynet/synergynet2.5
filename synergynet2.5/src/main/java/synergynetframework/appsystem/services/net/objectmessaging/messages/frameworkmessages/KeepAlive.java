@@ -33,10 +33,20 @@
 package synergynetframework.appsystem.services.net.objectmessaging.messages.frameworkmessages;
 
 
+
+/**
+ * The Class KeepAlive.
+ */
 public class KeepAlive implements FrameworkMessage {
 	
+	/**
+	 * Instantiates a new keep alive.
+	 */
 	public KeepAlive(){}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString () {
 		return "KeepAlive";
 	}

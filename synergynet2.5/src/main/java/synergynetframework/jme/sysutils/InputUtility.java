@@ -45,16 +45,36 @@ import com.jme.input.MouseInput;
 import com.jme.renderer.Camera;
 import com.jme.system.DisplaySystem;
 
+
+/**
+ * The Class InputUtility.
+ */
 public class InputUtility {
 
+	/** The pause. */
 	public static boolean pause = false;
+	
+	/** The wireframe mode. */
 	public static boolean wireframeMode = false;
+	
+	/** The use lighting. */
 	public static boolean useLighting = AppConfig.useLighting;
+	
+	/** The show bounds. */
 	public static boolean showBounds = false;
+	
+	/** The show depth. */
 	public static boolean showDepth = false;
+	
+	/** The show normals. */
 	public static boolean showNormals = false;
+	
+	/** The should finish. */
 	public static boolean shouldFinish = false;
 
+	/**
+	 * Setup keys.
+	 */
 	public static void setupKeys() {
 //		if(AppConfig.debugToolsFlag == AppConfig.INPUT_DEBUGTOOLS_ON) {
 			KeyBindingManager.getKeyBindingManager().set( "toggle_pause", KeyInput.KEY_P );
@@ -72,6 +92,12 @@ public class InputUtility {
 	}
 
 
+	/**
+	 * Gets the input handler.
+	 *
+	 * @param cam the cam
+	 * @return the input handler
+	 */
 	public static InputHandler getInputHandler(Camera cam) {
 		InputHandler handler = null;
 		if(AppConfig.inputStyle == AppConfig.INPUT_STYLE_NOMOVEMENT)
@@ -83,15 +109,33 @@ public class InputUtility {
 		return handler;
 	}
 
+	/**
+	 * Gets the first person handler.
+	 *
+	 * @param cam the cam
+	 * @return the first person handler
+	 */
 	private static InputHandler getFirstPersonHandler(Camera cam) {
 		return new FirstPersonHandler(cam, 50, 1);
 	}
 
 
+	/**
+	 * Gets the keyboard looking handler.
+	 *
+	 * @param cam the cam
+	 * @return the keyboard looking handler
+	 */
 	public static InputHandler getKeyboardLookingHandler(Camera cam) {
 		return new KeyboardLookHandler(cam, 50, 1);
 	}
 
+	/**
+	 * Check keys.
+	 *
+	 * @param logger the logger
+	 * @param cam the cam
+	 */
 	public static void checkKeys(Logger logger, Camera cam) {
 		if ( KeyBindingManager.getKeyBindingManager().isValidCommand("toggle_pause", false ) ) {
 			pause = !pause;
@@ -153,6 +197,9 @@ public class InputUtility {
 		}
 	}	
 
+	/**
+	 * Setup mouse input.
+	 */
 	public static void setupMouseInput() {
 		if( AppConfig.tableType == AppConfig.TABLE_TYPE_JME_DIRECT_SIMULATOR ||
 			AppConfig.tableType == AppConfig.TABLE_TYPE_JME_TUIO_SIMULATOR) {			

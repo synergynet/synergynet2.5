@@ -13,16 +13,31 @@ import com.jme.util.export.binary.BinaryImporter;
 import com.jmex.model.converters.FormatConverter;
 import com.jmex.model.converters.ObjToJme;
 
+
+/**
+ * The Class TBuildingBlock.
+ */
 public class TBuildingBlock  extends Node {
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -7752237123118348139L;
+	
+	/** The map. */
 	Spatial map;
 	
+	/**
+	 * Instantiates a new t building block.
+	 *
+	 * @param name the name
+	 */
 	public TBuildingBlock(String name){
 		super(name);
 		buildBlock();
 	}
 	
+	/**
+	 * Builds the block.
+	 */
 	private void buildBlock(){
 
 		
@@ -52,6 +67,11 @@ public class TBuildingBlock  extends Node {
 		
 	}
 	
+	/**
+	 * Gets the spatial.
+	 *
+	 * @return the spatial
+	 */
 	public Spatial getSpatial(){
 		return map;
 	}

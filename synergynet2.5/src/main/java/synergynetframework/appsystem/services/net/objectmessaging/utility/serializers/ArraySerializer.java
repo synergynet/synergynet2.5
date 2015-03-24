@@ -41,26 +41,55 @@ import java.nio.ByteBuffer;
 import synergynetframework.appsystem.services.net.objectmessaging.Network;
 import synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler;
 
+
+/**
+ * The Class ArraySerializer.
+ */
 public class ArraySerializer extends Serializer {
+	
+	/** The Constant instance. */
 	static private final ArraySerializer instance = new ArraySerializer();
 
+	/** The fixed dimension count. */
 	private Integer fixedDimensionCount;
+	
+	/** The elements are same type. */
 	private boolean elementsAreSameType;
+	
+	/** The elements are not null. */
 	private boolean elementsAreNotNull;
 
+	/**
+	 * Instantiates a new array serializer.
+	 */
 	public ArraySerializer () {
 	}
 
+	/**
+	 * Instantiates a new array serializer.
+	 *
+	 * @param dimensions the dimensions
+	 */
 	public ArraySerializer (Integer dimensions) {
 		fixedDimensionCount = dimensions;
 	}
 
+	/**
+	 * Instantiates a new array serializer.
+	 *
+	 * @param dimensions the dimensions
+	 * @param elementsAreNotNull the elements are not null
+	 * @param elementsAreSameType the elements are same type
+	 */
 	public ArraySerializer (Integer dimensions, boolean elementsAreNotNull, boolean elementsAreSameType) {
 		this.fixedDimensionCount = dimensions;
 		this.elementsAreNotNull = elementsAreNotNull;
 		this.elementsAreSameType = elementsAreSameType;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.utility.serializers.Serializer#writeObjectData(synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler, java.nio.ByteBuffer, java.lang.Object, boolean)
+	 */
 	public void writeObjectData (ConnectionHandler connectionHandler, ByteBuffer buffer, Object array, boolean lengthKnown)
 		throws SerializationException {
 		int[] dimensions = getDimensions(array);
@@ -74,6 +103,17 @@ public class ArraySerializer extends Serializer {
 		writeArray(connectionHandler, elementSerializer, buffer, array, 0, dimensions.length);
 	}
 
+	/**
+	 * Write array.
+	 *
+	 * @param connectionHandler the connection handler
+	 * @param elementSerializer the element serializer
+	 * @param buffer the buffer
+	 * @param array the array
+	 * @param dimension the dimension
+	 * @param dimensionCount the dimension count
+	 * @throws SerializationException the serialization exception
+	 */
 	private void writeArray (ConnectionHandler connectionHandler, Serializer elementSerializer, ByteBuffer buffer, Object array, int dimension,
 		int dimensionCount) throws SerializationException {
 		int length = Array.getLength(array);
@@ -96,6 +136,9 @@ public class ArraySerializer extends Serializer {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.utility.serializers.Serializer#readObjectData(synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler, java.nio.ByteBuffer, java.lang.Class, boolean)
+	 */
 	@SuppressWarnings("unchecked")
 	public <T> T readObjectData (ConnectionHandler connectionHandler, ByteBuffer buffer, Class<T> type, boolean lengthKnown)
 		throws SerializationException {
@@ -112,6 +155,18 @@ public class ArraySerializer extends Serializer {
 		return array;
 	}
 
+	/**
+	 * Read array.
+	 *
+	 * @param connectionHandler the connection handler
+	 * @param elementSerializer the element serializer
+	 * @param elementClass the element class
+	 * @param buffer the buffer
+	 * @param array the array
+	 * @param dimension the dimension
+	 * @param dimensions the dimensions
+	 * @throws SerializationException the serialization exception
+	 */
 	private void readArray (ConnectionHandler connectionHandler, Serializer elementSerializer, Class<?> elementClass, ByteBuffer buffer,
 		Object array, int dimension, int[] dimensions) throws SerializationException {
 		boolean elementsAreArrays = dimension < dimensions.length - 1;
@@ -137,6 +192,12 @@ public class ArraySerializer extends Serializer {
 		}
 	}
 
+	/**
+	 * Gets the dimension count.
+	 *
+	 * @param arrayClass the array class
+	 * @return the dimension count
+	 */
 	static public int getDimensionCount (Class<?> arrayClass) {
 		int depth = 0;
 		Class<?> nextClass = arrayClass.getComponentType();
@@ -147,6 +208,12 @@ public class ArraySerializer extends Serializer {
 		return depth;
 	}
 
+	/**
+	 * Gets the dimensions.
+	 *
+	 * @param array the array
+	 * @return the dimensions
+	 */
 	static public int[] getDimensions (Object array) {
 		int depth = 0;
 		Class<?> nextClass = array.getClass().getComponentType();
@@ -160,6 +227,13 @@ public class ArraySerializer extends Serializer {
 		return dimensions;
 	}
 
+	/**
+	 * Collect dimensions.
+	 *
+	 * @param array the array
+	 * @param dimension the dimension
+	 * @param dimensions the dimensions
+	 */
 	static private void collectDimensions (Object array, int dimension, int[] dimensions) {
 		boolean elementsAreArrays = dimension < dimensions.length - 1;
 		for (int i = 0, s = Array.getLength(array); i < s; i++) {
@@ -170,6 +244,12 @@ public class ArraySerializer extends Serializer {
 		}
 	}
 
+	/**
+	 * Gets the element class.
+	 *
+	 * @param arrayClass the array class
+	 * @return the element class
+	 */
 	static public Class<?> getElementClass (Class<?> arrayClass) {
 		Class<?> elementClass = arrayClass;
 		while (elementClass.getComponentType() != null)
@@ -177,6 +257,17 @@ public class ArraySerializer extends Serializer {
 		return elementClass;
 	}
 
+	/**
+	 * Put.
+	 *
+	 * @param connectionHandler the connection handler
+	 * @param buffer the buffer
+	 * @param array the array
+	 * @param dimensions the dimensions
+	 * @param elementsAreNotNull the elements are not null
+	 * @param elementsAreSameType the elements are same type
+	 * @throws SerializationException the serialization exception
+	 */
 	static public void put (ConnectionHandler connectionHandler, ByteBuffer buffer, Object array, Integer dimensions,
 		boolean elementsAreNotNull, boolean elementsAreSameType) throws SerializationException {
 		instance.fixedDimensionCount = dimensions;
@@ -185,6 +276,19 @@ public class ArraySerializer extends Serializer {
 		instance.writeObjectData(connectionHandler, buffer, array, false);
 	}
 
+	/**
+	 * Gets the.
+	 *
+	 * @param <T> the generic type
+	 * @param connectionHandler the connection handler
+	 * @param buffer the buffer
+	 * @param type the type
+	 * @param dimensions the dimensions
+	 * @param elementsAreNotNull the elements are not null
+	 * @param elementsAreSameType the elements are same type
+	 * @return the t
+	 * @throws SerializationException the serialization exception
+	 */
 	static public <T> T get (ConnectionHandler connectionHandler, ByteBuffer buffer, Class<T> type, Integer dimensions,
 		boolean elementsAreNotNull, boolean elementsAreSameType) throws SerializationException {
 		instance.fixedDimensionCount = dimensions;

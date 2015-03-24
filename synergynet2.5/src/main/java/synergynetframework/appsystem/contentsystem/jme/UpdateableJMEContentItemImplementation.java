@@ -32,6 +32,16 @@
 
 package synergynetframework.appsystem.contentsystem.jme;
 
+
+/**
+ * The Interface UpdateableJMEContentItemImplementation.
+ */
 public interface UpdateableJMEContentItemImplementation extends JMEContentItemImplementation {
+	
+	/**
+	 * Update.
+	 *
+	 * @param tpf the tpf
+	 */
 	public void update(float tpf);
 }

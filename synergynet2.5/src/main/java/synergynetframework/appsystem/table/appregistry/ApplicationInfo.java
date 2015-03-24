@@ -41,25 +41,63 @@ import synergynetframework.appsystem.table.appdefinitions.SynergyNetApp;
 
 
 
+
+/**
+ * The Class ApplicationInfo.
+ */
 public class ApplicationInfo {
 
+	/** The Constant REACTIVATEPOLICY_RESTART. */
 	public static final String REACTIVATEPOLICY_RESTART = "restart";
+	
+	/** The Constant REACTIVATEPOLICY_RESUME. */
 	public static final String REACTIVATEPOLICY_RESUME = "resume";
 	
+	/** The Constant APPLICATION_TYPE_CLIENT. */
 	public static final String APPLICATION_TYPE_CLIENT = "client";
+	
+	/** The Constant APPLICATION_TYPE_CONTROLLER. */
 	public static final String APPLICATION_TYPE_CONTROLLER = "controller";
+	
+	/** The Constant APPLICATION_TYPE_PROJECTOR. */
 	public static final String APPLICATION_TYPE_PROJECTOR = "projector";
 
+	/** The class. */
 	protected Class<?> theClass;
+	
+	/** The document. */
 	protected Document document;
+	
+	/** The reactivate policy. */
 	protected String reactivatePolicy = REACTIVATEPOLICY_RESTART;
+	
+	/** The icon resource. */
 	private String iconResource;
+	
+	/** The show icon. */
 	protected boolean showIcon = true;
+	
+	/** The application name. */
 	protected String applicationName;
+	
+	/** The uuid. */
 	protected String uuid;
+	
+	/** The application type. */
 	protected String applicationType;
+	
+	/** The version string. */
 	private String versionString;
 	
+	/**
+	 * Instantiates a new application info.
+	 *
+	 * @param classname the classname
+	 * @param applicationName the application name
+	 * @param versionString the version string
+	 * @param reactivatePolicy the reactivate policy
+	 * @throws ClassNotFoundException the class not found exception
+	 */
 	public ApplicationInfo(String classname, String applicationName, String versionString, String reactivatePolicy) throws ClassNotFoundException {
 		this.theClass = Class.forName(classname);		
 		this.applicationName = applicationName;
@@ -67,14 +105,36 @@ public class ApplicationInfo {
 		this.versionString = versionString;
 	}
 
+	/**
+	 * Gets the application type.
+	 *
+	 * @return the application type
+	 */
 	public String getApplicationType() {
 		return applicationType;
 	}
 
+	/**
+	 * Sets the application type.
+	 *
+	 * @param applicationType the new application type
+	 */
 	public void setApplicationType(String applicationType) {
 		this.applicationType = applicationType;
 	}
 
+	/**
+	 * Gets the new instance.
+	 *
+	 * @return the new instance
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws ClassNotFoundException the class not found exception
+	 * @throws SecurityException the security exception
+	 * @throws NoSuchMethodException the no such method exception
+	 * @throws IllegalArgumentException the illegal argument exception
+	 * @throws InvocationTargetException the invocation target exception
+	 */
 	public SynergyNetApp getNewInstance() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SecurityException, NoSuchMethodException, IllegalArgumentException, InvocationTargetException {
 		Constructor<?> c = theClass.getConstructor(ApplicationInfo.class);
 		SynergyNetApp app = (SynergyNetApp) c.newInstance(this);
@@ -84,7 +144,8 @@ public class ApplicationInfo {
 
 	/**
 	 * The class for the SynergyNet application this ApplicationInfo represents.
-	 * @return
+	 *
+	 * @return the the class
 	 */
 	public Class<?> getTheClass() {
 		return theClass;
@@ -92,45 +153,89 @@ public class ApplicationInfo {
 
 	/**
 	 * Equivalent to calling getTheClass().getName()
-	 * @return
+	 *
+	 * @return the the class name
 	 */
 	public String getTheClassName() {
 		return theClass.getName();
 	}
 
+	/**
+	 * Gets the application name.
+	 *
+	 * @return the application name
+	 */
 	public String getApplicationName() {		
 		return applicationName;
 	}
 
+	/**
+	 * Gets the icon resource name.
+	 *
+	 * @return the icon resource name
+	 */
 	public String getIconResourceName() {
 		return iconResource;
 	}
 
+	/**
+	 * Show in menus.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean showInMenus() {
 		return showIcon;
 	}
 
+	/**
+	 * Gets the reactivate policy.
+	 *
+	 * @return the reactivate policy
+	 */
 	public String getReactivatePolicy() {
 		return reactivatePolicy;
 	}
 
+	/**
+	 * Sets the show icon.
+	 *
+	 * @param b the new show icon
+	 */
 	public void setShowIcon(boolean b) {
 		showIcon = b;
 	}
 
+	/**
+	 * Sets the icon resource.
+	 *
+	 * @param iconResource the new icon resource
+	 */
 	public void setIconResource(String iconResource) {
 		this.iconResource = iconResource;
 	}
 
 
+	/**
+	 * Sets the uuid.
+	 *
+	 * @param uuid the new uuid
+	 */
 	public void setUUID(String uuid) {
 		this.uuid = uuid;		
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return getTheClassName() + ":\"" + getApplicationName() + "\"";
 	}
 
+	/**
+	 * Gets the application version.
+	 *
+	 * @return the application version
+	 */
 	public String getApplicationVersion() {
 		return versionString;
 	}

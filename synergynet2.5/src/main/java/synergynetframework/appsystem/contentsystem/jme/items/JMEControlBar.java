@@ -50,32 +50,57 @@ import synergynetframework.appsystem.contentsystem.items.implementation.interfac
 import synergynetframework.appsystem.contentsystem.jme.items.utils.controlbar.ControlBarMover;
 import synergynetframework.appsystem.contentsystem.jme.items.utils.controlbar.ControlBarMover.ControlBarMoverListener;
 
+
+/**
+ * The Class JMEControlBar.
+ */
 public class JMEControlBar extends JMEOrthoContainer implements IControlBarImplementation, ControlBarMoverListener {
 
+	/** The control bar. */
 	protected ControlBar controlBar;
 	
+	/** The bar. */
 	protected Quad bar;
+	
+	/** The cursor. */
 	protected Disk cursor;
+	
+	/** The finished bar. */
 	protected Quad finishedBar;
 	
 	//protected BlendState alpha;
+	/** The control bar mover. */
 	protected ControlBarMover controlBarMover;
 	
+	/**
+	 * Instantiates a new JME control bar.
+	 *
+	 * @param contentItem the content item
+	 */
 	public JMEControlBar(ContentItem contentItem) {
 		super(contentItem);
 		controlBar = (ControlBar)contentItem;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IControlBarImplementation#setControlBarWidth(float)
+	 */
 	@Override
 	public void setControlBarWidth(float controlBarWidth) {
 		render();
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IControlBarImplementation#setControlBarLength(float)
+	 */
 	@Override
 	public void setControlBarLength(float controlBarLength) {
 		render();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IControlBarImplementation#setCurrentPosition(float)
+	 */
 	@Override
 	public void setCurrentPosition(float currentPosition) {
 		cursor.setLocalTranslation((float)((currentPosition-0.5)*controlBar.getControlBarLength()), bar.getLocalTranslation().y, bar.getLocalTranslation().z);
@@ -84,6 +109,9 @@ public class JMEControlBar extends JMEOrthoContainer implements IControlBarImple
 	
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEContentItem#init()
+	 */
 	public void init(){
 		super.init();
 		
@@ -117,6 +145,9 @@ public class JMEControlBar extends JMEOrthoContainer implements IControlBarImple
 		controlBarNode.updateModelBound();
 	}
 	
+	/**
+	 * Render.
+	 */
 	public void render(){
 		bar.updateGeometry(controlBar.getControlBarLength(), controlBar.getControlBarWidth());
 		cursor.setLocalTranslation((float) ((controlBar.getCurrentPosition()-0.5)*controlBar.getControlBarLength()), bar.getLocalTranslation().y, bar.getLocalTranslation().z);
@@ -129,6 +160,9 @@ public class JMEControlBar extends JMEOrthoContainer implements IControlBarImple
 		setCursorTexture();
 	}
 	
+	/**
+	 * Builds the bar.
+	 */
 	private void buildBar(){
 		bar = new Quad(controlBar.getName()+"-ProgressBar", controlBar.getControlBarLength(), controlBar.getControlBarWidth());
 		
@@ -138,6 +172,9 @@ public class JMEControlBar extends JMEOrthoContainer implements IControlBarImple
 		bar.updateModelBound();
 	}
 	
+	/**
+	 * Sets the bar texture.
+	 */
 	private void setBarTexture(){
 		TextureState ts = DisplaySystem.getDisplaySystem().getRenderer().createTextureState();
 		ts.setCorrectionType(TextureState.CorrectionType.Perspective);		
@@ -150,6 +187,9 @@ public class JMEControlBar extends JMEOrthoContainer implements IControlBarImple
 		bar.updateRenderState();		
 	}
 	
+	/**
+	 * Builds the cursor.
+	 */
 	private void buildCursor(){
 		cursor = new Disk(controlBar.getName()+"-Cursor", 16, 32, (float) (controlBar.getControlBarWidth()));
 		
@@ -159,6 +199,9 @@ public class JMEControlBar extends JMEOrthoContainer implements IControlBarImple
 		cursor.updateModelBound();
 	}
 	
+	/**
+	 * Sets the cursor texture.
+	 */
 	private void setCursorTexture(){
 		TextureState ts = DisplaySystem.getDisplaySystem().getRenderer().createTextureState();
 		ts.setCorrectionType(TextureState.CorrectionType.Perspective);		
@@ -171,6 +214,9 @@ public class JMEControlBar extends JMEOrthoContainer implements IControlBarImple
 		cursor.updateRenderState();
 	}
 	
+	/**
+	 * Builds the finished bar.
+	 */
 	private void buildFinishedBar(){
 		finishedBar = new Quad(controlBar.getName()+"-FinishedBar", 1, controlBar.getControlBarWidth());
 		
@@ -180,6 +226,9 @@ public class JMEControlBar extends JMEOrthoContainer implements IControlBarImple
 		finishedBar.updateModelBound();
 	}
 	
+	/**
+	 * Sets the finished bar texture.
+	 */
 	private void setFinishedBarTexture(){
 		TextureState ts = DisplaySystem.getDisplaySystem().getRenderer().createTextureState();
 		ts.setCorrectionType(TextureState.CorrectionType.Perspective);		
@@ -192,6 +241,9 @@ public class JMEControlBar extends JMEOrthoContainer implements IControlBarImple
 		finishedBar.updateRenderState();		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.utils.controlbar.ControlBarMover.ControlBarMoverListener#controlBarChanged(float, float)
+	 */
 	@Override
 	public void controlBarChanged(float oldPosition,
 			float newPosition) {
@@ -200,43 +252,67 @@ public class JMEControlBar extends JMEOrthoContainer implements IControlBarImple
 		controlBar.setCurrentPosition(newPosition);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IControlBarImplementation#addControlBarMoverListener(synergynetframework.appsystem.contentsystem.jme.items.utils.controlbar.ControlBarMover.ControlBarMoverListener)
+	 */
 	public void addControlBarMoverListener(ControlBarMoverListener l){
 		this.controlBarMover.addControlBarMoverListener(l);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IControlBarImplementation#setControlBarMoverEnabled(boolean)
+	 */
 	@Override
 	public void setControlBarMoverEnabled(boolean controlBarMoverEnabled) {
 		controlBarMover.setEnabled(controlBarMoverEnabled);		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.utils.controlbar.ControlBarMover.ControlBarMoverListener#cursorPressed()
+	 */
 	@Override
 	public void cursorPressed() {
 		cursor.setLocalScale(3f);
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.utils.controlbar.ControlBarMover.ControlBarMoverListener#cursorReleased()
+	 */
 	@Override
 	public void cursorReleased() {
 		cursor.setLocalScale(1f);
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IControlBarImplementation#updateControlBar()
+	 */
 	@Override
 	public void updateControlBar() {
 		render();
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IControlBarImplementation#setFinishedBarImageResource(java.net.URL)
+	 */
 	@Override
 	public void setFinishedBarImageResource(URL imageResource) {
 		render();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IControlBarImplementation#setBarImageResource(java.net.URL)
+	 */
 	@Override
 	public void setBarImageResource(URL imageResource) {
 		render();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IControlBarImplementation#setCursorImageResource(java.net.URL)
+	 */
 	@Override
 	public void setCursorImageResource(URL imageResource) {
 		render();

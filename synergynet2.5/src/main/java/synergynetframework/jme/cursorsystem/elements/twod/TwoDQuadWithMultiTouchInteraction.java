@@ -43,11 +43,27 @@ import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 
 import com.jme.math.Vector3f;
 
+
+/**
+ * The Class TwoDQuadWithMultiTouchInteraction.
+ */
 public class TwoDQuadWithMultiTouchInteraction extends OrthoControlPointRotateTranslateScaleWithListener {
+	
+	/** The quad. */
 	protected DrawableSpatialImage quad;
+	
+	/** The interact area. */
 	protected Rectangle interactArea;
+	
+	/** The interact area cursors. */
 	protected Set<Long> interactAreaCursors = new HashSet<Long>();
 
+	/**
+	 * Instantiates a new two d quad with multi touch interaction.
+	 *
+	 * @param pickingAndTargetSpatial the picking and target spatial
+	 * @param interactArea the interact area
+	 */
 	public TwoDQuadWithMultiTouchInteraction(DrawableSpatialImage pickingAndTargetSpatial, Rectangle interactArea) {
 		super(pickingAndTargetSpatial.getSpatial());
 		this.interactArea = interactArea;
@@ -55,6 +71,9 @@ public class TwoDQuadWithMultiTouchInteraction extends OrthoControlPointRotateTr
 		this.quad = pickingAndTargetSpatial;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScaleWithListener#cursorPressed(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorPressed(ScreenCursor c, MultiTouchCursorEvent event) {
 		super.cursorPressed(c, event);
@@ -67,6 +86,9 @@ public class TwoDQuadWithMultiTouchInteraction extends OrthoControlPointRotateTr
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScaleWithListener#cursorReleased(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorReleased(ScreenCursor c, MultiTouchCursorEvent event) {	
 		super.cursorReleased(c, event);
@@ -79,6 +101,9 @@ public class TwoDQuadWithMultiTouchInteraction extends OrthoControlPointRotateTr
 		}		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScaleWithListener#cursorClicked(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorClicked(ScreenCursor c, MultiTouchCursorEvent event) {
 		super.cursorClicked(c, event);
@@ -90,6 +115,12 @@ public class TwoDQuadWithMultiTouchInteraction extends OrthoControlPointRotateTr
 		}
 	}
 
+	/**
+	 * Gets the current element2 d coords for cursor.
+	 *
+	 * @param cursor the cursor
+	 * @return the current element2 d coords for cursor
+	 */
 	public Point getCurrentElement2DCoordsForCursor(ScreenCursor cursor) {
 		if(cursor == null) return null;
 		Vector3f cursorPosition = new Vector3f(cursor.getCurrentCursorScreenPosition().x, cursor.getCurrentCursorScreenPosition().y, 0f);
@@ -102,12 +133,18 @@ public class TwoDQuadWithMultiTouchInteraction extends OrthoControlPointRotateTr
 		return p;		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScaleWithListener#cursorChanged(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorChanged(ScreenCursor c, MultiTouchCursorEvent event) {
 		super.cursorChanged(c, event);
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale#applyMultiCursorTransform()
+	 */
 	@Override
 	protected void applyMultiCursorTransform() {		
 		boolean allowTransform = false;
@@ -128,6 +165,9 @@ public class TwoDQuadWithMultiTouchInteraction extends OrthoControlPointRotateTr
 		}		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale#applySingleCursorTransform()
+	 */
 	@Override
 	protected void applySingleCursorTransform() {
 		ScreenCursor c = getScreenCursorByIndex(0);

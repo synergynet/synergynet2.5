@@ -43,40 +43,97 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+
+/**
+ * The Class PositionConfigPanel.
+ */
 public class PositionConfigPanel extends JPanel {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1959347964564852506L;
+	
+	/** The prefs item. */
 	private PositionConfigPrefsItem prefsItem;
 
+    /** The cb enable normal position mode. */
     private JCheckBox cbEnableNormalPositionMode = new JCheckBox();
+    
+    /** The cb enable developer mode. */
     private JCheckBox cbEnableDeveloperMode = new JCheckBox();
+	
+	/** The j label table position. */
 	private JLabel jLabelTablePosition = new JLabel();
+	
+	/** The j label table orientation. */
 	private JLabel jLabelTableOrientation = new JLabel();	
+	
+	/** The j label x. */
 	private JLabel jLabelX = new JLabel();
+	
+	/** The j label y. */
 	private JLabel jLabelY = new JLabel();
+	
+	/** The j text field position x. */
 	private JTextField jTextFieldPositionX = new JTextField();
+	
+	/** The j text field position y. */
 	private JTextField jTextFieldPositionY = new JTextField();
+	
+	/** The j text field angle. */
 	private JTextField jTextFieldAngle = new JTextField();
+	
+	/** The j label table distances. */
 	private JLabel jLabelTableDistances = new JLabel();
+	
+	/** The j label x distance. */
 	private JLabel jLabelXDistance = new JLabel();
+	
+	/** The j label y distance. */
 	private JLabel jLabelYDistance = new JLabel();
+	
+	/** The j text field distance x. */
 	private JTextField jTextFieldDistanceX = new JTextField();
+	
+	/** The j text field distance y. */
 	private JTextField jTextFieldDistanceY = new JTextField();
+    
+    /** The horizontal. */
     private JCheckBox horizontal = new JCheckBox();
+    
+    /** The vertical. */
     private JCheckBox vertical = new JCheckBox();
 
+	/** The j label table limits. */
 	private JLabel jLabelTableLimits = new JLabel();
+	
+	/** The j label x limit. */
 	private JLabel jLabelXLimit = new JLabel();
+	
+	/** The j label y limit. */
 	private JLabel jLabelYLimit = new JLabel();
+	
+	/** The j text field limit x. */
 	private JTextField jTextFieldLimitX = new JTextField();
+	
+	/** The j text field limit y. */
 	private JTextField jTextFieldLimitY = new JTextField();
+	
+	/** The j label placement. */
 	private JLabel jLabelPlacement = new JLabel();
 
+    /**
+     * Instantiates a new position config panel.
+     *
+     * @param positionConfigPrefsItem the position config prefs item
+     */
     public PositionConfigPanel(PositionConfigPrefsItem positionConfigPrefsItem) {
     	this.prefsItem = positionConfigPrefsItem;
         initComponents();
     }
 
+    /**
+     * Inits the components.
+     */
     private void initComponents() {
 
 	    setLayout(null);
@@ -320,6 +377,13 @@ public class PositionConfigPanel extends JPanel {
 	    loadPreferences();
     }
     
+	/**
+	 * Gets the integer from text field.
+	 *
+	 * @param tf the tf
+	 * @param previousValue the previous value
+	 * @return the integer from text field
+	 */
 	private int getIntegerFromTextField(JTextField tf, int previousValue) {
 		if(tf.getText().length() > 0) {
 			try {
@@ -333,6 +397,13 @@ public class PositionConfigPanel extends JPanel {
 		return previousValue;
 	}
 	
+	/**
+	 * Gets the float from text field.
+	 *
+	 * @param tf the tf
+	 * @param previousValue the previous value
+	 * @return the float from text field
+	 */
 	private Float getFloatFromTextField(JTextField tf, float previousValue) {
 		if(tf.getText().length() > 0) {
 			try {
@@ -346,6 +417,9 @@ public class PositionConfigPanel extends JPanel {
 		return previousValue;
 	}
 	
+	/**
+	 * Load preferences.
+	 */
 	private void loadPreferences(){
 		jTextFieldPositionX.setText("" + prefsItem.getXPos());
 		jTextFieldPositionY.setText("" + prefsItem.getYPos());
@@ -356,10 +430,20 @@ public class PositionConfigPanel extends JPanel {
 		jTextFieldLimitY.setText("" + prefsItem.getGridLimitY());
 	}
 
+	/**
+	 * Enable developer mode.
+	 *
+	 * @param evt the evt
+	 */
 	private void enableDeveloperMode(ActionEvent evt) {
 		prefsItem.setDeveloperMode(cbEnableDeveloperMode.isSelected());
 	}
 
+	/**
+	 * Enable horizontal placement.
+	 *
+	 * @param evt the evt
+	 */
 	private void enableHorizontalPlacement(ActionEvent evt) {
 		prefsItem.setHorizontalPlacement(horizontal.isSelected());
 	}

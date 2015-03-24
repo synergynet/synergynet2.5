@@ -34,11 +34,23 @@
 
 package synergynetframework.appsystem.services.net.objectmessaging.messages.frameworkmessages;
 
+
+/**
+ * The Class RegisterUDP.
+ */
 public class RegisterUDP implements FrameworkMessage {
+	
+	/** The connection id. */
 	public short connectionID;
 
+	/**
+	 * Instantiates a new register udp.
+	 */
 	public RegisterUDP(){}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString () {
 		return "RegisterUDP";
 	}

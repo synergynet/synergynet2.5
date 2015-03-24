@@ -34,18 +34,39 @@ package synergynetframework.appsystem.services.exceptions;
 
 import synergynetframework.appsystem.services.SynergyNetService;
 
+
+/**
+ * The Class SynergyNetServiceException.
+ */
 public class SynergyNetServiceException extends Exception {
+	
+	/** The Constant serialVersionUID. */
 	protected static final long serialVersionUID = -3409948157971480397L;
+	
+	/** The service. */
 	protected SynergyNetService service;
 	
+	/**
+	 * Instantiates a new synergy net service exception.
+	 *
+	 * @param service the service
+	 */
 	public SynergyNetServiceException(SynergyNetService service) {
 		this.service = service;
 	}
 
+	/**
+	 * Gets the service.
+	 *
+	 * @return the service
+	 */
 	public SynergyNetService getService() {
 		return service;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Throwable#toString()
+	 */
 	public String toString() {
 		return this.getClass().getName() + " caused by " + service.getClass();
 	}

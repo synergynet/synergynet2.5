@@ -49,13 +49,30 @@ import synergynetframework.appsystem.contentsystem.items.TextLabel.Alignment;
 import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAdapter;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class SendToDialog.
+ */
 public class SendToDialog extends MTDialog{
 	
+	/** The selected option. */
 	private int selectedOption = 0;
+	
+	/** The options. */
 	private SimpleButton[] options = new SimpleButton[3];
+	
+	/** The user list panel. */
 	private MTList userListPanel;
+	
+	/** The table list panel. */
 	private MTList tableListPanel;
 	
+	/**
+	 * Instantiates a new send to dialog.
+	 *
+	 * @param assignmentBuilder the assignment builder
+	 * @param contentSystem the content system
+	 */
 	public SendToDialog(final AssignmentBuilder assignmentBuilder, final ContentSystem contentSystem){
 		super(assignmentBuilder, contentSystem);
 		this.setTitle("Send To");
@@ -156,6 +173,11 @@ public class SendToDialog extends MTDialog{
 		this.setSelection(0);
 	}
 	
+	/**
+	 * Sets the selection.
+	 *
+	 * @param selection the new selection
+	 */
 	private void setSelection(int selection){
 		selectedOption = selection;
 		if(selectedOption == 0){
@@ -180,10 +202,20 @@ public class SendToDialog extends MTDialog{
 		}
 	}
 
+	/**
+	 * Gets the user list panel.
+	 *
+	 * @return the user list panel
+	 */
 	public MTList getUserListPanel(){
 		return userListPanel;
 	}
 	
+	/**
+	 * Gets the table list panel.
+	 *
+	 * @return the table list panel
+	 */
 	public MTList getTableListPanel(){
 		return tableListPanel;
 	}

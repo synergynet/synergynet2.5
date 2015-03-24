@@ -45,24 +45,53 @@ import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.client.TableCommsClientService;
 
+
+/**
+ * The Class ProjectorManager.
+ */
 public class ProjectorManager extends NetworkedContentManager{
 
+	/** The is busy. */
 	protected boolean isBusy = false;
+	
+	/** The controller table. */
 	protected TableIdentity controllerTable;
 	
+	/**
+	 * Instantiates a new projector manager.
+	 *
+	 * @param contentSystem the content system
+	 * @param comms the comms
+	 * @param receiverClasses the receiver classes
+	 */
 	public ProjectorManager(ContentSystem contentSystem, TableCommsClientService comms, ArrayList<Class<?>> receiverClasses) {
 		super(contentSystem, comms, receiverClasses);
 		super.setSyncManager(new SyncManager(this));
 	}
 	
+	/**
+	 * Checks if is projector busy.
+	 *
+	 * @return true, if is projector busy
+	 */
 	public boolean isProjectorBusy(){
 		return isBusy;
 	}
 	
+	/**
+	 * Sets the projector busy.
+	 *
+	 * @param isBusy the new projector busy
+	 */
 	public void setProjectorBusy(boolean isBusy){
 		this.isBusy = isBusy;
 	}
 
+	/**
+	 * Lease projector.
+	 *
+	 * @param requesterTable the requester table
+	 */
 	public void leaseProjector(TableIdentity requesterTable){
 		boolean leaseSucceed = false;
 		if(!isBusy){
@@ -76,6 +105,11 @@ public class ProjectorManager extends NetworkedContentManager{
 		}
 	}
 
+	/**
+	 * Release projector.
+	 *
+	 * @param tableId the table id
+	 */
 	public void releaseProjector(TableIdentity tableId) {
 		if(controllerTable.hashCode() == tableId.hashCode()){
 			this.setProjectorBusy(false);
@@ -83,10 +117,21 @@ public class ProjectorManager extends NetworkedContentManager{
 		}
 	}
 	
+	/**
+	 * Sets the controller.
+	 *
+	 * @param requesterTable the new controller
+	 */
 	private void setController(TableIdentity requesterTable) {
 		this.controllerTable = requesterTable;
 	}
 
+	/**
+	 * Math pad items received from table.
+	 *
+	 * @param senderTable the sender table
+	 * @param toolSettings the tool settings
+	 */
 	public void mathPadItemsReceivedFromTable(TableIdentity senderTable, HashMap<UserIdentity, MathToolInitSettings> toolSettings) {
 		MathTool mathTool;
 		for(UserIdentity userId: toolSettings.keySet()){
@@ -100,6 +145,9 @@ public class ProjectorManager extends NetworkedContentManager{
 		}
 	}
 
+	/**
+	 * Clear projector.
+	 */
 	public void clearProjector() {
 		contentSystem.removeAllContentItems();
 	}

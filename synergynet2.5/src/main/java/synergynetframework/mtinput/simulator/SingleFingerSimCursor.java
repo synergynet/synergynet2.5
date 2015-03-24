@@ -33,17 +33,44 @@
 package synergynetframework.mtinput.simulator;
 
 
+
+/**
+ * The Class SingleFingerSimCursor.
+ */
 public class SingleFingerSimCursor extends AbstractSimCursor {
 
+	/** The x. */
 	protected float x;
+	
+	/** The y. */
 	protected float y;
+	
+	/** The screen x. */
 	private int screenX;
+	
+	/** The screen y. */
 	private int screenY;
+	
+	/** The id. */
 	private int id;
+	
+	/** The screen height. */
 	private int screenHeight;
+	
+	/** The screen width. */
 	private int screenWidth;
+	
+	/** The simulator. */
 	private IMultiTouchSimulator simulator;
 	
+	/**
+	 * Instantiates a new single finger sim cursor.
+	 *
+	 * @param simulator the simulator
+	 * @param id the id
+	 * @param screenWidth the screen width
+	 * @param screenHeight the screen height
+	 */
 	public SingleFingerSimCursor(IMultiTouchSimulator simulator, int id, int screenWidth, int screenHeight) {
 		this.simulator = simulator;
 		this.id = id;
@@ -51,14 +78,27 @@ public class SingleFingerSimCursor extends AbstractSimCursor {
 		this.screenHeight = screenHeight;
 	}
 	
+	/**
+	 * Gets the x.
+	 *
+	 * @return the x
+	 */
 	public float getX() {
 		return x;
 	}
 
+	/**
+	 * Gets the y.
+	 *
+	 * @return the y
+	 */
 	public float getY() {
 		return y;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.simulator.AbstractSimCursor#mousePressed(int, int, int)
+	 */
 	@Override
 	public void mousePressed(int x, int y, int button) {
 		screenX = x;
@@ -68,6 +108,9 @@ public class SingleFingerSimCursor extends AbstractSimCursor {
 		simulator.newCursor(id, this.x, this.y);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.simulator.AbstractSimCursor#mouseDragged(int, int, int)
+	 */
 	@Override
 	public void mouseDragged(int x, int y, int buttonNumber) {
 		screenX = x;
@@ -77,6 +120,9 @@ public class SingleFingerSimCursor extends AbstractSimCursor {
 		simulator.updateCursor(id, this.x, this.y);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.simulator.AbstractSimCursor#mouseReleased(int, int, int)
+	 */
 	@Override
 	public void mouseReleased(int x, int y, int button) {
 		screenX = x;
@@ -87,6 +133,9 @@ public class SingleFingerSimCursor extends AbstractSimCursor {
 		simulator.clearCursor();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.simulator.AbstractSimCursor#mouseMoved(int, int)
+	 */
 	@Override
 	public void mouseMoved(int x, int y) {
 		screenX = x;
@@ -98,18 +147,34 @@ public class SingleFingerSimCursor extends AbstractSimCursor {
 
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.simulator.AbstractSimCursor#keyPressed(java.lang.String)
+	 */
 	@Override
 	public void keyPressed(String key) {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.mtinput.simulator.AbstractSimCursor#keyReleased(java.lang.String)
+	 */
 	@Override
 	public void keyReleased(String key) {
 	}
 	
+	/**
+	 * Gets the mouse x.
+	 *
+	 * @return the mouse x
+	 */
 	public int getMouseX() {
 		return screenX;
 	}
 	
+	/**
+	 * Gets the mouse y.
+	 *
+	 * @return the mouse y
+	 */
 	public int getMouseY() {
 		return screenY;
 	}

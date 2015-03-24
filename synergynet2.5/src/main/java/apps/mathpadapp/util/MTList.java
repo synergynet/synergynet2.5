@@ -43,20 +43,47 @@ import synergynetframework.appsystem.contentsystem.items.TextLabel;
 import synergynetframework.appsystem.contentsystem.items.TextLabel.Alignment;
 import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAdapter;
 
+
+/**
+ * The Class MTList.
+ */
 public class MTList {
 
+	/** The list no label. */
 	private TextLabel listNoLabel;
+	
+	/** The list item height. */
 	public int listItemHeight = 25;
+	
+	/** The list item width. */
 	public int listItemWidth = 420;
+	
+	/** The list height. */
 	public int listHeight = 300;
+	
+	/** The list item text color. */
 	public Color listItemTextColor = Color.black;
+	
+	/** The list item bg color. */
 	public Color listItemBgColor = Color.white;
 	
+	/** The next button. */
 	protected SimpleButton previousButton, nextButton;
+	
+	/** The container. */
 	protected OrthoContainer container;
+	
+	/** The content system. */
 	protected ContentSystem contentSystem;
+	
+	/** The list manager. */
 	protected MTListManager listManager;
 	
+	/**
+	 * Instantiates a new MT list.
+	 *
+	 * @param contentSystem the content system
+	 */
 	public MTList(ContentSystem contentSystem){
 		this.contentSystem = contentSystem;
 		listManager = new MTListManager(this);
@@ -104,6 +131,11 @@ public class MTList {
 		updateLayout();
 	}
 	
+	/**
+	 * Creates the new item list.
+	 *
+	 * @return the list container
+	 */
 	protected ListContainer createNewItemList(){
 		ListContainer newList = (ListContainer) contentSystem.createContentItem(ListContainer.class);
 		newList.setAutoFitSize(false);
@@ -119,6 +151,14 @@ public class MTList {
 		return newList;
 	}
 	
+	/**
+	 * Creates the list item.
+	 *
+	 * @param str the str
+	 * @param item the item
+	 * @param targetList the target list
+	 * @return the content item
+	 */
 	protected ContentItem createListItem(String str, Object item, ListContainer targetList){
 		SimpleButton itemButton = (SimpleButton) contentSystem.createContentItem(SimpleButton.class);
 		itemButton.setAutoFitSize(false);
@@ -133,8 +173,14 @@ public class MTList {
 		return itemButton;
 	}
 	
+	/**
+	 * The Class ListItemAction.
+	 */
 	class ListItemAction extends SimpleButtonAdapter{
 
+		/* (non-Javadoc)
+		 * @see synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAdapter#buttonPressed(synergynetframework.appsystem.contentsystem.items.SimpleButton, long, float, float, float)
+		 */
 		@Override
 		public void buttonPressed(SimpleButton b, long id, float x, float y,
 				float pressure) {
@@ -152,30 +198,56 @@ public class MTList {
 			}
 		}
 
+		/* (non-Javadoc)
+		 * @see synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAdapter#buttonReleased(synergynetframework.appsystem.contentsystem.items.SimpleButton, long, float, float, float)
+		 */
 		@Override
 		public void buttonReleased(SimpleButton b, long id, float x, float y,
 				float pressure) {
 		}
 	}
 	
+	/**
+	 * Gets the container.
+	 *
+	 * @return the container
+	 */
 	public OrthoContainer getContainer(){
 		return container;
 	}
 	
+	/**
+	 * Gets the manager.
+	 *
+	 * @return the manager
+	 */
 	public MTListManager getManager(){
 		return listManager;
 	}
 	
+	/**
+	 * Sets the width.
+	 *
+	 * @param width the new width
+	 */
 	public void setWidth(int width){
 		listItemWidth = width;
 		updateLayout();
 	}
 	
+	/**
+	 * Sets the height.
+	 *
+	 * @param height the new height
+	 */
 	public void setHeight(int height){
 		listHeight = height;
 		updateLayout();
 	}
 	
+	/**
+	 * Update layout.
+	 */
 	private void updateLayout(){
 		getListNoLabel().setLocalLocation(0, + listHeight/2 + 20);
 		nextButton.setLocalLocation(listItemWidth/2  - nextButton.getWidth()/2-3,  + listHeight/2 + 20);
@@ -187,10 +259,20 @@ public class MTList {
 		}
 	}
 
+	/**
+	 * Sets the list no label.
+	 *
+	 * @param listNoLabel the new list no label
+	 */
 	protected void setListNoLabel(TextLabel listNoLabel) {
 		this.listNoLabel = listNoLabel;
 	}
 
+	/**
+	 * Gets the list no label.
+	 *
+	 * @return the list no label
+	 */
 	protected TextLabel getListNoLabel() {
 		return listNoLabel;
 	}

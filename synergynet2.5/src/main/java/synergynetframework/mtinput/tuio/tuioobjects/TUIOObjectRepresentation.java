@@ -34,51 +34,103 @@ package synergynetframework.mtinput.tuio.tuioobjects;
 
 import java.awt.geom.Point2D;
 
+
+/**
+ * The Class TUIOObjectRepresentation.
+ */
 public abstract class TUIOObjectRepresentation {
+	
+	/** The id. */
 	private long id;
+	
+	/** The creation time. */
 	private long creationTime;
+	
+	/** The position. */
 	private Point2D.Float position;
+	
+	/** The velocity. */
 	private Point2D.Float velocity;
 	
 	/**
 	 * Constructs the object with an id and also sets
 	 * the creationTime to be now.
-	 * 
-	 * @param id
+	 *
+	 * @param id the id
 	 */
 	public TUIOObjectRepresentation(long id) {
 		setId(id);
 		setCreationTime(System.nanoTime());
 	}
 
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
 	public long getId() {
 		return id;
 	}
 
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
 	public void setId(long id) {
 		this.id = id;
 	}
 
+	/**
+	 * Gets the creation time.
+	 *
+	 * @return the creation time
+	 */
 	public long getCreationTime() {
 		return creationTime;
 	}
 
+	/**
+	 * Sets the creation time.
+	 *
+	 * @param creationTime the new creation time
+	 */
 	public void setCreationTime(long creationTime) {
 		this.creationTime = creationTime;
 	}
 
+	/**
+	 * Gets the position.
+	 *
+	 * @return the position
+	 */
 	public Point2D.Float getPosition() {
 		return position;
 	}
 
+	/**
+	 * Sets the position.
+	 *
+	 * @param position the new position
+	 */
 	public void setPosition(Point2D.Float position) {
 		this.position = position;
 	}
 
+	/**
+	 * Gets the velocity.
+	 *
+	 * @return the velocity
+	 */
 	public Point2D.Float getVelocity() {
 		return velocity;
 	}
 
+	/**
+	 * Sets the velocity.
+	 *
+	 * @param velocity the new velocity
+	 */
 	public void setVelocity(Point2D.Float velocity) {
 		this.velocity = velocity;
 	}

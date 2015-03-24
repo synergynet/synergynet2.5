@@ -32,6 +32,9 @@
 
 package synergynetframework.appsystem.services.net.objectmessaging.messages;
 
+/**
+ * The Interface TCPMessage.
+ */
 public interface TCPMessage extends Message{
 
 }

@@ -46,18 +46,34 @@ import synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp;
 import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightConfirmVisualExit;
 
+
+/**
+ * The Class ConceptMapApp.
+ */
 public class ConceptMapApp extends DefaultSynergyNetApp{
 
+	/** The content. */
 	protected ContentSystem content;
+	
+	/** The gmanager. */
 	protected GraphManager gmanager;
 	
+	/** The instance. */
 	private static ConceptMapApp instance;
 	
+	/**
+	 * Instantiates a new concept map app.
+	 *
+	 * @param info the info
+	 */
 	public ConceptMapApp(ApplicationInfo info) {
 		super(info);
 	}
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 	
@@ -139,18 +155,36 @@ public class ConceptMapApp extends DefaultSynergyNetApp{
 
 	}
 	
+	/**
+	 * Gets the content system.
+	 *
+	 * @return the content system
+	 */
 	public ContentSystem getContentSystem(){
 		return content;
 	}
 	
+	/**
+	 * Gets the graph manager.
+	 *
+	 * @return the graph manager
+	 */
 	public GraphManager getGraphManager(){
 		return gmanager;
 	}
 	
+	/**
+	 * Gets the single instance of ConceptMapApp.
+	 *
+	 * @return single instance of ConceptMapApp
+	 */
 	public static ConceptMapApp getInstance(){
 		return instance;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	@Override
 	protected void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);

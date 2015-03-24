@@ -65,39 +65,86 @@ package apps.groove;
 
 import javax.sound.midi.MidiChannel;
 
+
+/**
+ * The Class GrooveInstrument.
+ */
 public class GrooveInstrument {
 	
+	/** The name. */
 	private String name;
+	
+	/** The note state. */
 	private int noteState;
+	
+	/** The channel. */
 	private MidiChannel channel;
 
+	/**
+	 * Instantiates a new groove instrument.
+	 *
+	 * @param name the name
+	 * @param channel the channel
+	 */
 	public GrooveInstrument(String name, MidiChannel channel) {
 		this.setName(name);
 		this.channel = channel;
 	}
 	
+	/**
+	 * Start note.
+	 *
+	 * @param noteNumber the note number
+	 * @param velocity the velocity
+	 */
 	public void startNote(int noteNumber, int velocity) {
         setNoteState(Key.STATE_ON);
         channel.noteOn(noteNumber, velocity);
 	}
 	
+	/**
+	 * End note.
+	 *
+	 * @param noteNumber the note number
+	 * @param velocity the velocity
+	 */
 	public void endNote(int noteNumber, int velocity) {
         setNoteState(Key.STATE_OFF);
         channel.noteOff(noteNumber, velocity);
 	}
 	
+    /**
+     * Sets the note state.
+     *
+     * @param state the new note state
+     */
     private void setNoteState(int state) {
         noteState = state;
     }
     
+    /**
+     * Checks if is note on.
+     *
+     * @return true, if is note on
+     */
     public boolean isNoteOn() {
         return noteState == Key.STATE_ON;
     }
 
+	/**
+	 * Sets the name.
+	 *
+	 * @param name the new name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}

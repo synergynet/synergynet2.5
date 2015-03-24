@@ -38,10 +38,36 @@ import java.util.List;
 import synergynetframework.appsystem.services.exceptions.CouldNotStartServiceException;
 import synergynetframework.appsystem.services.exceptions.ServiceNotRunningException;
 
+
+/**
+ * The Class SynergyNetService.
+ */
 public abstract class SynergyNetService {
+	
+	/**
+	 * Start.
+	 *
+	 * @throws CouldNotStartServiceException the could not start service exception
+	 */
 	protected abstract void start() throws CouldNotStartServiceException;
+	
+	/**
+	 * Stop.
+	 *
+	 * @throws ServiceNotRunningException the service not running exception
+	 */
 	public abstract void stop() throws ServiceNotRunningException;
+	
+	/**
+	 * Shutdown.
+	 */
 	public abstract void shutdown();
+	
+	/**
+	 * Checks for started.
+	 *
+	 * @return true, if successful
+	 */
 	public abstract boolean hasStarted();
 	/**
 	 * Used to avoid threading issues. Should be called periodically
@@ -49,11 +75,14 @@ public abstract class SynergyNetService {
 	 */
 	public abstract void update();	
 	
+	/** The service message listeners. */
 	List<ServiceMessageListener> serviceMessageListeners = new ArrayList<ServiceMessageListener>();
 	
 	/**
 	 * Services can publish messages. Subscribe to these messages
 	 * by adding ServiceMessageListener instances.
+	 *
+	 * @param listener the listener
 	 */
 	public void registerServiceMessageListener(ServiceMessageListener listener) {
 		if(!serviceMessageListeners.contains(listener)) serviceMessageListeners.add(listener);
@@ -63,7 +92,8 @@ public abstract class SynergyNetService {
 	/**
 	 * Will be called by services to publish messages to those
 	 * listening for them.
-	 * @param message
+	 *
+	 * @param message the message
 	 */
 	protected void sendServiceMessage(String message) {
 		for(ServiceMessageListener l : serviceMessageListeners) {

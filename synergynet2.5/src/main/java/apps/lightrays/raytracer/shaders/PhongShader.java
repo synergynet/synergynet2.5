@@ -16,21 +16,43 @@ import apps.lightrays.raytracer.scene.ShadowRay;
 import apps.lightrays.raytracer.scene.Vector;
 
 
+
+/**
+ * The Class PhongShader.
+ */
 public class PhongShader extends Shader {
 
     // Secondary rays
+    /** The reflected_ray. */
     Ray           reflected_ray;
+    
+    /** The refracted_ray. */
     RefractedRay  refracted_ray;
     //ShadowRay     shadow_ray;
 
     // geometry
+    /** The intersect. */
     Point intersect;
+    
+    /** The normal. */
     Vector normal;
+    
+    /** The shadow_rays. */
     List<ShadowRay> shadow_rays = new ArrayList<ShadowRay>();
+    
+    /** The cosine. */
     double cosine;
     //double light_cos;
 		
-	public PhongShader(Scene scene, Ray incident_ray, RayHitInfo hit, SceneObject obj) {		
+	/**
+     * Instantiates a new phong shader.
+     *
+     * @param scene the scene
+     * @param incident_ray the incident_ray
+     * @param hit the hit
+     * @param obj the obj
+     */
+    public PhongShader(Scene scene, Ray incident_ray, RayHitInfo hit, SceneObject obj) {		
 		super(scene, incident_ray, obj);
 		this.intersect = hit.intersect;		
 		this.normal = hit.normal;
@@ -75,6 +97,11 @@ public class PhongShader extends Shader {
 
 	}
 	
+    /**
+     * Reflect.
+     *
+     * @return the vector
+     */
     public Vector reflect()
     {
     	// Angle of reflection = angle of incidence
@@ -85,6 +112,11 @@ public class PhongShader extends Shader {
 	    return result;
 	}
     
+    /**
+     * Refract.
+     *
+     * @return the vector
+     */
     public Vector refract() {
 	    double refr = 0;
 	    if (cosine >= 0.0)
@@ -115,6 +147,9 @@ public class PhongShader extends Shader {
 	        return new Vector(0, 0, 0);	    	
     }
 
+	/* (non-Javadoc)
+	 * @see apps.lightrays.raytracer.shaders.Shader#getColour(apps.lightrays.raytracer.scene.Colour)
+	 */
 	public void getColour(Colour c) {
 		// Diffused light
 	    Colour diffuse = new Colour();

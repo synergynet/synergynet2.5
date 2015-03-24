@@ -34,24 +34,50 @@ package synergynetframework.appsystem.services.net.networkedcontentmanager.messa
 
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class EnableBiSynchronisation.
+ */
 public class EnableBiSynchronisation extends BroadcastApplicationMessage {	
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -1301794444207865934L;
+	
+	/** The is bi synchronisation on. */
 	private boolean isBiSynchronisationOn;
 	
+	/**
+	 * Instantiates a new enable bi synchronisation.
+	 *
+	 * @param targetClass the target class
+	 * @param isBiSynchronisation the is bi synchronisation
+	 */
 	public EnableBiSynchronisation(Class<?> targetClass, boolean isBiSynchronisation) {
 		super(targetClass);
 		this.isBiSynchronisationOn = isBiSynchronisation;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return "Enable BiSynchronisation Message";
 	}
 
+	/**
+	 * Checks if is bi synchronisation on.
+	 *
+	 * @return true, if is bi synchronisation on
+	 */
 	public boolean isBiSynchronisationOn() {
 		return isBiSynchronisationOn;
 	}
 
+	/**
+	 * Sets the bi synchronisation on.
+	 *
+	 * @param isBiSynchronisationOn the new bi synchronisation on
+	 */
 	public void setBiSynchronisationOn(boolean isBiSynchronisationOn) {
 		this.isBiSynchronisationOn = isBiSynchronisationOn;
 	}

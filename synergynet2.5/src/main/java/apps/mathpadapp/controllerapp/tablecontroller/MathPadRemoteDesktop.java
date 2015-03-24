@@ -68,21 +68,54 @@ import synergynetframework.appsystem.contentsystem.items.TextLabel.Alignment;
 import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAdapter;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class MathPadRemoteDesktop.
+ */
 public class MathPadRemoteDesktop extends RemoteDesktop implements ControllerNetworkListener{
+	
+	/** The remote desktop manager. */
 	protected RemoteDesktopManager remoteDesktopManager;
+	
+	/** The online math tools. */
 	protected HashMap<UserIdentity, MathTool> onlineMathTools = new HashMap<UserIdentity, MathTool>();
+	
+	/** The online user tracks. */
 	protected HashMap<UserIdentity, ContentItem> onlineUserTracks = new HashMap<UserIdentity, ContentItem>();
+	
+	/** The control menu. */
 	protected ListContainer controlMenu;
+	
+	/** The title. */
 	protected TextLabel title;
+	
+	/** The control menu button4. */
 	protected SimpleButton controlMenuButton1, controlMenuButton2, controlMenuButton3, controlMenuButton4;
+	
+	/** The top bar. */
 	protected ListContainer topBar;
+	
+	/** The default scale. */
 	protected float defaultScale = 0.4f;
+	
+	/** The is oriented. */
 	protected boolean isOriented = false;
+	
+	/** The is track user mode. */
 	protected boolean isTrackUserMode = false;
+	
+	/** The is full screen mode. */
 	protected boolean isFullScreenMode = false;
 	
+	/** The listeners. */
 	protected transient List<DataSourceListener> listeners = new ArrayList<DataSourceListener>(); 
 	
+	/**
+	 * Instantiates a new math pad remote desktop.
+	 *
+	 * @param contentSystem the content system
+	 * @param networkManager the network manager
+	 */
 	public MathPadRemoteDesktop(final ContentSystem contentSystem, final NetworkedContentManager networkManager){
 		super(contentSystem, networkManager);
 
@@ -266,6 +299,11 @@ public class MathPadRemoteDesktop extends RemoteDesktop implements ControllerNet
 		this.getDesktopWindow().setOrder(1000);
 	}
 
+	/**
+	 * Sync content.
+	 *
+	 * @param syncData the sync data
+	 */
 	private void syncContent(HashMap<UserIdentity, HashMap<Short, Object>> syncData) {
 		this.getDesktopWindow().setAsTopObject();
 		if(syncRenderer != null){
@@ -279,6 +317,12 @@ public class MathPadRemoteDesktop extends RemoteDesktop implements ControllerNet
 		
 	}
 
+	/**
+	 * Adds the remote math pad.
+	 *
+	 * @param userId the user id
+	 * @param mathTool the math tool
+	 */
 	public void addRemoteMathPad(UserIdentity userId, MathTool mathTool) {
 		this.addOnlineItem(mathTool.getWindow());
 		onlineMathTools.put(userId,mathTool);
@@ -290,6 +334,12 @@ public class MathPadRemoteDesktop extends RemoteDesktop implements ControllerNet
 		mathTool.getWindow().setRotateTranslateScalable(false);
 	}
 	
+	/**
+	 * Creates the user track.
+	 *
+	 * @param userId the user id
+	 * @return the image text label
+	 */
 	private ImageTextLabel createUserTrack(UserIdentity userId) {
 		ImageTextLabel userTrack = (ImageTextLabel) contentSystem.createContentItem(ImageTextLabel.class);
 		userTrack.setHeight(50);
@@ -304,12 +354,22 @@ public class MathPadRemoteDesktop extends RemoteDesktop implements ControllerNet
 		return userTrack;
 	}
 
+	/**
+	 * Adds the remote math pads.
+	 *
+	 * @param mathTools the math tools
+	 */
 	public void addRemoteMathPads(HashMap<UserIdentity, MathTool> mathTools) {
 		for(UserIdentity userId: mathTools.keySet()){
 			addRemoteMathPad(userId, mathTools.get(userId));
 		}
 	}
 	
+	/**
+	 * Removes the math pad item.
+	 *
+	 * @param userId the user id
+	 */
 	public void removeMathPadItem(UserIdentity userId){
 		if(onlineMathTools.containsKey(userId))	{
 			super.removeOnlineItem(onlineMathTools.get(userId).getWindow());
@@ -318,16 +378,29 @@ public class MathPadRemoteDesktop extends RemoteDesktop implements ControllerNet
 		}
 	}
 	
+	/**
+	 * Removes the all math pads.
+	 */
 	public void removeAllMathPads(){
 		super.removeOnlineItems();
 		onlineMathTools.clear();
 		onlineUserTracks.clear();
 	}
 	
+	/**
+	 * Gets the online math tools.
+	 *
+	 * @return the online math tools
+	 */
 	public HashMap<UserIdentity, MathTool> getOnlineMathTools(){
 		return onlineMathTools;
 	}
 	
+	/**
+	 * Sets the title.
+	 *
+	 * @param title the new title
+	 */
 	public void setTitle(String title){
 		this.title.setText(" "+title);
 		this.title.setWidth(topBar.getWidth()-115);
@@ -335,11 +408,17 @@ public class MathPadRemoteDesktop extends RemoteDesktop implements ControllerNet
 		this.title.setLocalLocation(this.title.getWidth()/2 + topBar.getBorderSize()+3, this.title.getHeight()/2 + 2);
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.controllerapp.tablecontroller.RemoteDesktop#createSyncRenderer()
+	 */
 	@Override
 	public void createSyncRenderer() {
 		syncRenderer = new MathToolSyncRenderer(this.networkManager.getSyncManager());
 	}
 	
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#userIdsReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity, java.util.List)
+	 */
 	@Override
 	public void userIdsReceived(TableIdentity tableId,
 			List<UserIdentity> userIds) {
@@ -347,6 +426,9 @@ public class MathPadRemoteDesktop extends RemoteDesktop implements ControllerNet
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#userRegistrationReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity, apps.mathpadapp.networkmanager.utils.UserIdentity)
+	 */
 	@Override
 	public void userRegistrationReceived(TableIdentity tableId, UserIdentity userId) {
 		if(tableId.equals(MathPadRemoteDesktop.this.tableId)){
@@ -355,6 +437,9 @@ public class MathPadRemoteDesktop extends RemoteDesktop implements ControllerNet
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#userUnregistrationReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity, apps.mathpadapp.networkmanager.utils.UserIdentity)
+	 */
 	@Override
 	public void userUnregistrationReceived(TableIdentity tableId,	UserIdentity userId) {
 		if(!tableId.equals(MathPadRemoteDesktop.this.tableId)) return;
@@ -367,6 +452,9 @@ public class MathPadRemoteDesktop extends RemoteDesktop implements ControllerNet
 		//for(DataSourceListener listener: listeners) listener.sourceDataUpdated(tableId, sourceData);
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#resultsReceivedFromUser(synergynetframework.appsystem.services.net.localpresence.TableIdentity, apps.mathpadapp.networkmanager.utils.UserIdentity, apps.mathpadapp.controllerapp.assignmentcontroller.AssignmentInfo)
+	 */
 	@Override
 	public void resultsReceivedFromUser(TableIdentity tableId,
 			UserIdentity userId, AssignmentInfo assignInfo) {
@@ -374,12 +462,18 @@ public class MathPadRemoteDesktop extends RemoteDesktop implements ControllerNet
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#projectorFound(synergynetframework.appsystem.services.net.localpresence.TableIdentity, boolean)
+	 */
 	@Override
 	public void projectorFound(TableIdentity tableId, boolean isLeaseSuccessful) {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#userMathPadReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity, apps.mathpadapp.networkmanager.utils.UserIdentity, apps.mathpadapp.mathtool.MathToolInitSettings)
+	 */
 	@Override
 	public void userMathPadReceived(TableIdentity tableId,	UserIdentity userId, MathToolInitSettings mathToolSettings) {
 		if(!tableId.equals(MathPadRemoteDesktop.this.tableId)) return;
@@ -397,6 +491,9 @@ public class MathPadRemoteDesktop extends RemoteDesktop implements ControllerNet
 		for(DataSourceListener listener: listeners) listener.sourceDataUpdated(tableId, remoteMathPads);	
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#remoteDesktopContentReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity, java.util.HashMap)
+	 */
 	@Override
 	public void remoteDesktopContentReceived(TableIdentity tableId,	HashMap<UserIdentity, MathToolInitSettings> items) {
 		if(!tableId.equals(MathPadRemoteDesktop.this.tableId)) return;
@@ -416,18 +513,34 @@ public class MathPadRemoteDesktop extends RemoteDesktop implements ControllerNet
 		for(DataSourceListener listener: listeners) listener.sourceDataUpdated(tableId, items);
 	}
 	
+	/**
+	 * Adds the data source listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void addDataSourceListener(DataSourceListener listener){
 		if(!listeners.contains(listener)) listeners.add(listener);
 	}
 	
+	/**
+	 * Removes the data source listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void removeDataSourceListener(DataSourceListener listener){
 		listeners.remove(listener);
 	}
 	
+	/**
+	 * Removes the data source listeners.
+	 */
 	public void removeDataSourceListeners(){
 		listeners.clear();
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#syncDataReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity, java.util.HashMap)
+	 */
 	@Override
 	public void syncDataReceived(TableIdentity sender,	HashMap<UserIdentity, HashMap<Short, Object>> mathPadSyncData) {
 		if(sender.equals(tableId)){
@@ -436,6 +549,9 @@ public class MathPadRemoteDesktop extends RemoteDesktop implements ControllerNet
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#tableIdReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity)
+	 */
 	@Override
 	public void tableIdReceived(TableIdentity tableId) {
 		 

@@ -37,10 +37,34 @@ import java.nio.ByteBuffer;
 
 import javax.media.format.RGBFormat;
 
+
+/**
+ * The listener interface for receiving byteBufferRenderer events.
+ * The class that is interested in processing a byteBufferRenderer
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addByteBufferRendererListener<code> method. When
+ * the byteBufferRenderer event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see ByteBufferRendererEvent
+ */
 public interface ByteBufferRendererListener {
 	
+	/**
+	 * Sets the size.
+	 *
+	 * @param videowidth the videowidth
+	 * @param videoheight the videoheight
+	 * @param format the format
+	 */
 	public void setSize(int videowidth, int videoheight, RGBFormat format);
 	
+	/**
+	 * Frame.
+	 *
+	 * @param buffer the buffer
+	 */
 	public void frame(ByteBuffer buffer);
 
 }

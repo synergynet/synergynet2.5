@@ -66,23 +66,45 @@ import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightC
 import synergynetframework.jme.cursorsystem.elements.twod.OrthoBringToTop;
 import synergynetframework.jme.sysutils.CameraUtility;
 
+
+/**
+ * The Class LivingMapsApp.
+ */
 public class LivingMapsApp extends DefaultSynergyNetApp {
 	
+	/** The content system. */
 	private ContentSystem contentSystem;
+	
+	/** The default zoom level. */
 	private int defaultZoomLevel = 13;
+	
+	/** The current zoom level. */
 	private int currentZoomLevel = defaultZoomLevel;
 	
+	/** The map info path. */
 	private String mapInfoPath = "C:/test/file.txt";
 
+	/** The ts. */
 	TextureState ts = DisplaySystem.getDisplaySystem().getRenderer().createTextureState();
+	
+	/** The t. */
 	Texture t;
 	
+	/** The map items. */
 	Map<ContentItem, ItemMapInfo> mapItems = new HashMap<ContentItem, ItemMapInfo>();
 	
+    /**
+     * Instantiates a new living maps app.
+     *
+     * @param info the info
+     */
     public LivingMapsApp(ApplicationInfo info) {
 		super(info);		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		
@@ -121,6 +143,9 @@ public class LivingMapsApp extends DefaultSynergyNetApp {
         addMultiTouchListeners();
 	}
 
+	/**
+	 * Adds the multi touch listeners.
+	 */
 	private void addMultiTouchListeners() {
 		for(ContentItem item: mapItems.keySet()){
 			((OrthoContentItem)item).addItemListener(new ItemListener(){
@@ -172,6 +197,9 @@ public class LivingMapsApp extends DefaultSynergyNetApp {
 		}
 	}
 
+	/**
+	 * Clear stack info.
+	 */
 	private void clearStackInfo() {
 	    try {
 	        BufferedWriter out = new BufferedWriter(new FileWriter(mapInfoPath));
@@ -182,6 +210,9 @@ public class LivingMapsApp extends DefaultSynergyNetApp {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onDeactivate()
+	 */
 	@Override
 	protected void onDeactivate() {
 		//video.stop();
@@ -189,6 +220,9 @@ public class LivingMapsApp extends DefaultSynergyNetApp {
 		//super.onDeactivate();		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#getCamera()
+	 */
 	protected Camera getCamera() {
 		if(cam == null) {
 			cam = CameraUtility.getCamera();
@@ -199,6 +233,9 @@ public class LivingMapsApp extends DefaultSynergyNetApp {
 		return cam;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	@Override
 	protected void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);
@@ -207,6 +244,9 @@ public class LivingMapsApp extends DefaultSynergyNetApp {
 		
 	}
 	
+	/**
+	 * Process map.
+	 */
 	private void processMap(){
 	    try {
 	        BufferedReader in = new BufferedReader(new FileReader(mapInfoPath));
@@ -258,6 +298,11 @@ public class LivingMapsApp extends DefaultSynergyNetApp {
 
 	}
 
+	/**
+	 * Creates the content.
+	 *
+	 * @return the j panel
+	 */
 	public JPanel createContent() {
 		return null;
     }

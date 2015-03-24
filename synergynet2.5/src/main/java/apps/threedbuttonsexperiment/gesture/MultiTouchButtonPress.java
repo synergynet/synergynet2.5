@@ -42,31 +42,64 @@ import synergynetframework.jme.cursorsystem.cursordata.ScreenCursor;
 import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 
 
+
+/**
+ * The Class MultiTouchButtonPress.
+ */
 public class MultiTouchButtonPress extends ThreeDMultiTouchElement {
 	
+	/** The button height. */
 	private float buttonHeight;
 	
+	/** The listeners. */
 	protected List<FreeButtonListener> listeners = new ArrayList<FreeButtonListener>();
 	
+	/**
+	 * Instantiates a new multi touch button press.
+	 *
+	 * @param s the s
+	 */
 	public MultiTouchButtonPress(Spatial s) {
 		super(s);
 	}
 	
+	/**
+	 * Instantiates a new multi touch button press.
+	 *
+	 * @param pickSpatial the pick spatial
+	 * @param targetSpatial the target spatial
+	 */
 	public MultiTouchButtonPress(Spatial pickSpatial, Spatial targetSpatial) {
 		super(pickSpatial, targetSpatial);
 	}
 	
+	/**
+	 * Gets the button height.
+	 *
+	 * @return the button height
+	 */
 	public float getButtonHeight() {
 		return buttonHeight;
 	}
 
+	/**
+	 * Sets the button height.
+	 *
+	 * @param buttonHeight the new button height
+	 */
 	public void setButtonHeight(float buttonHeight) {
 		this.buttonHeight = buttonHeight;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorClicked(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorClicked(ScreenCursor c, MultiTouchCursorEvent event) {}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorPressed(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorPressed(ScreenCursor c, MultiTouchCursorEvent event) {	
 		for (FreeButtonListener l:listeners){
@@ -74,6 +107,9 @@ public class MultiTouchButtonPress extends ThreeDMultiTouchElement {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorReleased(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorReleased(ScreenCursor c, MultiTouchCursorEvent event) {
 		for (FreeButtonListener l:listeners){
@@ -81,16 +117,43 @@ public class MultiTouchButtonPress extends ThreeDMultiTouchElement {
 		}		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.MultiTouchElement#cursorChanged(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorChanged(ScreenCursor c, MultiTouchCursorEvent event) {		
 		
 	}
 	
+	/**
+	 * The listener interface for receiving freeButton events.
+	 * The class that is interested in processing a freeButton
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addFreeButtonListener<code> method. When
+	 * the freeButton event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see FreeButtonEvent
+	 */
 	public interface FreeButtonListener{
+		
+		/**
+		 * Button pressed.
+		 */
 		public void buttonPressed();
+		
+		/**
+		 * Button released.
+		 */
 		public void buttonReleased();
 	}
 	
+	/**
+	 * Adds the button listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void addButtonListener(FreeButtonListener listener){
 		this.listeners.add(listener);
 	}

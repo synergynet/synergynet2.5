@@ -46,15 +46,32 @@ import net.htmlparser.jericho.TextExtractor;
 import synergynetframework.appsystem.services.net.rapidnetworkmanager.RapidNetworkManager;
 
 
+
+/**
+ * The Class TabletopTreeController.
+ */
 public class TabletopTreeController implements FileTransferListener{
 	
+	/** The tree. */
 	protected TabletopTree tree;
+	
+	/** The clipboard. */
 	protected Clipboard clipboard;
+	
+	/** The selected node. */
 	protected DefaultMutableTreeNode selectedNode;
+	
+	/** The html flavor. */
 	private DataFlavor rtfFlavor, htmlFlavor;
 	
+	/** The file node map. */
 	private Map<File, FileNodeInfo> fileNodeMap = new HashMap<File, FileNodeInfo>();
 
+	/**
+	 * Instantiates a new tabletop tree controller.
+	 *
+	 * @param tree the tree
+	 */
 	public TabletopTreeController(TabletopTree tree){
 		this.tree = tree;
 		clipboard =  Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -63,7 +80,13 @@ public class TabletopTreeController implements FileTransferListener{
 		AssetRegistry.getInstance().addFileTransferListener(this);
 	}
 	
-	  public void addFileNode(DefaultMutableTreeNode dropNode, final File f) {
+	  /**
+  	 * Adds the file node.
+  	 *
+  	 * @param dropNode the drop node
+  	 * @param f the f
+  	 */
+  	public void addFileNode(DefaultMutableTreeNode dropNode, final File f) {
 			  if(dropNode == null || f == null) return; 
 			  if(fileNodeMap.containsKey(f)){
 				  JOptionPane.showMessageDialog(tree, "The chosen file is currently being upload to the tabletop", "File Transfer Error", JOptionPane.ERROR_MESSAGE);
@@ -83,6 +106,13 @@ public class TabletopTreeController implements FileTransferListener{
 			  
 		}
 		  
+		/**
+		 * Insert file tree node.
+		 *
+		 * @param dropNode the drop node
+		 * @param assetId the asset id
+		 * @param f the f
+		 */
 		private void insertFileTreeNode(DefaultMutableTreeNode dropNode, String assetId, File f) {
 			   int mid= f.getName().lastIndexOf(".");
 			   String ext=f.getName().substring(mid+1);
@@ -110,6 +140,13 @@ public class TabletopTreeController implements FileTransferListener{
 				  tree.expandRow(dropNode.getLevel());
 		}
 		
+		/**
+		 * Insert image tree node.
+		 *
+		 * @param dropNode the drop node
+		 * @param assetId the asset id
+		 * @param img the img
+		 */
 		private void insertImageTreeNode(DefaultMutableTreeNode dropNode, String assetId, Image img){
 			 
 			 // create a name for the image including its number
@@ -127,6 +164,13 @@ public class TabletopTreeController implements FileTransferListener{
 			  tree.expandRow(dropNode.getLevel());
 		}
 		
+		/**
+		 * Adds the text node.
+		 *
+		 * @param dropNode the drop node
+		 * @param s the s
+		 * @param title the title
+		 */
 		private void addTextNode(DefaultMutableTreeNode dropNode, String s, String title) {
 			  if(dropNode == null || s == null) return;
 			  try {
@@ -143,6 +187,12 @@ public class TabletopTreeController implements FileTransferListener{
 			}
 		}
 		
+		/**
+		 * Adds the image node.
+		 *
+		 * @param dropNode the drop node
+		 * @param img the img
+		 */
 		private void addImageNode(final DefaultMutableTreeNode dropNode, final Image img) {
 			  if(dropNode == null || img == null) return;
 				new Thread(new Runnable(){
@@ -172,6 +222,9 @@ public class TabletopTreeController implements FileTransferListener{
 				}).start();
 		}
 
+		/**
+		 * Update inbox node.
+		 */
 		public void updateInboxNode(){
 			// delete all nodes
 			InboxNode node = tree.getInboxNode(DesktopClient.tableId);
@@ -199,6 +252,11 @@ public class TabletopTreeController implements FileTransferListener{
 			}
 		}
 		
+		/**
+		 * Delete selected.
+		 *
+		 * @param paths the paths
+		 */
 		public void deleteSelected(TreePath[] paths) {
 			if(paths != null && paths.length >0){
 				int choice = 0;
@@ -226,6 +284,9 @@ public class TabletopTreeController implements FileTransferListener{
 			}
 		}
 	
+		/**
+		 * Process paste.
+		 */
 		@SuppressWarnings("rawtypes")
 		public void processPaste(){
 			
@@ -299,6 +360,9 @@ public class TabletopTreeController implements FileTransferListener{
 			}				
 		}
 
+		/**
+		 * Process delete.
+		 */
 		public void processDelete() {
 			if(selectedNode != null){
 				TreePath[] paths = new TreePath[selectedNode.getChildCount()];
@@ -308,20 +372,36 @@ public class TabletopTreeController implements FileTransferListener{
 			}			
 		}
 		
+		/**
+		 * Sets the selected node.
+		 *
+		 * @param selectedNode the new selected node
+		 */
 		public void setSelectedNode(DefaultMutableTreeNode selectedNode) {
 			this.selectedNode = selectedNode;
 		}
 		
+		/**
+		 * Gets the clipboard.
+		 *
+		 * @return the clipboard
+		 */
 		public Clipboard getClipboard(){
 			return clipboard;
 		}
 
+		/* (non-Javadoc)
+		 * @see apps.mtdesktop.fileutility.FileTransferListener#fileUploadStarted(java.io.File)
+		 */
 		@Override
 		public void fileUploadStarted(File file) {
 			 
 			
 		}
 
+		/* (non-Javadoc)
+		 * @see apps.mtdesktop.fileutility.FileTransferListener#fileUploadCompleted(java.io.File)
+		 */
 		@Override
 		public void fileUploadCompleted(File file) {
 			if(fileNodeMap.containsKey(file)){
@@ -340,18 +420,27 @@ public class TabletopTreeController implements FileTransferListener{
 			}
 		}
 
+		/* (non-Javadoc)
+		 * @see apps.mtdesktop.fileutility.FileTransferListener#fileDownloadStarted(java.io.File)
+		 */
 		@Override
 		public void fileDownloadStarted(File file) {
 			 
 			
 		}
 
+		/* (non-Javadoc)
+		 * @see apps.mtdesktop.fileutility.FileTransferListener#fileDownloadCompleted(java.io.File)
+		 */
 		@Override
 		public void fileDownloadCompleted(File file) {
 			 
 			
 		}
 
+		/* (non-Javadoc)
+		 * @see apps.mtdesktop.fileutility.FileTransferListener#fileUploadFailed(java.io.File, java.lang.String)
+		 */
 		@Override
 		public void fileUploadFailed(File file, String responseMessage) {
 			if(fileNodeMap.containsKey(file)) 
@@ -359,17 +448,32 @@ public class TabletopTreeController implements FileTransferListener{
 			JOptionPane.showMessageDialog(tree, responseMessage, "Upload error",JOptionPane.ERROR_MESSAGE);
 		}
 
+		/* (non-Javadoc)
+		 * @see apps.mtdesktop.fileutility.FileTransferListener#fileDownloadFailed(java.io.File, java.lang.String)
+		 */
 		@Override
 		public void fileDownloadFailed(File file, String responseMessage) {
 			 
 			
 		}
 		
+		/**
+		 * The Class FileNodeInfo.
+		 */
 		private class FileNodeInfo{
 			
+			/** The drop node. */
 			public DefaultMutableTreeNode dropNode;
+			
+			/** The asset id. */
 			public String assetId;
 			
+			/**
+			 * Instantiates a new file node info.
+			 *
+			 * @param dropNode the drop node
+			 * @param assetId the asset id
+			 */
 			public FileNodeInfo(DefaultMutableTreeNode dropNode, String assetId){
 				this.dropNode = dropNode;
 				this.assetId = assetId;

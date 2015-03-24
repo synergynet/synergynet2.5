@@ -46,12 +46,23 @@ import com.jme.scene.shape.Sphere;
 import com.jme.scene.shape.Torus;
 import com.jme.util.TextureManager;
 
+
+/**
+ * The Class TestOrbitInput.
+ */
 public class TestOrbitInput extends SimpleGame {
 
+	/** The input manager. */
 	InputManager inputManager = new InputManager();
 	
+	/** The skybox. */
 	Skybox skybox;
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 
 		TestOrbitInput app = new TestOrbitInput();
@@ -59,12 +70,18 @@ public class TestOrbitInput extends SimpleGame {
 		app.start();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.jme.app.BaseSimpleGame#initSystem()
+	 */
 	@Override
 	protected void initSystem() {
 
 		super.initSystem();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.jme.app.BaseSimpleGame#simpleInitGame()
+	 */
 	@Override
 	protected void simpleInitGame() {
 
@@ -189,6 +206,9 @@ public class TestOrbitInput extends SimpleGame {
         statNode.attachChild(text);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.jme.app.BaseSimpleGame#simpleUpdate()
+	 */
 	@Override
 	protected void simpleUpdate() {
 		

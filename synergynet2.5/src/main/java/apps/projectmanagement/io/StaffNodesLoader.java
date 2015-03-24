@@ -14,8 +14,19 @@ import apps.projectmanagement.registry.StaffNodeRegistry;
 
 import synergynetframework.appsystem.contentsystem.ContentSystem;
 
+
+/**
+ * The Class StaffNodesLoader.
+ */
 public class StaffNodesLoader {
 	
+	/**
+	 * Load node.
+	 *
+	 * @param fileName the file name
+	 * @param contentSystem the content system
+	 * @return the string
+	 */
 	public static String loadNode(String fileName, ContentSystem contentSystem){
 		
 		try {			

@@ -24,18 +24,31 @@ import synergynetframework.appsystem.services.net.netservicediscovery.NetworkSer
 import synergynetframework.appsystem.services.net.peer.ServerStatusMonitor;
 import synergynetframework.utils.crypto.CryptoUtils;
 
+
+/**
+ * The Class FileStoreClient.
+ */
 public class FileStoreClient extends SynergyNetService implements Runnable {
 
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(FileStoreClient.class.getName());
 	
+	/** The socket. */
 	private Socket socket;
 
+	/** The address. */
 	private InetAddress address;
 
+	/**
+	 * Instantiates a new file store client.
+	 */
 	public FileStoreClient() {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#start()
+	 */
 	public void start() throws CouldNotStartServiceException {		
 		NetworkServiceDiscoveryService nsds = (NetworkServiceDiscoveryService) ServiceManager.getInstance().get(NetworkServiceDiscoveryService.class);
 		ServiceDiscoverySystem serviceDiscovery = nsds.getServiceDiscovery();
@@ -61,6 +74,13 @@ public class FileStoreClient extends SynergyNetService implements Runnable {
 		}
 	}
 	
+	/**
+	 * Send file.
+	 *
+	 * @param file the file
+	 * @return the string
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public String sendFile(File file) throws IOException {
 		socket = new Socket(address, FileStoreServer.TCP_PORT);
 		ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
@@ -101,30 +121,45 @@ public class FileStoreClient extends SynergyNetService implements Runnable {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
 	@Override
 	public void run() {
 		 
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#hasStarted()
+	 */
 	@Override
 	public boolean hasStarted() {
 		 
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#shutdown()
+	 */
 	@Override
 	public void shutdown() {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#stop()
+	 */
 	@Override
 	public void stop() throws ServiceNotRunningException {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#update()
+	 */
 	@Override
 	public void update() {
 		 

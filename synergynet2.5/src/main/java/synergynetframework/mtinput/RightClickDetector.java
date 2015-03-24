@@ -38,8 +38,20 @@ import com.jme.math.Vector2f;
 
 import synergynetframework.jme.cursorsystem.cursordata.ScreenCursor;
 
+
+/**
+ * The Class RightClickDetector.
+ */
 public class RightClickDetector {
 
+	/**
+	 * Checks if is double click.
+	 *
+	 * @param screenCursors the screen cursors
+	 * @param rightCursor the right cursor
+	 * @param distance the distance
+	 * @return true, if is double click
+	 */
 	public static boolean isDoubleClick(Vector<ScreenCursor> screenCursors, ScreenCursor rightCursor, float distance) {
 		Vector2f screenCursorPosition = new Vector2f(); 
 		Vector2f rightCursorPosition = new Vector2f();

@@ -49,22 +49,41 @@ import com.jme.math.Vector3f;
 import com.jme.scene.Spatial;
 import com.jme.scene.shape.Quad;
 
+
+/**
+ * The Class JMEQuadContentItem.
+ */
 public class JMEQuadContentItem extends JMEOrthoContentItem implements IQuadContentItemImplementation {
 
+	/**
+	 * Instantiates a new JME quad content item.
+	 *
+	 * @param contentItem the content item
+	 * @param spatial the spatial
+	 */
 	public JMEQuadContentItem(ContentItem contentItem, Spatial spatial) {
 		super(contentItem, spatial);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IQuadContentItemImplementation#setHeight(int)
+	 */
 	@Override
 	public void setHeight(int height) {
 		 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IQuadContentItemImplementation#setWidth(int)
+	 */
 	@Override
 	public void setWidth(int width) {
 		 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IQuadContentItemImplementation#setAutoFitSize(boolean)
+	 */
 	@Override
 	public void setAutoFitSize(boolean isEnabled) {
 		 
@@ -72,6 +91,9 @@ public class JMEQuadContentItem extends JMEOrthoContentItem implements IQuadCont
 	}
 
 	//item cursor events
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEOrthoContentItem#cursorChanged(synergynetframework.jme.cursorsystem.elements.twod.OrthoCursorEventDispatcher, synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorChanged(
 			OrthoCursorEventDispatcher commonCursorEventDispatcher,
@@ -95,6 +117,9 @@ public class JMEQuadContentItem extends JMEOrthoContentItem implements IQuadCont
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEOrthoContentItem#cursorClicked(synergynetframework.jme.cursorsystem.elements.twod.OrthoCursorEventDispatcher, synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorClicked(
 			OrthoCursorEventDispatcher commonCursorEventDispatcher,
@@ -124,6 +149,9 @@ public class JMEQuadContentItem extends JMEOrthoContentItem implements IQuadCont
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEOrthoContentItem#cursorPressed(synergynetframework.jme.cursorsystem.elements.twod.OrthoCursorEventDispatcher, synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorPressed(
 			OrthoCursorEventDispatcher commonCursorEventDispatcher,
@@ -146,6 +174,9 @@ public class JMEQuadContentItem extends JMEOrthoContentItem implements IQuadCont
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEOrthoContentItem#cursorReleased(synergynetframework.jme.cursorsystem.elements.twod.OrthoCursorEventDispatcher, synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
 	@Override
 	public void cursorReleased(
 			OrthoCursorEventDispatcher commonCursorEventDispatcher,
@@ -168,6 +199,12 @@ public class JMEQuadContentItem extends JMEOrthoContentItem implements IQuadCont
 		}
 	}
 		
+	/**
+	 * Gets the current element2 d coords for cursor.
+	 *
+	 * @param cursor the cursor
+	 * @return the current element2 d coords for cursor
+	 */
 	protected Point getCurrentElement2DCoordsForCursor(ScreenCursor cursor) {
 		if(cursor == null) return null;
 		Vector3f cursorPosition = new Vector3f(cursor.getCurrentCursorScreenPosition().x, cursor.getCurrentCursorScreenPosition().y, 0f);

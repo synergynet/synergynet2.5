@@ -56,22 +56,48 @@ import synergynetframework.appsystem.services.net.networkedcontentmanager.messag
 import synergynetframework.appsystem.services.net.networkedcontentmanager.messages.projector.SynchroniseProjectorData;
 import synergynetframework.appsystem.services.net.networkedcontentmanager.utils.ProjectorNode;
 
+
+/**
+ * The Class ProjectorController.
+ */
 public class ProjectorController {
 	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(ProjectorController.class.getName());
 	
+	/** The networked content manager. */
 	protected NetworkedContentManager networkedContentManager;
+	
+	/** The online projectors. */
 	protected HashMap<TableIdentity, ProjectorNode> onlineProjectors = new HashMap<TableIdentity, ProjectorNode>();
+	
+	/** The is projector leased. */
 	private boolean isProjectorLeased = false;
+	
+	/** The controller classes. */
 	private ArrayList<Class<?>> controllerClasses;
+	
+	/** The projector classes. */
 	private ArrayList<Class<?>> projectorClasses;
 	
+	/**
+	 * Instantiates a new projector controller.
+	 *
+	 * @param networkedContentManager the networked content manager
+	 * @param controllerClasses the controller classes
+	 * @param projectorClasses the projector classes
+	 */
 	public ProjectorController(NetworkedContentManager networkedContentManager, ArrayList<Class<?>> controllerClasses, ArrayList<Class<?>> projectorClasses){
 		this.networkedContentManager = networkedContentManager;
 		this.controllerClasses = controllerClasses;
 		this.projectorClasses = projectorClasses;
 	}
 	
+	/**
+	 * Lease projector.
+	 *
+	 * @param id the id
+	 */
 	public synchronized void leaseProjector(TableIdentity id){
 		if(isProjectorLeased){
 			for(Class<?> sourceClass: controllerClasses)	
@@ -94,12 +120,20 @@ public class ProjectorController {
 		}
 	}
 	
+	/**
+	 * Demand projectors.
+	 */
 	public void demandProjectors() {
 		for(Class<?> targetClass: projectorClasses)	
 			networkedContentManager.sendMessage(new SearchProjector(targetClass));	
 		log.info("Send message to search projector");
 	}
 
+	/**
+	 * Unregister projector.
+	 *
+	 * @param tableId the table id
+	 */
 	public void unregisterProjector(TableIdentity tableId) {
 		if(onlineProjectors.containsKey(tableId)){
 			ProjectorNode projector = onlineProjectors.get(tableId);
@@ -110,6 +144,11 @@ public class ProjectorController {
 		}		
 	}
 
+	/**
+	 * Construct projector.
+	 *
+	 * @param tableId the table id
+	 */
 	public void constructProjector(TableIdentity tableId) {
 		ProjectorNode projector = new ProjectorNode(tableId, networkedContentManager);
 		projector.setLocation(200,200);
@@ -117,6 +156,12 @@ public class ProjectorController {
 		log.info("Construct projector");
 	}
 
+	/**
+	 * Send data to projector.
+	 *
+	 * @param tableId the table id
+	 * @param onlineItems the online items
+	 */
 	public void sendDataToProjector(TableIdentity tableId,	Map<String, ContentItem> onlineItems) {
 		for(Class<?> targetClass: projectorClasses)	
 			networkedContentManager.sendMessage(new SendDataToProjector(targetClass, onlineItems.values(), tableId));
@@ -124,6 +169,13 @@ public class ProjectorController {
 		log.info("Send content to projector");
 	}
 
+	/**
+	 * Send projector sync message.
+	 *
+	 * @param clientTableId the client table id
+	 * @param projectorTableId the projector table id
+	 * @param synchronisedItems the synchronised items
+	 */
 	public void sendProjectorSyncMessage(TableIdentity clientTableId, TableIdentity projectorTableId, Map<String, Map<String, String>> synchronisedItems) {
 		for(Class<?> targetClass: projectorClasses){	
 			SynchroniseProjectorData msg = new SynchroniseProjectorData(targetClass, synchronisedItems, projectorTableId);
@@ -134,6 +186,11 @@ public class ProjectorController {
 		log.info("Send synchronised items to projector");
 	}
 
+	/**
+	 * Send clear projector message.
+	 *
+	 * @param tableId the table id
+	 */
 	public void sendClearProjectorMessage(TableIdentity tableId) {
 		for(Class<?> targetClass: projectorClasses)	
 			networkedContentManager.sendMessage(new ClearProjector(targetClass, tableId));	
@@ -141,10 +198,18 @@ public class ProjectorController {
 		log.info("Clear projector");
 	}
 
+	/**
+	 * Clear projector screen.
+	 */
 	public void clearProjectorScreen() {
 		networkedContentManager.getContentSystem().removeAllContentItems();
 	}
 
+	/**
+	 * Send release projector message.
+	 *
+	 * @param tableId the table id
+	 */
 	public void sendReleaseProjectorMessage(TableIdentity tableId) {
 		for(Class<?> targetClass: projectorClasses)	
 			networkedContentManager.sendMessage(new ReleaseProjector(targetClass, tableId));	
@@ -152,6 +217,9 @@ public class ProjectorController {
 		log.info("Send release projector message");
 	}
 
+	/**
+	 * Release projector.
+	 */
 	public synchronized void releaseProjector() {
 		this.clearProjectorScreen();
 		isProjectorLeased = false;
@@ -161,6 +229,12 @@ public class ProjectorController {
 	
 
 	
+	/**
+	 * Load projector content.
+	 *
+	 * @param sender the sender
+	 * @param items the items
+	 */
 	public void loadProjectorContent(TableIdentity sender,
 			List<ContentItem> items) {
 		networkedContentManager.getContentSystem().removeAllContentItems();
@@ -179,6 +253,12 @@ public class ProjectorController {
 	
 
 	
+	/**
+	 * Synchronise projector data.
+	 *
+	 * @param tableId the table id
+	 * @param synchronisedItems the synchronised items
+	 */
 	public void synchroniseProjectorData(TableIdentity tableId, Map<String, Map<String, String>> synchronisedItems){
 		if (synchronisedItems.size()==0) return;
 		for (String name:synchronisedItems.keySet()){
@@ -191,6 +271,11 @@ public class ProjectorController {
 		}
 	}
 	
+	/**
+	 * Gets the online projectors.
+	 *
+	 * @return the online projectors
+	 */
 	public List<ProjectorNode> getOnlineProjectors() {
 		return new ArrayList<ProjectorNode>(onlineProjectors.values());
 	}

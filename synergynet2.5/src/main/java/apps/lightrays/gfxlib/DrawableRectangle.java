@@ -34,12 +34,30 @@ package apps.lightrays.gfxlib;
 
 import java.awt.Graphics2D;
 
+
+/**
+ * The Class DrawableRectangle.
+ */
 public class DrawableRectangle extends DrawableElement {
+	
+	/** The height. */
 	private int height;
+	
+	/** The width. */
 	private int width;
+	
+	/** The width_half. */
 	private int width_half;
+	
+	/** The height_half. */
 	private int height_half;
 
+	/**
+	 * Instantiates a new drawable rectangle.
+	 *
+	 * @param width the width
+	 * @param height the height
+	 */
 	public DrawableRectangle(int width, int height) {
 		this.width = width;
 		this.height = height;
@@ -48,22 +66,45 @@ public class DrawableRectangle extends DrawableElement {
 		height_half = height / 2;
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.lightrays.gfxlib.DrawableElement#draw(java.awt.Graphics2D, long)
+	 */
 	public void draw(Graphics2D gfx, long tick_count) {
 		gfx.drawRect(x - width_half, y - height_half, width, height);
 	}
 
+	/**
+	 * Gets the height.
+	 *
+	 * @return the height
+	 */
 	public int getHeight() {
 		return height;
 	}
 
+	/**
+	 * Sets the height.
+	 *
+	 * @param height the new height
+	 */
 	public void setHeight(int height) {
 		this.height = height;
 	}
 
+	/**
+	 * Gets the width.
+	 *
+	 * @return the width
+	 */
 	public int getWidth() {
 		return width;
 	}
 
+	/**
+	 * Gets the width_half.
+	 *
+	 * @return the width_half
+	 */
 	public int getWidth_half() {
 		return width_half;
 	}

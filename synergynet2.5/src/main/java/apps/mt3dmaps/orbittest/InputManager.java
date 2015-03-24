@@ -30,6 +30,7 @@ package apps.mt3dmaps.orbittest;
 import com.jme.input.InputHandler;
 import com.jme.renderer.Camera;
 
+
 /**
  * A special input handler for using the camera Orbit action and the Camera Focus action.
  * 
@@ -37,13 +38,16 @@ import com.jme.renderer.Camera;
  */
 public class InputManager extends InputHandler {
 
+	/** The orbit. */
 	private OrbitAction orbit = null;
 	
+	/** The camera focus. */
 	private CameraFocusInputAction cameraFocus = null;
 	
 	/**
-	 * 
-	 * @param camera
+	 * Sets the up.
+	 *
+	 * @param camera the new up
 	 */
 	public void setup(Camera camera) {
 		
@@ -54,8 +58,8 @@ public class InputManager extends InputHandler {
 		addAction(cameraFocus, InputHandler.DEVICE_MOUSE, InputHandler.BUTTON_ALL, InputHandler.AXIS_ALL, false);
 	}
 	
-	/**
-	 * 
+	/* (non-Javadoc)
+	 * @see com.jme.input.InputHandler#update(float)
 	 */
 	@Override
 	public void update(float time) {
@@ -66,8 +70,9 @@ public class InputManager extends InputHandler {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Gets the orbit.
+	 *
+	 * @return the orbit
 	 */
 	public OrbitAction getOrbit() {
 		
@@ -75,8 +80,9 @@ public class InputManager extends InputHandler {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Gets the camera focus.
+	 *
+	 * @return the camera focus
 	 */
 	public CameraFocusInputAction getCameraFocus() {
 		

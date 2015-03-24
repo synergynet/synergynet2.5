@@ -42,59 +42,277 @@ import synergynetframework.appsystem.contentsystem.items.listener.OrthoSnapListe
 import synergynetframework.appsystem.contentsystem.items.listener.ScreenCursorListener;
 import synergynetframework.jme.cursorsystem.fixutils.FixLocationStatus;
 
+
+/**
+ * The Interface IOrthoContentItemImplementation.
+ */
 public interface IOrthoContentItemImplementation extends IContentItemImplementation{
+	
+	/**
+	 * Sets the order.
+	 *
+	 * @param zOrder the new order
+	 */
 	public void setOrder(int zOrder);
 
+	/**
+	 * Sets the rotate translate scalable.
+	 *
+	 * @param isEnabled the new rotate translate scalable
+	 */
 	public void setRotateTranslateScalable(boolean isEnabled);
+	
+	/**
+	 * Sets the rotate translate scalable.
+	 *
+	 * @param isEnabled the is enabled
+	 * @param attachToParent the attach to parent
+	 * @param targetItem the target item
+	 */
 	public void setRotateTranslateScalable(boolean isEnabled, boolean attachToParent, ContentItem targetItem);
 
+	/**
+	 * Allow more than two to rotate and scale.
+	 *
+	 * @param b the b
+	 */
 	public void allowMoreThanTwoToRotateAndScale(boolean b);
+	
+	/**
+	 * Allow single touch free move.
+	 *
+	 * @param b the b
+	 */
 	public void allowSingleTouchFreeMove(boolean b);
+	
+	/**
+	 * Sets the scale limit.
+	 *
+	 * @param min the min
+	 * @param max the max
+	 */
 	public void setScaleLimit(float min, float max);
+	
+	/**
+	 * Sets the z rotate limit.
+	 *
+	 * @param min the min
+	 * @param max the max
+	 */
 	public void setZRotateLimit(float min, float max);
 
+	/**
+	 * Sets the bring to topable.
+	 *
+	 * @param isEnabled the new bring to topable
+	 */
 	public void setBringToTopable(boolean isEnabled);
+	
+	/**
+	 * Sets the as top object.
+	 */
 	public void setAsTopObject();
+	
+	/**
+	 * Sets the as bottom object.
+	 */
 	public void setAsBottomObject();
 
+	/**
+	 * Sets the as top object and broad cast event.
+	 */
 	public void setAsTopObjectAndBroadCastEvent();
 
+	/**
+	 * Sets the single touch rotate translate.
+	 *
+	 * @param isEnabled the new single touch rotate translate
+	 * @throws Exception the exception
+	 */
 	public void setSingleTouchRotateTranslate(boolean isEnabled) throws Exception;
 
+	/**
+	 * Sets the snapable.
+	 *
+	 * @param isEnabled the new snapable
+	 */
 	public void setSnapable(boolean isEnabled);
+	
+	/**
+	 * Sets the fix locations.
+	 *
+	 * @param fixLocations the new fix locations
+	 */
 	public void setFixLocations(List<FixLocationStatus> fixLocations);
+	
+	/**
+	 * Sets the tolerance.
+	 *
+	 * @param tolerance the new tolerance
+	 */
 	public void setTolerance(float tolerance);
+	
+	/**
+	 * Sets the right click distance.
+	 *
+	 * @param distance the new right click distance
+	 */
 	public void setRightClickDistance(float distance);
+	
+	/**
+	 * Allow snap to occupied location.
+	 *
+	 * @param allowSnapToOccupiedLocation the allow snap to occupied location
+	 */
 	public void allowSnapToOccupiedLocation(boolean allowSnapToOccupiedLocation);
 
+	/**
+	 * Center item.
+	 */
 	public void centerItem();
+	
+	/**
+	 * Place random.
+	 */
 	public void placeRandom();
+	
+	/**
+	 * Rotate random.
+	 */
 	public void rotateRandom();
 
+	/**
+	 * Adds the item listener.
+	 *
+	 * @param itemListener the item listener
+	 */
 	public void addItemListener(ItemListener itemListener);
+	
+	/**
+	 * Removes the item listerner.
+	 *
+	 * @param itemListener the item listener
+	 */
 	public void removeItemListerner(ItemListener itemListener);
+	
+	/**
+	 * Adds the ortho control point rotate translate scale listener.
+	 *
+	 * @param l the l
+	 */
 	public void addOrthoControlPointRotateTranslateScaleListener(OrthoControlPointRotateTranslateScaleListener l);
+	
+	/**
+	 * Removes the ortho control point rotate translate scale listeners.
+	 *
+	 * @param l the l
+	 */
 	public void removeOrthoControlPointRotateTranslateScaleListeners(OrthoControlPointRotateTranslateScaleListener l);
+	
+	/**
+	 * Adds the bring to top listener.
+	 *
+	 * @param l the l
+	 */
 	public void addBringToTopListener(BringToTopListener l);
+	
+	/**
+	 * Removes the bring to top listeners.
+	 *
+	 * @param l the l
+	 */
 	public void removeBringToTopListeners(BringToTopListener l);
+	
+	/**
+	 * Adds the snap listener.
+	 *
+	 * @param l the l
+	 */
 	public void addSnapListener(OrthoSnapListener l);
+	
+	/**
+	 * Removes the snap listeners.
+	 *
+	 * @param l the l
+	 */
 	public void removeSnapListeners(OrthoSnapListener l);
+	
+	/**
+	 * Adds the flick listener.
+	 *
+	 * @param l the l
+	 */
 	public void addFlickListener(OrthoFlickListener l);
+	
+	/**
+	 * Removes the flick listeners.
+	 *
+	 * @param l the l
+	 */
 	public void removeFlickListeners(OrthoFlickListener l);
 
+	/**
+	 * Make flickable.
+	 *
+	 * @param deceleration the deceleration
+	 */
 	public void makeFlickable(float deceleration);
+	
+	/**
+	 * Make unflickable.
+	 */
 	public void makeUnflickable();
+	
+	/**
+	 * Checks if is flickable.
+	 *
+	 * @return true, if is flickable
+	 */
 	public boolean isFlickable();
+	
+	/**
+	 * Flick.
+	 *
+	 * @param velocityX the velocity x
+	 * @param velocityY the velocity y
+	 * @param deceleration the deceleration
+	 */
 	public void flick(float velocityX, float velocityY, float deceleration);
 
+	/**
+	 * Adds the screen cursor listener.
+	 *
+	 * @param l the l
+	 */
 	public void addScreenCursorListener(ScreenCursorListener l);
+	
+	/**
+	 * Removes the screen cursor listeners.
+	 */
 	public void removeScreenCursorListeners();
+	
+	/**
+	 * Turn off event dispatcher.
+	 */
 	public void turnOffEventDispatcher();
 
+	/**
+	 * Reset.
+	 */
 	public void reset();
 
+	/**
+	 * Gets the min scale.
+	 *
+	 * @return the min scale
+	 */
 	public float getMinScale();
 
+	/**
+	 * Gets the max scale.
+	 *
+	 * @return the max scale
+	 */
 	public float getMaxScale();
 
 }

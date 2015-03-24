@@ -35,14 +35,29 @@ package apps.mathpadapp.mathtool;
 import synergynetframework.appsystem.contentsystem.items.MathPad;
 import synergynetframework.jme.cursorsystem.elements.twod.OrthoBringToTop;
 
+
+/**
+ * The Class MathToolInitialiser.
+ */
 public class MathToolInitialiser {
 	
+	/** The math tool. */
 	private MathTool mathTool;
 	
+	/**
+	 * Instantiates a new math tool initialiser.
+	 *
+	 * @param mathTool the math tool
+	 */
 	public MathToolInitialiser(MathTool mathTool){
 		this.mathTool = mathTool;
 	}
 	
+	/**
+	 * Inits the.
+	 *
+	 * @param settings the settings
+	 */
 	protected void init(MathToolInitSettings settings){
 		if(settings.getNoOfPads()>1){
 			for(int i=1; i<settings.getNoOfPads(); i++)
@@ -79,6 +94,11 @@ public class MathToolInitialiser {
 		mathTool.controlPanel.getSolutionButton().setVisible(false);
 	}
 	
+	/**
+	 * Gets the inits the settings.
+	 *
+	 * @return the inits the settings
+	 */
 	public MathToolInitSettings getInitSettings(){
 		MathToolInitSettings settings = new MathToolInitSettings();
 		settings.setNoOfPads(mathTool.mathPadList.size());

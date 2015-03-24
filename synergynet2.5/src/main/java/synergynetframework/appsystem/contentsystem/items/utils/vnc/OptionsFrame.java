@@ -32,14 +32,17 @@ package synergynetframework.appsystem.contentsystem.items.utils.vnc;
 import java.awt.*;
 import java.awt.event.*;
 
+
+/**
+ * The Class OptionsFrame.
+ */
 class OptionsFrame extends Frame
   implements WindowListener, ActionListener, ItemListener {
 
-  /**
-	 * 
-	 */
+  /** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -5889546067709730256L;
 
+/** The names. */
 static String[] names = {
     "Encoding",
     "Compression level",
@@ -53,6 +56,7 @@ static String[] names = {
     "Share desktop",
   };
 
+  /** The values. */
   static String[][] values = {
     { "Auto", "Raw", "RRE", "CoRRE", "Hextile", "Zlib", "Tight", "ZRLE" },
     { "Default", "1", "2", "3", "4", "5", "6", "7", "8", "9" },
@@ -66,6 +70,7 @@ static String[] names = {
     { "Yes", "No" },
   };
 
+  /** The share desktop index. */
   final int
     encodingIndex        = 0,
     compressLevelIndex   = 1,
@@ -78,9 +83,16 @@ static String[] names = {
     scaleCursorIndex     = 8,
     shareDesktopIndex    = 9;
 
+  /** The labels. */
   Label[] labels = new Label[names.length];
+  
+  /** The choices. */
   Choice[] choices = new Choice[names.length];
+  
+  /** The close button. */
   Button closeButton;
+  
+  /** The viewer. */
   VncViewer viewer;
 
 
@@ -88,21 +100,43 @@ static String[] names = {
   // The actual data which other classes look at:
   //
 
+  /** The preferred encoding. */
   int preferredEncoding;
+  
+  /** The compress level. */
   int compressLevel;
+  
+  /** The jpeg quality. */
   int jpegQuality;
+  
+  /** The use copy rect. */
   boolean useCopyRect;
+  
+  /** The request cursor updates. */
   boolean requestCursorUpdates;
+  
+  /** The ignore cursor updates. */
   boolean ignoreCursorUpdates;
 
+  /** The eight bit colors. */
   boolean eightBitColors;
 
+  /** The reverse mouse buttons2 and3. */
   boolean reverseMouseButtons2And3;
+  
+  /** The share desktop. */
   boolean shareDesktop;
+  
+  /** The view only. */
   boolean viewOnly;
+  
+  /** The scale cursor. */
   int scaleCursor;
 
+  /** The auto scale. */
   boolean autoScale;
+  
+  /** The scaling factor. */
   int scalingFactor;
 
   //
@@ -110,6 +144,11 @@ static String[] names = {
   // arrays.
   //
 
+  /**
+   * Instantiates a new options frame.
+   *
+   * @param v the v
+   */
   OptionsFrame(VncViewer v) {
     super("TightVNC Options");
 
@@ -215,6 +254,9 @@ static String[] names = {
   // Disable the shareDesktop option
   //
 
+  /**
+   * Disable share desktop.
+   */
   void disableShareDesktop() {
     labels[shareDesktopIndex].setEnabled(false);
     choices[shareDesktopIndex].setEnabled(false);
@@ -228,6 +270,9 @@ static String[] names = {
   // server.
   //
 
+  /**
+   * Sets the encodings.
+   */
   void setEncodings() {
     useCopyRect = choices[useCopyRectIndex].getSelectedItem().equals("Yes");
 
@@ -299,6 +344,9 @@ static String[] names = {
   // necessary.
   //
 
+  /**
+   * Sets the color format.
+   */
   void setColorFormat() {
 
     eightBitColors =
@@ -316,6 +364,9 @@ static String[] names = {
   // appropriately.
   //
 
+  /**
+   * Sets the other options.
+   */
   void setOtherOptions() {
 
     reverseMouseButtons2And3
@@ -357,6 +408,9 @@ static String[] names = {
   // Respond to actions on Choice controls
   //
 
+  /* (non-Javadoc)
+   * @see java.awt.event.ItemListener#itemStateChanged(java.awt.event.ItemEvent)
+   */
   public void itemStateChanged(ItemEvent evt) {
     Object source = evt.getSource();
 
@@ -390,6 +444,9 @@ static String[] names = {
   // Respond to button press
   //
 
+  /* (non-Javadoc)
+   * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+   */
   public void actionPerformed(ActionEvent evt) {
     if (evt.getSource() == closeButton)
       setVisible(false);
@@ -399,14 +456,40 @@ static String[] names = {
   // Respond to window events
   //
 
+  /* (non-Javadoc)
+   * @see java.awt.event.WindowListener#windowClosing(java.awt.event.WindowEvent)
+   */
   public void windowClosing(WindowEvent evt) {
     setVisible(false);
   }
 
+  /* (non-Javadoc)
+   * @see java.awt.event.WindowListener#windowActivated(java.awt.event.WindowEvent)
+   */
   public void windowActivated(WindowEvent evt) {}
+  
+  /* (non-Javadoc)
+   * @see java.awt.event.WindowListener#windowDeactivated(java.awt.event.WindowEvent)
+   */
   public void windowDeactivated(WindowEvent evt) {}
+  
+  /* (non-Javadoc)
+   * @see java.awt.event.WindowListener#windowOpened(java.awt.event.WindowEvent)
+   */
   public void windowOpened(WindowEvent evt) {}
+  
+  /* (non-Javadoc)
+   * @see java.awt.event.WindowListener#windowClosed(java.awt.event.WindowEvent)
+   */
   public void windowClosed(WindowEvent evt) {}
+  
+  /* (non-Javadoc)
+   * @see java.awt.event.WindowListener#windowIconified(java.awt.event.WindowEvent)
+   */
   public void windowIconified(WindowEvent evt) {}
+  
+  /* (non-Javadoc)
+   * @see java.awt.event.WindowListener#windowDeiconified(java.awt.event.WindowEvent)
+   */
   public void windowDeiconified(WindowEvent evt) {}
 }

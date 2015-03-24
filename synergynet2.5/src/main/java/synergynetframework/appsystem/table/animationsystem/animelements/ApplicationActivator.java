@@ -37,14 +37,27 @@ import synergynetframework.appsystem.table.appregistry.ApplicationControlError;
 import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.appsystem.table.appregistry.ApplicationTaskManager;
 
+
+/**
+ * The Class ApplicationActivator.
+ */
 public class ApplicationActivator extends AnimationElement {
 
+	/** The ai. */
 	private ApplicationInfo ai;
 
+	/**
+	 * Instantiates a new application activator.
+	 *
+	 * @param ai the ai
+	 */
 	public ApplicationActivator(ApplicationInfo ai) {
 		this.ai = ai;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.animationsystem.AnimationElement#elementStart(float)
+	 */
 	@Override
 	public void elementStart(float tpf) {
 		try {
@@ -54,15 +67,24 @@ public class ApplicationActivator extends AnimationElement {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.animationsystem.AnimationElement#isFinished()
+	 */
 	@Override
 	public boolean isFinished() {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.animationsystem.AnimationElement#reset()
+	 */
 	@Override
 	public void reset() {
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.animationsystem.AnimationElement#updateAnimationState(float)
+	 */
 	@Override
 	public void updateAnimationState(float tpf) {
 		

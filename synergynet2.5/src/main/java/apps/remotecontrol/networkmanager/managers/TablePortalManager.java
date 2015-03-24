@@ -40,10 +40,23 @@ import apps.remotecontrol.tableportal.TablePortal;
 
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class TablePortalManager.
+ */
 public class TablePortalManager implements NetworkListener{
+	
+	/** The table portals. */
 	protected List<TablePortal> tablePortals;
+	
+	/** The instance. */
 	private static TablePortalManager instance;
 	
+	/**
+	 * Gets the single instance of TablePortalManager.
+	 *
+	 * @return single instance of TablePortalManager
+	 */
 	public static TablePortalManager getInstance() {
 		synchronized(TablePortalManager.class) {
 			if(instance == null) instance = new TablePortalManager();
@@ -51,26 +64,55 @@ public class TablePortalManager implements NetworkListener{
 		}
 	}
 
+	/**
+	 * Instantiates a new table portal manager.
+	 */
 	private TablePortalManager() {				
 		tablePortals = new ArrayList<TablePortal>();
 	}
 	
+	/**
+	 * Register table portal.
+	 *
+	 * @param tablePortal the table portal
+	 */
 	public void registerTablePortal(TablePortal tablePortal){
 		if(tablePortal!= null && !tablePortals.contains(tablePortal)) tablePortals.add(tablePortal);
 	}
 	
+	/**
+	 * Unregister table portal.
+	 *
+	 * @param tablePortal the table portal
+	 */
 	public void unregisterTablePortal(TablePortal tablePortal){
 		if(tablePortal!= null && tablePortals.contains(tablePortal)) tablePortals.remove(tablePortal);
 	}
 	
+	/**
+	 * Update.
+	 *
+	 * @param tpf the tpf
+	 */
 	public void update(float tpf){
 		for(TablePortal tablePortal: tablePortals) tablePortal.update(tpf);
 	}
 	
+	/**
+	 * Gets the table portals.
+	 *
+	 * @return the table portals
+	 */
 	public List<TablePortal> getTablePortals(){
 		return tablePortals;
 	}
 	
+	/**
+	 * Gets the table portal.
+	 *
+	 * @param id the id
+	 * @return the table portal
+	 */
 	public TablePortal getTablePortal(String id){
 		for(TablePortal tablePortal: tablePortals){
 			if(tablePortal.getPortalId() != null && tablePortal.getPortalId().equals(id))
@@ -79,6 +121,12 @@ public class TablePortalManager implements NetworkListener{
 		return null;
 	}
 	
+	/**
+	 * Gets the table portal for table.
+	 *
+	 * @param tableId the table id
+	 * @return the table portal for table
+	 */
 	public TablePortal getTablePortalForTable(TableIdentity tableId){
 		for(TablePortal tablePortal: tablePortals){
 			if(tablePortal.getTableId() != null && tablePortal.getTableId().equals(tableId))
@@ -87,6 +135,9 @@ public class TablePortalManager implements NetworkListener{
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.remotecontrol.networkmanager.managers.NetworkedContentManager.NetworkListener#messageReceived(java.lang.Object)
+	 */
 	@Override
 	public void messageReceived(Object obj) {
 		if(obj instanceof AnnounceTableMessage){
@@ -96,6 +147,11 @@ public class TablePortalManager implements NetworkListener{
 		}
 	}
 
+	/**
+	 * Sets the networked content manager.
+	 *
+	 * @param manager the new networked content manager
+	 */
 	public void setNetworkedContentManager(NetworkedContentManager manager) {
 		manager.addNetworkListener(this);
 		
@@ -111,11 +167,17 @@ public class TablePortalManager implements NetworkListener{
 		}
 	}
 
+	/**
+	 * Close all.
+	 */
 	public void closeAll() {
 		for(TablePortal portal: tablePortals) portal.close();
 		tablePortals.clear();
 	}
 	
+	/**
+	 * Hide all.
+	 */
 	public void hideAll(){
 		for(TablePortal portal: tablePortals) portal.getWindow().setVisible(false);
 	}

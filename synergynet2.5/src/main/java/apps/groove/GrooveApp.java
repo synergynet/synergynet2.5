@@ -47,18 +47,42 @@ import synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp;
 import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightConfirmVisualExit;
 
+
+/**
+ * The Class GrooveApp.
+ */
 public class GrooveApp extends DefaultSynergyNetApp{	
+	
+	/** The content. */
 	private ContentSystem content;
+	
+	/** The synthesizer. */
 	private Synthesizer synthesizer;
+	
+	/** The instruments. */
 	private Instrument[] instruments;
+	
+	/** The current instrument. */
 	private Instrument currentInstrument;
+	
+	/** The current channel. */
 	private MidiChannel currentChannel;
+	
+	/** The all midi channels. */
 	private MidiChannel[] allMidiChannels;	
 	
+	/**
+	 * Instantiates a new groove app.
+	 *
+	 * @param info the info
+	 */
 	public GrooveApp(ApplicationInfo info) {
 		super(info);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 		content = ContentSystem.getContentSystemForSynergyNetApp(this);

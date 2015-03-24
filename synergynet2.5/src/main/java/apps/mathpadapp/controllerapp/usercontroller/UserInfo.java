@@ -35,39 +35,95 @@ package apps.mathpadapp.controllerapp.usercontroller;
 import apps.mathpadapp.networkmanager.utils.UserIdentity;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class UserInfo.
+ */
 public class UserInfo {
 	
-	public enum UserStatus{ONLINE, OFFLINE, BLOCKED};
+	/**
+	 * The Enum UserStatus.
+	 */
+	public enum UserStatus{/** The online. */
+ONLINE, /** The offline. */
+ OFFLINE, /** The blocked. */
+ BLOCKED};
 	
+	/** The user status. */
 	protected UserStatus userStatus = UserStatus.ONLINE;
+	
+	/** The user id. */
 	protected UserIdentity userId;
+	
+	/** The table id. */
 	protected TableIdentity tableId;
 	
+	/**
+	 * Instantiates a new user info.
+	 *
+	 * @param userId the user id
+	 */
 	public UserInfo(UserIdentity userId){
 		this.userId = userId;
 	}
 	
+	/**
+	 * Gets the user status.
+	 *
+	 * @return the user status
+	 */
 	public UserStatus getUserStatus() {
 		return userStatus;
 	}
+	
+	/**
+	 * Sets the user status.
+	 *
+	 * @param userStatus the new user status
+	 */
 	public void setUserStatus(UserStatus userStatus) {
 		this.userStatus = userStatus;
 	}
+	
+	/**
+	 * Gets the user identity.
+	 *
+	 * @return the user identity
+	 */
 	public UserIdentity getUserIdentity() {
 		return userId;
 	}
+	
+	/**
+	 * Sets the user identity.
+	 *
+	 * @param userId the new user identity
+	 */
 	public void setUserIdentity(UserIdentity userId) {
 		this.userId = userId;
 	}
 	
+	/**
+	 * Gets the table identity.
+	 *
+	 * @return the table identity
+	 */
 	public TableIdentity getTableIdentity(){
 		return tableId;
 	}
 	
+	/**
+	 * Sets the table identity.
+	 *
+	 * @param tableId the new table identity
+	 */
 	public void setTableIdentity(TableIdentity tableId){
 		this.tableId = tableId;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString(){
 		return userId.toString();
 	}

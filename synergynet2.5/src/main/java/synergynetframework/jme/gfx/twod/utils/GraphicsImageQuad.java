@@ -48,23 +48,62 @@ import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
 import com.jmex.awt.swingui.ImageGraphics;
 
+
+/**
+ * The Class GraphicsImageQuad.
+ */
 public class GraphicsImageQuad extends Quad {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -3895330617113645191L;
 
+	/** The graphics. */
 	protected ImageGraphics graphics;
+	
+	/** The ts. */
 	protected TextureState ts;
+	
+	/** The texture. */
 	protected Texture texture;
+	
+	/** The image width. */
 	protected int imageWidth;
+	
+	/** The image height. */
 	protected int imageHeight;
 
+	/**
+	 * Instantiates a new graphics image quad.
+	 *
+	 * @param name the name
+	 * @param width the width
+	 * @param height the height
+	 */
 	public GraphicsImageQuad(String name, float width, float height) {
 		this(name, width, height, 256, 128);
 	}
 	
+	/**
+	 * Instantiates a new graphics image quad.
+	 *
+	 * @param name the name
+	 * @param imageWidth the image width
+	 * @param imageHeight the image height
+	 * @param pixelsPerUnit the pixels per unit
+	 */
 	public GraphicsImageQuad(String name, int imageWidth, int imageHeight, float pixelsPerUnit) {
 		this(name, (float)imageWidth / pixelsPerUnit, imageHeight / pixelsPerUnit, imageWidth, imageHeight);
 	}
 	
+	/**
+	 * Instantiates a new graphics image quad.
+	 *
+	 * @param name the name
+	 * @param width the width
+	 * @param height the height
+	 * @param imageWidth the image width
+	 * @param imageHeight the image height
+	 */
 	public GraphicsImageQuad(String name, float width, float height, int imageWidth, int imageHeight) {
 		super(name);	
 		updateGeometry(width, height);
@@ -75,6 +114,9 @@ public class GraphicsImageQuad extends Quad {
 		init();	
 	}
 
+	/**
+	 * Inits the.
+	 */
 	private void init() {
 		recreateImageForSize(imageWidth, imageHeight);
 			
@@ -91,6 +133,12 @@ public class GraphicsImageQuad extends Quad {
 	
 	}
 	
+	/**
+	 * Recreate image for size.
+	 *
+	 * @param widthPixels the width pixels
+	 * @param heightPixels the height pixels
+	 */
 	public void recreateImageForSize(int widthPixels, int heightPixels) {
 		ts = DisplaySystem.getDisplaySystem().getRenderer().createTextureState();
 		ts.setCorrectionType(TextureState.CorrectionType.Perspective);		
@@ -114,15 +162,28 @@ public class GraphicsImageQuad extends Quad {
 		updateRenderState();
 	}
 	
+	/**
+	 * Sets the texture apply mode.
+	 *
+	 * @param mode the new texture apply mode
+	 */
 	public void setTextureApplyMode(ApplyMode mode){
 		texture.setApply(mode);
 		updateRenderState();
 	}
 	
+	/**
+	 * Gets the image graphics.
+	 *
+	 * @return the image graphics
+	 */
 	public ImageGraphics getImageGraphics() {
 		return graphics;
 	}
 
+	/**
+	 * Update graphics.
+	 */
 	public void updateGraphics() {
 		if(graphics != null) {
 			try{
@@ -133,6 +194,11 @@ public class GraphicsImageQuad extends Quad {
 		}
 	}
 	
+	/**
+	 * Enable anti alias.
+	 *
+	 * @param graphics the graphics
+	 */
 	private void enableAntiAlias( Graphics2D graphics ) {
 		RenderingHints hints = graphics.getRenderingHints();
 		if ( hints == null ) {
@@ -144,14 +210,29 @@ public class GraphicsImageQuad extends Quad {
 		graphics.setRenderingHints( hints );
 	}
 
+	/**
+	 * Gets the image width.
+	 *
+	 * @return the image width
+	 */
 	public int getImageWidth() {
 		return imageWidth;
 	}
 
+	/**
+	 * Gets the image height.
+	 *
+	 * @return the image height
+	 */
 	public int getImageHeight() {
 		return imageHeight;
 	}
 	
+	/**
+	 * Gets the texture state.
+	 *
+	 * @return the texture state
+	 */
 	public TextureState getTextureState(){
 		return ts;
 	}

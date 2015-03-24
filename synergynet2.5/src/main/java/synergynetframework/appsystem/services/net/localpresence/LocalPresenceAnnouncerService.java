@@ -44,21 +44,44 @@ import synergynetframework.appsystem.services.net.landiscovery.ServiceDescriptor
 import synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoverySystem;
 import synergynetframework.appsystem.services.net.netservicediscovery.NetworkServiceDiscoveryService;
 
+
+/**
+ * The Class LocalPresenceAnnouncerService.
+ */
 public class LocalPresenceAnnouncerService extends SynergyNetService {
 
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(LocalPresenceAnnouncerService.class.getName());
 	
+	/** The Constant SERVICE_TYPE. */
 	private static final String SERVICE_TYPE = "_snn._tcp.local.";
+	
+	/** The Constant SERVICE_NAME. */
 	private static final String SERVICE_NAME = "presence";
+	
+	/** The Constant SERVICE_PORT. */
 	protected static final int SERVICE_PORT = 1268;
 
+	/** The service discovery. */
 	protected ServiceDiscoverySystem serviceDiscovery;
+	
+	/** The service announcer. */
 	protected ServiceAnnounceSystem serviceAnnouncer;
+	
+	/** The info. */
 	protected ServiceDescriptor info;
+	
+	/** The isrunning. */
 	protected boolean isrunning;
 
+	/**
+	 * Instantiates a new local presence announcer service.
+	 */
 	public LocalPresenceAnnouncerService() {}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#start()
+	 */
 	@Override
 	public void start() throws CouldNotStartServiceException {	
 		log.info("Local presence announcer service startup...");
@@ -90,6 +113,9 @@ public class LocalPresenceAnnouncerService extends SynergyNetService {
 		log.info("Local presence announcer service startup completed.");
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#stop()
+	 */
 	@Override
 	public void stop() {
 		log.info("Local presence announcer service stopping.");
@@ -98,17 +124,26 @@ public class LocalPresenceAnnouncerService extends SynergyNetService {
 		log.info("Local presence announcer service stopped.");
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#shutdown()
+	 */
 	@Override
 	public void shutdown() {
 		isrunning = false;
 		log.info("Local presence announcer service shut down.");
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#hasStarted()
+	 */
 	@Override
 	public boolean hasStarted() {
 		return isrunning;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.SynergyNetService#update()
+	 */
 	@Override
 	public void update() {}
 }

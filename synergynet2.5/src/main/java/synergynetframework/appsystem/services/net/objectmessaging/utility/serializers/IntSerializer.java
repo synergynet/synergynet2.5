@@ -38,16 +38,33 @@ import java.nio.ByteBuffer;
 
 import synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler;
 
+
+/**
+ * The Class IntSerializer.
+ */
 public class IntSerializer extends Serializer {
+	
+	/** The optimize positive. */
 	private boolean optimizePositive = true;
 
+	/**
+	 * Instantiates a new int serializer.
+	 */
 	public IntSerializer () {
 	}
 
+	/**
+	 * Instantiates a new int serializer.
+	 *
+	 * @param optimizePositive the optimize positive
+	 */
 	public IntSerializer (Boolean optimizePositive) {
 		this.optimizePositive = optimizePositive;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.utility.serializers.Serializer#readObjectData(synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler, java.nio.ByteBuffer, java.lang.Class, boolean)
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Integer readObjectData (ConnectionHandler connectionHandler, ByteBuffer buffer, Class type, boolean lengthKnown)
 		throws SerializationException {
@@ -55,16 +72,34 @@ public class IntSerializer extends Serializer {
 		return i;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.utility.serializers.Serializer#writeObjectData(synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler, java.nio.ByteBuffer, java.lang.Object, boolean)
+	 */
 	public void writeObjectData (ConnectionHandler connectionHandler, ByteBuffer buffer, Object object, boolean lengthKnown)
 		throws SerializationException {
 		put(buffer, (Integer)object, optimizePositive);
 	}
 
+	/** The Constant SHORT. */
 	static private final byte SHORT = -128;
+	
+	/** The Constant INT. */
 	static private final byte INT = -127;
+	
+	/** The Constant SHORT_POSITIVE. */
 	static private final byte SHORT_POSITIVE = -1;
+	
+	/** The Constant INT_POSITIVE. */
 	static private final byte INT_POSITIVE = -2;
 
+	/**
+	 * Put.
+	 *
+	 * @param buffer the buffer
+	 * @param value the value
+	 * @param optimizePositive the optimize positive
+	 * @return the int
+	 */
 	static public int put (ByteBuffer buffer, int value, boolean optimizePositive) {
 		if (optimizePositive) {
 			if (value >= 0 && value <= 253) {
@@ -92,6 +127,13 @@ public class IntSerializer extends Serializer {
 		return 5;
 	}
 
+	/**
+	 * Gets the.
+	 *
+	 * @param buffer the buffer
+	 * @param optimizePositive the optimize positive
+	 * @return the int
+	 */
 	static public int get (ByteBuffer buffer, boolean optimizePositive) {
 		byte value = buffer.get();
 		if (optimizePositive) {
@@ -115,6 +157,13 @@ public class IntSerializer extends Serializer {
 		return value;
 	}
 
+	/**
+	 * Can read.
+	 *
+	 * @param buffer the buffer
+	 * @param optimizePositive the optimize positive
+	 * @return true, if successful
+	 */
 	static public boolean canRead (ByteBuffer buffer, boolean optimizePositive) {
 		int position = buffer.position();
 		byte value = buffer.get();

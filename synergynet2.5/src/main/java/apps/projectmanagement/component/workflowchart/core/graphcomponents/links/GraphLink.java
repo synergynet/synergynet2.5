@@ -50,17 +50,42 @@ import synergynetframework.appsystem.contentsystem.items.listener.ItemListener;
 import synergynetframework.appsystem.contentsystem.items.utils.Location;
 
 
+
+/**
+ * The Class GraphLink.
+ */
 public class GraphLink extends GraphComponent{
 	
+	/** The line. */
 	protected LineItem line;
+	
+	/** The source node. */
 	protected GraphNode sourceNode;
+	
+	/** The target node. */
 	protected GraphNode targetNode;
+	
+	/** The menu. */
 	private LinkMenu menu;
+	
+	/** The position ratio. */
 	private double positionRatio;
+	
+	/** The dummy node. */
 	private TextNode dummyNode;
+	
+	/** The menu enabled. */
 	private boolean menuEnabled = true;
+	
+	/** The keyboard node. */
 	private KeyboardNode keyboardNode;
 	
+	/**
+	 * Instantiates a new graph link.
+	 *
+	 * @param contentSystem the content system
+	 * @param gManager the g manager
+	 */
 	public GraphLink(final ContentSystem contentSystem, final GraphManager gManager){
 		super(contentSystem, gManager);
 		line = (LineItem) contentSystem.createContentItem(LineItem.class);
@@ -109,34 +134,67 @@ public class GraphLink extends GraphComponent{
 		graphManager.addGraphLink(this);
 	}
 	
+	/* (non-Javadoc)
+	 * @see apps.projectmanagement.component.workflowchart.core.graphcomponents.GraphComponent#getName()
+	 */
 	public String getName(){
 		return line.getName();
 	}
 	
+	/**
+	 * Gets the line item.
+	 *
+	 * @return the line item
+	 */
 	public LineItem getLineItem(){
 		return line;
 	}
 	
+	/**
+	 * Sets the source location.
+	 *
+	 * @param sourceLocation the new source location
+	 */
 	public void setSourceLocation(Location sourceLocation){
 		line.setSourceLocation(sourceLocation);
 		this.updateLinkPoint();
 		if(menu != null) positionMenu(line.getSourceLocation(), line.getTargetLocation());
 	}
 	
+	/**
+	 * Gets the source location.
+	 *
+	 * @return the source location
+	 */
 	public Location getSourceLocation(){
 		return line.getSourceLocation();
 	}
 
+	/**
+	 * Sets the target location.
+	 *
+	 * @param targetLocation the new target location
+	 */
 	public void setTargetLocation(Location targetLocation){
 		line.setTargetLocation(targetLocation);
 		this.updateLinkPoint();
 		if(menu != null) positionMenu(line.getSourceLocation(), line.getTargetLocation());
 	}
 	
+	/**
+	 * Gets the target location.
+	 *
+	 * @return the target location
+	 */
 	public Location getTargetLocation(){
 		return line.getTargetLocation();
 	}
 	
+	/**
+	 * Sets the source node.
+	 *
+	 * @param sourceNode the new source node
+	 */
 	public void setSourceNode(GraphNode sourceNode){
 		this.sourceNode = sourceNode;
 		if(sourceNode != null){
@@ -148,6 +206,11 @@ public class GraphLink extends GraphComponent{
 		}
 	}
 	
+	/**
+	 * Sets the target node.
+	 *
+	 * @param targetNode the new target node
+	 */
 	public void setTargetNode(GraphNode targetNode){
 		this.targetNode = targetNode;
 		if(targetNode != null){
@@ -159,51 +222,110 @@ public class GraphLink extends GraphComponent{
 		}
 	}
 	
+	/**
+	 * Gets the source node.
+	 *
+	 * @return the source node
+	 */
 	public GraphNode getSourceNode(){
 		return sourceNode;
 	}
 	
+	/**
+	 * Gets the target node.
+	 *
+	 * @return the target node
+	 */
 	public GraphNode getTargetNode(){
 		return targetNode;
 	}
 
+	/**
+	 * Removes the.
+	 */
 	public void remove() {
 		contentSystem.removeContentItem(line);
 		if(menu != null) menu.remove();
 	}
 	
+	/**
+	 * Gets the link mode.
+	 *
+	 * @return the link mode
+	 */
 	public int getLinkMode(){
 		return line.getLineMode();
 	}
 	
+	/**
+	 * Sets the link mode.
+	 *
+	 * @param lineMode the new link mode
+	 */
 	public void setLinkMode(int lineMode){
 		line.setLineMode(lineMode);
 	}
 	
+	/**
+	 * Sets the arrow mode.
+	 *
+	 * @param arrowMode the new arrow mode
+	 */
 	public void setArrowMode(int arrowMode){
 		line.setArrowMode(arrowMode);
 	}
 	
+	/**
+	 * Gets the arrow mode.
+	 *
+	 * @return the arrow mode
+	 */
 	public int getArrowMode(){
 		return line.getArrowMode();
 	}
 	
+	/**
+	 * Sets the text.
+	 *
+	 * @param text the new text
+	 */
 	public void setText(String text){
 		line.setText(text);
 	}
 	
+	/**
+	 * Gets the text.
+	 *
+	 * @return the text
+	 */
 	public String getText(){
 		return line.getText();
 	}
 	
+	/**
+	 * Sets the width.
+	 *
+	 * @param lineWidth the new width
+	 */
 	public void setWidth(float lineWidth){
 		line.setWidth(lineWidth);
 	}
 	
+	/**
+	 * Gets the width.
+	 *
+	 * @return the width
+	 */
 	public float getWidth(){
 		return line.getWidth();
 	}
 	
+	/**
+	 * Position menu.
+	 *
+	 * @param sourceLocation the source location
+	 * @param targetLocation the target location
+	 */
 	private void positionMenu(Location sourceLocation, Location targetLocation){
 		Point2D.Float sourcePoint = new Point2D.Float(sourceLocation.x, sourceLocation.y);
 		Point2D.Float targetPoint = new Point2D.Float(targetLocation.x, targetLocation.y);
@@ -217,6 +339,11 @@ public class GraphLink extends GraphComponent{
 	}
 	
 	
+	/**
+	 * Creates the link point.
+	 *
+	 * @return the graph node
+	 */
 	private GraphNode createLinkPoint(){
 		if(dummyNode == null){
 			dummyNode = new TextNode(contentSystem, graphManager);
@@ -228,6 +355,9 @@ public class GraphLink extends GraphComponent{
 		return dummyNode;
 	}
 	
+	/**
+	 * Update link point.
+	 */
 	private void updateLinkPoint(){
 		if(dummyNode != null && sourceNode != null && targetNode != null){
 			Point2D.Float lineCenter = new Point2D.Float();
@@ -238,22 +368,45 @@ public class GraphLink extends GraphComponent{
 		}
 	}
 	
+	/**
+	 * Gets the link point.
+	 *
+	 * @return the link point
+	 */
 	public GraphNode getLinkPoint(){
 		return createLinkPoint();
 	}
 	
+	/**
+	 * Sets the menu enabled.
+	 *
+	 * @param isEnabled the new menu enabled
+	 */
 	public void setMenuEnabled(boolean isEnabled){
 		this.menuEnabled = isEnabled;
 	}
 	
+	/**
+	 * Checks if is menu enabled.
+	 *
+	 * @return true, if is menu enabled
+	 */
 	public boolean isMenuEnabled(){
 		return menuEnabled;
 	}
 	
+	/**
+	 * Gets the order.
+	 *
+	 * @return the order
+	 */
 	public int getOrder(){
 		return line.getOrder();
 	}
 
+	/**
+	 * Removes the menu.
+	 */
 	public void removeMenu() {
 		if(menu != null){
 			menu.remove();
@@ -261,14 +414,29 @@ public class GraphLink extends GraphComponent{
 		}
 	}
 	
+	/**
+	 * Sets the keyboard node.
+	 *
+	 * @param keyboardNode the new keyboard node
+	 */
 	public void setKeyboardNode(KeyboardNode keyboardNode){
 		this.keyboardNode = keyboardNode;
 	}
 	
+	/**
+	 * Gets the keyboard node.
+	 *
+	 * @return the keyboard node
+	 */
 	public KeyboardNode getKeyboardNode(){
 		return keyboardNode;
 	}
 	
+	/**
+	 * Sets the visiblity.
+	 *
+	 * @param visible the new visiblity
+	 */
 	public void setVisiblity(boolean visible){
 		line.setVisible(visible);
 		if (!visible){
@@ -277,6 +445,11 @@ public class GraphLink extends GraphComponent{
 
 	}
 	
+/**
+ * Sets the editable.
+ *
+ * @param b the new editable
+ */
 public void setEditable(boolean b){
 		
 		((Spatial)line.getImplementationObject()).setIsCollidable(b);

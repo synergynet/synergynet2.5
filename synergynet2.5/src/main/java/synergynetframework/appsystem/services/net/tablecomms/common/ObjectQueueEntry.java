@@ -34,28 +34,61 @@ package synergynetframework.appsystem.services.net.tablecomms.common;
 
 import synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler;
 
+
+/**
+ * The Class ObjectQueueEntry.
+ */
 public class ObjectQueueEntry {
 
+	/** The handler. */
 	private ConnectionHandler handler;
+	
+	/** The obj. */
 	private Object obj;
 
+	/**
+	 * Instantiates a new object queue entry.
+	 *
+	 * @param obj the obj
+	 * @param handler the handler
+	 */
 	public ObjectQueueEntry(Object obj, ConnectionHandler handler) {
 		this.setObj(obj);
 		this.setHandler(handler);
 	}
 
+	/**
+	 * Sets the handler.
+	 *
+	 * @param handler the new handler
+	 */
 	public void setHandler(ConnectionHandler handler) {
 		this.handler = handler;
 	}
 
+	/**
+	 * Gets the handler.
+	 *
+	 * @return the handler
+	 */
 	public ConnectionHandler getHandler() {
 		return handler;
 	}
 
+	/**
+	 * Sets the obj.
+	 *
+	 * @param obj the new obj
+	 */
 	public void setObj(Object obj) {
 		this.obj = obj;
 	}
 
+	/**
+	 * Gets the obj.
+	 *
+	 * @return the obj
+	 */
 	public Object getObj() {
 		return obj;
 	}

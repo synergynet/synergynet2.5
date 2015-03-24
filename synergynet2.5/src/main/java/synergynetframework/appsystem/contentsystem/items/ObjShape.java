@@ -41,16 +41,36 @@ import com.jme.renderer.ColorRGBA;
 import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.shapes.IObjShape;
 
+
+/**
+ * The Class ObjShape.
+ */
 public class ObjShape extends Frame implements Cloneable {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 7358045606444271667L;
+	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(ObjShape.class.getName());	
 	
+	/**
+	 * Instantiates a new obj shape.
+	 *
+	 * @param contentSystem the content system
+	 * @param name the name
+	 */
 	public ObjShape(ContentSystem contentSystem, String name) {
 		super(contentSystem, name);
 	}
 	
+	/** The impl. */
 	IObjShape impl = null;
 
+	/**
+	 * Sets the shape geometry.
+	 *
+	 * @param geom the new shape geometry
+	 */
 	public void setShapeGeometry(URL geom){
 		impl = (IObjShape) contentItemImplementation;
 		try {
@@ -60,6 +80,11 @@ public class ObjShape extends Frame implements Cloneable {
 		}
 	}
 	
+	/**
+	 * Sets the shape geometry.
+	 *
+	 * @param geomLoc the new shape geometry
+	 */
 	public void setShapeGeometry(String geomLoc){
 		
 		impl = (IObjShape) contentItemImplementation;
@@ -70,12 +95,22 @@ public class ObjShape extends Frame implements Cloneable {
 		}
 	}
 	
+	/**
+	 * Sets the solid colour.
+	 *
+	 * @param colour the new solid colour
+	 */
 	public void setSolidColour(ColorRGBA colour){
 		if (impl != null){
 			impl.setSolidColour(colour);
 		}
 	}
 
+	/**
+	 * Gets the obj file text.
+	 *
+	 * @return the obj file text
+	 */
 	public String getObjFileText() {
 		try {
 			return impl.getObjFileText();

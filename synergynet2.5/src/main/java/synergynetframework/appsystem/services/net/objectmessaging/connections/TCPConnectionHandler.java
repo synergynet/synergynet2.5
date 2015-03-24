@@ -47,26 +47,62 @@ import synergynetframework.appsystem.services.net.objectmessaging.utility.serial
 import synergynetframework.appsystem.services.net.objectmessaging.utility.serializers.SerializationException;
 
 
+
+/**
+ * The Class TCPConnectionHandler.
+ */
 public class TCPConnectionHandler {
 	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(TCPConnectionHandler.class.getName());
 
+	/** The alive time. */
 	protected int aliveTime = 60000;
+	
+	/** The socket channel. */
 	protected SocketChannel socketChannel;
+	
+	/** The write buffer. */
 	protected final ByteBuffer readBuffer, writeBuffer;
+	
+	/** The write length buffer. */
 	protected final ByteBuffer writeLengthBuffer = ByteBuffer.allocateDirect(32 * 1000);
+	
+	/** The connection handler. */
 	protected final ConnectionHandler connectionHandler;
+	
+	/** The selection key. */
 	protected SelectionKey selectionKey;
+	
+	/** The write lock. */
 	protected final Object writeLock = new Object();
+	
+	/** The current object length. */
 	protected int currentObjectLength;
+	
+	/** The last communication time. */
 	protected long lastCommunicationTime;
 
+	/**
+	 * Instantiates a new TCP connection handler.
+	 *
+	 * @param connectionHandler the connection handler
+	 * @param bufferSize the buffer size
+	 */
 	public TCPConnectionHandler (ConnectionHandler connectionHandler, int bufferSize) {
 		this.connectionHandler = connectionHandler;
 		readBuffer = ByteBuffer.allocateDirect(bufferSize);
 		writeBuffer = ByteBuffer.allocateDirect(bufferSize);
 	}
 
+	/**
+	 * Accept.
+	 *
+	 * @param selector the selector
+	 * @param socketChannel the socket channel
+	 * @return the selection key
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public SelectionKey accept (Selector selector, SocketChannel socketChannel) throws IOException {
 		try {
 			close();
@@ -87,6 +123,14 @@ public class TCPConnectionHandler {
 		}
 	}
 
+	/**
+	 * Connect.
+	 *
+	 * @param selector the selector
+	 * @param remoteAddress the remote address
+	 * @param timeout the timeout
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void connect (Selector selector, SocketAddress remoteAddress, int timeout) throws IOException {
 		close();
 		try {
@@ -111,6 +155,13 @@ public class TCPConnectionHandler {
 		}
 	}
 
+	/**
+	 * Read object.
+	 *
+	 * @return the object
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws SerializationException the serialization exception
+	 */
 	public Object readObject () throws IOException, SerializationException {
 		SocketChannel socketChannel = this.socketChannel;
 		if (socketChannel == null) throw new SocketException("Connection is closed.");
@@ -149,12 +200,23 @@ public class TCPConnectionHandler {
 		}
 	}
 
+	/**
+	 * Write operation.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void writeOperation () throws IOException {
 		synchronized (writeLock) {
 			if (writeToSocket()) selectionKey.interestOps(SelectionKey.OP_READ);
 		}
 	}
 
+	/**
+	 * Write to socket.
+	 *
+	 * @return true, if successful
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	private boolean writeToSocket () throws IOException {
 		SocketChannel socketChannel = this.socketChannel;
 		if (socketChannel == null) throw new SocketException("Connection is closed.");
@@ -169,6 +231,14 @@ public class TCPConnectionHandler {
 		return wasFullWrite;
 	}
 
+	/**
+	 * Send.
+	 *
+	 * @param object the object
+	 * @return the int
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws SerializationException the serialization exception
+	 */
 	public int send (Object object) throws IOException, SerializationException {
 		SocketChannel socketChannel = this.socketChannel;
 		if (socketChannel == null) throw new SocketException("Connection is closed.");
@@ -207,6 +277,9 @@ public class TCPConnectionHandler {
 		}
 	}
 
+	/**
+	 * Close.
+	 */
 	public void close () {
 		try {
 			if (socketChannel != null) {
@@ -219,26 +292,56 @@ public class TCPConnectionHandler {
 		}
 	}
 
+	/**
+	 * Needs keep alive.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean needsKeepAlive () {
 		return socketChannel != null && aliveTime > 0 && System.currentTimeMillis() - lastCommunicationTime > aliveTime;
 	}
 	
+	/**
+	 * Gets the socket channel.
+	 *
+	 * @return the socket channel
+	 */
 	public SocketChannel getSocketChannel(){
 		return socketChannel;
 	}
 	
+	/**
+	 * Gets the read buffer.
+	 *
+	 * @return the read buffer
+	 */
 	public ByteBuffer getReadBuffer(){
 		return readBuffer;
 	}
 	
+	/**
+	 * Gets the write buffer.
+	 *
+	 * @return the write buffer
+	 */
 	public ByteBuffer getWriteBuffer(){
 		return writeBuffer;
 	}
 	
+	/**
+	 * Sets the alive time.
+	 *
+	 * @param aliveTime the new alive time
+	 */
 	public void setAliveTime(int aliveTime){
 		this.aliveTime = aliveTime;
 	}
 	
+	/**
+	 * Gets the alive time.
+	 *
+	 * @return the alive time
+	 */
 	public int getAliveTime(){
 		return aliveTime;
 	}

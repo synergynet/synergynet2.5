@@ -34,20 +34,41 @@ package apps.mathpadapp.networkmanager.messages.fromcontroller.unicast.touser;
 import apps.mathpadapp.networkmanager.utils.UserIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.UnicastApplicationMessage;
 
+
+/**
+ * The Class ControllerToUserMessage.
+ */
 public abstract class ControllerToUserMessage extends UnicastApplicationMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 5370070301710892935L;
 
+	/** The user id. */
 	protected UserIdentity userId;
 	
+	/**
+	 * Instantiates a new controller to user message.
+	 *
+	 * @param targetClass the target class
+	 */
 	public ControllerToUserMessage(Class<?> targetClass){
 		super(targetClass);
 	}
 	
+	/**
+	 * Gets the recipient user identity.
+	 *
+	 * @return the recipient user identity
+	 */
 	public UserIdentity getRecipientUserIdentity(){
 		return userId;
 	}
 	
+	/**
+	 * Sets the recipient user.
+	 *
+	 * @param userId the new recipient user
+	 */
 	public void setRecipientUser(UserIdentity userId){
 		this.userId = userId;
 	}

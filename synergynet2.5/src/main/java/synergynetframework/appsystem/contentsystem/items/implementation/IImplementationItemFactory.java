@@ -36,6 +36,17 @@ import java.io.Serializable;
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IContentItemImplementation;
 
+
+/**
+ * A factory for creating IImplementationItem objects.
+ */
 public interface IImplementationItemFactory extends Serializable{
+	
+	/**
+	 * Creates the.
+	 *
+	 * @param contentItem the content item
+	 * @return the i content item implementation
+	 */
 	public IContentItemImplementation create(ContentItem contentItem);
 }

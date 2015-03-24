@@ -34,26 +34,48 @@ package synergynetframework.appsystem.contentsystem.items.utils;
 import java.awt.Color;
 import java.io.Serializable;
 
+
+/**
+ * The Class Background.
+ */
 public class Background implements Serializable, Cloneable{
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -8105857660295608936L;
+	
+	/** The colour. */
 	protected Color colour = Color.blue;
 
+	/**
+	 * Instantiates a new background.
+	 *
+	 * @param color the color
+	 */
 	public Background(Color color){
 		this.colour = color;
 	}
 	
+	/**
+	 * Gets the colour.
+	 *
+	 * @return the colour
+	 */
 	public Color getColour() {
 		return colour;
 	}
 
+	/**
+	 * Sets the bg colour.
+	 *
+	 * @param colour the new bg colour
+	 */
 	public void setBgColour(Color colour) {
 		this.colour = colour;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#clone()
+	 */
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		Background clonedItem = (Background)super.clone();

@@ -34,17 +34,35 @@ package synergynetframework.appsystem.services.net.networkedcontentmanager.messa
 
 import synergynetframework.appsystem.services.net.tablecomms.messages.application.BroadcastApplicationMessage;
 
+
+/**
+ * The Class EnableFlickMessage.
+ */
 public class EnableFlickMessage extends BroadcastApplicationMessage{
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 6445490437873640139L;
+	
+	/** The is flick enabled. */
 	private boolean isFlickEnabled;
 	
+	/**
+	 * Instantiates a new enable flick message.
+	 *
+	 * @param targetClass the target class
+	 * @param isFlickEnabled the is flick enabled
+	 */
 	public EnableFlickMessage(Class<?> targetClass, boolean isFlickEnabled){
 		super(targetClass);
 		this.isFlickEnabled = isFlickEnabled;
 	}
 	
 	
+	/**
+	 * Checks if is flick enabled.
+	 *
+	 * @return true, if is flick enabled
+	 */
 	public boolean isFlickEnabled(){
 		return isFlickEnabled;
 	}

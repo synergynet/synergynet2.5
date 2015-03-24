@@ -32,9 +32,20 @@
 
 package synergynetframework.jme.pickingsystem;
 
+
+/**
+ * The Class PickSystemException.
+ */
 public class PickSystemException extends Exception {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 7142178154191941721L;
 
+	/**
+	 * Instantiates a new pick system exception.
+	 *
+	 * @param string the string
+	 */
 	public PickSystemException(String string) {
 		super(string);
 	}

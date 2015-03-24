@@ -48,12 +48,27 @@ import synergynetframework.appsystem.contentsystem.items.TextLabel;
 import synergynetframework.appsystem.contentsystem.items.DropDownList.DropDownListItem;
 import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAdapter;
 
+
+/**
+ * The Class CustomiseViewDialog.
+ */
 public class CustomiseViewDialog extends MTDialog{
 
+	/** The angle list. */
 	protected DropDownList angleList;
+	
+	/** The scale factor list. */
 	protected DropDownList scaleFactorList;
+	
+	/** The portal. */
 	protected TablePortal portal;
 	
+	/**
+	 * Instantiates a new customise view dialog.
+	 *
+	 * @param portal the portal
+	 * @param contentSystem the content system
+	 */
 	public CustomiseViewDialog(final TablePortal portal, ContentSystem contentSystem) {
 		super(portal, contentSystem);
 		this.setModal(true);

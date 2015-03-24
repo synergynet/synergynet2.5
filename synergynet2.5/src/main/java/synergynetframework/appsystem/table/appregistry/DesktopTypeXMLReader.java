@@ -51,20 +51,41 @@ import org.xml.sax.SAXParseException;
 
 import synergynetframework.appsystem.Resources;
 
+
 /**
- * Loads the application list from the xml configuration
-  */
+ * Loads the application list from the xml configuration.
+ */
 public class DesktopTypeXMLReader {
 	
+	/** The Constant TABLE_MODE_CONTROLLER. */
 	public static final String TABLE_MODE_CONTROLLER = "controller";
+	
+	/** The Constant TABLE_MODE_CLIENT. */
 	public static final String TABLE_MODE_CLIENT = "client";
+	
+	/** The Constant TABLE_MODE_PROJECTOR. */
 	public static final String TABLE_MODE_PROJECTOR = "projector";
 	
+	/** The table mode. */
 	public static String tableMode = TABLE_MODE_CLIENT;
 	
+	/** The splash screen enabled. */
 	public static boolean splashScreenEnabled = true;
+	
+	/** The splash screen resource. */
 	public static String splashScreenResource = "";
 	
+	/**
+	 * Load from configuration.
+	 *
+	 * @param configXMLInputStream the config xml input stream
+	 * @throws SAXException the SAX exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ParserConfigurationException the parser configuration exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws ClassNotFoundException the class not found exception
+	 */
 	public static void loadFromConfiguration(InputStream configXMLInputStream) throws SAXException, IOException, ParserConfigurationException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		factory.setNamespaceAware(true);

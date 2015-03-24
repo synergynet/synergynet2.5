@@ -41,26 +41,54 @@ import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.appsystem.contentsystem.items.ImageTextLabel;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IImageTextLabelImplementation;
 
+
+/**
+ * The Class JMEImageTextLabel.
+ */
 public class JMEImageTextLabel extends JMEMultiLineTextLabel implements IImageTextLabelImplementation{
 
+	/** The item. */
 	private ImageTextLabel item;
+	
+	/** The text height. */
 	private int textHeight;
+	
+	/** The text width. */
 	private int textWidth;
+	
+	/** The inner image height. */
 	private int innerImageHeight;
+	
+	/** The inner image width. */
 	private int innerImageWidth; 
+	
+	/** The label height. */
 	private int labelHeight;	
+	
+	/** The label width. */
 	private int labelWidth;
 	
+	/**
+	 * Instantiates a new JME image text label.
+	 *
+	 * @param contentItem the content item
+	 */
 	public JMEImageTextLabel(ContentItem contentItem) {
 		super(contentItem);
 		this.item = (ImageTextLabel)contentItem;			
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IImageTextLabelImplementation#setImageInfo(java.net.URL)
+	 */
 	@Override
 	public void setImageInfo(URL imageResource) {
 		resize();		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEMultiLineTextLabel#draw()
+	 */
 	protected void draw() {
 					
 		gfx.setColor(item.getTextColour());		
@@ -76,6 +104,9 @@ public class JMEImageTextLabel extends JMEMultiLineTextLabel implements IImageTe
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEMultiLineTextLabel#resize()
+	 */
 	public void resize(){
 		
 		this.innerImageHeight = item.getImageInfo().getHeight();

@@ -34,15 +34,85 @@ package synergynetframework.jme.gfx.twod;
 
 import com.jme.scene.Spatial;
 
+
+/**
+ * The Interface DrawableSpatialImage.
+ */
 public interface DrawableSpatialImage {
+	
+	/**
+	 * Draw.
+	 */
 	public abstract void draw();
+	
+	/**
+	 * Gets the width.
+	 *
+	 * @return the width
+	 */
 	public abstract float getWidth();
+	
+	/**
+	 * Gets the height.
+	 *
+	 * @return the height
+	 */
 	public abstract float getHeight();
+	
+	/**
+	 * Gets the image width.
+	 *
+	 * @return the image width
+	 */
 	public abstract int getImageWidth();
+	
+	/**
+	 * Gets the image height.
+	 *
+	 * @return the image height
+	 */
 	public abstract int getImageHeight();
+	
+	/**
+	 * Gets the spatial.
+	 *
+	 * @return the spatial
+	 */
 	public abstract Spatial getSpatial();
+	
+	/**
+	 * Cursor pressed.
+	 *
+	 * @param cursorID the cursor id
+	 * @param x the x
+	 * @param y the y
+	 */
 	public abstract void cursorPressed(long cursorID, int x, int y);
+	
+	/**
+	 * Cursor released.
+	 *
+	 * @param cursorID the cursor id
+	 * @param x the x
+	 * @param y the y
+	 */
 	public abstract void cursorReleased(long cursorID, int x, int y);
+	
+	/**
+	 * Cursor clicked.
+	 *
+	 * @param cursorID the cursor id
+	 * @param x the x
+	 * @param y the y
+	 */
 	public abstract void cursorClicked(long cursorID, int x, int y);
+	
+	/**
+	 * Cursor dragged.
+	 *
+	 * @param id the id
+	 * @param x the x
+	 * @param y the y
+	 */
 	public abstract void cursorDragged(long id, int x, int y);
 }

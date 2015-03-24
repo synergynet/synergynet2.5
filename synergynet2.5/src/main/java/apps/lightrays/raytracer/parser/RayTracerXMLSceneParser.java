@@ -57,40 +57,91 @@ import apps.lightrays.raytracer.scene.geometry.Sphere;
 
 
 
+
+/**
+ * The Class RayTracerXMLSceneParser.
+ */
 public class RayTracerXMLSceneParser extends DefaultHandler {
 	
+	/** The Constant SCENE. */
 	public static final String SCENE = "scene";
+	
+	/** The Constant AMBIENCE. */
 	public static final String AMBIENCE = "ambience";
+	
+	/** The Constant COLOUR. */
 	public static final String COLOUR = "colour";
+	
+	/** The Constant MAXDEPTH. */
 	public static final String MAXDEPTH = "maxdepth";
+	
+	/** The Constant POSITION. */
 	public static final String POSITION = "position";
+	
+	/** The Constant VIEWPOINT. */
 	public static final String VIEWPOINT = "viewpoint";
+	
+	/** The Constant LOOKAT. */
 	public static final String LOOKAT = "lookat";	
+	
+	/** The Constant LIGHT. */
 	public static final String LIGHT = "light";
 
+	/** The Constant OPTICS. */
 	public static final String OPTICS = "optics";
+	
+	/** The Constant OBJECTS. */
 	public static final String OBJECTS = "objects";
+	
+	/** The Constant ANIMATION. */
 	public static final String ANIMATION = "animation";
+	
+	/** The Constant TO. */
 	public static final String TO = "to";
 	
+	/** The Constant SPHERE. */
 	public static final String SPHERE = "sphere";
+	
+	/** The Constant PLANE. */
 	public static final String PLANE = "plane";
+	
+	/** The Constant NORMAL. */
 	public static final String NORMAL = "normal";
 	
+	/** The reader. */
 	protected XMLReader reader;
+	
+	/** The animation. */
 	protected CameraAnimation animation = new CameraAnimation();
+	
+	/** The scene. */
 	protected Scene scene;
+	
+	/** The camera. */
 	protected Camera camera = new Camera();
+	
+	/** The lighting. */
 	protected Lighting lighting = new Lighting();
 	
+	/** The old_name. */
 	protected String old_name = "";
+	
+	/** The current_name. */
 	protected String current_name = "";
 	
+	/** The object_list. */
 	boolean object_list = false;
+	
+	/** The current_optics. */
 	protected OpticalProperties current_optics;
+	
+	/** The current_object. */
 	protected SceneObject current_object;
 
 	
+	/**
+	 * Instantiates a new ray tracer xml scene parser.
+	 */
 	public RayTracerXMLSceneParser() {
 		try {						
 			reader = XMLReaderFactory.createXMLReader();
@@ -100,25 +151,51 @@ public class RayTracerXMLSceneParser extends DefaultHandler {
 		}
 	}
 
+	/**
+	 * Parses the.
+	 *
+	 * @param xmlstring the xmlstring
+	 * @throws SAXException the SAX exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void parse(String xmlstring) throws SAXException, IOException {
 		this.scene = new Scene();
 		reader.parse(new InputSource(new StringReader(xmlstring)));
 	}
 	
+	/**
+	 * Gets the scene.
+	 *
+	 * @return the scene
+	 */
 	public Scene getScene() {
 		return this.scene;
 	}
 	
+	/**
+	 * Gets the camera animation.
+	 *
+	 * @return the camera animation
+	 */
 	public CameraAnimation getCameraAnimation() {
 		return this.animation;
 	}
 	
+    /* (non-Javadoc)
+     * @see org.xml.sax.helpers.DefaultHandler#startDocument()
+     */
     public void startDocument() throws SAXException {
     }
 
+    /* (non-Javadoc)
+     * @see org.xml.sax.helpers.DefaultHandler#endDocument()
+     */
     public void endDocument() throws SAXException {
     }
     
+    /* (non-Javadoc)
+     * @see org.xml.sax.helpers.DefaultHandler#startElement(java.lang.String, java.lang.String, java.lang.String, org.xml.sax.Attributes)
+     */
     public void startElement (String namespaceURI, String localName, String qName, Attributes atts) throws SAXException {    	
         current_name = qName;
 
@@ -188,6 +265,9 @@ public class RayTracerXMLSceneParser extends DefaultHandler {
     }	
     
 
+    /* (non-Javadoc)
+     * @see org.xml.sax.helpers.DefaultHandler#endElement(java.lang.String, java.lang.String, java.lang.String)
+     */
     public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
         if(qName.equals(SPHERE)) {
         	current_object.setOpticProperties(current_optics);
@@ -207,6 +287,9 @@ public class RayTracerXMLSceneParser extends DefaultHandler {
     }    
     
 
+    /* (non-Javadoc)
+     * @see org.xml.sax.helpers.DefaultHandler#characters(char[], int, int)
+     */
     public void characters (char[] ch, int start, int length) throws SAXException {
         String s = new String(ch, start, length);
         s = s.trim();
@@ -217,6 +300,12 @@ public class RayTracerXMLSceneParser extends DefaultHandler {
         }            
     }
     
+    /**
+     * Gets the colour.
+     *
+     * @param atts the atts
+     * @return the colour
+     */
     private Colour getColour(Attributes atts) {
     	double r = Double.parseDouble(atts.getValue("r"));
     	double g = Double.parseDouble(atts.getValue("g"));
@@ -225,6 +314,12 @@ public class RayTracerXMLSceneParser extends DefaultHandler {
     	return c;
     }
     
+    /**
+     * Gets the vector.
+     *
+     * @param atts the atts
+     * @return the vector
+     */
     private Vector getVector(Attributes atts) {
     	double x = Double.parseDouble(atts.getValue("x"));
     	double y = Double.parseDouble(atts.getValue("y"));
@@ -233,6 +328,12 @@ public class RayTracerXMLSceneParser extends DefaultHandler {
     	return v;
     }
     
+    /**
+     * Gets the point.
+     *
+     * @param atts the atts
+     * @return the point
+     */
     private Point getPoint(Attributes atts) {
     	double x = Double.parseDouble(atts.getValue("x"));
     	double y = Double.parseDouble(atts.getValue("y"));
@@ -241,6 +342,11 @@ public class RayTracerXMLSceneParser extends DefaultHandler {
     	return p;
     }
 
+	/**
+	 * Gets the camera.
+	 *
+	 * @return the camera
+	 */
 	public Camera getCamera() {
 		return camera;
 	}

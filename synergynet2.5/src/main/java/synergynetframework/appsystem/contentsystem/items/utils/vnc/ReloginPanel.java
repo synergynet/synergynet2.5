@@ -28,24 +28,38 @@ package synergynetframework.appsystem.contentsystem.items.utils.vnc;
 
 import java.awt.*;
 import java.awt.event.*;
+
 //import java.applet.*;
 
 //
 // The panel which implements the Relogin button
 //
 
+/**
+ * The Class ReloginPanel.
+ */
 class ReloginPanel extends Panel implements ActionListener {
-  /**
-	 * 
-	 */
+  
+  /** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3686914085113004135L;
+
+/** The relogin button. */
 Button reloginButton;
+  
+  /** The close button. */
   Button closeButton;
+  
+  /** The viewer. */
   VncViewer viewer;
 
   //
   // Constructor.
   //
+  /**
+   * Instantiates a new relogin panel.
+   *
+   * @param v the v
+   */
   public ReloginPanel(VncViewer v) {
     viewer = v;
     setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -62,6 +76,9 @@ Button reloginButton;
   //
   // This method is called when a button is pressed.
   //
+  /* (non-Javadoc)
+   * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+   */
   public synchronized void actionPerformed(ActionEvent evt) {
     if (viewer.inSeparateFrame)
       viewer.dispose();

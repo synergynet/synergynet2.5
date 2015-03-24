@@ -54,27 +54,55 @@ import org.lwjgl.opengl.DisplayMode;
 
 import synergynetframework.jme.sysutils.StereoRenderPass.StereoMode;
 
+
+/**
+ * The Class DisplayConfigPrefsPanel.
+ */
 public class DisplayConfigPrefsPanel extends JPanel {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3103711516544011549L;
+	
+	/** The prefs item. */
 	private DisplayConfigPrefsItem prefsItem;
 
+	/** The jcb. */
 	private JComboBox jcb = new JComboBox();
+	
+	/** The jcbd. */
 	private JComboBox jcbd = new JComboBox();
+	
+	/** The fullscreen. */
 	private JCheckBox fullscreen;
+	
+	/** The j label display size. */
 	private JLabel jLabelDisplaySize = new JLabel();
+	
+	/** The j label three dee mode. */
 	private JLabel jLabelThreeDeeMode = new JLabel();
+    
+    /** The lbl anti alias. */
     private JLabel lblAntiAlias = new JLabel();
+    
+    /** The txt anti alias samples. */
     private JTextField txtAntiAliasSamples = new JTextField();
+    
+    /** The cb enable scene monitor. */
     private JCheckBox cbEnableSceneMonitor = new JCheckBox();
 
-	/** Creates new form DeveloperConfigPanel
-	 * @param developerConfigPrefsItem */
+	/**
+	 *  Creates new form DeveloperConfigPanel.
+	 *
+	 * @param prefsItem the prefs item
+	 */
     public DisplayConfigPrefsPanel(DisplayConfigPrefsItem prefsItem) {
     	this.prefsItem = prefsItem;
         initComponents();
     }
 
+    /**
+     * Inits the components.
+     */
     private void initComponents() {
 
 		jLabelDisplaySize.setText("Display Size:");

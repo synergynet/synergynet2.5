@@ -49,16 +49,44 @@ import javax.xml.xpath.XPathExpressionException;
 import org.xml.sax.SAXException;
 
 
+
+/**
+ * The Class SynergyNetLauncher.
+ */
 public class SynergyNetLauncher {
 
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(SynergyNetLauncher.class.getName());
 	
+	/**
+	 * The Enum OSName.
+	 */
 	public static enum OSName {
+		
+		/** The windows. */
 		WINDOWS,
+		
+		/** The linux. */
 		LINUX,
+		
+		/** The mac. */
 		MAC
 	}
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws NoSuchAlgorithmException the no such algorithm exception
+	 * @throws URISyntaxException the URI syntax exception
+	 * @throws XPathExpressionException the x path expression exception
+	 * @throws SAXException the SAX exception
+	 * @throws ParserConfigurationException the parser configuration exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws ClassNotFoundException the class not found exception
+	 */
 	public static void main(String[] args) throws IOException, NoSuchAlgorithmException, URISyntaxException, XPathExpressionException, SAXException, ParserConfigurationException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		JFrame f = new JFrame("SynergyNet Launcher");
 		ControlPanel controlPanel = new ControlPanel();

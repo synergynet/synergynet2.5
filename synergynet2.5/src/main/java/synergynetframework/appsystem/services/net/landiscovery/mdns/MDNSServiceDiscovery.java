@@ -45,31 +45,55 @@ import synergynetframework.appsystem.services.net.landiscovery.ServiceDescriptor
 import synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoveryListener;
 import synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoverySystem;
 
+
+/**
+ * The Class MDNSServiceDiscovery.
+ */
 public class MDNSServiceDiscovery implements javax.jmdns.ServiceListener, ServiceDiscoverySystem, ServiceAnnounceSystem {
 
+	/** The jmdns. */
 	protected JmDNS jmdns;
+	
+	/** The listeners. */
 	protected List<ServiceDiscoveryListener> listeners = new ArrayList<ServiceDiscoveryListener>();
 
+	/**
+	 * Instantiates a new MDNS service discovery.
+	 *
+	 * @param jmdns the jmdns
+	 */
 	public MDNSServiceDiscovery(final JmDNS jmdns) {
 		this.jmdns = jmdns;
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoverySystem#registerListener(synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoveryListener)
+	 */
 	public void registerListener(ServiceDiscoveryListener l) {
 		synchronized(listeners) {
 			if(!listeners.contains(l)) listeners.add(l);
 		}		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoverySystem#removeListener(synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoveryListener)
+	 */
 	public void removeListener(ServiceDiscoveryListener l) {
 		synchronized(listeners) {
 			listeners.remove(l);
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoverySystem#registerServiceForListening(java.lang.String, java.lang.String)
+	 */
 	public void registerServiceForListening(final String type, final String name) {
 		jmdns.addServiceListener(type, this);
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.landiscovery.ServiceAnnounceSystem#registerService(synergynetframework.appsystem.services.net.landiscovery.ServiceDescriptor)
+	 */
 	public void registerService(ServiceDescriptor sd) {
 		try {
 			jmdns.registerService(MDNSServiceHelper.getInfoForDescriptor(sd));
@@ -78,10 +102,16 @@ public class MDNSServiceDiscovery implements javax.jmdns.ServiceListener, Servic
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.landiscovery.ServiceAnnounceSystem#unregisterService(synergynetframework.appsystem.services.net.landiscovery.ServiceDescriptor)
+	 */
 	public void unregisterService(ServiceDescriptor sd) {
 		jmdns.unregisterService(MDNSServiceHelper.getInfoForDescriptor(sd));
 	}
 	
+	/* (non-Javadoc)
+	 * @see javax.jmdns.ServiceListener#serviceAdded(javax.jmdns.ServiceEvent)
+	 */
 	public void serviceAdded(final ServiceEvent event) {
 		final Runnable runnable = new Runnable() {
 			public void run() {
@@ -94,6 +124,9 @@ public class MDNSServiceDiscovery implements javax.jmdns.ServiceListener, Servic
 		thread.start();		
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.jmdns.ServiceListener#serviceRemoved(javax.jmdns.ServiceEvent)
+	 */
 	public void serviceRemoved(final ServiceEvent event) {
 		synchronized(this) {
 			ServiceInfo si = jmdns.getServiceInfo(event.getType(), event.getName());		
@@ -105,6 +138,9 @@ public class MDNSServiceDiscovery implements javax.jmdns.ServiceListener, Servic
 		}		
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.jmdns.ServiceListener#serviceResolved(javax.jmdns.ServiceEvent)
+	 */
 	public void serviceResolved(final ServiceEvent event) {
 		synchronized(this) {
 			ServiceInfo si = event.getInfo();		
@@ -118,11 +154,17 @@ public class MDNSServiceDiscovery implements javax.jmdns.ServiceListener, Servic
 
 
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoverySystem#start()
+	 */
 	public void start() {
 		 
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoverySystem#stop()
+	 */
 	public void stop() {
 		jmdns.unregisterAllServices();
 		jmdns.close();	

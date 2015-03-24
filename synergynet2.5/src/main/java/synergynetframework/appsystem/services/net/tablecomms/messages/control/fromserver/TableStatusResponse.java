@@ -38,26 +38,53 @@ import java.util.Map;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.messages.control.FromServerTableControlMessage;
 
+
+/**
+ * The Class TableStatusResponse.
+ */
 public class TableStatusResponse extends FromServerTableControlMessage {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -9011198980322160944L;
 	
+	/** The Constant STATUS_ONLINE. */
 	public static final String STATUS_ONLINE = "STATUS_ONLINE";
+	
+	/** The Constant STATUS_OFFLINE. */
 	public static final String STATUS_OFFLINE = "STATUS_OFFLINE";
 	
+	/**
+	 * Instantiates a new table status response.
+	 */
 	public TableStatusResponse(){
 		super();
 	}
 	
+	/** The statuses. */
 	protected Map<TableIdentity, String> statuses = new HashMap<TableIdentity,String>();
 	
+	/**
+	 * Adds the status.
+	 *
+	 * @param id the id
+	 * @param status the status
+	 */
 	public void addStatus(TableIdentity id, String status) {
 		statuses.put(id, status);
 	}
 
+	/**
+	 * Gets the statuses.
+	 *
+	 * @return the statuses
+	 */
 	public Map<TableIdentity, String> getStatuses() {
 		return statuses;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return TableStatusResponse.class.getName() + " from " + getSender() + ": " + statuses;
 	}

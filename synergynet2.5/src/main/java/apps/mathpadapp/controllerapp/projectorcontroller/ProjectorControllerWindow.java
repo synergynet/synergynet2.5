@@ -51,15 +51,33 @@ import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAd
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.jme.cursorsystem.elements.twod.OrthoBringToTop;
 
+
+/**
+ * The Class ProjectorControllerWindow.
+ */
 public class ProjectorControllerWindow extends MTFrame implements ControllerNetworkListener{
 	
+	/** The Constant windowWidth. */
 	public static final int windowWidth = 350;
+	
+	/** The Constant windowHeight. */
 	public static final int windowHeight = 440;
 	
+	/** The projector panel. */
 	protected MTList projectorPanel;
+	
+	/** The control panel. */
 	protected ProjectorListControlPanel controlPanel;
+	
+	/** The controller manager. */
 	protected ControllerManager controllerManager;
 	
+	/**
+	 * Instantiates a new projector controller window.
+	 *
+	 * @param contentSystem the content system
+	 * @param controllerManager the controller manager
+	 */
 	public ProjectorControllerWindow(final ContentSystem contentSystem, final ControllerManager controllerManager){
 		super(contentSystem);
 		this.controllerManager = controllerManager;
@@ -94,10 +112,18 @@ public class ProjectorControllerWindow extends MTFrame implements ControllerNetw
 		projectorPanel.getManager().deleteAllItems();
 	}
 
+	/**
+	 * Gets the assignment session list.
+	 *
+	 * @return the assignment session list
+	 */
 	public MTList getAssignmentSessionList() {
 		return this.projectorPanel;
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#resultsReceivedFromUser(synergynetframework.appsystem.services.net.localpresence.TableIdentity, apps.mathpadapp.networkmanager.utils.UserIdentity, apps.mathpadapp.controllerapp.assignmentcontroller.AssignmentInfo)
+	 */
 	@Override
 	public void resultsReceivedFromUser(TableIdentity tableId,
 			UserIdentity userId, AssignmentInfo assignInfo) {
@@ -105,6 +131,9 @@ public class ProjectorControllerWindow extends MTFrame implements ControllerNetw
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#userIdsReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity, java.util.List)
+	 */
 	@Override
 	public void userIdsReceived(TableIdentity tableId,
 			List<UserIdentity> userIds) {
@@ -112,6 +141,9 @@ public class ProjectorControllerWindow extends MTFrame implements ControllerNetw
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#userRegistrationReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity, apps.mathpadapp.networkmanager.utils.UserIdentity)
+	 */
 	@Override
 	public void userRegistrationReceived(TableIdentity tableId,
 			UserIdentity userId) {
@@ -119,6 +151,9 @@ public class ProjectorControllerWindow extends MTFrame implements ControllerNetw
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#userUnregistrationReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity, apps.mathpadapp.networkmanager.utils.UserIdentity)
+	 */
 	@Override
 	public void userUnregistrationReceived(TableIdentity tableId,
 			UserIdentity userId) {
@@ -126,6 +161,9 @@ public class ProjectorControllerWindow extends MTFrame implements ControllerNetw
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#projectorFound(synergynetframework.appsystem.services.net.localpresence.TableIdentity, boolean)
+	 */
 	@Override
 	public void projectorFound(final TableIdentity tableId, boolean isLeaseSuccessful) {
 		if(projectorPanel.getManager().getAllItems().contains(tableId)) return;
@@ -133,11 +171,17 @@ public class ProjectorControllerWindow extends MTFrame implements ControllerNetw
 		projectorPanel.getManager().setIcon(tableId, MathPadResources.class.getResource("controlBar/Projectors.jpg"));
 	}
 	
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.util.MTFrame#close()
+	 */
 	public void close(){
 		if(controllerManager != null) controllerManager.removeNetworkListener(ProjectorControllerWindow.this);
 		contentSystem.removeContentItem(ProjectorControllerWindow.this.getWindow());
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#userMathPadReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity, apps.mathpadapp.networkmanager.utils.UserIdentity, apps.mathpadapp.mathtool.MathToolInitSettings)
+	 */
 	@Override
 	public void userMathPadReceived(TableIdentity tableId,
 			UserIdentity userId, MathToolInitSettings mathToolSettings) {
@@ -145,6 +189,9 @@ public class ProjectorControllerWindow extends MTFrame implements ControllerNetw
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#remoteDesktopContentReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity, java.util.HashMap)
+	 */
 	@Override
 	public void remoteDesktopContentReceived(TableIdentity tableId,
 			HashMap<UserIdentity, MathToolInitSettings> items) {
@@ -152,6 +199,9 @@ public class ProjectorControllerWindow extends MTFrame implements ControllerNetw
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#syncDataReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity, java.util.HashMap)
+	 */
 	@Override
 	public void syncDataReceived(TableIdentity sender,
 			HashMap<UserIdentity, HashMap<Short, Object>> mathPadSyncData) {
@@ -159,6 +209,9 @@ public class ProjectorControllerWindow extends MTFrame implements ControllerNetw
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see apps.mathpadapp.networkmanager.managers.ControllerManager.ControllerNetworkListener#tableIdReceived(synergynetframework.appsystem.services.net.localpresence.TableIdentity)
+	 */
 	@Override
 	public void tableIdReceived(TableIdentity tableId) {
 		 

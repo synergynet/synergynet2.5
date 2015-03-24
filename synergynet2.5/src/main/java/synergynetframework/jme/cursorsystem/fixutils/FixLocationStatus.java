@@ -36,23 +36,51 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * The Class FixLocationStatus.
+ */
 public class FixLocationStatus {
+	
+	/** The location. */
 	protected Point location;
+	
+	/** The occupied objects. */
 	protected List<Object> occupiedObjects; 
 	
+	/**
+	 * Instantiates a new fix location status.
+	 *
+	 * @param location the location
+	 */
 	public FixLocationStatus(Point location){
 		this.location = location;
 		this.occupiedObjects = new ArrayList<Object>();
 	}
 	
+	/**
+	 * Gets the occupied objects.
+	 *
+	 * @return the occupied objects
+	 */
 	public List<Object> getOccupiedObjects (){
 		return occupiedObjects;
 	}
 	
+	/**
+	 * Gets the occupied objects count.
+	 *
+	 * @return the occupied objects count
+	 */
 	public int getOccupiedObjectsCount(){
 		return occupiedObjects.size();
 	}
 	
+	/**
+	 * Gets the location.
+	 *
+	 * @return the location
+	 */
 	public Point getLocation(){
 		return location;
 	}

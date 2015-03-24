@@ -42,19 +42,42 @@ import synergynetframework.appsystem.contentsystem.items.ListContainer;
 import synergynetframework.appsystem.contentsystem.items.OrthoContentItem;
 import synergynetframework.appsystem.contentsystem.items.SimpleButton;
 
+
+/**
+ * The Class MTListManager.
+ */
 public class MTListManager {
 
+	/** The items. */
 	private List<Object> items;
+	
+	/** The selected items. */
 	private List<Object> selectedItems;
+	
+	/** The list. */
 	private MTList list;
+	
+	/** The list content items. */
 	private HashMap<Object, ContentItem> listContentItems;
+	
+	/** The item lists. */
 	private List<ListContainer> itemLists;
+	
+	/** The is enabled. */
 	private boolean isEnabled = true;
 	
+	/** The list index. */
 	private int listIndex = -1;
+	
+	/** The current list. */
 	public ListContainer currentList;
 
 
+	/**
+	 * Instantiates a new MT list manager.
+	 *
+	 * @param list the list
+	 */
 	public MTListManager(MTList list){
 		this.list = list;
 		items = new ArrayList<Object>();
@@ -63,6 +86,11 @@ public class MTListManager {
 		itemLists = new ArrayList<ListContainer>();		
 	}
 	
+	/**
+	 * Delete item.
+	 *
+	 * @param item the item
+	 */
 	public void deleteItem(Object item) {
 		int currentList = listIndex;
 		items.remove(item);
@@ -72,6 +100,9 @@ public class MTListManager {
 		this.showList(currentList);	
 	}
 
+	/**
+	 * Rebuild lists.
+	 */
 	private void rebuildLists() {
 		listIndex = -1;
 		for(ListContainer listContainer: this.itemLists) list.getContainer().removeSubItem(listContainer);
@@ -92,6 +123,12 @@ public class MTListManager {
 		list.getContainer().setAsTopObject();
 	}
 	
+	/**
+	 * Adds the item.
+	 *
+	 * @param str the str
+	 * @param value the value
+	 */
 	public void addItem(String str, Object value){
 		if(!items.contains(value) && currentList != null){
 			if(((currentList.getAllItemsIncludeSystemItems().size()+2) * list.listItemHeight) >= list.listHeight) this.addNewItemList();
@@ -102,6 +139,9 @@ public class MTListManager {
 		}
 	}
 	
+	/**
+	 * Adds the new item list.
+	 */
 	public void addNewItemList(){
 		ListContainer newList = list.createNewItemList();
 		if(this.isEnabled())	
@@ -116,6 +156,11 @@ public class MTListManager {
 		if(list.getListNoLabel() != null) list.getListNoLabel().setText("Page "+(listIndex+1)+" of "+ itemLists.size());
 	}
 
+	/**
+	 * Show list.
+	 *
+	 * @param index the index
+	 */
 	public void showList(int index){
 		if(index>=0 && index<itemLists.size()){
 			itemLists.get(index).setVisible(true);
@@ -128,9 +173,21 @@ public class MTListManager {
 		}
 	}
 	
+	/**
+	 * Show previous.
+	 */
 	public void showPrevious() {this.showList(listIndex-1);}
+	
+	/**
+	 * Show next.
+	 */
 	public void showNext() {this.showList(listIndex+1);}
 	
+	/**
+	 * Select item.
+	 *
+	 * @param item the item
+	 */
 	public void selectItem(Object item) {
 		if(items.contains(item) && !selectedItems.contains(item)){
 			// Select Item
@@ -140,6 +197,12 @@ public class MTListManager {
 		}
 	}
 	
+	/**
+	 * Sets the list item highlighted.
+	 *
+	 * @param contentItem the content item
+	 * @param isHighlighted the is highlighted
+	 */
 	protected void setListItemHighlighted(ContentItem contentItem, boolean isHighlighted) {
 		if(contentItem instanceof SimpleButton){
 			if(isHighlighted){
@@ -152,6 +215,11 @@ public class MTListManager {
 		}
 	}
 
+	/**
+	 * Deselect item.
+	 *
+	 * @param item the item
+	 */
 	public void deselectItem(Object item){
 		if(items.contains(item) && selectedItems.contains(item)){
 			// Deselect item
@@ -163,6 +231,9 @@ public class MTListManager {
 		}
 	}
 	
+	/**
+	 * Select all items.
+	 */
 	public void selectAllItems(){
 		selectedItems.clear();
 		selectedItems.addAll(items);
@@ -175,6 +246,9 @@ public class MTListManager {
 		}
 	}
 	
+	/**
+	 * Deselect all items.
+	 */
 	public void deselectAllItems(){
 		selectedItems.clear();
 		for(ContentItem contentItem: listContentItems.values()){
@@ -182,14 +256,27 @@ public class MTListManager {
 		}
 	}
 		
+	/**
+	 * Gets the all items.
+	 *
+	 * @return the all items
+	 */
 	public List<Object> getAllItems(){
 		return items;
 	}
 	
+	/**
+	 * Gets the selected items.
+	 *
+	 * @return the selected items
+	 */
 	public List<Object> getSelectedItems(){
 		return selectedItems;
 	}
 
+	/**
+	 * Delete selected items.
+	 */
 	public void deleteSelectedItems() {
 		int currentList = listIndex;
 		for(Object item: selectedItems){
@@ -201,6 +288,9 @@ public class MTListManager {
 		this.showList(currentList);	
 	}
 	
+	/**
+	 * Delete all items.
+	 */
 	public void deleteAllItems() {
 		int currentList = listIndex;
 		items.clear();
@@ -210,6 +300,12 @@ public class MTListManager {
 		this.showList(currentList);	
 	}
 
+	/**
+	 * Sets the icon.
+	 *
+	 * @param item the item
+	 * @param iconResource the icon resource
+	 */
 	public void setIcon(Object item, URL iconResource){
 		if(listContentItems.containsKey(item) && iconResource != null){
 			ContentItem contentItem = listContentItems.get(item);
@@ -220,11 +316,21 @@ public class MTListManager {
 		}
 	}
 
+	/**
+	 * Gets the item lists.
+	 *
+	 * @return the item lists
+	 */
 	public List<ListContainer> getItemLists() {
 		return itemLists;
 	}
 	
 	
+	/**
+	 * Sets the enabled.
+	 *
+	 * @param isEnabled the new enabled
+	 */
 	public void setEnabled(boolean isEnabled){
 		this.deselectAllItems();
 		this.isEnabled = isEnabled;
@@ -254,14 +360,30 @@ public class MTListManager {
 		}
 	}
 	
+	/**
+	 * Checks if is enabled.
+	 *
+	 * @return true, if is enabled
+	 */
 	public boolean isEnabled(){
 		return this.isEnabled;
 	}
 
+	/**
+	 * Gets the list item.
+	 *
+	 * @param item the item
+	 * @return the list item
+	 */
 	public ContentItem getListItem(Object item) {
 		return listContentItems.get(item);
 	}
 	
+	/**
+	 * Gets the list items.
+	 *
+	 * @return the list items
+	 */
 	public HashMap<Object, ContentItem> getListItems(){
 		return listContentItems;
 	}

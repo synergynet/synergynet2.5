@@ -33,22 +33,46 @@
 
 package synergynetframework.appsystem.services.net.objectmessaging.utility.serializers;
 
+
+/**
+ * The Class SerializationException.
+ */
 public class SerializationException extends Exception {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2823482133617352990L;
 
+	/**
+	 * Instantiates a new serialization exception.
+	 */
 	public SerializationException () {
 		super();
 	}
 
+	/**
+	 * Instantiates a new serialization exception.
+	 *
+	 * @param message the message
+	 * @param cause the cause
+	 */
 	public SerializationException (String message, Throwable cause) {
 		super(message, cause);
 	}
 
+	/**
+	 * Instantiates a new serialization exception.
+	 *
+	 * @param message the message
+	 */
 	public SerializationException (String message) {
 		super(message);
 	}
 
+	/**
+	 * Instantiates a new serialization exception.
+	 *
+	 * @param cause the cause
+	 */
 	public SerializationException (Throwable cause) {
 		super(cause);
 	}

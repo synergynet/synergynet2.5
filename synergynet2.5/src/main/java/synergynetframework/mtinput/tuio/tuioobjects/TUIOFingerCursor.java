@@ -32,15 +32,26 @@
 
 package synergynetframework.mtinput.tuio.tuioobjects;
 
+
+/**
+ * The Class TUIOFingerCursor.
+ */
 public class TUIOFingerCursor extends TUIOObjectRepresentation {
 	
+	/** The current id. */
 	private static long CURRENT_ID = 0;
 
+	/**
+	 * Instantiates a new TUIO finger cursor.
+	 */
 	public TUIOFingerCursor() {
 		super(CURRENT_ID++);
 		if (CURRENT_ID == Long.MAX_VALUE)CURRENT_ID = 0;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return "TUIOFingerCursor(" + this.getId() + ") @" + this.getPosition();
 	}

@@ -34,7 +34,31 @@ package apps.conceptmap.utility;
 
 import apps.conceptmap.graphcomponents.link.GraphLink;
 
+
+/**
+ * The listener interface for receiving conceptMap events.
+ * The class that is interested in processing a conceptMap
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addConceptMapListener<code> method. When
+ * the conceptMap event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see ConceptMapEvent
+ */
 public interface ConceptMapListener {
+	
+	/**
+	 * Node connected.
+	 *
+	 * @param link the link
+	 */
 	public void nodeConnected(GraphLink link);
+	
+	/**
+	 * Node disconnected.
+	 *
+	 * @param link the link
+	 */
 	public void nodeDisconnected(GraphLink link);
 }

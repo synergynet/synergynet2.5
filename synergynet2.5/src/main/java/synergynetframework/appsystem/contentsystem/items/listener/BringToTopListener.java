@@ -33,6 +33,24 @@ package synergynetframework.appsystem.contentsystem.items.listener;
 
 import synergynetframework.appsystem.contentsystem.items.ContentItem;
 
+
+/**
+ * The listener interface for receiving bringToTop events.
+ * The class that is interested in processing a bringToTop
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addBringToTopListener<code> method. When
+ * the bringToTop event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see BringToTopEvent
+ */
 public interface BringToTopListener {
+	
+	/**
+	 * Item bring to toped.
+	 *
+	 * @param item the item
+	 */
 	public void itemBringToToped(ContentItem item);
 }

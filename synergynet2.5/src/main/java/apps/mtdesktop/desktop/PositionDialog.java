@@ -11,14 +11,21 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 
+
+/**
+ * The Class PositionDialog.
+ */
 public class PositionDialog extends JDialog implements ActionListener{
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 7322407154079850855L;
+	
+	/** The pet strings. */
 	private String[] petStrings = { "North", "South", "East", "West" };
 	
+	/**
+	 * Instantiates a new position dialog.
+	 */
 	@SuppressWarnings({ })
 	public PositionDialog(){
 		this.setModal(true);
@@ -51,6 +58,9 @@ public class PositionDialog extends JDialog implements ActionListener{
 		this.setVisible(true);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JComboBox cb = (JComboBox)e.getSource();

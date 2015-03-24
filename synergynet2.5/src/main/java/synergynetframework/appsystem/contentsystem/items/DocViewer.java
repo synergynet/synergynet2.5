@@ -36,38 +36,78 @@ import java.awt.Rectangle;
 import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IDocViewerImplementation;
 
+
+/**
+ * The Class DocViewer.
+ */
 public class DocViewer extends Frame implements IDocViewerImplementation {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2278233963786197814L;
 
+	/** The current page index. */
 	protected int currentPageIndex = 0;
+	
+	/** The page count. */
 	protected int pageCount;
 	
+	/** The click count. */
 	private int pressCount = 0, clickCount = 0;
+	
+	/** The time. */
 	private long time = System.currentTimeMillis();
+	
+	/** The double click delay. */
 	private int DOUBLE_CLICK_DELAY = 1000;
 	
+	/**
+	 * Instantiates a new doc viewer.
+	 *
+	 * @param contentSystem the content system
+	 * @param name the name
+	 */
 	protected DocViewer(ContentSystem contentSystem, String name) {
 		super(contentSystem, name);
 	}
 
+	/**
+	 * Gets the current page index.
+	 *
+	 * @return the current page index
+	 */
 	public int getCurrentPageIndex() {
 		return currentPageIndex;
 	}
 
+	/**
+	 * Gets the page count.
+	 *
+	 * @return the page count
+	 */
 	public int getPageCount() {
 		return pageCount;
 	}
 
+	/**
+	 * Sets the page count.
+	 *
+	 * @param pageCount the new page count
+	 */
 	public void setPageCount(int pageCount) {
 		this.pageCount = pageCount;
 	}
 	
+	/**
+	 * Next page.
+	 */
 	public void nextPage(){
 		currentPageIndex = (currentPageIndex+1)%pageCount;
 		 changePage();
 	}
 	
+	/**
+	 * Previous page.
+	 */
 	public void previousPage(){
 		currentPageIndex = currentPageIndex - 1;
 		if (currentPageIndex<0)
@@ -75,25 +115,42 @@ public class DocViewer extends Frame implements IDocViewerImplementation {
 		 changePage();
 	}
 	
+	/**
+	 * First page.
+	 */
 	public void firstPage(){
 		currentPageIndex = 0;
 		 changePage();
 	}
 	
+	/**
+	 * Last page.
+	 */
 	public void lastPage(){
 		currentPageIndex = this.getPageCount() -1;
 		 changePage();
 	}
 	
+	/**
+	 * Goto page.
+	 *
+	 * @param pageIndex the page index
+	 */
 	public void gotoPage(int pageIndex){
 		currentPageIndex = pageIndex;
 		 changePage();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IDocViewerImplementation#changePage()
+	 */
 	public void changePage(){
 		((IDocViewerImplementation)this.contentItemImplementation).changePage();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.OrthoContentItem#cursorClicked(synergynetframework.appsystem.contentsystem.items.ContentItem, long, float, float, float)
+	 */
 	@Override
 	public void cursorClicked(ContentItem item, long id, float x, float y,
 			float pressure) {
@@ -111,6 +168,9 @@ public class DocViewer extends Frame implements IDocViewerImplementation {
 		*/	
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.OrthoContentItem#cursorPressed(synergynetframework.appsystem.contentsystem.items.ContentItem, long, float, float, float)
+	 */
 	@Override
 	public void cursorPressed(ContentItem item, long id, float x, float y,
 			float pressure) {
@@ -119,6 +179,9 @@ public class DocViewer extends Frame implements IDocViewerImplementation {
 	}
 
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.OrthoContentItem#cursorReleased(synergynetframework.appsystem.contentsystem.items.ContentItem, long, float, float, float)
+	 */
 	@Override
 	public void cursorReleased(ContentItem item, long id, float x, float y,
 			float pressure) {
@@ -141,6 +204,9 @@ public class DocViewer extends Frame implements IDocViewerImplementation {
 		time = System.currentTimeMillis();
 	}
 
+	/**
+	 * Make full screen.
+	 */
 	private void makeFullScreen() {
 
 		int w = contentSystem.getScreenWidth();

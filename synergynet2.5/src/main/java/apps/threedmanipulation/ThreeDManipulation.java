@@ -93,43 +93,87 @@ import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightE
 import synergynetframework.jme.config.AppConfig;
 import synergynetframework.jme.sysutils.CameraUtility;
 
+
+/**
+ * The Class ThreeDManipulation.
+ */
 public class ThreeDManipulation extends DefaultSynergyNetApp {
 
+	/** The content system. */
 	protected ContentSystem contentSystem;
 	  
+	/** The telescopes. */
 	protected List<Telescope> telescopes = new ArrayList<Telescope>();
+	
+	/** The monitors. */
 	protected List<Monitor> monitors = new ArrayList<Monitor>();	
+	
+	/** The touch pads. */
 	protected Map<String, TouchPad> touchPads = new HashMap<String, TouchPad>();
+	
+	/** The twin objects. */
 	protected Map<String, TwinObject> twinObjects = new HashMap<String, TwinObject>();
 	
+	/** The manipulatable ojbects. */
 	protected List<Spatial> manipulatableOjbects = new ArrayList<Spatial>();	
+	
+	/** The indirect manipulation mode. */
 	private String indirectManipulationMode = "";
 
+	/** The main explosion. */
 	protected ParticleSystem mainExplosion;
 
+	/** The context. */
 	protected Context context;
+	
+	/** The tv. */
 	protected TV tv;
+	
+	/** The tv1. */
 	protected TV tv1;
 	
+	/** The tp1. */
 	protected Teapot tp1;
+	
+	/** The tp1 clone. */
 	protected Teapot tp1Clone;
+	
+	/** The pre defined angles. */
 	protected List<Float> preDefinedAngles = new ArrayList<Float>();
+	
+	/** The pre defined angle index. */
 	protected int preDefinedAngleIndex=0;
+	
+	/** The pre defined camera position index. */
 	protected int preDefinedCameraPositionIndex=1;
 	
+	/** The target object. */
 	protected Box targetObject;
 	
+	/** The s pass. */
 	private static DirectionalShadowMapPass sPass;
 	
+	/** The last rend. */
 	private float lastRend = 1;
+	
+	/** The throttle. */
 	private float throttle = 1/30f;
 	
+	/** The camera manipulation mode. */
 	private String cameraManipulationMode = MonitorCameraRotateTranslateZoom.MODE_REMOTECONTROL;
 	  
+	/**
+	 * Instantiates a new three d manipulation.
+	 *
+	 * @param info the info
+	 */
 	public ThreeDManipulation(ApplicationInfo info) {
 		super(info);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	 */
 	@Override
 	public void addContent() {
 	
@@ -168,6 +212,9 @@ public class ThreeDManipulation extends DefaultSynergyNetApp {
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	 */
 	public void stateUpdate(float tpf) {
 		super.stateUpdate(tpf);
 		for (Monitor monitor:monitors)
@@ -221,6 +268,9 @@ public class ThreeDManipulation extends DefaultSynergyNetApp {
 		}
 	}
 
+	/**
+	 * Setup lighting.
+	 */
 	protected void setupLighting() {
 		LightState lightState = DisplaySystem.getDisplaySystem().getRenderer().createLightState();
 		worldNode.setRenderState(lightState);
@@ -243,6 +293,9 @@ public class ThreeDManipulation extends DefaultSynergyNetApp {
 		worldNode.updateRenderState();
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#getCamera()
+	 */
 	protected Camera getCamera() {
 		if(cam == null) {
 			cam = CameraUtility.getCamera();
@@ -254,6 +307,9 @@ public class ThreeDManipulation extends DefaultSynergyNetApp {
 
 	}
 	
+	/**
+	 * Builds the sence.
+	 */
 	private void buildSence() {
         
 		//build skybox
@@ -289,6 +345,9 @@ public class ThreeDManipulation extends DefaultSynergyNetApp {
 		buildButtons();
 	}
 	
+	/**
+	 * Builds the buttons.
+	 */
 	private void buildButtons(){    
 			
 		LightImageLabel telescopeButton = (LightImageLabel)contentSystem.createContentItem(LightImageLabel.class);
@@ -491,7 +550,10 @@ public class ThreeDManipulation extends DefaultSynergyNetApp {
 //			    
 //	}
 	
-	private void buildTargetObject(){
+	/**
+ * Builds the target object.
+ */
+private void buildTargetObject(){
 		targetObject = new Box("targetObject", new Vector3f(0, 0, 0), 0.5f, 0.5f, 0.5f);
 		targetObject.setLocalTranslation(10000, 10000, 10000);
 		worldNode.attachChild(targetObject);
@@ -503,6 +565,9 @@ public class ThreeDManipulation extends DefaultSynergyNetApp {
 		//this.targetObject.updateGeometricState(0f, false);
 	}
 	
+	/**
+	 * Builds the manipulated objects.
+	 */
 	private void buildManipulatedObjects(){
 		   tp1 = new Teapot("tp1");
 			tp1.setLocalTranslation(new Vector3f(30f, 5f, 50f));
@@ -541,6 +606,9 @@ public class ThreeDManipulation extends DefaultSynergyNetApp {
 			*/
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#cleanup()
+	 */
 	public void cleanup() {
 		super.cleanup();
 		for (Telescope telescope:telescopes)
@@ -551,6 +619,9 @@ public class ThreeDManipulation extends DefaultSynergyNetApp {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#stateRender(float)
+	 */
 	@Override
 	protected void stateRender(float tpf) {
 		super.stateRender(tpf);
@@ -567,6 +638,12 @@ public class ThreeDManipulation extends DefaultSynergyNetApp {
 		    
 	}
 		
+	/**
+	 * Boom.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 */
 	private void boom(float x, float y){
 		
 		Vector3f cursorWorldStart = DisplaySystem.getDisplaySystem().getWorldCoordinates(new Vector2f(x, y), 0.9f);
@@ -582,14 +659,27 @@ public class ThreeDManipulation extends DefaultSynergyNetApp {
 		
 	}
 	
+	/**
+	 * Update context.
+	 */
 	private void updateContext(){
 		context = new Context(telescopes, monitors, manipulatableOjbects, touchPads, twinObjects, contentSystem, indirectManipulationMode, worldNode, orthoNode);
 	}
 	
+	/**
+	 * Gets the context.
+	 *
+	 * @return the context
+	 */
 	public Context getContext() {
 		return context;
 	}
 
+	/**
+	 * Sets the context.
+	 *
+	 * @param context the new context
+	 */
 	public void setContext(Context context) {
 		this.context = context;
 	}

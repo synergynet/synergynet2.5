@@ -53,22 +53,45 @@ import synergynetframework.appsystem.contentsystem.items.ContentItem;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.shapes.IObjShape;
 
 
+
+/**
+ * The Class JMEObjShape.
+ */
 public class JMEObjShape extends JMEFrame implements IObjShape {
 
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(JMEPDFViewer.class.getName());
+	
+	/** The shape tri mesh. */
 	private TriMesh shapeTriMesh;
+	
+	/** The location. */
 	private String location;	
 
+	/**
+	 * Instantiates a new JME obj shape.
+	 *
+	 * @param contentItem the content item
+	 */
 	public JMEObjShape(ContentItem contentItem) {
 		this(contentItem, new TriMesh());
 	}
 	
+	/**
+	 * Instantiates a new JME obj shape.
+	 *
+	 * @param contentItem the content item
+	 * @param spatial the spatial
+	 */
 	public JMEObjShape(ContentItem contentItem, Spatial spatial) {
 		super(contentItem);
 		spatial.setName(UUID.randomUUID().toString());
 		this.shapeTriMesh = (TriMesh) this.spatial;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.shapes.IObjShape#setShapeGeometry(java.lang.String)
+	 */
 	@Override
 	public void setShapeGeometry(String geomLoc) throws Exception{
 		
@@ -87,6 +110,9 @@ public class JMEObjShape extends JMEFrame implements IObjShape {
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.shapes.IObjShape#setShapeGeometry(java.net.URL)
+	 */
 	@Override
 	public void setShapeGeometry(URL geomLoc) throws Exception{
 		
@@ -107,6 +133,9 @@ public class JMEObjShape extends JMEFrame implements IObjShape {
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.shapes.IObjShape#setSolidColour(com.jme.renderer.ColorRGBA)
+	 */
 	@Override
 	public void setSolidColour(ColorRGBA colour){
 		shapeTriMesh.setRandomColors();
@@ -127,6 +156,9 @@ public class JMEObjShape extends JMEFrame implements IObjShape {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.shapes.IObjShape#getObjFileText()
+	 */
 	@Override
 	public String getObjFileText() throws IOException {
 				

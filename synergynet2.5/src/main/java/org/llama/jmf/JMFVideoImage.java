@@ -66,26 +66,69 @@ import com.jme.math.Vector3f;
 import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
 
+
+/**
+ * The Class JMFVideoImage.
+ */
 public class JMFVideoImage extends Image implements ByteBufferRendererListener, ControllerListener {
 
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(JMFVideoImage.class.getName());	
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -8413968528763966076L;
+	
+	/** The Constant SCALE_NONE. */
 	public final static int SCALE_NONE = 0;
+	
+	/** The Constant SCALE_MAXIMIZE. */
 	public final static int SCALE_MAXIMIZE = 1;
+	
+	/** The Constant SCALE_FIT. */
 	public final static int SCALE_FIT = 2;
 
+	/** The jmfplayer. */
 	private Player jmfplayer;
+	
+	/** The videoheight. */
 	private int videowidth, videoheight; // frame dimensions
+	
+	/** The inittexture. */
 	private transient boolean failed = false, ready = false, inittexture = false;	
+	
+	/** The fpc. */
 	private FramePositioningControl fpc;
 
+	/**
+	 * Instantiates a new JMF video image.
+	 *
+	 * @param filename the filename
+	 * @param loop the loop
+	 * @param scalemethod the scalemethod
+	 * @throws NoPlayerException the no player exception
+	 * @throws CannotRealizeException the cannot realize exception
+	 * @throws MalformedURLException the malformed url exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public JMFVideoImage(String filename, boolean loop, int scalemethod) throws NoPlayerException, CannotRealizeException, MalformedURLException, IOException {
 		this(new URL("file:" + filename), loop, scalemethod);
 	}
 	
 	
 	
+	/** The scalemethod. */
 	private int scalemethod;
+	
+	/**
+	 * Instantiates a new JMF video image.
+	 *
+	 * @param url the url
+	 * @param loop the loop
+	 * @param scalemethod the scalemethod
+	 * @throws NoPlayerException the no player exception
+	 * @throws CannotRealizeException the cannot realize exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public JMFVideoImage(URL url, boolean loop, int scalemethod) throws NoPlayerException, CannotRealizeException, IOException {
 	
 		this.scalemethod = scalemethod;
@@ -117,59 +160,116 @@ public class JMFVideoImage extends Image implements ByteBufferRendererListener, 
 		}
 	}
 
+	/**
+	 * Start movie.
+	 */
 	public void startMovie() {
 		active = true;
 		jmfplayer.start();
 	}
 	
+	/**
+	 * Sets the time.
+	 *
+	 * @param time the new time
+	 */
 	public void setTime(Time time){
 		jmfplayer.setMediaTime(time);
 	}
 	
+	/**
+	 * Seek.
+	 *
+	 * @param time the time
+	 */
 	public void seek(Time time){
 		if (fpc!=null){
 			fpc.seek(fpc.mapTimeToFrame(time));
 		}
 	}
 	
+	/**
+	 * Gets the duration.
+	 *
+	 * @return the duration
+	 */
 	public Time getDuration(){
 		return jmfplayer.getDuration();
 	}
 	
+	/**
+	 * Sets the speed.
+	 *
+	 * @param rate the new speed
+	 */
 	public void setSpeed(float rate){
 		jmfplayer.setRate(rate);
 	}
 	
+	/**
+	 * Gets the speed.
+	 *
+	 * @param rate the rate
+	 * @return the speed
+	 */
 	public void getSpeed(float rate){
 		jmfplayer.getRate();		
 	}
 	
+	/**
+	 * Sets the mute.
+	 *
+	 * @param isMute the new mute
+	 */
 	public void setMute(boolean isMute){
 		if (jmfplayer.getGainControl()!=null)
 			jmfplayer.getGainControl().setMute(isMute);
 	}
 	
+	/**
+	 * Checks if is mute.
+	 *
+	 * @return true, if is mute
+	 */
 	public boolean isMute(){
 		if (jmfplayer.getGainControl()!=null)
 			return jmfplayer.getGainControl().getMute();
 		return false;
 	}
 	
+	/**
+	 * Sets the sound volume level.
+	 *
+	 * @param level the new sound volume level
+	 */
 	public void setSoundVolumeLevel(float level){
 		if (jmfplayer.getGainControl()!=null)
 			jmfplayer.getGainControl().setLevel(level);
 	}
 	
+	/**
+	 * Gets the sound volume level.
+	 *
+	 * @return the sound volume level
+	 */
 	public float getSoundVolumeLevel(){
 		if (jmfplayer.getGainControl()!=null)
 			return jmfplayer.getGainControl().getLevel();
 		return 0;
 	}
 	
+	/**
+	 * Gets the media time.
+	 *
+	 * @return the media time
+	 */
 	public Time getMediaTime(){
 		return jmfplayer.getMediaTime();
 	}
 
+	/**
+	 * Stop movie.
+	 */
 	synchronized public void stopMovie() {
 		active = false;
 		try {
@@ -180,6 +280,9 @@ public class JMFVideoImage extends Image implements ByteBufferRendererListener, 
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.media.ControllerListener#controllerUpdate(javax.media.ControllerEvent)
+	 */
 	public void controllerUpdate(ControllerEvent evt)
 	// respond to events
 	{
@@ -196,11 +299,19 @@ public class JMFVideoImage extends Image implements ByteBufferRendererListener, 
 		}
 	}
 	
+	/**
+	 * Restart.
+	 */
 	public void restart(){		
 		jmfplayer.setMediaTime(new Time(0));
 		jmfplayer.start();
 	}
 	
+	/**
+	 * Starts from.
+	 *
+	 * @param seconds the seconds
+	 */
 	public void startsFrom(final double seconds){
 		new Thread(new Runnable(){
 
@@ -212,19 +323,34 @@ public class JMFVideoImage extends Image implements ByteBufferRendererListener, 
 		}).start();
 	}
 
+	/**
+	 * Gets the video width.
+	 *
+	 * @return the video width
+	 */
 	public int getVideoWidth() {
 		return videowidth;
 	}
 
+	/**
+	 * Gets the video height.
+	 *
+	 * @return the video height
+	 */
 	public int getVideoHeight() {
 		return videoheight;
 	}
 	
+	/** The flipped. */
 	private boolean flipped = false;
 	
+	/** The dataformat. */
 	private int pixelformat, dataformat;
 	
 
+	/* (non-Javadoc)
+	 * @see org.llama.jmf.ByteBufferRendererListener#setSize(int, int, javax.media.format.RGBFormat)
+	 */
 	public void setSize(int videowidth, int videoheight, RGBFormat format) {		
 		log.info("set Size: " + videowidth + " " + videoheight);
 		if (ready)
@@ -308,22 +434,33 @@ public class JMFVideoImage extends Image implements ByteBufferRendererListener, 
 
 	}
 
+	/** The framecounter. */
 	long framecounter = 0;
+	
+	/** The lastupdated. */
 	long lastupdated = 0;
+	
+	/** The buffer. */
 	private ByteBuffer buffer;
 
+	/** The active. */
 	private boolean active;
 	
+	/**
+	 * Update.
+	 *
+	 * @param texture the texture
+	 * @return true, if successful
+	 */
 	public boolean update(Texture texture) {
 		return update(texture, false);
 	}
 	
 	/**
-	 * 
-	 * @param texture
-	 *            Texture to update
-	 * @param syncToFrameRate 
-	 *            Wait till the frame is updated before updating the texture.
+	 * Update.
+	 *
+	 * @param texture            Texture to update
+	 * @param syncToFrameRate            Wait till the frame is updated before updating the texture.
 	 * @return true if the texture was updated
 	 */
 	public boolean update(Texture texture, boolean syncToFrameRate) {
@@ -399,6 +536,11 @@ public class JMFVideoImage extends Image implements ByteBufferRendererListener, 
 
 	}
 	
+	/**
+	 * Wait some.
+	 *
+	 * @param time the time
+	 */
 	public synchronized void waitSome(int time) {
 		try {
 			this.wait(time);
@@ -406,6 +548,9 @@ public class JMFVideoImage extends Image implements ByteBufferRendererListener, 
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.llama.jmf.ByteBufferRendererListener#frame(java.nio.ByteBuffer)
+	 */
 	public void frame(ByteBuffer buffer) {
 		try {
 			synchronized (this) {
@@ -427,6 +572,11 @@ public class JMFVideoImage extends Image implements ByteBufferRendererListener, 
 		}
 	}
 
+	/**
+	 * Checks if is flipped.
+	 *
+	 * @return true, if is flipped
+	 */
 	public boolean isFlipped() {
 		return flipped;
 	}	

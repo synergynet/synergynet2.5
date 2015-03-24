@@ -38,51 +38,111 @@ import java.util.List;
 
 import synergynetframework.appsystem.contentsystem.jme.items.utils.DrawData;
 
+
+/**
+ * The Class Assignment.
+ */
 public class Assignment implements Serializable{
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2221232214814894336L;
 
+	/** The assignment id. */
 	protected String assignmentId;
+	
+	/** The draw data. */
 	protected HashMap<Integer,List<DrawData>> drawData;
+	
+	/** The time. */
 	protected int time = -1;
+	
+	/** The instructions. */
 	protected String instructions;
 	
+	/**
+	 * Instantiates a new assignment.
+	 *
+	 * @param assignmentId the assignment id
+	 */
 	public Assignment(String assignmentId){
 		this.assignmentId = assignmentId;
 	}
 	
+	/**
+	 * Gets the assignment id.
+	 *
+	 * @return the assignment id
+	 */
 	public String getAssignmentId(){
 		return assignmentId;
 	}
 	
+	/**
+	 * Sets the assignment id.
+	 *
+	 * @param assignmentId the new assignment id
+	 */
 	public void setAssignmentId(String assignmentId){
 		this.assignmentId = assignmentId;
 	}
 
+	/**
+	 * Gets the draw data.
+	 *
+	 * @return the draw data
+	 */
 	public HashMap<Integer,List<DrawData>> getDrawData() {
 		return drawData;
 	}
 
+	/**
+	 * Sets the draw data.
+	 *
+	 * @param drawData the draw data
+	 */
 	public void setDrawData(HashMap<Integer,List<DrawData>> drawData) {
 		this.drawData = drawData;
 	}
 
+	/**
+	 * Gets the time.
+	 *
+	 * @return the time
+	 */
 	public int getTime() {
 		return time;
 	}
 
+	/**
+	 * Sets the time.
+	 *
+	 * @param time the new time
+	 */
 	public void setTime(int time) {
 		this.time = time;
 	}
 
+	/**
+	 * Gets the instructions.
+	 *
+	 * @return the instructions
+	 */
 	public String getInstructions() {
 		return instructions;
 	}
 
+	/**
+	 * Sets the instructions.
+	 *
+	 * @param instructions the new instructions
+	 */
 	public void setInstructions(String instructions) {
 		this.instructions = instructions;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString(){
 		return assignmentId;
 	}

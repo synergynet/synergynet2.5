@@ -45,17 +45,62 @@ import synergynetframework.appsystem.contentsystem.items.Window;
 import synergynetframework.appsystem.contentsystem.items.listener.ItemListener;
 import synergynetframework.appsystem.contentsystem.items.listener.SimpleButtonAdapter;
 
+
+/**
+ * The Class PortalNavigator.
+ */
 public class PortalNavigator {
 	
+	/** The navigator window. */
 	private Window navigatorWindow;
-	private enum NavigationCommand{Up,Down, Left, Right, ZoomIn, ZoomOut, RotateRight, RotateLeft, DefaultScale, Null};
+	
+	/**
+	 * The Enum NavigationCommand.
+	 */
+	private enum NavigationCommand{
+/** The Up. */
+Up,
+/** The Down. */
+Down, 
+ /** The Left. */
+ Left, 
+ /** The Right. */
+ Right, 
+ /** The Zoom in. */
+ ZoomIn, 
+ /** The Zoom out. */
+ ZoomOut, 
+ /** The Rotate right. */
+ RotateRight, 
+ /** The Rotate left. */
+ RotateLeft, 
+ /** The Default scale. */
+ DefaultScale, 
+ /** The Null. */
+ Null};
+	
+	/** The command. */
 	private NavigationCommand command = NavigationCommand.Null;
+	
+	/** The portal. */
 	private TablePortal portal;
+	
+	/** The shift factor. */
 	private float shiftFactor = 0.35f;
+	
+	/** The scale factor. */
 	private float scaleFactor = 0.001f;
+	
+	/** The rotate factor. */
 	private float rotateFactor = 0.1f * FastMath.DEG_TO_RAD;
 
 	
+	/**
+	 * Instantiates a new portal navigator.
+	 *
+	 * @param contentSystem the content system
+	 * @param portal the portal
+	 */
 	public PortalNavigator(ContentSystem contentSystem, final TablePortal portal){
 		this.portal = portal;
 		navigatorWindow = (Window) contentSystem.createContentItem(Window.class, "navigatorwindow");
@@ -192,10 +237,18 @@ public class PortalNavigator {
 		zoomDefault.setLocalLocation(0,-90);
 	}
 	
+	/**
+	 * Gets the window.
+	 *
+	 * @return the window
+	 */
 	public Window getWindow(){
 		return navigatorWindow;
 	}
 
+	/**
+	 * Update.
+	 */
 	public void update() {
 		if(command != NavigationCommand.Null){
 			if(command == NavigationCommand.Up){

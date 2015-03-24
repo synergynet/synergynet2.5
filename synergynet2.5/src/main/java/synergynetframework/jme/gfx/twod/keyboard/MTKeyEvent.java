@@ -32,16 +32,42 @@
 
 package synergynetframework.jme.gfx.twod.keyboard;
 
+
+/**
+ * The Class MTKeyEvent.
+ */
 public class MTKeyEvent {
+	
+	/** The Constant PRESSED. */
 	public static final int PRESSED = 0;
+	
+	/** The Constant RELEASED. */
 	public static final int RELEASED = 1;
 	
+	/** The source. */
 	protected MTKeyboard source;
+	
+	/** The key. */
 	protected int key;
+	
+	/** The key text. */
 	protected String keyText;
+	
+	/** The type. */
 	protected int type;
+	
+	/** The modifiers. */
 	protected int modifiers;
 
+	/**
+	 * Instantiates a new MT key event.
+	 *
+	 * @param source the source
+	 * @param keyType the key type
+	 * @param keyCode the key code
+	 * @param keyText the key text
+	 * @param modifiers the modifiers
+	 */
 	public MTKeyEvent(MTKeyboard source, int keyType, int keyCode, String keyText, int modifiers) {
 		this.source = source;
 		this.key = keyCode;
@@ -50,22 +76,47 @@ public class MTKeyEvent {
 		this.modifiers = modifiers;
 	}
 
+	/**
+	 * Gets the source.
+	 *
+	 * @return the source
+	 */
 	public MTKeyboard getSource() {
 		return source;
 	}
 
+	/**
+	 * Gets the key.
+	 *
+	 * @return the key
+	 */
 	public int getKey() {
 		return key;
 	}
 
+	/**
+	 * Gets the key text.
+	 *
+	 * @return the key text
+	 */
 	public String getKeyText() {
 		return keyText;
 	}
 
+	/**
+	 * Gets the type.
+	 *
+	 * @return the type
+	 */
 	public int getType() {
 		return type;
 	}
 
+	/**
+	 * Gets the modifiers.
+	 *
+	 * @return the modifiers
+	 */
 	public int getModifiers() {
 		return modifiers;
 	}

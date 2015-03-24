@@ -38,7 +38,15 @@ import java.nio.ByteBuffer;
 
 import synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler;
 
+
+/**
+ * The Class ByteSerializer.
+ */
 public class ByteSerializer extends Serializer {
+	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.utility.serializers.Serializer#readObjectData(synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler, java.nio.ByteBuffer, java.lang.Class, boolean)
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Byte readObjectData (ConnectionHandler connectionHandler, ByteBuffer buffer, Class type, boolean lengthKnown)
 		throws SerializationException {
@@ -46,6 +54,9 @@ public class ByteSerializer extends Serializer {
 		return b;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.objectmessaging.utility.serializers.Serializer#writeObjectData(synergynetframework.appsystem.services.net.objectmessaging.connections.ConnectionHandler, java.nio.ByteBuffer, java.lang.Object, boolean)
+	 */
 	public void writeObjectData (ConnectionHandler connectionHandler, ByteBuffer buffer, Object object, boolean lengthKnown)
 		throws SerializationException {
 		buffer.put((Byte)object);
@@ -53,6 +64,9 @@ public class ByteSerializer extends Serializer {
 
 	/**
 	 * Writes the specified non-negative int to the buffer, cast as a byte.
+	 *
+	 * @param buffer the buffer
+	 * @param value the value
 	 */
 	static public void putUnsigned (ByteBuffer buffer, int value) {
 		if (value < 0) throw new IllegalArgumentException("value cannot be less than zero: " + value);
@@ -61,6 +75,9 @@ public class ByteSerializer extends Serializer {
 
 	/**
 	 * Reads a non-negative byte from the buffer that was written with {@link #putUnsigned(ByteBuffer, int)}.
+	 *
+	 * @param buffer the buffer
+	 * @return the unsigned
 	 */
 	static public int getUnsigned (ByteBuffer buffer) {
 		byte value = buffer.get();

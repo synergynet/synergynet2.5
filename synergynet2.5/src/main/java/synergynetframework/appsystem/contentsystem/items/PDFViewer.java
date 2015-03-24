@@ -38,13 +38,24 @@ import java.net.URL;
 import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IPDFViewerImplementation;
 
+
+/**
+ * The Class PDFViewer.
+ */
 public class PDFViewer extends DocViewer implements IPDFViewerImplementation {
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -8279443252885792979L;
 	
+	/** The pdf url. */
 	protected URL pdfURL;	
+	
+	/** The pdf file. */
 	protected File pdfFile;
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.ContentItem#init()
+	 */
 	public void init(){
 		super.init();
 		if(pdfURL != null) 
@@ -54,23 +65,46 @@ public class PDFViewer extends DocViewer implements IPDFViewerImplementation {
 		this.setWidth(width);
 		this.setHeight(height);
 	}
+	
+	/**
+	 * Instantiates a new PDF viewer.
+	 *
+	 * @param contentSystem the content system
+	 * @param name the name
+	 */
 	public PDFViewer(ContentSystem contentSystem, String name) {
 		super(contentSystem, name);
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IPDFViewerImplementation#setPdfURL(java.net.URL)
+	 */
 	public void setPdfURL(URL pdfURL) {
 		this.pdfURL = pdfURL;
 		((IPDFViewerImplementation)this.contentItemImplementation).setPdfURL(pdfURL);
 	}
 	
+	/**
+	 * Gets the pdf file.
+	 *
+	 * @return the pdf file
+	 */
 	public File getPdfFile() {
 		return pdfFile;
 	}
 	
+	/**
+	 * Gets the pdf url.
+	 *
+	 * @return the pdf url
+	 */
 	public URL getPdfURL() {
 		return pdfURL;
 	}
 
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IPDFViewerImplementation#setPdfFile(java.io.File)
+	 */
 	@Override
 	public void setPdfFile(File pdfFile) {
 		this.pdfFile = pdfFile;
@@ -78,6 +112,9 @@ public class PDFViewer extends DocViewer implements IPDFViewerImplementation {
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.QuadContentItem#clone()
+	 */
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		PDFViewer clonedItem = (PDFViewer) super.clone();

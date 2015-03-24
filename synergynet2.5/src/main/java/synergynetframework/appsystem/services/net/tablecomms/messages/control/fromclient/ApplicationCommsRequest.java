@@ -34,26 +34,55 @@ package synergynetframework.appsystem.services.net.tablecomms.messages.control.f
 
 import synergynetframework.appsystem.services.net.tablecomms.messages.control.FromClientTableControlMessage;
 
+
+/**
+ * The Class ApplicationCommsRequest.
+ */
 public class ApplicationCommsRequest extends FromClientTableControlMessage {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -4243901423562317496L;
+	
+	/** The application name. */
 	private String applicationName;
 
+	/**
+	 * Instantiates a new application comms request.
+	 */
 	public ApplicationCommsRequest(){
 		super();
 	}
 	
+	/**
+	 * Instantiates a new application comms request.
+	 *
+	 * @param name the name
+	 */
 	public ApplicationCommsRequest(String name) {
 		this.setApplicationName(name);
 	}
 
+	/**
+	 * Sets the application name.
+	 *
+	 * @param name the new application name
+	 */
 	public void setApplicationName(String name) {
 		this.applicationName = name;
 	}
 
+	/**
+	 * Gets the application name.
+	 *
+	 * @return the application name
+	 */
 	public String getApplicationName() {
 		return applicationName;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return ApplicationCommsRequest.class.getName() + " for " + applicationName +  " from " + getSender();
 	}

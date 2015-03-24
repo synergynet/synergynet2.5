@@ -9,8 +9,15 @@ import com.jme.math.Vector3f;
 import com.jme.scene.Node;
 import com.jme.scene.Spatial;
 
+
+/**
+ * The Class RandomTetrisLoader.
+ */
 public class RandomTetrisLoader implements TetrisLoader {
 
+	/* (non-Javadoc)
+	 * @see apps.threedpuzzle.TetrisLoader.TetrisLoader#loadTetris(java.util.List, com.jme.scene.Node)
+	 */
 	@Override
 	public void loadTetris(List<Spatial> tetrisList, Node worldNode) {
 		Random rand = new Random();

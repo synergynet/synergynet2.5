@@ -34,10 +34,21 @@ package apps.mathpadapp.networkmanager.messages.fromclient.fromtable;
 
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 
+
+/**
+ * The Class PostTableIdMessage.
+ */
 public class PostTableIdMessage extends TableToControllerMessage{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3460438311855499678L;
 	
+	/**
+	 * Instantiates a new post table id message.
+	 *
+	 * @param targetClass the target class
+	 * @param tableId the table id
+	 */
 	public PostTableIdMessage(Class<?> targetClass, TableIdentity tableId){
 		super(targetClass);
 		this.setRecipient(tableId);
