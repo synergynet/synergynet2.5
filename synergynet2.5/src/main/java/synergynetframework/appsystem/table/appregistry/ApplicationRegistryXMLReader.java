@@ -1,32 +1,23 @@
 /*
- * Copyright (c) 2009 University of Durham, England
- * All rights reserved.
- *
+ * Copyright (c) 2009 University of Durham, England All rights reserved.
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are
- * met:
- *
- * * Redistributions of source code must retain the above copyright
- *   notice, this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright
- *   notice, this list of conditions and the following disclaimer in the
- *   documentation and/or other materials provided with the distribution.
- *
- * * Neither the name of 'SynergyNet' nor the names of its contributors 
- *   may be used to endorse or promote products derived from this software 
- *   without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
- * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * modification, are permitted provided that the following conditions are met: *
+ * Redistributions of source code must retain the above copyright notice, this
+ * list of conditions and the following disclaimer. * Redistributions in binary
+ * form must reproduce the above copyright notice, this list of conditions and
+ * the following disclaimer in the documentation and/or other materials provided
+ * with the distribution. * Neither the name of 'SynergyNet' nor the names of
+ * its contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission. THIS SOFTWARE IS PROVIDED
+ * BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+ * EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
@@ -56,241 +47,385 @@ import org.xml.sax.SAXParseException;
 
 import synergynetframework.appsystem.Resources;
 
-
 /**
  * The Class ApplicationRegistryXMLReader.
  */
 public class ApplicationRegistryXMLReader {
-	
+
 	/** The Constant log. */
-	private static final Logger log = Logger.getLogger(ApplicationRegistryXMLReader.class.getName());
-
-
+	private static final Logger log = Logger
+			.getLogger(ApplicationRegistryXMLReader.class.getName());
+	
 	/**
-	 * Load from configuration.
+	 * Gets the client application.
 	 *
-	 * @param configXMLInputStream the config xml input stream
-	 * @param registry the registry
-	 * @throws SAXException the SAX exception
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws ParserConfigurationException the parser configuration exception
-	 * @throws InstantiationException the instantiation exception
-	 * @throws IllegalAccessException the illegal access exception
-	 * @throws ClassNotFoundException the class not found exception
-	 * @throws XPathExpressionException the x path expression exception
+	 * @param path
+	 *            the path
+	 * @param document
+	 *            the document
+	 * @return the client application
+	 * @throws XPathExpressionException
+	 *             the x path expression exception
+	 * @throws DOMException
+	 *             the DOM exception
+	 * @throws ClassNotFoundException
+	 *             the class not found exception
 	 */
-	public static void loadFromConfiguration(InputStream configXMLInputStream, ApplicationRegistry registry) throws SAXException, IOException, ParserConfigurationException, InstantiationException, IllegalAccessException, ClassNotFoundException, XPathExpressionException {
-		log.info("Loading Table Configuration XML");
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		factory.setNamespaceAware(true);
-		factory.setValidating(true);
-		factory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaLanguage", "http://www.w3.org/2001/XMLSchema");
-		factory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaSource", Resources.getResource("appsetup/schemas/tableconfiguration.xsd").toString());
-		DocumentBuilder builder = factory.newDocumentBuilder();
-		builder.setErrorHandler( new ErrorHandler(){
-			public void error(SAXParseException exception) throws SAXException { System.out.println("Error: " + exception.getMessage()); }
-			public void fatalError(SAXParseException exception) throws SAXException { System.out.println("Fatal error: " + exception.getMessage()); }
-			public void warning(SAXParseException exception) throws SAXException { System.out.println("Warning: " + exception.getMessage()); }
-		});        
-
-		Document document = builder.parse(configXMLInputStream); 
-		NamespaceContext ctx = new NamespaceContext() {
-			public String getNamespaceURI(String prefix) {
-				if(prefix.equals("tns")) return "http://tel.dur.ac.uk/xml/schemas/tableconfiguration";
-				return null;
-			}
-
-			public Iterator<?> getPrefixes(String val) { return null; }           
-			public String getPrefix(String uri) { return null; }
-		}; 
-		XPathFactory pathFactory = XPathFactory.newInstance();        
-		XPath path = pathFactory.newXPath();
-		path.setNamespaceContext(ctx);
-
-		NodeList list = (NodeList) path.evaluate("/tns:config/tns:applications/tns:application", document, XPathConstants.NODESET);
-
-		for(int i = 0; i < list.getLength(); i++) {
-			String appConfigXML = list.item(i).getAttributes().getNamedItem("configpath").getNodeValue();   
-			boolean enabled = Boolean.parseBoolean(list.item(i).getAttributes().getNamedItem("enabled").getNodeValue());
-			boolean isDefault = Boolean.parseBoolean(list.item(i).getAttributes().getNamedItem("default").getNodeValue()); 
-			if(enabled) {
-				loadApplicationConfiguration(appConfigXML, registry, isDefault);
-			}
+	public static ApplicationInfo getClientApplication(XPath path,
+			Document document) throws XPathExpressionException, DOMException,
+			ClassNotFoundException {
+		Node component = (Node) path.evaluate(
+				"/ac:application/ac:clientcomponent", document,
+				XPathConstants.NODE);
+		if (component == null) {
+			return null;
 		}
-	}
 
-
-	/**
-	 * Load application configuration.
-	 *
-	 * @param appConfigXML the app config xml
-	 * @param registry the registry
-	 * @param isDefault the is default
-	 * @throws SAXException the SAX exception
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws ParserConfigurationException the parser configuration exception
-	 * @throws XPathExpressionException the x path expression exception
-	 * @throws InstantiationException the instantiation exception
-	 * @throws IllegalAccessException the illegal access exception
-	 * @throws ClassNotFoundException the class not found exception
-	 */
-	private static void loadApplicationConfiguration(String appConfigXML, ApplicationRegistry registry, boolean isDefault) throws SAXException, IOException, ParserConfigurationException, XPathExpressionException, InstantiationException, IllegalAccessException, ClassNotFoundException {
-		log.info("Loading Application XML configuration from " + appConfigXML);
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		factory.setNamespaceAware(true);
-		factory.setValidating(true);
-		factory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaLanguage", "http://www.w3.org/2001/XMLSchema");
-		factory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaSource", Resources.getResource("appsetup/schemas/synergynetapplication.xsd").toString());
-		DocumentBuilder builder = factory.newDocumentBuilder();
-		builder.setErrorHandler( new ErrorHandler(){
-			public void error(SAXParseException exception) throws SAXException { System.out.println("Error: " + exception.getMessage()); }
-			public void fatalError(SAXParseException exception) throws SAXException { System.out.println("Fatal error: " + exception.getMessage()); }
-			public void warning(SAXParseException exception) throws SAXException { System.out.println("Warning: " + exception.getMessage()); }
-		});        
-
-		Document document = builder.parse(Resources.getResourceAsStream(appConfigXML)); 
-		NamespaceContext ctx = new NamespaceContext() {
-			public String getNamespaceURI(String prefix) {
-				if(prefix.equals("ac")) return "http://tel.dur.ac.uk/xml/schemas/synergynetappconfig";
-				return null;
-			}
-
-			public Iterator<?> getPrefixes(String val) { return null; }           
-			public String getPrefix(String uri) { return null; }
-		}; 
-		XPathFactory pathFactory = XPathFactory.newInstance();        
-		XPath path = pathFactory.newXPath();
-		path.setNamespaceContext(ctx);
-		
-		if(DesktopTypeXMLReader.tableMode.equals(DesktopTypeXMLReader.TABLE_MODE_CONTROLLER)) {		
-			ApplicationInfo infoController = getControllerApplication(path, document);
-			if(infoController == null) {
-				ApplicationInfo infoClient = getClientApplication(path, document);
-				registry.register(infoClient);
-				if(isDefault) {
-					registry.setDefault(infoClient.getTheClassName());
-				}
-			}else{
-				registry.register(infoController);
-				if(isDefault) {
-					registry.setDefault(infoController.getTheClassName());
-				}
-			}
-		} else if(DesktopTypeXMLReader.tableMode.equals(DesktopTypeXMLReader.TABLE_MODE_PROJECTOR)){
-			ApplicationInfo infoProjector = getProjectorApplication(path, document);
-			registry.register(infoProjector);
-			if(isDefault) {
-				registry.setDefault(infoProjector.getTheClassName());
-			}
-		}else {
-			ApplicationInfo infoClient = getClientApplication(path, document);
-			registry.register(infoClient);
-			if(isDefault) {
-				registry.setDefault(infoClient.getTheClassName());
-			}
-		} 
+		Node reactivatePolicy = (Node) path.evaluate(
+				"/ac:application/ac:clientcomponent/ac:reactivatepolicy",
+				document, XPathConstants.NODE);
+		String classname = component.getAttributes().getNamedItem("classname")
+				.getTextContent();
+		Node appInfo = (Node) path.evaluate("/ac:application/ac:info",
+				document, XPathConstants.NODE);
+		String appName = appInfo.getAttributes().getNamedItem("name")
+				.getTextContent();
+		String uuid = appInfo.getAttributes().getNamedItem("uuid")
+				.getTextContent();
+		boolean showIcon = Boolean.parseBoolean(component.getAttributes()
+				.getNamedItem("showicon").getTextContent());
+		String versionString = appInfo.getAttributes().getNamedItem("version")
+				.getTextContent();
+		ApplicationInfo info = new ApplicationInfo(classname, appName,
+				versionString, reactivatePolicy.getTextContent());
+		info.setUUID(uuid);
+		info.setApplicationType(ApplicationInfo.APPLICATION_TYPE_CLIENT);
+		if (showIcon) {
+			String iconresource = component.getAttributes()
+					.getNamedItem("iconresource").getTextContent();
+			info.setIconResource(iconresource);
+			info.setShowIcon(true);
+		} else {
+			info.setShowIcon(false);
+		}
+		return info;
 	}
 	
 	/**
 	 * Gets the controller application.
 	 *
-	 * @param path the path
-	 * @param document the document
+	 * @param path
+	 *            the path
+	 * @param document
+	 *            the document
 	 * @return the controller application
-	 * @throws XPathExpressionException the x path expression exception
-	 * @throws DOMException the DOM exception
-	 * @throws ClassNotFoundException the class not found exception
+	 * @throws XPathExpressionException
+	 *             the x path expression exception
+	 * @throws DOMException
+	 *             the DOM exception
+	 * @throws ClassNotFoundException
+	 *             the class not found exception
 	 */
-	private static ApplicationInfo getControllerApplication(XPath path, Document document) throws XPathExpressionException, DOMException, ClassNotFoundException {
-		Node component = (Node) path.evaluate("/ac:application/ac:controllercomponent", document, XPathConstants.NODE);
-		if(component == null) return null;
-		
-		Node reactivatePolicy = (Node) path.evaluate("/ac:application/ac:controllercomponent/ac:reactivatepolicy", document, XPathConstants.NODE);
-		String classname = component.getAttributes().getNamedItem("classname").getTextContent();
-		Node appInfo = (Node) path.evaluate("/ac:application/ac:info", document, XPathConstants.NODE);
-		String appName = appInfo.getAttributes().getNamedItem("name").getTextContent();
-		String uuid = appInfo.getAttributes().getNamedItem("uuid").getTextContent();
-		boolean showIcon = Boolean.parseBoolean(component.getAttributes().getNamedItem("showicon").getTextContent());
-		String versionString = appInfo.getAttributes().getNamedItem("version").getTextContent();
-		ApplicationInfo info = new ApplicationInfo(classname, appName, versionString, reactivatePolicy.getTextContent());
+	private static ApplicationInfo getControllerApplication(XPath path,
+			Document document) throws XPathExpressionException, DOMException,
+			ClassNotFoundException {
+		Node component = (Node) path.evaluate(
+				"/ac:application/ac:controllercomponent", document,
+				XPathConstants.NODE);
+		if (component == null) {
+			return null;
+		}
+
+		Node reactivatePolicy = (Node) path.evaluate(
+				"/ac:application/ac:controllercomponent/ac:reactivatepolicy",
+				document, XPathConstants.NODE);
+		String classname = component.getAttributes().getNamedItem("classname")
+				.getTextContent();
+		Node appInfo = (Node) path.evaluate("/ac:application/ac:info",
+				document, XPathConstants.NODE);
+		String appName = appInfo.getAttributes().getNamedItem("name")
+				.getTextContent();
+		String uuid = appInfo.getAttributes().getNamedItem("uuid")
+				.getTextContent();
+		boolean showIcon = Boolean.parseBoolean(component.getAttributes()
+				.getNamedItem("showicon").getTextContent());
+		String versionString = appInfo.getAttributes().getNamedItem("version")
+				.getTextContent();
+		ApplicationInfo info = new ApplicationInfo(classname, appName,
+				versionString, reactivatePolicy.getTextContent());
 		info.setUUID(uuid);
 		info.setApplicationType(ApplicationInfo.APPLICATION_TYPE_CONTROLLER);
-		if(showIcon) {
-			String iconresource = component.getAttributes().getNamedItem("iconresource").getTextContent();
+		if (showIcon) {
+			String iconresource = component.getAttributes()
+					.getNamedItem("iconresource").getTextContent();
 			info.setIconResource(iconresource);
 			info.setShowIcon(true);
-		}else{
+		} else {
 			info.setShowIcon(false);
 		}
 		return info;
 	}
 
-
 	/**
-	 * Gets the client application.
+	 * Gets the projector application.
 	 *
-	 * @param path the path
-	 * @param document the document
-	 * @return the client application
-	 * @throws XPathExpressionException the x path expression exception
-	 * @throws DOMException the DOM exception
-	 * @throws ClassNotFoundException the class not found exception
+	 * @param path
+	 *            the path
+	 * @param document
+	 *            the document
+	 * @return the projector application
+	 * @throws XPathExpressionException
+	 *             the x path expression exception
+	 * @throws DOMException
+	 *             the DOM exception
+	 * @throws ClassNotFoundException
+	 *             the class not found exception
 	 */
-	public static ApplicationInfo getClientApplication(XPath path, Document document) throws XPathExpressionException, DOMException, ClassNotFoundException {
-		Node component = (Node) path.evaluate("/ac:application/ac:clientcomponent", document, XPathConstants.NODE);
-		if(component == null) return null;
-		
-		Node reactivatePolicy = (Node) path.evaluate("/ac:application/ac:clientcomponent/ac:reactivatepolicy", document, XPathConstants.NODE);
-		String classname = component.getAttributes().getNamedItem("classname").getTextContent();
-		Node appInfo = (Node) path.evaluate("/ac:application/ac:info", document, XPathConstants.NODE);
-		String appName = appInfo.getAttributes().getNamedItem("name").getTextContent();
-		String uuid = appInfo.getAttributes().getNamedItem("uuid").getTextContent();
-		boolean showIcon = Boolean.parseBoolean(component.getAttributes().getNamedItem("showicon").getTextContent());
-		String versionString = appInfo.getAttributes().getNamedItem("version").getTextContent();
-		ApplicationInfo info = new ApplicationInfo(classname, appName, versionString, reactivatePolicy.getTextContent());
+	public static ApplicationInfo getProjectorApplication(XPath path,
+			Document document) throws XPathExpressionException, DOMException,
+			ClassNotFoundException {
+		Node component = (Node) path.evaluate(
+				"/ac:application/ac:projectorcomponent", document,
+				XPathConstants.NODE);
+		if (component == null) {
+			return null;
+		}
+
+		Node reactivatePolicy = (Node) path.evaluate(
+				"/ac:application/ac:projectorcomponent/ac:reactivatepolicy",
+				document, XPathConstants.NODE);
+		String classname = component.getAttributes().getNamedItem("classname")
+				.getTextContent();
+		Node appInfo = (Node) path.evaluate("/ac:application/ac:info",
+				document, XPathConstants.NODE);
+		String appName = appInfo.getAttributes().getNamedItem("name")
+				.getTextContent();
+		String uuid = appInfo.getAttributes().getNamedItem("uuid")
+				.getTextContent();
+		boolean showIcon = Boolean.parseBoolean(component.getAttributes()
+				.getNamedItem("showicon").getTextContent());
+		String versionString = appInfo.getAttributes().getNamedItem("version")
+				.getTextContent();
+		ApplicationInfo info = new ApplicationInfo(classname, appName,
+				versionString, reactivatePolicy.getTextContent());
 		info.setUUID(uuid);
-		info.setApplicationType(ApplicationInfo.APPLICATION_TYPE_CLIENT);
-		if(showIcon) {
-			String iconresource = component.getAttributes().getNamedItem("iconresource").getTextContent();
+		info.setApplicationType(ApplicationInfo.APPLICATION_TYPE_PROJECTOR);
+		if (showIcon) {
+			String iconresource = component.getAttributes()
+					.getNamedItem("iconresource").getTextContent();
 			info.setIconResource(iconresource);
 			info.setShowIcon(true);
-		}else{
+		} else {
 			info.setShowIcon(false);
 		}
 		return info;
 	}
 	
 	/**
-	 * Gets the projector application.
+	 * Load application configuration.
 	 *
-	 * @param path the path
-	 * @param document the document
-	 * @return the projector application
-	 * @throws XPathExpressionException the x path expression exception
-	 * @throws DOMException the DOM exception
-	 * @throws ClassNotFoundException the class not found exception
+	 * @param appConfigXML
+	 *            the app config xml
+	 * @param registry
+	 *            the registry
+	 * @param isDefault
+	 *            the is default
+	 * @throws SAXException
+	 *             the SAX exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 * @throws ParserConfigurationException
+	 *             the parser configuration exception
+	 * @throws XPathExpressionException
+	 *             the x path expression exception
+	 * @throws InstantiationException
+	 *             the instantiation exception
+	 * @throws IllegalAccessException
+	 *             the illegal access exception
+	 * @throws ClassNotFoundException
+	 *             the class not found exception
 	 */
-	public static ApplicationInfo getProjectorApplication(XPath path, Document document) throws XPathExpressionException, DOMException, ClassNotFoundException {
-		Node component = (Node) path.evaluate("/ac:application/ac:projectorcomponent", document, XPathConstants.NODE);
-		if(component == null) return null;
+	private static void loadApplicationConfiguration(String appConfigXML,
+			ApplicationRegistry registry, boolean isDefault)
+			throws SAXException, IOException, ParserConfigurationException,
+			XPathExpressionException, InstantiationException,
+			IllegalAccessException, ClassNotFoundException {
+		log.info("Loading Application XML configuration from " + appConfigXML);
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setNamespaceAware(true);
+		factory.setValidating(true);
+		factory.setAttribute(
+				"http://java.sun.com/xml/jaxp/properties/schemaLanguage",
+				"http://www.w3.org/2001/XMLSchema");
+		factory.setAttribute(
+				"http://java.sun.com/xml/jaxp/properties/schemaSource",
+				Resources.getResource(
+						"appsetup/schemas/synergynetapplication.xsd")
+						.toString());
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		builder.setErrorHandler(new ErrorHandler() {
+			public void error(SAXParseException exception) throws SAXException {
+				System.out.println("Error: " + exception.getMessage());
+			}
+			
+			public void fatalError(SAXParseException exception)
+					throws SAXException {
+				System.out.println("Fatal error: " + exception.getMessage());
+			}
+			
+			public void warning(SAXParseException exception)
+					throws SAXException {
+				System.out.println("Warning: " + exception.getMessage());
+			}
+		});
 		
-		Node reactivatePolicy = (Node) path.evaluate("/ac:application/ac:projectorcomponent/ac:reactivatepolicy", document, XPathConstants.NODE);
-		String classname = component.getAttributes().getNamedItem("classname").getTextContent();
-		Node appInfo = (Node) path.evaluate("/ac:application/ac:info", document, XPathConstants.NODE);
-		String appName = appInfo.getAttributes().getNamedItem("name").getTextContent();
-		String uuid = appInfo.getAttributes().getNamedItem("uuid").getTextContent();
-		boolean showIcon = Boolean.parseBoolean(component.getAttributes().getNamedItem("showicon").getTextContent());
-		String versionString = appInfo.getAttributes().getNamedItem("version").getTextContent();
-		ApplicationInfo info = new ApplicationInfo(classname, appName, versionString, reactivatePolicy.getTextContent());
-		info.setUUID(uuid);
-		info.setApplicationType(ApplicationInfo.APPLICATION_TYPE_PROJECTOR);
-		if(showIcon) {
-			String iconresource = component.getAttributes().getNamedItem("iconresource").getTextContent();
-			info.setIconResource(iconresource);
-			info.setShowIcon(true);
-		}else{
-			info.setShowIcon(false);
+		Document document = builder.parse(Resources
+				.getResourceAsStream(appConfigXML));
+		NamespaceContext ctx = new NamespaceContext() {
+			public String getNamespaceURI(String prefix) {
+				if (prefix.equals("ac")) {
+					return "http://tel.dur.ac.uk/xml/schemas/synergynetappconfig";
+				}
+				return null;
+			}
+			
+			public String getPrefix(String uri) {
+				return null;
+			}
+			
+			public Iterator<?> getPrefixes(String val) {
+				return null;
+			}
+		};
+		XPathFactory pathFactory = XPathFactory.newInstance();
+		XPath path = pathFactory.newXPath();
+		path.setNamespaceContext(ctx);
+
+		if (DesktopTypeXMLReader.tableMode
+				.equals(DesktopTypeXMLReader.TABLE_MODE_CONTROLLER)) {
+			ApplicationInfo infoController = getControllerApplication(path,
+					document);
+			if (infoController == null) {
+				ApplicationInfo infoClient = getClientApplication(path,
+						document);
+				registry.register(infoClient);
+				if (isDefault) {
+					registry.setDefault(infoClient.getTheClassName());
+				}
+			} else {
+				registry.register(infoController);
+				if (isDefault) {
+					registry.setDefault(infoController.getTheClassName());
+				}
+			}
+		} else if (DesktopTypeXMLReader.tableMode
+				.equals(DesktopTypeXMLReader.TABLE_MODE_PROJECTOR)) {
+			ApplicationInfo infoProjector = getProjectorApplication(path,
+					document);
+			registry.register(infoProjector);
+			if (isDefault) {
+				registry.setDefault(infoProjector.getTheClassName());
+			}
+		} else {
+			ApplicationInfo infoClient = getClientApplication(path, document);
+			registry.register(infoClient);
+			if (isDefault) {
+				registry.setDefault(infoClient.getTheClassName());
+			}
 		}
-		return info;
+	}
+
+	/**
+	 * Load from configuration.
+	 *
+	 * @param configXMLInputStream
+	 *            the config xml input stream
+	 * @param registry
+	 *            the registry
+	 * @throws SAXException
+	 *             the SAX exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 * @throws ParserConfigurationException
+	 *             the parser configuration exception
+	 * @throws InstantiationException
+	 *             the instantiation exception
+	 * @throws IllegalAccessException
+	 *             the illegal access exception
+	 * @throws ClassNotFoundException
+	 *             the class not found exception
+	 * @throws XPathExpressionException
+	 *             the x path expression exception
+	 */
+	public static void loadFromConfiguration(InputStream configXMLInputStream,
+			ApplicationRegistry registry) throws SAXException, IOException,
+			ParserConfigurationException, InstantiationException,
+			IllegalAccessException, ClassNotFoundException,
+			XPathExpressionException {
+		log.info("Loading Table Configuration XML");
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setNamespaceAware(true);
+		factory.setValidating(true);
+		factory.setAttribute(
+				"http://java.sun.com/xml/jaxp/properties/schemaLanguage",
+				"http://www.w3.org/2001/XMLSchema");
+		factory.setAttribute(
+				"http://java.sun.com/xml/jaxp/properties/schemaSource",
+				Resources
+						.getResource("appsetup/schemas/tableconfiguration.xsd")
+						.toString());
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		builder.setErrorHandler(new ErrorHandler() {
+			public void error(SAXParseException exception) throws SAXException {
+				System.out.println("Error: " + exception.getMessage());
+			}
+			
+			public void fatalError(SAXParseException exception)
+					throws SAXException {
+				System.out.println("Fatal error: " + exception.getMessage());
+			}
+			
+			public void warning(SAXParseException exception)
+					throws SAXException {
+				System.out.println("Warning: " + exception.getMessage());
+			}
+		});
+		
+		Document document = builder.parse(configXMLInputStream);
+		NamespaceContext ctx = new NamespaceContext() {
+			public String getNamespaceURI(String prefix) {
+				if (prefix.equals("tns")) {
+					return "http://tel.dur.ac.uk/xml/schemas/tableconfiguration";
+				}
+				return null;
+			}
+			
+			public String getPrefix(String uri) {
+				return null;
+			}
+			
+			public Iterator<?> getPrefixes(String val) {
+				return null;
+			}
+		};
+		XPathFactory pathFactory = XPathFactory.newInstance();
+		XPath path = pathFactory.newXPath();
+		path.setNamespaceContext(ctx);
+		
+		NodeList list = (NodeList) path.evaluate(
+				"/tns:config/tns:applications/tns:application", document,
+				XPathConstants.NODESET);
+		
+		for (int i = 0; i < list.getLength(); i++) {
+			String appConfigXML = list.item(i).getAttributes()
+					.getNamedItem("configpath").getNodeValue();
+			boolean enabled = Boolean.parseBoolean(list.item(i).getAttributes()
+					.getNamedItem("enabled").getNodeValue());
+			boolean isDefault = Boolean.parseBoolean(list.item(i)
+					.getAttributes().getNamedItem("default").getNodeValue());
+			if (enabled) {
+				loadApplicationConfiguration(appConfigXML, registry, isDefault);
+			}
+		}
 	}
 }

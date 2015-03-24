@@ -5,92 +5,101 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.Serializable;
 
-
 /**
  * The Class DrawData.
  */
-public abstract class DrawData implements Serializable{
-
+public abstract class DrawData implements Serializable {
+	
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2957295980875244718L;
-
-	/** The cursor id. */
-	protected long cursorId;
 	
 	/** The color. */
 	protected Color color;
-	
+
+	/** The cursor id. */
+	protected long cursorId;
+
 	/** The width. */
-	protected float width; 
+	protected float width;
 	
 	/**
-	 * Sets the cursor id.
+	 * Clear.
 	 *
-	 * @param cursorId the new cursor id
+	 * @param graphics
+	 *            the graphics
 	 */
-	public void setCursorId(long cursorId){
-		this.cursorId = cursorId;
+	public void clear(Graphics2D graphics) {
 	}
-	
+
 	/**
-	 * Gets the cursor id.
+	 * Draw.
 	 *
-	 * @return the cursor id
+	 * @param graphics
+	 *            the graphics
 	 */
-	public long getCursorId(){
-		return cursorId;
+	public void draw(Graphics2D graphics) {
+		if (color != null) {
+			graphics.setColor(color);
+		}
+		if (width != 0) {
+			graphics.setStroke(new BasicStroke(width));
+		}
 	}
-	
-	/**
-	 * Sets the color.
-	 *
-	 * @param color the new color
-	 */
-	public void setColor(Color color){
-		this.color = color;
-	}
-	
-	/**
-	 * Sets the width.
-	 *
-	 * @param width the new width
-	 */
-	public void setWidth(float width){
-		this.width = width;
-	}
-	
+
 	/**
 	 * Gets the color.
 	 *
 	 * @return the color
 	 */
-	public Color getColor(){
+	public Color getColor() {
 		return color;
 	}
-	
+
+	/**
+	 * Gets the cursor id.
+	 *
+	 * @return the cursor id
+	 */
+	public long getCursorId() {
+		return cursorId;
+	}
+
 	/**
 	 * Gets the width.
 	 *
 	 * @return the width
 	 */
-	public float getWidth(){
+	public float getWidth() {
 		return width;
 	}
-	
+
 	/**
-	 * Draw.
+	 * Sets the color.
 	 *
-	 * @param graphics the graphics
+	 * @param color
+	 *            the new color
 	 */
-	public  void draw(Graphics2D graphics){
-		if(color != null) graphics.setColor(color);
-		if(width != 0) graphics.setStroke(new BasicStroke(width));
+	public void setColor(Color color) {
+		this.color = color;
 	}
-	
+
 	/**
-	 * Clear.
+	 * Sets the cursor id.
 	 *
-	 * @param graphics the graphics
+	 * @param cursorId
+	 *            the new cursor id
 	 */
-	public  void clear(Graphics2D graphics){}
+	public void setCursorId(long cursorId) {
+		this.cursorId = cursorId;
+	}
+
+	/**
+	 * Sets the width.
+	 *
+	 * @param width
+	 *            the new width
+	 */
+	public void setWidth(float width) {
+		this.width = width;
+	}
 }

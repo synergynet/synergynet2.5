@@ -1,22 +1,22 @@
 package synergynetframework.appsystem.contentsystem.items.utils.vnc;
 
 //
-//  Copyright (C) 2002 HorizonLive.com, Inc.  All Rights Reserved.
+// Copyright (C) 2002 HorizonLive.com, Inc. All Rights Reserved.
 //
-//  This is free software; you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation; either version 2 of the License, or
-//  (at your option) any later version.
+// This is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
 //
-//  This software is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU General Public License for more details.
+// This software is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
 //
-//  You should have received a copy of the GNU General Public License
-//  along with this software; if not, write to the Free Software
-//  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307,
-//  USA.
+// You should have received a copy of the GNU General Public License
+// along with this software; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307,
+// USA.
 //
 
 //
@@ -24,37 +24,44 @@ package synergynetframework.appsystem.contentsystem.items.utils.vnc;
 // standard Socket class by its alternative implementations.
 //
 
-import java.applet.*;
-import java.net.*;
-import java.io.*;
-
+import java.applet.Applet;
+import java.io.IOException;
+import java.net.Socket;
 
 /**
  * A factory for creating Socket objects.
  */
 public interface SocketFactory {
-
-  /**
-   * Creates a new Socket object.
-   *
-   * @param host the host
-   * @param port the port
-   * @param applet the applet
-   * @return the socket
-   * @throws IOException Signals that an I/O exception has occurred.
-   */
-  public Socket createSocket(String host, int port, Applet applet)
-    throws IOException;
-
-  /**
-   * Creates a new Socket object.
-   *
-   * @param host the host
-   * @param port the port
-   * @param args the args
-   * @return the socket
-   * @throws IOException Signals that an I/O exception has occurred.
-   */
-  public Socket createSocket(String host, int port, String[] args)
-    throws IOException;
+	
+	/**
+	 * Creates a new Socket object.
+	 *
+	 * @param host
+	 *            the host
+	 * @param port
+	 *            the port
+	 * @param applet
+	 *            the applet
+	 * @return the socket
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 */
+	public Socket createSocket(String host, int port, Applet applet)
+			throws IOException;
+	
+	/**
+	 * Creates a new Socket object.
+	 *
+	 * @param host
+	 *            the host
+	 * @param port
+	 *            the port
+	 * @param args
+	 *            the args
+	 * @return the socket
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 */
+	public Socket createSocket(String host, int port, String[] args)
+			throws IOException;
 }

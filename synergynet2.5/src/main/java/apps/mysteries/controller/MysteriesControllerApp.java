@@ -1,32 +1,23 @@
 /*
- * Copyright (c) 2009 University of Durham, England
- * All rights reserved.
- *
+ * Copyright (c) 2009 University of Durham, England All rights reserved.
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are
- * met:
- *
- * * Redistributions of source code must retain the above copyright
- *   notice, this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright
- *   notice, this list of conditions and the following disclaimer in the
- *   documentation and/or other materials provided with the distribution.
- *
- * * Neither the name of 'SynergyNet' nor the names of its contributors
- *   may be used to endorse or promote products derived from this software
- *   without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
- * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * modification, are permitted provided that the following conditions are met: *
+ * Redistributions of source code must retain the above copyright notice, this
+ * list of conditions and the following disclaimer. * Redistributions in binary
+ * form must reproduce the above copyright notice, this list of conditions and
+ * the following disclaimer in the documentation and/or other materials provided
+ * with the distribution. * Neither the name of 'SynergyNet' nor the names of
+ * its contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission. THIS SOFTWARE IS PROVIDED
+ * BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+ * EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
@@ -75,7 +66,6 @@ import synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp;
 import synergynetframework.appsystem.table.appregistry.ApplicationInfo;
 import synergynetframework.appsystem.table.appregistry.menucontrol.HoldTopRightConfirmVisualExit;
 import synergynetframework.config.position.PositionConfigPrefsItem;
-
 import apps.conceptmap.GraphConfig;
 import apps.conceptmap.utility.GraphManager;
 import apps.control.controlmenu.ControlMenu;
@@ -88,206 +78,388 @@ import com.jme.scene.Spatial;
 
 import core.ConfigurationSystem;
 
-
 /**
  * The Class MysteriesControllerApp.
  */
-public class MysteriesControllerApp extends DefaultSynergyNetApp implements NetworkedContentListener{
-
-	/** The comms. */
-	protected TableCommsClientService comms;
+public class MysteriesControllerApp extends DefaultSynergyNetApp implements
+		NetworkedContentListener {
 	
-	/** The message processor. */
-	protected TableCommsApplicationListener messageProcessor;
-	
-	/** The message handler. */
-	protected DefaultMessageHandler messageHandler;
-	
-	/** The content system. */
-	protected ContentSystem contentSystem;
-	
-	/** The graph manager. */
-	protected GraphManager graphManager;
-	
-	/** The networked content manager. */
-	protected NetworkedContentManager networkedContentManager;
-	
-	/** The transfer controller. */
-	protected TransferController transferController;
+	/** The restore. */
+	public static boolean restore = true;
 
 	/** The background controller. */
 	protected BackgroundController backgroundController;
-	
-	/** The sub app menu. */
-	protected SubAppMenu subAppMenu;
+
+	/** The comms. */
+	protected TableCommsClientService comms;
+
+	/** The content system. */
+	protected ContentSystem contentSystem;
 
 	/** The current sub app. */
 	protected String currentSubApp = "";
+
+	/** The exit settings file. */
+	protected File exitSettingsFile;
+
+	/** The graph manager. */
+	protected GraphManager graphManager;
 	
 	/** The inner note controller. */
 	protected InnerNoteController innerNoteController = new InnerNoteController();
 
-	/** The restore folder. */
-	protected File restoreFolder;
-	
-	/** The exit settings file. */
-	protected File exitSettingsFile;
-	
-	/** The restore. */
-	public static boolean restore = true;
-	
 	/** The is log enabled. */
 	protected boolean isLogEnabled = false;
+	
+	/** The message handler. */
+	protected DefaultMessageHandler messageHandler;
 
+	/** The message processor. */
+	protected TableCommsApplicationListener messageProcessor;
+	
+	/** The networked content manager. */
+	protected NetworkedContentManager networkedContentManager;
+
+	/** The restore folder. */
+	protected File restoreFolder;
+
+	/** The sub app menu. */
+	protected SubAppMenu subAppMenu;
+
+	/** The transfer controller. */
+	protected TransferController transferController;
+	
 	/**
 	 * Instantiates a new mysteries controller app.
 	 *
-	 * @param info the info
+	 * @param info
+	 *            the info
 	 */
 	public MysteriesControllerApp(ApplicationInfo info) {
 		super(info);
-
+		
 		restoreFolder = new File(getApplicationDataDirectory(), "restore");
-		exitSettingsFile = new File(getApplicationDataDirectory(), "safeExitSettings.properties");
+		exitSettingsFile = new File(getApplicationDataDirectory(),
+				"safeExitSettings.properties");
 		checkLastExitSettings();
-
+		
 		/*
-		if(restore){
-			for(String mysteryID: mysteryIDToXMLPath.keySet())
-				mysteriesToRestore.add(mysteryID);
-		}
-		*/
+		 * if(restore){ for(String mysteryID: mysteryIDToXMLPath.keySet())
+		 * mysteriesToRestore.add(mysteryID); }
+		 */
 	}
-
-
-	/* (non-Javadoc)
-	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent()
+	
+	/*
+	 * (non-Javadoc)
+	 * @see
+	 * synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#addContent
+	 * ()
 	 */
 	@Override
 	public void addContent() {
-
+		
 		contentSystem = ContentSystem.getContentSystemForSynergyNetApp(this);
-		setMenuController(new HoldTopRightConfirmVisualExit(this));	
+		setMenuController(new HoldTopRightConfirmVisualExit(this));
 		GraphConfig.arrowMode = LineItem.ARROW_TO_TARGET;
 		graphManager = new GraphManager(contentSystem);
-
+		
 		SynergyNetAppUtils.addTableOverlay(this);
-
-		backgroundController = (BackgroundController)contentSystem.createContentItem(BackgroundController.class);
+		
+		backgroundController = (BackgroundController) contentSystem
+				.createContentItem(BackgroundController.class);
 		backgroundController.setOrder(Integer.MIN_VALUE);
-
+		
 		subAppMenu = new SubAppMenu(contentSystem);
-		subAppMenu.addSubAppMenuEventListener(new SubAppMenuEventListener(){
+		subAppMenu.addSubAppMenuEventListener(new SubAppMenuEventListener() {
 			@Override
 			public void menuSelected(String filePath, String appName) {
 				loadContent(filePath, appName);
 			}
 		});
-
+		
 	}
-
-	/* (non-Javadoc)
-	 * @see synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onActivate()
+	
+	/**
+	 * Adds the item listeners.
+	 *
+	 * @param item
+	 *            the item
 	 */
-	@Override
-	public void onActivate() {
-
-		if(comms == null) {
-			try {
-				comms = (TableCommsClientService) ServiceManager.getInstance().get(TableCommsClientService.class);
-			} catch (CouldNotStartServiceException e1) {
-				e1.printStackTrace();
+	private void addItemListeners(ContentItem item) {
+		OrthoContentItem orthoItem = (OrthoContentItem) item;
+		orthoItem.addBringToTopListener(new BringToTopListener() {
+			
+			@Override
+			public void itemBringToToped(ContentItem item) {
+				this.registerItem(item);
+				networkedContentManager
+						.getSychronisedData()
+						.get(item.getName())
+						.put(AttributeConstants.ITEM_SORTORDER,
+								String.valueOf(1000));
+				
 			}
-			List<Class<?>> receiverClasses = new ArrayList<Class<?>>();
-			receiverClasses.add(MysteriesControllerApp.class);
-			receiverClasses.add(MysteryApp.class);
-			this.networkedContentManager = new NetworkedContentManager(contentSystem, comms, receiverClasses);
-			this.networkedContentManager.setGraphManager(graphManager);
-			this.networkedContentManager.addNetworkedContentListener(this);
-			this.transferController = new TransferController(this, comms, networkedContentManager);
-
-			ArrayList<Class<?>> controllerClasses = new ArrayList<Class<?>>();
-			ArrayList<Class<?>> remoteDesktopClasses = new ArrayList<Class<?>>();
-			ArrayList<Class<?>> projectorClasses = new ArrayList<Class<?>>();
-
-			controllerClasses.add(this.getClass());
-			projectorClasses.add(MysteryProjectorApp.class);
-			remoteDesktopClasses.add(MysteryApp.class);
-
-			this.networkedContentManager.createRemoteDesktopController(controllerClasses, remoteDesktopClasses);
-			this.networkedContentManager.createProjectorController(controllerClasses, projectorClasses);
-			@SuppressWarnings("unused")
-			ControlMenu controlMenu = new ControlMenu(contentSystem, this.networkedContentManager, subAppMenu, backgroundController);
-
-
-			if(messageProcessor == null) {
-				messageProcessor = new DefaultMessageHandler(this.contentSystem, this.networkedContentManager);
-				((DefaultMessageHandler)messageProcessor).setTransferController(transferController);
-			}
-
-			try {
-				if(comms != null) {
-					comms.register(this, messageProcessor);
+			
+			private void registerItem(ContentItem item) {
+				if (networkedContentManager.getSychronisedData().get(
+						item.getName()) == null) {
+					networkedContentManager.getSychronisedData().put(
+							item.getName(), new HashMap<String, String>());
 				}
-			} catch (IOException e) {
-				e.printStackTrace();
 			}
-
-			if(comms != null) comms.getCurrentlyOnline();
-
-			final Preferences prefs = ConfigurationSystem.getPreferences(PositionConfigPrefsItem.class);
-		    int location_x = prefs.getInt(PositionConfigPrefsItem.PREFS_LOCATION_X, 0);
-		    int location_y = prefs.getInt(PositionConfigPrefsItem.PREFS_LOCATION_Y, 0);
-		    float angle = prefs.getFloat(PositionConfigPrefsItem.PREFS_ANGLE, 0);
-			try {
-				TableInfo tableInfo = new TableInfo(TableIdentity.getTableIdentity(),location_x, location_y, angle * FastMath.DEG_TO_RAD);
-				transferController.setLocalTableInfo(tableInfo);
-				for(Class<?> receiverClass: networkedContentManager.getReceiverClasses()){
-					comms.sendMessage( new AnnounceTableMessage(receiverClass, tableInfo));
-					System.out.println("client sent: AnnounceTableMessage");
-				}
-			} catch (IOException e) {
-				 
-				e.printStackTrace();
-			}
+			
+		});
+		orthoItem
+				.addOrthoControlPointRotateTranslateScaleListener(new OrthoControlPointRotateTranslateScaleListener() {
+					
+					@Override
+					public void itemRotated(ContentItem item, float newAngle,
+							float oldAngle) {
+						this.registerItem(item);
+						networkedContentManager
+								.getSychronisedData()
+								.get(item.getName())
+								.put(AttributeConstants.ITEM_ANGLE,
+										String.valueOf(newAngle));
+					}
+					
+					@Override
+					public void itemScaled(ContentItem item,
+							float newScaleFactor, float oldScaleFactor) {
+						this.registerItem(item);
+						networkedContentManager
+								.getSychronisedData()
+								.get(item.getName())
+								.put(AttributeConstants.ITEM_SCALE,
+										String.valueOf(newScaleFactor));
+						
+					}
+					
+					@Override
+					public void itemTranslated(ContentItem item,
+							float newLocationX, float newLocationY,
+							float oldLocationX, float oldLocationY) {
+						this.registerItem(item);
+						networkedContentManager
+								.getSychronisedData()
+								.get(item.getName())
+								.put(AttributeConstants.ITEM_LOCATION_X,
+										String.valueOf(newLocationX));
+						networkedContentManager
+								.getSychronisedData()
+								.get(item.getName())
+								.put(AttributeConstants.ITEM_LOCATION_Y,
+										String.valueOf(newLocationY));
+						
+					}
+					
+					private void registerItem(ContentItem item) {
+						if (networkedContentManager.getSychronisedData().get(
+								item.getName()) == null) {
+							networkedContentManager.getSychronisedData().put(
+									item.getName(),
+									new HashMap<String, String>());
+						}
+					}
+					
+				});
+	}
+	
+	/**
+	 * Adds the synchronised date listeners.
+	 */
+	private void addSynchronisedDateListeners() {
+		
+		// add note listener
+		this.innerNoteController
+				.addInnerNoteEventListener(new InnerNoteEventListener() {
+					
+					@Override
+					public void noteBringToTop(ContentItem edittedItem) {
+						this.registerItem(edittedItem);
+						networkedContentManager
+								.getSychronisedData()
+								.get(edittedItem.getName())
+								.put(AttributeConstants.ITEM_SORTORDER,
+										String.valueOf(1000));
+					}
+					
+					@Override
+					public void noteChanged(ContentItem item, String text) {
+						this.registerItem(item);
+						networkedContentManager.getSychronisedData()
+								.get(item.getName())
+								.put(AttributeConstants.ITEM_INNER_NOTE, text);
+					}
+					
+					@Override
+					public void noteLabelOn(ContentItem item,
+							boolean noteLabelOn) {
+						this.registerItem(item);
+						networkedContentManager
+								.getSychronisedData()
+								.get(item.getName())
+								.put(AttributeConstants.ITEM_INNER_NOTE_ON,
+										String.valueOf(noteLabelOn));
+					}
+					
+					@Override
+					public void noteRotated(ContentItem edittedItem,
+							float newAngle, float oldAngle) {
+						this.registerItem(edittedItem);
+						networkedContentManager
+								.getSychronisedData()
+								.get(edittedItem.getName())
+								.put(AttributeConstants.ITEM_ANGLE,
+										String.valueOf(newAngle));
+						
+					}
+					
+					@Override
+					public void noteScaled(ContentItem edittedItem,
+							float newScaleFactor, float oldScaleFactor) {
+						this.registerItem(edittedItem);
+						networkedContentManager
+								.getSychronisedData()
+								.get(edittedItem.getName())
+								.put(AttributeConstants.ITEM_SCALE,
+										String.valueOf(newScaleFactor));
+						
+					}
+					
+					@Override
+					public void noteTranslated(ContentItem edittedItem,
+							float newLocationX, float newLocationY,
+							float oldLocationX, float oldLocationY) {
+						this.registerItem(edittedItem);
+						networkedContentManager
+								.getSychronisedData()
+								.get(edittedItem.getName())
+								.put(AttributeConstants.ITEM_LOCATION_X,
+										String.valueOf(newLocationX));
+						networkedContentManager
+								.getSychronisedData()
+								.get(edittedItem.getName())
+								.put(AttributeConstants.ITEM_LOCATION_Y,
+										String.valueOf(newLocationY));
+						
+					}
+					
+					private void registerItem(ContentItem item) {
+						if (networkedContentManager.getSychronisedData().get(
+								item.getName()) == null) {
+							networkedContentManager.getSychronisedData().put(
+									item.getName(),
+									new HashMap<String, String>());
+						}
+					}
+					
+				});
+		
+		for (ContentItem item : networkedContentManager.getOnlineItems()
+				.values()) {
+			addItemListeners(item);
 		}
 	}
-
-	/* (non-Javadoc)
-	 * @see synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp#stateUpdate(float)
+	
+	/*
+	 * (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.networkedcontentmanager.
+	 * NetworkedContentListener#channelSwitched()
 	 */
 	@Override
-	public void stateUpdate(float tpf) {
-		if(networkedContentManager!= null) networkedContentManager.stateUpdate(tpf);
-		if(transferController != null) transferController.update();
-		if(contentSystem != null) contentSystem.update(tpf);
-		if(currentSubApp != null && isLogEnabled){
-			try {
-				logContentState(currentSubApp);
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
-		}
-
+	public void channelSwitched() {
 	}
-
+	
+	/**
+	 * Check last exit settings.
+	 */
+	private void checkLastExitSettings() {
+		try {
+			if (!exitSettingsFile.exists()) {
+				exitSettingsFile.createNewFile();
+			}
+			FileInputStream is = new FileInputStream(exitSettingsFile);
+			Properties properties = new Properties();
+			properties.load(is);
+			String isRestore = properties.getProperty("restore");
+			is.close();
+			if ((isRestore != null) && isRestore.equals("1")) {
+				MysteryApp.restore = true;
+			} else {
+				MysteryApp.restore = false;
+				properties.setProperty("restore", "1");
+				FileOutputStream os = new FileOutputStream(exitSettingsFile);
+				properties.store(os, null);
+				os.close();
+			}
+		} catch (IOException exp) {
+			exp.printStackTrace();
+		}
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.networkedcontentmanager.
+	 * NetworkedContentListener
+	 * #contentItemLoaded(synergynetframework.appsystem.contentsystem
+	 * .items.ContentItem)
+	 */
+	@Override
+	public void contentItemLoaded(ContentItem item) {
+		this.innerNoteController.addNoteController(item);
+		addItemListeners(item);
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.networkedcontentmanager.
+	 * NetworkedContentListener#contentLoaded()
+	 */
+	@Override
+	public void contentLoaded() {
+		addSynchronisedDateListeners();
+		this.innerNoteController.addNoteController(networkedContentManager
+				.getOnlineItems().values());
+	}
+	
+	/**
+	 * Load content.
+	 *
+	 * @param filePath
+	 *            the file path
+	 * @param name
+	 *            the name
+	 */
+	public void loadContent(String filePath, String name) {
+		
+		this.removeAllItems();
+		networkedContentManager.loadLocalContent(filePath, name);
+		
+		this.contentLoaded();
+	}
+	
 	/**
 	 * Log content state.
 	 *
-	 * @param mysteryID the mystery id
-	 * @throws FileNotFoundException the file not found exception
+	 * @param mysteryID
+	 *            the mystery id
+	 * @throws FileNotFoundException
+	 *             the file not found exception
 	 */
 	private void logContentState(String mysteryID) throws FileNotFoundException {
-		if(!restoreFolder.exists()) restoreFolder.mkdir();
+		if (!restoreFolder.exists()) {
+			restoreFolder.mkdir();
+		}
 		File restoreFile = new File(restoreFolder, mysteryID);
 		PrintWriter pw = new PrintWriter(new FileOutputStream(restoreFile));
 		pw.println("# Last state for app ID: " + mysteryID);
 		pw.println("# Storing started at " + new Date().toString());
 		pw.println("# Format is as follows:");
 		pw.println("# content Item name, location x, location y, location z, scale x, scale y, scale z, rotation x, rotation y, rotation z, rotation w, zOrder");
-		for(ContentItem item: contentSystem.getAllContentItems().values()) {
-
-			Spatial spatial = (Spatial)item.getImplementationObject();
+		for (ContentItem item : contentSystem.getAllContentItems().values()) {
+			
+			Spatial spatial = (Spatial) item.getImplementationObject();
 			pw.print(spatial.getName() + ",");
 			pw.print(spatial.getLocalTranslation().x + ",");
 			pw.print(spatial.getLocalTranslation().y + ",");
@@ -303,250 +475,193 @@ public class MysteriesControllerApp extends DefaultSynergyNetApp implements Netw
 		}
 		pw.close();
 	}
-
-	/**
-	 * Check last exit settings.
+	
+	/*
+	 * (non-Javadoc)
+	 * @see
+	 * synergynetframework.appsystem.table.appdefinitions.SynergyNetApp#onActivate
+	 * ()
 	 */
-	private void checkLastExitSettings(){
-		try{
-			if(!exitSettingsFile.exists()) exitSettingsFile.createNewFile();
-			FileInputStream is = new FileInputStream(exitSettingsFile);
-			Properties properties = new Properties();
-			properties.load(is);
-			String isRestore = properties.getProperty("restore");
-			is.close();
-			if(isRestore != null && isRestore.equals("1"))
-				MysteryApp.restore = true;
-			else {
-				MysteryApp.restore = false;
-				properties.setProperty("restore", "1");
-				FileOutputStream os = new FileOutputStream(exitSettingsFile);
-				properties.store(os, null);
-				os.close();
+	@Override
+	public void onActivate() {
+		
+		if (comms == null) {
+			try {
+				comms = (TableCommsClientService) ServiceManager.getInstance()
+						.get(TableCommsClientService.class);
+			} catch (CouldNotStartServiceException e1) {
+				e1.printStackTrace();
+			}
+			List<Class<?>> receiverClasses = new ArrayList<Class<?>>();
+			receiverClasses.add(MysteriesControllerApp.class);
+			receiverClasses.add(MysteryApp.class);
+			this.networkedContentManager = new NetworkedContentManager(
+					contentSystem, comms, receiverClasses);
+			this.networkedContentManager.setGraphManager(graphManager);
+			this.networkedContentManager.addNetworkedContentListener(this);
+			this.transferController = new TransferController(this, comms,
+					networkedContentManager);
+			
+			ArrayList<Class<?>> controllerClasses = new ArrayList<Class<?>>();
+			ArrayList<Class<?>> remoteDesktopClasses = new ArrayList<Class<?>>();
+			ArrayList<Class<?>> projectorClasses = new ArrayList<Class<?>>();
+			
+			controllerClasses.add(this.getClass());
+			projectorClasses.add(MysteryProjectorApp.class);
+			remoteDesktopClasses.add(MysteryApp.class);
+			
+			this.networkedContentManager.createRemoteDesktopController(
+					controllerClasses, remoteDesktopClasses);
+			this.networkedContentManager.createProjectorController(
+					controllerClasses, projectorClasses);
+			@SuppressWarnings("unused")
+			ControlMenu controlMenu = new ControlMenu(contentSystem,
+					this.networkedContentManager, subAppMenu,
+					backgroundController);
+			
+			if (messageProcessor == null) {
+				messageProcessor = new DefaultMessageHandler(
+						this.contentSystem, this.networkedContentManager);
+				((DefaultMessageHandler) messageProcessor)
+						.setTransferController(transferController);
+			}
+			
+			try {
+				if (comms != null) {
+					comms.register(this, messageProcessor);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			if (comms != null) {
+				comms.getCurrentlyOnline();
+			}
+			
+			final Preferences prefs = ConfigurationSystem
+					.getPreferences(PositionConfigPrefsItem.class);
+			int location_x = prefs.getInt(
+					PositionConfigPrefsItem.PREFS_LOCATION_X, 0);
+			int location_y = prefs.getInt(
+					PositionConfigPrefsItem.PREFS_LOCATION_Y, 0);
+			float angle = prefs
+					.getFloat(PositionConfigPrefsItem.PREFS_ANGLE, 0);
+			try {
+				TableInfo tableInfo = new TableInfo(
+						TableIdentity.getTableIdentity(), location_x,
+						location_y, angle * FastMath.DEG_TO_RAD);
+				transferController.setLocalTableInfo(tableInfo);
+				for (Class<?> receiverClass : networkedContentManager
+						.getReceiverClasses()) {
+					comms.sendMessage(new AnnounceTableMessage(receiverClass,
+							tableInfo));
+					System.out.println("client sent: AnnounceTableMessage");
+				}
+			} catch (IOException e) {
+				
+				e.printStackTrace();
 			}
 		}
-		catch(IOException exp){
-			exp.printStackTrace();
-		}
 	}
-
-	/**
-	 * Sets the safe exit.
-	 */
-	@SuppressWarnings("unused")
-	private void setSafeExit(){
-		try{
-			if(!exitSettingsFile.exists()) exitSettingsFile.createNewFile();
-			FileOutputStream os = new FileOutputStream(exitSettingsFile);
-			Properties properties = new Properties();
-			properties.setProperty("restore", "0");
-			properties.store(os, "Safe exit on "+ new Date());
-			os.close();
-		}
-		catch(IOException exp){
-			exp.printStackTrace();
-		}
-	}
-
-	/**
-	 * Load content.
-	 *
-	 * @param filePath the file path
-	 * @param name the name
-	 */
-	public void loadContent(String filePath, String name){
-
-		this.removeAllItems();
-		networkedContentManager.loadLocalContent(filePath, name);
-
-		this.contentLoaded();
-	}
-
-	/* (non-Javadoc)
-	 * @see synergynetframework.appsystem.services.net.networkedcontentmanager.NetworkedContentListener#contentLoaded()
-	 */
-	@Override
-	public void contentLoaded() {
-		addSynchronisedDateListeners();
-		this.innerNoteController.addNoteController(networkedContentManager.getOnlineItems().values());
-	}
-
-	/**
-	 * Removes the all items.
-	 */
-	public void removeAllItems(){
-		this.innerNoteController.removeAllNoteEditors();
-	}
-
-	/* (non-Javadoc)
-	 * @see synergynetframework.appsystem.services.net.networkedcontentmanager.NetworkedContentListener#renderSynchronisedDate(synergynetframework.appsystem.contentsystem.items.ContentItem, java.util.Map)
-	 */
-	@Override
-	public void renderSynchronisedDate(ContentItem item,
-			Map<String, String> itemAttrs) {
-		SynchronisedDataRender.render((OrthoContentItem)item, itemAttrs, this.innerNoteController);
-		SynchronisedDataRender.renderNote((OrthoContentItem)item, itemAttrs, this.innerNoteController);
-
-	}
-
-	/* (non-Javadoc)
-	 * @see synergynetframework.appsystem.services.net.networkedcontentmanager.NetworkedContentListener#remoteContentLoaded(synergynetframework.appsystem.services.net.networkedcontentmanager.utils.RemoteDesktop)
+	
+	/*
+	 * (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.networkedcontentmanager.
+	 * NetworkedContentListener
+	 * #remoteContentLoaded(synergynetframework.appsystem
+	 * .services.net.networkedcontentmanager.utils.RemoteDesktop)
 	 */
 	@Override
 	public void remoteContentLoaded(RemoteDesktop remoteDesktop) {
-		 
-
+		
 	}
-
-
-	/* (non-Javadoc)
-	 * @see synergynetframework.appsystem.services.net.networkedcontentmanager.NetworkedContentListener#renderRemoteDesktop(synergynetframework.appsystem.services.net.networkedcontentmanager.utils.RemoteDesktop, synergynetframework.appsystem.contentsystem.items.OrthoContentItem, java.util.Map)
+	
+	/**
+	 * Removes the all items.
+	 */
+	public void removeAllItems() {
+		this.innerNoteController.removeAllNoteEditors();
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.networkedcontentmanager.
+	 * NetworkedContentListener
+	 * #renderRemoteDesktop(synergynetframework.appsystem
+	 * .services.net.networkedcontentmanager.utils.RemoteDesktop,
+	 * synergynetframework.appsystem.contentsystem.items.OrthoContentItem,
+	 * java.util.Map)
 	 */
 	@Override
 	public void renderRemoteDesktop(RemoteDesktop remoteDesktop,
 			OrthoContentItem item, Map<String, String> itemAttrs) {
-		SynchronisedDataRender.renderRemoteDesktop(remoteDesktop, (OrthoContentItem)item, itemAttrs, this.innerNoteController);
-		SynchronisedDataRender.renderRemoteDesktopNote(remoteDesktop, (OrthoContentItem)item, itemAttrs, this.innerNoteController);
+		SynchronisedDataRender.renderRemoteDesktop(remoteDesktop, item,
+				itemAttrs, this.innerNoteController);
+		SynchronisedDataRender.renderRemoteDesktopNote(remoteDesktop, item,
+				itemAttrs, this.innerNoteController);
 	}
-
-	/**
-	 * Adds the synchronised date listeners.
-	 */
-	private void addSynchronisedDateListeners(){
-
-		//add note listener
-		this.innerNoteController.addInnerNoteEventListener(new InnerNoteEventListener(){
-
-			@Override
-			public void noteBringToTop(ContentItem edittedItem) {
-				this.registerItem(edittedItem);
-				networkedContentManager.getSychronisedData().get(edittedItem.getName()).put(AttributeConstants.ITEM_SORTORDER, String.valueOf(1000));
-			}
-
-			@Override
-			public void noteChanged(ContentItem item, String text) {
-				this.registerItem(item);
-				networkedContentManager.getSychronisedData().get(item.getName()).put(AttributeConstants.ITEM_INNER_NOTE, text);
-			}
-
-			@Override
-			public void noteLabelOn(ContentItem item, boolean noteLabelOn) {
-				this.registerItem(item);
-				networkedContentManager.getSychronisedData().get(item.getName()).put(AttributeConstants.ITEM_INNER_NOTE_ON, String.valueOf(noteLabelOn));
-			}
-
-			@Override
-			public void noteRotated(ContentItem edittedItem, float newAngle,
-					float oldAngle) {
-				this.registerItem(edittedItem);
-				networkedContentManager.getSychronisedData().get(edittedItem.getName()).put(AttributeConstants.ITEM_ANGLE, String.valueOf(newAngle));
-
-			}
-
-			@Override
-			public void noteScaled(ContentItem edittedItem,
-					float newScaleFactor, float oldScaleFactor) {
-				this.registerItem(edittedItem);
-				networkedContentManager.getSychronisedData().get(edittedItem.getName()).put(AttributeConstants.ITEM_SCALE, String.valueOf(newScaleFactor));
-
-			}
-
-			@Override
-			public void noteTranslated(ContentItem edittedItem,
-					float newLocationX, float newLocationY, float oldLocationX,
-					float oldLocationY) {
-				this.registerItem(edittedItem);
-				networkedContentManager.getSychronisedData().get(edittedItem.getName()).put(AttributeConstants.ITEM_LOCATION_X, String.valueOf(newLocationX));
-				networkedContentManager.getSychronisedData().get(edittedItem.getName()).put(AttributeConstants.ITEM_LOCATION_Y, String.valueOf(newLocationY));
-
-			}
-
-			private void registerItem(ContentItem item){
-				if (networkedContentManager.getSychronisedData().get(item.getName())==null){
-					networkedContentManager.getSychronisedData().put(item.getName(), new HashMap<String, String>());
-				}
-			}
-
-		});
-
-		for (ContentItem item:networkedContentManager.getOnlineItems().values()) addItemListeners(item);
-	}
-
-	/**
-	 * Adds the item listeners.
-	 *
-	 * @param item the item
-	 */
-	private void addItemListeners(ContentItem item){
-		OrthoContentItem orthoItem = (OrthoContentItem)item;
-		orthoItem.addBringToTopListener(new BringToTopListener(){
-
-			@Override
-			public void itemBringToToped(ContentItem item) {
-				this.registerItem(item);
-				networkedContentManager.getSychronisedData().get(item.getName()).put(AttributeConstants.ITEM_SORTORDER, String.valueOf(1000));
-
-			}
-
-			private void registerItem(ContentItem item){
-				if (networkedContentManager.getSychronisedData().get(item.getName())==null){
-					networkedContentManager.getSychronisedData().put(item.getName(), new HashMap<String, String>());
-				}
-			}
-
-		});
-		orthoItem.addOrthoControlPointRotateTranslateScaleListener(new OrthoControlPointRotateTranslateScaleListener(){
-
-			@Override
-			public void itemRotated(ContentItem item, float newAngle,
-					float oldAngle) {
-				this.registerItem(item);
-				networkedContentManager.getSychronisedData().get(item.getName()).put(AttributeConstants.ITEM_ANGLE, String.valueOf(newAngle));
-			}
-
-			@Override
-			public void itemScaled(ContentItem item, float newScaleFactor,
-					float oldScaleFactor) {
-				this.registerItem(item);
-				networkedContentManager.getSychronisedData().get(item.getName()).put(AttributeConstants.ITEM_SCALE, String.valueOf(newScaleFactor));
-
-			}
-
-			@Override
-			public void itemTranslated(ContentItem item,
-					float newLocationX, float newLocationY,
-					float oldLocationX, float oldLocationY) {
-				this.registerItem(item);
-				networkedContentManager.getSychronisedData().get(item.getName()).put(AttributeConstants.ITEM_LOCATION_X, String.valueOf(newLocationX));
-				networkedContentManager.getSychronisedData().get(item.getName()).put(AttributeConstants.ITEM_LOCATION_Y, String.valueOf(newLocationY));
-
-			}
-
-			private void registerItem(ContentItem item){
-				if (networkedContentManager.getSychronisedData().get(item.getName())==null){
-					networkedContentManager.getSychronisedData().put(item.getName(), new HashMap<String, String>());
-				}
-			}
-
-		});
-	}
-
-	/* (non-Javadoc)
-	 * @see synergynetframework.appsystem.services.net.networkedcontentmanager.NetworkedContentListener#channelSwitched()
+	
+	/*
+	 * (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.networkedcontentmanager.
+	 * NetworkedContentListener
+	 * #renderSynchronisedDate(synergynetframework.appsystem
+	 * .contentsystem.items.ContentItem, java.util.Map)
 	 */
 	@Override
-	public void channelSwitched() {}
-
-
-	/* (non-Javadoc)
-	 * @see synergynetframework.appsystem.services.net.networkedcontentmanager.NetworkedContentListener#contentItemLoaded(synergynetframework.appsystem.contentsystem.items.ContentItem)
+	public void renderSynchronisedDate(ContentItem item,
+			Map<String, String> itemAttrs) {
+		SynchronisedDataRender.render((OrthoContentItem) item, itemAttrs,
+				this.innerNoteController);
+		SynchronisedDataRender.renderNote((OrthoContentItem) item, itemAttrs,
+				this.innerNoteController);
+		
+	}
+	
+	/**
+	 * Sets the safe exit.
+	 */
+	@SuppressWarnings("unused")
+	private void setSafeExit() {
+		try {
+			if (!exitSettingsFile.exists()) {
+				exitSettingsFile.createNewFile();
+			}
+			FileOutputStream os = new FileOutputStream(exitSettingsFile);
+			Properties properties = new Properties();
+			properties.setProperty("restore", "0");
+			properties.store(os, "Safe exit on " + new Date());
+			os.close();
+		} catch (IOException exp) {
+			exp.printStackTrace();
+		}
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see
+	 * synergynetframework.appsystem.table.appdefinitions.DefaultSynergyNetApp
+	 * #stateUpdate(float)
 	 */
 	@Override
-	public void contentItemLoaded(ContentItem item) {
-		this.innerNoteController.addNoteController(item);
-		addItemListeners(item);
+	public void stateUpdate(float tpf) {
+		if (networkedContentManager != null) {
+			networkedContentManager.stateUpdate(tpf);
+		}
+		if (transferController != null) {
+			transferController.update();
+		}
+		if (contentSystem != null) {
+			contentSystem.update(tpf);
+		}
+		if ((currentSubApp != null) && isLogEnabled) {
+			try {
+				logContentState(currentSubApp);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
-
-
-
+	
 }

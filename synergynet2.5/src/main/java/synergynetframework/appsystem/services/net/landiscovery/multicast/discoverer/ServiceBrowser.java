@@ -24,153 +24,249 @@ import synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoveryS
 import synergynetframework.appsystem.services.net.landiscovery.multicast.EncoderDecoder;
 import synergynetframework.appsystem.services.net.landiscovery.multicast.ServiceDiscoveryParams;
 
-
 /**
  * The Class ServiceBrowser.
  */
 public final class ServiceBrowser implements Runnable, ServiceDiscoverySystem {
+
+	/**
+	 * The Class QueryTimerTask.
+	 */
+	private class QueryTimerTask extends TimerTask {
+
+		/*
+		 * (non-Javadoc)
+		 * @see java.util.TimerTask#run()
+		 */
+		@Override
+		public void run() {
+			for (String query : queries) {
+				byte[] bytes = (EncoderDecoder.QUERY_HEADER + query).getBytes();
+				DatagramPacket packet = new DatagramPacket(bytes, bytes.length);
+				packet.setAddress(params.getMulticastGroup());
+				packet.setPort(params.getMulticastPort());
+				packetQueue.add(packet);
+			}
+		}
+	}
+
+	/**
+	 * The Class ServiceRemovalTimerTask.
+	 */
+	private class ServiceRemovalTimerTask extends TimerTask {
+
+		/*
+		 * (non-Javadoc)
+		 * @see java.util.TimerTask#run()
+		 */
+		@Override
+		public void run() {
+			for (String s : lastSeen.keySet()) {
+				long elapsedTime = System.currentTimeMillis() - lastSeen.get(s);
+				if (elapsedTime > (ServiceDiscoveryParams.BROWSER_QUERY_INTERVAL * 4)) {
+					lastSeen.remove(s);
+					ServiceDescriptor sd = knownServices.get(s);
+					knownServices.remove(s);
+					notifyServiceRemoval(sd);
+				}
+			}
+
+		}
+
+	}
+	
+	/** The known services. */
+	protected Map<String, ServiceDescriptor> knownServices = new ConcurrentHashMap<String, ServiceDescriptor>();
+
+	/** The last seen. */
+	protected Map<String, Long> lastSeen = new ConcurrentHashMap<String, Long>();
+
+	/** The listeners. */
+	protected List<ServiceDiscoveryListener> listeners = new ArrayList<ServiceDiscoveryListener>();
+
+	/** The my thread. */
+	protected Thread myThread;
+
+	// protected DatagramPacket queuedPacket;
+	/** The packet queue. */
+	protected Queue<DatagramPacket> packetQueue = new ConcurrentLinkedQueue<DatagramPacket>();
+
+	/** The params. */
+	private ServiceDiscoveryParams params;
+
+	// list of queries in type:name format
+	/** The queries. */
+	Queue<String> queries = new ConcurrentLinkedQueue<String>();
+
+	/** The query timer. */
+	protected Timer queryTimer;
+	
+	/** The received packet. */
+	protected DatagramPacket receivedPacket;
+	
+	/** The service removal timer. */
+	private Timer serviceRemovalTimer;
 	
 	/** The should run. */
 	protected boolean shouldRun = true;
 	
 	/** The socket. */
 	protected MulticastSocket socket;
-	//	protected DatagramPacket queuedPacket;
-	/** The packet queue. */
-	protected Queue<DatagramPacket> packetQueue = new ConcurrentLinkedQueue<DatagramPacket>();
 	
-	/** The received packet. */
-	protected DatagramPacket receivedPacket;
+	// public void startSingleLookup() {
+	// if (myTimer==null) {
+	// myTimer = new Timer("QueryTimer");
+	// myTimer.schedule(new QueryTimerTask(), 0L);
+	// myTimer=null;
+	// }
+	// }
 	
-	/** The my thread. */
-	protected Thread myThread;
-	
-	/** The query timer. */
-	protected Timer queryTimer;
-	
-	/** The params. */
-	private ServiceDiscoveryParams params;
-	
-	/** The known services. */
-	protected Map<String,ServiceDescriptor> knownServices = new ConcurrentHashMap<String,ServiceDescriptor>();
-	
-	/** The last seen. */
-	protected Map<String,Long> lastSeen = new ConcurrentHashMap<String,Long>();
-	
-	/** The service removal timer. */
-	private Timer serviceRemovalTimer;
-
 	/**
 	 * Instantiates a new service browser.
 	 *
-	 * @param params the params
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @param params
+	 *            the params
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	public ServiceBrowser(ServiceDiscoveryParams params) throws IOException {
-		this.params = params;		
+		this.params = params;
 		socket = new MulticastSocket(params.getMulticastPort());
 		socket.joinGroup(params.getMulticastGroup());
 		socket.setSoTimeout(ServiceDiscoveryParams.BROWSER_SOCKET_TIMEOUT);
 	}
-
-
-	/* (non-Javadoc)
-	 * @see synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoverySystem#start()
+	
+	/**
+	 * Gets the key.
+	 *
+	 * @param sd
+	 *            the sd
+	 * @return the key
 	 */
-	public void start() {
-		startLookup();		
-	}
-
-	/* (non-Javadoc)
-	 * @see synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoverySystem#stop()
-	 */
-	public void stop() {
-		stopListener();
-		stopLookup();
-
+	private String getKey(ServiceDescriptor sd) {
+		return getKey(sd.getServiceType(), sd.getServiceName());
 	}
 
 	/**
-	 * Start lookup.
+	 * Gets the key.
+	 *
+	 * @param type
+	 *            the type
+	 * @param name
+	 *            the name
+	 * @return the key
 	 */
-	private void startLookup() {
-		if (queryTimer==null) {
-			queryTimer = new Timer("QueryTimer");
-			queryTimer.scheduleAtFixedRate(new QueryTimerTask(),0L,ServiceDiscoveryParams.BROWSER_QUERY_INTERVAL);
-		}
-		if(serviceRemovalTimer == null) {
-			serviceRemovalTimer = new Timer("ServiceRemovalTimer");
-			serviceRemovalTimer.scheduleAtFixedRate(new ServiceRemovalTimerTask(), 0L, ServiceDiscoveryParams.BROWSER_QUERY_INTERVAL);
-		}
+	private String getKey(String type, String name) {
+		return type + ":" + name;
 	}
-
-//	public void startSingleLookup() {
-//		if (myTimer==null) {
-//			myTimer = new Timer("QueryTimer");
-//			myTimer.schedule(new QueryTimerTask(), 0L);
-//			myTimer=null;
-//		}
-//	}
-
+	
 	/**
- * Stop lookup.
- */
-public void stopLookup() {
-		if (queryTimer != null) {
-			queryTimer.cancel();
-			queryTimer=null;
+	 * Gets the reply descriptor.
+	 *
+	 * @return the reply descriptor
+	 * @throws UnknownHostException
+	 *             the unknown host exception
+	 */
+	protected ServiceDescriptor getReplyDescriptor()
+			throws UnknownHostException {
+		String dataStr = new String(receivedPacket.getData());
+		int pos = dataStr.indexOf((char) 0);
+		if (pos > -1) {
+			dataStr = dataStr.substring(0, pos);
 		}
-		if (serviceRemovalTimer != null) {
-			serviceRemovalTimer.cancel();
-			serviceRemovalTimer=null;
-		}
+		dataStr = EncoderDecoder.decodeFromPacket(dataStr
+				.substring(EncoderDecoder.REPLY_HEADER.length()));
+		ServiceDescriptor sd = ServiceDescriptor
+				.getServiceDescriptorFromStringRepresentation(dataStr);
+		return sd;
 	}
-
+	
+	/**
+	 * Checks if is reply packet.
+	 *
+	 * @return true, if is reply packet
+	 */
+	protected boolean isReplyPacket() {
+		if (receivedPacket == null) {
+			return false;
+		}
+		
+		String dataStr = new String(receivedPacket.getData());
+		int pos = dataStr.indexOf((char) 0);
+		if (pos > -1) {
+			dataStr = dataStr.substring(0, pos);
+		}
+		
+		/* REQUIRED TOKEN TO START */
+		if (dataStr.startsWith(EncoderDecoder.REPLY_HEADER)) {
+			return true;
+		}
+		
+		return false;
+	}
+	
 	/**
 	 * Notify service arrival.
 	 *
-	 * @param descriptor the descriptor
+	 * @param descriptor
+	 *            the descriptor
 	 */
 	protected void notifyServiceArrival(ServiceDescriptor descriptor) {
 		for (ServiceDiscoveryListener l : listeners) {
-			l.serviceAvailable(descriptor);			
+			l.serviceAvailable(descriptor);
 		}
 	}
 	
 	/**
 	 * Notify service removal.
 	 *
-	 * @param descriptor the descriptor
+	 * @param descriptor
+	 *            the descriptor
 	 */
 	protected void notifyServiceRemoval(ServiceDescriptor descriptor) {
 		for (ServiceDiscoveryListener l : listeners) {
-			l.serviceRemoved(descriptor);			
+			l.serviceRemoved(descriptor);
 		}
 	}
-
-	/**
-	 * Start listener.
+	
+	/*
+	 * (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.landiscovery.
+	 * ServiceDiscoverySystem
+	 * #registerListener(synergynetframework.appsystem.services
+	 * .net.landiscovery.ServiceDiscoveryListener)
 	 */
-	public void startListener() {
-		if (myThread == null) {
-			shouldRun = true;
-			myThread = new Thread(this,"ServiceBrowser");
-			myThread.start();
+	public void registerListener(ServiceDiscoveryListener l) {
+		if (!listeners.contains(l)) {
+			listeners.add(l);
 		}
 	}
-
-	/**
-	 * Stop listener.
+	
+	/*
+	 * (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.landiscovery.
+	 * ServiceDiscoverySystem#registerServiceForListening(java.lang.String,
+	 * java.lang.String)
 	 */
-	public void stopListener() {
-		if (myThread != null) {
-			shouldRun = false;
-			myThread.interrupt();
-			myThread = null;
+	public void registerServiceForListening(String type, String name) {
+		if (!queries.contains(type)) {
+			queries.add(getKey(type, name));
 		}
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.landiscovery.
+	 * ServiceDiscoverySystem
+	 * #removeListener(synergynetframework.appsystem.services
+	 * .net.landiscovery.ServiceDiscoveryListener)
+	 */
+	public void removeListener(ServiceDiscoveryListener l) {
+		listeners.remove(l);
+	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see java.lang.Runnable#run()
 	 */
 	public void run() {
@@ -182,192 +278,134 @@ public void stopLookup() {
 				socket.receive(receivedPacket); // note timeout in effect
 				if (isReplyPacket()) {
 					ServiceDescriptor descriptor;
-					/* notes on behavior of descriptors.indexOf(...)
-					 * ServiceDescriptor objects check for 'equals()'
-					 * based only on the instanceName field. An update
-					 * to a descriptor implies we should replace an
-					 * entry if we already have one. (Instead of bothering
-					 * with the details to determine new vs. update, just
-					 * quickly replace any current descriptor.)
+					/*
+					 * notes on behavior of descriptors.indexOf(...)
+					 * ServiceDescriptor objects check for 'equals()' based only
+					 * on the instanceName field. An update to a descriptor
+					 * implies we should replace an entry if we already have
+					 * one. (Instead of bothering with the details to determine
+					 * new vs. update, just quickly replace any current
+					 * descriptor.)
 					 */
 					descriptor = getReplyDescriptor();
-					if (descriptor!=null) {
-						if(!lastSeen.containsKey(getKey(descriptor))) {
+					if (descriptor != null) {
+						if (!lastSeen.containsKey(getKey(descriptor))) {
 							notifyServiceArrival(descriptor);
 							knownServices.put(getKey(descriptor), descriptor);
 						}
-						lastSeen.put(getKey(descriptor), System.currentTimeMillis());
+						lastSeen.put(getKey(descriptor),
+								System.currentTimeMillis());
 						receivedPacket = null;
 					}
-
+					
 				}
-
-			}
-			catch (SocketTimeoutException ste) {
-				/* ignored; this exception is by design to
-				 * break the blocking from socket.receive */
-			}
-			catch (IOException ioe) {
-				System.err.println("Unexpected exception: "+ioe);
+				
+			} catch (SocketTimeoutException ste) {
+				/*
+				 * ignored; this exception is by design to break the blocking
+				 * from socket.receive
+				 */
+			} catch (IOException ioe) {
+				System.err.println("Unexpected exception: " + ioe);
 				ioe.printStackTrace();
 				/* resume operation */
 			}
-
+			
 			sendQueuedPacket();
-
+			
 		}
 	}
-
+	
 	/**
 	 * Send queued packet.
 	 */
 	protected synchronized void sendQueuedPacket() {
-		if (packetQueue.size() < 1) { return; }
+		if (packetQueue.size() < 1) {
+			return;
+		}
 		try {
-			for(DatagramPacket p : packetQueue) {
+			for (DatagramPacket p : packetQueue) {
 				socket.send(p);
 			}
 			packetQueue.clear();
-		}
-		catch (IOException ioe) {
-			System.err.println("Unexpected exception: "+ioe);
+		} catch (IOException ioe) {
+			System.err.println("Unexpected exception: " + ioe);
 			ioe.printStackTrace();
 			/* resume operation */
 		}
 	}
-
-	/**
-	 * Checks if is reply packet.
-	 *
-	 * @return true, if is reply packet
+	
+	/*
+	 * (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.landiscovery.
+	 * ServiceDiscoverySystem#start()
 	 */
-	protected boolean isReplyPacket(){ 
-		if (receivedPacket==null) {
-			return false;
-		}
-
-		String dataStr = new String(receivedPacket.getData());
-		int pos = dataStr.indexOf((char)0);
-		if (pos>-1) {
-			dataStr = dataStr.substring(0,pos);
-		}
-
-		/* REQUIRED TOKEN TO START */
-		if (dataStr.startsWith(EncoderDecoder.REPLY_HEADER)) {
-			return true;
-		}
-
-		return false;
+	public void start() {
+		startLookup();
 	}
-
+	
 	/**
-	 * Gets the reply descriptor.
-	 *
-	 * @return the reply descriptor
-	 * @throws UnknownHostException the unknown host exception
+	 * Start listener.
 	 */
-	protected ServiceDescriptor getReplyDescriptor() throws UnknownHostException {
-		String dataStr = new String(receivedPacket.getData());
-		int pos = dataStr.indexOf((char)0);
-		if (pos>-1) {
-			dataStr = dataStr.substring(0,pos);
-		}
-		dataStr = EncoderDecoder.decodeFromPacket(dataStr.substring(EncoderDecoder.REPLY_HEADER.length()));
-		ServiceDescriptor sd = ServiceDescriptor.getServiceDescriptorFromStringRepresentation(dataStr);
-		return sd;		
-	}
-
-	/**
-	 * The Class QueryTimerTask.
-	 */
-	private class QueryTimerTask extends TimerTask {
-		
-		/* (non-Javadoc)
-		 * @see java.util.TimerTask#run()
-		 */
-		@Override
-		public void run() {		
-			for(String query : queries) {
-				byte[] bytes = (EncoderDecoder.QUERY_HEADER + query).getBytes();
-				DatagramPacket packet = new DatagramPacket(bytes,bytes.length);
-				packet.setAddress(params.getMulticastGroup());
-				packet.setPort(params.getMulticastPort());
-				packetQueue.add(packet);
-			}			
+	public void startListener() {
+		if (myThread == null) {
+			shouldRun = true;
+			myThread = new Thread(this, "ServiceBrowser");
+			myThread.start();
 		}
 	}
 	
 	/**
-	 * The Class ServiceRemovalTimerTask.
+	 * Start lookup.
 	 */
-	private class ServiceRemovalTimerTask extends TimerTask {
-		
-		/* (non-Javadoc)
-		 * @see java.util.TimerTask#run()
-		 */
-		@Override
-		public void run() {			
-			for(String s : lastSeen.keySet()) {
-				long elapsedTime = System.currentTimeMillis() - lastSeen.get(s);
-				if(elapsedTime > ServiceDiscoveryParams.BROWSER_QUERY_INTERVAL * 4) {
-					lastSeen.remove(s);
-					ServiceDescriptor sd = knownServices.get(s);
-					knownServices.remove(s);
-					notifyServiceRemoval(sd);
-				}
-			}
-			
+	private void startLookup() {
+		if (queryTimer == null) {
+			queryTimer = new Timer("QueryTimer");
+			queryTimer.scheduleAtFixedRate(new QueryTimerTask(), 0L,
+					ServiceDiscoveryParams.BROWSER_QUERY_INTERVAL);
 		}
+		if (serviceRemovalTimer == null) {
+			serviceRemovalTimer = new Timer("ServiceRemovalTimer");
+			serviceRemovalTimer.scheduleAtFixedRate(
+					new ServiceRemovalTimerTask(), 0L,
+					ServiceDiscoveryParams.BROWSER_QUERY_INTERVAL);
+		}
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see synergynetframework.appsystem.services.net.landiscovery.
+	 * ServiceDiscoverySystem#stop()
+	 */
+	public void stop() {
+		stopListener();
+		stopLookup();
 		
-	}
-
-	/** The listeners. */
-	protected List<ServiceDiscoveryListener> listeners = new ArrayList<ServiceDiscoveryListener>();
-
-	/* (non-Javadoc)
-	 * @see synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoverySystem#registerListener(synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoveryListener)
-	 */
-	public void registerListener(ServiceDiscoveryListener l) {
-		if(!listeners.contains(l)) listeners.add(l);		
-	}
-
-	/* (non-Javadoc)
-	 * @see synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoverySystem#removeListener(synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoveryListener)
-	 */
-	public void removeListener(ServiceDiscoveryListener l) {
-		listeners.remove(l);
-	}
-
-	//list of queries in type:name format
-	/** The queries. */
-	Queue<String> queries = new ConcurrentLinkedQueue<String>();
-
-	/* (non-Javadoc)
-	 * @see synergynetframework.appsystem.services.net.landiscovery.ServiceDiscoverySystem#registerServiceForListening(java.lang.String, java.lang.String)
-	 */
-	public void registerServiceForListening(String type, String name) {
-		if(!queries.contains(type)) queries.add(getKey(type,name));		
-	}
-
-	/**
-	 * Gets the key.
-	 *
-	 * @param sd the sd
-	 * @return the key
-	 */
-	private String getKey(ServiceDescriptor sd) {
-		return getKey(sd.getServiceType(), sd.getServiceName());
 	}
 	
 	/**
-	 * Gets the key.
-	 *
-	 * @param type the type
-	 * @param name the name
-	 * @return the key
+	 * Stop listener.
 	 */
-	private String getKey(String type, String name) {
-		return type + ":" + name;
+	public void stopListener() {
+		if (myThread != null) {
+			shouldRun = false;
+			myThread.interrupt();
+			myThread = null;
+		}
 	}
 
+	/**
+	 * Stop lookup.
+	 */
+	public void stopLookup() {
+		if (queryTimer != null) {
+			queryTimer.cancel();
+			queryTimer = null;
+		}
+		if (serviceRemovalTimer != null) {
+			serviceRemovalTimer.cancel();
+			serviceRemovalTimer = null;
+		}
+	}
+	
 }

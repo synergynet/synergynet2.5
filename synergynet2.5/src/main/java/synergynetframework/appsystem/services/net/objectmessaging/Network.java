@@ -1,35 +1,25 @@
 /*
- * Copyright (c) 2009 University of Durham, England
- * All rights reserved.
- *
+ * Copyright (c) 2009 University of Durham, England All rights reserved.
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are
- * met:
- *
- * * Redistributions of source code must retain the above copyright
- *   notice, this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright
- *   notice, this list of conditions and the following disclaimer in the
- *   documentation and/or other materials provided with the distribution.
- *
- * * Neither the name of 'SynergyNet' nor the names of its contributors 
- *   may be used to endorse or promote products derived from this software 
- *   without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
- * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * modification, are permitted provided that the following conditions are met: *
+ * Redistributions of source code must retain the above copyright notice, this
+ * list of conditions and the following disclaimer. * Redistributions in binary
+ * form must reproduce the above copyright notice, this list of conditions and
+ * the following disclaimer in the documentation and/or other materials provided
+ * with the distribution. * Neither the name of 'SynergyNet' nor the names of
+ * its contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission. THIS SOFTWARE IS PROVIDED
+ * BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+ * EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 
 package synergynetframework.appsystem.services.net.objectmessaging;
 
@@ -64,59 +54,81 @@ import synergynetframework.appsystem.services.net.objectmessaging.utility.serial
 import synergynetframework.appsystem.services.net.objectmessaging.utility.serializers.ShortSerializer;
 import synergynetframework.appsystem.services.net.objectmessaging.utility.serializers.StringSerializer;
 
-
 /**
  * The Class Network.
  */
 public class Network {
-	
-	/** The Constant idToRegisteredClass. */
-	static private final HashMap<Short,RegisteredClass> idToRegisteredClass = new HashMap<Short, RegisteredClass>();
-	
-	/** The Constant classToRegisteredClass. */
-	static private final HashMap<Class<?>, RegisteredClass> classToRegisteredClass = new HashMap<Class<?>,RegisteredClass>();
-	
-	/** The Constant CLASS_NAME. */
-	static private final short CLASS_NAME = -1;
-	
-	/** The Constant ID_NULL_OBJECT. */
-	static private final byte ID_NULL_OBJECT = 0;
-	
-	/** The next class id. */
-	static private short nextClassID = 1;
 
-	/** The Constant fieldSerializer. */
-	static private final FieldSerializer fieldSerializer = new FieldSerializer();
-	
-	/** The Constant customSerializer. */
-	static private final CustomSerializer customSerializer = new CustomSerializer();
-	
+	/**
+	 * The Class RegisteredClass.
+	 */
+	public static class RegisteredClass {
+
+		/** The id. */
+		public short id;
+
+		/** The serializer. */
+		public Serializer serializer;
+
+		/** The type. */
+		public Class<?> type;
+	}
+
 	/** The Constant arraySerializer. */
 	static private final ArraySerializer arraySerializer = new ArraySerializer();
-	
-	/** The Constant enumSerializer. */
-	static private final EnumSerializer enumSerializer = new EnumSerializer();
-	
+
+	/** The Constant CLASS_NAME. */
+	static private final short CLASS_NAME = -1;
+
+	/** The Constant classToRegisteredClass. */
+	static private final HashMap<Class<?>, RegisteredClass> classToRegisteredClass = new HashMap<Class<?>, RegisteredClass>();
+
 	/** The Constant collectionSerializer. */
 	static private final CollectionSerializer collectionSerializer = new CollectionSerializer();
 	
+	/** The Constant customSerializer. */
+	static private final CustomSerializer customSerializer = new CustomSerializer();
+
+	/** The Constant enumSerializer. */
+	static private final EnumSerializer enumSerializer = new EnumSerializer();
+
+	/** The Constant fieldSerializer. */
+	static private final FieldSerializer fieldSerializer = new FieldSerializer();
+
+	/** The Constant ID_NULL_OBJECT. */
+	static private final byte ID_NULL_OBJECT = 0;
+
+	/** The Constant idToRegisteredClass. */
+	static private final HashMap<Short, RegisteredClass> idToRegisteredClass = new HashMap<Short, RegisteredClass>();
+
 	/** The Constant mapSerializer. */
 	static private final MapSerializer mapSerializer = new MapSerializer();
+
+	/** The next class id. */
+	static private short nextClassID = 1;
 	
 	/** The Constant serializableSerializer. */
 	static private final SerializableSerializer serializableSerializer = new SerializableSerializer();
-
+	
 	static {
-
-		register(boolean.class, nextClassID++, new BooleanSerializer()).setCanBeNull(false);
-		register(byte.class, nextClassID++, new ByteSerializer()).setCanBeNull(false);
-		register(char.class, nextClassID++, new CharSerializer()).setCanBeNull(false);
-		register(short.class, nextClassID++, new ShortSerializer()).setCanBeNull(false);
-		register(int.class, nextClassID++, new IntSerializer()).setCanBeNull(false);
-		register(long.class, nextClassID++, new LongSerializer()).setCanBeNull(false);
-		register(float.class, nextClassID++, new FloatSerializer()).setCanBeNull(false);
-		register(double.class, nextClassID++, new DoubleSerializer()).setCanBeNull(false);
-
+		
+		register(boolean.class, nextClassID++, new BooleanSerializer())
+				.setCanBeNull(false);
+		register(byte.class, nextClassID++, new ByteSerializer()).setCanBeNull(
+				false);
+		register(char.class, nextClassID++, new CharSerializer()).setCanBeNull(
+				false);
+		register(short.class, nextClassID++, new ShortSerializer())
+				.setCanBeNull(false);
+		register(int.class, nextClassID++, new IntSerializer()).setCanBeNull(
+				false);
+		register(long.class, nextClassID++, new LongSerializer()).setCanBeNull(
+				false);
+		register(float.class, nextClassID++, new FloatSerializer())
+				.setCanBeNull(false);
+		register(double.class, nextClassID++, new DoubleSerializer())
+				.setCanBeNull(false);
+		
 		register(Boolean.class, nextClassID++, new BooleanSerializer());
 		register(Byte.class, nextClassID++, new ByteSerializer());
 		register(Character.class, nextClassID++, new CharSerializer());
@@ -125,32 +137,219 @@ public class Network {
 		register(Long.class, nextClassID++, new LongSerializer());
 		register(Float.class, nextClassID++, new FloatSerializer());
 		register(Double.class, nextClassID++, new DoubleSerializer());
-
+		
 		register(String.class, nextClassID++, new StringSerializer());
-
+		
 		register(RegisterTCP.class, nextClassID++, fieldSerializer);
 		register(RegisterUDP.class, nextClassID++, fieldSerializer);
 		register(KeepAlive.class, nextClassID++, fieldSerializer);
 	}
 
 	/**
+	 * Gets the registered class.
+	 *
+	 * @param type
+	 *            the type
+	 * @return the registered class
+	 */
+	public static RegisteredClass getRegisteredClass(Class<?> type) {
+		if (type == null) {
+			throw new IllegalArgumentException("type cannot be null.");
+		}
+		RegisteredClass registeredClass = classToRegisteredClass.get(type);
+		if (registeredClass == null) {
+			if (Proxy.isProxyClass(type)) {
+				return getRegisteredClass(InvocationHandler.class);
+			}
+			if (type.isArray()) {
+				ArraySerializer.getElementClass(type);
+				StringBuilder buffer = new StringBuilder(16);
+				for (int i = 0, n = ArraySerializer.getDimensionCount(type); i < n; i++) {
+					buffer.append("[]");
+				}
+			}
+		}
+		return registeredClass;
+	}
+	
+	/**
+	 * Gets the registered class.
+	 *
+	 * @param classID
+	 *            the class id
+	 * @return the registered class
+	 */
+	public static RegisteredClass getRegisteredClass(short classID) {
+		RegisteredClass registeredClass = idToRegisteredClass.get(classID);
+		if (registeredClass == null) {
+			throw new IllegalArgumentException("Class ID is not registered: "
+					+ classID);
+		}
+		return registeredClass;
+	}
+	
+	/**
 	 * Gets the registered classes.
 	 *
 	 * @return the registered classes
 	 */
-	public static HashMap<Short, RegisteredClass> getRegisteredClasses(){
+	public static HashMap<Short, RegisteredClass> getRegisteredClasses() {
 		return idToRegisteredClass;
+	}
+	
+	/**
+	 * Read class.
+	 *
+	 * @param buffer
+	 *            the buffer
+	 * @return the registered class
+	 * @throws SerializationException
+	 *             the serialization exception
+	 */
+	public static RegisteredClass readClass(ByteBuffer buffer)
+			throws SerializationException {
+		short classID = ShortSerializer.get(buffer, true);
+		RegisteredClass registeredClass = null;
+		if (classID == ID_NULL_OBJECT) {
+			return null;
+		} else if (classID == Network.CLASS_NAME) {
+			registeredClass = new RegisteredClass();
+			try {
+				registeredClass.type = Class.forName(StringSerializer
+						.get(buffer));
+				registeredClass.id = CLASS_NAME;
+				registeredClass.serializer = serializableSerializer;
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		} else {
+			registeredClass = idToRegisteredClass.get(classID);
+		}
+		if (registeredClass == null) {
+			throw new SerializationException(
+					"Encountered unregistered class ID: " + classID);
+		}
+		return registeredClass;
+	}
+	
+	/**
+	 * Read class and object.
+	 *
+	 * @param connectionHandler
+	 *            the connection handler
+	 * @param readBuffer
+	 *            the read buffer
+	 * @return the object
+	 * @throws SerializationException
+	 *             the serialization exception
+	 */
+	public static Object readClassAndObject(
+			ConnectionHandler connectionHandler, ByteBuffer readBuffer)
+			throws SerializationException {
+		return readClassAndObject(connectionHandler, readBuffer, false);
+	}
+	
+	/**
+	 * Read class and object.
+	 *
+	 * @param connectionHandler
+	 *            the connection handler
+	 * @param readBuffer
+	 *            the read buffer
+	 * @param lengthKnown
+	 *            the length known
+	 * @return the object
+	 * @throws SerializationException
+	 *             the serialization exception
+	 */
+	static public Object readClassAndObject(
+			ConnectionHandler connectionHandler, ByteBuffer readBuffer,
+			boolean lengthKnown) throws SerializationException {
+		RegisteredClass registeredClass = null;
+		try {
+			registeredClass = readClass(readBuffer);
+			if (registeredClass == null) {
+				return null;
+			}
+			return registeredClass.serializer.readObjectData(connectionHandler,
+					readBuffer, registeredClass.type, lengthKnown);
+		} catch (SerializationException ex) {
+			if (registeredClass != null) {
+				throw new SerializationException(
+						"Unable to deserialize object of type: "
+								+ registeredClass.type.getName(), ex);
+			}
+			throw new SerializationException(
+					"Unable to deserialize an object.", ex);
+		}
 	}
 	
 	/**
 	 * Register.
 	 *
-	 * @param type the type
-	 * @param id the id
-	 * @param serializer the serializer
+	 * @param type
+	 *            the type
+	 */
+	public static void register(Class<?> type) {
+		if (type == null) {
+			throw new IllegalArgumentException("type cannot be null.");
+		}
+		Serializer serializer;
+		if (type.isArray()) {
+			serializer = arraySerializer;
+		} else if (CustomSerialization.class.isAssignableFrom(type)) {
+			serializer = customSerializer;
+		} else if (Collection.class.isAssignableFrom(type)) {
+			serializer = collectionSerializer;
+		} else if (Map.class.isAssignableFrom(type)) {
+			serializer = mapSerializer;
+		} else if (Enum.class.isAssignableFrom(type)) {
+			serializer = enumSerializer;
+		} else {
+			serializer = fieldSerializer;
+		}
+		register(type, serializer);
+	}
+	
+	/**
+	 * Register.
+	 *
+	 * @param type
+	 *            the type
+	 * @param serializer
+	 *            the serializer
+	 */
+	public static void register(Class<?> type, Serializer serializer) {
+		if (type == null) {
+			throw new IllegalArgumentException("type cannot be null.");
+		}
+		if (serializer == null) {
+			throw new IllegalArgumentException("serializer cannot be null.");
+		}
+		short id;
+		RegisteredClass existingRegisteredClass = classToRegisteredClass
+				.get(type);
+		if (existingRegisteredClass != null) {
+			id = existingRegisteredClass.id;
+		} else {
+			id = nextClassID++;
+		}
+		register(type, id, serializer);
+	}
+	
+	/**
+	 * Register.
+	 *
+	 * @param type
+	 *            the type
+	 * @param id
+	 *            the id
+	 * @param serializer
+	 *            the serializer
 	 * @return the serializer
 	 */
-	private static Serializer register (Class<?> type, short id, Serializer serializer) {
+	private static Serializer register(Class<?> type, short id,
+			Serializer serializer) {
 		RegisteredClass registeredClass = new RegisteredClass();
 		registeredClass.type = type;
 		registeredClass.id = id;
@@ -159,217 +358,82 @@ public class Network {
 		classToRegisteredClass.put(type, registeredClass);
 		return serializer;
 	}
-
-	/**
-	 * Register.
-	 *
-	 * @param type the type
-	 * @param serializer the serializer
-	 */
-	public static void register (Class<?> type, Serializer serializer) {
-		if (type == null) throw new IllegalArgumentException("type cannot be null.");
-		if (serializer == null) throw new IllegalArgumentException("serializer cannot be null.");
-		short id;
-		RegisteredClass existingRegisteredClass = classToRegisteredClass.get(type);
-		if (existingRegisteredClass != null)
-			id = existingRegisteredClass.id;
-		else
-			id = nextClassID++;
-		register(type, id, serializer);
-	}
-
-
-	/**
-	 * Register.
-	 *
-	 * @param type the type
-	 */
-	public static void register (Class<?> type) {
-		if (type == null) throw new IllegalArgumentException("type cannot be null.");
-		Serializer serializer;
-		if (type.isArray())
-			serializer = arraySerializer;
-		else if (CustomSerialization.class.isAssignableFrom(type))
-			serializer = customSerializer;
-		else if (Collection.class.isAssignableFrom(type))
-			serializer = collectionSerializer;
-		else if (Map.class.isAssignableFrom(type))
-			serializer = mapSerializer;
-		else if (Enum.class.isAssignableFrom(type))
-			serializer = enumSerializer;
-		else {
-			serializer = fieldSerializer;
-		}
-		register(type, serializer);
-	}
-
-	/**
-	 * Gets the registered class.
-	 *
-	 * @param type the type
-	 * @return the registered class
-	 */
-	public static  RegisteredClass getRegisteredClass (Class<?> type) {
-		if (type == null) throw new IllegalArgumentException("type cannot be null.");
-		RegisteredClass registeredClass = classToRegisteredClass.get(type);
-		if (registeredClass == null) {
-			if (Proxy.isProxyClass(type)) return getRegisteredClass(InvocationHandler.class);
-			if (type.isArray()) {
-				ArraySerializer.getElementClass(type);
-				StringBuilder buffer = new StringBuilder(16);
-				for (int i = 0, n = ArraySerializer.getDimensionCount(type); i < n; i++)
-					buffer.append("[]");
-			}
-		}
-		return registeredClass;
-	}
-
-	/**
-	 * Gets the registered class.
-	 *
-	 * @param classID the class id
-	 * @return the registered class
-	 */
-	public static RegisteredClass getRegisteredClass (short classID) {
-		RegisteredClass registeredClass = idToRegisteredClass.get(classID);
-		if (registeredClass == null) throw new IllegalArgumentException("Class ID is not registered: " + classID);
-		return registeredClass;
-	}
-
-	/**
-	 * The Class RegisteredClass.
-	 */
-	public static  class RegisteredClass {
-		
-		/** The type. */
-		public Class<?> type;
-		
-		/** The id. */
-		public short id;
-		
-		/** The serializer. */
-		public Serializer serializer;
-	}
-
+	
 	/**
 	 * Write class.
 	 *
-	 * @param type the type
-	 * @param buffer the buffer
+	 * @param type
+	 *            the type
+	 * @param buffer
+	 *            the buffer
 	 * @return the registered class
-	 * @throws SerializationException the serialization exception
+	 * @throws SerializationException
+	 *             the serialization exception
 	 */
-	public static  RegisteredClass writeClass (Class<?> type, ByteBuffer buffer) throws SerializationException {
+	public static RegisteredClass writeClass(Class<?> type, ByteBuffer buffer)
+			throws SerializationException {
 		RegisteredClass registeredClass = getRegisteredClass(type);
-		if(registeredClass == null){ 
-			ShortSerializer.put(buffer, Network.CLASS_NAME, true);			
+		if (registeredClass == null) {
+			ShortSerializer.put(buffer, Network.CLASS_NAME, true);
 			StringSerializer.put(buffer, type.getName());
 			registeredClass = new RegisteredClass();
 			registeredClass.id = Network.CLASS_NAME;
 			registeredClass.serializer = serializableSerializer;
 			registeredClass.type = type;
-		}
-		else
+		} else {
 			ShortSerializer.put(buffer, registeredClass.id, true);
-		return registeredClass;
-	}
-
-	/**
-	 * Read class.
-	 *
-	 * @param buffer the buffer
-	 * @return the registered class
-	 * @throws SerializationException the serialization exception
-	 */
-	public static  RegisteredClass readClass (ByteBuffer buffer) throws SerializationException {
-		short classID = ShortSerializer.get(buffer, true);
-		RegisteredClass registeredClass = null;
-		if (classID == ID_NULL_OBJECT) {
-			return null;
-		}else if(classID == Network.CLASS_NAME){
-			registeredClass = new RegisteredClass();
-			try {
-				registeredClass.type = Class.forName(StringSerializer.get(buffer));
-				registeredClass.id = CLASS_NAME;
-				registeredClass.serializer = serializableSerializer;
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
 		}
-		else	
-			registeredClass = idToRegisteredClass.get(classID);
-		if (registeredClass == null) throw new SerializationException("Encountered unregistered class ID: " + classID);
 		return registeredClass;
 	}
-
+	
 	/**
 	 * Write class and object.
 	 *
-	 * @param connectionHandler the connection handler
-	 * @param object the object
-	 * @param writeBuffer the write buffer
-	 * @throws SerializationException the serialization exception
+	 * @param connectionHandler
+	 *            the connection handler
+	 * @param object
+	 *            the object
+	 * @param writeBuffer
+	 *            the write buffer
+	 * @throws SerializationException
+	 *             the serialization exception
 	 */
-	public static  void writeClassAndObject (ConnectionHandler connectionHandler, Object object, ByteBuffer writeBuffer)
-		throws SerializationException {
+	public static void writeClassAndObject(ConnectionHandler connectionHandler,
+			Object object, ByteBuffer writeBuffer)
+			throws SerializationException {
 		writeClassAndObject(connectionHandler, object, writeBuffer, false);
 	}
-
+	
 	/**
 	 * Write class and object.
 	 *
-	 * @param connectionHandler the connection handler
-	 * @param object the object
-	 * @param writeBuffer the write buffer
-	 * @param lengthKnown the length known
-	 * @throws SerializationException the serialization exception
+	 * @param connectionHandler
+	 *            the connection handler
+	 * @param object
+	 *            the object
+	 * @param writeBuffer
+	 *            the write buffer
+	 * @param lengthKnown
+	 *            the length known
+	 * @throws SerializationException
+	 *             the serialization exception
 	 */
-	public static  void writeClassAndObject (ConnectionHandler connectionHandler, Object object, ByteBuffer writeBuffer, boolean lengthKnown)
-		throws SerializationException {
+	public static void writeClassAndObject(ConnectionHandler connectionHandler,
+			Object object, ByteBuffer writeBuffer, boolean lengthKnown)
+			throws SerializationException {
 		if (object == null) {
 			writeBuffer.put(ID_NULL_OBJECT);
 			return;
 		}
 		try {
-			RegisteredClass registeredClass = writeClass(object.getClass(), writeBuffer);
-			registeredClass.serializer.writeObjectData(connectionHandler, writeBuffer, object, lengthKnown);
+			RegisteredClass registeredClass = writeClass(object.getClass(),
+					writeBuffer);
+			registeredClass.serializer.writeObjectData(connectionHandler,
+					writeBuffer, object, lengthKnown);
 		} catch (SerializationException ex) {
-			throw new SerializationException("Unable to serialize object of type: " + object.getClass().getName(), ex);
-		}
-	}
-
-	/**
-	 * Read class and object.
-	 *
-	 * @param connectionHandler the connection handler
-	 * @param readBuffer the read buffer
-	 * @return the object
-	 * @throws SerializationException the serialization exception
-	 */
-	public static  Object readClassAndObject (ConnectionHandler connectionHandler, ByteBuffer readBuffer) throws SerializationException {
-		return readClassAndObject(connectionHandler, readBuffer, false);
-	}
-
-	/**
-	 * Read class and object.
-	 *
-	 * @param connectionHandler the connection handler
-	 * @param readBuffer the read buffer
-	 * @param lengthKnown the length known
-	 * @return the object
-	 * @throws SerializationException the serialization exception
-	 */
-	static public Object readClassAndObject (ConnectionHandler connectionHandler, ByteBuffer readBuffer, boolean lengthKnown)
-		throws SerializationException {
-		RegisteredClass registeredClass = null;
-		try {
-			registeredClass = readClass(readBuffer);
-			if (registeredClass == null) return null;
-			return registeredClass.serializer.readObjectData(connectionHandler, readBuffer, registeredClass.type, lengthKnown);
-		} catch (SerializationException ex) {
-			if (registeredClass != null)
-				throw new SerializationException("Unable to deserialize object of type: " + registeredClass.type.getName(), ex);
-			throw new SerializationException("Unable to deserialize an object.", ex);
+			throw new SerializationException(
+					"Unable to serialize object of type: "
+							+ object.getClass().getName(), ex);
 		}
 	}
 }

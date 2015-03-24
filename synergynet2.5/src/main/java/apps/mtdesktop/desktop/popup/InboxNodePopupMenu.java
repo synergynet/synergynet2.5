@@ -15,100 +15,103 @@ import javax.swing.tree.TreePath;
 import apps.mtdesktop.MTDesktopConfigurations;
 import apps.mtdesktop.desktop.tree.TabletopTreeController;
 
-
-
-
 /**
  * The Class InboxNodePopupMenu.
  */
-public class InboxNodePopupMenu extends JPopupMenu{
-	
+public class InboxNodePopupMenu extends JPopupMenu {
+
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 5809360199329351914L;
-	
-	/** The selected node. */
-	protected DefaultMutableTreeNode selectedNode;
-	
+
 	/** The delete. */
 	protected JMenuItem open, refresh, delete;
-	
+
+	/** The selected node. */
+	protected DefaultMutableTreeNode selectedNode;
+
 	/** The tree controller. */
 	protected TabletopTreeController treeController;
-	
+
 	/**
 	 * Instantiates a new inbox node popup menu.
 	 *
-	 * @param treeController the tree controller
+	 * @param treeController
+	 *            the tree controller
 	 */
-	public InboxNodePopupMenu(final TabletopTreeController treeController){
+	public InboxNodePopupMenu(final TabletopTreeController treeController) {
 		this.treeController = treeController;
-		open = new JMenuItem( "Open Inbox Folder" );
-		refresh = new JMenuItem( "Refresh" );
-		delete = new JMenuItem( "Delete inbox files" );
-		
-		open.addActionListener(new ActionListener(){
+		open = new JMenuItem("Open Inbox Folder");
+		refresh = new JMenuItem("Refresh");
+		delete = new JMenuItem("Delete inbox files");
 
+		open.addActionListener(new ActionListener() {
+			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					Desktop.getDesktop().open(new File(MTDesktopConfigurations.inboxFolder));
+					Desktop.getDesktop().open(
+							new File(MTDesktopConfigurations.inboxFolder));
 				} catch (IOException e) {
-					JOptionPane.showMessageDialog(InboxNodePopupMenu.this, e.getMessage().toString(), "Unable to open folder", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-
-		});
-		
-		delete.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				if(selectedNode != null){
-					TreePath[] paths = new TreePath[selectedNode.getChildCount()];
-					for(int i=0;i< selectedNode.getChildCount(); i++)
-						paths[i] = new TreePath(selectedNode.getChildAt(i));
-					treeController.deleteSelected(paths);
+					JOptionPane.showMessageDialog(InboxNodePopupMenu.this, e
+							.getMessage().toString(), "Unable to open folder",
+							JOptionPane.ERROR_MESSAGE);
 				}
 			}
 			
 		});
-		
-		refresh.addActionListener(new ActionListener(){
 
+		delete.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if (selectedNode != null) {
+					TreePath[] paths = new TreePath[selectedNode
+							.getChildCount()];
+					for (int i = 0; i < selectedNode.getChildCount(); i++) {
+						paths[i] = new TreePath(selectedNode.getChildAt(i));
+					}
+					treeController.deleteSelected(paths);
+				}
+			}
+
+		});
+
+		refresh.addActionListener(new ActionListener() {
+			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				treeController.updateInboxNode();
 			}
-			
-		});
-		
-		delete.addActionListener(new ActionListener(){
 
+		});
+
+		delete.addActionListener(new ActionListener() {
+			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				File dir = new File(MTDesktopConfigurations.inboxFolder); 
+				File dir = new File(MTDesktopConfigurations.inboxFolder);
 				File[] files = dir.listFiles();
-
-		        for (int i = 0; i < files.length; i++){
-		                files[i].delete();
-		        }
-		        treeController.updateInboxNode();
+				
+				for (int i = 0; i < files.length; i++) {
+					files[i].delete();
+				}
+				treeController.updateInboxNode();
 			}
-			
+
 		});
-		
-		this.add( open );
-		this.add( refresh );
+
+		this.add(open);
+		this.add(refresh);
 		this.add(delete);
 	}
-	
+
 	/**
 	 * Sets the selected node.
 	 *
-	 * @param selectedNode the new selected node
+	 * @param selectedNode
+	 *            the new selected node
 	 */
 	public void setSelectedNode(DefaultMutableTreeNode selectedNode) {
 		this.selectedNode = selectedNode;
 	}
 }
-

@@ -1,32 +1,23 @@
 /*
- * Copyright (c) 2009 University of Durham, England
- * All rights reserved.
- *
+ * Copyright (c) 2009 University of Durham, England All rights reserved.
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are
- * met:
- *
- * * Redistributions of source code must retain the above copyright
- *   notice, this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright
- *   notice, this list of conditions and the following disclaimer in the
- *   documentation and/or other materials provided with the distribution.
- *
- * * Neither the name of 'SynergyNet' nor the names of its contributors 
- *   may be used to endorse or promote products derived from this software 
- *   without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
- * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * modification, are permitted provided that the following conditions are met: *
+ * Redistributions of source code must retain the above copyright notice, this
+ * list of conditions and the following disclaimer. * Redistributions in binary
+ * form must reproduce the above copyright notice, this list of conditions and
+ * the following disclaimer in the documentation and/or other materials provided
+ * with the distribution. * Neither the name of 'SynergyNet' nor the names of
+ * its contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission. THIS SOFTWARE IS PROVIDED
+ * BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+ * EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
@@ -38,50 +29,42 @@ import java.net.URL;
 import synergynetframework.appsystem.contentsystem.ContentSystem;
 import synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IPDFViewerImplementation;
 
-
 /**
  * The Class PDFViewer.
  */
 public class PDFViewer extends DocViewer implements IPDFViewerImplementation {
-	
+
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -8279443252885792979L;
-	
-	/** The pdf url. */
-	protected URL pdfURL;	
-	
+
 	/** The pdf file. */
 	protected File pdfFile;
-
-	/* (non-Javadoc)
-	 * @see synergynetframework.appsystem.contentsystem.items.ContentItem#init()
-	 */
-	public void init(){
-		super.init();
-		if(pdfURL != null) 
-			((IPDFViewerImplementation)this.contentItemImplementation).setPdfURL(pdfURL);
-		if(pdfFile != null) 
-			((IPDFViewerImplementation)this.contentItemImplementation).setPdfFile(pdfFile);
-		this.setWidth(width);
-		this.setHeight(height);
-	}
+	
+	/** The pdf url. */
+	protected URL pdfURL;
 	
 	/**
 	 * Instantiates a new PDF viewer.
 	 *
-	 * @param contentSystem the content system
-	 * @param name the name
+	 * @param contentSystem
+	 *            the content system
+	 * @param name
+	 *            the name
 	 */
 	public PDFViewer(ContentSystem contentSystem, String name) {
 		super(contentSystem, name);
 	}
 
-	/* (non-Javadoc)
-	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IPDFViewerImplementation#setPdfURL(java.net.URL)
+	/*
+	 * (non-Javadoc)
+	 * @see
+	 * synergynetframework.appsystem.contentsystem.items.QuadContentItem#clone()
 	 */
-	public void setPdfURL(URL pdfURL) {
-		this.pdfURL = pdfURL;
-		((IPDFViewerImplementation)this.contentItemImplementation).setPdfURL(pdfURL);
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		PDFViewer clonedItem = (PDFViewer) super.clone();
+		clonedItem.pdfURL = this.pdfURL;
+		return clonedItem;
 	}
 	
 	/**
@@ -92,7 +75,7 @@ public class PDFViewer extends DocViewer implements IPDFViewerImplementation {
 	public File getPdfFile() {
 		return pdfFile;
 	}
-	
+
 	/**
 	 * Gets the pdf url.
 	 *
@@ -102,24 +85,47 @@ public class PDFViewer extends DocViewer implements IPDFViewerImplementation {
 		return pdfURL;
 	}
 
-	/* (non-Javadoc)
-	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IPDFViewerImplementation#setPdfFile(java.io.File)
+	/*
+	 * (non-Javadoc)
+	 * @see synergynetframework.appsystem.contentsystem.items.ContentItem#init()
+	 */
+	public void init() {
+		super.init();
+		if (pdfURL != null) {
+			((IPDFViewerImplementation) this.contentItemImplementation)
+					.setPdfURL(pdfURL);
+		}
+		if (pdfFile != null) {
+			((IPDFViewerImplementation) this.contentItemImplementation)
+					.setPdfFile(pdfFile);
+		}
+		this.setWidth(width);
+		this.setHeight(height);
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see
+	 * synergynetframework.appsystem.contentsystem.items.implementation.interfaces
+	 * .IPDFViewerImplementation#setPdfFile(java.io.File)
 	 */
 	@Override
 	public void setPdfFile(File pdfFile) {
 		this.pdfFile = pdfFile;
-		((IPDFViewerImplementation)this.contentItemImplementation).setPdfFile(pdfFile);		
+		((IPDFViewerImplementation) this.contentItemImplementation)
+				.setPdfFile(pdfFile);
 	}
 	
-	
-	/* (non-Javadoc)
-	 * @see synergynetframework.appsystem.contentsystem.items.QuadContentItem#clone()
+	/*
+	 * (non-Javadoc)
+	 * @see
+	 * synergynetframework.appsystem.contentsystem.items.implementation.interfaces
+	 * .IPDFViewerImplementation#setPdfURL(java.net.URL)
 	 */
-	@Override
-	public Object clone() throws CloneNotSupportedException {
-		PDFViewer clonedItem = (PDFViewer) super.clone();
-		clonedItem.pdfURL = this.pdfURL;
-		return clonedItem;
+	public void setPdfURL(URL pdfURL) {
+		this.pdfURL = pdfURL;
+		((IPDFViewerImplementation) this.contentItemImplementation)
+				.setPdfURL(pdfURL);
 	}
-
+	
 }

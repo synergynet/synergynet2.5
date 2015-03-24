@@ -8,57 +8,58 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import synergynetframework.appsystem.contentsystem.ContentSystem;
 import apps.projectmanagement.component.staffnode.StaffModel;
 import apps.projectmanagement.component.staffnode.StaffNode;
 import apps.projectmanagement.registry.StaffNodeRegistry;
-
-import synergynetframework.appsystem.contentsystem.ContentSystem;
-
 
 /**
  * The Class StaffNodesLoader.
  */
 public class StaffNodesLoader {
-	
+
 	/**
 	 * Load node.
 	 *
-	 * @param fileName the file name
-	 * @param contentSystem the content system
+	 * @param fileName
+	 *            the file name
+	 * @param contentSystem
+	 *            the content system
 	 * @return the string
 	 */
-	public static String loadNode(String fileName, ContentSystem contentSystem){
-		
-		try {			
+	public static String loadNode(String fileName, ContentSystem contentSystem) {
+
+		try {
 			FileInputStream fstream = new FileInputStream(fileName);
 			DataInputStream in = new DataInputStream(fstream);
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
-	
+			
 			String strLine;
 			StaffNode staffNode;
-			
-			while ((strLine = br.readLine()) != null)   {
-			
+
+			while ((strLine = br.readLine()) != null) {
+				
 				String[] attributes = strLine.trim().split(",");
 				List<String> notes = new ArrayList<String>();
-				for (int i=4; i<attributes.length; i++){
+				for (int i = 4; i < attributes.length; i++) {
 					notes.add(attributes[i]);
 				}
-				
-				StaffModel staffModel = new StaffModel(attributes[0], attributes[1], attributes[2], attributes[3], notes);
-				
+
+				StaffModel staffModel = new StaffModel(attributes[0],
+						attributes[1], attributes[2], attributes[3], notes);
+
 				staffNode = new StaffNode(contentSystem, staffModel, 80, 100);
 				StaffNodeRegistry.getInstance().addNode(staffNode);
-			
-			}	
+				
+			}
 			br.close();
-				  	
+			
 		} catch (IOException e) {
 			e.printStackTrace();
-		} 
+		}
 		
 		return fileName;
-				
+		
 	}
-
+	
 }

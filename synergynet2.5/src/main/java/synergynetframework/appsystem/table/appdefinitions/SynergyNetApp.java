@@ -1,32 +1,23 @@
 /*
- * Copyright (c) 2009 University of Durham, England
- * All rights reserved.
- *
+ * Copyright (c) 2009 University of Durham, England All rights reserved.
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are
- * met:
- *
- * * Redistributions of source code must retain the above copyright
- *   notice, this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright
- *   notice, this list of conditions and the following disclaimer in the
- *   documentation and/or other materials provided with the distribution.
- *
- * * Neither the name of 'SynergyNet' nor the names of its contributors 
- *   may be used to endorse or promote products derived from this software 
- *   without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
- * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * modification, are permitted provided that the following conditions are met: *
+ * Redistributions of source code must retain the above copyright notice, this
+ * list of conditions and the following disclaimer. * Redistributions in binary
+ * form must reproduce the above copyright notice, this list of conditions and
+ * the following disclaimer in the documentation and/or other materials provided
+ * with the distribution. * Neither the name of 'SynergyNet' nor the names of
+ * its contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission. THIS SOFTWARE IS PROVIDED
+ * BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+ * EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
@@ -49,8 +40,6 @@ import synergynetframework.jme.sysutils.InputUtility;
 import synergynetframework.jme.sysutils.StereoRenderPass;
 import synergynetframework.jme.sysutils.StereoRenderPass.StereoMode;
 
-
-
 import com.acarter.scenemonitor.SceneMonitor;
 import com.jme.bounding.BoundingBox;
 import com.jme.bounding.OrthogonalBoundingBox;
@@ -70,145 +59,87 @@ import com.jmex.game.state.GameState;
 
 import core.SynergyNetDesktop;
 
-
 /**
  * The Class SynergyNetApp.
  */
 public abstract class SynergyNetApp extends GameState {
-	
+
 	/** The Constant log. */
-	private static final Logger log = Logger.getLogger(SynergyNetApp.class.getName());	
-	
-	/** The input. */
-	protected InputHandler input;	
-	
-	/** The root node. */
-	private Node rootNode;
-	
-	/** The ortho node. */
-	protected Node orthoNode;
-	
-	/** The world node. */
-	protected Node worldNode;
+	private static final Logger log = Logger.getLogger(SynergyNetApp.class
+			.getName());
 	
 	/** The activation count. */
 	private int activationCount = 0;
 	
-	/** The info. */
-	protected ApplicationInfo info;
-	
 	/** The application data directory. */
 	protected File applicationDataDirectory;
-	
-	/** The wire state. */
-	private WireframeState wireState;
-	
+
+	/** The exit state. */
+	protected boolean exitState = false;
+
+	/** The info. */
+	protected ApplicationInfo info;
+
+	/** The input. */
+	protected InputHandler input;
+
+	/** The menu controller. */
+	protected MenuController menuController = new ApplicationDefined();
+
+	/** The ortho node. */
+	protected Node orthoNode;
+
+	/** The ortho render pass. */
+	private RenderPass orthoRenderPass;
+
 	/** The p manager. */
 	protected BasicPassManager pManager;
+
+	/** The root node. */
+	private Node rootNode;
+
+	/** The update scene monitor. */
+	private boolean updateSceneMonitor = false;
+
+	/** The wire state. */
+	private WireframeState wireState;
+
+	/** The world node. */
+	protected Node worldNode;
 	
 	/** The world render pass. */
 	private RenderPass worldRenderPass;
 	
-	/** The ortho render pass. */
-	private RenderPass orthoRenderPass;
-	
-	/** The exit state. */
-	protected boolean exitState = false;
-	
-	/** The update scene monitor. */
-	private boolean updateSceneMonitor = false;
-
 	/**
 	 * Instantiates a new synergy net app.
 	 *
-	 * @param info the info
+	 * @param info
+	 *            the info
 	 */
 	public SynergyNetApp(ApplicationInfo info) {
 		super();
 		this.info = info;
-		this.applicationDataDirectory = new File(SynergyNetDesktop.getSynergyNetLocalWorkingDirectory(), info.getApplicationName() + "_" + info.getApplicationVersion());
-		log.info("Create application Data Directory at: "+this.applicationDataDirectory.getAbsolutePath());
+		this.applicationDataDirectory = new File(
+				SynergyNetDesktop.getSynergyNetLocalWorkingDirectory(),
+				info.getApplicationName() + "_" + info.getApplicationVersion());
+		log.info("Create application Data Directory at: "
+				+ this.applicationDataDirectory.getAbsolutePath());
 	}
-
+	
 	/**
-	 * Inits the.
+	 * Adds the content.
 	 */
-	public void init() {		
-		initInput();
-		pManager = new BasicPassManager();
-		setWorldRenderPass(new RenderPass());
-		setOrthoRenderPass(new RenderPass());
-		
-		setRootNode(new Node(name + ".rootnode"));
-		wireState = DisplaySystem.getDisplaySystem().getRenderer().createWireframeState();
-		wireState.setEnabled(false);
-		getRootNode().setRenderState(wireState);
-		
-		
-		getRootNode().setModelBound(new BoundingBox());
-		getRootNode().updateModelBound();
-		orthoNode = createOrthoNode();
-		worldNode = createWorldNode();
-
-		getRootNode().attachChild(orthoNode);
-		getRootNode().attachChild(worldNode);
-		getCamera();
-		addContent();
-		orthoNode.updateModelBound();
-		getRootNode().updateGeometricState(0, true);
-		getRootNode().updateRenderState();
-		
-		getWorldRenderPass().add(getRootNode());
-		pManager.add(getWorldRenderPass());
-		getOrthoRenderPass().add(getOrthoNode());
-		pManager.add(getOrthoRenderPass());
-
-		String threeDeeMode = new DisplayConfigPrefsItem().getThreeDee();
-		
-		if (!threeDeeMode.equals("NONE")){			
-			StereoRenderPass sp = new StereoRenderPass(rootNode);
-			sp.setStereoMode(StereoMode.valueOf(threeDeeMode));
-			pManager.clearAll();
-	        pManager.add(sp);
-		}
+	public abstract void addContent();
+	
+	/*
+	 * (non-Javadoc)
+	 * @see com.jmex.game.state.GameState#cleanup()
+	 */
+	@Override
+	public void cleanup() {
 		
 	}
-
-	/**
-	 * Gets the ortho node.
-	 *
-	 * @return the ortho node
-	 */
-	public Node getOrthoNode() {
-		return orthoNode;
-	}
-
-	/**
-	 * Gets the world node.
-	 *
-	 * @return the world node
-	 */
-	public Node getWorldNode() {
-		return worldNode;
-	}
-
-	/**
-	 * Creates the world node.
-	 *
-	 * @return the node
-	 */
-	private Node createWorldNode() {
-		Node n = new Node(info.getApplicationName() + "_worldNode");
-		n.setModelBound(new BoundingBox());
-		n.updateModelBound();
-		ZBufferState buf = DisplaySystem.getDisplaySystem().getRenderer().createZBufferState();
-		buf.setEnabled(true);
-		buf.setFunction(ZBufferState.TestFunction.LessThanOrEqualTo);
-		n.setRenderState(buf);
-		log.info("WorldNode is created");
-		return n;
-	}
-
+	
 	/**
 	 * Creates the ortho node.
 	 *
@@ -223,195 +154,37 @@ public abstract class SynergyNetApp extends GameState {
 		n.setLightCombineMode(LightCombineMode.Off);
 		ZBufferState buf = display.getRenderer().createZBufferState();
 		buf.setEnabled(true);
-		buf.setFunction(ZBufferState.TestFunction.NotEqualTo);		
-		n.setRenderState(buf);		
+		buf.setFunction(ZBufferState.TestFunction.NotEqualTo);
+		n.setRenderState(buf);
 		n.updateRenderState();
 		n.updateGeometricState(0f, true);
 		log.info("OrthoNode is created");
 		return n;
 	}
-
-
-
-	/**
-	 * On activate.
-	 */
-	public void onActivate() {
-		setActivationCount(getActivationCount() + 1);
-		DisplaySystem.getDisplaySystem().setTitle(name);
-		DisplaySystem.getDisplaySystem().getRenderer().setCamera(getCamera());
-		getCamera().update();
-		
-		DisplayConfigPrefsItem displayPrefs = new DisplayConfigPrefsItem();		
-		if(displayPrefs.getShowSceneMonitor()) {
-			SceneMonitor.getMonitor().registerNode(rootNode, "Root Node");
-	        SceneMonitor.getMonitor().showViewer(true);
-	        updateSceneMonitor  = true;
-		}
-		
-		log.info("SynergyNet Applicaiton Instance '"+name+"' is activated ");
-	}
 	
 	/**
-	 * On deactivate.
-	 */
-	protected void onDeactivate() {		
-		DisplayConfigPrefsItem displayPrefs = new DisplayConfigPrefsItem();
-		if(displayPrefs.getShowSceneMonitor()) {
-			SceneMonitor.getMonitor().unregisterNode(rootNode);
-	        SceneMonitor.getMonitor().showViewer(false);
-	        updateSceneMonitor = false;
-		}
-		
-		log.info("SynergyNet Applicaiton Instance '"+name+"' is deactivated ");
-	}
-
-	/**
-	 * Request focus.
-	 */
-	protected void requestFocus() {
-		try {
-			SynergyNetDesktop.getInstance().getPickSystem().setPickingRootNode(worldNode);
-			SynergyNetDesktop.getInstance().getPickSystem().setOrthogonalPickingRoot(orthoNode);
-		} catch (PickSystemException e) {
-			
-			//how to handle exception
-			e.printStackTrace();
-		}		
-	}
-
-
-	/**
-	 * State render.
+	 * Creates the world node.
 	 *
-	 * @param tpf the tpf
+	 * @return the node
 	 */
-	protected void stateRender(float tpf) {
-	}
-	
-	/* (non-Javadoc)
-	 * @see com.jmex.game.state.GameState#setActive(boolean)
-	 */
-	public void setActive(boolean active) {
-		FlickSystem.setNetworkFlickMode(false);
-		if (active) onActivate();
-		else onDeactivate();
-		super.setActive(active);
-		requestFocus();
-	}
-
-	/* (non-Javadoc)
-	 * @see com.jmex.game.state.GameState#update(float)
-	 */
-	public final void update(float tpf) {		
-		stateUpdate(tpf);
-		pManager.updatePasses(tpf);
-		if(InputUtility.wireframeMode && !wireState.isEnabled()) {
-			wireState.setEnabled(true);
-			getRootNode().updateRenderState();
-		}else if(!InputUtility.wireframeMode && wireState.isEnabled()) {
-			wireState.setEnabled(false);
-			getRootNode().updateRenderState();			
-		}        
-		
-		AnimationSystem.getInstance().update(tpf);
-		getRootNode().updateGeometricState(tpf, true);
-		if(updateSceneMonitor) {
-			SceneMonitor.getMonitor().updateViewer(tpf);
-		}
-		if (exitState){
-			exitState = false;
-			try {
-				ApplicationTaskManager.getInstance().setActiveApplication(ApplicationRegistry.getInstance().getDefaultApp());
-			} catch (ApplicationControlError e) {
-				e.printStackTrace();
-			}
-		}
-		menuController.update(tpf);
+	private Node createWorldNode() {
+		Node n = new Node(info.getApplicationName() + "_worldNode");
+		n.setModelBound(new BoundingBox());
+		n.updateModelBound();
+		ZBufferState buf = DisplaySystem.getDisplaySystem().getRenderer()
+				.createZBufferState();
+		buf.setEnabled(true);
+		buf.setFunction(ZBufferState.TestFunction.LessThanOrEqualTo);
+		n.setRenderState(buf);
+		log.info("WorldNode is created");
+		return n;
 	}
 	
 	/**
 	 * Exit app.
 	 */
-	public void exitApp(){
+	public void exitApp() {
 		exitState = true;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.jmex.game.state.GameState#render(float)
-	 */
-	public final void render(float tpf) {
-		stateRender(tpf);
-		renderPasses(tpf);
-		renderDebug(tpf);
-	}
-
-	/**
-	 * Render passes.
-	 *
-	 * @param tpf the tpf
-	 */
-	private void renderPasses(float tpf) {
-		try{
-			pManager.renderPasses(DisplaySystem.getDisplaySystem().getRenderer());
-		}catch(IndexOutOfBoundsException e){
-			log.severe("Exception occurs when rendering passes: \n"+e.toString());
-		}
-	}
-
-	/**
-	 * Render debug.
-	 *
-	 * @param tpf the tpf
-	 */
-	public void renderDebug(float tpf) {
-		if(InputUtility.showBounds) Debugger.drawBounds(getRootNode(), DisplaySystem.getDisplaySystem().getRenderer(), true);
-        if(InputUtility.showNormals) Debugger.drawNormals(getRootNode(), DisplaySystem.getDisplaySystem().getRenderer());		
-        if(InputUtility.showDepth) {
-            DisplaySystem.getDisplaySystem().getRenderer().renderQueue();
-            Debugger.drawBuffer(Texture.RenderToTextureType.Depth, Debugger.NORTHEAST, DisplaySystem.getDisplaySystem().getRenderer());
-        }		
-	}
-
-	/* (non-Javadoc)
-	 * @see com.jmex.game.state.GameState#cleanup()
-	 */
-	@Override
-	public void cleanup() {
-
-	}
-
-	/**
-	 * Adds the content.
-	 */
-	public abstract void addContent();	
-
-	/**
-	 * Inits the input.
-	 */
-	protected abstract void initInput();
-	
-	/**
-	 * Gets the camera.
-	 *
-	 * @return the camera
-	 */
-	protected abstract Camera getCamera();	
-	
-	/**
-	 * State update.
-	 *
-	 * @param tpf the tpf
-	 */
-	protected abstract void stateUpdate(float tpf);
-
-	/**
-	 * Sets the activation count.
-	 *
-	 * @param activationCount the new activation count
-	 */
-	public void setActivationCount(int activationCount) {
-		this.activationCount = activationCount;
 	}
 
 	/**
@@ -422,6 +195,25 @@ public abstract class SynergyNetApp extends GameState {
 	public int getActivationCount() {
 		return activationCount;
 	}
+	
+	/**
+	 * Gets the application data directory.
+	 *
+	 * @return the application data directory
+	 */
+	public File getApplicationDataDirectory() {
+		if (!applicationDataDirectory.exists()) {
+			applicationDataDirectory.mkdirs();
+		}
+		return applicationDataDirectory;
+	}
+	
+	/**
+	 * Gets the camera.
+	 *
+	 * @return the camera
+	 */
+	protected abstract Camera getCamera();
 
 	/**
 	 * Gets the info.
@@ -431,73 +223,6 @@ public abstract class SynergyNetApp extends GameState {
 	public ApplicationInfo getInfo() {
 		return info;
 	}
-
-	/**
-	 * Gets the application data directory.
-	 *
-	 * @return the application data directory
-	 */
-	public File getApplicationDataDirectory() {
-		if(!applicationDataDirectory.exists()) applicationDataDirectory.mkdirs();	
-		return applicationDataDirectory;
-	}
-
-	/**
-	 * Sets the root node.
-	 *
-	 * @param rootNode the new root node
-	 */
-	public void setRootNode(Node rootNode) {
-		this.rootNode = rootNode;
-	}
-
-	/**
-	 * Gets the root node.
-	 *
-	 * @return the root node
-	 */
-	public Node getRootNode() {
-		return rootNode;
-	}
-
-	/**
-	 * Sets the ortho render pass.
-	 *
-	 * @param orthoRenderPass the new ortho render pass
-	 */
-	public void setOrthoRenderPass(RenderPass orthoRenderPass) {
-		this.orthoRenderPass = orthoRenderPass;
-	}
-
-	/**
-	 * Gets the ortho render pass.
-	 *
-	 * @return the ortho render pass
-	 */
-	public RenderPass getOrthoRenderPass() {
-		return orthoRenderPass;
-	}
-
-	/**
-	 * Sets the world render pass.
-	 *
-	 * @param worldRenderPass the new world render pass
-	 */
-	public void setWorldRenderPass(RenderPass worldRenderPass) {
-		this.worldRenderPass = worldRenderPass;
-	}
-
-	/**
-	 * Gets the world render pass.
-	 *
-	 * @return the world render pass
-	 */
-	public RenderPass getWorldRenderPass() {
-		return worldRenderPass;
-	}
-	
-	/** The menu controller. */
-	protected MenuController menuController = new ApplicationDefined();
 	
 	/**
 	 * Gets the menu controller.
@@ -507,14 +232,312 @@ public abstract class SynergyNetApp extends GameState {
 	public MenuController getMenuController() {
 		return menuController;
 	}
+
+	/**
+	 * Gets the ortho node.
+	 *
+	 * @return the ortho node
+	 */
+	public Node getOrthoNode() {
+		return orthoNode;
+	}
+	
+	/**
+	 * Gets the ortho render pass.
+	 *
+	 * @return the ortho render pass
+	 */
+	public RenderPass getOrthoRenderPass() {
+		return orthoRenderPass;
+	}
+	
+	/**
+	 * Gets the root node.
+	 *
+	 * @return the root node
+	 */
+	public Node getRootNode() {
+		return rootNode;
+	}
+	
+	/**
+	 * Gets the world node.
+	 *
+	 * @return the world node
+	 */
+	public Node getWorldNode() {
+		return worldNode;
+	}
+	
+	/**
+	 * Gets the world render pass.
+	 *
+	 * @return the world render pass
+	 */
+	public RenderPass getWorldRenderPass() {
+		return worldRenderPass;
+	}
+	
+	/**
+	 * Inits the.
+	 */
+	public void init() {
+		initInput();
+		pManager = new BasicPassManager();
+		setWorldRenderPass(new RenderPass());
+		setOrthoRenderPass(new RenderPass());
+
+		setRootNode(new Node(name + ".rootnode"));
+		wireState = DisplaySystem.getDisplaySystem().getRenderer()
+				.createWireframeState();
+		wireState.setEnabled(false);
+		getRootNode().setRenderState(wireState);
+		
+		getRootNode().setModelBound(new BoundingBox());
+		getRootNode().updateModelBound();
+		orthoNode = createOrthoNode();
+		worldNode = createWorldNode();
+		
+		getRootNode().attachChild(orthoNode);
+		getRootNode().attachChild(worldNode);
+		getCamera();
+		addContent();
+		orthoNode.updateModelBound();
+		getRootNode().updateGeometricState(0, true);
+		getRootNode().updateRenderState();
+
+		getWorldRenderPass().add(getRootNode());
+		pManager.add(getWorldRenderPass());
+		getOrthoRenderPass().add(getOrthoNode());
+		pManager.add(getOrthoRenderPass());
+		
+		String threeDeeMode = new DisplayConfigPrefsItem().getThreeDee();
+
+		if (!threeDeeMode.equals("NONE")) {
+			StereoRenderPass sp = new StereoRenderPass(rootNode);
+			sp.setStereoMode(StereoMode.valueOf(threeDeeMode));
+			pManager.clearAll();
+			pManager.add(sp);
+		}
+
+	}
+	
+	/**
+	 * Inits the input.
+	 */
+	protected abstract void initInput();
+
+	/**
+	 * On activate.
+	 */
+	public void onActivate() {
+		setActivationCount(getActivationCount() + 1);
+		DisplaySystem.getDisplaySystem().setTitle(name);
+		DisplaySystem.getDisplaySystem().getRenderer().setCamera(getCamera());
+		getCamera().update();
+
+		DisplayConfigPrefsItem displayPrefs = new DisplayConfigPrefsItem();
+		if (displayPrefs.getShowSceneMonitor()) {
+			SceneMonitor.getMonitor().registerNode(rootNode, "Root Node");
+			SceneMonitor.getMonitor().showViewer(true);
+			updateSceneMonitor = true;
+		}
+
+		log.info("SynergyNet Applicaiton Instance '" + name + "' is activated ");
+	}
+	
+	/**
+	 * On deactivate.
+	 */
+	protected void onDeactivate() {
+		DisplayConfigPrefsItem displayPrefs = new DisplayConfigPrefsItem();
+		if (displayPrefs.getShowSceneMonitor()) {
+			SceneMonitor.getMonitor().unregisterNode(rootNode);
+			SceneMonitor.getMonitor().showViewer(false);
+			updateSceneMonitor = false;
+		}
+
+		log.info("SynergyNet Applicaiton Instance '" + name
+				+ "' is deactivated ");
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see com.jmex.game.state.GameState#render(float)
+	 */
+	public final void render(float tpf) {
+		stateRender(tpf);
+		renderPasses(tpf);
+		renderDebug(tpf);
+	}
+	
+	/**
+	 * Render debug.
+	 *
+	 * @param tpf
+	 *            the tpf
+	 */
+	public void renderDebug(float tpf) {
+		if (InputUtility.showBounds) {
+			Debugger.drawBounds(getRootNode(), DisplaySystem.getDisplaySystem()
+					.getRenderer(), true);
+		}
+		if (InputUtility.showNormals) {
+			Debugger.drawNormals(getRootNode(), DisplaySystem
+					.getDisplaySystem().getRenderer());
+		}
+		if (InputUtility.showDepth) {
+			DisplaySystem.getDisplaySystem().getRenderer().renderQueue();
+			Debugger.drawBuffer(Texture.RenderToTextureType.Depth,
+					Debugger.NORTHEAST, DisplaySystem.getDisplaySystem()
+							.getRenderer());
+		}
+	}
+	
+	/**
+	 * Render passes.
+	 *
+	 * @param tpf
+	 *            the tpf
+	 */
+	private void renderPasses(float tpf) {
+		try {
+			pManager.renderPasses(DisplaySystem.getDisplaySystem()
+					.getRenderer());
+		} catch (IndexOutOfBoundsException e) {
+			log.severe("Exception occurs when rendering passes: \n"
+					+ e.toString());
+		}
+	}
+	
+	/**
+	 * Request focus.
+	 */
+	protected void requestFocus() {
+		try {
+			SynergyNetDesktop.getInstance().getPickSystem()
+					.setPickingRootNode(worldNode);
+			SynergyNetDesktop.getInstance().getPickSystem()
+					.setOrthogonalPickingRoot(orthoNode);
+		} catch (PickSystemException e) {
+
+			// how to handle exception
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Sets the activation count.
+	 *
+	 * @param activationCount
+	 *            the new activation count
+	 */
+	public void setActivationCount(int activationCount) {
+		this.activationCount = activationCount;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see com.jmex.game.state.GameState#setActive(boolean)
+	 */
+	public void setActive(boolean active) {
+		FlickSystem.setNetworkFlickMode(false);
+		if (active) {
+			onActivate();
+		} else {
+			onDeactivate();
+		}
+		super.setActive(active);
+		requestFocus();
+	}
 	
 	/**
 	 * Sets the menu controller.
 	 *
-	 * @param mc the new menu controller
+	 * @param mc
+	 *            the new menu controller
 	 */
 	public void setMenuController(MenuController mc) {
 		this.menuController = mc;
 	}
+	
+	/**
+	 * Sets the ortho render pass.
+	 *
+	 * @param orthoRenderPass
+	 *            the new ortho render pass
+	 */
+	public void setOrthoRenderPass(RenderPass orthoRenderPass) {
+		this.orthoRenderPass = orthoRenderPass;
+	}
+	
+	/**
+	 * Sets the root node.
+	 *
+	 * @param rootNode
+	 *            the new root node
+	 */
+	public void setRootNode(Node rootNode) {
+		this.rootNode = rootNode;
+	}
+	
+	/**
+	 * Sets the world render pass.
+	 *
+	 * @param worldRenderPass
+	 *            the new world render pass
+	 */
+	public void setWorldRenderPass(RenderPass worldRenderPass) {
+		this.worldRenderPass = worldRenderPass;
+	}
 
+	/**
+	 * State render.
+	 *
+	 * @param tpf
+	 *            the tpf
+	 */
+	protected void stateRender(float tpf) {
+	}
+
+	/**
+	 * State update.
+	 *
+	 * @param tpf
+	 *            the tpf
+	 */
+	protected abstract void stateUpdate(float tpf);
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.jmex.game.state.GameState#update(float)
+	 */
+	public final void update(float tpf) {
+		stateUpdate(tpf);
+		pManager.updatePasses(tpf);
+		if (InputUtility.wireframeMode && !wireState.isEnabled()) {
+			wireState.setEnabled(true);
+			getRootNode().updateRenderState();
+		} else if (!InputUtility.wireframeMode && wireState.isEnabled()) {
+			wireState.setEnabled(false);
+			getRootNode().updateRenderState();
+		}
+		
+		AnimationSystem.getInstance().update(tpf);
+		getRootNode().updateGeometricState(tpf, true);
+		if (updateSceneMonitor) {
+			SceneMonitor.getMonitor().updateViewer(tpf);
+		}
+		if (exitState) {
+			exitState = false;
+			try {
+				ApplicationTaskManager.getInstance().setActiveApplication(
+						ApplicationRegistry.getInstance().getDefaultApp());
+			} catch (ApplicationControlError e) {
+				e.printStackTrace();
+			}
+		}
+		menuController.update(tpf);
+	}
+	
 }

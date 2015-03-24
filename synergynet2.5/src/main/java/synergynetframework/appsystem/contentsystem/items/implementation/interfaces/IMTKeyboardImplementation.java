@@ -3,6 +3,6 @@ package synergynetframework.appsystem.contentsystem.items.implementation.interfa
 /**
  * The Interface IMTKeyboardImplementation.
  */
-public interface IMTKeyboardImplementation extends IWindowImplementation{
-	
+public interface IMTKeyboardImplementation extends IWindowImplementation {
+
 }

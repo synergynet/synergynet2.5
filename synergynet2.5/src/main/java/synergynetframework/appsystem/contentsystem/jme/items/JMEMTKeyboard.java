@@ -10,11 +10,14 @@ import synergynetframework.appsystem.contentsystem.items.listener.ItemListener;
 import synergynetframework.appsystem.contentsystem.items.utils.Border;
 import synergynetframework.appsystem.contentsystem.items.utils.KeyboardUtility;
 
-
 /**
  * The Class JMEMTKeyboard.
  */
-public class JMEMTKeyboard extends JMEWindow implements IMTKeyboardImplementation{
+public class JMEMTKeyboard extends JMEWindow implements
+		IMTKeyboardImplementation {
+	
+	/** The initial border size. */
+	private int initialBorderSize = 100;
 
 	/** The keyboard. */
 	protected MTKeyboard keyboard;
@@ -22,71 +25,93 @@ public class JMEMTKeyboard extends JMEWindow implements IMTKeyboardImplementatio
 	/** The keypad image. */
 	protected LightImageLabel keypadImage;
 
-	/** The initial border size. */
-	private int initialBorderSize = 100;
-	
 	/** The utility. */
 	private KeyboardUtility utility;
-	
+
 	/**
 	 * Instantiates a new JMEMT keyboard.
 	 *
-	 * @param contentItem the content item
+	 * @param contentItem
+	 *            the content item
 	 */
 	public JMEMTKeyboard(ContentItem contentItem) {
 		super(contentItem);
 		keyboard = (MTKeyboard) contentItem;
 		utility = new KeyboardUtility(keyboard);
-		keypadImage = (LightImageLabel)keyboard.getContentSystem().createContentItem(LightImageLabel.class);
+		keypadImage = (LightImageLabel) keyboard.getContentSystem()
+				.createContentItem(LightImageLabel.class);
 		keypadImage.setAutoFitSize(true);
-		keypadImage.drawImage(JMEMTKeyboard.class.getResource("utils/Keypad.png"));
-		keypadImage.addItemListener(new ItemListener(){
-
+		keypadImage.drawImage(JMEMTKeyboard.class
+				.getResource("utils/Keypad.png"));
+		keypadImage.addItemListener(new ItemListener() {
+			
+			public void cursorChanged(ContentItem item, long id, float x,
+					float y, float pressure) {
+			}
+			
+			public void cursorClicked(ContentItem item, long id, float x,
+					float y, float pressure) {
+			}
+			
+			public void cursorDoubleClicked(ContentItem item, long id, float x,
+					float y, float pressure) {
+			}
+			
+			public void cursorLongHeld(ContentItem item, long id, float x,
+					float y, float pressure) {
+			}
+			
 			@Override
-			public void cursorPressed(ContentItem item, long id, float x, float y, float pressure) {
-				KeyEvent evt = utility.getKeyEvent(x,y);
+			public void cursorPressed(ContentItem item, long id, float x,
+					float y, float pressure) {
+				KeyEvent evt = utility.getKeyEvent(x, y);
 				keyboard.fireKeyPressed(evt);
 			}
-
-			public void cursorChanged(ContentItem item, long id, float x, float y, float pressure) {}
-			public void cursorReleased(ContentItem item, long id, float x, float y, float pressure) {
-				KeyEvent evt = utility.getKeyEvent(x,y);
+			
+			public void cursorReleased(ContentItem item, long id, float x,
+					float y, float pressure) {
+				KeyEvent evt = utility.getKeyEvent(x, y);
 				keyboard.fireKeyReleased(evt);
 			}
-			public void cursorClicked(ContentItem item, long id, float x, float y, float pressure) {}
-			public void cursorRightClicked(ContentItem item, long id, float x,	float y, float pressure) {}
-			public void cursorLongHeld(ContentItem item, long id, float x,	float y, float pressure) {}
-			public void cursorDoubleClicked(ContentItem item, long id, float x,	float y, float pressure) {}
+			
+			public void cursorRightClicked(ContentItem item, long id, float x,
+					float y, float pressure) {
+			}
 		});
 	}
-	
-	/* (non-Javadoc)
-	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEWindow#init()
+
+	/*
+	 * (non-Javadoc)
+	 * @see
+	 * synergynetframework.appsystem.contentsystem.jme.items.JMEWindow#init()
 	 */
 	@Override
-	public void init(){
+	public void init() {
 		super.init();
 		keyboard.addSubItem(keypadImage);
 		keyboard.setBorderSize(initialBorderSize);
 		resize();
 		keypadImage.setRotateTranslateScalable(false);
 	}
-	
+
 	/**
 	 * Resize.
 	 */
-	protected void resize(){
-		keyboard.setWidth((int)(keypadImage.getWidth())+keyboard.getBorderSize());
-		keyboard.setHeight((int)(keypadImage.getHeight())+keyboard.getBorderSize());
+	protected void resize() {
+		keyboard.setWidth((keypadImage.getWidth()) + keyboard.getBorderSize());
+		keyboard.setHeight((keypadImage.getHeight()) + keyboard.getBorderSize());
 	}
-	
-	/* (non-Javadoc)
-	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEWindow#setBorder(synergynetframework.appsystem.contentsystem.items.utils.Border)
+
+	/*
+	 * (non-Javadoc)
+	 * @see
+	 * synergynetframework.appsystem.contentsystem.jme.items.JMEWindow#setBorder
+	 * (synergynetframework.appsystem.contentsystem.items.utils.Border)
 	 */
 	@Override
-	public void setBorder(Border border){
+	public void setBorder(Border border) {
 		super.setBorder(border);
 		this.resize();
 	}
-	
+
 }

@@ -1,32 +1,23 @@
 /*
- * Copyright (c) 2009 University of Durham, England
- * All rights reserved.
- *
+ * Copyright (c) 2009 University of Durham, England All rights reserved.
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are
- * met:
- *
- * * Redistributions of source code must retain the above copyright
- *   notice, this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright
- *   notice, this list of conditions and the following disclaimer in the
- *   documentation and/or other materials provided with the distribution.
- *
- * * Neither the name of 'SynergyNet' nor the names of its contributors 
- *   may be used to endorse or promote products derived from this software 
- *   without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
- * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * modification, are permitted provided that the following conditions are met: *
+ * Redistributions of source code must retain the above copyright notice, this
+ * list of conditions and the following disclaimer. * Redistributions in binary
+ * form must reproduce the above copyright notice, this list of conditions and
+ * the following disclaimer in the documentation and/or other materials provided
+ * with the distribution. * Neither the name of 'SynergyNet' nor the names of
+ * its contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission. THIS SOFTWARE IS PROVIDED
+ * BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+ * EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
@@ -43,141 +34,188 @@ import synergynetframework.mtinput.events.MultiTouchCursorEvent;
 
 import com.jme.math.Vector3f;
 
-
 /**
  * The Class TwoDQuadWithMultiTouchInteraction.
  */
-public class TwoDQuadWithMultiTouchInteraction extends OrthoControlPointRotateTranslateScaleWithListener {
-	
-	/** The quad. */
-	protected DrawableSpatialImage quad;
-	
+public class TwoDQuadWithMultiTouchInteraction extends
+		OrthoControlPointRotateTranslateScaleWithListener {
+
 	/** The interact area. */
 	protected Rectangle interactArea;
-	
+
 	/** The interact area cursors. */
 	protected Set<Long> interactAreaCursors = new HashSet<Long>();
 
+	/** The quad. */
+	protected DrawableSpatialImage quad;
+	
 	/**
 	 * Instantiates a new two d quad with multi touch interaction.
 	 *
-	 * @param pickingAndTargetSpatial the picking and target spatial
-	 * @param interactArea the interact area
+	 * @param pickingAndTargetSpatial
+	 *            the picking and target spatial
+	 * @param interactArea
+	 *            the interact area
 	 */
-	public TwoDQuadWithMultiTouchInteraction(DrawableSpatialImage pickingAndTargetSpatial, Rectangle interactArea) {
+	public TwoDQuadWithMultiTouchInteraction(
+			DrawableSpatialImage pickingAndTargetSpatial, Rectangle interactArea) {
 		super(pickingAndTargetSpatial.getSpatial());
 		this.interactArea = interactArea;
-		if(this.interactArea == null) this.interactArea = new Rectangle(0, 0, 0, 0);
+		if (this.interactArea == null) {
+			this.interactArea = new Rectangle(0, 0, 0, 0);
+		}
 		this.quad = pickingAndTargetSpatial;
 	}
-
-	/* (non-Javadoc)
-	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScaleWithListener#cursorPressed(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
-	 */
-	@Override
-	public void cursorPressed(ScreenCursor c, MultiTouchCursorEvent event) {
-		super.cursorPressed(c, event);
-		Point p = getCurrentElement2DCoordsForCursor(getScreenCursorByID(event.getCursorID()));
-		if(p == null) return;
-		if(interactArea.contains(p)) {
-			quad.cursorPressed(event.getCursorID(), p.x, p.y);		
-			quad.draw();
-			interactAreaCursors.add(event.getCursorID());
-		}
-	}
-
-	/* (non-Javadoc)
-	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScaleWithListener#cursorReleased(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
-	 */
-	@Override
-	public void cursorReleased(ScreenCursor c, MultiTouchCursorEvent event) {	
-		super.cursorReleased(c, event);
-		Point p = getCurrentElement2DCoordsForCursor(this.getScreenCursorByID(event.getCursorID()));
-		if(p == null) return;
-		if(interactArea.contains(p)) {
-			quad.cursorReleased(event.getCursorID(), p.x, p.y);
-			quad.draw();
-			interactAreaCursors.remove(event.getCursorID());
-		}		
-	}
 	
-	/* (non-Javadoc)
-	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScaleWithListener#cursorClicked(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	/*
+	 * (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.
+	 * OrthoControlPointRotateTranslateScale#applyMultiCursorTransform()
 	 */
 	@Override
-	public void cursorClicked(ScreenCursor c, MultiTouchCursorEvent event) {
-		super.cursorClicked(c, event);
-		Point p = getCurrentElement2DCoordsForCursor(this.getScreenCursorByID(event.getCursorID()));
-		if(p == null) return;
-		if(interactArea.contains(p)) {
-			quad.cursorClicked(event.getCursorID(), p.x, p.y);
-			quad.draw();
-		}
-	}
-
-	/**
-	 * Gets the current element2 d coords for cursor.
-	 *
-	 * @param cursor the cursor
-	 * @return the current element2 d coords for cursor
-	 */
-	public Point getCurrentElement2DCoordsForCursor(ScreenCursor cursor) {
-		if(cursor == null) return null;
-		Vector3f cursorPosition = new Vector3f(cursor.getCurrentCursorScreenPosition().x, cursor.getCurrentCursorScreenPosition().y, 0f);
-		Vector3f selectionLocal = new Vector3f();
-		pickingSpatial.worldToLocal(cursorPosition, selectionLocal);
-		selectionLocal.addLocal(new Vector3f(quad.getWidth()/2f, quad.getHeight()/2f, 0f));		
-		Point p = new Point();
-		p.x = (int)(selectionLocal.x / quad.getWidth() * quad.getImageWidth());
-		p.y = quad.getImageHeight() - ((int)(selectionLocal.y / quad.getHeight() * quad.getImageHeight()));
-		return p;		
-	}
-
-	/* (non-Javadoc)
-	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScaleWithListener#cursorChanged(synergynetframework.jme.cursorsystem.cursordata.ScreenCursor, synergynetframework.mtinput.events.MultiTouchCursorEvent)
-	 */
-	@Override
-	public void cursorChanged(ScreenCursor c, MultiTouchCursorEvent event) {
-		super.cursorChanged(c, event);
-
-	}
-
-	/* (non-Javadoc)
-	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale#applyMultiCursorTransform()
-	 */
-	@Override
-	protected void applyMultiCursorTransform() {		
+	protected void applyMultiCursorTransform() {
 		boolean allowTransform = false;
-		for(ScreenCursor sc : screenCursors) {
-			if(!interactAreaCursors.contains(sc.getID())) {
+		for (ScreenCursor sc : screenCursors) {
+			if (!interactAreaCursors.contains(sc.getID())) {
 				allowTransform = true;
-			}else{
+			} else {
 				Point p = getCurrentElement2DCoordsForCursor(sc);
-				if(p != null && interactArea.contains(p)) {
-					quad.cursorDragged(sc.getID(), p.x, p.y);				
+				if ((p != null) && interactArea.contains(p)) {
+					quad.cursorDragged(sc.getID(), p.x, p.y);
 					quad.draw();
 				}
 			}
 		}
-
-		if(allowTransform) {
+		
+		if (allowTransform) {
 			super.applyMultiCursorTransform();
-		}		
+		}
 	}
-
-	/* (non-Javadoc)
-	 * @see synergynetframework.jme.cursorsystem.elements.twod.OrthoControlPointRotateTranslateScale#applySingleCursorTransform()
+	
+	/*
+	 * (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.
+	 * OrthoControlPointRotateTranslateScale#applySingleCursorTransform()
 	 */
 	@Override
 	protected void applySingleCursorTransform() {
 		ScreenCursor c = getScreenCursorByIndex(0);
 		Point p1 = getCurrentElement2DCoordsForCursor(c);
-		if(p1 != null && interactArea.contains(p1)) {
-			quad.cursorDragged(c.getID(), p1.x, p1.y);				
+		if ((p1 != null) && interactArea.contains(p1)) {
+			quad.cursorDragged(c.getID(), p1.x, p1.y);
 			quad.draw();
-		}else if(!interactAreaCursors.contains(c.getID())){
+		} else if (!interactAreaCursors.contains(c.getID())) {
 			super.applySingleCursorTransform();
 		}
+		
+	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.
+	 * OrthoControlPointRotateTranslateScaleWithListener
+	 * #cursorChanged(synergynetframework
+	 * .jme.cursorsystem.cursordata.ScreenCursor,
+	 * synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
+	@Override
+	public void cursorChanged(ScreenCursor c, MultiTouchCursorEvent event) {
+		super.cursorChanged(c, event);
+		
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.
+	 * OrthoControlPointRotateTranslateScaleWithListener
+	 * #cursorClicked(synergynetframework
+	 * .jme.cursorsystem.cursordata.ScreenCursor,
+	 * synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
+	@Override
+	public void cursorClicked(ScreenCursor c, MultiTouchCursorEvent event) {
+		super.cursorClicked(c, event);
+		Point p = getCurrentElement2DCoordsForCursor(this
+				.getScreenCursorByID(event.getCursorID()));
+		if (p == null) {
+			return;
+		}
+		if (interactArea.contains(p)) {
+			quad.cursorClicked(event.getCursorID(), p.x, p.y);
+			quad.draw();
+		}
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.
+	 * OrthoControlPointRotateTranslateScaleWithListener
+	 * #cursorPressed(synergynetframework
+	 * .jme.cursorsystem.cursordata.ScreenCursor,
+	 * synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
+	@Override
+	public void cursorPressed(ScreenCursor c, MultiTouchCursorEvent event) {
+		super.cursorPressed(c, event);
+		Point p = getCurrentElement2DCoordsForCursor(getScreenCursorByID(event
+				.getCursorID()));
+		if (p == null) {
+			return;
+		}
+		if (interactArea.contains(p)) {
+			quad.cursorPressed(event.getCursorID(), p.x, p.y);
+			quad.draw();
+			interactAreaCursors.add(event.getCursorID());
+		}
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see synergynetframework.jme.cursorsystem.elements.twod.
+	 * OrthoControlPointRotateTranslateScaleWithListener
+	 * #cursorReleased(synergynetframework
+	 * .jme.cursorsystem.cursordata.ScreenCursor,
+	 * synergynetframework.mtinput.events.MultiTouchCursorEvent)
+	 */
+	@Override
+	public void cursorReleased(ScreenCursor c, MultiTouchCursorEvent event) {
+		super.cursorReleased(c, event);
+		Point p = getCurrentElement2DCoordsForCursor(this
+				.getScreenCursorByID(event.getCursorID()));
+		if (p == null) {
+			return;
+		}
+		if (interactArea.contains(p)) {
+			quad.cursorReleased(event.getCursorID(), p.x, p.y);
+			quad.draw();
+			interactAreaCursors.remove(event.getCursorID());
+		}
+	}
+	
+	/**
+	 * Gets the current element2 d coords for cursor.
+	 *
+	 * @param cursor
+	 *            the cursor
+	 * @return the current element2 d coords for cursor
+	 */
+	public Point getCurrentElement2DCoordsForCursor(ScreenCursor cursor) {
+		if (cursor == null) {
+			return null;
+		}
+		Vector3f cursorPosition = new Vector3f(
+				cursor.getCurrentCursorScreenPosition().x,
+				cursor.getCurrentCursorScreenPosition().y, 0f);
+		Vector3f selectionLocal = new Vector3f();
+		pickingSpatial.worldToLocal(cursorPosition, selectionLocal);
+		selectionLocal.addLocal(new Vector3f(quad.getWidth() / 2f, quad
+				.getHeight() / 2f, 0f));
+		Point p = new Point();
+		p.x = (int) ((selectionLocal.x / quad.getWidth()) * quad
+				.getImageWidth());
+		p.y = quad.getImageHeight()
+				- ((int) ((selectionLocal.y / quad.getHeight()) * quad
+						.getImageHeight()));
+		return p;
 	}
 }

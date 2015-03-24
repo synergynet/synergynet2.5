@@ -20,33 +20,33 @@ import synergynetframework.appsystem.services.net.landiscovery.ServiceDescriptor
 import synergynetframework.appsystem.services.net.netservicediscovery.NetworkServiceDiscoveryService;
 import synergynetframework.config.server.ServerConfigPrefsItem;
 
-
 /**
  * The Class WebServerService.
  */
 public class WebServerService extends SynergyNetService {
-
+	
 	/** The Constant log. */
-	private static final Logger log = Logger.getLogger(WebServerService.class.getName());
-	
-	/** The Constant SERVICE_TYPE. */
-	public static final String SERVICE_TYPE = "SynergyNet";
-	
+	private static final Logger log = Logger.getLogger(WebServerService.class
+			.getName());
+
 	/** The Constant SERVICE_NAME. */
 	public static final String SERVICE_NAME = "webserver";
-	
-	/** The server. */
-	private Server server;
-	
+
+	/** The Constant SERVICE_TYPE. */
+	public static final String SERVICE_TYPE = "SynergyNet";
+
 	/** The directory. */
 	private String directory;
-	
-	/** The resource_handler. */
-	private ResourceHandler resource_handler = new ResourceHandler();
-	
+
 	/** The port. */
 	private int port;
 
+	/** The resource_handler. */
+	private ResourceHandler resource_handler = new ResourceHandler();
+
+	/** The server. */
+	private Server server;
+	
 	/**
 	 * Instantiates a new web server service.
 	 */
@@ -55,16 +55,44 @@ public class WebServerService extends SynergyNetService {
 		this.directory = serverConfig.getWebDirectory();
 		this.port = serverConfig.getPort();
 	}
+
+	/**
+	 * Advertise service.
+	 *
+	 * @throws CouldNotStartServiceException
+	 *             the could not start service exception
+	 */
+	private void advertiseService() throws CouldNotStartServiceException {
+		NetworkServiceDiscoveryService nsds = (NetworkServiceDiscoveryService) ServiceManager
+				.getInstance().get(NetworkServiceDiscoveryService.class);
+		ServiceAnnounceSystem sa = nsds.getServiceAnnouncer();
+		ServiceDescriptor s = new ServiceDescriptor();
+		s.setServiceType(SERVICE_TYPE);
+		s.setServiceName(SERVICE_NAME);
+		try {
+			s.setServiceAddress(InetAddress.getLocalHost());
+			s.setUserData("http://"
+					+ InetAddress.getLocalHost().getHostAddress() + ":" + port);
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
+		s.setServicePort(port);
+		sa.registerService(s);
+		log.info("WebServerService advertised.");
+	}
 	
-	/* (non-Javadoc)
-	 * @see synergynetframework.appsystem.services.SynergyNetService#hasStarted()
+	/*
+	 * (non-Javadoc)
+	 * @see
+	 * synergynetframework.appsystem.services.SynergyNetService#hasStarted()
 	 */
 	@Override
 	public boolean hasStarted() {
 		return server.isRunning();
 	}
-
-	/* (non-Javadoc)
+	
+	/*
+	 * (non-Javadoc)
 	 * @see synergynetframework.appsystem.services.SynergyNetService#shutdown()
 	 */
 	@Override
@@ -73,60 +101,41 @@ public class WebServerService extends SynergyNetService {
 			stop();
 		} catch (ServiceNotRunningException e) {
 			log.warning(e.toString());
-		}		
+		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see synergynetframework.appsystem.services.SynergyNetService#start()
 	 */
 	@Override
 	public void start() throws CouldNotStartServiceException {
-        server = new Server();
-        SelectChannelConnector connector = new SelectChannelConnector();
-        connector.setPort(port);
-        server.addConnector(connector);
- 
-        resource_handler.setDirectoriesListed(true);
-        resource_handler.setWelcomeFiles(new String[]{ "index.html" });
- 
-        resource_handler.setResourceBase(this.directory);
- 
-        HandlerList handlers = new HandlerList();
-        handlers.setHandlers(new Handler[] { resource_handler, new DefaultHandler() });
-        server.setHandler(handlers);
- 
-        try {
+		server = new Server();
+		SelectChannelConnector connector = new SelectChannelConnector();
+		connector.setPort(port);
+		server.addConnector(connector);
+		
+		resource_handler.setDirectoriesListed(true);
+		resource_handler.setWelcomeFiles(new String[] { "index.html" });
+		
+		resource_handler.setResourceBase(this.directory);
+		
+		HandlerList handlers = new HandlerList();
+		handlers.setHandlers(new Handler[] { resource_handler,
+				new DefaultHandler() });
+		server.setHandler(handlers);
+		
+		try {
 			server.start();
 			log.info("WebServerService server started.");
 			advertiseService();
 		} catch (Exception e) {
 			throw new CouldNotStartServiceException(this);
-		}		
+		}
 	}
 	
-	/**
-	 * Advertise service.
-	 *
-	 * @throws CouldNotStartServiceException the could not start service exception
-	 */
-	private void advertiseService() throws CouldNotStartServiceException {
-		NetworkServiceDiscoveryService nsds = (NetworkServiceDiscoveryService) ServiceManager.getInstance().get(NetworkServiceDiscoveryService.class);				
-		ServiceAnnounceSystem sa = nsds.getServiceAnnouncer();
-		ServiceDescriptor s = new ServiceDescriptor();
-		s.setServiceType(SERVICE_TYPE);
-		s.setServiceName(SERVICE_NAME);
-		try {
-			s.setServiceAddress(InetAddress.getLocalHost());
-			s.setUserData("http://" + InetAddress.getLocalHost().getHostAddress() + ":" + port);
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-		}
-		s.setServicePort(port);		
-		sa.registerService(s);
-		log.info("WebServerService advertised.");
-	}
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see synergynetframework.appsystem.services.SynergyNetService#stop()
 	 */
 	@Override
@@ -138,11 +147,13 @@ public class WebServerService extends SynergyNetService {
 			log.warning(e.toString());
 		}
 	}
-
-	/* (non-Javadoc)
+	
+	/*
+	 * (non-Javadoc)
 	 * @see synergynetframework.appsystem.services.SynergyNetService#update()
 	 */
 	@Override
-	public void update() {}
-
+	public void update() {
+	}
+	
 }

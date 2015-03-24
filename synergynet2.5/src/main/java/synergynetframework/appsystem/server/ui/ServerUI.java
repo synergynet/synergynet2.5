@@ -1,32 +1,23 @@
 /*
- * Copyright (c) 2009 University of Durham, England
- * All rights reserved.
- *
+ * Copyright (c) 2009 University of Durham, England All rights reserved.
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are
- * met:
- *
- * * Redistributions of source code must retain the above copyright
- *   notice, this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright
- *   notice, this list of conditions and the following disclaimer in the
- *   documentation and/or other materials provided with the distribution.
- *
- * * Neither the name of 'SynergyNet' nor the names of its contributors 
- *   may be used to endorse or promote products derived from this software 
- *   without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
- * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * modification, are permitted provided that the following conditions are met: *
+ * Redistributions of source code must retain the above copyright notice, this
+ * list of conditions and the following disclaimer. * Redistributions in binary
+ * form must reproduce the above copyright notice, this list of conditions and
+ * the following disclaimer in the documentation and/or other materials provided
+ * with the distribution. * Neither the name of 'SynergyNet' nor the names of
+ * its contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission. THIS SOFTWARE IS PROVIDED
+ * BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+ * EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
@@ -58,47 +49,143 @@ import synergynetframework.appsystem.server.ui.model.OnlineListModel;
 import synergynetframework.appsystem.services.net.localpresence.TableIdentity;
 import synergynetframework.appsystem.services.net.tablecomms.server.TableCommsServerService;
 
-
-
 /**
  * The Class ServerUI.
  */
 public class ServerUI extends JFrame {
-	
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = -8970026431538865245L;
-	
-	/** The Constant log. */
-	private static final Logger log = Logger.getLogger(ServerUI.class.getName());
 
 	/** The instance. */
 	private static ServerUI instance;
 
+	/** The Constant log. */
+	private static final Logger log = Logger
+			.getLogger(ServerUI.class.getName());
+	
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = -8970026431538865245L;
+	
 	/**
 	 * Start.
 	 *
-	 * @param server the server
+	 * @param server
+	 *            the server
 	 */
 	public static void start(TableCommsServerService server) {
-		if(instance == null) instance = new ServerUI(server);
+		if (instance == null) {
+			instance = new ServerUI(server);
+		}
 		instance.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		instance.setPreferredSize(new Dimension(640,480));
+		instance.setPreferredSize(new Dimension(640, 480));
 		instance.pack();
-		instance.setVisible(true);		
+		instance.setVisible(true);
 		log.info("ServerUI started");
 	}
-
+	
 	/** The server. */
 	private TableCommsServerService server;
-
+	
 	/**
 	 * Instantiates a new server ui.
 	 *
-	 * @param server the server
+	 * @param server
+	 *            the server
 	 */
 	public ServerUI(TableCommsServerService server) {
 		this.server = server;
-		init2();		
+		init2();
+	}
+	
+	/**
+	 * Adds the application mapping view.
+	 *
+	 * @param desktop
+	 *            the desktop
+	 */
+	@SuppressWarnings({})
+	private void addApplicationMappingView(JDesktopPane desktop) {
+		JSplitPane splitter = new JSplitPane();
+		
+		JPanel p = new JPanel();
+		p.setLayout(new BorderLayout());
+		p.add(new JLabel("Applications"), BorderLayout.NORTH);
+		final AppListModel appModel = new AppListModel(server);
+		JList tableApps = new JList(appModel);
+		p.add(tableApps, BorderLayout.CENTER);
+		splitter.setRightComponent(p);
+		
+		p = new JPanel();
+		p.setLayout(new BorderLayout());
+		JLabel online = new JLabel("Online:");
+		p.add(online, BorderLayout.NORTH);
+		final ListModel onlineModel = new OnlineListModel(server);
+		final JList tablesOnline = new JList(onlineModel);
+		p.add(tablesOnline, BorderLayout.CENTER);
+		tablesOnline.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				int indx = e.getFirstIndex();
+				TableIdentity id = (TableIdentity) onlineModel
+						.getElementAt(indx);
+				appModel.setSelectedTableIdentity(id);
+			}
+		});
+		tablesOnline.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 1) {
+					int indx = tablesOnline.getSelectedIndex();
+					if (indx != -1) {
+						TableIdentity id = (TableIdentity) onlineModel
+								.getElementAt(indx);
+						appModel.setSelectedTableIdentity(id);
+					}
+				}
+			}
+		});
+		splitter.setLeftComponent(p);
+		addInternalWindow(desktop, "Application Mapping", splitter);
+	}
+	
+	/**
+	 * Adds the internal window.
+	 *
+	 * @param desktop
+	 *            the desktop
+	 * @param title
+	 *            the title
+	 * @param container
+	 *            the container
+	 */
+	private void addInternalWindow(JDesktopPane desktop, String title,
+			Container container) {
+		JInternalFrame jif = new JInternalFrame(title);
+		jif.setMaximizable(true);
+		jif.setResizable(true);
+		jif.setIconifiable(false);
+		jif.setClosable(false);
+		jif.getContentPane().setLayout(new BorderLayout());
+		jif.add(container);
+		jif.setBounds(100, 150, 300, 100);
+		jif.setVisible(true);
+		jif.pack();
+		desktop.add(jif, JLayeredPane.DEFAULT_LAYER);
+	}
+	
+	/**
+	 * Adds the message logger view.
+	 *
+	 * @param desktop
+	 *            the desktop
+	 */
+	@SuppressWarnings({})
+	private void addMessageLoggerView(JDesktopPane desktop) {
+		JPanel pnl = new JPanel();
+		pnl.setLayout(new BorderLayout());
+		JScrollPane logScroller = new JScrollPane();
+		pnl.add(logScroller, BorderLayout.CENTER);
+		JList messageLog = new JList(new MessageListModel(server, 30));
+		pnl.add(logScroller);
+		logScroller.setPreferredSize(new Dimension(200, 50));
+		logScroller.getViewport().add(messageLog);
+		addInternalWindow(desktop, "Message Log", pnl);
 	}
 
 	/**
@@ -109,90 +196,5 @@ public class ServerUI extends JFrame {
 		setContentPane(desktop);
 		addApplicationMappingView(desktop);
 		addMessageLoggerView(desktop);
-	}
-
-	/**
-	 * Adds the application mapping view.
-	 *
-	 * @param desktop the desktop
-	 */
-	@SuppressWarnings({ })
-	private void addApplicationMappingView(JDesktopPane desktop) {
-		JSplitPane splitter = new JSplitPane();
-
-		JPanel p = new JPanel();
-		p.setLayout(new BorderLayout());
-		p.add(new JLabel("Applications"), BorderLayout.NORTH);
-		final AppListModel appModel = new AppListModel(server);
-		JList tableApps = new JList(appModel);
-		p.add(tableApps, BorderLayout.CENTER);
-		splitter.setRightComponent(p);
-
-		p = new JPanel();
-		p.setLayout(new BorderLayout());
-		JLabel online = new JLabel("Online:");
-		p.add(online, BorderLayout.NORTH);
-		final ListModel onlineModel = new OnlineListModel(server);
-		final JList tablesOnline = new JList(onlineModel );
-		p.add(tablesOnline, BorderLayout.CENTER);
-		tablesOnline.addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent e) {
-				int indx = e.getFirstIndex();
-				TableIdentity id = (TableIdentity) onlineModel.getElementAt(indx);
-				appModel.setSelectedTableIdentity(id);
-			}			
-		});
-		tablesOnline.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				if(e.getClickCount() == 1) {
-					int indx = tablesOnline.getSelectedIndex();
-					if(indx != -1) {
-						TableIdentity id = (TableIdentity) onlineModel.getElementAt(indx);
-						appModel.setSelectedTableIdentity(id);					
-					}
-				}				
-			}			
-		});
-		splitter.setLeftComponent(p);
-		addInternalWindow(desktop, "Application Mapping", splitter);
-	}
-
-	/**
-	 * Adds the message logger view.
-	 *
-	 * @param desktop the desktop
-	 */
-	@SuppressWarnings({ })
-	private void addMessageLoggerView(JDesktopPane desktop) {
-		JPanel pnl = new JPanel();
-		pnl.setLayout(new BorderLayout());
-		JScrollPane logScroller = new JScrollPane();
-		pnl.add(logScroller, BorderLayout.CENTER);		
-		JList messageLog = new JList(new MessageListModel(server, 30));
-		pnl.add(logScroller);
-		logScroller.setPreferredSize(new Dimension(200, 50));
-		logScroller.getViewport().add(messageLog);
-		addInternalWindow(desktop, "Message Log", pnl);
-	}
-	
-	/**
-	 * Adds the internal window.
-	 *
-	 * @param desktop the desktop
-	 * @param title the title
-	 * @param container the container
-	 */
-	private void addInternalWindow(JDesktopPane desktop, String title, Container container) {
-		JInternalFrame jif = new JInternalFrame(title);
-		jif.setMaximizable(true);
-		jif.setResizable(true);
-		jif.setIconifiable(false);
-		jif.setClosable(false);
-		jif.getContentPane().setLayout(new BorderLayout());
-		jif.add(container);
-		jif.setBounds(100,150,300,100);
-		jif.setVisible(true);
-		jif.pack();
-		desktop.add(jif, JLayeredPane.DEFAULT_LAYER);		
 	}
 }

@@ -1,32 +1,23 @@
 /*
- * Copyright (c) 2009 University of Durham, England
- * All rights reserved.
- *
+ * Copyright (c) 2009 University of Durham, England All rights reserved.
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are
- * met:
- *
- * * Redistributions of source code must retain the above copyright
- *   notice, this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright
- *   notice, this list of conditions and the following disclaimer in the
- *   documentation and/or other materials provided with the distribution.
- *
- * * Neither the name of 'SynergyNet' nor the names of its contributors 
- *   may be used to endorse or promote products derived from this software 
- *   without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
- * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * modification, are permitted provided that the following conditions are met: *
+ * Redistributions of source code must retain the above copyright notice, this
+ * list of conditions and the following disclaimer. * Redistributions in binary
+ * form must reproduce the above copyright notice, this list of conditions and
+ * the following disclaimer in the documentation and/or other materials provided
+ * with the distribution. * Neither the name of 'SynergyNet' nor the names of
+ * its contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission. THIS SOFTWARE IS PROVIDED
+ * BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+ * EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
@@ -51,8 +42,8 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
@@ -60,35 +51,106 @@ import org.xml.sax.SAXParseException;
 import synergynetframework.appsystem.Resources;
 import synergynetframework.appsystem.services.exceptions.CouldNotStartServiceException;
 
-
 /**
  * The Class ServiceManager.
  */
 public class ServiceManager {
-	
-	/** The Constant log. */
-	private static final Logger log = Logger.getLogger(ServiceManager.class.getName());
-	
+
 	/** The instance. */
 	private static ServiceManager instance;
 
-	/** The services. */
-	protected Map<String, SynergyNetService> services = new HashMap<String,SynergyNetService>();
-
+	/** The Constant log. */
+	private static final Logger log = Logger.getLogger(ServiceManager.class
+			.getName());
+	
+	/**
+	 * Gets the dependencies.
+	 *
+	 * @param path
+	 *            the path
+	 * @param document
+	 *            the document
+	 * @param classname
+	 *            the classname
+	 * @return the dependencies
+	 * @throws XPathExpressionException
+	 *             the x path expression exception
+	 */
+	private static List<String> getDependencies(XPath path, Document document,
+			String classname) throws XPathExpressionException {
+		List<String> dependencies = new ArrayList<String>();
+		String eval = "/tns:config/tns:services/tns:service[@classname=\""
+				+ classname + "\"]/tns:depends/*";
+		NodeList nodes = (NodeList) path.evaluate(eval, document,
+				XPathConstants.NODESET);
+		for (int i = 0; i < nodes.getLength(); i++) {
+			Node n = nodes.item(i);
+			String dependsOn = n.getAttributes().getNamedItem("classname")
+					.getTextContent();
+			dependencies.add(dependsOn);
+		}
+		return dependencies;
+	}
+	
 	/**
 	 * Gets the single instance of ServiceManager.
 	 *
 	 * @return single instance of ServiceManager
 	 */
 	public static ServiceManager getInstance() {
-		synchronized(ServiceManager.class) {
-			if(instance == null) {
+		synchronized (ServiceManager.class) {
+			if (instance == null) {
 				instance = new ServiceManager();
 			}
 			return instance;
 		}
 	}
+	
+	/**
+	 * Register and startup.
+	 *
+	 * @param path
+	 *            the path
+	 * @param document
+	 *            the document
+	 * @param classname
+	 *            the classname
+	 * @throws XPathExpressionException
+	 *             the x path expression exception
+	 */
+	@SuppressWarnings("unchecked")
+	private static void registerAndStartup(XPath path, Document document,
+			String classname) throws XPathExpressionException {
+		
+		List<String> dependencies = getDependencies(path, document, classname);
+		if (dependencies.size() > 0) {
+			log.info("Dependencies exist for " + classname);
+			for (String s : dependencies) {
+				log.info("Processing dependency " + s);
+				registerAndStartup(path, document, s);
+			}
+			log.info("Dependencies processed.");
+		}
+		log.info("Starting " + classname);
+		Class<?> theClass;
+		try {
+			theClass = Class.forName(classname);
+			SynergyNetService s = ServiceManager.getInstance().get(
+					(Class<? extends SynergyNetService>) theClass);
+			if (!s.hasStarted()) {
+				s.start();
+			}
+			log.info("Startup complete for " + classname);
+		} catch (ClassNotFoundException e) {
+			log.warning(e.toString());
+		} catch (CouldNotStartServiceException e) {
+			log.warning(e.toString());
+		}
+	}
 
+	/** The services. */
+	protected Map<String, SynergyNetService> services = new HashMap<String, SynergyNetService>();
+	
 	/**
 	 * Instantiates a new service manager.
 	 */
@@ -104,19 +166,23 @@ public class ServiceManager {
 	/**
 	 * Gets the.
 	 *
-	 * @param theClass the the class
+	 * @param theClass
+	 *            the the class
 	 * @return the synergy net service
-	 * @throws CouldNotStartServiceException the could not start service exception
+	 * @throws CouldNotStartServiceException
+	 *             the could not start service exception
 	 */
-	public SynergyNetService get(Class<? extends SynergyNetService> theClass) throws CouldNotStartServiceException {
+	public SynergyNetService get(Class<? extends SynergyNetService> theClass)
+			throws CouldNotStartServiceException {
 		String classname = theClass.getName();
-		if(services.get(classname) != null) {
+		if (services.get(classname) != null) {
 			return services.get(classname);
 		}
 		log.info("Attempting to register " + classname);
 		try {
 			log.info("Creating an instance of " + classname);
-			SynergyNetService s = (SynergyNetService)Class.forName(classname).newInstance();			
+			SynergyNetService s = (SynergyNetService) Class.forName(classname)
+					.newInstance();
 			services.put(classname, s);
 			s.start();
 			return s;
@@ -129,153 +195,137 @@ public class ServiceManager {
 		}
 		return null;
 	}
-
+	
 	/**
 	 * Load from configuration.
 	 *
-	 * @param configXMLInputStream the config xml input stream
-	 * @throws SAXException the SAX exception
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws ParserConfigurationException the parser configuration exception
-	 * @throws InstantiationException the instantiation exception
-	 * @throws IllegalAccessException the illegal access exception
-	 * @throws ClassNotFoundException the class not found exception
+	 * @param configXMLInputStream
+	 *            the config xml input stream
+	 * @throws SAXException
+	 *             the SAX exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 * @throws ParserConfigurationException
+	 *             the parser configuration exception
+	 * @throws InstantiationException
+	 *             the instantiation exception
+	 * @throws IllegalAccessException
+	 *             the illegal access exception
+	 * @throws ClassNotFoundException
+	 *             the class not found exception
 	 */
-	public void loadFromConfiguration(InputStream configXMLInputStream) throws SAXException, IOException, ParserConfigurationException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public void loadFromConfiguration(InputStream configXMLInputStream)
+			throws SAXException, IOException, ParserConfigurationException,
+			InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
 		log.info("Loading servcies information from XML");
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		factory.setNamespaceAware(true);
 		factory.setValidating(true);
-		factory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaLanguage", "http://www.w3.org/2001/XMLSchema");
-		factory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaSource", Resources.getResource("appsetup/schemas/tableconfiguration.xsd").toString());
+		factory.setAttribute(
+				"http://java.sun.com/xml/jaxp/properties/schemaLanguage",
+				"http://www.w3.org/2001/XMLSchema");
+		factory.setAttribute(
+				"http://java.sun.com/xml/jaxp/properties/schemaSource",
+				Resources
+						.getResource("appsetup/schemas/tableconfiguration.xsd")
+						.toString());
 		DocumentBuilder builder = factory.newDocumentBuilder();
-		builder.setErrorHandler( new ErrorHandler(){
-			public void error(SAXParseException exception) throws SAXException { System.out.println("Error: " + exception.getMessage()); }
-			public void fatalError(SAXParseException exception) throws SAXException { System.out.println("Fatal error: " + exception.getMessage()); }
-			public void warning(SAXParseException exception) throws SAXException { System.out.println("Warning: " + exception.getMessage()); }
-		});        
-
-		Document document = builder.parse(configXMLInputStream); 
+		builder.setErrorHandler(new ErrorHandler() {
+			public void error(SAXParseException exception) throws SAXException {
+				System.out.println("Error: " + exception.getMessage());
+			}
+			
+			public void fatalError(SAXParseException exception)
+					throws SAXException {
+				System.out.println("Fatal error: " + exception.getMessage());
+			}
+			
+			public void warning(SAXParseException exception)
+					throws SAXException {
+				System.out.println("Warning: " + exception.getMessage());
+			}
+		});
+		
+		Document document = builder.parse(configXMLInputStream);
 		NamespaceContext ctx = new NamespaceContext() {
 			public String getNamespaceURI(String prefix) {
-				if(prefix.equals("tns")) return "http://tel.dur.ac.uk/xml/schemas/tableconfiguration";
+				if (prefix.equals("tns")) {
+					return "http://tel.dur.ac.uk/xml/schemas/tableconfiguration";
+				}
 				return null;
 			}
-
-			public Iterator<?> getPrefixes(String val) { return null; }           
-			public String getPrefix(String uri) { return null; }
-		}; 
-		XPathFactory pathFactory = XPathFactory.newInstance();        
+			
+			public String getPrefix(String uri) {
+				return null;
+			}
+			
+			public Iterator<?> getPrefixes(String val) {
+				return null;
+			}
+		};
+		XPathFactory pathFactory = XPathFactory.newInstance();
 		XPath path = pathFactory.newXPath();
 		path.setNamespaceContext(ctx);
-
+		
 		try {
 			log.info("Finding services in XML document...");
-			NodeList list = (NodeList) path.evaluate("/tns:config/tns:services/*", document, XPathConstants.NODESET);
+			NodeList list = (NodeList) path.evaluate(
+					"/tns:config/tns:services/*", document,
+					XPathConstants.NODESET);
 			log.info("Found " + list.getLength() + " services.");
-			for(int i = 0; i < list.getLength(); i++) {				
-				String classname = list.item(i).getAttributes().getNamedItem("classname").getNodeValue();				
-				boolean enabled = Boolean.parseBoolean(list.item(i).getAttributes().getNamedItem("enabled").getNodeValue());
-				if(enabled) {        				
+			for (int i = 0; i < list.getLength(); i++) {
+				String classname = list.item(i).getAttributes()
+						.getNamedItem("classname").getNodeValue();
+				boolean enabled = Boolean
+						.parseBoolean(list.item(i).getAttributes()
+								.getNamedItem("enabled").getNodeValue());
+				if (enabled) {
 					log.info("Service " + classname + " is enabled");
 					try {
 						registerAndStartup(path, document, classname);
 					} catch (XPathExpressionException e) {
 						e.printStackTrace();
 					}
-				}else{
+				} else {
 					log.info("Service " + classname + " is NOT enabled.");
 				}
 			}
 		} catch (XPathExpressionException e1) {
 			log.warning(e1.toString());
 		}
-
+		
 	}
-
-	/**
-	 * Register and startup.
-	 *
-	 * @param path the path
-	 * @param document the document
-	 * @param classname the classname
-	 * @throws XPathExpressionException the x path expression exception
-	 */
-	@SuppressWarnings("unchecked")
-	private static void registerAndStartup(XPath path, Document document, String classname) throws XPathExpressionException {
-
-		List<String> dependencies = getDependencies(path, document, classname);
-		if(dependencies.size() > 0) {
-			log.info("Dependencies exist for " + classname);
-			for(String s : dependencies) {
-				log.info("Processing dependency " + s);
-				registerAndStartup(path, document, s);
-			}
-			log.info("Dependencies processed.");
-		}
-		log.info("Starting " + classname);
-		Class<?> theClass;
-		try {
-			theClass = Class.forName(classname);
-			SynergyNetService s = ServiceManager.getInstance().get((Class<? extends SynergyNetService>) theClass);
-			if(!s.hasStarted()) {
-				s.start();
-			}
-			log.info("Startup complete for " + classname);
-		} catch (ClassNotFoundException e) {
-			log.warning(e.toString());
-		} catch (CouldNotStartServiceException e) {
-			log.warning(e.toString());			
-		}
-	}
-
-	/**
-	 * Gets the dependencies.
-	 *
-	 * @param path the path
-	 * @param document the document
-	 * @param classname the classname
-	 * @return the dependencies
-	 * @throws XPathExpressionException the x path expression exception
-	 */
-	private static List<String> getDependencies(XPath path, Document document, String classname) throws XPathExpressionException {
-		List<String> dependencies = new ArrayList<String>();
-		String eval = "/tns:config/tns:services/tns:service[@classname=\"" + classname + "\"]/tns:depends/*";
-		NodeList nodes = (NodeList) path.evaluate(eval, document, XPathConstants.NODESET);
-		for(int i = 0; i < nodes.getLength(); i++) {
-			Node n = nodes.item(i);
-			String dependsOn = n.getAttributes().getNamedItem("classname").getTextContent();
-			dependencies.add(dependsOn);
-		}
-		return dependencies;
-	}
-
+	
 	/**
 	 * Shutdown.
 	 */
 	public void shutdown() {
-		for(String key : services.keySet()) {			
+		for (String key : services.keySet()) {
 			SynergyNetService s = services.get(key);
 			log.info("Shutting down " + key);
 			s.shutdown();
 		}
 		services.clear();
 	}
-	
+
 	/**
 	 * Unregister.
 	 *
-	 * @param classname the classname
+	 * @param classname
+	 *            the classname
 	 */
-	public void unregister(String classname){
-		if(services.containsKey(classname)) services.remove(classname);
+	public void unregister(String classname) {
+		if (services.containsKey(classname)) {
+			services.remove(classname);
+		}
 	}
-	
+
 	/**
 	 * Update.
 	 */
 	public void update() {
-		for(SynergyNetService s : services.values()) {
+		for (SynergyNetService s : services.values()) {
 			s.update();
 		}
 	}

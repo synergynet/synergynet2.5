@@ -1,32 +1,23 @@
 /*
- * Copyright (c) 2009 University of Durham, England
- * All rights reserved.
- *
+ * Copyright (c) 2009 University of Durham, England All rights reserved.
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are
- * met:
- *
- * * Redistributions of source code must retain the above copyright
- *   notice, this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright
- *   notice, this list of conditions and the following disclaimer in the
- *   documentation and/or other materials provided with the distribution.
- *
- * * Neither the name of 'SynergyNet' nor the names of its contributors 
- *   may be used to endorse or promote products derived from this software 
- *   without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
- * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * modification, are permitted provided that the following conditions are met: *
+ * Redistributions of source code must retain the above copyright notice, this
+ * list of conditions and the following disclaimer. * Redistributions in binary
+ * form must reproduce the above copyright notice, this list of conditions and
+ * the following disclaimer in the documentation and/or other materials provided
+ * with the distribution. * Neither the name of 'SynergyNet' nor the names of
+ * its contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission. THIS SOFTWARE IS PROVIDED
+ * BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+ * EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
@@ -39,35 +30,38 @@ import java.util.prefs.Preferences;
 
 import javax.swing.table.AbstractTableModel;
 
-
 /**
  * The Class PreferencesTableModel.
  */
-public class PreferencesTableModel extends AbstractTableModel implements PreferenceChangeListener {
-
+public class PreferencesTableModel extends AbstractTableModel implements
+		PreferenceChangeListener {
+	
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2200658451282335653L;
-	
+
 	/** The prefs. */
 	private Preferences prefs;
-
+	
 	/**
 	 * Instantiates a new preferences table model.
 	 *
-	 * @param p the p
+	 * @param p
+	 *            the p
 	 */
 	public PreferencesTableModel(Preferences p) {
 		this.prefs = p;
 	}
-
-	/* (non-Javadoc)
+	
+	/*
+	 * (non-Javadoc)
 	 * @see javax.swing.table.TableModel#getColumnCount()
 	 */
 	public int getColumnCount() {
 		return 2;
 	}
-
-	/* (non-Javadoc)
+	
+	/*
+	 * (non-Javadoc)
 	 * @see javax.swing.table.TableModel#getRowCount()
 	 */
 	public int getRowCount() {
@@ -78,12 +72,13 @@ public class PreferencesTableModel extends AbstractTableModel implements Prefere
 		}
 		return 0;
 	}
-
-	/* (non-Javadoc)
+	
+	/*
+	 * (non-Javadoc)
 	 * @see javax.swing.table.TableModel#getValueAt(int, int)
 	 */
-	public Object getValueAt(int rowIndex, int columnIndex) {		
-		if(columnIndex == 0) { // keys
+	public Object getValueAt(int rowIndex, int columnIndex) {
+		if (columnIndex == 0) { // keys
 			try {
 				return prefs.keys()[rowIndex];
 			} catch (BackingStoreException e) {
@@ -91,43 +86,49 @@ public class PreferencesTableModel extends AbstractTableModel implements Prefere
 			}
 			return "Error!";
 		}
-
-		if(columnIndex == 1) { // values			
+		
+		if (columnIndex == 1) { // values
 			try {
 				return prefs.get(prefs.keys()[rowIndex], "Error!");
 			} catch (BackingStoreException e) {
 				e.printStackTrace();
-			}			
+			}
 		}
-
+		
 		return "Error!";
 	}
 	
-	 /* (non-Javadoc)
- 	 * @see javax.swing.table.AbstractTableModel#isCellEditable(int, int)
- 	 */
- 	public boolean isCellEditable(int row, int col) {
-		return col == 1; 
-	 }
-	 
-	 /* (non-Javadoc)
- 	 * @see javax.swing.table.AbstractTableModel#setValueAt(java.lang.Object, int, int)
- 	 */
- 	public void setValueAt(Object obj, int row, int col) {
-		if(isCellEditable(row, col)) {
+	/*
+	 * (non-Javadoc)
+	 * @see javax.swing.table.AbstractTableModel#isCellEditable(int, int)
+	 */
+	public boolean isCellEditable(int row, int col) {
+		return col == 1;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see
+	 * java.util.prefs.PreferenceChangeListener#preferenceChange(java.util.prefs
+	 * .PreferenceChangeEvent)
+	 */
+	public void preferenceChange(PreferenceChangeEvent evt) {
+		fireTableDataChanged();
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see javax.swing.table.AbstractTableModel#setValueAt(java.lang.Object,
+	 * int, int)
+	 */
+	public void setValueAt(Object obj, int row, int col) {
+		if (isCellEditable(row, col)) {
 			try {
 				prefs.put(prefs.keys()[row], obj.toString());
 			} catch (BackingStoreException e) {
 				e.printStackTrace();
 			}
 		}
-	 }
-
-	/* (non-Javadoc)
-	 * @see java.util.prefs.PreferenceChangeListener#preferenceChange(java.util.prefs.PreferenceChangeEvent)
-	 */
-	public void preferenceChange(PreferenceChangeEvent evt) {
-		fireTableDataChanged();		
 	}
-
+	
 }

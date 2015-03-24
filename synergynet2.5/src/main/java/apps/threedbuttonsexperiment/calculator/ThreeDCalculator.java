@@ -1,35 +1,39 @@
 package apps.threedbuttonsexperiment.calculator;
 
+import synergynetframework.appsystem.contentsystem.items.TextLabel;
 import apps.threedbuttonsexperiment.calculator.button.ButtonNode;
 import apps.threedbuttonsexperiment.logger.DateTextWritter;
 import apps.threedmanipulation.ThreeDManipulation;
 
 import com.jme.math.FastMath;
 
-import synergynetframework.appsystem.contentsystem.items.TextLabel;
-
-
 /**
  * The Class ThreeDCalculator.
  */
 public class ThreeDCalculator extends Calculator {
-
+	
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2429175967783608868L;
-	
+
 	/**
 	 * Instantiates a new three d calculator.
 	 *
-	 * @param name the name
-	 * @param targetNumberLabel the target number label
-	 * @param logWritter the log writter
+	 * @param name
+	 *            the name
+	 * @param targetNumberLabel
+	 *            the target number label
+	 * @param logWritter
+	 *            the log writter
 	 */
-	public ThreeDCalculator(String name, TextLabel targetNumberLabel, DateTextWritter logWritter) {
+	public ThreeDCalculator(String name, TextLabel targetNumberLabel,
+			DateTextWritter logWritter) {
 		super(name, targetNumberLabel, logWritter);
 	}
-
-	/* (non-Javadoc)
-	 * @see apps.threedbuttonsexperiment.calculator.Calculator#setButtonProperty()
+	
+	/*
+	 * (non-Javadoc)
+	 * @see
+	 * apps.threedbuttonsexperiment.calculator.Calculator#setButtonProperty()
 	 */
 	@Override
 	protected void setButtonProperty() {
@@ -48,16 +52,19 @@ public class ThreeDCalculator extends Calculator {
 		this.buttonNodeSubstract.setFeedbackMode(ButtonNode.FEEDBACK_MODE_3D);
 		this.buttonNodeResult.setFeedbackMode(ButtonNode.FEEDBACK_MODE_3D);
 		this.buttonNodeDot.setFeedbackMode(ButtonNode.FEEDBACK_MODE_3D);
-		
-	}
-	
-	/* (non-Javadoc)
-	 * @see apps.threedbuttonsexperiment.calculator.Calculator#setCalculatorProperty()
-	 */
-	protected void setCalculatorProperty(){
-		buttonZOffset=2f;
-		angle=FastMath.PI/12f;
-		skinURL= ThreeDManipulation.class.getResource("/calculator/body.png");
+
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see
+	 * apps.threedbuttonsexperiment.calculator.Calculator#setCalculatorProperty
+	 * ()
+	 */
+	protected void setCalculatorProperty() {
+		buttonZOffset = 2f;
+		angle = FastMath.PI / 12f;
+		skinURL = ThreeDManipulation.class.getResource("/calculator/body.png");
+	}
+	
 }

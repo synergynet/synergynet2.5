@@ -1,32 +1,23 @@
 /*
- * Copyright (c) 2008 University of Durham, England
- * All rights reserved.
- *
+ * Copyright (c) 2008 University of Durham, England All rights reserved.
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are
- * met:
- *
- * * Redistributions of source code must retain the above copyright
- *   notice, this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright
- *   notice, this list of conditions and the following disclaimer in the
- *   documentation and/or other materials provided with the distribution.
- *
- * * Neither the name of 'SynergyNet' nor the names of its contributors 
- *   may be used to endorse or promote products derived from this software 
- *   without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
- * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * modification, are permitted provided that the following conditions are met: *
+ * Redistributions of source code must retain the above copyright notice, this
+ * list of conditions and the following disclaimer. * Redistributions in binary
+ * form must reproduce the above copyright notice, this list of conditions and
+ * the following disclaimer in the documentation and/or other materials provided
+ * with the distribution. * Neither the name of 'SynergyNet' nor the names of
+ * its contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission. THIS SOFTWARE IS PROVIDED
+ * BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+ * EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
@@ -34,35 +25,36 @@ package synergynetframework.jme.pickingsystem.data;
 
 import com.jme.math.Vector2f;
 
-
 /**
  * The Class PickRequest.
  */
 public class PickRequest {
-	
-	/** The Constant PICKMODE_CLOSEST_ONLY. */
-	public static final int PICKMODE_CLOSEST_ONLY = 0;
-	
+
 	/** The Constant PICKMODE_ALL. */
 	public static final int PICKMODE_ALL = 1;
-	
+
+	/** The Constant PICKMODE_CLOSEST_ONLY. */
+	public static final int PICKMODE_CLOSEST_ONLY = 0;
+
+	/** The cursor position. */
+	protected Vector2f cursorPosition;
+
 	/** The requesting cursor id. */
 	protected long requestingCursorID;
 	
-	/** The cursor position. */
-	protected Vector2f cursorPosition;
-		
 	/**
 	 * Instantiates a new pick request.
 	 *
-	 * @param requestingCursorID the requesting cursor id
-	 * @param screenPos the screen pos
+	 * @param requestingCursorID
+	 *            the requesting cursor id
+	 * @param screenPos
+	 *            the screen pos
 	 */
 	public PickRequest(long requestingCursorID, Vector2f screenPos) {
 		this.requestingCursorID = requestingCursorID;
 		this.cursorPosition = screenPos;
 	}
-
+	
 	/**
 	 * Location in screen coordinates.
 	 *
@@ -71,7 +63,7 @@ public class PickRequest {
 	public Vector2f getCursorPosition() {
 		return cursorPosition;
 	}
-
+	
 	/**
 	 * id of the cursor, from the table.
 	 *
@@ -80,8 +72,9 @@ public class PickRequest {
 	public long getRequestingCursorID() {
 		return requestingCursorID;
 	}
-
-	/* (non-Javadoc)
+	
+	/*
+	 * (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {

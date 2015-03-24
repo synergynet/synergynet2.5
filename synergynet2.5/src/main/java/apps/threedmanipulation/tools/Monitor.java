@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import synergynetframework.appsystem.contentsystem.ContentSystem;
-
 import apps.threedmanipulation.gestures.MonitorCameraRotateTranslateZoom;
 import apps.threedmanipulation.listener.ToolListener;
 import apps.threedmanipulation.utils.CameraModel;
@@ -22,36 +21,141 @@ import com.jme.scene.Spatial;
 import com.jme.scene.state.TextureState;
 import com.jme.system.DisplaySystem;
 
-
 /**
  * The Class Monitor.
  */
 public class Monitor {
-
-	/** The cam node. */
-	private CameraNode camNode;
-
-	/** The t renderer. */
-	private TextureRenderer tRenderer;
-	
-	/** The fake tex. */
-	private Texture2D fakeTex;
-	
-	/** The monitor screen. */
-	private MonitorScreen monitorScreen;
-	
-	/** The tool listeners. */
-	protected List<ToolListener> toolListeners = new ArrayList<ToolListener>();  
-	
-	/** The world node. */
-	private Node worldNode;
-	
-	/** The ortho node. */
-	private Node orthoNode;
 	
 	/** The camera model. */
 	private CameraModel cameraModel;
-	  
+	
+	/** The cam node. */
+	private CameraNode camNode;
+
+	/** The fake tex. */
+	private Texture2D fakeTex;
+
+	/** The monitor screen. */
+	private MonitorScreen monitorScreen;
+
+	/** The ortho node. */
+	private Node orthoNode;
+	
+	/** The tool listeners. */
+	protected List<ToolListener> toolListeners = new ArrayList<ToolListener>();
+
+	/** The t renderer. */
+	private TextureRenderer tRenderer;
+
+	/** The world node. */
+	private Node worldNode;
+	
+	/**
+	 * Instantiates a new monitor.
+	 *
+	 * @param name
+	 *            the name
+	 * @param contentSystem
+	 *            the content system
+	 * @param worldNode
+	 *            the world node
+	 * @param orthoNode
+	 *            the ortho node
+	 * @param manipulatableOjbects
+	 *            the manipulatable ojbects
+	 * @param mainCameraPosition
+	 *            the main camera position
+	 * @param initMonitorPosition
+	 *            the init monitor position
+	 * @param initCameraZoom
+	 *            the init camera zoom
+	 * @param monitorWidth
+	 *            the monitor width
+	 * @param skinColor
+	 *            the skin color
+	 * @param mode
+	 *            the mode
+	 */
+	public Monitor(String name, ContentSystem contentSystem, Node worldNode,
+			Node orthoNode, List<Spatial> manipulatableOjbects,
+			Vector3f mainCameraPosition, Vector2f initMonitorPosition,
+			float initCameraZoom, float monitorWidth, String skinColor,
+			String mode) {
+
+		this.worldNode = worldNode;
+		this.orthoNode = orthoNode;
+
+		tRenderer = DisplaySystem.getDisplaySystem().createTextureRenderer(256,
+				256, TextureRenderer.Target.Texture2D);
+		camNode = new CameraNode(name + "Camera Node", tRenderer.getCamera());
+		tRenderer.getCamera().lookAt(new Vector3f(), new Vector3f(0, 1, 0));
+		tRenderer.getCamera().update();
+
+		camNode.setLocalTranslation(mainCameraPosition);
+		camNode.getCamera().setFrustumNear(initCameraZoom);
+		camNode.updateGeometricState(0, true);
+		camNode.updateRenderState();
+		
+		cameraModel = new CameraModel(name + "camera",
+				"data/threedmanipulation/camera" + skinColor + ".png");
+		cameraModel.setLocalTranslation(new Vector3f(0f, 0f, -6f));
+		cameraModel.setModelBound(new BoundingSphere());
+		cameraModel.updateModelBound();
+		cameraModel.setLocalScale(0.5f);
+		camNode.attachChild(cameraModel);
+		
+		worldNode.attachChild(camNode);
+		
+		monitorScreen = new MonitorScreen(name + "monitorScreen",
+				contentSystem, monitorWidth, camNode, manipulatableOjbects,
+				skinColor, mode);
+		orthoNode.attachChild(monitorScreen);
+		monitorScreen.setLocalTranslation(initMonitorPosition.x,
+				initMonitorPosition.y, 0);
+		monitorScreen.addToolListener(new ToolListener() {
+			@Override
+			public void disposeTool(float x, float y) {
+				for (ToolListener l : toolListeners) {
+					l.disposeTool(x, y);
+				}
+			}
+		});
+
+		MonitorCameraRotateTranslateZoom cprts1 = new MonitorCameraRotateTranslateZoom(
+				cameraModel.getCameraBody(), camNode,
+				this.monitorScreen.getFocusedObject(), manipulatableOjbects);
+		cprts1.setPickMeOnly(true);
+		cprts1.setMode(mode);
+
+		tRenderer.setBackgroundColor(new ColorRGBA(1f, 0f, 0f, 1f));
+		fakeTex = new Texture2D();
+		fakeTex.setRenderToTextureType(Texture.RenderToTextureType.RGBA);
+		tRenderer.setupTexture(fakeTex);
+		TextureState screen = DisplaySystem.getDisplaySystem().getRenderer()
+				.createTextureState();
+		screen.setTexture(fakeTex);
+		screen.setEnabled(true);
+		
+		monitorScreen.getScreenQuad().setRenderState(screen);
+		
+		camNode.setLocalTranslation(15, 10, 90);
+		camNode.lookAt(new Vector3f(15, 0, 0), new Vector3f(0, 1, 0));
+		
+		orthoNode.updateGeometricState(0f, false);
+		orthoNode.updateRenderState();
+		
+	}
+	
+	/**
+	 * Adds the tool listener.
+	 *
+	 * @param l
+	 *            the l
+	 */
+	public void addToolListener(ToolListener l) {
+		toolListeners.add(l);
+	}
+
 	/**
 	 * Cleanup.
 	 */
@@ -64,107 +168,12 @@ public class Monitor {
 	}
 
 	/**
-	 * Render.
+	 * Gets the camera model.
 	 *
-	 * @param renderedNode the rendered node
+	 * @return the camera model
 	 */
-	public void render(Node renderedNode) {
-		tRenderer.render(renderedNode, fakeTex);
-	}
-	
-	/**
-	 * Instantiates a new monitor.
-	 *
-	 * @param name the name
-	 * @param contentSystem the content system
-	 * @param worldNode the world node
-	 * @param orthoNode the ortho node
-	 * @param manipulatableOjbects the manipulatable ojbects
-	 * @param mainCameraPosition the main camera position
-	 * @param initMonitorPosition the init monitor position
-	 * @param initCameraZoom the init camera zoom
-	 * @param monitorWidth the monitor width
-	 * @param skinColor the skin color
-	 * @param mode the mode
-	 */
-	public Monitor(String name, ContentSystem contentSystem, Node worldNode, Node orthoNode, List<Spatial> manipulatableOjbects, Vector3f mainCameraPosition, Vector2f initMonitorPosition, float initCameraZoom, float monitorWidth, String skinColor, String mode){
-		
-		this.worldNode = worldNode;
-		this.orthoNode = orthoNode;
-		
-		tRenderer = DisplaySystem.getDisplaySystem().createTextureRenderer(256, 256, TextureRenderer.Target.Texture2D);
-		camNode = new CameraNode(name+"Camera Node", tRenderer.getCamera());
-		tRenderer.getCamera().lookAt(new Vector3f(), new Vector3f(0, 1,0));	
-		tRenderer.getCamera().update();
-		
-		camNode.setLocalTranslation(mainCameraPosition);
-		camNode.getCamera().setFrustumNear(initCameraZoom);
-		camNode.updateGeometricState(0, true);
-		camNode.updateRenderState();	
-			
-		cameraModel = new CameraModel(name+"camera", "data/threedmanipulation/camera"+skinColor+".png");
-		cameraModel.setLocalTranslation(new Vector3f(0f, 0f, -6f));
-		cameraModel.setModelBound(new BoundingSphere());
-		cameraModel.updateModelBound();
-		cameraModel.setLocalScale(0.5f);
-		camNode.attachChild(cameraModel);	
-		
-		
-		worldNode.attachChild(camNode);	
-			 
-		monitorScreen = new MonitorScreen(name+"monitorScreen", contentSystem, monitorWidth, camNode, manipulatableOjbects, skinColor, mode);
-		orthoNode.attachChild(monitorScreen);
-		monitorScreen.setLocalTranslation(initMonitorPosition.x, initMonitorPosition.y, 0);
-		monitorScreen.addToolListener(new ToolListener(){
-			@Override
-			public void disposeTool(float x, float y) {
-				for (ToolListener l: toolListeners){
-					l.disposeTool(x, y);
-				}
-			}		
-		});
-		
-		MonitorCameraRotateTranslateZoom cprts1 = new MonitorCameraRotateTranslateZoom(cameraModel.getCameraBody(), camNode, this.monitorScreen.getFocusedObject(), manipulatableOjbects);
-		cprts1.setPickMeOnly(true);
-		cprts1.setMode(mode);
-		
-		tRenderer.setBackgroundColor(new ColorRGBA(1f, 0f, 0f, 1f));
-		fakeTex = new Texture2D();
-		fakeTex.setRenderToTextureType(Texture.RenderToTextureType.RGBA);
-		tRenderer.setupTexture(fakeTex);
-		TextureState screen = DisplaySystem.getDisplaySystem().getRenderer().createTextureState();
-		screen.setTexture(fakeTex);
-		screen.setEnabled(true);	
-		
-		monitorScreen.getScreenQuad().setRenderState(screen);
-		
-		
-		camNode.setLocalTranslation(15, 10, 90);
-		camNode.lookAt(new Vector3f(15, 0,0), new Vector3f(0, 1,0));		
-		
-		orthoNode.updateGeometricState(0f, false);
-		orthoNode.updateRenderState();
-		
-		
-	}
-	
-	/**
-	 * Adds the tool listener.
-	 *
-	 * @param l the l
-	 */
-	public void addToolListener(ToolListener l){
-		toolListeners.add(l);
-	}
-
-	/**
-	 * Removes the tool listener.
-	 *
-	 * @param l the l
-	 */
-	public void removeToolListener(ToolListener l){
-		if (toolListeners.contains(l))
-			toolListeners.remove(l);
+	public CameraModel getCameraModel() {
+		return cameraModel;
 	}
 	
 	/**
@@ -172,35 +181,50 @@ public class Monitor {
 	 *
 	 * @return the monitor screen
 	 */
-	public MonitorScreen getMonitorScreen(){
+	public MonitorScreen getMonitorScreen() {
 		return this.monitorScreen;
 	}
-	
+
 	/**
-	 * Update.
+	 * Removes the tool listener.
 	 *
-	 * @param tpf the tpf
+	 * @param l
+	 *            the l
 	 */
-	public void update(float tpf){
-		monitorScreen.update(tpf);
+	public void removeToolListener(ToolListener l) {
+		if (toolListeners.contains(l)) {
+			toolListeners.remove(l);
+		}
 	}
-	
+
 	/**
-	 * Gets the camera model.
+	 * Render.
 	 *
-	 * @return the camera model
+	 * @param renderedNode
+	 *            the rendered node
 	 */
-	public CameraModel getCameraModel(){
-		return cameraModel;
+	public void render(Node renderedNode) {
+		tRenderer.render(renderedNode, fakeTex);
 	}
-	
+
 	/**
 	 * Sets the mode.
 	 *
-	 * @param mode the new mode
+	 * @param mode
+	 *            the new mode
 	 */
-	public void setMode(String mode){
+	public void setMode(String mode) {
 		monitorScreen.setMode(mode);
 	}
 
+	/**
+	 * Update.
+	 *
+	 * @param tpf
+	 *            the tpf
+	 */
+	public void update(float tpf) {
+		monitorScreen.update(tpf);
+	}
+	
 }

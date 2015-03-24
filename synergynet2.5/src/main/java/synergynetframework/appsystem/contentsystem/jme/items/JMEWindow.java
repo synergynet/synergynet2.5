@@ -1,31 +1,23 @@
-/* Copyright (c) 2008 University of Durham, England
- * All rights reserved.
- *
+/*
+ * Copyright (c) 2008 University of Durham, England All rights reserved.
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are
- * met:
- *
- * * Redistributions of source code must retain the above copyright
- *   notice, this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright
- *   notice, this list of conditions and the following disclaimer in the
- *   documentation and/or other materials provided with the distribution.
- *
- * * Neither the name of 'SynergyNet' nor the names of its contributors 
- *   may be used to endorse or promote products derived from this software 
- *   without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
- * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * modification, are permitted provided that the following conditions are met: *
+ * Redistributions of source code must retain the above copyright notice, this
+ * list of conditions and the following disclaimer. * Redistributions in binary
+ * form must reproduce the above copyright notice, this list of conditions and
+ * the following disclaimer in the documentation and/or other materials provided
+ * with the distribution. * Neither the name of 'SynergyNet' nor the names of
+ * its contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission. THIS SOFTWARE IS PROVIDED
+ * BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+ * EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
@@ -38,84 +30,106 @@ import synergynetframework.appsystem.contentsystem.items.implementation.interfac
 import synergynetframework.appsystem.contentsystem.items.utils.Background;
 import synergynetframework.appsystem.contentsystem.items.utils.Border;
 
-
 /**
  * The Class JMEWindow.
  */
-public class JMEWindow extends JMEOrthoContainer implements IWindowImplementation {
-
+public class JMEWindow extends JMEOrthoContainer implements
+		IWindowImplementation {
+	
 	/** The background frame. */
 	protected Frame backgroundFrame;
-	
+
 	/**
 	 * Instantiates a new JME window.
 	 *
-	 * @param contentItem the content item
+	 * @param contentItem
+	 *            the content item
 	 */
 	public JMEWindow(ContentItem contentItem) {
-		super(contentItem);		
+		super(contentItem);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see
+	 * synergynetframework.appsystem.contentsystem.items.implementation.interfaces
+	 * .IWindowImplementation#getBackgroundFrame()
+	 */
+	public Frame getBackgroundFrame() {
+		return backgroundFrame;
 	}
 	
-	/* (non-Javadoc)
-	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEContentItem#init()
+	/*
+	 * (non-Javadoc)
+	 * @see
+	 * synergynetframework.appsystem.contentsystem.jme.items.JMEContentItem#
+	 * init()
 	 */
-	public void init(){
+	public void init() {
 		super.init();
-		backgroundFrame = (Frame)contentItem.getContentSystem().createContentItem(Frame.class);
-		Window window = (Window)contentItem;	
-
+		backgroundFrame = (Frame) contentItem.getContentSystem()
+				.createContentItem(Frame.class);
+		Window window = (Window) contentItem;
+		
 		backgroundFrame.setHeight(window.getHeight());
 		backgroundFrame.setWidth(window.getWidth());
 		backgroundFrame.setBackGround(window.getBackGround());
-		backgroundFrame.setBorder(window.getBorder());	
+		backgroundFrame.setBorder(window.getBorder());
 		backgroundFrame.setOrder(-99999999);
 		window.addSubItem(backgroundFrame);
-	}
-
-	/* (non-Javadoc)
-	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IWindowImplementation#setHeight(int)
-	 */
-	@Override
-	public void setHeight(int height) {
-		backgroundFrame.setHeight(height);		
-	}
-
-	/* (non-Javadoc)
-	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IWindowImplementation#setWidth(int)
-	 */
-	@Override
-	public void setWidth(int width) {
-		backgroundFrame.setWidth(width);		
-	}
-	
-	/* (non-Javadoc)
-	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEOrthoContainer#setBackGround(synergynetframework.appsystem.contentsystem.items.utils.Background)
-	 */
-	@Override
-	public void setBackGround(Background backGround) {	
-		backgroundFrame.setBackGround(backGround);
-	}
-
-	/* (non-Javadoc)
-	 * @see synergynetframework.appsystem.contentsystem.jme.items.JMEOrthoContainer#setBorder(synergynetframework.appsystem.contentsystem.items.utils.Border)
-	 */
-	@Override
-	public void setBorder(Border border) {
-		backgroundFrame.setBorder(border);
 	}
 	
 	/**
 	 * Lower index.
 	 */
-	public void lowerIndex(){
+	public void lowerIndex() {
 		backgroundFrame.setOrder(-999999999);
 	}
-	
-	/* (non-Javadoc)
-	 * @see synergynetframework.appsystem.contentsystem.items.implementation.interfaces.IWindowImplementation#getBackgroundFrame()
+
+	/*
+	 * (non-Javadoc)
+	 * @see
+	 * synergynetframework.appsystem.contentsystem.jme.items.JMEOrthoContainer
+	 * #setBackGround
+	 * (synergynetframework.appsystem.contentsystem.items.utils.Background)
 	 */
-	public Frame getBackgroundFrame(){
-		return backgroundFrame;
+	@Override
+	public void setBackGround(Background backGround) {
+		backgroundFrame.setBackGround(backGround);
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see
+	 * synergynetframework.appsystem.contentsystem.jme.items.JMEOrthoContainer
+	 * #setBorder
+	 * (synergynetframework.appsystem.contentsystem.items.utils.Border)
+	 */
+	@Override
+	public void setBorder(Border border) {
+		backgroundFrame.setBorder(border);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see
+	 * synergynetframework.appsystem.contentsystem.items.implementation.interfaces
+	 * .IWindowImplementation#setHeight(int)
+	 */
+	@Override
+	public void setHeight(int height) {
+		backgroundFrame.setHeight(height);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see
+	 * synergynetframework.appsystem.contentsystem.items.implementation.interfaces
+	 * .IWindowImplementation#setWidth(int)
+	 */
+	@Override
+	public void setWidth(int width) {
+		backgroundFrame.setWidth(width);
+	}
+
 }

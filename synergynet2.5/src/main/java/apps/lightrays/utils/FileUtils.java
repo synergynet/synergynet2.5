@@ -7,35 +7,36 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-
 /**
  * The Class FileUtils.
  */
 public class FileUtils {
-
+	
 	/**
 	 * Read doc as string.
 	 *
-	 * @param file the file
+	 * @param file
+	 *            the file
 	 * @return the string
 	 */
 	public static String readDocAsString(String file) {
 		File f = new File(file);
 		StringBuffer buffer = new StringBuffer();
 		try {
-			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(f)));
+			BufferedReader br = new BufferedReader(new InputStreamReader(
+					new FileInputStream(f)));
 			String line;
-			while((line = br.readLine()) != null) {
-				buffer.append(line);				
+			while ((line = br.readLine()) != null) {
+				buffer.append(line);
 			}
 			br.close();
-		} catch (FileNotFoundException e) {		
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		} catch (IOException e) {			
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		return buffer.toString();
 	}
-
+	
 }
