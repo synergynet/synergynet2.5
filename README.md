@@ -8,4 +8,4 @@ For more details and information on how to download and run SynergyNet 2.5 read:
 
 For developers read:  [Developing with SynergyNet 2.5](https://github.com/synergynet/synergynet2.5/wiki/Developing-with-SynergyNet-2.5)
 
-[![Analytics](https://ga-beacon.appspot.com/UA-29400586-7/synergyvew?pixel)](https://github.com/igrigorik/ga-beacon)
+[![Analytics](https://ga-beacon.appspot.com/UA-29400586-7/synergynet2-5?pixel)](https://github.com/igrigorik/ga-beacon)
