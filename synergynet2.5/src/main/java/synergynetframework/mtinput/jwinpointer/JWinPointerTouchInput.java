@@ -76,7 +76,7 @@ public class JWinPointerTouchInput implements IMultiTouchInputSource {
 		JWinPointerRelay relay = new JWinPointerRelay(this);
 		
 		// Start the JWinPointer library and pass it the listener.
-		jWinPointerReader = new JWinPointerReader("Multiplicity v3.0");
+		jWinPointerReader = new JWinPointerReader("Game");
 		jWinPointerReader.addPointerEventListener(relay);
 		
 	}
