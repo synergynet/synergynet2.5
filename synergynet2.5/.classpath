@@ -145,5 +145,6 @@
 	<classpathentry kind="lib" path="lib/jericho/jericho-html-3.2.jar"/>
 	<classpathentry kind="lib" path="lib/SnuggleTex/commons-logging-1.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="lib/JWinPointer/JWinPointer.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

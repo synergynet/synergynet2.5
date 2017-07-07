@@ -64,7 +64,9 @@ public class TableConfigPrefsItem implements PreferencesItem {
 		/** The WI n7. */
 		WIN7,
 		/** The WI n7_64bit java. */
-		WIN7_64bitJava
+		WIN7_64bitJava,
+		/** The JWinPosition. */
+		ALTWIN
 	}
 
 	/** The Constant prefs. */

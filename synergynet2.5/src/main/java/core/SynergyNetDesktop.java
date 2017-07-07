@@ -67,6 +67,7 @@ import synergynetframework.mtinput.IMultiTouchInputFilter;
 import synergynetframework.mtinput.IMultiTouchInputSource;
 import synergynetframework.mtinput.MultiTouchInputComponent;
 import synergynetframework.mtinput.exceptions.MultiTouchInputException;
+import synergynetframework.mtinput.jwinpointer.JWinPointerTouchInput;
 import synergynetframework.mtinput.luminja.LuminMultiTouchInput;
 import synergynetframework.mtinput.simulator.AbstractMultiTouchSimulator;
 import synergynetframework.mtinput.tuio.TUIOMultiTouchInput;
@@ -334,6 +335,16 @@ public class SynergyNetDesktop extends BaseGame {
 				AbstractMultiTouchSimulator simulator = new JMETUIOSimulator(
 						display.getWidth(), display.getHeight());
 				simulator.start();
+				break;
+			}
+			
+			case ALTWIN: {
+				try {
+					multiTouchInputSource = new JWinPointerTouchInput(
+							display.getWidth(), display.getHeight());
+				} catch (SecurityException e) {
+					e.printStackTrace();
+				}
 				break;
 			}
 		}
